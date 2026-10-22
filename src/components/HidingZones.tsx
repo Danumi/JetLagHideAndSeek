@@ -8,8 +8,6 @@ import { toast } from "react-toastify";
 
 import {
     allTrainStations,
-    animateMapMovements,
-    autoZoom,
     customStations as customStationsAtom,
     disabledStations,
     displayHidingZones,
@@ -22,7 +20,6 @@ import {
     isLoading,
     leafletMapContext,
     mergeDuplicates as mergeDuplicatesAtom,
-    planningModeEnabled,
     questionFinishedMapData,
     questions,
     selectedZoneId,
@@ -187,7 +184,7 @@ export const HidingZones = () => {
                 });
 
             for (const question of questions.get()) {
-                if (!questionApplies(question, planningModeEnabled.get())) {
+                if (!questionApplies(question, false)) {
                     continue;
                 }
 
@@ -495,7 +492,7 @@ async function selectionProcess(
     ]);
 
     for (const question of questions.get()) {
-        if (!questionApplies(question, planningModeEnabled.get())) {
+        if (!questionApplies(question, false)) {
             continue;
         }
 
@@ -696,15 +693,9 @@ async function selectionProcess(
 
     showGeoJSON(mapData);
 
-    if (autoZoom.get()) {
-        // Show the zone, not the blue dot
-        followMyPosition.set(false);
-        if (animateMapMovements.get()) {
-            map?.flyToBounds(bounds);
-        } else {
-            map?.fitBounds(bounds);
-        }
-    }
+    // Show the zone, not the blue dot
+    followMyPosition.set(false);
+    map?.fitBounds(bounds);
 
     const element: HTMLDivElement | null = document.querySelector(
         `[data-station-id="${station.properties.properties.id}"]`,

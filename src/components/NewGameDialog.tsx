@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
     additionalMapGeoLocations,
     allTrainStations,
-    defaultUnit,
     disabledStations,
     displayHidingZones,
     displayHidingZonesOptions,
@@ -48,7 +47,6 @@ export const startNewGame = (role: Role) => {
     polyGeoJSON.set(null);
     mapGeoJSON.set(null);
 
-    defaultUnit.set("kilometers");
     useCustomStations.set(false);
     disabledStations.set([]);
     selectedZoneId.set("");

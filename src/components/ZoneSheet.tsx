@@ -394,10 +394,8 @@ const ZoneSettings = () => {
     const $hidingRadiusUnits = useStore(hidingRadiusUnits);
     const $isLoading = useStore(isLoading);
     const useCustomStations = useStore(useCustomStationsAtom);
-    const mergeDuplicates = useStore(mergeDuplicatesAtom);
     const includeDefaultStations = useStore(includeDefaultStationsAtom);
-    const $customStations = useStore(customStationsAtom);
-    const [importUrl, setImportUrl] = useState("");
+    const onlyCustomStations = useCustomStations && !includeDefaultStations;
 
     return (
         <div className="flex flex-col gap-4">
@@ -431,11 +429,14 @@ const ZoneSettings = () => {
                     maxCount={3}
                     modalPopover
                     className="!bg-popover bg-opacity-100"
-                    disabled={
-                        $isLoading ||
-                        (useCustomStations && !includeDefaultStations)
-                    }
+                    disabled={$isLoading || onlyCustomStations}
                 />
+                {onlyCustomStations && (
+                    <p className="text-xs text-muted-foreground">
+                        This phone uses its own station list (Settings &gt;
+                        Advanced).
+                    </p>
+                )}
             </div>
             <div className="flex flex-col gap-2">
                 <Label className="font-semibold font-poppins">
@@ -455,6 +456,21 @@ const ZoneSettings = () => {
                     />
                 </div>
             </div>
+        </div>
+    );
+};
+
+/** Expert options for the hiding zones, under "Advanced" in the settings. */
+export const ZoneExpertSettings = () => {
+    const $isLoading = useStore(isLoading);
+    const useCustomStations = useStore(useCustomStationsAtom);
+    const mergeDuplicates = useStore(mergeDuplicatesAtom);
+    const includeDefaultStations = useStore(includeDefaultStationsAtom);
+    const $customStations = useStore(customStationsAtom);
+    const [importUrl, setImportUrl] = useState("");
+
+    return (
+        <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between gap-2">
                 <Label className="font-semibold font-poppins">
                     Merge duplicated stations?

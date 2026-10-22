@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/sidebar-l";
 import {
     allTrainStations,
-    customInitPreference,
     displayHidingZones,
     drawingQuestionKey,
     isLoading,
@@ -173,7 +172,6 @@ export const MatchingQuestionComponent = ({
     const $displayHidingZones = useStore(displayHidingZones);
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $isLoading = useStore(isLoading);
-    const $customInitPref = useStore(customInitPreference);
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
     const [customDialogOpen, setCustomDialogOpen] = React.useState(false);
     const [pendingCustomType, setPendingCustomType] = React.useState<
@@ -447,61 +445,8 @@ export const MatchingQuestionComponent = ({
                                 value === "custom-zone" ||
                                 value === "custom-points"
                             ) {
-                                if ($customInitPref === "ask") {
-                                    setPendingCustomType(value);
-                                    setCustomDialogOpen(true);
-                                    return;
-                                }
-                                // Apply preference without dialog
-                                if ($customInitPref === "blank") {
-                                    if (value === "custom-zone") {
-                                        (data as any).geo = undefined;
-                                        toast.info(
-                                            "Please draw the zone on the map.",
-                                        );
-                                    } else {
-                                        (data as any).geo = [];
-                                        toast.info(
-                                            "Please draw the points on the map.",
-                                        );
-                                    }
-                                } else if ($customInitPref === "prefill") {
-                                    if (value === "custom-zone") {
-                                        (data as any).geo =
-                                            await determineMatchingBoundary(
-                                                data,
-                                            );
-                                    } else {
-                                        if (
-                                            data.type === "airport" ||
-                                            data.type === "major-city" ||
-                                            data.type === "aquarium-full" ||
-                                            data.type === "zoo-full" ||
-                                            data.type === "theme_park-full" ||
-                                            data.type === "peak-full" ||
-                                            data.type === "museum-full" ||
-                                            data.type === "hospital-full" ||
-                                            data.type === "cinema-full" ||
-                                            data.type === "library-full" ||
-                                            data.type === "golf_course-full" ||
-                                            data.type === "consulate-full" ||
-                                            data.type === "park-full"
-                                        ) {
-                                            (data as any).geo =
-                                                await findMatchingPlaces(data);
-                                        } else {
-                                            (data as any).geo = [];
-                                            toast.info(
-                                                "Please draw the points on the map.",
-                                            );
-                                        }
-                                    }
-                                }
-                                // The category should be defined such that no error is thrown if this is a zone question.
-                                if (!(data as any).cat) {
-                                    (data as any).cat = { adminLevel: 3 };
-                                }
-                                questionModified((data.type = value));
+                                setPendingCustomType(value);
+                                setCustomDialogOpen(true);
                                 return;
                             }
 

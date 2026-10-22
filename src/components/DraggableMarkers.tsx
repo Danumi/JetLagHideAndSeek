@@ -7,12 +7,10 @@ import { Marker } from "react-leaflet";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
-    autoSave,
     hiderMode,
     myPosition,
     questionModified,
     questions,
-    save,
     triggerLocalRefresh,
 } from "@/lib/context";
 import { isLogged, isPending } from "@/maps/answers";
@@ -76,7 +74,6 @@ const ColoredMarker = ({
 }) => {
     const $questions = useStore(questions);
     const $hiderMode = useStore(hiderMode);
-    const $autoSave = useStore(autoSave);
     const [open, setOpen] = useState(false);
     const question = $questions.find((q) => q.key === questionKey);
     const pending = !!question && isPending(question);
@@ -199,14 +196,6 @@ const ColoredMarker = ({
                                 return null;
                         }
                     })}
-                {!$autoSave && (
-                    <button
-                        onClick={save}
-                        className="bg-blue-600 p-2 rounded-md font-semibold font-poppins transition-shadow duration-500"
-                    >
-                        Save
-                    </button>
-                )}
             </DialogContent>
         </Dialog>
     );
@@ -235,13 +224,9 @@ export const DraggableMarkers = () => {
                         $hiderMode.longitude =
                             e.target.getLatLng().lng ?? $hiderMode.longitude;
 
-                        if (autoSave.get()) {
-                            hiderMode.set({
-                                ...$hiderMode,
-                            });
-                        } else {
-                            triggerLocalRefresh.set(Math.random());
-                        }
+                        hiderMode.set({
+                            ...$hiderMode,
+                        });
                     }}
                 />
             )}

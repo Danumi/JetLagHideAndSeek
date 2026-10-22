@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-import { defaultUnit } from "@/lib/context";
-
 import { ICON_COLORS } from "./api/constants";
 
 export const NO_GROUP = "NO_GROUP";
@@ -148,24 +146,9 @@ const ordinaryBaseQuestionSchema = z.object({
     ...answerFields,
 });
 
-const getDefaultUnit = () => {
-    try {
-        return defaultUnit.get();
-    } catch {
-        return "kilometers";
-    }
-};
-
-/** Start value for a new question: `kilometers` km, or the same in meters. */
-const defaultDistance = (kilometers: number) => () =>
-    getDefaultUnit() === "meters" ? kilometers * 1000 : kilometers;
-
 const radiusQuestionSchema = ordinaryBaseQuestionSchema.extend({
-    radius: z
-        .number()
-        .min(0, "You cannot have a negative radius")
-        .default(defaultDistance(5)),
-    unit: unitsSchema.default(getDefaultUnit),
+    radius: z.number().min(0, "You cannot have a negative radius").default(5),
+    unit: unitsSchema.default("kilometers"),
     within: z.boolean().default(true),
 });
 
@@ -192,11 +175,8 @@ const apiLocationSchema = z.union([
 ]);
 
 const baseTentacleQuestionSchema = ordinaryBaseQuestionSchema.extend({
-    radius: z
-        .number()
-        .min(0, "You cannot have a negative radius")
-        .default(defaultDistance(24)),
-    unit: unitsSchema.default(getDefaultUnit),
+    radius: z.number().min(0, "You cannot have a negative radius").default(24),
+    unit: unitsSchema.default("kilometers"),
     location: z
         .union([
             z.object({

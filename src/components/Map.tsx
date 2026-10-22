@@ -12,8 +12,6 @@ import { toast } from "react-toastify";
 import {
     additionalMapGeoLocations,
     addQuestion,
-    animateMapMovements,
-    autoZoom,
     baseTileLayer,
     followMyPosition,
     isLoading,
@@ -21,12 +19,9 @@ import {
     mapGeoJSON,
     mapGeoLocation,
     myPosition,
-    permanentOverlay,
-    planningModeEnabled,
     polyGeoJSON,
     questionFinishedMapData,
     questions,
-    thunderforestApiKey,
 } from "@/lib/context";
 import { MY_POSITION_ZOOM } from "@/lib/gps";
 import { retryTrigger } from "@/lib/loading";
@@ -49,7 +44,7 @@ const ELIMINATED_STYLE: L.PathOptions = {
     fillOpacity: 0.45,
 };
 
-const getTileLayer = (tileLayer: string, thunderforestApiKey: string) => {
+const getTileLayer = (tileLayer: string) => {
     switch (tileLayer) {
         case "light":
             return (
@@ -74,32 +69,6 @@ const getTileLayer = (tileLayer: string, thunderforestApiKey: string) => {
                     noWrap
                 />
             );
-
-        case "transport":
-            if (thunderforestApiKey)
-                return (
-                    <TileLayer
-                        url={`https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=${thunderforestApiKey}`}
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors; &copy; <a href="http://www.thunderforest.com/">Thunderforest</a>; Powered by Esri and Turf.js'
-                        maxZoom={22}
-                        minZoom={2}
-                        noWrap
-                    />
-                );
-            break;
-
-        case "neighbourhood":
-            if (thunderforestApiKey)
-                return (
-                    <TileLayer
-                        url={`https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=${thunderforestApiKey}`}
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors; &copy; <a href="http://www.thunderforest.com/">Thunderforest</a>; Powered by Esri and Turf.js'
-                        maxZoom={22}
-                        minZoom={2}
-                        noWrap
-                    />
-                );
-            break;
 
         case "osmcarto":
             return (
@@ -130,8 +99,6 @@ export const Map = ({ className }: { className?: string }) => {
     const $mapGeoLocation = useStore(mapGeoLocation);
     const $questions = useStore(questions);
     const $baseTileLayer = useStore(baseTileLayer);
-    const $thunderforestApiKey = useStore(thunderforestApiKey);
-    const $permanentOverlay = useStore(permanentOverlay);
     const map = useStore(leafletMapContext);
 
     // Time of the last touch, click or scroll on the map
@@ -194,7 +161,7 @@ export const Map = ({ className }: { className?: string }) => {
             mapGeoData = await applyQuestionsToMapGeoData(
                 $questions,
                 mapGeoData,
-                planningModeEnabled.get(),
+                false, // no planning mode
                 (geoJSONObj, question) => {
                     // Questions waiting for an answer: dashed orange outline
                     const geoJSONPlane = L.geoJSON(
@@ -244,18 +211,12 @@ export const Map = ({ className }: { className?: string }) => {
             const following =
                 followMyPosition.get() && myPosition.get() !== null;
 
-            if (autoZoom.get() && focus && !movedWhileLoading && !following) {
+            if (focus && !movedWhileLoading && !following) {
                 const bbox = turf.bbox(holedMask(mapGeoData) as any);
-                const bounds = [
+                map.fitBounds([
                     [bbox[1], bbox[0]],
                     [bbox[3], bbox[2]],
-                ];
-
-                if (animateMapMovements.get()) {
-                    map.flyToBounds(bounds as any);
-                } else {
-                    map.fitBounds(bounds as any);
-                }
+                ]);
             }
         } catch (error) {
             console.log(error);
@@ -398,14 +359,14 @@ export const Map = ({ className }: { className?: string }) => {
                     },
                 ]}
             >
-                {getTileLayer($baseTileLayer, $thunderforestApiKey)}
+                {getTileLayer($baseTileLayer)}
                 <DraggableMarkers />
                 <NearestMarks />
                 <PolygonDraw />
                 <ScaleControl position="topleft" imperial={false} />
             </MapContainer>
         ),
-        [map, $baseTileLayer, $thunderforestApiKey],
+        [map, $baseTileLayer],
     );
 
     latestRefreshRef.current = refreshQuestions;
@@ -547,44 +508,6 @@ export const Map = ({ className }: { className?: string }) => {
             halo?.remove();
         };
     }, [map]);
-
-    useEffect(() => {
-        if (!map) return;
-
-        map.eachLayer((layer: any) => {
-            if (layer.permanentGeoJSON) map.removeLayer(layer);
-        });
-
-        if ($permanentOverlay === null) return;
-
-        try {
-            const overlay = L.geoJSON($permanentOverlay, {
-                interactive: false,
-
-                // @ts-expect-error Type hints force a Layer to be returned, but Leaflet accepts null as well
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                pointToLayer(geoJsonPoint, latlng) {
-                    return null;
-                },
-
-                style(feature) {
-                    return {
-                        color: feature?.properties?.stroke,
-                        weight: feature?.properties?.["stroke-width"],
-                        opacity: feature?.properties?.["stroke-opacity"],
-                        fillColor: feature?.properties?.fill,
-                        fillOpacity: feature?.properties?.["fill-opacity"],
-                    };
-                },
-            });
-            // @ts-expect-error This is a check such that only this type of layer is removed
-            overlay.permanentGeoJSON = true;
-            overlay.addTo(map);
-            overlay.bringToBack();
-        } catch (e) {
-            toast.error(`Failed to display GeoJSON overlay: ${e}`);
-        }
-    }, [$permanentOverlay, map]);
 
     return displayMap;
 };

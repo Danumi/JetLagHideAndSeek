@@ -12,10 +12,8 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar-l";
 import {
-    autoSave,
     isLoading,
     questions,
-    save,
     showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
@@ -34,7 +32,6 @@ import {
 export const QuestionSidebar = () => {
     useStore(triggerLocalRefresh);
     const $questions = useStore(questions);
-    const $autoSave = useStore(autoSave);
     const $isLoading = useStore(isLoading);
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
 
@@ -125,17 +122,6 @@ export const QuestionSidebar = () => {
                                         Add Question
                                     </SidebarMenuButton>
                                 </AddQuestionDialog>
-                            </SidebarMenuItem>
-                        )}
-                        {!$autoSave && (
-                            <SidebarMenuItem>
-                                <SidebarMenuButton
-                                    className="bg-blue-600 p-2 rounded-md font-semibold font-poppins transition-shadow duration-500"
-                                    onClick={save}
-                                    disabled={$isLoading}
-                                >
-                                    Save
-                                </SidebarMenuButton>
                             </SidebarMenuItem>
                         )}
                     </SidebarMenu>
