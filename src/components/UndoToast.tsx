@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-import { questions } from "@/lib/context";
+import { photoQuestions, questions } from "@/lib/context";
 import { t } from "@/lib/i18n";
 import type { Questions } from "@/maps/schema";
 import { keepOnlyZones } from "@/maps/zones";
@@ -53,24 +53,42 @@ export const deleteQuestionWithUndo = (questionKey: number) => {
     });
 };
 
+export const deletePhotoWithUndo = (key: number) => {
+    const current = photoQuestions.get();
+    const removed = current.find((photo) => photo.key === key);
+    if (!removed) return;
+
+    photoQuestions.set(current.filter((photo) => photo.key !== key));
+
+    showUndoToast(t("undo.questionDeleted"), () => {
+        const now = photoQuestions.get();
+        if (now.some((photo) => photo.key === key)) return;
+        photoQuestions.set([...now, removed]);
+    });
+};
+
+/** Keeps the ones added in the meantime, after the restored ones. */
+const restore = <T extends { key: number }>(removed: T[], now: T[]) => {
+    const restoredKeys = new Set(removed.map((x) => x.key));
+    return [...removed, ...now.filter((x) => !restoredKeys.has(x.key))];
+};
+
 export const deleteAllQuestionsWithUndo = () => {
     const removed: Questions = questions.get();
-    if (removed.length === 0) return;
+    const removedPhotos = photoQuestions.get();
+    const count = removed.length + removedPhotos.length;
+    if (count === 0) return;
 
     questions.set([]);
+    photoQuestions.set([]);
 
     showUndoToast(
-        removed.length === 1
+        count === 1
             ? t("undo.questionDeleted")
-            : t("undo.questionsDeleted", { count: removed.length }),
+            : t("undo.questionsDeleted", { count }),
         () => {
-            // Keep questions added in the meantime, after the restored ones
-            const now = questions.get();
-            const restoredKeys = new Set(removed.map((q) => q.key));
-            questions.set([
-                ...removed,
-                ...now.filter((q) => !restoredKeys.has(q.key)),
-            ]);
+            questions.set(restore(removed, questions.get()));
+            photoQuestions.set(restore(removedPhotos, photoQuestions.get()));
         },
     );
 };

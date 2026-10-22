@@ -832,10 +832,6 @@ export const messages = {
     },
     "hider.update": { en: "Update", de: "Aktualisieren" },
     "hider.useMarker": { en: "Use the H marker", de: "H-Nadel verwenden" },
-    "hider.questionFrom": {
-        en: "Question from the seekers",
-        de: "Frage der Seeker",
-    },
     "hider.questionFromAt": {
         en: "Question from the seekers · asked {time}",
         de: "Frage der Seeker · gestellt um {time}",
@@ -854,15 +850,112 @@ export const messages = {
     },
     "hider.tryAgain": { en: "Try again", de: "Nochmal versuchen" },
     "hider.yourAnswer": { en: "Your answer", de: "Deine Antwort" },
-    "hider.tellSeekers": {
-        en: "Tell the seekers this answer in your chat. Only the answer: the reason above is for you.",
-        de: "Schreib den Seekern diese Antwort in den Chat. Nur die Antwort: Der Grund oben ist nur für dich.",
-    },
     "hider.noQuestion": {
-        en: "No question yet. When the seekers send you a question link, open it on this phone and your answer appears here.",
-        de: "Noch keine Frage. Wenn dir die Seeker einen Frage-Link schicken, öffne ihn auf diesem Handy, dann erscheint hier deine Antwort.",
+        en: "No question yet. When the seekers send you a question link, open it on this phone: the question appears here with your answer and the time you have to answer.",
+        de: "Noch keine Frage. Wenn dir die Seeker einen Frage-Link schicken, öffne ihn auf diesem Handy: Die Frage erscheint hier mit deiner Antwort und der Zeit, die du zum Antworten hast.",
     },
-    "hider.earlier": { en: "Earlier questions", de: "Frühere Fragen" },
+    "hider.noOpen": {
+        en: "No open questions. New questions from the seekers appear here.",
+        de: "Keine offenen Fragen. Neue Fragen der Seeker erscheinen hier.",
+    },
+    "hider.open": { en: "Also open", de: "Auch offen" },
+    "hider.send": { en: "Send answer", de: "Antwort senden" },
+    "hider.alreadyAnswered": {
+        en: "Already answered",
+        de: "Schon beantwortet",
+    },
+    "hider.sendHint": {
+        en: '"Send answer" shares only the answer, e.g. in your WhatsApp group. The reason above is for you.',
+        de: "„Antwort senden“ teilt nur die Antwort, etwa in eurer WhatsApp-Gruppe. Der Grund oben ist nur für dich.",
+    },
+    "hider.answerMessage": {
+        en: "{title} – answer: {answer}",
+        de: "{title} – Antwort: {answer}",
+    },
+    "hider.answerCopied": {
+        en: "Answer copied. Paste it into your chat with the seekers.",
+        de: "Antwort kopiert. Füge sie in den Chat mit den Seekern ein.",
+    },
+    "hider.shareFailed": {
+        en: "Couldn't share. Send the seekers: {message}",
+        de: "Teilen hat nicht geklappt. Schick den Seekern: {message}",
+    },
+    "hider.answered": { en: "Answered", de: "Beantwortet" },
+    "hider.answeredAt": {
+        en: "You answered at {time}",
+        de: "Du hast um {time} geantwortet",
+    },
+    "hider.onMap": {
+        en: "Your map now shows what this answer rules out.",
+        de: "Deine Karte zeigt jetzt, was diese Antwort ausschließt.",
+    },
+    "hider.sendAgain": { en: "Send again", de: "Nochmal senden" },
+    "hider.reopen": { en: "Reopen", de: "Wieder öffnen" },
+    "hider.photoNote": {
+        en: "Take the photo and send it in your chat, in your phone's normal aspect ratio.",
+        de: "Mach das Foto und schick es in den Chat, im normalen Seitenverhältnis deines Handys.",
+    },
+    "hider.cantAnswer": {
+        en: "Can't answer (not in my zone)",
+        de: "Keine Antwort (nicht in meiner Zone)",
+    },
+    "hider.chatNote": {
+        en: "Answer in your chat. Without the link, the app can't work out the answer or show it on your map.",
+        de: "Antworte im Chat. Ohne den Link kann die App die Antwort nicht ausrechnen und nicht auf deiner Karte zeigen.",
+    },
+    "hider.addedAt": {
+        en: "Added by you · {time}",
+        de: "Von dir eingetragen · {time}",
+    },
+    "hider.add": {
+        en: "Add a question by hand",
+        de: "Frage von Hand eintragen",
+    },
+    "hider.addHelp": {
+        en: "For questions that didn't come as a link: photos, or a question asked in the chat. The clock starts now.",
+        de: "Für Fragen, die nicht als Link kamen: Fotos oder eine Frage im Chat. Die Uhr läuft ab jetzt.",
+    },
+    "hider.addChat": { en: "Asked in the chat", de: "Im Chat gefragt" },
+
+    // The time the hider has to answer
+    "clock.left": {
+        en: "Answer due {time} · {left} left",
+        de: "Antwort bis {time} · noch {left}",
+    },
+    "clock.late": {
+        en: "Answer was due {time} · {late} late",
+        de: "Antwort war bis {time} fällig · {late} zu spät",
+    },
+    "clock.lateLong": {
+        en: "Answer was due {time}",
+        de: "Antwort war bis {time} fällig",
+    },
+
+    // Photo questions
+    "photo.kind": { en: "Photo", de: "Foto" },
+    "photo.question": {
+        en: "Send me a photo of …",
+        de: "Schick mir ein Foto von …",
+    },
+    "photo.help": {
+        en: "The hider has 10 minutes. The photo comes in your chat; the app keeps the question and the clock. Photos don't change the map.",
+        de: "Der Hider hat 10 Minuten. Das Foto kommt im Chat, die App merkt sich Frage und Uhr. Fotos verändern die Karte nicht.",
+    },
+    "photo.title": { en: "Photo: {photo}", de: "Foto: {photo}" },
+    "photo.sent": { en: "Photo sent", de: "Foto geschickt" },
+    "photo.received": { en: "Photo received", de: "Foto erhalten" },
+    "photo.waiting": {
+        en: "Waiting for the hider's photo",
+        de: "Wartet auf das Foto des Hiders",
+    },
+    "photo.notOnMap": {
+        en: "Photos don't change the map: rule out zones yourself (Zones).",
+        de: "Fotos verändern die Karte nicht: Zonen selbst streichen (Zonen).",
+    },
+    "photo.sendMessage": {
+        en: "Question for the hider: {title}\nOpen this link for your time to answer: {link}",
+        de: "Frage an den Hider: {title}\nÖffne diesen Link für deine Zeit zum Antworten: {link}",
+    },
 
     // The hider's hiding zone
     "check.choose": { en: "Choose your hiding zone", de: "Wähle deine Zone" },

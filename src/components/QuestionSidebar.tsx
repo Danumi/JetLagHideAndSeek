@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sidebar-l";
 import {
     isLoading,
+    photoQuestions,
     questions,
     showAllQuestionTypes,
     triggerLocalRefresh,
@@ -22,6 +23,7 @@ import { isLogged } from "@/maps/answers";
 
 import { AddQuestionDialog } from "./AddQuestionDialog";
 import { QuestionLogRow } from "./cards/answer";
+import { PhotoLogRow, PhotoQuestionCard } from "./cards/photo";
 import {
     MatchingQuestionComponent,
     MeasuringQuestionComponent,
@@ -44,10 +46,27 @@ export const QuestionSidebar = () => {
     useStore(triggerLocalRefresh);
     useLanguage();
     const $questions = useStore(questions);
+    const $photoQuestions = useStore(photoQuestions);
     const $isLoading = useStore(isLoading);
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
     const open = $questions.filter((question) => !isLogged(question));
-    const answered = $questions.filter(isLogged);
+    const openPhotos = $photoQuestions.filter(
+        (photo) => photo.status === "pending",
+    );
+    // Photos go into the log at the time they were asked
+    const answered = [
+        ...$questions.filter(isLogged).map((question) => ({
+            at: question.data.askedAt ?? 0,
+            row: <QuestionLogRow key={question.key} question={question} />,
+        })),
+        ...$photoQuestions
+            .filter((photo) => photo.status !== "pending")
+            .map((photo) => ({
+                at: photo.askedAt,
+                row: <PhotoLogRow key={photo.key} photo={photo} />,
+            })),
+    ].sort((a, b) => a.at - b.at);
+    const anyOpen = open.length + openPhotos.length > 0;
 
     return (
         <Sidebar>
@@ -63,12 +82,12 @@ export const QuestionSidebar = () => {
                 />
             </div>
             <SidebarContent>
-                {$questions.length === 0 && (
+                {$questions.length === 0 && $photoQuestions.length === 0 && (
                     <p className="px-4 py-2 text-sm text-muted-foreground">
                         {t("sidebar.empty")}
                     </p>
                 )}
-                {open.length > 0 && answered.length > 0 && (
+                {anyOpen && answered.length > 0 && (
                     <SectionHeading>{t("sidebar.open")}</SectionHeading>
                 )}
                 {open.map((question) => {
@@ -117,12 +136,13 @@ export const QuestionSidebar = () => {
                             return null;
                     }
                 })}
+                {openPhotos.map((photo) => (
+                    <PhotoQuestionCard key={photo.key} photo={photo} />
+                ))}
                 {answered.length > 0 && (
                     <SectionHeading>{t("sidebar.answered")}</SectionHeading>
                 )}
-                {answered.map((question) => (
-                    <QuestionLogRow key={question.key} question={question} />
-                ))}
+                {answered.map(({ row }) => row)}
             </SidebarContent>
             <SidebarGroup>
                 <SidebarGroupContent>

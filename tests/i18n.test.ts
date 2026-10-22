@@ -7,7 +7,12 @@ import { hasMessage, labelOf, language, t, type Text, tr } from "@/lib/i18n";
 import { messages } from "@/lib/messages";
 import { answerOptions, formatKilometers, questionTitle } from "@/maps/answers";
 import { prettifyLocation } from "@/maps/api";
-import { ADMIN_LEVEL_LABELS, MATCHING_DECK, MEASURING_DECK } from "@/maps/deck";
+import {
+    ADMIN_LEVEL_LABELS,
+    MATCHING_DECK,
+    MEASURING_DECK,
+    PHOTO_DECK,
+} from "@/maps/deck";
 import {
     determineUnionizedStrings,
     matchingQuestionSchema,
@@ -45,6 +50,7 @@ const SRC = new URL("../src/", import.meta.url).pathname;
  */
 const TRANSLATED_FILES = [
     "components/AddQuestionDialog.tsx",
+    "components/AnswerClock.tsx",
     "components/AskQuestion.tsx",
     "components/BottomBar.tsx",
     "components/CustomInitDialog.tsx",
@@ -73,6 +79,7 @@ const TRANSLATED_FILES = [
     "components/cards/matching.tsx",
     "components/cards/measuring.tsx",
     "components/cards/nearest.tsx",
+    "components/cards/photo.tsx",
     "components/cards/radius.tsx",
     "components/cards/tentacles.tsx",
     "components/cards/thermometer.tsx",
@@ -83,10 +90,12 @@ const TRANSLATED_FILES = [
     "lib/gps.ts",
     "lib/loading.tsx",
     "maps/answers.ts",
+    "maps/deadline.ts",
     "maps/api/elevation.ts",
     "maps/api/geo.ts",
     "maps/api/overpass.ts",
     "maps/hider.ts",
+    "maps/hiderLog.ts",
     "maps/hidingZoneCheck.ts",
     "maps/nearest.ts",
     "maps/questions/matching.ts",
@@ -156,6 +165,10 @@ describe("the app in German and English", () => {
             expectBoth(card.group, `${card.id}: group`);
             if (card.hint) expectBoth(card.hint, `${card.id}: hint`);
             if (card.noAnswer) expectBoth(card.noAnswer, `${card.id}: why not`);
+        }
+        for (const card of PHOTO_DECK) {
+            expectBoth(card.label, `${card.id}: label`);
+            expectBoth(card.hint, `${card.id}: hint`);
         }
         for (const [level, label] of Object.entries(ADMIN_LEVEL_LABELS)) {
             expectBoth(label, `admin level ${level}`);

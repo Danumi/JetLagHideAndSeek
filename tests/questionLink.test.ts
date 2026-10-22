@@ -1,6 +1,7 @@
 import { describe, expect, test } from "vitest";
 
 import {
+    photoLink,
     QUESTION_URL_PARAM,
     questionLink,
     readQuestionLink,
@@ -38,9 +39,9 @@ describe("question links for the hider", () => {
 
         const received = await readQuestionLink(linkValue(link));
         expect(received.number).toBe(3);
-        expect(received.question.id).toBe("radius");
-        expect(received.question.key).toBe(0.42);
-        expect(received.question.data).toMatchObject({
+        expect(received.question!.id).toBe("radius");
+        expect(received.question!.key).toBe(0.42);
+        expect(received.question!.data).toMatchObject({
             lat: 48.2,
             lng: 16.37,
             radius: 2,
@@ -70,10 +71,55 @@ describe("question links for the hider", () => {
             linkValue(await questionLink(question, undefined, APP_URL)),
         );
         expect(received.number).toBeUndefined();
-        expect(received.question.data).toMatchObject({
+        expect(received.question!.data).toMatchObject({
             type: "zone",
             cat: { adminLevel: 9 },
             status: "pending",
+        });
+    });
+
+    test("carry when the seekers sent the question, for the hider's clock", async () => {
+        const question = questionSchema.parse({
+            id: "radius",
+            key: 0.5,
+            data: {
+                lat: 48.2,
+                lng: 16.37,
+                radius: 1,
+                unit: "kilometers",
+                status: "pending",
+                askedAt: 1_700_000_000_000,
+                sentAt: 1_700_000_030_000,
+            },
+        });
+
+        const received = await readQuestionLink(
+            linkValue(await questionLink(question, undefined, APP_URL)),
+        );
+        expect(received.question!.data).toMatchObject({
+            askedAt: 1_700_000_000_000,
+            sentAt: 1_700_000_030_000,
+        });
+    });
+
+    test("carry photo questions", async () => {
+        const link = await photoLink(
+            {
+                key: 0.9,
+                photo: "tree",
+                askedAt: 1_700_000_000_000,
+                sentAt: 1_700_000_010_000,
+            },
+            APP_URL,
+        );
+
+        const received = await readQuestionLink(linkValue(link));
+        expect(received.question).toBeUndefined();
+        expect(received.photo).toEqual({
+            key: 0.9,
+            photo: "tree",
+            askedAt: 1_700_000_000_000,
+            sentAt: 1_700_000_010_000,
         });
     });
 

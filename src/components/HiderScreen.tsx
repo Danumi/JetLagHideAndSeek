@@ -1,9 +1,12 @@
 import { useStore } from "@nanostores/react";
 import {
+    CameraIcon,
     LoaderCircleIcon,
     LocateFixedIcon,
     MapIcon,
     MapPinIcon,
+    PlusIcon,
+    SendIcon,
     SettingsIcon,
     TriangleAlertIcon,
     VenetianMaskIcon,
@@ -13,26 +16,43 @@ import { toast } from "react-toastify";
 
 import { Button } from "@/components/ui/button";
 import {
+    type ChatQuestionKind,
     hiderInbox,
     type HiderInboxEntry,
     hiderMode,
     hiderScreenOpen,
     hiderZoneId,
+    photoQuestions,
     questions,
     settingsOpen,
 } from "@/lib/context";
 import { findPrecisePosition } from "@/lib/gps";
-import { t, useLanguage } from "@/lib/i18n";
+import { t, tr, useLanguage } from "@/lib/i18n";
 import { loadingTasks, retryTrigger } from "@/lib/loading";
 import { QUESTION_URL_PARAM, readQuestionLink } from "@/lib/questionLink";
 import { questionLinkRole, setRole } from "@/lib/role";
-import { cn } from "@/lib/utils";
-import { answerOptions, askedAtText, questionTitle } from "@/maps/answers";
+import { cn, shareMessage } from "@/lib/utils";
+import { clockTime } from "@/maps/deadline";
+import { PHOTO_DECK, photoCardFor } from "@/maps/deck";
 import { type HiderAnswer, workOutAnswer } from "@/maps/hider";
+import {
+    addEntryByHand,
+    answerLabel,
+    answerMessage,
+    answerMinutes,
+    CHAT_KIND_NAMES,
+    entryTitle,
+    isOpen,
+    markAnswered,
+    receiveEntry,
+    removeEntry,
+    reopenEntry,
+    type SentAnswer,
+} from "@/maps/hiderLog";
 import { hiderZoneCheck, zoneCheckText } from "@/maps/hidingZoneCheck";
-import type { Question } from "@/maps/schema";
 
-import { showActionToast } from "./UndoToast";
+import { AnswerClock } from "./AnswerClock";
+import { showActionToast, showUndoToast } from "./UndoToast";
 
 /** Where the hider's location comes from. */
 type Fix =
@@ -53,31 +73,6 @@ type Result =
     | { key: number; state: "working" }
     | { key: number; state: "done"; answer: HiderAnswer }
     | { key: number; state: "error"; message: string };
-
-const answerLabel = (
-    question: Question,
-    answer: Pick<HiderAnswer, "value" | "location">,
-) => {
-    if (answer.value === "no-answer") return t("answer.none");
-    if (question.id === "tentacles") {
-        return answer.location
-            ? String(answer.location.properties?.name ?? t("answer.place"))
-            : t("answer.notWithin");
-    }
-    return (
-        answerOptions(question).find((option) => option.value === answer.value)
-            ?.label ?? answer.value
-    );
-};
-
-const entryTitle = (entry: HiderInboxEntry) =>
-    `${entry.number ? `${entry.number} · ` : ""}${questionTitle(entry.question)}`;
-
-const clockTime = (time: number) =>
-    new Date(time).toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-    });
 
 const removeUrlParam = (param: string) => {
     const url = new URL(window.location.href);
@@ -169,12 +164,7 @@ const ZoneCheckCard = () => {
 
 /** A question link opened on this phone: the hider's phone answers it. */
 const receiveQuestionLink = (entry: HiderInboxEntry) => {
-    hiderInbox.set([
-        ...hiderInbox
-            .get()
-            .filter((x) => x.question.key !== entry.question.key),
-        entry,
-    ]);
+    receiveEntry(entry);
 
     const role = questionLinkRole();
     if (role === "hider") {
@@ -201,10 +191,147 @@ const receiveQuestionLink = (entry: HiderInboxEntry) => {
     );
 };
 
+/** Shares the answer (WhatsApp and co.) and marks the question as answered. */
+const sendAnswer = async (entry: HiderInboxEntry, answer: SentAnswer) => {
+    const message = answerMessage(entry, answer);
+    const result = await shareMessage(message);
+    if (result === "cancelled") return false;
+    if (result === "copied") {
+        toast.success(t("hider.answerCopied"));
+    } else if (result === false) {
+        toast.error(t("hider.shareFailed", { message }), { autoClose: false });
+    }
+    if (isOpen(entry)) markAnswered(entry.key, answer);
+    return true;
+};
+
+const deleteEntryWithUndo = (key: number) => {
+    const inbox = hiderInbox.get();
+    const onMap = questions.get();
+    removeEntry(key);
+    showUndoToast(t("undo.questionDeleted"), () => {
+        hiderInbox.set(inbox);
+        questions.set(onMap);
+    });
+};
+
+/** Questions that didn't come as a link: photos, or asked in the chat. */
+const AddByHand = ({ onAdded }: { onAdded: (key: number) => void }) => {
+    useLanguage();
+    const [open, setOpen] = useState(false);
+
+    if (!open) {
+        return (
+            <Button variant="outline" onClick={() => setOpen(true)}>
+                <PlusIcon />
+                {t("hider.add")}
+            </Button>
+        );
+    }
+
+    const add = (what: { photo: string } | { kind: ChatQuestionKind }) => {
+        onAdded(addEntryByHand(what).key);
+        setOpen(false);
+    };
+
+    return (
+        <div className="flex flex-col gap-3 rounded-lg border p-3">
+            <div className="flex items-center justify-between gap-2">
+                <span className="font-semibold">{t("hider.add")}</span>
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setOpen(false)}
+                >
+                    {t("common.cancel")}
+                </Button>
+            </div>
+            <p className="text-sm text-muted-foreground">
+                {t("hider.addHelp")}
+            </p>
+            <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("photo.kind")}
+            </h4>
+            <div className="grid grid-cols-2 gap-2">
+                {PHOTO_DECK.map((card) => (
+                    <Button
+                        key={card.id}
+                        variant="outline"
+                        className="h-auto min-h-11 whitespace-normal py-2"
+                        onClick={() => add({ photo: card.id })}
+                    >
+                        {tr(card.label)}
+                    </Button>
+                ))}
+            </div>
+            <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("hider.addChat")}
+            </h4>
+            <div className="grid grid-cols-2 gap-2">
+                {(Object.keys(CHAT_KIND_NAMES) as ChatQuestionKind[]).map(
+                    (kind) => (
+                        <Button
+                            key={kind}
+                            variant="outline"
+                            className="h-11"
+                            onClick={() => add({ kind })}
+                        >
+                            {CHAT_KIND_NAMES[kind]}
+                        </Button>
+                    ),
+                )}
+            </div>
+        </div>
+    );
+};
+
+/** A question in the lists below the current one: tapping shows it. */
+const EntryRow = ({
+    entry,
+    onSelect,
+}: {
+    entry: HiderInboxEntry;
+    onSelect: () => void;
+}) => {
+    const answer =
+        entry.sent ??
+        entry.workedOut ??
+        (entry.answer ? { value: entry.answer } : undefined);
+    return (
+        <button
+            className="flex items-center gap-2 rounded-md px-2 py-2 text-left text-sm hover:bg-accent"
+            onClick={onSelect}
+        >
+            <div className="min-w-0 flex-1">
+                <div>
+                    <span className="font-semibold">{entryTitle(entry)}</span>
+                    {!isOpen(entry) && answer && (
+                        <span className="text-violet-300">
+                            {" "}
+                            · {answerLabel(entry, answer)}
+                        </span>
+                    )}
+                    <span className="text-muted-foreground">
+                        {" "}
+                        · {clockTime(entry.askedAt)}
+                    </span>
+                </div>
+                {isOpen(entry) && (
+                    <AnswerClock
+                        start={entry.askedAt}
+                        minutes={answerMinutes(entry)}
+                    />
+                )}
+            </div>
+        </button>
+    );
+};
+
 /**
  * The hider's main screen: whether they are in a hiding zone, and the
- * questions the seekers sent as links, with the answer the app works out
- * from the hider's GPS location.
+ * questions of the seekers: open ones with the time left to answer and,
+ * for questions sent as links, the answer the app works out from the
+ * hider's GPS location; below, the answered ones.
  */
 export const HiderScreen = () => {
     const $language = useLanguage();
@@ -217,6 +344,7 @@ export const HiderScreen = () => {
     const [selectedKey, setSelectedKey] = useState<number | null>(null);
     const [result, setResult] = useState<Result | null>(null);
     const [attempt, setAttempt] = useState(0);
+    const [sending, setSending] = useState(false);
 
     const stopWaiting = useRef(() => {});
 
@@ -252,21 +380,41 @@ export const HiderScreen = () => {
         if (value === null) return;
 
         readQuestionLink(value)
-            .then(({ question, number }) => {
+            .then(({ question, number, photo }) => {
                 // The link is kept until it is in the inbox, in case the page reloads
                 removeUrlParam(QUESTION_URL_PARAM);
 
-                if (questions.get().some((q) => q.key === question.key)) {
+                const key = question?.key ?? photo!.key;
+                const inInbox = hiderInbox.get().some((x) => x.key === key);
+                const own = question
+                    ? questions.get().some((q) => q.key === key)
+                    : photoQuestions.get().some((p) => p.key === key);
+                if (own && !inInbox) {
                     toast.info(t("hider.ownQuestion"), { autoClose: 8000 });
                     return;
                 }
 
-                setSelectedKey(null);
-                receiveQuestionLink({
-                    question,
-                    number,
-                    receivedAt: Date.now(),
-                });
+                setSelectedKey(key);
+                const receivedAt = Date.now();
+                receiveQuestionLink(
+                    question
+                        ? {
+                              key,
+                              question,
+                              number,
+                              askedAt:
+                                  question.data.sentAt ??
+                                  question.data.askedAt ??
+                                  receivedAt,
+                              receivedAt,
+                          }
+                        : {
+                              key,
+                              photo: photo!.photo,
+                              askedAt: photo!.sentAt ?? photo!.askedAt,
+                              receivedAt,
+                          },
+                );
             })
             .catch((error) => {
                 removeUrlParam(QUESTION_URL_PARAM);
@@ -280,9 +428,12 @@ export const HiderScreen = () => {
         if ($open && hiderMode.get() !== false) locate();
     }, [$open, $hiderMode === false]);
 
+    const openEntries = $inbox.filter(isOpen);
+    // The question tapped last, else the one waiting longest
     const entry =
-        $inbox.find((x) => x.question.key === selectedKey) ??
-        $inbox[$inbox.length - 1];
+        $inbox.find((x) => x.key === selectedKey) ?? openEntries[0] ?? null;
+    // The app works out answers to open questions from links
+    const workingOut = entry?.question && isOpen(entry) ? entry : null;
 
     const location =
         $hiderMode !== false && (fix.state === "gps" || fix.state === "marker")
@@ -290,19 +441,19 @@ export const HiderScreen = () => {
             : null;
 
     useEffect(() => {
-        if (!$open || !entry || !location) return;
+        if (!$open || !workingOut?.question || !location) return;
 
-        const key = entry.question.key;
+        const key = workingOut.key;
         let cancelled = false;
         setResult({ key, state: "working" });
-        workOutAnswer(entry.question, location)
+        workOutAnswer(workingOut.question, location)
             .then((answer) => {
                 if (cancelled) return;
                 setResult({ key, state: "done", answer });
                 // The answer, not its text: the list shows it in the phone's language
                 hiderInbox.set(
                     hiderInbox.get().map((x) =>
-                        x.question.key === key
+                        x.key === key
                             ? {
                                   ...x,
                                   answer: undefined,
@@ -330,7 +481,8 @@ export const HiderScreen = () => {
         };
     }, [
         $open,
-        entry?.question.key,
+        workingOut?.key,
+        workingOut?.question,
         location?.latitude,
         location?.longitude,
         attempt,
@@ -349,8 +501,198 @@ export const HiderScreen = () => {
         fix.latitude === $hiderMode.latitude &&
         fix.longitude === $hiderMode.longitude;
 
-    const current = result && entry && result.key === entry.question.key;
-    const earlier = $inbox.filter((x) => x !== entry).reverse();
+    const current = result && workingOut && result.key === workingOut.key;
+    const otherOpen = openEntries.filter((x) => x !== entry);
+    const answered = $inbox.filter((x) => !isOpen(x) && x !== entry).reverse();
+
+    /** Answers, keeping the question on screen to show it went out. */
+    const answer = async (
+        sent: SentAnswer,
+        how: "share" | "mark" = "share",
+    ) => {
+        if (!entry) return;
+        setSelectedKey(entry.key);
+        if (how === "mark") {
+            markAnswered(entry.key, sent);
+            return;
+        }
+        setSending(true);
+        try {
+            await sendAnswer(entry, sent);
+        } finally {
+            setSending(false);
+        }
+    };
+
+    const photoCard = entry?.photo ? photoCardFor(entry.photo) : undefined;
+
+    const openBody = entry && isOpen(entry) && (
+        <>
+            {entry.question && !location && (
+                <p className="text-sm text-muted-foreground">
+                    {t("hider.waitingForLocation")}
+                </p>
+            )}
+            {entry.question &&
+                location &&
+                current &&
+                result.state === "working" && (
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <LoaderCircleIcon className="size-4 animate-spin" />
+                        {$loadingTasks[0]?.label ?? t("hider.working")}
+                    </div>
+                )}
+            {entry.question &&
+                location &&
+                current &&
+                result.state === "error" && (
+                    <div className="flex flex-col gap-2">
+                        <p className="text-sm text-orange-400">
+                            {t("hider.failed")}
+                        </p>
+                        <Button
+                            variant="outline"
+                            onClick={() => setAttempt(attempt + 1)}
+                        >
+                            {t("hider.tryAgain")}
+                        </Button>
+                    </div>
+                )}
+            {entry.question &&
+                location &&
+                current &&
+                result.state === "done" && (
+                    <div className="flex flex-col gap-2">
+                        <div className="text-sm text-muted-foreground">
+                            {t("hider.yourAnswer")}
+                        </div>
+                        <div className="text-4xl font-bold font-poppins text-violet-300">
+                            {answerLabel(entry, result.answer)}
+                        </div>
+                        {result.answer.reason && (
+                            <p className="text-sm">{result.answer.reason}</p>
+                        )}
+                        <Button
+                            className="h-12 bg-violet-700 text-base font-semibold text-white hover:bg-violet-800"
+                            disabled={sending}
+                            onClick={() =>
+                                answer({
+                                    value: result.answer.value,
+                                    location: result.answer.location,
+                                })
+                            }
+                        >
+                            <SendIcon />
+                            {t("hider.send")}
+                        </Button>
+                        <Button
+                            variant="outline"
+                            onClick={() =>
+                                answer(
+                                    {
+                                        value: result.answer.value,
+                                        location: result.answer.location,
+                                    },
+                                    "mark",
+                                )
+                            }
+                        >
+                            {t("hider.alreadyAnswered")}
+                        </Button>
+                        <p className="text-sm text-muted-foreground">
+                            {t("hider.sendHint")}
+                        </p>
+                    </div>
+                )}
+            {entry.photo && (
+                <div className="flex flex-col gap-2">
+                    <p className="text-sm">{t("hider.photoNote")}</p>
+                    <Button
+                        className="h-12 bg-violet-700 text-base font-semibold text-white hover:bg-violet-800"
+                        onClick={() => answer({ value: "photo" }, "mark")}
+                    >
+                        <CameraIcon />
+                        {t("photo.sent")}
+                    </Button>
+                    <Button
+                        variant="outline"
+                        disabled={sending}
+                        onClick={() => answer({ value: "no-answer" })}
+                    >
+                        {t("hider.cantAnswer")}
+                    </Button>
+                </div>
+            )}
+            {entry.kind && (
+                <div className="flex flex-col gap-2">
+                    <p className="text-sm text-muted-foreground">
+                        {t("hider.chatNote")}
+                    </p>
+                    <Button
+                        className="h-12 bg-violet-700 text-base font-semibold text-white hover:bg-violet-800"
+                        onClick={() => answer({ value: "answered" }, "mark")}
+                    >
+                        {t("hider.answered")}
+                    </Button>
+                </div>
+            )}
+        </>
+    );
+
+    const answeredBody = entry && !isOpen(entry) && (
+        <div className="flex flex-col gap-2">
+            {entry.sent ? (
+                <>
+                    <div className="text-sm text-muted-foreground">
+                        {t("hider.answeredAt", {
+                            time: clockTime(entry.answeredAt!),
+                        })}
+                    </div>
+                    <div className="text-3xl font-bold font-poppins text-violet-300">
+                        {answerLabel(entry, entry.sent)}
+                    </div>
+                    {entry.question && (
+                        <p className="text-sm text-muted-foreground">
+                            {t("hider.onMap")}
+                        </p>
+                    )}
+                </>
+            ) : (
+                // Answered before the hider could send answers from here
+                (entry.workedOut || entry.answer) && (
+                    <div className="text-sm">
+                        {t("hider.yourAnswer")}:{" "}
+                        <span className="font-semibold text-violet-300">
+                            {entry.workedOut
+                                ? answerLabel(entry, entry.workedOut)
+                                : entry.answer}
+                        </span>
+                    </div>
+                )
+            )}
+            <div className="grid grid-cols-2 gap-2">
+                {entry.sent &&
+                (entry.question || entry.sent.value === "no-answer") ? (
+                    <Button
+                        variant="outline"
+                        disabled={sending}
+                        onClick={() => answer(entry.sent!)}
+                    >
+                        <SendIcon />
+                        {t("hider.sendAgain")}
+                    </Button>
+                ) : (
+                    <span />
+                )}
+                <Button
+                    variant="outline"
+                    onClick={() => reopenEntry(entry.key)}
+                >
+                    {t("hider.reopen")}
+                </Button>
+            </div>
+        </div>
+    );
 
     const body = (
         <div className="flex flex-col gap-4">
@@ -407,99 +749,87 @@ export const HiderScreen = () => {
             )}
 
             {entry ? (
-                <div className="flex flex-col gap-3 rounded-lg border-2 border-violet-500 p-4">
+                <div
+                    className={cn(
+                        "flex flex-col gap-3 rounded-lg border-2 p-4",
+                        isOpen(entry) ? "border-violet-500" : "border-border",
+                    )}
+                >
                     <div>
                         <div className="text-sm text-muted-foreground">
-                            {askedAtText(entry.question)
-                                ? t("hider.questionFromAt", {
-                                      time: askedAtText(entry.question)!,
-                                  })
-                                : t("hider.questionFrom")}
+                            {t(
+                                entry.byHand
+                                    ? "hider.addedAt"
+                                    : "hider.questionFromAt",
+                                { time: clockTime(entry.askedAt) },
+                            )}
                         </div>
                         <div className="text-xl font-semibold font-poppins">
                             {entryTitle(entry)}
                         </div>
-                    </div>
-                    {!location && (
-                        <p className="text-sm text-muted-foreground">
-                            {t("hider.waitingForLocation")}
-                        </p>
-                    )}
-                    {location && current && result.state === "working" && (
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <LoaderCircleIcon className="size-4 animate-spin" />
-                            {$loadingTasks[0]?.label ?? t("hider.working")}
-                        </div>
-                    )}
-                    {location && current && result.state === "error" && (
-                        <div className="flex flex-col gap-2">
-                            <p className="text-sm text-orange-400">
-                                {t("hider.failed")}
-                            </p>
-                            <Button
-                                variant="outline"
-                                onClick={() => setAttempt(attempt + 1)}
-                            >
-                                {t("hider.tryAgain")}
-                            </Button>
-                        </div>
-                    )}
-                    {location && current && result.state === "done" && (
-                        <div className="flex flex-col gap-2">
-                            <div className="text-sm text-muted-foreground">
-                                {t("hider.yourAnswer")}
-                            </div>
-                            <div className="text-4xl font-bold font-poppins text-violet-300">
-                                {answerLabel(entry.question, result.answer)}
-                            </div>
-                            {result.answer.reason && (
-                                <p className="text-sm">
-                                    {result.answer.reason}
-                                </p>
-                            )}
+                        {photoCard && (
                             <p className="text-sm text-muted-foreground">
-                                {t("hider.tellSeekers")}
+                                {tr(photoCard.hint)}
                             </p>
-                        </div>
+                        )}
+                    </div>
+                    {isOpen(entry) && (
+                        <AnswerClock
+                            start={entry.askedAt}
+                            minutes={answerMinutes(entry)}
+                            className="text-base"
+                        />
                     )}
+                    {openBody}
+                    {answeredBody}
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="self-end text-muted-foreground"
+                        onClick={() => {
+                            setSelectedKey(null);
+                            deleteEntryWithUndo(entry.key);
+                        }}
+                    >
+                        {t("common.delete")}
+                    </Button>
                 </div>
             ) : (
-                <p className="text-muted-foreground">{t("hider.noQuestion")}</p>
+                <p className="text-muted-foreground">
+                    {$inbox.length === 0
+                        ? t("hider.noQuestion")
+                        : t("hider.noOpen")}
+                </p>
             )}
 
-            {earlier.length > 0 && (
+            {otherOpen.length > 0 && (
                 <div className="flex flex-col gap-1">
                     <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                        {t("hider.earlier")}
+                        {t("hider.open")}
                     </h3>
-                    {earlier.map((x) => (
-                        <button
-                            key={x.question.key}
-                            className="flex items-center gap-2 rounded-md px-2 py-2 text-left text-sm hover:bg-accent"
-                            onClick={() => setSelectedKey(x.question.key)}
-                        >
-                            <span className="min-w-0 flex-1">
-                                <span className="font-semibold">
-                                    {entryTitle(x)}
-                                </span>
-                                {(x.workedOut || x.answer) && (
-                                    <span className="text-violet-300">
-                                        {" "}
-                                        ·{" "}
-                                        {x.workedOut
-                                            ? answerLabel(
-                                                  x.question,
-                                                  x.workedOut,
-                                              )
-                                            : x.answer}
-                                    </span>
-                                )}
-                                <span className="text-muted-foreground">
-                                    {" "}
-                                    · {clockTime(x.receivedAt)}
-                                </span>
-                            </span>
-                        </button>
+                    {otherOpen.map((x) => (
+                        <EntryRow
+                            key={x.key}
+                            entry={x}
+                            onSelect={() => setSelectedKey(x.key)}
+                        />
+                    ))}
+                </div>
+            )}
+
+            <AddByHand onAdded={setSelectedKey} />
+
+            {answered.length > 0 && (
+                <div className="flex flex-col gap-1">
+                    <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                        {t("sidebar.answered")}
+                    </h3>
+                    {answered.map((x) => (
+                        <EntryRow
+                            key={x.key}
+                            entry={x}
+                            onSelect={() => setSelectedKey(x.key)}
+                        />
                     ))}
                 </div>
             )}
