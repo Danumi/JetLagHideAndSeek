@@ -35,6 +35,7 @@ import { determineMapBoundaries } from "@/maps/api";
 import { tapZoneAt } from "@/maps/zones";
 
 import { DraggableMarkers } from "./DraggableMarkers";
+import { MapLayersOverlay } from "./MapLayers";
 import { NearestMarks } from "./NearestMarks";
 import { PolygonDraw } from "./PolygonDraw";
 
@@ -397,6 +398,7 @@ export const Map = ({ className }: { className?: string }) => {
             >
                 {getTileLayer($baseTileLayer)}
                 <DraggableMarkers />
+                <MapLayersOverlay />
                 <NearestMarks />
                 <PolygonDraw />
                 <ScaleControl position="topleft" imperial={false} />

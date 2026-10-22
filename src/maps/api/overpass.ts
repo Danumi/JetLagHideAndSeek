@@ -601,6 +601,64 @@ export const findNamedWaterLines = async () => {
     return toLineStrings(elements);
 };
 
+export interface TransitLine {
+    /** What players see, e.g. "U4" or "S45". */
+    ref: string;
+    route: string;
+    /** The line's colour from OSM, e.g. "#319F49". */
+    colour?: string;
+    /** Its tracks in the game area, each once (both directions share them). */
+    lines: Feature<LineString, { name?: string }>[];
+}
+
+/**
+ * The U-Bahn and S-Bahn lines of the game area with their colours, clipped
+ * to it. Regional and long-distance trains (REX, Railjet) are left out.
+ */
+export const findTransitLines = async (): Promise<TransitLine[]> => {
+    const bboxValue = gameAreaBbox();
+    // Without a game area this would ask for every line in the world
+    if (!bboxValue) return [];
+    const data = await getOverpassData(
+        `[out:json][timeout:60];rel["type"="route"]["route"~"^(subway|train)$"]["ref"~"^[US][0-9]+$"](${bboxValue});out geom(${bboxValue});`,
+        t("loading.transitLines"),
+        CacheType.ZONE_CACHE,
+    );
+
+    const lines = new Map<string, TransitLine>();
+    const wayIds = new Set<string>();
+    for (const element of data.elements ?? []) {
+        if (element.type !== "relation") continue;
+        const tags = element.tags ?? {};
+        const line: TransitLine = lines.get(tags.ref) ?? {
+            ref: tags.ref,
+            route: tags.route,
+            colour: tags.colour,
+            lines: [],
+        };
+        line.colour ??= tags.colour;
+        lines.set(tags.ref, line);
+        // The tracks, not the platforms; ways outside the area have no geometry
+        const tracks = (element.members ?? []).filter(
+            (member: any) =>
+                member.type === "way" &&
+                !member.role &&
+                member.geometry &&
+                !wayIds.has(`${tags.ref}:${member.ref}`),
+        );
+        for (const track of tracks) wayIds.add(`${tags.ref}:${track.ref}`);
+        line.lines.push(...toLineStrings(tracks));
+    }
+
+    return [...lines.values()]
+        .filter((line) => line.lines.length > 0)
+        .sort(
+            (a, b) =>
+                LINE_ORDER.indexOf(a.route) - LINE_ORDER.indexOf(b.route) ||
+                a.ref.localeCompare(b.ref, undefined, { numeric: true }),
+        );
+};
+
 /**
  * Islands in the game area that are their own landmass. Islands inside lakes
  * or oxbows don't count (rule: a landmass entirely surrounded by the other

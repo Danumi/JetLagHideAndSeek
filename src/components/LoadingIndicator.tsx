@@ -48,8 +48,9 @@ export const LoadingIndicator = () => {
     const elapsed = task ? now - task.startedAt : 0;
 
     return (
+        // Narrow enough to leave the buttons on both sides free
         <div
-            className="pointer-events-none flex w-[min(70vw,340px)] flex-col gap-1 rounded-lg border bg-background/95 px-3 py-2 text-sm text-foreground shadow-lg"
+            className="pointer-events-none flex w-[min(calc(100vw_-_136px),340px)] flex-col gap-1 rounded-lg border bg-background/95 px-3 py-2 text-sm text-foreground shadow-lg"
             role="status"
         >
             {label && (
