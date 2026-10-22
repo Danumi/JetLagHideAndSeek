@@ -41,15 +41,25 @@ pnpm vitest run       # Tests einmalig
 
 ## Wien-Besonderheiten (geprüft am 2026-10-22)
 
-- **„Same train line" ist in Wien kaputt.** `trainLineNodeFinder` sucht Linien über `name` und zusätzlich über `network`. Die Stop-Area-Relationen in Wien tragen `network=VOR`, also lädt die Abfrage den gesamten Verkehrsverbund Ost-Region. Folge: Timeouts und falsche Treffer. 69 von 133 `railway=station`-Knoten in Wien hängen an VOR-Stop-Areas.
-- Wien Hauptbahnhof und Wien Blumental sind Mitglied keiner Route-Relation. Die App meldet dort „No train line found".
+- „Same train line" nutzt `findStationLines` (Route-Relationen, Stop-Areas, Haltestellen im Umkreis von 150 m). Früher wurde über `network=VOR` der ganze Verkehrsverbund geladen; das ist behoben.
+- Wien Hauptbahnhof ist in OSM in keiner Route-Relation; er wird nur über die 150-m-Nähe gefunden.
 - Wiener U-Bahn-Stationen sind `railway=station` + `subway=yes`, S-Bahn-Stationen `railway=station` + `train=yes`.
-- Verwaltungsebenen: Bundesland Wien = `admin_level` 4, Bezirke = `admin_level` 9.
-- Die öffentlichen Overpass-Server sind oft überlastet. `fetch` hat kein Timeout, und der Fallback greift nur bei HTTP-Fehlern, nicht wenn ein Server hängt.
+- Verwaltungsebenen: 2 Österreich, 4 Bundesland Wien, 6 Wien (Statutarstadt), 9 Gemeindebezirke, 10 Katastralgemeinden. Ebene 8 fehlt.
+- Landmasse: Einzige eigene Landmasse im Spielgebiet ist die Donauinsel. Gänsehäufel und Rohrinsel liegen in der Alten Donau und zählen zum Festland.
+- Der Flughafen Wien liegt außerhalb der Stadtgrenze; Flughafen-Fragen haben laut Regeln keine Antwort.
 
-## Roadmap (nach Priorität)
+## Spielregeln „Small"
 
-1. „Same train line" reparieren: nur Route-Relationen (`route=subway|train|light_rail|tram`) der nächsten Station verwenden, keine Suche über `network`, auf das Spielgebiet begrenzen.
-2. Schnelleres Laden: Timeout pro Overpass-Anfrage, danach den nächsten Server fragen; Knopf „Daten fürs Spiel vorladen", der alle Fragekategorien im Spielgebiet in den Cache holt.
-3. Fehlende Fragen: gleiche Straße (Matching), Distanz zu Gewässern (Measuring), Seehöhe (Measuring; prüfen, ob die Höhendaten von Overpass.ch im Browser nutzbar sind).
-4. Wien-Voreinstellung (Spielgebiet, U-/S-Bahn-Stationen) und optional deutsche Oberfläche.
+Matching (alle 20), Measuring (alle 20), Radar (alle), Thermometer ½ und 3 Meilen, keine Tentakel. Hiding-Zone-Radius ¼ Meile (0.25 mi). Quelle: https://jetlag.denull.ru/en/rules/questions
+
+## Erledigt
+
+- Overpass: nach 10 s parallel den nächsten Server fragen (`OVERPASS_HEDGE_MS`)
+- Same train line repariert, Linienauswahl in der Frage
+- Nächste Station der Sucher aus allen Stationen (`allTrainStations`), nicht nur aus den verbleibenden Zonen
+- Neue Fragen: Straße/Weg, Landmasse, Gewässer, Seehöhe (Terrarium-Höhenkacheln)
+
+## Ideen für später
+
+- Knopf „Daten fürs Spiel vorladen"
+- Wien-Voreinstellung und optional deutsche Oberfläche
