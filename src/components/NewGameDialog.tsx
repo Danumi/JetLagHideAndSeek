@@ -22,6 +22,7 @@ import {
     useCustomStations,
     VIENNA,
 } from "@/lib/context";
+import { preloadGameData } from "@/maps/preload";
 
 import {
     AlertDialog,
@@ -63,6 +64,9 @@ export const startNewGame = () => {
     } else {
         questions.set([]);
     }
+
+    // While the hider hides, load what the question cards will need
+    preloadGameData({ refreshOldData: true });
 };
 
 export const NewGameDialog = () => {
@@ -90,7 +94,8 @@ export const NewGameDialog = () => {
                         </AlertDialogTitle>
                         <AlertDialogDescription>
                             The game area is Vienna. Hiding zones are all U-Bahn
-                            stations with a 500 m radius.
+                            stations with a 500 m radius. While the hider hides,
+                            the app loads the map data for every question card.
                             {$questions.length > 0 &&
                                 ` ${
                                     $questions.length === 1

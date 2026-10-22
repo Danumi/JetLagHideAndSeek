@@ -133,3 +133,26 @@ export async function shareOrFallback(
             return shareOrFallback(url, true);
         });
 }
+
+/**
+ * Like lodash's memoize for async functions, except that a call that failed
+ * is forgotten, so it runs again next time (e.g. after "Retry").
+ */
+export const memoizeAsync = <A extends unknown[], R>(
+    fn: (...args: A) => Promise<R>,
+    resolver: (...args: A) => string,
+) => {
+    const results = new Map<string, Promise<R>>();
+    return (...args: A): Promise<R> => {
+        const key = resolver(...args);
+        const known = results.get(key);
+        if (known) return known;
+
+        const result = fn(...args);
+        results.set(key, result);
+        result.catch(() => {
+            if (results.get(key) === result) results.delete(key);
+        });
+        return result;
+    };
+};

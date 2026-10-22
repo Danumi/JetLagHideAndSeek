@@ -5,21 +5,21 @@ import osmtogeojson from "osmtogeojson";
 import { toast } from "react-toastify";
 
 import {
-    allTrainStations,
     hiderMode,
     mapGeoJSON,
     mapGeoLocation,
     polyGeoJSON,
-    trainStations,
 } from "@/lib/context";
+import { memoizeAsync } from "@/lib/utils";
 import {
     elevationAt,
     fetchCoastline,
     findAdminBoundary,
+    findHighSpeedLines,
     findNamedWaterLines,
     findPlacesInZone,
+    findPlacesOfKind,
     findPlacesSpecificInZone,
-    LOCATION_FIRST_TAG,
     MAX_PLACES_IN_ZONE,
     nearestToQuestion,
     prettifyLocation,
@@ -39,13 +39,14 @@ import type {
     HomeGameMeasuringQuestions,
     MeasuringQuestion,
 } from "@/maps/schema";
+import { findHidingZoneStations, hidingZoneStationsKey } from "@/maps/stations";
 
 export interface AdminZoneInfo {
     name: string;
     boundary: any;
 }
 
-export const findAdminZoneInfo = _.memoize(
+export const findAdminZoneInfo = memoizeAsync(
     async (
         lat: number,
         lng: number,
@@ -146,14 +147,7 @@ export const determineMeasuringBoundary = async (
 
     switch (question.type) {
         case "highspeed-measure-shinkansen": {
-            const features = osmtogeojson(
-                await findPlacesInZone(
-                    "[highspeed=yes]",
-                    "Finding high-speed lines...",
-                    "nwr",
-                    "geom",
-                ),
-            ).features;
+            const features = osmtogeojson(await findHighSpeedLines()).features;
 
             return [highSpeedBase(features)];
         }
@@ -276,24 +270,7 @@ export const determineMeasuringBoundary = async (
         case "park-full": {
             const location = question.type.split("-full")[0] as APILocations;
 
-            const data = await findPlacesInZone(
-                `[${LOCATION_FIRST_TAG[location]}=${location}]`,
-                `Finding ${prettifyLocation(location, true).toLowerCase()}...`,
-                "nwr",
-                "center",
-                [],
-                60,
-            );
-
-            if (data.remark && data.remark.startsWith("runtime error")) {
-                toast.error(
-                    `Error finding ${prettifyLocation(
-                        location,
-                        true,
-                    ).toLowerCase()}. Please enable hiding zone mode and switch to the Large Game variation of this question.`,
-                );
-                return [turf.multiPolygon([])];
-            }
+            const data = await findPlacesOfKind(location);
 
             if (data.elements.length >= MAX_PLACES_IN_ZONE) {
                 toast.error(
@@ -308,6 +285,18 @@ export const determineMeasuringBoundary = async (
             return pointsOrNothing(
                 data.elements,
                 prettifyLocation(location, true).toLowerCase(),
+            );
+        }
+        case "rail-measure": {
+            // The stations the hiding zones are drawn around (Small: U-Bahn)
+            const stations = await findHidingZoneStations();
+            if (stations === null) return false;
+            return pointsOrNothing(
+                stations.map((station) => ({
+                    lon: station.geometry.coordinates[0],
+                    lat: station.geometry.coordinates[1],
+                })),
+                "train stations",
             );
         }
         case "custom-measure":
@@ -327,7 +316,6 @@ export const determineMeasuringBoundary = async (
         case "park":
         case "mcdonalds":
         case "seven11":
-        case "rail-measure":
             return false;
     }
 };
@@ -359,7 +347,7 @@ const seaLevelRegion = async (question: MeasuringQuestion) => {
     return region;
 };
 
-const bufferedDeterminer = _.memoize(
+const bufferedDeterminer = memoizeAsync(
     async (question: MeasuringQuestion) => {
         if (question.type === "sea-level") return seaLevelRegion(question);
 
@@ -383,6 +371,10 @@ const bufferedDeterminer = _.memoize(
                 : mapGeoLocation.get(),
             geo: (question as any).geo,
             cat: (question as any).cat,
+            stations:
+                question.type === "rail-measure"
+                    ? hidingZoneStationsKey()
+                    : undefined,
         }),
 );
 
@@ -449,43 +441,6 @@ export const hiderifyMeasuring = async (question: MeasuringQuestion) => {
             question.hiderCloser = hider < seeker;
         }
         return question;
-    }
-
-    if (question.type === "rail-measure") {
-        const stations = trainStations.get();
-        const allStations = allTrainStations.get();
-
-        if (stations.length === 0) {
-            return question;
-        }
-
-        const location = turf.point([question.lng, question.lat]);
-
-        const nearestTrainStation = turf.nearestPoint(
-            location,
-            turf.featureCollection(
-                allStations.length > 0
-                    ? allStations
-                    : stations.map((x) => x.properties),
-            ) as any,
-        );
-
-        const distance = await arcDistance(location, nearestTrainStation);
-
-        const hider = turf.point([$hiderMode.longitude, $hiderMode.latitude]);
-
-        const hiderNearest = turf.nearestPoint(
-            hider,
-            turf.featureCollection(
-                allStations.length > 0
-                    ? allStations
-                    : stations.map((x) => x.properties),
-            ) as any,
-        );
-
-        const hiderDistance = await arcDistance(hider, hiderNearest);
-
-        question.hiderCloser = hiderDistance < distance;
     }
 
     if (question.type === "mcdonalds" || question.type === "seven11") {

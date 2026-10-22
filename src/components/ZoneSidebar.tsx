@@ -4,7 +4,6 @@ import type { Feature, FeatureCollection } from "geojson";
 import * as L from "leaflet";
 import _ from "lodash";
 import { SidebarCloseIcon } from "lucide-react";
-import osmtogeojson from "osmtogeojson";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -42,15 +41,13 @@ import { cn } from "@/lib/utils";
 import { questionApplies } from "@/maps/answers";
 import {
     BLANK_GEOJSON,
-    findPlacesInZone,
     findPlacesSpecificInZone,
     findTentacleLocations,
     nearestToQuestion,
-    normalizeToStationFeatures,
+    OverpassError,
     parseCustomStationsFromText,
     QuestionSpecificLocation,
     type StationCircle,
-    type StationPlace,
     trainLineNodeFinder,
 } from "@/maps/api";
 import {
@@ -60,9 +57,9 @@ import {
     geoSpatialVoronoi,
     holedMask,
     lngLatToText,
-    mergeDuplicateStation,
     safeUnion,
 } from "@/maps/geo-utils";
+import { findHidingZoneStations } from "@/maps/stations";
 
 import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
@@ -80,6 +77,9 @@ import { MultiSelect } from "./ui/multi-select";
 import { ScrollToTop } from "./ui/scroll-to-top";
 import { MENU_ITEM_CLASSNAME } from "./ui/sidebar-l";
 import { UnitSelect } from "./UnitSelect";
+
+/** Hiding zones are computed once settings stop changing for this long. */
+const ZONES_DELAY_MS = 400;
 
 function _previewText(count: number) {
     return `${count} custom station${count === 1 ? "" : "s"} imported`;
@@ -174,94 +174,22 @@ export const ZoneSidebar = () => {
         geoJsonLayer.addTo(map);
     };
 
+    // Bumped when a change had to wait for the map, so it isn't lost
+    const [zonesWaited, setZonesWaited] = useState(0);
+
     useEffect(() => {
-        if (!map || isLoading.get()) return;
+        if (!map) return;
+        if (isLoading.get()) {
+            return isLoading.listen((loading) => {
+                if (!loading) setZonesWaited((count) => count + 1);
+            });
+        }
 
         const initializeHidingZones = async () => {
-            isLoading.set(true);
-
-            const needsDefault = !useCustomStations || includeDefaultStations;
-            if (needsDefault && $displayHidingZonesOptions.length === 0) {
+            const places = await findHidingZoneStations();
+            if (places === null) {
                 toast.error("At least one place type must be selected");
-                isLoading.set(false);
                 return;
-            }
-
-            let places: StationPlace[] = [];
-
-            if (!needsDefault) {
-                // Custom only
-                places = normalizeToStationFeatures(
-                    $customStations,
-                ).features.map((f) => ({
-                    type: "Feature",
-                    geometry: f.geometry,
-                    properties: {
-                        id:
-                            f.properties?.id ||
-                            `${(f.geometry as any).coordinates[1]},${(f.geometry as any).coordinates[0]}`,
-                        name: f.properties?.name,
-                    },
-                }));
-            } else {
-                // Fetch default, optionally merge custom
-                // @ts-expect-error osmtogeojson always defines properties with an "id" string
-                places = osmtogeojson(
-                    await findPlacesInZone(
-                        $displayHidingZonesOptions[0],
-                        "Finding stations. This may take a while. Do not press any buttons while this is processing. Don't worry, it will be cached.",
-                        "nwr",
-                        "center",
-                        $displayHidingZonesOptions.slice(1),
-                    ),
-                ).features;
-
-                if (
-                    useCustomStations &&
-                    $customStations.length > 0 &&
-                    includeDefaultStations
-                ) {
-                    const customFeatures = normalizeToStationFeatures(
-                        $customStations,
-                    ).features.map(
-                        (f) =>
-                            ({
-                                type: "Feature",
-                                geometry: f.geometry,
-                                properties: {
-                                    id:
-                                        f.properties?.id ||
-                                        `${f.geometry.coordinates[1]},${f.geometry.coordinates[0]}`,
-                                    name: f.properties?.name,
-                                },
-                            }) as StationPlace,
-                    );
-                    const seen = new Set<string>();
-                    const merged: StationPlace[] = [];
-                    const add = (feat: StationPlace) => {
-                        const id = feat.properties.id as string | undefined;
-                        const key =
-                            id && id.includes("/")
-                                ? `id:${id}`
-                                : `pt:${feat.geometry.coordinates[1]},${feat.geometry.coordinates[0]}`;
-                        if (!seen.has(key)) {
-                            seen.add(key);
-                            merged.push(feat);
-                        }
-                    };
-                    places.forEach(add);
-                    customFeatures.forEach(add);
-                    places = merged;
-                }
-            }
-
-            // merge duplicate stations if selected
-            if (mergeDuplicates) {
-                places = await mergeDuplicateStation(
-                    places,
-                    $hidingRadius,
-                    $hidingRadiusUnits,
-                );
             }
 
             allTrainStations.set(places);
@@ -339,7 +267,10 @@ export const ZoneSidebar = () => {
                                 nid,
                                 question.data.lineKey,
                                 question.data.same,
-                            );
+                            ).catch(() => null);
+
+                            // Lines didn't load; the player was offered a retry
+                            if (nodes === null) continue;
 
                             if (nodes.length === 0) {
                                 toast.warning(
@@ -410,7 +341,8 @@ export const ZoneSidebar = () => {
                         question.data.type === "mcdonalds"
                             ? QuestionSpecificLocation.McDonalds
                             : QuestionSpecificLocation.Seven11,
-                    );
+                    ).catch(() => null);
+                    if (points === null) continue;
 
                     const nearestPoint = turf.nearestPoint(
                         turf.point([question.data.lng, question.data.lat]),
@@ -451,18 +383,35 @@ export const ZoneSidebar = () => {
             }
 
             setStations(circles);
-            isLoading.set(false);
         };
 
-        if ($displayHidingZones && $questionFinishedMapData) {
-            initializeHidingZones().catch((error) => {
-                console.log("Error in hiding zone initialization:", error);
-                toast.error(
-                    "An error occurred during hiding zone initialization",
-                    { toastId: "hiding-zone-initialization-error" },
-                );
-            });
-        }
+        if (!$displayHidingZones || !$questionFinishedMapData) return;
+
+        // Wait until typing (e.g. the radius) has stopped
+        const timer = setTimeout(() => {
+            if (isLoading.get()) {
+                const unbind = isLoading.listen((loading) => {
+                    if (loading) return;
+                    unbind();
+                    setZonesWaited((count) => count + 1);
+                });
+                return;
+            }
+
+            isLoading.set(true);
+            initializeHidingZones()
+                .catch((error) => {
+                    console.log("Error in hiding zone initialization:", error);
+                    if (error instanceof OverpassError) return; // Retry offered
+                    toast.error(
+                        "An error occurred during hiding zone initialization",
+                        { toastId: "hiding-zone-initialization-error" },
+                    );
+                })
+                .finally(() => isLoading.set(false));
+        }, ZONES_DELAY_MS);
+
+        return () => clearTimeout(timer);
     }, [
         $questionFinishedMapData,
         $displayHidingZones,
@@ -473,10 +422,18 @@ export const ZoneSidebar = () => {
         includeDefaultStations,
         $customStations,
         mergeDuplicates,
+        zonesWaited,
     ]);
 
+    const [drawWaited, setDrawWaited] = useState(0);
+
     useEffect(() => {
-        if (!map || isLoading.get()) return;
+        if (!map) return;
+        if (isLoading.get()) {
+            return isLoading.listen((loading) => {
+                if (!loading) setDrawWaited((count) => count + 1);
+            });
+        }
 
         if ($displayHidingZones && hidingZoneModeStationID) {
             const hiderStation = _.find(
@@ -488,7 +445,6 @@ export const ZoneSidebar = () => {
                 selectionProcess(
                     hiderStation,
                     map,
-                    stations,
                     showGeoJSON,
                     $questionFinishedMapData,
                     turf.convertLength(
@@ -528,6 +484,7 @@ export const ZoneSidebar = () => {
         $questionFinishedMapData,
         hidingZoneModeStationID,
         stations,
+        drawWaited,
     ]);
 
     return (
@@ -1164,7 +1121,6 @@ function styleStations(
 async function selectionProcess(
     station: any,
     map: L.Map,
-    stations: any[],
     showGeoJSON: (geoJSONData: any) => void,
     $questionFinishedMapData: any,
     hidingRadiusMiles: number,
@@ -1318,56 +1274,6 @@ async function selectionProcess(
                         ]),
                     );
                 }
-            }
-        }
-        if (
-            question.id === "measuring" &&
-            question.data.type === "rail-measure"
-        ) {
-            const location = turf.point([question.data.lng, question.data.lat]);
-
-            const allStations = allTrainStations.get();
-            const nearestTrainStation = turf.nearestPoint(
-                location,
-                turf.featureCollection(
-                    allStations.length > 0
-                        ? allStations.map((x) => x.geometry)
-                        : stations.map((x) => x.properties.geometry),
-                ) as any,
-            );
-
-            const distance = await arcDistance(location, nearestTrainStation);
-
-            const nearbyStations = await Promise.all(
-                stations.map(
-                    async (x) =>
-                        (await arcDistance(
-                            station.properties.geometry,
-                            x.properties.geometry,
-                        )) <
-                        distance +
-                            turf.convertLength(
-                                hidingRadiusMiles,
-                                "miles",
-                                "kilometers",
-                            ),
-                ),
-            );
-            const circles = stations
-                .filter((_, index) => nearbyStations[index])
-                .map((x) => turf.circle(x.properties.geometry, distance));
-
-            if (question.data.hiderCloser) {
-                mapData = safeUnion(
-                    turf.featureCollection([
-                        ...mapData.features,
-                        holedMask(turf.featureCollection(circles)),
-                    ]),
-                );
-            } else {
-                mapData = safeUnion(
-                    turf.featureCollection([...mapData.features, ...circles]),
-                );
             }
         }
         if (

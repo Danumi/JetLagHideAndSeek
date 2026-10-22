@@ -8,7 +8,6 @@ import type {
 } from "geojson";
 import _ from "lodash";
 import osmtogeojson from "osmtogeojson";
-import { toast } from "react-toastify";
 
 import {
     additionalMapGeoLocations,
@@ -18,11 +17,14 @@ import {
     overpassHost,
     polyGeoJSON,
 } from "@/lib/context";
+import { showLoadError, trackLoading } from "@/lib/loading";
 import { safeUnion } from "@/maps/geo-utils";
 
 import { cacheFetch, determineCache } from "./cache";
 import { LOCATION_FIRST_TAG, OVERPASS_HOSTS } from "./constants";
+import { prettifyLocation } from "./geo";
 import type {
+    APILocations,
     EncompassingTentacleQuestionSchema,
     HomeGameMatchingQuestions,
     HomeGameMeasuringQuestions,
@@ -41,12 +43,42 @@ type TentacleLocationQuery = Pick<
  */
 const OVERPASS_HEDGE_MS = 10_000;
 
+/**
+ * Without any answer after this long the servers count as hanging. Our
+ * slowest queries are allowed 60 s on the server.
+ */
+const OVERPASS_GIVE_UP_MS = 60_000;
+
+/**
+ * A server that is busy (too many queries at once, e.g. one at a time on the
+ * free plan of overpass.ch) is asked again after Retry-After or this long.
+ */
+const OVERPASS_BUSY_RETRY_MS = 2_000;
+const OVERPASS_BUSY_RETRIES = 5;
+
+const isBusy = (response: Response) =>
+    response.status === 429 || response.status === 503;
+
+const busyDelay = (response: Response) => {
+    const seconds = Number(response.headers.get("Retry-After"));
+    return seconds > 0
+        ? Math.min(seconds * 1000, OVERPASS_GIVE_UP_MS)
+        : OVERPASS_BUSY_RETRY_MS;
+};
+
+/** Map data that couldn't be loaded; the player has been told and can retry. */
+export class OverpassError extends Error {}
+
+/** Overpass answers 200 with this remark when a query timed out or ran out of memory. */
+const isRuntimeError = (data: any) =>
+    typeof data?.remark === "string" && data.remark.startsWith("runtime error");
+
 const findCachedResponse = async (urls: string[], cacheType: CacheType) => {
     try {
         const cache = await determineCache(cacheType);
         for (const url of urls) {
             const cached = await cache.match(url);
-            if (cached?.ok) return cached.clone();
+            if (cached?.ok) return { response: cached.clone(), url };
         }
     } catch {
         // Cache API unavailable; just fetch.
@@ -54,38 +86,69 @@ const findCachedResponse = async (urls: string[], cacheType: CacheType) => {
     return null;
 };
 
+const forgetCached = async (url: string, cacheType: CacheType) => {
+    try {
+        const cache = await determineCache(cacheType);
+        await cache.delete(url);
+    } catch {
+        // Cache API unavailable
+    }
+};
+
 const firstOkResponse = (
     urls: string[],
     cacheType: CacheType,
-): Promise<{ response: Response | null; url: string | null }> =>
+): Promise<{
+    response: Response | null;
+    url: string | null;
+    timedOut: boolean;
+}> =>
     new Promise((resolve) => {
         let next = 0;
         let running = 0;
         let settled = false;
         let lastResponse: Response | null = null;
         let hedgeTimer: ReturnType<typeof setTimeout> | undefined;
+        const busyRetries = new Map<string, number>();
 
-        const finish = (response: Response | null, url: string | null) => {
+        const finish = (
+            response: Response | null,
+            url: string | null,
+            timedOut = false,
+        ) => {
             if (settled) return;
             settled = true;
             clearTimeout(hedgeTimer);
-            resolve({ response, url });
+            clearTimeout(giveUpTimer);
+            resolve({ response, url, timedOut });
         };
 
-        const launch = () => {
-            if (settled || next >= urls.length) return;
-            const url = urls[next++];
+        // Requests still running keep going: a late answer is cached for a retry
+        const giveUpTimer = setTimeout(
+            () => finish(lastResponse, null, true),
+            OVERPASS_GIVE_UP_MS,
+        );
+
+        const request = (url: string) => {
             running++;
-            clearTimeout(hedgeTimer);
-            if (next < urls.length) {
-                hedgeTimer = setTimeout(launch, OVERPASS_HEDGE_MS);
-            }
             cacheFetch(url, undefined, cacheType)
                 .then((response) => {
                     if (response.ok) {
                         finish(response, url);
+                        return;
+                    }
+                    lastResponse = response;
+                    const retries = busyRetries.get(url) ?? 0;
+                    if (isBusy(response) && retries < OVERPASS_BUSY_RETRIES) {
+                        // Ask the same server again shortly; the scheduled
+                        // retry counts as running
+                        busyRetries.set(url, retries + 1);
+                        running++;
+                        setTimeout(() => {
+                            running--;
+                            if (!settled) request(url);
+                        }, busyDelay(response));
                     } else {
-                        lastResponse = response;
                         launch();
                     }
                 })
@@ -98,9 +161,24 @@ const firstOkResponse = (
                 });
         };
 
+        const launch = () => {
+            if (settled || next >= urls.length) return;
+            const url = urls[next++];
+            clearTimeout(hedgeTimer);
+            if (next < urls.length) {
+                hedgeTimer = setTimeout(launch, OVERPASS_HEDGE_MS);
+            }
+            request(url);
+        };
+
         launch();
     });
 
+/**
+ * Runs an Overpass query, from the cache if possible. If no server delivers,
+ * the player sees one error message with "Retry" and this throws an
+ * OverpassError, so nothing is computed from missing data.
+ */
 export const getOverpassData = async (
     query: string,
     loadingText?: string,
@@ -121,33 +199,58 @@ export const getOverpassData = async (
     ].map((base) => `${base}?data=${encodedQuery}`);
 
     const cached = await findCachedResponse(urls, cacheType);
-    if (cached) return await cached.json();
+    if (cached) {
+        try {
+            const data = await cached.response.json();
+            if (!isRuntimeError(data)) return data;
+        } catch {
+            // Unreadable; load it again
+        }
+        await forgetCached(cached.url, cacheType);
+    }
 
-    const request = firstOkResponse(urls, cacheType);
-    const { response, url } = await (loadingText
-        ? toast.promise(request, { pending: loadingText })
-        : request);
+    const { response, url, timedOut } = await trackLoading(
+        loadingText,
+        firstOkResponse(urls, cacheType),
+    );
 
-    if (!response || !response.ok) {
-        toast.error(
-            `Could not load data from Overpass${
-                response ? `: ${response.status} ${response.statusText}` : ""
-            }`,
-            { toastId: "overpass-error" },
+    if (!response || !response.ok || !url) {
+        showLoadError(
+            loadingText,
+            timedOut
+                ? "The map servers didn't answer in time."
+                : response
+                  ? `The map server answered "${response.status} ${response.statusText}".`
+                  : "The map servers couldn't be reached.",
         );
-        return { elements: [] };
+        throw new OverpassError(
+            `Overpass request failed${response ? `: ${response.status}` : ""}`,
+        );
+    }
+
+    let data;
+    try {
+        data = await response.clone().json();
+    } catch {
+        data = null;
+    }
+    if (!data || isRuntimeError(data)) {
+        // Don't keep a broken answer: a retry should ask again
+        await forgetCached(url, cacheType);
+        showLoadError(loadingText, "The map server gave up on the request.");
+        throw new OverpassError(data?.remark ?? "Invalid Overpass response");
     }
 
     if (url !== urls[0]) {
         try {
             const cache = await determineCache(cacheType);
-            await cache.put(urls[0], response.clone());
+            await cache.put(urls[0], response);
         } catch {
             // Caching is best-effort.
         }
     }
 
-    return await response.json();
+    return data;
 };
 
 export const determineGeoJSON = async (
@@ -638,6 +741,25 @@ out ${outType};
     }
     return data;
 };
+
+/** Every place of a kind in the game area, e.g. all parks. */
+export const findPlacesOfKind = (location: APILocations) =>
+    findPlacesInZone(
+        `[${LOCATION_FIRST_TAG[location]}=${location}]`,
+        `Finding ${prettifyLocation(location, true).toLowerCase()}...`,
+        "nwr",
+        "center",
+        [],
+        60,
+    );
+
+export const findHighSpeedLines = () =>
+    findPlacesInZone(
+        "[highspeed=yes]",
+        "Finding high-speed lines...",
+        "nwr",
+        "geom",
+    );
 
 export const findPlacesSpecificInZone = async (
     location: `${QuestionSpecificLocation}`,

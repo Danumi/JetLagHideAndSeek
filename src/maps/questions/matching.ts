@@ -17,13 +17,14 @@ import {
     mapGeoLocation,
     polyGeoJSON,
 } from "@/lib/context";
+import { memoizeAsync } from "@/lib/utils";
 import {
     findAdminBoundary,
     findLandmassIslands,
     findNearestStreet,
     findPlacesInZone,
+    findPlacesOfKind,
     findStreetLines,
-    LOCATION_FIRST_TAG,
     MAX_PLACES_IN_ZONE,
     nearestToQuestion,
     prettifyLocation,
@@ -89,24 +90,7 @@ export const findMatchingPlaces = async (question: MatchingQuestion) => {
         case "park-full": {
             const location = question.type.split("-full")[0] as APILocations;
 
-            const data = await findPlacesInZone(
-                `[${LOCATION_FIRST_TAG[location]}=${location}]`,
-                `Finding ${prettifyLocation(location, true).toLowerCase()}...`,
-                "nwr",
-                "center",
-                [],
-                60,
-            );
-
-            if (data.remark && data.remark.startsWith("runtime error")) {
-                toast.error(
-                    `Error finding ${prettifyLocation(
-                        location,
-                        true,
-                    ).toLowerCase()}. Please enable hiding zone mode and switch to the Large Game variation of this question.`,
-                );
-                return [];
-            }
+            const data = await findPlacesOfKind(location);
 
             if (data.elements.length >= MAX_PLACES_IN_ZONE) {
                 toast.error(
@@ -128,7 +112,7 @@ export const findMatchingPlaces = async (question: MatchingQuestion) => {
     }
 };
 
-export const determineMatchingBoundary = _.memoize(
+export const determineMatchingBoundary = memoizeAsync(
     async (question: MatchingQuestion) => {
         let boundary;
 

@@ -1,6 +1,8 @@
 import * as turf from "@turf/turf";
 import type { Feature, MultiPolygon } from "geojson";
 
+import { trackLoading } from "@/lib/loading";
+
 import { cacheFetch } from "./cache";
 import { CacheType } from "./types";
 
@@ -37,22 +39,22 @@ const decodePng = async (blob: Blob) => {
 const loadTile = (x: number, y: number) => {
     const key = `${x}/${y}`;
     if (!tiles.has(key)) {
-        tiles.set(
-            key,
-            (async () => {
-                try {
-                    const response = await cacheFetch(
-                        tileUrl(x, y),
-                        undefined,
-                        CacheType.PERMANENT_CACHE,
-                    );
-                    if (!response.ok) return null;
-                    return await decodePng(await response.blob());
-                } catch {
-                    return null;
-                }
-            })(),
-        );
+        const tile = (async () => {
+            try {
+                const response = await cacheFetch(
+                    tileUrl(x, y),
+                    undefined,
+                    CacheType.PERMANENT_CACHE,
+                );
+                if (!response.ok) return null;
+                return await decodePng(await response.blob());
+            } catch {
+                return null;
+            }
+        })();
+        tiles.set(key, tile);
+        // Try a missing tile again next time
+        tile.then((data) => data === null && tiles.delete(key));
     }
     return tiles.get(key)!;
 };
@@ -78,6 +80,26 @@ const toTile = (lat: number, lng: number) => {
 const readElevation = (data: Uint8ClampedArray, px: number, py: number) => {
     const i = (py * TILE_SIZE + px) * 4;
     return data[i] * 256 + data[i + 1] + data[i + 2] / 256 - 32768;
+};
+
+/** Loads the elevation of a whole bbox ahead of time; false if some is missing. */
+export const preloadElevation = async (
+    bbox: [number, number, number, number],
+) => {
+    const [west, south, east, north] = bbox;
+    const from = toTile(north, west);
+    const to = toTile(south, east);
+    const loads: Promise<Uint8ClampedArray | null>[] = [];
+    for (let x = from.x; x <= to.x; x++) {
+        for (let y = from.y; y <= to.y; y++) {
+            loads.push(loadTile(x, y));
+        }
+    }
+    const loaded = await trackLoading(
+        "Loading elevation data...",
+        Promise.all(loads),
+    );
+    return loaded.every((data) => data !== null);
 };
 
 /** Elevation in meters above sea level, or null if the tile can't be loaded. */

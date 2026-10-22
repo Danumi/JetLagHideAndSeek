@@ -22,6 +22,7 @@ pnpm vitest run       # Tests einmalig
 
 - Im Entwicklungsserver (`pnpm dev`) öffnet sich die Fragen-Seitenleiste nicht aus anderen Inseln heraus (Modul doppelt geladen). Das klappt nur im Build: `pnpm build && pnpm preview`.
 - `pnpm lint` formatiert das ganze Repo mit Prettier um und erzeugt riesige Diffs. Stattdessen nur geänderte Dateien formatieren: `pnpm eslint --fix <dateien> && pnpm prettier --write <dateien>`.
+- Test im Browser (Cloud-Umgebung): `pnpm build && pnpm preview`, dann Chromium aus `/opt/pw-browsers` per Playwright mit `--proxy-server=https=127.0.0.1:<Port aus $HTTPS_PROXY>` starten (sonst landet auch localhost beim Proxy). Daniels Overpass-Zugang nur im Test-Browser per localStorage setzen (`overpassHost` = `custom`, `overpassCustomHost`), nie ins Repo.
 - Bekannt und nicht von uns verursacht: 8 Tests in `tests/stationManipulations.test.ts` schlagen fehl (`ReferenceError: require is not defined` aus dem ArcGIS-WASM-Modul unter Vitest). Die übrigen Tests müssen grün bleiben.
 
 ## Deployment
@@ -33,12 +34,16 @@ pnpm vitest run       # Tests einmalig
 
 ## Wo was liegt
 
-- `src/maps/api/overpass.ts`: alle Overpass-Abfragen, Server-Fallback, `trainLineNodeFinder`, `findPlacesInZone`
+- `src/maps/api/overpass.ts`: alle Overpass-Abfragen, Server-Fallback, `trainLineNodeFinder`, `findPlacesInZone`. Antwortet ein Server mit 429/503 (belegt), fragt `getOverpassData` denselben Server nach `Retry-After` bzw. 2 s nochmal (bis 5-mal); nach 10 s ohne Antwort zusätzlich den nächsten Server; nach 60 s gibt sie auf. Bei Fehlschlag oder „runtime error"-Remark wirft sie `OverpassError` (nichts wird gespeichert) und zeigt eine Meldung mit „Retry".
+- overpass.ch (Daniels Zugang, Gratis-Tarif): 10.000 Abfragen/Monat, 30/Minute, nur 1 Abfrage gleichzeitig (sonst 429 `concurrency_limit`).
 - `src/maps/api/constants.ts`: `OVERPASS_HOSTS` (die drei öffentlichen Server)
-- `src/maps/api/cache.ts`: Browser-Cache (Cache API). Schlüssel ist die komplette URL inklusive Server, ein Serverwechsel heißt also leerer Cache.
+- `src/maps/api/cache.ts`: Browser-Cache (Cache API). Schlüssel ist die komplette URL inklusive Server, ein Serverwechsel heißt also leerer Cache. Der Cache wird nicht mehr geleert, wenn alle Fragen weg sind; nur „New Game" leert ihn, wenn das letzte vollständige Vorladen älter als 7 Tage ist.
+- `src/maps/preload.ts`: „New Game" (und Optionen → „Preload map data") lädt nacheinander Stationen, die Orte aller Deck-Karten (`DECK_PLACE_KINDS`), Schnellfahrstrecken, Inseln, Gewässer, Höhendaten und die Linien jeder Station (rund 125 Abfragen, etwa 8 Minuten, nur wenn nicht schon im Cache). Wartet, solange die Karte rechnet. Die Abfragen müssen exakt dieselben sein wie in den Fragen (gleiche URL = Cache-Treffer), deshalb gemeinsame Funktionen wie `findPlacesOfKind`.
+- `src/lib/loading.tsx` und `src/components/LoadingIndicator.tsx`: ein Ladekasten oben auf der Karte statt „Finding …"-Meldungen, Fehlermeldung mit „Retry" (`retryTrigger` rechnet Karte, Zonen und abgebrochenes Vorladen neu)
+- `src/maps/stations.ts`: die Stationen der Hiding Zones (`findHidingZoneStations`), genutzt von `ZoneSidebar.tsx` und der Bahnhof-Frage
 - `src/maps/questions/*.ts`: Logik je Fragetyp. `radius` und `thermometer` rechnen rein lokal; `matching`, `measuring` und `tentacles` holen OSM-Daten.
 - `src/maps/schema.ts`: alle Fragetypen. Die Gruppe „Hiding Zone Mode" ist im Dropdown nur aktiv, wenn „Display hiding zones?" eingeschaltet ist.
-- `src/components/ZoneSidebar.tsx`: Hiding Zones und die Filter für Stationsfragen (inklusive „Same train line")
+- `src/components/ZoneSidebar.tsx`: Hiding Zones und die Filter für Stationsfragen (inklusive „Same train line"). Karte (`Map.tsx`) und Zonen rechnen erst 400 ms nach der letzten Änderung; was während einer Berechnung geändert wird, wird danach nachgeholt.
 - `src/components/OptionDrawers.tsx`: Einstellungen
 - `src/maps/deck.ts`: Small-Deck (20 Matching, 20 Measuring, Radar- und Thermometer-Distanzen) mit Zuordnung zu den Fragetypen der App; geprüft in `tests/deck.test.ts`
 - `src/components/AskQuestion.tsx`: großer Knopf „Ask a question" über der unteren Leiste, das laufende Thermometer und der orange Hinweis „Enter answer" für offene Fragen
@@ -94,8 +99,5 @@ Einheiten: Spieler sehen nur Meter und Kilometer, intern wird teils in Meilen ge
 - Etappe 3: Knopf „Ask a question" mit Auswahl nach Small-Deck, neue Fragen am GPS-Standort, Radar-Knöpfe, Thermometer mit mitlaufender Strecke, Verwaltungsebenen mit Wiener Namen, Experten-Schalter „Show all question types?" (Tentakel und alle Varianten), Park-Frage repariert
 - Statusmeldungen (Toasts) lassen Berührungen zur Karte durch, nur ihre Knöpfe (×, Undo) sind antippbar; die Karte springt nach dem Laden nicht zurück, wenn man sie währenddessen bewegt hat
 - Etappe 4: Neue Fragen warten auf die Antwort (`status: "pending"`, gestrichelter oranger Umriss, nichts wird gestrichen). Große Antwortknöpfe plus „No answer". Nach der Antwort gesperrt und als Zeile im Protokoll („1 · Radar 2 km · Karlsplatz · Outside · 15:20"), „Edit" öffnet die Frage wieder. Alte gespeicherte Fragen ohne Status gelten als beantwortet. Eine Änderung während die Karte lädt geht nicht mehr verloren (Map.tsx rechnet danach nochmal). Stationsnamen-Länge kennt jetzt auch „Different"
+- Etappe 6: Vorladen bei „New Game", Cache bleibt beim Löschen der Fragen, Ladekasten statt Meldungen, „Retry" bei hängenden Servern, Karte rechnet erst nach dem Tippen. Bahnhof-Frage (Measuring „Rail Station") wirkt jetzt auf die ganze Karte: Kreise mit dem Abstand der Sucher zu ihrer nächsten Station um alle Hiding-Zone-Stationen (nicht mehr nur beim Antippen einer Zone).
 - Etappe 2: Start in Wien (OSM-Relation 109166) mit Hiding Zones an U-Bahn-Stationen und 500 m, Knopf „New Game" (`NewGameDialog.tsx`), überall metrisch (Radar-Start 5 km), Tutorial startet nicht mehr von selbst, Stationsnamen nach `name` statt `name:en` (auch im Hider-Modus, der jetzt dieselben Stationsarten wie die Hiding Zones nutzt)
-
-## Ideen für später
-
-- Knopf „Daten fürs Spiel vorladen"
