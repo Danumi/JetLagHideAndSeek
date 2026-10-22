@@ -5,8 +5,10 @@ import { leafletMapContext } from "@/lib/context";
 
 export type LatLng = { lat: number; lng: number };
 
-/** The device's position, or null when the browser can't or won't tell. */
-export const getCurrentPosition = (): Promise<LatLng | null> =>
+/** The device's position (accuracy in meters), or null when the browser can't or won't tell. */
+export const getCurrentPosition = (): Promise<
+    (LatLng & { accuracy: number }) | null
+> =>
     new Promise((resolve) => {
         if (typeof navigator === "undefined" || !navigator.geolocation) {
             resolve(null);
@@ -17,6 +19,7 @@ export const getCurrentPosition = (): Promise<LatLng | null> =>
                 resolve({
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
+                    accuracy: position.coords.accuracy,
                 }),
             () => resolve(null),
             { enableHighAccuracy: true, maximumAge: 15_000, timeout: 10_000 },

@@ -1,6 +1,6 @@
 import * as turf from "@turf/turf";
 
-import { hiderMode } from "@/lib/context";
+import { type HiderLocation, hiderMode } from "@/lib/context";
 import { findTentacleLocations } from "@/maps/api";
 import {
     arcBuffer,
@@ -97,8 +97,10 @@ export const adjustPerTentacle = async (
     );
 };
 
-export const hiderifyTentacles = async (question: TentacleQuestion) => {
-    const $hiderMode = hiderMode.get();
+export const hiderifyTentacles = async (
+    question: TentacleQuestion,
+    $hiderMode: HiderLocation | false = hiderMode.get(),
+) => {
     if ($hiderMode === false) {
         return question;
     }

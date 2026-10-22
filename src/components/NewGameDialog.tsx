@@ -8,6 +8,7 @@ import {
     disabledStations,
     displayHidingZones,
     displayHidingZonesOptions,
+    hiderInbox,
     hidingRadius,
     hidingRadiusUnits,
     isLoading,
@@ -57,6 +58,8 @@ export const startNewGame = () => {
     trainStations.set([]);
     allTrainStations.set([]);
     displayHidingZones.set(true);
+
+    hiderInbox.set([]);
 
     // Clearing the questions also reloads the map
     if (questions.get().length > 0) {

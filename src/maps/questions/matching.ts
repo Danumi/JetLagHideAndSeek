@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 
 import {
     displayHidingZonesOptions,
+    type HiderLocation,
     hiderMode,
     mapGeoJSON,
     mapGeoLocation,
@@ -352,8 +353,10 @@ export const adjustPerMatching = async (
     return modifyMapData(mapData, boundary, question.same);
 };
 
-export const hiderifyMatching = async (question: MatchingQuestion) => {
-    const $hiderMode = hiderMode.get();
+export const hiderifyMatching = async (
+    question: MatchingQuestion,
+    $hiderMode: HiderLocation | false = hiderMode.get(),
+) => {
     if ($hiderMode === false) {
         return question;
     }

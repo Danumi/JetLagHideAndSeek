@@ -54,8 +54,9 @@ export const decompress = async (
 
     const cs = new DecompressionStream(encoding);
     const writer = cs.writable.getWriter();
-    writer.write(bytes);
-    writer.close();
+    // Broken data fails the read below; these would fail unhandled
+    writer.write(bytes).catch(() => {});
+    writer.close().catch(() => {});
     const arrayBuffer = await new Response(cs.readable).arrayBuffer();
     return new TextDecoder().decode(arrayBuffer);
 };
@@ -132,6 +133,29 @@ export async function shareOrFallback(
             // Try again with clipboard
             return shareOrFallback(url, true);
         });
+}
+
+/**
+ * Opens the share sheet (WhatsApp and co.) with a message, or copies it to the
+ * clipboard where there is no share sheet.
+ */
+export async function shareMessage(
+    text: string,
+): Promise<"shared" | "copied" | "cancelled" | false> {
+    if (navigator.share) {
+        try {
+            await navigator.share({ text });
+            return "shared";
+        } catch (error) {
+            if ((error as Error).name === "AbortError") return "cancelled";
+        }
+    }
+    try {
+        await navigator.clipboard.writeText(text);
+        return "copied";
+    } catch {
+        return false;
+    }
 }
 
 /**
