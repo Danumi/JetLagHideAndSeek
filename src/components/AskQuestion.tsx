@@ -24,10 +24,11 @@ import {
     thermometerRun,
 } from "@/lib/context";
 import {
-    getCurrentPosition,
+    getPrecisePosition,
     type LatLng,
     questionLocation,
     showQuestion,
+    watchFreshPosition,
 } from "@/lib/gps";
 import { cn } from "@/lib/utils";
 import { isPending, questionTitle } from "@/maps/answers";
@@ -102,14 +103,15 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
     const [busy, setBusy] = useState(false);
     const [otherKilometers, setOtherKilometers] = useState("");
 
-    const ask = async (data: (at: LatLng) => any) => {
+    const ask = async (data: (at: LatLng & { accuracy?: number }) => any) => {
+        // The map shows how precise the location is while the app waits for it
+        setOpen(false);
         setBusy(true);
         try {
             const at = await questionLocation();
             if (!at) return;
             const key = Math.random();
             addQuestion({ key, ...data(at) });
-            setOpen(false);
             showQuestion(key);
         } finally {
             setBusy(false);
@@ -119,25 +121,39 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
     const askCard = (id: "matching" | "measuring", card: DeckCard) =>
         ask((at) => ({
             id,
-            data: { lat: at.lat, lng: at.lng, ...cardQuestionData(card) },
+            data: {
+                lat: at.lat,
+                lng: at.lng,
+                accuracy: at.accuracy,
+                ...cardQuestionData(card),
+            },
         }));
 
     const askRadar = (radius: number, unit: "meters" | "kilometers") =>
         ask((at) => ({
             id: "radius",
-            data: { lat: at.lat, lng: at.lng, radius, unit },
+            data: {
+                lat: at.lat,
+                lng: at.lng,
+                accuracy: at.accuracy,
+                radius,
+                unit,
+            },
         }));
 
     const startThermometer = async (kilometers: number) => {
+        setOpen(false);
         setBusy(true);
-        const at = await toast.promise(getCurrentPosition(), {
-            pending: "Getting your location...",
-        });
+        const at = await getPrecisePosition();
         setBusy(false);
 
         if (at) {
-            thermometerRun.set({ latA: at.lat, lngA: at.lng, kilometers });
-            setOpen(false);
+            thermometerRun.set({
+                latA: at.lat,
+                lngA: at.lng,
+                accuracyA: at.accuracy,
+                kilometers,
+            });
             return;
         }
 
@@ -163,7 +179,6 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
             'Couldn\'t get your location. Set where you started and stopped with "Pick on map".',
             { autoClose: 6000 },
         );
-        setOpen(false);
         showQuestion(key);
     };
 
@@ -340,7 +355,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                         "h-14 rounded-xl bg-blue-600 px-4 text-base font-semibold text-white shadow-lg hover:bg-blue-700",
                         className,
                     )}
-                    disabled={$isLoading || !!$thermometerRun}
+                    disabled={$isLoading || !!$thermometerRun || busy}
                 >
                     <TbMessage2Question className="!size-6" />
                     Ask a question
@@ -381,17 +396,19 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
 export const ThermometerTracker = ({
     run,
 }: {
-    run: { latA: number; lngA: number; kilometers: number };
+    run: { latA: number; lngA: number; accuracyA?: number; kilometers: number };
 }) => {
     const [position, setPosition] = useState<LatLng | null>(null);
     const [noSignal, setNoSignal] = useState(false);
+    const [locating, setLocating] = useState(false);
 
     useEffect(() => {
         if (typeof navigator === "undefined" || !navigator.geolocation) {
             setNoSignal(true);
             return;
         }
-        const id = navigator.geolocation.watchPosition(
+        // Starts over after the phone was locked on the way
+        const watch = watchFreshPosition(
             (p) => {
                 setPosition({
                     lat: p.coords.latitude,
@@ -400,23 +417,23 @@ export const ThermometerTracker = ({
                 setNoSignal(false);
             },
             () => setNoSignal(true),
-            { enableHighAccuracy: true, maximumAge: 5_000 },
+            5_000,
         );
-        return () => navigator.geolocation.clearWatch(id);
+        return watch.stop;
     }, []);
 
     const target =
         run.kilometers < 1
             ? formatDistance(run.kilometers)
             : `${run.kilometers} km`;
-    const traveled = position
-        ? turf.distance([run.lngA, run.latA], [position.lng, position.lat], {
-              units: "kilometers",
-          })
-        : 0;
+    const traveledTo = (end: LatLng) =>
+        turf.distance([run.lngA, run.latA], [end.lng, end.lat], {
+            units: "kilometers",
+        });
+    const traveled = position ? traveledTo(position) : 0;
     const reached = traveled >= run.kilometers;
 
-    const finish = (end: LatLng) => {
+    const finish = (end: LatLng & { accuracy?: number }) => {
         const key = Math.random();
         addQuestion({
             id: "thermometer",
@@ -424,8 +441,10 @@ export const ThermometerTracker = ({
             data: {
                 latA: run.latA,
                 lngA: run.lngA,
+                accuracyA: run.accuracyA,
                 latB: end.lat,
                 lngB: end.lng,
+                accuracyB: end.accuracy,
             },
         });
         thermometerRun.set(null);
@@ -467,17 +486,22 @@ export const ThermometerTracker = ({
                         reached && "bg-green-600 text-white hover:bg-green-700",
                     )}
                     variant={reached ? "default" : "outline"}
-                    disabled={!position}
-                    onClick={() => {
+                    disabled={!position || locating}
+                    onClick={async () => {
+                        // The end is where the question is asked: a precise position
+                        setLocating(true);
+                        const end = (await getPrecisePosition()) ?? position!;
+                        setLocating(false);
+                        const traveledToEnd = traveledTo(end);
                         if (
-                            !reached &&
+                            traveledToEnd < run.kilometers &&
                             !window.confirm(
-                                `You have traveled ${formatDistance(traveled)}, the card needs ${target}. Set the end here anyway?`,
+                                `You have traveled ${formatDistance(traveledToEnd)}, the card needs ${target}. Set the end here anyway?`,
                             )
                         ) {
                             return;
                         }
-                        finish(position!);
+                        finish(end);
                     }}
                 >
                     Set end here

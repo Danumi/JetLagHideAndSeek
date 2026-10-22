@@ -26,7 +26,7 @@ import {
     questions,
     showAllQuestionTypes,
 } from "@/lib/context";
-import { MY_POSITION_ZOOM, placePickedPoint } from "@/lib/gps";
+import { MY_POSITION_ZOOM, placePickedPoint, watchMyPosition } from "@/lib/gps";
 import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
 import { applyQuestionsToMapGeoData, holedMask } from "@/maps";
@@ -500,8 +500,7 @@ export const Map = ({ className }: { className?: string }) => {
     }, [map]);
 
     useEffect(() => {
-        if (!map || typeof navigator === "undefined" || !navigator.geolocation)
-            return;
+        if (!map) return;
 
         // Your own position: a blue dot with a light circle for its accuracy,
         // above the grey area and the zones but below the question markers
@@ -523,49 +522,40 @@ export const Map = ({ className }: { className?: string }) => {
             }
         };
 
-        const watchId = navigator.geolocation.watchPosition(
-            (pos) => {
-                const position = {
-                    lat: pos.coords.latitude,
-                    lng: pos.coords.longitude,
-                    accuracy: pos.coords.accuracy,
-                    at: Date.now(),
-                };
-                myPosition.set(position);
-                const latLng: L.LatLngExpression = [position.lat, position.lng];
-                if (dot && halo) {
-                    dot.setLatLng(latLng);
-                    halo.setLatLng(latLng).setRadius(position.accuracy);
-                    follow(latLng, false);
-                    return;
-                }
-                follow(latLng, true);
-                halo = L.circle(latLng, {
-                    radius: position.accuracy,
-                    stroke: false,
-                    fillColor: "#2563eb",
-                    fillOpacity: 0.12,
-                    interactive: false,
-                    pane: "myPosition",
-                }).addTo(map);
-                dot = L.circleMarker(latLng, {
-                    radius: 8,
-                    color: "#ffffff",
-                    weight: 3,
-                    fillColor: "#2563eb",
-                    fillOpacity: 1,
-                    interactive: false,
-                    pane: "myPosition",
-                }).addTo(map);
-            },
-            // No dot without permission or signal; questions still ask for GPS
-            () => {},
-            { enableHighAccuracy: true, maximumAge: 10_000 },
-        );
+        const stopWatching = watchMyPosition();
+        const unsubscribe = myPosition.subscribe((position) => {
+            if (!position) return;
+            const latLng: L.LatLngExpression = [position.lat, position.lng];
+            if (dot && halo) {
+                dot.setLatLng(latLng);
+                halo.setLatLng(latLng).setRadius(position.accuracy);
+                follow(latLng, false);
+                return;
+            }
+            follow(latLng, true);
+            halo = L.circle(latLng, {
+                radius: position.accuracy,
+                stroke: false,
+                fillColor: "#2563eb",
+                fillOpacity: 0.12,
+                interactive: false,
+                pane: "myPosition",
+            }).addTo(map);
+            dot = L.circleMarker(latLng, {
+                radius: 8,
+                color: "#ffffff",
+                weight: 3,
+                fillColor: "#2563eb",
+                fillOpacity: 1,
+                interactive: false,
+                pane: "myPosition",
+            }).addTo(map);
+        });
 
         return () => {
             map.off("dragstart", stopFollowing);
-            navigator.geolocation.clearWatch(watchId);
+            stopWatching();
+            unsubscribe();
             dot?.remove();
             halo?.remove();
         };

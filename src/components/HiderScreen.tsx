@@ -8,7 +8,7 @@ import {
     TriangleAlertIcon,
     VenetianMaskIcon,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,7 @@ import {
     questions,
     settingsOpen,
 } from "@/lib/context";
-import { getCurrentPosition } from "@/lib/gps";
+import { findPrecisePosition } from "@/lib/gps";
 import { loadingTasks, retryTrigger } from "@/lib/loading";
 import { QUESTION_URL_PARAM, readQuestionLink } from "@/lib/questionLink";
 import { questionLinkRole, setRole } from "@/lib/role";
@@ -35,7 +35,8 @@ import { showActionToast } from "./UndoToast";
 
 /** Where the hider's location comes from. */
 type Fix =
-    | { state: "locating" }
+    /** `accuracy`: of the most precise position so far, in meters. */
+    | { state: "locating"; accuracy?: number }
     | { state: "failed" }
     | {
           state: "gps";
@@ -209,9 +210,16 @@ export const HiderScreen = () => {
     const [result, setResult] = useState<Result | null>(null);
     const [attempt, setAttempt] = useState(0);
 
+    const stopWaiting = useRef(() => {});
+
+    /** Waits a few seconds for a precise position, like new questions. */
     const locate = async () => {
         setFix({ state: "locating" });
-        const position = await getCurrentPosition();
+        const search = findPrecisePosition((best) =>
+            setFix({ state: "locating", accuracy: best?.accuracy }),
+        );
+        stopWaiting.current = search.stopWaiting;
+        const position = await search.position;
         if (!position) {
             setFix({ state: "failed" });
             return;
@@ -340,7 +348,10 @@ export const HiderScreen = () => {
             <div className="flex items-center gap-3 rounded-lg border p-3">
                 <LocateFixedIcon className="size-5 shrink-0" />
                 <div className="min-w-0 flex-1 text-sm">
-                    {fix.state === "locating" && "Getting your location..."}
+                    {fix.state === "locating" &&
+                        (fix.accuracy === undefined
+                            ? "Getting your location..."
+                            : `Getting your location · ±${Math.round(fix.accuracy)} m`)}
                     {fix.state === "failed" && (
                         <span className="text-orange-400">
                             Couldn&apos;t get your location. Allow location
@@ -357,14 +368,24 @@ export const HiderScreen = () => {
                     {fix.state === "marker" &&
                         "Your location: the H marker on the map"}
                 </div>
-                <Button
-                    variant="outline"
-                    size="sm"
-                    disabled={fix.state === "locating"}
-                    onClick={locate}
-                >
-                    Update
-                </Button>
+                {fix.state === "locating" && fix.accuracy !== undefined ? (
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => stopWaiting.current()}
+                    >
+                        Use anyway
+                    </Button>
+                ) : (
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={fix.state === "locating"}
+                        onClick={locate}
+                    >
+                        Update
+                    </Button>
+                )}
             </div>
             {fix.state === "failed" && (
                 <Button

@@ -452,6 +452,8 @@ export const showAllQuestionTypes = persistentAtom<boolean>(
 export const thermometerRun = persistentAtom<{
     latA: number;
     lngA: number;
+    /** How precise the GPS position of the start was, in meters. */
+    accuracyA?: number;
     kilometers: number;
 } | null>("thermometerRun", null, {
     encode: JSON.stringify,

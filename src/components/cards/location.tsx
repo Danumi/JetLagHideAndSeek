@@ -4,7 +4,8 @@ import { LocateIcon, MapPinIcon, MousePointerClickIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { allTrainStations, type PickTarget } from "@/lib/context";
-import { moveToMyLocation, pickOnMap } from "@/lib/gps";
+import { IMPRECISE_METERS, moveToMyLocation, pickOnMap } from "@/lib/gps";
+import { cn } from "@/lib/utils";
 import type { StationPlace } from "@/maps/api";
 import { extractStationName } from "@/maps/geo-utils";
 import type { Question } from "@/maps/schema";
@@ -44,22 +45,30 @@ export const placeText = (question: Question, stations: StationPlace[]) => {
     return nearestStationName(question.data.lat, question.data.lng, stations);
 };
 
-/** One point of a question with "Use my location" and "Pick on map". */
+/**
+ * One point of a question with "Use my location" and "Pick on map", and how
+ * precise its GPS position was (`accuracy` in meters, none when set by hand).
+ */
 const PointRow = ({
     label,
     lat,
     lng,
+    accuracy,
     target,
     disabled,
 }: {
     label: string;
     lat: number;
     lng: number;
+    accuracy?: number;
     target: PickTarget;
     disabled?: boolean;
 }) => {
     const $allTrainStations = useStore(allTrainStations);
     const station = nearestStationName(lat, lng, $allTrainStations);
+    const meters = accuracy === undefined ? undefined : Math.round(accuracy);
+    const imprecise =
+        !disabled && meters !== undefined && meters > IMPRECISE_METERS;
 
     return (
         <div className="flex flex-col gap-2 rounded-md border p-2">
@@ -69,7 +78,26 @@ const PointRow = ({
                 <span className="min-w-0 truncate font-semibold">
                     {station ? `near ${station}` : "its pin on the map"}
                 </span>
+                {meters !== undefined && (
+                    <span
+                        className={cn(
+                            "ml-auto shrink-0",
+                            imprecise
+                                ? "text-red-400"
+                                : "text-muted-foreground",
+                        )}
+                        title="How precise the GPS location was"
+                    >
+                        ±{meters} m
+                    </span>
+                )}
             </div>
+            {imprecise && (
+                <p className="text-sm text-red-400">
+                    GPS was only accurate to ±{meters} m. Check the pin, or set
+                    it with &quot;Pick on map&quot;.
+                </p>
+            )}
             <div className="grid grid-cols-2 gap-2">
                 <Button
                     variant="outline"
@@ -109,6 +137,7 @@ export const QuestionLocation = ({ question }: { question: Question }) => {
                     label="Start"
                     lat={question.data.latA}
                     lng={question.data.lngA}
+                    accuracy={question.data.accuracyA}
                     target={{ questionKey: question.key, point: "start" }}
                     disabled={disabled}
                 />
@@ -116,6 +145,7 @@ export const QuestionLocation = ({ question }: { question: Question }) => {
                     label="End"
                     lat={question.data.latB}
                     lng={question.data.lngB}
+                    accuracy={question.data.accuracyB}
                     target={{ questionKey: question.key, point: "end" }}
                     disabled={disabled}
                 />
@@ -133,6 +163,7 @@ export const QuestionLocation = ({ question }: { question: Question }) => {
             label="Asked at"
             lat={question.data.lat}
             lng={question.data.lng}
+            accuracy={question.data.accuracy}
             target={{ questionKey: question.key }}
             disabled={disabled}
         />
