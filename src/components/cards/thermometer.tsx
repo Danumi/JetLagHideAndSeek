@@ -1,6 +1,7 @@
 import { useStore } from "@nanostores/react";
 
 import { triggerLocalRefresh } from "@/lib/context";
+import { t, useLanguage } from "@/lib/i18n";
 import type { ThermometerQuestion } from "@/maps/schema";
 
 import { CardNote, QuestionCard } from "./base";
@@ -17,6 +18,7 @@ export const ThermometerQuestionComponent = ({
     className?: string;
 }) => {
     useStore(triggerLocalRefresh);
+    useLanguage();
 
     return (
         <QuestionCard
@@ -24,10 +26,7 @@ export const ThermometerQuestionComponent = ({
             sub={sub}
             className={className}
         >
-            <CardNote>
-                Warmer: the hider is closer to the end than to the start (the
-                hollow pin).
-            </CardNote>
+            <CardNote>{t("thermometer.note")}</CardNote>
         </QuestionCard>
     );
 };

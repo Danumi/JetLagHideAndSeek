@@ -1,5 +1,6 @@
 import * as turf from "@turf/turf";
 
+import { formatNumber, type MessageKey, t, tr } from "@/lib/i18n";
 import {
     matchingCardFor,
     measuringCardFor,
@@ -20,6 +21,11 @@ import {
 
 export type AnswerOption = { value: string; label: string };
 
+const option = (value: string): AnswerOption => ({
+    value,
+    label: t(`answer.${value}` as MessageKey),
+});
+
 /** Only answered questions change the map; pending ones show an outline. */
 export const questionApplies = (
     question: Question,
@@ -39,32 +45,20 @@ export const isLogged = (question: Question) =>
 export const answerOptions = (question: Question): AnswerOption[] => {
     switch (question.id) {
         case "radius":
-            return [
-                { value: "inside", label: "Inside" },
-                { value: "outside", label: "Outside" },
-            ];
+            return [option("inside"), option("outside")];
         case "thermometer":
-            return [
-                { value: "warmer", label: "Warmer" },
-                { value: "colder", label: "Colder" },
-            ];
+            return [option("warmer"), option("colder")];
         case "measuring":
-            return [
-                { value: "closer", label: "Closer" },
-                { value: "further", label: "Further" },
-            ];
+            return [option("closer"), option("further")];
         case "matching":
             return question.data.type === "same-length-station"
                 ? [
-                      { value: "same", label: "Same" },
-                      { value: "different", label: "Different" },
-                      { value: "shorter", label: "Shorter" },
-                      { value: "longer", label: "Longer" },
+                      option("same"),
+                      option("different"),
+                      option("shorter"),
+                      option("longer"),
                   ]
-                : [
-                      { value: "same", label: "Same" },
-                      { value: "different", label: "Different" },
-                  ];
+                : [option("same"), option("different")];
         default:
             return [];
     }
@@ -126,12 +120,14 @@ export const setNoAnswer = (question: Question) => {
 };
 
 export const answerText = (question: Question) => {
-    if (question.data.status === "pending") return "Waiting for answer";
-    if (question.data.status === "no-answer") return "No answer";
+    if (question.data.status === "pending") return t("answer.waiting");
+    if (question.data.status === "no-answer") return t("answer.none");
     if (question.id === "tentacles") {
         return question.data.location
-            ? String(question.data.location.properties?.name ?? "Place")
-            : "Not within";
+            ? String(
+                  question.data.location.properties?.name ?? t("answer.place"),
+              )
+            : t("answer.notWithin");
     }
     const value = currentAnswer(question);
     return (
@@ -150,10 +146,11 @@ const typeLabels = (schema: { options: readonly any[] }) =>
 const MATCHING_TYPE_LABELS = typeLabels(matchingQuestionSchema);
 const MEASURING_TYPE_LABELS = typeLabels(measuringQuestionSchema);
 
+/** "350 m", "1.2 km" (German: "1,2 km"). */
 export const formatKilometers = (kilometers: number) =>
     kilometers < 1
         ? `${Math.round(kilometers * 1000)} m`
-        : `${Number(kilometers.toFixed(1))} km`;
+        : `${formatNumber(kilometers)} km`;
 
 const formatRadius = (radius: number, unit: Units) =>
     Number.isFinite(radius) && radius >= 0
@@ -177,22 +174,28 @@ export const questionTitle = (question: Question) => {
                 ),
             )}`;
         case "tentacles":
-            return `Tentacles ${formatRadius(
+            return `${t("kind.tentacles")} ${formatRadius(
                 question.data.radius,
                 question.data.unit,
             )}`;
-        case "matching":
+        case "matching": {
+            const card = matchingCardFor(question.data);
             return `Matching: ${
-                matchingCardFor(question.data)?.label ??
-                MATCHING_TYPE_LABELS[question.data.type] ??
-                question.data.type
+                card
+                    ? tr(card.label)
+                    : (MATCHING_TYPE_LABELS[question.data.type] ??
+                      question.data.type)
             }`;
-        case "measuring":
+        }
+        case "measuring": {
+            const card = measuringCardFor(question.data);
             return `Measuring: ${
-                measuringCardFor(question.data)?.label ??
-                MEASURING_TYPE_LABELS[question.data.type] ??
-                question.data.type
+                card
+                    ? tr(card.label)
+                    : (MEASURING_TYPE_LABELS[question.data.type] ??
+                      question.data.type)
             }`;
+        }
     }
 };
 

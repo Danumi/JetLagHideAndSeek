@@ -30,6 +30,7 @@ import {
     showQuestion,
     watchFreshPosition,
 } from "@/lib/gps";
+import { formatNumber, type MessageKey, t, tr, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { isPending, questionTitle } from "@/maps/answers";
 import {
@@ -44,38 +45,43 @@ import {
 
 import { QUESTION_ICONS } from "./questionIcons";
 
+/** The kinds keep their names from the game in both languages. */
 const KINDS = {
     matching: {
         label: "Matching",
-        question: "Is your nearest ___ the same as mine?",
+        question: "kind.matching.question",
         icon: QUESTION_ICONS.matching,
     },
     measuring: {
         label: "Measuring",
-        question: "Compared to me, are you closer to or further from ___?",
+        question: "kind.measuring.question",
         icon: QUESTION_ICONS.measuring,
     },
     radar: {
         label: "Radar",
-        question: "Are you within ___ of me?",
+        question: "kind.radar.question",
         icon: QUESTION_ICONS.radius,
     },
     thermometer: {
         label: "Thermometer",
-        question: "After traveling ___, am I hotter or colder?",
+        question: "kind.thermometer.question",
         icon: QUESTION_ICONS.thermometer,
     },
-} as const;
+} satisfies Record<
+    string,
+    { label: string; question: MessageKey; icon: unknown }
+>;
 
 type Kind = keyof typeof KINDS;
 
 const formatDistance = (kilometers: number) =>
     kilometers < 1
         ? `${Math.round(kilometers * 1000)} m`
-        : `${kilometers.toFixed(2)} km`;
+        : `${formatNumber(kilometers, 2, 2)} km`;
 
 /** Reminder of questions without an answer; opens the first one. */
 export const WaitingForAnswer = () => {
+    useLanguage();
     const $questions = useStore(questions);
     const pending = $questions.filter(isPending);
 
@@ -87,14 +93,15 @@ export const WaitingForAnswer = () => {
             onClick={() => showQuestion(pending[0].key)}
         >
             {pending.length === 1
-                ? `Enter answer: ${questionTitle(pending[0])}`
-                : `${pending.length} questions waiting for an answer`}
+                ? t("waiting.one", { title: questionTitle(pending[0]) })
+                : t("waiting.many", { count: pending.length })}
         </button>
     );
 };
 
 /** The big "Ask a question" button and the question cards it opens. */
 export const AskQuestionDrawer = ({ className }: { className?: string }) => {
+    useLanguage();
     const $isLoading = useStore(isLoading);
     const $thermometerRun = useStore(thermometerRun);
     const $displayHidingZones = useStore(displayHidingZones);
@@ -175,20 +182,17 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                 lngB: end.geometry.coordinates[0],
             },
         });
-        toast.warning(
-            'Couldn\'t get your location. Set where you started and stopped with "Pick on map".',
-            { autoClose: 6000 },
-        );
+        toast.warning(t("ask.thermometer.noLocation"), { autoClose: 6000 });
         showQuestion(key);
     };
 
     const cardButton = (id: "matching" | "measuring", card: DeckCard) => {
         const needsZones = card.needsHidingZones && !$displayHidingZones;
         const note = card.noAnswer
-            ? `No answer in Vienna. ${card.noAnswer}`
+            ? t("ask.noAnswer", { reason: tr(card.noAnswer) })
             : needsZones
-              ? "Turn on hiding zones first (Zones → Zone settings)."
-              : card.hint;
+              ? t("ask.needsZones")
+              : card.hint && tr(card.hint);
 
         return (
             <button
@@ -200,7 +204,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                 disabled={busy || !!card.noAnswer || needsZones}
                 onClick={() => askCard(id, card)}
             >
-                <div className="font-semibold">{card.label}</div>
+                <div className="font-semibold">{tr(card.label)}</div>
                 {note && (
                     <div
                         className={cn(
@@ -233,7 +237,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                                     {KINDS[k].label}
                                 </span>
                                 <span className="text-xs text-muted-foreground">
-                                    {KINDS[k].question}
+                                    {t(KINDS[k].question)}
                                 </span>
                             </button>
                         );
@@ -248,9 +252,9 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                     {deckGroups(
                         kind === "matching" ? MATCHING_DECK : MEASURING_DECK,
                     ).map(({ group, cards }) => (
-                        <div key={group} className="flex flex-col gap-2">
+                        <div key={group.en} className="flex flex-col gap-2">
                             <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                                {group}
+                                {tr(group)}
                             </h3>
                             {cards.map((card) => cardButton(kind, card))}
                         </div>
@@ -277,7 +281,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                         ))}
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="text-sm">Choose:</span>
+                        <span className="text-sm">{t("ask.radar.choose")}</span>
                         <Input
                             type="number"
                             inputMode="decimal"
@@ -305,7 +309,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                                 )
                             }
                         >
-                            Ask
+                            {t("ask.radar.ask")}
                         </Button>
                     </div>
                 </div>
@@ -315,10 +319,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
             content = (
                 <div className="flex flex-col gap-3">
                     <p className="text-sm text-muted-foreground">
-                        Starts at your current location. Send it to the hider,
-                        then travel; the app shows the distance as the crow
-                        flies. Tap &quot;Set end here&quot; when you are far
-                        enough.
+                        {t("ask.thermometer.help")}
                     </p>
                     <div className="grid grid-cols-2 gap-3">
                         {THERMOMETER_DISTANCES.map((distance) => (
@@ -331,7 +332,9 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                                     startThermometer(distance.kilometers)
                                 }
                             >
-                                Start {distance.label}
+                                {t("ask.thermometer.start", {
+                                    distance: distance.label,
+                                })}
                             </Button>
                         ))}
                     </div>
@@ -358,7 +361,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                     disabled={$isLoading || !!$thermometerRun || busy}
                 >
                     <TbMessage2Question className="!size-6" />
-                    Ask a question
+                    {t("ask.button")}
                 </Button>
             </DrawerTrigger>
             <DrawerContent className="max-h-[90vh]">
@@ -370,19 +373,19 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => setKind(null)}
-                                    title="Back"
+                                    title={t("common.back")}
                                 >
                                     <ChevronLeftIcon />
                                 </Button>
                             )}
                             <DrawerTitle className="text-2xl font-semibold font-poppins">
-                                {kind ? KINDS[kind].label : "Ask a question"}
+                                {kind ? KINDS[kind].label : t("ask.button")}
                             </DrawerTitle>
                         </div>
                         <DrawerDescription>
                             {kind
-                                ? KINDS[kind].question
-                                : "The question starts at your GPS location."}
+                                ? t(KINDS[kind].question)
+                                : t("ask.description")}
                         </DrawerDescription>
                     </DrawerHeader>
                     <div className="overflow-y-auto px-4 pb-6">{content}</div>
@@ -398,6 +401,7 @@ export const ThermometerTracker = ({
 }: {
     run: { latA: number; lngA: number; accuracyA?: number; kilometers: number };
 }) => {
+    useLanguage();
     const [position, setPosition] = useState<LatLng | null>(null);
     const [noSignal, setNoSignal] = useState(false);
     const [locating, setLocating] = useState(false);
@@ -425,7 +429,7 @@ export const ThermometerTracker = ({
     const target =
         run.kilometers < 1
             ? formatDistance(run.kilometers)
-            : `${run.kilometers} km`;
+            : `${formatNumber(run.kilometers, 2)} km`;
     const traveledTo = (end: LatLng) =>
         turf.distance([run.lngA, run.latA], [end.lng, end.lat], {
             units: "kilometers",
@@ -458,15 +462,18 @@ export const ThermometerTracker = ({
                     Thermometer {target}
                 </span>
                 <span className="text-xs text-muted-foreground">
-                    as the crow flies
+                    {t("thermometer.crowFlies")}
                 </span>
             </div>
             <div className="text-2xl font-semibold">
                 {position
-                    ? `${formatDistance(traveled)} of ${target}`
+                    ? t("thermometer.progress", {
+                          traveled: formatDistance(traveled),
+                          target,
+                      })
                     : noSignal
-                      ? "No GPS signal"
-                      : "Waiting for GPS..."}
+                      ? t("thermometer.noSignal")
+                      : t("thermometer.waiting")}
             </div>
             <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
                 <div
@@ -496,7 +503,10 @@ export const ThermometerTracker = ({
                         if (
                             traveledToEnd < run.kilometers &&
                             !window.confirm(
-                                `You have traveled ${formatDistance(traveledToEnd)}, the card needs ${target}. Set the end here anyway?`,
+                                t("thermometer.tooShort", {
+                                    traveled: formatDistance(traveledToEnd),
+                                    target,
+                                }),
                             )
                         ) {
                             return;
@@ -504,18 +514,18 @@ export const ThermometerTracker = ({
                         finish(end);
                     }}
                 >
-                    Set end here
+                    {t("thermometer.setEnd")}
                 </Button>
                 <Button
                     className="h-12"
                     variant="outline"
                     onClick={() => {
-                        if (window.confirm("Cancel this thermometer?")) {
+                        if (window.confirm(t("thermometer.cancel"))) {
                             thermometerRun.set(null);
                         }
                     }}
                 >
-                    Cancel
+                    {t("common.cancel")}
                 </Button>
             </div>
             {noSignal && !position && (
@@ -529,7 +539,7 @@ export const ThermometerTracker = ({
                         finish({ lat: center.lat, lng: center.lng });
                     }}
                 >
-                    Set end at the map center instead
+                    {t("thermometer.endAtCenter")}
                 </Button>
             )}
         </div>

@@ -17,6 +17,7 @@ import {
     zoneSheetOpen,
 } from "@/lib/context";
 import { cancelPickOnMap } from "@/lib/gps";
+import { t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { isPending } from "@/maps/answers";
 
@@ -63,10 +64,10 @@ const SideButton = ({
 );
 
 const pickText = (target: PickTarget) => {
-    if (target.questionKey === -1) return "Tap where you are hiding";
-    if (target.point === "start") return "Tap where the thermometer started";
-    if (target.point === "end") return "Tap where the thermometer ended";
-    return "Tap where the question was asked";
+    if (target.questionKey === -1) return t("pick.hiding");
+    if (target.point === "start") return t("pick.start");
+    if (target.point === "end") return t("pick.end");
+    return t("pick.question");
 };
 
 /** "Pick on map" is on: what to tap, and "Cancel". */
@@ -80,7 +81,7 @@ const PickOnMapHint = ({ target }: { target: PickTarget }) => (
             className="h-8 shrink-0 rounded-full"
             onClick={cancelPickOnMap}
         >
-            Cancel
+            {t("common.cancel")}
         </Button>
     </div>
 );
@@ -92,6 +93,7 @@ const PickOnMapHint = ({ target }: { target: PickTarget }) => (
  * questions waiting for an answer.
  */
 export const BottomBar = () => {
+    useLanguage();
     const $questions = useStore(questions);
     const $thermometerRun = useStore(thermometerRun);
     const $hiderMode = useStore(hiderMode);
@@ -119,7 +121,7 @@ export const BottomBar = () => {
                     {$hiderMode === false && (
                         <SideButton
                             icon={<ListIcon />}
-                            label="Questions"
+                            label={t("bar.questions")}
                             badge={$questions.length}
                             alert={anyPending}
                             onClick={() => SidebarContext.get().toggleSidebar()}
@@ -135,12 +137,12 @@ export const BottomBar = () => {
                             onClick={() => hiderScreenOpen.set(true)}
                         >
                             <VenetianMaskIcon className="!size-6" />
-                            Hider mode
+                            {t("bar.hiderMode")}
                         </Button>
                     )}
                     <SideButton
                         icon={<MapIcon />}
-                        label="Zones"
+                        label={t("bar.zones")}
                         onClick={() => zoneSheetOpen.set(true)}
                     />
                 </div>

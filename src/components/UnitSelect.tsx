@@ -1,3 +1,4 @@
+import { t, useLanguage } from "@/lib/i18n";
 import type { Units } from "@/maps/schema";
 
 import { Select } from "./ui/select";
@@ -11,12 +12,13 @@ export const UnitSelect = ({
     onChange: (unit: Units) => void;
     disabled?: boolean;
 }) => {
+    useLanguage();
     return (
         <Select
-            trigger="Unit"
+            trigger={t("card.unit")}
             options={{
-                kilometers: "Kilometers",
-                meters: "Meters",
+                kilometers: t("card.kilometers"),
+                meters: t("card.meters"),
             }}
             disabled={disabled}
             value={unit}

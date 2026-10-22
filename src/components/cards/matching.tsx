@@ -20,11 +20,12 @@ import {
     showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
+import { t, tr, useLanguage } from "@/lib/i18n";
 import { retryTrigger } from "@/lib/loading";
 import { findStationLines, type StationLine } from "@/maps/api";
 import {
-    ADMIN_LEVEL_LABELS,
     type AdminLevel,
+    adminLevelOptions,
     type DeckCard,
     deckSelectGroups,
     MATCHING_DECK,
@@ -66,6 +67,7 @@ const applyMatchingCard = (data: MatchingQuestion, card: DeckCard) => {
 
 /** Lets the seekers pick the one line they are riding (rules: "Transit Line"). */
 const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
+    useLanguage();
     const $allStations = useStore(allTrainStations);
     const $isLoading = useStore(isLoading);
     const $retryTrigger = useStore(retryTrigger);
@@ -81,7 +83,7 @@ const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
         );
     }, [$allStations, data.lat, data.lng]);
     const stationId: string | undefined = nearest?.properties?.id;
-    const stationName = nearest ? extractStationName(nearest) : null;
+    const station: string = (nearest && extractStationName(nearest)) ?? "";
 
     React.useEffect(() => {
         let cancelled = false;
@@ -96,24 +98,22 @@ const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
     }, [stationId, $retryTrigger]);
 
     if (!stationId) {
-        return (
-            <CardNote warning>
-                Turn on hiding zones to choose the seekers&apos; line.
-            </CardNote>
-        );
+        return <CardNote warning>{t("matching.line.noZones")}</CardNote>;
     }
     if (lines === null) {
-        return <CardNote>Loading lines at {stationName}...</CardNote>;
+        return <CardNote>{t("matching.line.loading", { station })}</CardNote>;
     }
     if (lines === "failed") {
         return (
             <CardNote warning>
-                The lines at {stationName} didn&apos;t load.
+                {t("matching.line.failed", { station })}
             </CardNote>
         );
     }
     if (lines.length === 0) {
-        return <CardNote warning>No lines found at {stationName}.</CardNote>;
+        return (
+            <CardNote warning>{t("matching.line.none", { station })}</CardNote>
+        );
     }
 
     const chosen = lines.some((line) => line.key === data.lineKey)
@@ -123,9 +123,9 @@ const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
         <>
             <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                 <Select
-                    trigger="Seekers' line"
+                    trigger={t("matching.line.select")}
                     options={{
-                        any: "Line not chosen (safe eliminations only)",
+                        any: t("matching.line.any"),
                         ...Object.fromEntries(
                             lines.map((line) => [line.key, line.label]),
                         ),
@@ -156,6 +156,7 @@ export const MatchingQuestionComponent = ({
     className?: string;
 }) => {
     useStore(triggerLocalRefresh);
+    useLanguage();
     const $displayHidingZones = useStore(displayHidingZones);
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $isLoading = useStore(isLoading);
@@ -176,8 +177,8 @@ export const MatchingQuestionComponent = ({
                     {($showAllQuestionTypes || !card) && (
                         <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                             <Select
-                                trigger="Administrative level"
-                                options={ADMIN_LEVEL_LABELS}
+                                trigger={t("card.adminLevel")}
+                                options={adminLevelOptions()}
                                 value={data.cat.adminLevel.toString()}
                                 onValueChange={(value) =>
                                     questionModified(
@@ -191,10 +192,7 @@ export const MatchingQuestionComponent = ({
                         </SidebarMenuItem>
                     )}
                     {data.type === "letter-zone" && (
-                        <CardNote>
-                            The borders are simplified by about 100 m so the
-                            phone can handle them.
-                        </CardNote>
+                        <CardNote>{t("matching.letterZone.note")}</CardNote>
                     )}
                 </>
             );
@@ -203,27 +201,16 @@ export const MatchingQuestionComponent = ({
             questionSpecific = (
                 <>
                     <TrainLinePicker data={data} />
-                    <CardNote>
-                        The lines come from this app&apos;s map data, so the
-                        hider should answer with this app too.
-                    </CardNote>
+                    <CardNote>{t("matching.line.note")}</CardNote>
                 </>
             );
             break;
         case "street":
-            questionSpecific = (
-                <CardNote>
-                    &quot;Same&quot; keeps everything within 200 m of that
-                    street; &quot;different&quot; can&apos;t rule anything out
-                    reliably.
-                </CardNote>
-            );
+            questionSpecific = <CardNote>{t("matching.street.note")}</CardNote>;
             break;
         case "landmass":
             questionSpecific = (
-                <CardNote>
-                    Islands in lakes count as part of the surrounding land.
-                </CardNote>
+                <CardNote>{t("matching.landmass.note")}</CardNote>
             );
             break;
         case "aquarium":
@@ -237,12 +224,7 @@ export const MatchingQuestionComponent = ({
         case "golf_course":
         case "consulate":
         case "park":
-            questionSpecific = (
-                <CardNote>
-                    This question only changes the map when you open a hiding
-                    zone (tap it on the map or in the Zones list).
-                </CardNote>
-            );
+            questionSpecific = <CardNote>{t("card.onlyInZone")}</CardNote>;
             break;
         case "custom-zone":
         case "custom-points":
@@ -250,9 +232,13 @@ export const MatchingQuestionComponent = ({
                 questionSpecific = (
                     <>
                         <p className="mb-1 px-1 text-sm text-muted-foreground">
-                            To modify the matching{" "}
-                            {data.type === "custom-zone" ? "zones" : "points"},
-                            enable it:
+                            {t("card.drawBefore", {
+                                what: t(
+                                    data.type === "custom-zone"
+                                        ? "card.drawZones"
+                                        : "card.drawMatchingPoints",
+                                ),
+                            })}
                             <Checkbox
                                 className="mx-1 my-1"
                                 checked={$drawingQuestionKey === questionKey}
@@ -265,7 +251,7 @@ export const MatchingQuestionComponent = ({
                                 }}
                                 disabled={$isLoading}
                             />
-                            and use the buttons at the bottom left of the map.
+                            {t("card.drawAfter")}
                         </p>
                         <div className="flex justify-center mb-2">
                             <PresetsDialog
@@ -291,10 +277,10 @@ export const MatchingQuestionComponent = ({
                     if (!pendingCustomType) return;
                     if (pendingCustomType === "custom-zone") {
                         (data as any).geo = undefined;
-                        toast.info("Please draw the zone on the map.");
+                        toast.info(t("card.drawZone"));
                     } else {
                         (data as any).geo = [];
-                        toast.info("Please draw the points on the map.");
+                        toast.info(t("card.drawPoints"));
                     }
                     data.type = pendingCustomType;
                     questionModified();
@@ -324,7 +310,7 @@ export const MatchingQuestionComponent = ({
                             (data as any).geo = await findMatchingPlaces(data);
                         } else {
                             (data as any).geo = [];
-                            toast.info("Please draw the points on the map.");
+                            toast.info(t("card.drawPoints"));
                         }
                     }
                     data.type = pendingCustomType;
@@ -335,7 +321,7 @@ export const MatchingQuestionComponent = ({
             {!$showAllQuestionTypes && (
                 <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                     <Select
-                        trigger="Question"
+                        trigger={t("card.question")}
                         options={
                             card
                                 ? undefined
@@ -356,15 +342,12 @@ export const MatchingQuestionComponent = ({
                 </SidebarMenuItem>
             )}
             {card?.needsHidingZones && !$displayHidingZones && (
-                <CardNote warning>
-                    This question needs the hiding zones. Turn them on under
-                    Zones → Settings.
-                </CardNote>
+                <CardNote warning>{t("card.needsZones")}</CardNote>
             )}
             {$showAllQuestionTypes && (
                 <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                     <Select
-                        trigger="Matching Type"
+                        trigger={t("card.matchingType")}
                         options={Object.fromEntries(
                             matchingQuestionSchema.options
                                 .filter((x) => x.description === NO_GROUP)
@@ -441,7 +424,7 @@ export const MatchingQuestionComponent = ({
                     />
                 </SidebarMenuItem>
             )}
-            {card?.hint && <CardNote>{card.hint}</CardNote>}
+            {card?.hint && <CardNote>{tr(card.hint)}</CardNote>}
             {questionSpecific}
         </QuestionCard>
     );

@@ -1,3 +1,4 @@
+import { type Text, tr } from "@/lib/i18n";
 import {
     KILOMETERS_PER_MILE,
     type MatchingQuestion,
@@ -16,8 +17,8 @@ import {
 export type AdminLevel = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 /**
- * Vienna's names for its administrative divisions. The app is in English,
- * but these stay German on purpose, like the station names on the signs.
+ * Vienna's names for its administrative divisions. They stay German in both
+ * languages on purpose, like the station names on the signs.
  */
 export const ADMIN_LEVEL_NAMES: Partial<Record<AdminLevel, string>> = {
     4: "Bundesland",
@@ -26,71 +27,152 @@ export const ADMIN_LEVEL_NAMES: Partial<Record<AdminLevel, string>> = {
 };
 
 /** Names for the admin level selects; Vienna has no levels 3, 5, 7 and 8. */
-export const ADMIN_LEVEL_LABELS: Record<AdminLevel, string> = {
-    2: "Country (OSM level 2)",
-    3: "OSM level 3 (none in Vienna)",
-    4: "Bundesland: 1st division (OSM level 4)",
-    5: "OSM level 5 (none in Vienna)",
-    6: "City (OSM level 6)",
-    7: "OSM level 7 (none in Vienna)",
-    8: "OSM level 8 (none in Vienna)",
-    9: "Gemeindebezirk: 2nd division (OSM level 9)",
-    10: "Katastralgemeinde: 3rd division (OSM level 10)",
+export const ADMIN_LEVEL_LABELS: Record<AdminLevel, Text> = {
+    2: { en: "Country (OSM level 2)", de: "Staat (OSM-Ebene 2)" },
+    3: {
+        en: "OSM level 3 (none in Vienna)",
+        de: "OSM-Ebene 3 (gibt es in Wien nicht)",
+    },
+    4: {
+        en: "Bundesland: 1st division (OSM level 4)",
+        de: "Bundesland: 1. Ebene (OSM-Ebene 4)",
+    },
+    5: {
+        en: "OSM level 5 (none in Vienna)",
+        de: "OSM-Ebene 5 (gibt es in Wien nicht)",
+    },
+    6: { en: "City (OSM level 6)", de: "Stadt (OSM-Ebene 6)" },
+    7: {
+        en: "OSM level 7 (none in Vienna)",
+        de: "OSM-Ebene 7 (gibt es in Wien nicht)",
+    },
+    8: {
+        en: "OSM level 8 (none in Vienna)",
+        de: "OSM-Ebene 8 (gibt es in Wien nicht)",
+    },
+    9: {
+        en: "Gemeindebezirk: 2nd division (OSM level 9)",
+        de: "Gemeindebezirk: 2. Ebene (OSM-Ebene 9)",
+    },
+    10: {
+        en: "Katastralgemeinde: 3rd division (OSM level 10)",
+        de: "Katastralgemeinde: 3. Ebene (OSM-Ebene 10)",
+    },
 };
+
+/** The options of an admin level select, in this phone's language. */
+export const adminLevelOptions = () =>
+    Object.fromEntries(
+        Object.entries(ADMIN_LEVEL_LABELS).map(([level, label]) => [
+            level,
+            tr(label),
+        ]),
+    );
 
 export type DeckCard = {
     id: string;
-    label: string;
-    group: string;
+    label: Text;
+    group: Text;
     /** Short explanation of what counts, shown under the card name. */
-    hint?: string;
+    hint?: Text;
     /** Question type in this app; missing when there is nothing to ask about. */
     type?: string;
     /** OSM admin level for the administrative division cards. */
     adminLevel?: AdminLevel;
     /** Why the hider can only answer "no answer" in Vienna. */
-    noAnswer?: string;
+    noAnswer?: Text;
     /** Station questions work on the hiding zones (U-Bahn stations). */
     needsHidingZones?: boolean;
 };
 
-const NO_AIRPORT =
-    "Vienna Airport lies outside the city, so there is no commercial airport in the game area.";
+const NO_AIRPORT: Text = {
+    en: "Vienna Airport lies outside the city, so there is no commercial airport in the game area.",
+    de: "Der Flughafen Wien liegt außerhalb der Stadt, im Spielgebiet gibt es also keinen Verkehrsflughafen.",
+};
+
+const GROUPS = {
+    transit: { en: "Transit", de: "Verkehr" },
+    admin: { en: "Administrative Divisions", de: "Verwaltungseinheiten" },
+    natural: { en: "Natural", de: "Natur" },
+    places: { en: "Places of Interest", de: "Interessante Orte" },
+    utilities: { en: "Public Utilities", de: "Öffentliche Einrichtungen" },
+    borders: { en: "Borders", de: "Grenzen" },
+} satisfies Record<string, Text>;
+
+const MOUNTAIN: Omit<DeckCard, "group"> = {
+    id: "mountain",
+    label: { en: "Mountain", de: "Berg" },
+    hint: {
+        en: "Every hilltop on the map, like Kahlenberg",
+        de: "Jeder Gipfel auf der Karte, etwa der Kahlenberg",
+    },
+    type: "peak-full",
+};
+
+const PARK: Omit<DeckCard, "group"> = {
+    id: "park",
+    label: { en: "Park", de: "Park" },
+    hint: { en: "Every park, even small ones", de: "Jeder Park, auch kleine" },
+    type: "park-full",
+};
 
 const placeCards = (
     suffix: string,
-): { group: string; cards: Omit<DeckCard, "group">[] }[] => [
+): { group: Text; cards: Omit<DeckCard, "group">[] }[] => [
     {
-        group: "Places of Interest",
+        group: GROUPS.places,
         cards: [
             {
                 id: "amusement-park",
-                label: "Amusement Park",
+                label: { en: "Amusement Park", de: "Vergnügungspark" },
                 type: `theme_park${suffix}`,
             },
-            { id: "zoo", label: "Zoo", type: `zoo${suffix}` },
-            { id: "aquarium", label: "Aquarium", type: `aquarium${suffix}` },
+            {
+                id: "zoo",
+                label: { en: "Zoo", de: "Zoo" },
+                type: `zoo${suffix}`,
+            },
+            {
+                id: "aquarium",
+                label: { en: "Aquarium", de: "Aquarium" },
+                type: `aquarium${suffix}`,
+            },
             {
                 id: "golf-course",
-                label: "Golf Course",
+                label: { en: "Golf Course", de: "Golfplatz" },
                 type: `golf_course${suffix}`,
             },
-            { id: "museum", label: "Museum", type: `museum${suffix}` },
+            {
+                id: "museum",
+                label: { en: "Museum", de: "Museum" },
+                type: `museum${suffix}`,
+            },
             {
                 id: "movie-theater",
-                label: "Movie Theater",
+                label: { en: "Movie Theater", de: "Kino" },
                 type: `cinema${suffix}`,
             },
         ],
     },
     {
-        group: "Public Utilities",
+        group: GROUPS.utilities,
         cards: [
-            { id: "hospital", label: "Hospital", type: `hospital${suffix}` },
-            { id: "library", label: "Library", type: `library${suffix}` },
+            {
+                id: "hospital",
+                label: { en: "Hospital", de: "Krankenhaus" },
+                type: `hospital${suffix}`,
+            },
+            {
+                id: "library",
+                label: { en: "Library", de: "Bibliothek" },
+                type: `library${suffix}`,
+            },
             {
                 id: "consulate",
-                label: "Foreign Consulate",
+                label: {
+                    en: "Foreign Consulate",
+                    de: "Ausländisches Konsulat",
+                },
                 type: `consulate${suffix}`,
             },
         ],
@@ -98,7 +180,7 @@ const placeCards = (
 ];
 
 const flatten = (
-    groups: { group: string; cards: Omit<DeckCard, "group">[] }[],
+    groups: { group: Text; cards: Omit<DeckCard, "group">[] }[],
 ): DeckCard[] =>
     groups.flatMap(({ group, cards }) =>
         cards.map((card) => ({ ...card, group })),
@@ -106,88 +188,108 @@ const flatten = (
 
 export const MATCHING_DECK: DeckCard[] = flatten([
     {
-        group: "Transit",
+        group: GROUPS.transit,
         cards: [
             {
                 id: "airport",
-                label: "Commercial Airport",
+                label: { en: "Commercial Airport", de: "Verkehrsflughafen" },
                 type: "airport",
                 noAnswer: NO_AIRPORT,
             },
             {
                 id: "transit-line",
-                label: "Transit Line",
-                hint: "Only while riding public transit",
+                label: { en: "Transit Line", de: "Öffi-Linie" },
+                hint: {
+                    en: "Only while riding public transit",
+                    de: "Nur während du mit den Öffis fährst",
+                },
                 type: "same-train-line",
                 needsHidingZones: true,
             },
             {
                 id: "station-name-length",
-                label: "Station Name's Length",
-                hint: "Name as on the sign; spaces and hyphens count",
+                label: {
+                    en: "Station Name's Length",
+                    de: "Länge des Stationsnamens",
+                },
+                hint: {
+                    en: "Name as on the sign; spaces and hyphens count",
+                    de: "Name wie auf dem Schild; Leerzeichen und Bindestriche zählen mit",
+                },
                 type: "same-length-station",
                 needsHidingZones: true,
             },
             {
                 id: "street",
-                label: "Street or Path",
-                hint: "Any street or footpath, named or not",
+                label: { en: "Street or Path", de: "Straße oder Weg" },
+                hint: {
+                    en: "Any street or footpath, named or not",
+                    de: "Jede Straße und jeder Fußweg, mit oder ohne Namen",
+                },
                 type: "street",
             },
         ],
     },
     {
-        group: "Administrative Divisions",
+        group: GROUPS.admin,
         cards: [
             {
                 id: "admin-1",
-                label: "Bundesland",
-                hint: "1st administrative division",
+                label: { en: "Bundesland", de: "Bundesland" },
+                hint: {
+                    en: "1st administrative division",
+                    de: "1. Verwaltungsebene",
+                },
                 type: "zone",
                 adminLevel: 4,
             },
             {
                 id: "admin-2",
-                label: "Gemeindebezirk",
-                hint: "2nd administrative division: one of the 23 districts",
+                label: { en: "Gemeindebezirk", de: "Gemeindebezirk" },
+                hint: {
+                    en: "2nd administrative division: one of the 23 districts",
+                    de: "2. Verwaltungsebene: einer der 23 Bezirke",
+                },
                 type: "zone",
                 adminLevel: 9,
             },
             {
                 id: "admin-3",
-                label: "Katastralgemeinde",
-                hint: "3rd administrative division: the cadastral communities",
+                label: { en: "Katastralgemeinde", de: "Katastralgemeinde" },
+                hint: {
+                    en: "3rd administrative division: the cadastral communities",
+                    de: "3. Verwaltungsebene: die Katastralgemeinden",
+                },
                 type: "zone",
                 adminLevel: 10,
             },
             {
                 id: "admin-4",
-                label: "4th Administrative Division",
-                noAnswer: "Vienna has no fourth administrative division.",
+                label: {
+                    en: "4th Administrative Division",
+                    de: "4. Verwaltungsebene",
+                },
+                noAnswer: {
+                    en: "Vienna has no fourth administrative division.",
+                    de: "Wien hat keine 4. Verwaltungsebene.",
+                },
             },
         ],
     },
     {
-        group: "Natural",
+        group: GROUPS.natural,
         cards: [
-            {
-                id: "mountain",
-                label: "Mountain",
-                hint: "Every hilltop on the map, like Kahlenberg",
-                type: "peak-full",
-            },
+            MOUNTAIN,
             {
                 id: "landmass",
-                label: "Landmass",
-                hint: "River islands like the Donauinsel are their own landmass",
+                label: { en: "Landmass", de: "Landmasse" },
+                hint: {
+                    en: "River islands like the Donauinsel are their own landmass",
+                    de: "Flussinseln wie die Donauinsel sind eine eigene Landmasse",
+                },
                 type: "landmass",
             },
-            {
-                id: "park",
-                label: "Park",
-                hint: "Every park, even small ones",
-                type: "park-full",
-            },
+            PARK,
         ],
     },
     ...placeCards("-full"),
@@ -195,84 +297,104 @@ export const MATCHING_DECK: DeckCard[] = flatten([
 
 export const MEASURING_DECK: DeckCard[] = flatten([
     {
-        group: "Transit",
+        group: GROUPS.transit,
         cards: [
             {
                 id: "airport",
-                label: "Commercial Airport",
+                label: { en: "Commercial Airport", de: "Verkehrsflughafen" },
                 type: "airport",
                 noAnswer: NO_AIRPORT,
             },
             {
                 id: "high-speed",
-                label: "High-Speed Train Line",
-                hint: "Railway lines built for high-speed trains",
+                label: {
+                    en: "High-Speed Train Line",
+                    de: "Schnellfahrstrecke",
+                },
+                hint: {
+                    en: "Railway lines built for high-speed trains",
+                    de: "Bahnstrecken, die für Hochgeschwindigkeitszüge gebaut sind",
+                },
                 type: "highspeed-measure-shinkansen",
             },
             {
                 id: "rail-station",
-                label: "Rail Station",
-                hint: "The stations of the hiding zones (U-Bahn)",
+                label: { en: "Rail Station", de: "Bahnhof" },
+                hint: {
+                    en: "The stations of the hiding zones (U-Bahn)",
+                    de: "Die Stationen der Zonen (U-Bahn)",
+                },
                 type: "rail-measure",
             },
         ],
     },
     {
-        group: "Borders",
+        group: GROUPS.borders,
         cards: [
             {
                 id: "international-border",
-                label: "International Border",
-                noAnswer: "No international border runs through Vienna.",
+                label: { en: "International Border", de: "Staatsgrenze" },
+                noAnswer: {
+                    en: "No international border runs through Vienna.",
+                    de: "Durch Wien verläuft keine Staatsgrenze.",
+                },
             },
             {
                 id: "admin-1-border",
-                label: "Bundesland border",
-                hint: "1st administrative division border: the city limits",
+                label: { en: "Bundesland border", de: "Bundeslandgrenze" },
+                hint: {
+                    en: "1st administrative division border: the city limits",
+                    de: "Grenze der 1. Verwaltungsebene: die Stadtgrenze",
+                },
                 type: "admin-measure",
                 adminLevel: 4,
             },
             {
                 id: "admin-2-border",
-                label: "Gemeindebezirk border",
-                hint: "2nd administrative division border",
+                label: {
+                    en: "Gemeindebezirk border",
+                    de: "Gemeindebezirksgrenze",
+                },
+                hint: {
+                    en: "2nd administrative division border",
+                    de: "Grenze der 2. Verwaltungsebene",
+                },
                 type: "admin-measure",
                 adminLevel: 9,
             },
         ],
     },
     {
-        group: "Natural",
+        group: GROUPS.natural,
         cards: [
             {
                 id: "sea-level",
-                label: "Sea Level",
-                hint: "Closer means the hider is lower than you",
+                label: { en: "Sea Level", de: "Seehöhe" },
+                hint: {
+                    en: "Closer means the hider is lower than you",
+                    de: "Näher heißt: Der Hider ist tiefer als du",
+                },
                 type: "sea-level",
             },
             {
                 id: "water",
-                label: "Body of Water",
-                hint: "Named lakes, ponds, rivers and canals",
+                label: { en: "Body of Water", de: "Gewässer" },
+                hint: {
+                    en: "Named lakes, ponds, rivers and canals",
+                    de: "Benannte Seen, Teiche, Flüsse und Kanäle",
+                },
                 type: "water",
             },
             {
                 id: "coastline",
-                label: "Coastline",
-                noAnswer: "Vienna has no coastline.",
+                label: { en: "Coastline", de: "Küste" },
+                noAnswer: {
+                    en: "Vienna has no coastline.",
+                    de: "Wien hat keine Küste.",
+                },
             },
-            {
-                id: "mountain",
-                label: "Mountain",
-                hint: "Every hilltop on the map, like Kahlenberg",
-                type: "peak-full",
-            },
-            {
-                id: "park",
-                label: "Park",
-                hint: "Every park, even small ones",
-                type: "park-full",
-            },
+            MOUNTAIN,
+            PARK,
         ],
     },
     ...placeCards("-full"),
@@ -280,9 +402,9 @@ export const MEASURING_DECK: DeckCard[] = flatten([
 
 /** Cards in rule book order, grouped by their category. */
 export const deckGroups = (deck: DeckCard[]) =>
-    deck.reduce<{ group: string; cards: DeckCard[] }[]>((groups, card) => {
+    deck.reduce<{ group: Text; cards: DeckCard[] }[]>((groups, card) => {
         const last = groups[groups.length - 1];
-        if (last && last.group === card.group) {
+        if (last && last.group.en === card.group.en) {
             last.cards.push(card);
         } else {
             groups.push({ group: card.group, cards: [card] });
@@ -294,11 +416,11 @@ export const deckGroups = (deck: DeckCard[]) =>
 export const deckSelectGroups = (deck: DeckCard[]) =>
     Object.fromEntries(
         deckGroups(deck).map(({ group, cards }) => [
-            group,
+            tr(group),
             Object.fromEntries(
                 cards
                     .filter((card) => !card.noAnswer)
-                    .map((card) => [card.id, card.label]),
+                    .map((card) => [card.id, tr(card.label)]),
             ),
         ]),
     );

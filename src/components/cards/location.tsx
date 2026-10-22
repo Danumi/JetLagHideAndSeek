@@ -5,6 +5,7 @@ import { LocateIcon, MapPinIcon, MousePointerClickIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { allTrainStations, type PickTarget } from "@/lib/context";
 import { IMPRECISE_METERS, moveToMyLocation, pickOnMap } from "@/lib/gps";
+import { t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type { StationPlace } from "@/maps/api";
 import { extractStationName } from "@/maps/geo-utils";
@@ -64,6 +65,7 @@ const PointRow = ({
     target: PickTarget;
     disabled?: boolean;
 }) => {
+    useLanguage();
     const $allTrainStations = useStore(allTrainStations);
     const station = nearestStationName(lat, lng, $allTrainStations);
     const meters = accuracy === undefined ? undefined : Math.round(accuracy);
@@ -76,7 +78,9 @@ const PointRow = ({
                 <MapPinIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
                 <span className="text-muted-foreground">{label}:</span>
                 <span className="min-w-0 truncate font-semibold">
-                    {station ? `near ${station}` : "its pin on the map"}
+                    {station
+                        ? t("location.near", { station })
+                        : t("location.pin")}
                 </span>
                 {meters !== undefined && (
                     <span
@@ -86,7 +90,7 @@ const PointRow = ({
                                 ? "text-red-400"
                                 : "text-muted-foreground",
                         )}
-                        title="How precise the GPS location was"
+                        title={t("location.accuracyTitle")}
                     >
                         ±{meters} m
                     </span>
@@ -94,8 +98,7 @@ const PointRow = ({
             </div>
             {imprecise && (
                 <p className="text-sm text-red-400">
-                    GPS was only accurate to ±{meters} m. Check the pin, or set
-                    it with &quot;Pick on map&quot;.
+                    {t("location.imprecise", { meters })}
                 </p>
             )}
             <div className="grid grid-cols-2 gap-2">
@@ -106,7 +109,7 @@ const PointRow = ({
                     onClick={() => moveToMyLocation(target)}
                 >
                     <LocateIcon />
-                    Use my location
+                    {t("location.useMine")}
                 </Button>
                 <Button
                     variant="outline"
@@ -115,7 +118,7 @@ const PointRow = ({
                     onClick={() => pickOnMap(target)}
                 >
                     <MousePointerClickIcon />
-                    Pick on map
+                    {t("location.pickOnMap")}
                 </Button>
             </div>
         </div>
@@ -128,13 +131,14 @@ const PointRow = ({
  * pin on the map.
  */
 export const QuestionLocation = ({ question }: { question: Question }) => {
+    useLanguage();
     const disabled = !question.data.drag;
 
     if (question.id === "thermometer") {
         return (
             <>
                 <PointRow
-                    label="Start"
+                    label={t("location.start")}
                     lat={question.data.latA}
                     lng={question.data.lngA}
                     accuracy={question.data.accuracyA}
@@ -142,7 +146,7 @@ export const QuestionLocation = ({ question }: { question: Question }) => {
                     disabled={disabled}
                 />
                 <PointRow
-                    label="End"
+                    label={t("location.end")}
                     lat={question.data.latB}
                     lng={question.data.lngB}
                     accuracy={question.data.accuracyB}
@@ -160,7 +164,7 @@ export const QuestionLocation = ({ question }: { question: Question }) => {
 
     return (
         <PointRow
-            label="Asked at"
+            label={t("location.askedAt")}
             lat={question.data.lat}
             lng={question.data.lng}
             accuracy={question.data.accuracy}

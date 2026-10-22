@@ -80,9 +80,9 @@ const describeCard = (card: DeckCard) =>
 const asTable = (deck: DeckCard[]) =>
     Object.fromEntries(
         deckGroups(deck).map(({ group, cards }) => [
-            group,
+            group.en,
             Object.fromEntries(
-                cards.map((card) => [card.label, describeCard(card)]),
+                cards.map((card) => [card.label.en, describeCard(card)]),
             ),
         ]),
     );

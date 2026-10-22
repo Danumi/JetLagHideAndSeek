@@ -2,6 +2,7 @@ import { useStore } from "@nanostores/react";
 import { useEffect, useState } from "react";
 
 import { mapIdle } from "@/lib/context";
+import { t, useLanguage } from "@/lib/i18n";
 import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
 import {
@@ -69,6 +70,7 @@ export const useNearest = (
 
 /** "Nearest museum: Albertina, 350 m" on an open question. */
 export const NearestInfo = ({ question }: { question: Question }) => {
+    useLanguage();
     const nearest = useNearest(question);
 
     if (nearest === null) return null;
@@ -83,9 +85,9 @@ export const NearestInfo = ({ question }: { question: Question }) => {
             )}
         >
             {nearest === "loading"
-                ? "Finding what's nearest..."
+                ? t("nearest.loading")
                 : nearest === "failed"
-                  ? "Couldn't find what's nearest."
+                  ? t("nearest.failed")
                   : nearestText(nearest)}
         </div>
     );
@@ -93,6 +95,7 @@ export const NearestInfo = ({ question }: { question: Question }) => {
 
 /** The same, as a line of the question log. */
 export const NearestNote = ({ question }: { question: Question }) => {
+    useLanguage();
     const nearest = useNearest(question);
 
     if (nearest === null || typeof nearest === "string") return null;

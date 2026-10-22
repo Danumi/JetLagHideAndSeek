@@ -1,11 +1,14 @@
 import * as turf from "@turf/turf";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
+import { language } from "@/lib/i18n";
 import { findNamedWaterLines, findPlacesOfKind } from "@/maps/api";
 import {
     findNearest,
     hasNearest,
+    markLabel,
     nearestLine,
+    nearestName,
     nearestPlace,
     nearestText,
     zoneLabel,
@@ -37,20 +40,22 @@ const question = (
     });
 
 describe("what's nearest to a question", () => {
+    beforeEach(() => language.set("en"));
+
     it("reads like the cards", () => {
         expect(
             nearestText({
                 kind: "distance",
                 what: "museum",
-                label: "Albertina",
+                name: "Albertina",
                 kilometers: 0.35,
             }),
         ).toBe("Nearest museum: Albertina, 350 m");
         expect(
             nearestText({
                 kind: "distance",
-                what: "body of water",
-                label: "Alte Donau",
+                what: "water",
+                name: "Alte Donau",
                 kilometers: 1.23,
             }),
         ).toBe("Nearest body of water: Alte Donau, 1.2 km");
@@ -58,32 +63,91 @@ describe("what's nearest to a question", () => {
             nearestText({
                 kind: "inside",
                 what: "Gemeindebezirk",
-                label: "Gemeindebezirk Wieden",
+                name: "Wieden",
+                adminLevel: 9,
             }),
         ).toBe("You are in Gemeindebezirk Wieden");
         expect(
             nearestText({
                 kind: "border",
-                what: "Gemeindebezirk border",
-                label: "Gemeindebezirk Wieden",
+                what: "Gemeindebezirk",
+                name: "Wieden",
+                adminLevel: 9,
                 kilometers: 0.23,
             }),
         ).toBe("You are 230 m from the border of Gemeindebezirk Wieden");
         expect(
-            nearestText({
-                kind: "on",
-                what: "landmass",
-                label: "the mainland",
-            }),
+            nearestText({ kind: "on", what: "landmass", mainland: true }),
         ).toBe("You are on the mainland");
         expect(
             nearestText({
                 kind: "elevation",
-                what: "sea level",
-                label: "",
+                what: "sea-level",
                 meters: 171.4,
             }),
         ).toBe("You are 171 m above sea level");
+        expect(
+            nearestText({
+                kind: "distance",
+                what: "station",
+                name: "Karlsplatz",
+                countCharacters: true,
+                kilometers: 0.1,
+            }),
+        ).toBe("Nearest station: Karlsplatz (10 characters), 100 m");
+    });
+
+    it("reads like the cards in German", () => {
+        language.set("de");
+        expect(
+            nearestText({
+                kind: "distance",
+                what: "museum",
+                name: "Albertina",
+                kilometers: 0.35,
+            }),
+        ).toBe("Nächstes Museum: Albertina, 350 m");
+        expect(
+            nearestText({
+                kind: "distance",
+                what: "water",
+                name: "Alte Donau",
+                kilometers: 1.23,
+            }),
+        ).toBe("Nächstes Gewässer: Alte Donau, 1,2 km");
+        expect(
+            nearestText({
+                kind: "inside",
+                what: "Gemeindebezirk",
+                name: "Wieden",
+                adminLevel: 9,
+            }),
+        ).toBe("Du bist im Gemeindebezirk Wieden");
+        expect(
+            nearestText({
+                kind: "inside",
+                what: "Katastralgemeinde",
+                name: "Katastralgemeinde Innere Stadt",
+                adminLevel: 10,
+            }),
+        ).toBe("Du bist in der Katastralgemeinde Innere Stadt");
+        expect(
+            nearestText({ kind: "on", what: "landmass", name: "Donauinsel" }),
+        ).toBe("Du bist auf der Donauinsel");
+        expect(
+            nearestText({
+                kind: "elevation",
+                what: "sea-level",
+                meters: 171.4,
+            }),
+        ).toBe("Du bist auf 171 m Seehöhe");
+        expect(
+            markLabel({
+                kind: "distance",
+                what: "park",
+                mark: { at: [16.37, 48.2] },
+            }),
+        ).toBe("Park ohne Namen");
     });
 
     it("names the zones like Vienna does", () => {
@@ -149,8 +213,11 @@ describe("what's nearest to a question", () => {
             question("matching", "theme_park-full"),
         );
 
-        expect(nearest?.what).toBe("amusement park");
-        expect(nearest?.label).toBe("an unnamed amusement park");
+        expect(nearest?.what).toBe("amusement-park");
+        expect(nearest && nearestName(nearest)).toBe(
+            "an unnamed amusement park",
+        );
+        expect(nearest && markLabel(nearest)).toBe("Unnamed amusement park");
         expect(nearest?.mark?.at).toEqual([16.3719, 48.1987]);
     });
 

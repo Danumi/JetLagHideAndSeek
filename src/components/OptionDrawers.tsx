@@ -36,6 +36,7 @@ import {
     triggerLocalRefresh,
     useCustomStations,
 } from "@/lib/context";
+import { type Language, language, t, useLanguage } from "@/lib/i18n";
 import { setRole } from "@/lib/role";
 import {
     cn,
@@ -78,6 +79,34 @@ const HIDING_ZONE_URL_PARAM = "hz";
 const HIDING_ZONE_COMPRESSED_URL_PARAM = "hzc";
 const PASTEBIN_URL_PARAM = "pb";
 const FETCH_URL_PARAM = "url";
+
+/** German or English on this phone; each name is in its own language. */
+const LanguageChoice = () => {
+    const $language = useLanguage();
+    return (
+        <>
+            <Label>{t("settings.language")}</Label>
+            <div className="grid w-full max-w-[320px] grid-cols-2 gap-2">
+                {(
+                    [
+                        ["de", "Deutsch"],
+                        ["en", "English"],
+                    ] as [Language, string][]
+                ).map(([value, name]) => (
+                    <Button
+                        key={value}
+                        variant={$language === value ? "default" : "outline"}
+                        aria-pressed={$language === value}
+                        lang={value}
+                        onClick={() => language.set(value)}
+                    >
+                        {name}
+                    </Button>
+                ))}
+            </div>
+        </>
+    );
+};
 
 /** One group of options under "Advanced", with a heading. */
 const AdvancedSection = ({
@@ -488,6 +517,7 @@ export const OptionDrawers = () => {
                                     );
                                 })}
                             </div>
+                            <LanguageChoice />
                             <div className="grid w-full max-w-[320px] grid-cols-2 gap-2">
                                 <Button
                                     variant="outline"

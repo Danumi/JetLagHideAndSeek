@@ -17,6 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarGroup, SidebarMenu } from "@/components/ui/sidebar-l";
 import { deleteQuestionWithUndo } from "@/components/UndoToast";
 import { isLoading, questionModified } from "@/lib/context";
+import { type MessageKey, t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { isPending, questionTitle } from "@/maps/answers";
 import type { Question } from "@/maps/schema";
@@ -44,6 +45,17 @@ export const CardNote = ({
 );
 
 /**
+ * In German, the kinds keep their names from the game; one short line says
+ * what they ask.
+ */
+const KIND_EXPLANATIONS: Partial<Record<Question["id"], MessageKey>> = {
+    matching: "kind.matching.question",
+    measuring: "kind.measuring.question",
+    radius: "kind.radar.question",
+    thermometer: "kind.thermometer.question",
+};
+
+/**
  * Every open question looks the same: symbol and name, the settings of its
  * card (`children`), where it was asked and what's nearest, the answer
  * buttons, then "Send to hider", "Hide on map" and "Delete".
@@ -64,7 +76,9 @@ export const QuestionCard = ({
     sub?: string;
 }) => {
     const $isLoading = useStore(isLoading);
+    const $language = useLanguage();
     const pending = isPending(question);
+    const explanation = KIND_EXPLANATIONS[question.id];
 
     return (
         <>
@@ -78,15 +92,22 @@ export const QuestionCard = ({
             >
                 <div className="flex items-center gap-2 px-1">
                     <QuestionBadge question={question} />
-                    <h3 className="min-w-0 flex-1 text-base font-semibold leading-tight">
-                        {questionTitle(question)}
-                        {sub && (
-                            <span className="font-normal text-muted-foreground">
-                                {" "}
-                                · {sub}
-                            </span>
+                    <div className="min-w-0 flex-1">
+                        <h3 className="text-base font-semibold leading-tight">
+                            {questionTitle(question)}
+                            {sub && (
+                                <span className="font-normal text-muted-foreground">
+                                    {" "}
+                                    · {sub}
+                                </span>
+                            )}
+                        </h3>
+                        {$language === "de" && explanation && (
+                            <p className="text-xs text-muted-foreground">
+                                {t(explanation)}
+                            </p>
                         )}
-                    </h3>
+                    </div>
                 </div>
                 {children && <SidebarMenu>{children}</SidebarMenu>}
                 <QuestionLocation question={question} />
@@ -112,8 +133,8 @@ export const QuestionCard = ({
                                 <EyeOffIcon />
                             )}
                             {question.data.hidden
-                                ? "Show on map"
-                                : "Hide on map"}
+                                ? t("card.showOnMap")
+                                : t("card.hideOnMap")}
                         </Button>
                         <AlertDialog>
                             <AlertDialogTrigger asChild>
@@ -123,22 +144,21 @@ export const QuestionCard = ({
                                     disabled={$isLoading}
                                 >
                                     <Trash2Icon />
-                                    Delete
+                                    {t("common.delete")}
                                 </Button>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
                                     <AlertDialogTitle>
-                                        Delete question?
+                                        {t("card.deleteTitle")}
                                     </AlertDialogTitle>
                                     <AlertDialogDescription>
-                                        The question disappears from the map.
-                                        You can undo this right afterwards.
+                                        {t("card.deleteText")}
                                     </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                     <AlertDialogCancel>
-                                        Cancel
+                                        {t("common.cancel")}
                                     </AlertDialogCancel>
                                     <AlertDialogAction
                                         onClick={() =>
@@ -146,7 +166,7 @@ export const QuestionCard = ({
                                         }
                                         className="mb-2 sm:mb-0"
                                     >
-                                        Delete
+                                        {t("common.delete")}
                                     </AlertDialogAction>
                                 </AlertDialogFooter>
                             </AlertDialogContent>

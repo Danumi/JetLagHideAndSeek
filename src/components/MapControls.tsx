@@ -22,6 +22,7 @@ import {
     zoneSheetOpen,
 } from "@/lib/context";
 import { followMe } from "@/lib/gps";
+import { t, tx, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { formatKilometers } from "@/maps/answers";
 import { findStationLines } from "@/maps/api";
@@ -112,7 +113,10 @@ const useLeavingZoneWarning = (check: ZoneCheck | null) => {
         }
         if (wasInside.current) {
             toast.warning(
-                `You left your hiding zone: the ${check.station} zone is ${formatKilometers(check.toEdge / 1000)} away.`,
+                t("zones.left.toast", {
+                    station: check.station,
+                    distance: formatKilometers(check.toEdge / 1000),
+                }),
                 { autoClose: 10000, toastId: "left-hiding-zone" },
             );
             navigator.vibrate?.([300, 150, 300]);
@@ -152,6 +156,7 @@ const HiderZoneCheck = ({ check }: { check: ZoneCheck }) => {
 
 /** "Choose as my zone" on the hider's phone, asking first before a change. */
 const ChooseZoneButton = ({ id, name }: { id: string; name: string }) => {
+    useLanguage();
     const $hiderZoneId = useStore(hiderZoneId);
     const $allTrainStations = useStore(allTrainStations);
     const [confirm, setConfirm] = useState(false);
@@ -159,7 +164,7 @@ const ChooseZoneButton = ({ id, name }: { id: string; name: string }) => {
     if ($hiderZoneId === id) {
         return (
             <span className="px-1 text-xs font-semibold text-violet-500">
-                Your hiding zone
+                {t("zones.yours")}
             </span>
         );
     }
@@ -179,7 +184,7 @@ const ChooseZoneButton = ({ id, name }: { id: string; name: string }) => {
                 className="h-8 rounded-full bg-violet-700 px-3 text-xs text-white hover:bg-violet-800"
                 onClick={() => (current ? setConfirm(true) : choose())}
             >
-                Choose as my zone
+                {t("zones.choose")}
             </Button>
             <AlertDialog open={confirm} onOpenChange={setConfirm}>
                 {/* Only rendered when open: the dialog needs the browser's document */}
@@ -187,11 +192,15 @@ const ChooseZoneButton = ({ id, name }: { id: string; name: string }) => {
                     <AlertDialogContent>
                         <AlertDialogHeader>
                             <AlertDialogTitle>
-                                Change your hiding zone?
+                                {t("zones.changeTitle")}
                             </AlertDialogTitle>
                             <AlertDialogDescription>
-                                Your zone is {extractStationLabel(current)}. For
-                                the endgame, only {name} will count.
+                                {t("zones.changeText", {
+                                    current: String(
+                                        extractStationLabel(current),
+                                    ),
+                                    name,
+                                })}
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <div className="flex flex-col gap-2">
@@ -199,10 +208,12 @@ const ChooseZoneButton = ({ id, name }: { id: string; name: string }) => {
                                 className="h-12 bg-violet-700 font-semibold text-white hover:bg-violet-800"
                                 onClick={choose}
                             >
-                                Change to {name}
+                                {t("zones.changeTo", { name })}
                             </AlertDialogAction>
                             <AlertDialogCancel className="mt-0 h-12">
-                                Keep {extractStationLabel(current)}
+                                {t("zones.keep", {
+                                    name: String(extractStationLabel(current)),
+                                })}
                             </AlertDialogCancel>
                         </div>
                     </AlertDialogContent>
@@ -217,6 +228,7 @@ const ChooseZoneButton = ({ id, name }: { id: string; name: string }) => {
  * and what you can do with it. A tap elsewhere on the map closes it.
  */
 const SelectedZone = ({ id, hider }: { id: string; hider: boolean }) => {
+    useLanguage();
     const $stations = useStore(trainStations);
     const $disabledStations = useStore(disabledStations);
     const $allTrainStations = useStore(allTrainStations);
@@ -258,7 +270,7 @@ const SelectedZone = ({ id, hider }: { id: string; hider: boolean }) => {
                                 selectedZoneId.set("");
                             }}
                         >
-                            {ruledOut ? "Back in" : "Rule out"}
+                            {ruledOut ? t("zones.backIn") : t("zones.ruleOut")}
                         </Button>
                         {!ruledOut && !onlyOneLeft && (
                             <Button
@@ -270,7 +282,7 @@ const SelectedZone = ({ id, hider }: { id: string; hider: boolean }) => {
                                     selectedZoneId.set("");
                                 }}
                             >
-                                Only this zone
+                                {t("zones.onlyThis")}
                             </Button>
                         )}
                     </>
@@ -285,6 +297,7 @@ const SelectedZone = ({ id, hider }: { id: string; hider: boolean }) => {
  * are in their hiding zone), or the zone tapped on the map or in the list.
  */
 export const ZoneCounter = () => {
+    useLanguage();
     const $hiderMode = useStore(hiderMode);
     const $zoneCheck = useStore(hiderZoneCheck);
     const $displayHidingZones = useStore(displayHidingZones);
@@ -317,8 +330,10 @@ export const ZoneCounter = () => {
                 className="whitespace-nowrap px-3 py-1.5"
                 onClick={() => zoneSheetOpen.set(true)}
             >
-                <span className="font-semibold">{left}</span> of{" "}
-                {$allTrainStations.length} zones left
+                {tx("zones.left", {
+                    left: <span className="font-semibold">{left}</span>,
+                    total: $allTrainStations.length,
+                })}
             </button>
             {canShowAllZones($disabledStations, $keptZonesRuledOut) && (
                 <Button
@@ -327,7 +342,7 @@ export const ZoneCounter = () => {
                     className="mr-1 h-7 rounded-full px-2 text-xs"
                     onClick={showAllZones}
                 >
-                    Show all zones
+                    {t("zones.showAll")}
                 </Button>
             )}
         </div>
@@ -339,6 +354,7 @@ export const ZoneCounter = () => {
  * Filled while the map follows you.
  */
 export const LocateButton = () => {
+    useLanguage();
     const $following = useStore(followMyPosition);
     const $myPosition = useStore(myPosition);
     const following = $following && $myPosition !== null;
@@ -351,13 +367,11 @@ export const LocateButton = () => {
                 "h-11 w-11 rounded-full bg-background/95 text-foreground shadow-lg",
                 following && "text-blue-500",
             )}
-            title={following ? "The map follows you" : "Show my location"}
+            title={following ? t("locate.following") : t("locate.show")}
             aria-pressed={following}
             onClick={async () => {
                 if (!(await followMe())) {
-                    toast.error("Couldn't get your location.", {
-                        autoClose: 3000,
-                    });
+                    toast.error(t("locate.failed"), { autoClose: 3000 });
                 }
             }}
         >

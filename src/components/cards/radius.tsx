@@ -13,6 +13,7 @@ import {
     questionModified,
     triggerLocalRefresh,
 } from "@/lib/context";
+import { t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { RADAR_DISTANCES, radarDistanceFor } from "@/maps/deck";
 import type { RadiusQuestion } from "@/maps/schema";
@@ -31,6 +32,7 @@ export const RadiusQuestionComponent = ({
     className?: string;
 }) => {
     useStore(triggerLocalRefresh);
+    useLanguage();
     const $isLoading = useStore(isLoading);
     const distance = radarDistanceFor(data);
     const [chooseDistance, setChooseDistance] = useState(!distance);
@@ -71,7 +73,7 @@ export const RadiusQuestionComponent = ({
                         disabled={!data.drag || $isLoading}
                         onClick={() => setChooseDistance(true)}
                     >
-                        Choose
+                        {t("card.radar.choose")}
                     </Button>
                 </div>
             </SidebarMenuItem>
