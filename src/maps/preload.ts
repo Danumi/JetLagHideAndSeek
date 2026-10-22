@@ -32,8 +32,11 @@ export const preloadProgress = atom<{
     finished: boolean;
 } | null>(null);
 
-/** When the data for a whole game was last loaded completely. */
-const gameDataLoadedAt = persistentAtom<number>("gameDataLoadedAt", 0, {
+/**
+ * When the map data in the cache started being loaded (0: never). A preload
+ * that didn't finish keeps this, so the next one continues where it stopped.
+ */
+const gameDataSince = persistentAtom<number>("gameDataSince", 0, {
     encode: String,
     decode: Number,
 });
@@ -112,12 +115,14 @@ export const preloadGameData = async ({
         }
     };
 
-    if (
-        refreshOldData &&
-        Date.now() - gameDataLoadedAt.get() > MAX_DATA_AGE_MS
-    ) {
+    const since = gameDataSince.get();
+    const tooOld = since > 0 && Date.now() - since > MAX_DATA_AGE_MS;
+    if (refreshOldData && tooOld) {
         await clearCache(CacheType.CACHE);
         await clearCache(CacheType.ZONE_CACHE);
+    }
+    if (since === 0 || (refreshOldData && tooOld)) {
+        gameDataSince.set(Date.now());
     }
 
     const found: { stations: StationPlace[] | null } = { stations: null };
@@ -171,7 +176,6 @@ export const preloadGameData = async ({
         return;
     }
 
-    gameDataLoadedAt.set(Date.now());
     preloadProgress.set({ done, total, finished: true });
     setTimeout(() => {
         if (!stale()) preloadProgress.set(null);
