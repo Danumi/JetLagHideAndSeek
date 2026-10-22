@@ -129,7 +129,6 @@ export const BottomBar = () => {
                             badge={$questions.length + $photoQuestions.length}
                             alert={anyPending}
                             onClick={() => SidebarContext.get().toggleSidebar()}
-                            data-tutorial-id="left-sidebar-trigger"
                         />
                     )}
                     {$hiderMode === false ? (

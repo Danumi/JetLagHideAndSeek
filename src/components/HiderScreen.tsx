@@ -50,8 +50,10 @@ import {
     type SentAnswer,
 } from "@/maps/hiderLog";
 import { hiderZoneCheck, zoneCheckText } from "@/maps/hidingZoneCheck";
+import { hiderEntryRuleId } from "@/maps/rules";
 
 import { AnswerClock } from "./AnswerClock";
+import { RuleButton } from "./HelpDialog";
 import { showActionToast, showUndoToast } from "./UndoToast";
 
 /** Where the hider's location comes from. */
@@ -764,8 +766,11 @@ export const HiderScreen = () => {
                                 { time: clockTime(entry.askedAt) },
                             )}
                         </div>
-                        <div className="text-xl font-semibold font-poppins">
-                            {entryTitle(entry)}
+                        <div className="flex items-start gap-1">
+                            <div className="flex-1 text-xl font-semibold font-poppins">
+                                {entryTitle(entry)}
+                            </div>
+                            <RuleButton ruleId={hiderEntryRuleId(entry)} />
                         </div>
                         {photoCard && (
                             <p className="text-sm text-muted-foreground">

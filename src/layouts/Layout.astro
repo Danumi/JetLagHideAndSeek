@@ -22,27 +22,29 @@ const { className } = Astro.props;
             href="https://danumi.github.io/JetLagHideAndSeek/favicon.ico"
         />
         <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href="https://danumi.github.io/JetLagHideAndSeek/favicon.ico"
+            rel="icon"
+            type="image/svg+xml"
+            href="https://danumi.github.io/JetLagHideAndSeek/icon.svg"
         />
         <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href="https://danumi.github.io/JetLagHideAndSeek/apple-touch-icon.png"
+            href="https://danumi.github.io/JetLagHideAndSeek/icon-180.png"
         />
         <link
             rel="icon"
             type="image/png"
             sizes="32x32"
-            href="https://danumi.github.io/JetLagHideAndSeek/favicon-32x32.png"
+            href="https://danumi.github.io/JetLagHideAndSeek/icon-32.png"
         />
         <link
             rel="icon"
             type="image/png"
             sizes="16x16"
-            href="https://danumi.github.io/JetLagHideAndSeek/favicon-16x16.png"
+            href="https://danumi.github.io/JetLagHideAndSeek/icon-16.png"
         />
+        <!-- The name under the icon on an iPhone's home screen -->
+        <meta name="apple-mobile-web-app-title" content="Hide & Seek" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -52,50 +54,28 @@ const { className } = Astro.props;
         />
         <meta name="generator" content={Astro.generator} />
         <!-- HTML Meta Tags -->
-        <title>Map Generator for Jet Lag The Game: Hide and Seek</title>
+        <title>Hide & Seek Vienna</title>
         <meta
             name="description"
-            content="Automatically generate maps for Jet Lag The Game: Hide and Seek with ease! Simply name the questions and watch the map eliminate hundreds of possibilities in seconds."
+            content="Map, questions and rules for our games of Jet Lag Hide and Seek in Vienna."
         />
 
-        <!-- Facebook Meta Tags -->
+        <!-- Link previews -->
         <meta
             property="og:url"
             content="https://danumi.github.io/JetLagHideAndSeek/"
         />
         <meta property="og:type" content="website" />
-        <meta
-            property="og:title"
-            content="Map Generator for Jet Lag The Game: Hide and Seek"
-        />
+        <meta property="og:title" content="Hide & Seek Vienna" />
         <meta
             property="og:description"
-            content="Automatically generate maps for Jet Lag The Game: Hide and Seek with ease! Simply name the questions and watch the map eliminate hundreds of possibilities in seconds."
+            content="Map, questions and rules for our games of Jet Lag Hide and Seek in Vienna."
         />
         <meta
             property="og:image"
-            content="https://danumi.github.io/JetLagHideAndSeek/JLIcon.png"
+            content="https://danumi.github.io/JetLagHideAndSeek/icon-1080.png"
         />
-
-        <!-- Twitter Meta Tags -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta property="twitter:domain" content="taibeled.github.io" />
-        <meta
-            property="twitter:url"
-            content="https://danumi.github.io/JetLagHideAndSeek/"
-        />
-        <meta
-            name="twitter:title"
-            content="Map Generator for Jet Lag The Game: Hide and Seek"
-        />
-        <meta
-            name="twitter:description"
-            content="Automatically generate maps for Jet Lag The Game: Hide and Seek with ease! Simply name the questions and watch the map eliminate hundreds of possibilities in seconds."
-        />
-        <meta
-            name="twitter:image"
-            content="https://danumi.github.io/JetLagHideAndSeek/JLIcon.png"
-        />
+        <meta name="twitter:card" content="summary" />
 
         {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
     </head>

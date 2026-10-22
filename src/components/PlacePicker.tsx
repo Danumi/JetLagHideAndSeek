@@ -23,7 +23,6 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { useTutorialStep } from "@/hooks/use-tutorial-step";
 import { useDebounce } from "@/hooks/useDebounce";
 import {
     additionalMapGeoLocations,
@@ -100,7 +99,7 @@ export const PlacePicker = ({
     const _placeSeen: Record<string, number> = {};
 
     return (
-        <Popover open={useTutorialStep(open, [3])} onOpenChange={setOpen}>
+        <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
                 <Button
                     variant="outline"
@@ -110,7 +109,6 @@ export const PlacePicker = ({
                         "w-[300px] justify-between light text-slate-700",
                         className,
                     )}
-                    data-tutorial-id="place-picker"
                 >
                     {$polyGeoJSON
                         ? t("area.polygon")
@@ -129,10 +127,7 @@ export const PlacePicker = ({
                     <ChevronsUpDown className="opacity-50" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent
-                className="w-[300px] p-0 light"
-                data-tutorial-id="place-picker-content"
-            >
+            <PopoverContent className="w-[300px] p-0 light">
                 <div
                     className={cn(
                         "font-normal flex flex-col",

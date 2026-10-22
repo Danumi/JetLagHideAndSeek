@@ -146,7 +146,7 @@ export const QuestionSidebar = () => {
             </SidebarContent>
             <SidebarGroup>
                 <SidebarGroupContent>
-                    <SidebarMenu data-tutorial-id="add-questions-buttons">
+                    <SidebarMenu>
                         {/* New questions come from "Ask a question"; this
                             one offers every type, for experts */}
                         {$showAllQuestionTypes && (

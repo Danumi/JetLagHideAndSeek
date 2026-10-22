@@ -141,6 +141,24 @@ export const roleChosen = persistentAtom<boolean>("roleChosen", false, {
 export const hiderScreenOpen = atom<boolean>(false);
 /** Whether the settings drawer is open. */
 export const settingsOpen = atom<boolean>(false);
+/**
+ * The help on top of everything: the quick guide, or the rules, opened at
+ * one of their entries (rules.ts) by the "?" on a question.
+ */
+export const helpOpen = atom<{
+    tab: "guide" | "rules";
+    ruleId?: string;
+} | null>(null);
+/** The help is German unless this phone switched it to English, whatever the app's language. */
+export const helpLanguage = persistentAtom<"de" | "en">("helpLanguage", "de", {
+    encode: (value) => value,
+    decode: (value) => (value === "en" ? "en" : "de"),
+});
+/** Whether this phone has seen the quick guide; until then it opens by itself. */
+export const guideSeen = persistentAtom<boolean>("guideSeen", false, {
+    encode: JSON.stringify,
+    decode: JSON.parse,
+});
 /** On: the map keeps your own position (the blue dot) in the middle. */
 export const followMyPosition = atom<boolean>(true);
 /** A point that "Pick on map" moves: a question's (a thermometer's start or end) or, with questionKey -1, the hider's H marker. */
@@ -546,12 +564,6 @@ export const thermometerRun = persistentAtom<{
     encode: JSON.stringify,
     decode: JSON.parse,
 });
-
-export const showTutorial = persistentAtom<boolean>("showTutorials", false, {
-    encode: JSON.stringify,
-    decode: JSON.parse,
-});
-export const tutorialStep = atom<number>(0);
 
 export const overpassHost = persistentAtom<string>(
     "overpassHost",

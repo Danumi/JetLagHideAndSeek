@@ -191,6 +191,10 @@ export const messages = {
     "card.showOnMap": { en: "Show on map", de: "Auf Karte zeigen" },
     "card.hideOnMap": { en: "Hide on map", de: "Auf Karte ausblenden" },
     "card.deleteTitle": { en: "Delete question?", de: "Frage löschen?" },
+    "card.rules": {
+        en: "What counts for this question",
+        de: "Was bei dieser Frage zählt",
+    },
     "card.deleteText": {
         en: "The question disappears from the map. You can undo this right afterwards.",
         de: "Die Frage verschwindet von der Karte. Du kannst das gleich danach rückgängig machen.",

@@ -1,6 +1,7 @@
 import { CameraIcon } from "lucide-react";
 
 import { AnswerClock } from "@/components/AnswerClock";
+import { RuleButton } from "@/components/HelpDialog";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SidebarGroup } from "@/components/ui/sidebar-l";
@@ -14,6 +15,7 @@ import { ICON_COLORS } from "@/maps/api";
 import { clockStart, clockTime, PHOTO_ANSWER_MINUTES } from "@/maps/deadline";
 import { photoCardFor } from "@/maps/deck";
 import { photoTitle } from "@/maps/hiderLog";
+import { photoRuleId } from "@/maps/rules";
 
 import { SendLinkButton } from "./answer";
 import { CardNote, DeleteButton } from "./base";
@@ -53,6 +55,7 @@ export const PhotoQuestionCard = ({ photo }: { photo: PhotoQuestion }) => {
                     <h3 className="min-w-0 flex-1 text-base font-semibold leading-tight">
                         {photoTitle(photo.photo)}
                     </h3>
+                    <RuleButton ruleId={photoRuleId(photo.photo)} />
                 </div>
                 {card && <CardNote>{tr(card.hint)}</CardNote>}
                 <CardNote>{t("photo.notOnMap")}</CardNote>

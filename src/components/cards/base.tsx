@@ -1,6 +1,7 @@
 import { useStore } from "@nanostores/react";
 import { EyeIcon, EyeOffIcon, Trash2Icon } from "lucide-react";
 
+import { RuleButton } from "@/components/HelpDialog";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -20,6 +21,7 @@ import { isLoading, questionModified } from "@/lib/context";
 import { type MessageKey, t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { isPending, questionTitle } from "@/maps/answers";
+import { ruleIdFor } from "@/maps/rules";
 import type { Question } from "@/maps/schema";
 
 import { AnswerButtons, QuestionBadge, SendToHider } from "./answer";
@@ -143,6 +145,7 @@ export const QuestionCard = ({
                             </p>
                         )}
                     </div>
+                    <RuleButton ruleId={ruleIdFor(question)} />
                 </div>
                 {children && <SidebarMenu>{children}</SidebarMenu>}
                 <QuestionLocation question={question} />
