@@ -135,6 +135,8 @@ export const Map = ({ className }: { className?: string }) => {
         () => ({ current: null as number | null }),
         [],
     );
+    // Time of the last touch, click or scroll on the map
+    const lastMapInteractionRef = useMemo(() => ({ current: 0 }), []);
 
     const refreshQuestions = async (focus: boolean = false) => {
         if (!map) return;
@@ -142,6 +144,7 @@ export const Map = ({ className }: { className?: string }) => {
         if ($isLoading) return;
 
         isLoading.set(true);
+        const startedAt = Date.now();
 
         if ($questions.length === 0) {
             await clearCache();
@@ -215,7 +218,11 @@ export const Map = ({ className }: { className?: string }) => {
 
             questionFinishedMapData.set(mapGeoData);
 
-            if (autoZoom.get() && focus) {
+            // Don't pull the map away from where the user moved it while loading
+            const movedWhileLoading =
+                lastMapInteractionRef.current >= startedAt;
+
+            if (autoZoom.get() && focus && !movedWhileLoading) {
                 const bbox = turf.bbox(holedMask(mapGeoData) as any);
                 const bounds = [
                     [bbox[1], bbox[0]],
@@ -399,6 +406,24 @@ export const Map = ({ className }: { className?: string }) => {
 
         refreshQuestions(true);
     }, [$questions, map, $hiderMode]);
+
+    useEffect(() => {
+        if (!map) return;
+
+        const container = map.getContainer();
+        const markInteraction = () => {
+            lastMapInteractionRef.current = Date.now();
+        };
+        container.addEventListener("pointerdown", markInteraction);
+        container.addEventListener("wheel", markInteraction, {
+            passive: true,
+        });
+
+        return () => {
+            container.removeEventListener("pointerdown", markInteraction);
+            container.removeEventListener("wheel", markInteraction);
+        };
+    }, [map]);
 
     useEffect(() => {
         const intervalId = setInterval(async () => {
