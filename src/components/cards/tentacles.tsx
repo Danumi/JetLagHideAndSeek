@@ -18,6 +18,7 @@ import {
     questionModified,
     triggerLocalRefresh,
 } from "@/lib/context";
+import { labelOf, t, useLanguage } from "@/lib/i18n";
 import { cn, mapToObj } from "@/lib/utils";
 import { findTentacleLocations } from "@/maps/api";
 import { arcDistance } from "@/maps/geo-utils";
@@ -42,6 +43,7 @@ export const TentacleQuestionComponent = ({
     sub?: string;
     className?: string;
 }) => {
+    useLanguage();
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $isLoading = useStore(isLoading);
 
@@ -111,26 +113,29 @@ export const TentacleQuestionComponent = ({
             </SidebarMenuItem>
             <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                 <Select
-                    trigger="Location Type"
+                    trigger={t("tentacles.locationType")}
                     options={Object.fromEntries(
                         tentacleQuestionSchema.options
                             .filter((x) => x.description === NO_GROUP)
                             .flatMap((x) =>
                                 determineUnionizedStrings(x.shape.locationType),
                             )
-                            .map((x) => [(x._def as any).value, x.description]),
+                            .map((x) => [
+                                (x._def as any).value,
+                                labelOf(x.description),
+                            ]),
                     )}
                     groups={Object.fromEntries(
                         tentacleQuestionSchema.options
                             .filter((x) => x.description !== NO_GROUP)
                             .map((x) => [
-                                x.description,
+                                labelOf(x.description),
                                 Object.fromEntries(
                                     determineUnionizedStrings(
                                         x.shape.locationType,
                                     ).map((x) => [
                                         (x._def as any).value,
-                                        x.description,
+                                        labelOf(x.description),
                                     ]),
                                 ),
                             ]),
@@ -165,7 +170,9 @@ export const TentacleQuestionComponent = ({
             {data.locationType === "custom" && data.drag && (
                 <>
                     <p className="mb-1 px-1 text-sm text-muted-foreground">
-                        To modify tentacle locations, enable it:
+                        {t("card.drawBefore", {
+                            what: t("card.drawTentacles"),
+                        })}
                         <Checkbox
                             className="mx-1 my-1"
                             checked={$drawingQuestionKey === questionKey}
@@ -178,7 +185,7 @@ export const TentacleQuestionComponent = ({
                             }}
                             disabled={!data.drag || $isLoading}
                         />
-                        and use the buttons at the bottom left of the map.
+                        {t("card.drawAfter")}
                     </p>
                     <div className="flex justify-center mb-2">
                         <PresetsDialog
@@ -202,6 +209,7 @@ const TentacleLocationSelector = ({
     disabled: boolean;
 }) => {
     useStore(triggerLocalRefresh);
+    useLanguage();
     const locations = use(promise);
     const [filteredFeatures, setFilteredFeatures] = useState<any[]>([]);
 
@@ -271,9 +279,9 @@ const TentacleLocationSelector = ({
 
     return (
         <Select
-            trigger="Location"
+            trigger={t("tentacles.location")}
             options={{
-                false: "Not Within",
+                false: t("answer.notWithin"),
                 ...mapToObj(filteredFeatures, (feature: any) => [
                     feature.properties.name,
                     feature.properties.name,

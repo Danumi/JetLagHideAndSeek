@@ -11,6 +11,7 @@ import {
     mapGeoLocation,
     polyGeoJSON,
 } from "@/lib/context";
+import { t } from "@/lib/i18n";
 import { memoizeAsync } from "@/lib/utils";
 import {
     elevationAt,
@@ -121,10 +122,9 @@ const bboxExtension = (
 
 const pointsOrNothing = (elements: any[], what: string) => {
     if (elements.length === 0) {
-        toast.info(
-            `No ${what} inside the game area. By the rules the question has no answer, but it still counts.`,
-            { toastId: `no-places-${what}` },
-        );
+        toast.info(t("places.none", { what }), {
+            toastId: `no-places-${what}`,
+        });
         return false as const;
     }
     return [
@@ -161,7 +161,7 @@ export const determineMeasuringBoundary = async (
             );
 
             if (!zoneInfo) {
-                toast.error("No admin boundary found at this location");
+                toast.error(t("question.noAdminBorder"));
                 return [turf.multiPolygon([])];
             }
 
@@ -219,30 +219,27 @@ export const determineMeasuringBoundary = async (
                     (
                         await findPlacesInZone(
                             '["aeroway"="aerodrome"]["iata"]', // Only commercial airports have IATA codes,
-                            "Finding airports...",
+                            t("loading.airports"),
                         )
                     ).elements,
                     (feature: any) => feature.tags.iata,
                 ),
-                "commercial airports",
+                t("places.airports"),
             );
         case "city":
             return pointsOrNothing(
                 (
                     await findPlacesInZone(
                         '[place=city]["population"~"^[1-9]+[0-9]{6}$"]', // The regex is faster than (if:number(t["population"])>1000000)
-                        "Finding cities...",
+                        t("loading.cities"),
                     )
                 ).elements,
-                "major cities",
+                t("places.cities"),
             );
         case "water": {
             const lines = await findNamedWaterLines();
             if (lines.length === 0) {
-                toast.info(
-                    "No named bodies of water inside the game area. By the rules the question has no answer, but it still counts.",
-                    { toastId: "no-water" },
-                );
+                toast.info(t("question.noWater"), { toastId: "no-water" });
                 return false;
             }
             return [
@@ -275,18 +272,15 @@ export const determineMeasuringBoundary = async (
 
             if (data.elements.length >= MAX_PLACES_IN_ZONE) {
                 toast.error(
-                    `Too many ${prettifyLocation(
-                        location,
-                        true,
-                    ).toLowerCase()} found (${data.elements.length}). Please enable hiding zone mode and switch to the Large Game variation of this question.`,
+                    t("places.tooMany", {
+                        what: prettifyLocation(location),
+                        count: data.elements.length,
+                    }),
                 );
                 return [turf.multiPolygon([])];
             }
 
-            return pointsOrNothing(
-                data.elements,
-                prettifyLocation(location, true).toLowerCase(),
-            );
+            return pointsOrNothing(data.elements, prettifyLocation(location));
         }
         case "rail-measure": {
             // The stations the hiding zones are drawn around (Small: U-Bahn)
@@ -297,7 +291,7 @@ export const determineMeasuringBoundary = async (
                     lon: station.geometry.coordinates[0],
                     lat: station.geometry.coordinates[1],
                 })),
-                "train stations",
+                t("places.stations"),
             );
         }
         case "custom-measure":
@@ -324,7 +318,7 @@ export const determineMeasuringBoundary = async (
 const seaLevelRegion = async (question: MeasuringQuestion) => {
     const elevation = await elevationAt(question.lat, question.lng);
     if (elevation === null) {
-        toast.error("Could not load elevation data");
+        toast.error(t("question.noElevation"));
         return false;
     }
     const region = await regionLowerThan(
@@ -332,7 +326,7 @@ const seaLevelRegion = async (question: MeasuringQuestion) => {
         elevation,
     );
     if (region === null) {
-        toast.error("Could not load elevation data");
+        toast.error(t("question.noElevation"));
         return false;
     }
     // Nothing in the game area is lower than the seekers.

@@ -22,6 +22,7 @@ import {
     settingsOpen,
 } from "@/lib/context";
 import { findPrecisePosition } from "@/lib/gps";
+import { t, useLanguage } from "@/lib/i18n";
 import { loadingTasks, retryTrigger } from "@/lib/loading";
 import { QUESTION_URL_PARAM, readQuestionLink } from "@/lib/questionLink";
 import { questionLinkRole, setRole } from "@/lib/role";
@@ -53,12 +54,15 @@ type Result =
     | { key: number; state: "done"; answer: HiderAnswer }
     | { key: number; state: "error"; message: string };
 
-const answerLabel = (question: Question, answer: HiderAnswer) => {
-    if (answer.value === "no-answer") return "No answer";
+const answerLabel = (
+    question: Question,
+    answer: Pick<HiderAnswer, "value" | "location">,
+) => {
+    if (answer.value === "no-answer") return t("answer.none");
     if (question.id === "tentacles") {
         return answer.location
-            ? String(answer.location.properties?.name ?? "Place")
-            : "Not within";
+            ? String(answer.location.properties?.name ?? t("answer.place"))
+            : t("answer.notWithin");
     }
     return (
         answerOptions(question).find((option) => option.value === answer.value)
@@ -96,7 +100,7 @@ const ZoneCheckCard = () => {
     const { chosen, inside } = $zoneCheck;
     const showMap = () => {
         hiderScreenOpen.set(false);
-        toast.info("Tap a zone on the map to choose it.", {
+        toast.info(t("hider.chooseHint"), {
             autoClose: 4000,
             toastId: "choose-zone-hint",
         });
@@ -128,14 +132,15 @@ const ZoneCheckCard = () => {
                     </div>
                     {($zoneCheck.accuracy ?? 0) > POOR_GPS_METERS && (
                         <div className="text-xs text-orange-400">
-                            Your GPS is only accurate to ±
-                            {Math.round($zoneCheck.accuracy ?? 0)} m here.
+                            {t("hider.poorGps", {
+                                meters: Math.round($zoneCheck.accuracy ?? 0),
+                            })}
                         </div>
                     )}
                 </div>
                 {chosen && (
                     <Button variant="outline" size="sm" onClick={showMap}>
-                        Change
+                        {t("hider.change")}
                     </Button>
                 )}
             </div>
@@ -146,13 +151,15 @@ const ZoneCheckCard = () => {
                             className="h-11 bg-violet-700 font-semibold text-white hover:bg-violet-800"
                             onClick={() => hiderZoneId.set($zoneCheck.id)}
                         >
-                            Choose {$zoneCheck.station}
+                            {t("hider.choose", {
+                                station: $zoneCheck.station,
+                            })}
                         </Button>
                     )}
                     <Button variant="outline" onClick={showMap}>
                         {inside
-                            ? "Choose another zone on the map"
-                            : "Choose on the map"}
+                            ? t("hider.chooseAnother")
+                            : t("hider.chooseOnMap")}
                     </Button>
                 </div>
             )}
@@ -177,8 +184,8 @@ const receiveQuestionLink = (entry: HiderInboxEntry) => {
 
     if (role === "seeker") {
         showActionToast(
-            "This question is for the hider. This phone is set to seeking.",
-            "I'm hiding",
+            t("hider.forHider"),
+            t("role.hiding"),
             () => setRole("hider"),
             10000,
         );
@@ -187,8 +194,8 @@ const receiveQuestionLink = (entry: HiderInboxEntry) => {
 
     setRole("hider");
     showActionToast(
-        "This phone is now the hider's. You can change this in the settings.",
-        "I'm seeking",
+        t("hider.nowHider"),
+        t("role.seeking"),
         () => setRole("seeker"),
         10000,
     );
@@ -200,6 +207,7 @@ const receiveQuestionLink = (entry: HiderInboxEntry) => {
  * from the hider's GPS location.
  */
 export const HiderScreen = () => {
+    const $language = useLanguage();
     const $open = useStore(hiderScreenOpen);
     const $hiderMode = useStore(hiderMode);
     const $inbox = useStore(hiderInbox);
@@ -249,10 +257,7 @@ export const HiderScreen = () => {
                 removeUrlParam(QUESTION_URL_PARAM);
 
                 if (questions.get().some((q) => q.key === question.key)) {
-                    toast.info(
-                        "This is your own question. Send the link to the hider: their phone works out the answer.",
-                        { autoClose: 8000 },
-                    );
+                    toast.info(t("hider.ownQuestion"), { autoClose: 8000 });
                     return;
                 }
 
@@ -266,9 +271,7 @@ export const HiderScreen = () => {
             .catch((error) => {
                 removeUrlParam(QUESTION_URL_PARAM);
                 console.log(error);
-                toast.error(
-                    "This question link is broken. Ask the seekers to send it again.",
-                );
+                toast.error(t("hider.brokenLink"));
             });
     }, []);
 
@@ -296,12 +299,17 @@ export const HiderScreen = () => {
             .then((answer) => {
                 if (cancelled) return;
                 setResult({ key, state: "done", answer });
+                // The answer, not its text: the list shows it in the phone's language
                 hiderInbox.set(
                     hiderInbox.get().map((x) =>
                         x.question.key === key
                             ? {
                                   ...x,
-                                  answer: answerLabel(x.question, answer),
+                                  answer: undefined,
+                                  workedOut: {
+                                      value: answer.value,
+                                      location: answer.location,
+                                  },
                               }
                             : x,
                     ),
@@ -327,6 +335,8 @@ export const HiderScreen = () => {
         location?.longitude,
         attempt,
         $retryTrigger,
+        // The reason is written in the phone's language
+        $language,
     ]);
 
     // Only the hider's phone has this screen
@@ -350,23 +360,23 @@ export const HiderScreen = () => {
                 <div className="min-w-0 flex-1 text-sm">
                     {fix.state === "locating" &&
                         (fix.accuracy === undefined
-                            ? "Getting your location..."
-                            : `Getting your location · ±${Math.round(fix.accuracy)} m`)}
+                            ? t("locating.waiting")
+                            : t("locating.accuracy", {
+                                  meters: Math.round(fix.accuracy),
+                              }))}
                     {fix.state === "failed" && (
                         <span className="text-orange-400">
-                            Couldn&apos;t get your location. Allow location
-                            access for this site, or use the violet H marker on
-                            the map.
+                            {t("hider.locationFailed")}
                         </span>
                     )}
                     {fix.state === "gps" &&
                         (fromGps
-                            ? `Your location: GPS, ${clockTime(fix.at)}, ±${Math.round(
-                                  fix.accuracy,
-                              )} m`
-                            : "Your location: the H marker on the map")}
-                    {fix.state === "marker" &&
-                        "Your location: the H marker on the map"}
+                            ? t("hider.locationGps", {
+                                  time: clockTime(fix.at),
+                                  meters: Math.round(fix.accuracy),
+                              })
+                            : t("hider.locationMarker"))}
+                    {fix.state === "marker" && t("hider.locationMarker")}
                 </div>
                 {fix.state === "locating" && fix.accuracy !== undefined ? (
                     <Button
@@ -374,7 +384,7 @@ export const HiderScreen = () => {
                         size="sm"
                         onClick={() => stopWaiting.current()}
                     >
-                        Use anyway
+                        {t("locating.useAnyway")}
                     </Button>
                 ) : (
                     <Button
@@ -383,7 +393,7 @@ export const HiderScreen = () => {
                         disabled={fix.state === "locating"}
                         onClick={locate}
                     >
-                        Update
+                        {t("hider.update")}
                     </Button>
                 )}
             </div>
@@ -392,7 +402,7 @@ export const HiderScreen = () => {
                     variant="outline"
                     onClick={() => setFix({ state: "marker" })}
                 >
-                    Use the H marker
+                    {t("hider.useMarker")}
                 </Button>
             )}
 
@@ -400,9 +410,11 @@ export const HiderScreen = () => {
                 <div className="flex flex-col gap-3 rounded-lg border-2 border-violet-500 p-4">
                     <div>
                         <div className="text-sm text-muted-foreground">
-                            Question from the seekers
-                            {askedAtText(entry.question) &&
-                                ` · asked ${askedAtText(entry.question)}`}
+                            {askedAtText(entry.question)
+                                ? t("hider.questionFromAt", {
+                                      time: askedAtText(entry.question)!,
+                                  })
+                                : t("hider.questionFrom")}
                         </div>
                         <div className="text-xl font-semibold font-poppins">
                             {entryTitle(entry)}
@@ -410,34 +422,32 @@ export const HiderScreen = () => {
                     </div>
                     {!location && (
                         <p className="text-sm text-muted-foreground">
-                            Your answer appears once your location is known.
+                            {t("hider.waitingForLocation")}
                         </p>
                     )}
                     {location && current && result.state === "working" && (
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <LoaderCircleIcon className="size-4 animate-spin" />
-                            {$loadingTasks[0]?.label ??
-                                "Working out your answer..."}
+                            {$loadingTasks[0]?.label ?? t("hider.working")}
                         </div>
                     )}
                     {location && current && result.state === "error" && (
                         <div className="flex flex-col gap-2">
                             <p className="text-sm text-orange-400">
-                                Couldn&apos;t work out the answer: map data
-                                didn&apos;t load.
+                                {t("hider.failed")}
                             </p>
                             <Button
                                 variant="outline"
                                 onClick={() => setAttempt(attempt + 1)}
                             >
-                                Try again
+                                {t("hider.tryAgain")}
                             </Button>
                         </div>
                     )}
                     {location && current && result.state === "done" && (
                         <div className="flex flex-col gap-2">
                             <div className="text-sm text-muted-foreground">
-                                Your answer
+                                {t("hider.yourAnswer")}
                             </div>
                             <div className="text-4xl font-bold font-poppins text-violet-300">
                                 {answerLabel(entry.question, result.answer)}
@@ -448,23 +458,19 @@ export const HiderScreen = () => {
                                 </p>
                             )}
                             <p className="text-sm text-muted-foreground">
-                                Tell the seekers this answer in your chat. Only
-                                the answer: the reason above is for you.
+                                {t("hider.tellSeekers")}
                             </p>
                         </div>
                     )}
                 </div>
             ) : (
-                <p className="text-muted-foreground">
-                    No question yet. When the seekers send you a question link,
-                    open it on this phone and your answer appears here.
-                </p>
+                <p className="text-muted-foreground">{t("hider.noQuestion")}</p>
             )}
 
             {earlier.length > 0 && (
                 <div className="flex flex-col gap-1">
                     <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                        Earlier questions
+                        {t("hider.earlier")}
                     </h3>
                     {earlier.map((x) => (
                         <button
@@ -476,10 +482,16 @@ export const HiderScreen = () => {
                                 <span className="font-semibold">
                                     {entryTitle(x)}
                                 </span>
-                                {x.answer && (
+                                {(x.workedOut || x.answer) && (
                                     <span className="text-violet-300">
                                         {" "}
-                                        · {x.answer}
+                                        ·{" "}
+                                        {x.workedOut
+                                            ? answerLabel(
+                                                  x.question,
+                                                  x.workedOut,
+                                              )
+                                            : x.answer}
                                     </span>
                                 )}
                                 <span className="text-muted-foreground">
@@ -499,16 +511,16 @@ export const HiderScreen = () => {
             <div className="flex items-center gap-3 bg-violet-700 px-4 py-3 text-white shadow-md">
                 <VenetianMaskIcon className="size-7 shrink-0" />
                 <h1 className="flex-1 text-2xl font-semibold font-poppins">
-                    Hider mode
+                    {t("bar.hiderMode")}
                 </h1>
                 <Button variant="secondary" className="gap-2" onClick={close}>
                     <MapIcon />
-                    Map
+                    {t("hider.map")}
                 </Button>
                 <Button
                     variant="secondary"
                     size="icon"
-                    title="Settings"
+                    title={t("settings.title")}
                     onClick={() => settingsOpen.set(true)}
                 >
                     <SettingsIcon />

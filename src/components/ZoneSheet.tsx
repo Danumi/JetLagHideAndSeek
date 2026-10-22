@@ -33,6 +33,7 @@ import {
     useCustomStations as useCustomStationsAtom,
     zoneSheetOpen,
 } from "@/lib/context";
+import { type MessageKey, t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { parseCustomStationsFromText } from "@/maps/api";
 import { extractStationLabel } from "@/maps/geo-utils";
@@ -58,14 +59,15 @@ import { UnitSelect } from "./UnitSelect";
 const SWIPE_PX = 80;
 
 const STYLES = {
-    zones: "Zones",
-    stations: "Stations",
-    "no-overlap": "Merged",
-    "no-display": "Hidden",
-} as const;
+    zones: "zones.style.zones",
+    stations: "zones.style.stations",
+    "no-overlap": "zones.style.merged",
+    "no-display": "zones.style.hidden",
+} as const satisfies Record<string, MessageKey>;
 
 /** The list of hiding zones, from the "Zones" button at the bottom. */
 export const ZoneSheet = () => {
+    useLanguage();
     const $open = useStore(zoneSheetOpen);
     const $stations = useStore(trainStations);
     const $disabledStations = useStore(disabledStations);
@@ -91,13 +93,15 @@ export const ZoneSheet = () => {
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => setSettings(false)}
-                                    title="Back"
+                                    title={t("common.back")}
                                 >
                                     <ChevronLeftIcon />
                                 </Button>
                             )}
                             <DrawerTitle className="flex-1 text-2xl font-semibold font-poppins">
-                                {settings ? "Zone settings" : "Hiding zones"}
+                                {settings
+                                    ? t("zones.settingsTitle")
+                                    : t("zones.title")}
                             </DrawerTitle>
                             {!settings && (
                                 <Button
@@ -106,16 +110,19 @@ export const ZoneSheet = () => {
                                     onClick={() => setSettings(true)}
                                 >
                                     <SettingsIcon />
-                                    Settings
+                                    {t("zones.settings")}
                                 </Button>
                             )}
                         </div>
                         <DrawerDescription>
                             {settings
-                                ? "Which stations count as hiding zones, and how big they are."
+                                ? t("zones.settingsText")
                                 : $displayHidingZones
-                                  ? `${left} of ${$allTrainStations.length} zones left`
-                                  : "Hiding zones are turned off."}
+                                  ? t("zones.left", {
+                                        left,
+                                        total: $allTrainStations.length,
+                                    })
+                                  : t("zones.off")}
                         </DrawerDescription>
                     </DrawerHeader>
                     <div
@@ -148,7 +155,7 @@ const ZoneList = () => {
                 className="w-full"
                 onClick={() => displayHidingZones.set(true)}
             >
-                Show hiding zones
+                {t("zones.turnOn")}
             </Button>
         );
     }
@@ -184,10 +191,7 @@ const ZoneList = () => {
     return (
         <div className="flex flex-col gap-3">
             {keeping ? (
-                <p className="text-sm">
-                    Tick the zones the hider can still be in, e.g. after a
-                    photo. All other zones are ruled out.
-                </p>
+                <p className="text-sm">{t("zones.keepHelp")}</p>
             ) : (
                 <>
                     <div className="grid grid-cols-4 gap-1">
@@ -205,20 +209,19 @@ const ZoneList = () => {
                                         displayHidingZonesStyle.set(style)
                                     }
                                 >
-                                    {STYLES[style]}
+                                    {t(STYLES[style])}
                                 </Button>
                             ),
                         )}
                     </div>
                     <p className="text-xs text-muted-foreground">
-                        Tap a zone to see it on the map. Swipe it sideways to
-                        rule it out, or back in.
+                        {t("zones.listHelp")}
                     </p>
                 </>
             )}
             <div className="flex gap-2">
                 <Input
-                    placeholder="Search for a station..."
+                    placeholder={t("zones.search")}
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
@@ -231,17 +234,17 @@ const ZoneList = () => {
                         }
                         onClick={() => setKeeping([])}
                     >
-                        Keep only...
+                        {t("zones.keepOnly")}
                     </Button>
                 )}
             </div>
             {shown.length === 0 ? (
                 <p className="py-4 text-center text-sm text-muted-foreground">
                     {term
-                        ? "No hiding zones found."
+                        ? t("zones.notFound")
                         : $isLoading
-                          ? "Finding the hiding zones..."
-                          : "No hiding zones left."}
+                          ? t("zones.finding")
+                          : t("zones.noneLeft")}
                 </p>
             ) : (
                 <div className="flex flex-col divide-y overflow-hidden rounded-md border">
@@ -282,17 +285,16 @@ const ZoneList = () => {
                         className="flex-1"
                         onClick={() => setKeeping(null)}
                     >
-                        Cancel
+                        {t("common.cancel")}
                     </Button>
                     <Button
                         className="flex-1"
                         disabled={keeping.length === 0}
                         onClick={() => keep(keeping)}
                     >
-                        Keep{" "}
                         {keeping.length === 1
-                            ? "this zone"
-                            : `these ${keeping.length}`}
+                            ? t("zones.keepThis")
+                            : t("zones.keepThese", { count: keeping.length })}
                     </Button>
                 </div>
             ) : (
@@ -303,7 +305,7 @@ const ZoneList = () => {
                             className="flex-1"
                             onClick={showAllZones}
                         >
-                            Show all zones
+                            {t("zones.showAll")}
                         </Button>
                     ) : (
                         $disabledStations.length > 0 && (
@@ -315,7 +317,7 @@ const ZoneList = () => {
                                     keptZonesRuledOut.set([]);
                                 }}
                             >
-                                Restore all
+                                {t("zones.restoreAll")}
                             </Button>
                         )
                     )}
@@ -332,7 +334,7 @@ const ZoneList = () => {
                                 )
                             }
                         >
-                            Rule out all
+                            {t("zones.ruleOutAll")}
                         </Button>
                     )}
                 </div>
@@ -373,7 +375,7 @@ const ZoneRow = ({
                         offset > 0 ? "left-0" : "right-0",
                     )}
                 >
-                    {ruledOut ? "Back in" : "Rule out"}
+                    {ruledOut ? t("zones.backIn") : t("zones.ruleOut")}
                 </span>
             )}
             <div
@@ -430,7 +432,7 @@ const ZoneRow = ({
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 shrink-0"
-                    title={ruledOut ? "Back in" : "Rule out"}
+                    title={ruledOut ? t("zones.backIn") : t("zones.ruleOut")}
                     onClick={(e) => {
                         e.stopPropagation();
                         toggleZone(id);
@@ -443,29 +445,32 @@ const ZoneRow = ({
     );
 };
 
-const STATION_TYPES = [
-    { label: "Railway Stations", value: "[railway=station]" },
-    { label: "Railway Halts", value: "[railway=halt]" },
-    { label: "Railway Stops", value: "[railway=stop]" },
-    { label: "Tram Stops", value: "[railway=tram_stop]" },
-    { label: "Bus Stops", value: "[highway=bus_stop]" },
-    { label: "Ferry Terminals", value: "[amenity=ferry_terminal]" },
+const STATION_TYPES: { label: MessageKey; value: string }[] = [
+    { label: "stationType.railway", value: "[railway=station]" },
+    { label: "stationType.halt", value: "[railway=halt]" },
+    { label: "stationType.stop", value: "[railway=stop]" },
+    { label: "stationType.tram", value: "[railway=tram_stop]" },
+    { label: "stationType.bus", value: "[highway=bus_stop]" },
+    { label: "stationType.ferry", value: "[amenity=ferry_terminal]" },
     {
-        label: "Ferry Platforms (public transport)",
+        label: "stationType.ferryPlatform",
         value: "[public_transport=platform][platform=ferry]",
     },
-    { label: "Funicular Stations", value: "[railway=funicular]" },
-    { label: "Aerialway Stations", value: "[aerialway=station]" },
+    { label: "stationType.funicular", value: "[railway=funicular]" },
+    { label: "stationType.aerialway", value: "[aerialway=station]" },
     {
-        label: "Railway Stations Excluding Subways",
+        label: "stationType.noSubway",
         value: "[railway=station][subway!=yes]",
     },
-    { label: "Subway Stations", value: "[railway=station][subway=yes]" },
+    { label: "stationType.subway", value: "[railway=station][subway=yes]" },
     {
-        label: "Light Rail Stations",
+        label: "stationType.lightRail",
         value: "[railway=station][light_rail=yes]",
     },
-    { label: "Light Rail Halts", value: "[railway=halt][light_rail=yes]" },
+    {
+        label: "stationType.lightRailHalt",
+        value: "[railway=halt][light_rail=yes]",
+    },
 ];
 
 const ZoneSettings = () => {
@@ -482,7 +487,7 @@ const ZoneSettings = () => {
         <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between gap-2">
                 <Label className="font-semibold font-poppins">
-                    Display hiding zones?
+                    {t("zones.display")}
                 </Label>
                 <Checkbox
                     checked={$displayHidingZones}
@@ -490,13 +495,16 @@ const ZoneSettings = () => {
                     disabled={$isLoading}
                 />
             </div>
-            <p className="text-xs text-orange-500">
-                Hiding zones can slow down your phone.
-            </p>
+            <p className="text-xs text-orange-500">{t("zones.slow")}</p>
             <div className="flex flex-col gap-2">
-                <Label className="font-semibold font-poppins">Stations</Label>
+                <Label className="font-semibold font-poppins">
+                    {t("zones.stations")}
+                </Label>
                 <MultiSelect
-                    options={STATION_TYPES}
+                    options={STATION_TYPES.map(({ label, value }) => ({
+                        label: t(label),
+                        value,
+                    }))}
                     onValueChange={(values) => {
                         if (
                             !_.isEqual(values, displayHidingZonesOptions.get())
@@ -505,7 +513,7 @@ const ZoneSettings = () => {
                         }
                     }}
                     defaultValue={$displayHidingZonesOptions}
-                    placeholder="Select allowed places"
+                    placeholder={t("zones.stationTypes")}
                     animation={2}
                     maxCount={3}
                     modalPopover
@@ -514,14 +522,13 @@ const ZoneSettings = () => {
                 />
                 {onlyCustomStations && (
                     <p className="text-xs text-muted-foreground">
-                        This phone uses its own station list (Settings &gt;
-                        Advanced).
+                        {t("zones.ownList")}
                     </p>
                 )}
             </div>
             <div className="flex flex-col gap-2">
                 <Label className="font-semibold font-poppins">
-                    Hiding zone radius
+                    {t("zones.radius")}
                 </Label>
                 <div className="flex gap-2">
                     <PositiveNumberInput
@@ -553,7 +560,7 @@ export const ZoneExpertSettings = () => {
         <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between gap-2">
                 <Label className="font-semibold font-poppins">
-                    Use custom station list?
+                    {t("stations.useOwn")}
                 </Label>
                 <Checkbox
                     checked={useCustomStations}
@@ -564,8 +571,7 @@ export const ZoneExpertSettings = () => {
             {useCustomStations && (
                 <div className="flex flex-col gap-2">
                     <Label className="font-semibold font-poppins leading-5">
-                        Import stations from URL (CSV, GeoJSON, KML). This must
-                        be a raw file link.
+                        {t("stations.importUrl")}
                     </Label>
                     <div className="flex gap-2">
                         <Input
@@ -589,23 +595,25 @@ export const ZoneExpertSettings = () => {
                                         contentType,
                                     );
                                     if (parsed.length === 0) {
-                                        toast.error(
-                                            "No stations found in provided URL",
-                                        );
+                                        toast.error(t("stations.noneAtUrl"));
                                         return;
                                     }
                                     customStationsAtom.set(parsed);
                                     toast.success(
-                                        `Imported ${parsed.length} stations`,
+                                        t("stations.imported", {
+                                            count: parsed.length,
+                                        }),
                                     );
                                 } catch (e: any) {
                                     toast.error(
-                                        `Failed to import from URL: ${e.message || e}`,
+                                        t("stations.urlFailed", {
+                                            error: e.message || String(e),
+                                        }),
                                     );
                                 }
                             }}
                         >
-                            Import
+                            {t("stations.import")}
                         </Button>
                     </div>
                     <Input
@@ -627,9 +635,7 @@ export const ZoneExpertSettings = () => {
                                     );
                                 }
                                 if (all.length === 0) {
-                                    toast.error(
-                                        "No stations found in uploaded files",
-                                    );
+                                    toast.error(t("stations.noneInFiles"));
                                     return;
                                 }
                                 const unique = _.uniqBy(all, (s) =>
@@ -639,18 +645,22 @@ export const ZoneExpertSettings = () => {
                                 );
                                 customStationsAtom.set(unique);
                                 toast.success(
-                                    `Imported ${unique.length} stations`,
+                                    t("stations.imported", {
+                                        count: unique.length,
+                                    }),
                                 );
                             } catch (e: any) {
                                 toast.error(
-                                    `Failed to import files: ${e.message || e}`,
+                                    t("stations.filesFailed", {
+                                        error: e.message || String(e),
+                                    }),
                                 );
                             }
                         }}
                     />
                     <div className="flex items-center justify-between gap-2">
                         <Label className="font-semibold font-poppins">
-                            Include default stations with custom list?
+                            {t("stations.includeDefault")}
                         </Label>
                         <Checkbox
                             checked={includeDefaultStations}
@@ -663,15 +673,17 @@ export const ZoneExpertSettings = () => {
                     {$customStations.length > 0 && (
                         <>
                             <div className="text-sm text-muted-foreground">
-                                {$customStations.length} custom station
-                                {$customStations.length === 1 ? "" : "s"}{" "}
-                                imported
+                                {$customStations.length === 1
+                                    ? t("stations.importedOne")
+                                    : t("stations.importedMany", {
+                                          count: $customStations.length,
+                                      })}
                             </div>
                             <Button
                                 className="w-full"
                                 onClick={() => customStationsAtom.set([])}
                             >
-                                Clear Imported
+                                {t("stations.clear")}
                             </Button>
                         </>
                     )}

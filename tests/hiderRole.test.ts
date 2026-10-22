@@ -1,5 +1,5 @@
 import * as turf from "@turf/turf";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import {
     allTrainStations,
@@ -13,6 +13,7 @@ import {
     questions,
     roleChosen,
 } from "@/lib/context";
+import { language } from "@/lib/i18n";
 import { currentRole, questionLinkRole, setRole } from "@/lib/role";
 import type { StationPlace } from "@/maps/api";
 import {
@@ -40,6 +41,9 @@ const northOfKarlsplatz = (meters: number) => {
 };
 
 describe("hiding zone check", () => {
+    beforeEach(() => language.set("en"));
+    afterEach(() => language.set("de"));
+
     it("finds the nearest zone and whether the hider is in it", () => {
         const check = checkHidingZone(
             northOfKarlsplatz(320),
@@ -56,6 +60,12 @@ describe("hiding zone check", () => {
         expect(zoneCheckText({ ...check!, chosen: true })).toEqual({
             title: "Your zone: Karlsplatz",
             detail: "320 m from the station",
+        });
+
+        language.set("de");
+        expect(zoneCheckText(check!)).toEqual({
+            title: "Wähle deine Zone",
+            detail: "Du bist in der Zone Karlsplatz, 320 m von der Station",
         });
     });
 

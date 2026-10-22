@@ -470,6 +470,1046 @@ export const messages = {
         en: "{nearest} to you: {you}, {youDistance} away. To the seekers: {them}, {themDistance}.",
         de: "{nearest} bei dir: {you}, {youDistance} entfernt. Bei den Seekern: {them}, {themDistance}.",
     },
+
+    // Your role on this phone
+    "role.label": {
+        en: "Your role on this phone",
+        de: "Deine Rolle auf diesem Handy",
+    },
+    "role.seeking": { en: "I'm seeking", de: "Ich suche" },
+    "role.hiding": { en: "I'm hiding", de: "Ich verstecke mich" },
+
+    // Settings
+    "settings.title": { en: "Settings", de: "Einstellungen" },
+    "settings.share": { en: "Share game", de: "Spiel teilen" },
+    "settings.help": { en: "Help", de: "Hilfe" },
+    "settings.deleteAll": {
+        en: "Delete all questions",
+        de: "Alle Fragen löschen",
+    },
+    "settings.deleteAllTitle": {
+        en: "Delete all questions?",
+        de: "Alle Fragen löschen?",
+    },
+    "settings.deleteAllText": {
+        en: "All {count} questions disappear from the map. You can undo this right afterwards.",
+        de: "Alle {count} Fragen verschwinden von der Karte. Du kannst das gleich danach rückgängig machen.",
+    },
+    "settings.deleteAllButton": { en: "Delete all", de: "Alle löschen" },
+    "settings.advanced": { en: "Advanced", de: "Erweitert" },
+    "settings.mapData": { en: "Map data", de: "Kartendaten" },
+    "settings.overpassHost": {
+        en: "Overpass API host",
+        de: "Overpass-API-Server",
+    },
+    "settings.customUrl": { en: "Custom URL", de: "Eigene URL" },
+    "settings.customFallback": {
+        en: "The other hosts will be used as fallbacks if this one fails.",
+        de: "Klappt dieser Server nicht, springen die anderen ein.",
+    },
+    "settings.fallback": {
+        en: "The remaining hosts will be tried as fallbacks if the selected one fails.",
+        de: "Klappt der gewählte Server nicht, springen die anderen ein.",
+    },
+    "settings.preload": { en: "Preload map data", de: "Kartendaten vorladen" },
+    "settings.preloadHint": {
+        en: 'Loads the data of every question card for the game area, so answers don\'t have to wait. "New Game" does this by itself.',
+        de: "Lädt die Daten aller Fragekarten für das Spielgebiet, damit Antworten nicht warten müssen. „Neues Spiel“ macht das von selbst.",
+    },
+    "settings.mapStyle": { en: "Map style", de: "Kartenstil" },
+    "settings.style.standard": { en: "Standard", de: "Standard" },
+    "settings.style.light": { en: "Light", de: "Hell" },
+    "settings.style.dark": { en: "Dark", de: "Dunkel" },
+    "settings.questions": { en: "Questions", de: "Fragen" },
+    "settings.allTypes": {
+        en: "Show all question types?",
+        de: "Alle Fragearten zeigen?",
+    },
+    "settings.allTypesHint": {
+        en: "For experts: question cards also offer tentacles and the variants that are not part of the Small deck.",
+        de: "Für Profis: Die Fragekarten bieten auch Tentakel und die Varianten, die nicht im Small-Deck sind.",
+    },
+    "settings.gameFile": { en: "Game file", de: "Spieldatei" },
+    "settings.saveFile": { en: "Save file", de: "Datei speichern" },
+    "settings.loadFile": { en: "Load file", de: "Datei laden" },
+    "settings.gameFileHint": {
+        en: "Saves the game area, questions and ruled-out zones in a file, or loads such a file.",
+        de: "Speichert Spielgebiet, Fragen und gestrichene Zonen in einer Datei oder lädt so eine Datei.",
+    },
+    "settings.gameArea": { en: "Game area", de: "Spielgebiet" },
+    "settings.drawingTools": {
+        en: "Show drawing tools?",
+        de: "Zeichenwerkzeuge zeigen?",
+    },
+    "settings.drawingHint": {
+        en: "Draw the game area by hand (top left of the map).",
+        de: "Spielgebiet von Hand zeichnen (oben links auf der Karte).",
+    },
+    "settings.hidingZones": { en: "Hiding zones", de: "Zonen" },
+
+    // Loading and sharing a game
+    "game.loaded": { en: "Game loaded", de: "Spiel geladen" },
+    "game.invalid": {
+        en: "This game can't be loaded: {error}",
+        de: "Dieses Spiel lässt sich nicht laden: {error}",
+    },
+    "game.loadedFrom": {
+        en: "Game loaded from {source}",
+        de: "Spiel von {source} geladen",
+    },
+    "game.loadFailed": {
+        en: "Couldn't load the game from {source}: {error}",
+        de: "Das Spiel ließ sich nicht von {source} laden: {error}",
+    },
+    "game.presetName": { en: "Imported preset", de: "Importierte Vorlage" },
+    "game.presetsImported": {
+        en: "Imported {count} preset(s)",
+        de: "{count} Vorlage(n) importiert",
+    },
+    "game.saved": {
+        en: "Game saved to a file",
+        de: "Spiel als Datei gespeichert",
+    },
+    "game.saveFailed": {
+        en: "Couldn't save the file: {error}",
+        de: "Die Datei ließ sich nicht speichern: {error}",
+    },
+    "game.readFailed": {
+        en: "Couldn't read the file",
+        de: "Die Datei ließ sich nicht lesen",
+    },
+    "game.shareFailed": {
+        en: "Couldn't prepare the game for sharing",
+        de: "Das Spiel ließ sich nicht zum Teilen vorbereiten",
+    },
+    "game.tooLarge": {
+        en: "The game is too large for a link, saving a file instead.",
+        de: "Das Spiel ist zu groß für einen Link, es wird stattdessen als Datei gespeichert.",
+    },
+    "game.copyByHand": {
+        en: "Couldn't copy the link. Copy it by hand: {link}",
+        de: "Der Link ließ sich nicht kopieren. Kopiere ihn von Hand: {link}",
+    },
+    "game.linkCopied": {
+        en: "Link to the game copied",
+        de: "Link zum Spiel kopiert",
+    },
+
+    // "New Game"
+    "newGame.button": { en: "New Game", de: "Neues Spiel" },
+    "newGame.hint": {
+        en: "Vienna, Small game: U-Bahn stations only, 500 m",
+        de: "Wien, Small: nur U-Bahn-Stationen, 500 m",
+    },
+    "newGame.title": {
+        en: "Start a new game (Vienna, Small)?",
+        de: "Neues Spiel starten (Wien, Small)?",
+    },
+    "newGame.text": {
+        en: "The game area is Vienna. Hiding zones are all U-Bahn stations with a 500 m radius. While the hider hides, the app loads the map data for every question card.",
+        de: "Gespielt wird in Wien. Die Zonen sind alle U-Bahn-Stationen mit 500 m Radius. Während sich der Hider versteckt, lädt die App die Kartendaten für alle Fragekarten.",
+    },
+    "newGame.deletesOne": {
+        en: "The question disappears; you can undo this right afterwards.",
+        de: "Die Frage verschwindet; du kannst das gleich danach rückgängig machen.",
+    },
+    "newGame.deletesMany": {
+        en: "All {count} questions disappear; you can undo this right afterwards.",
+        de: "Alle {count} Fragen verschwinden; du kannst das gleich danach rückgängig machen.",
+    },
+
+    // Messages with "Undo"
+    "undo.button": { en: "Undo", de: "Rückgängig" },
+    "undo.questionDeleted": { en: "Question deleted", de: "Frage gelöscht" },
+    "undo.questionsDeleted": {
+        en: "{count} questions deleted",
+        de: "{count} Fragen gelöscht",
+    },
+    "undo.onlyLeft": {
+        en: "Only {name} is left, {ruledOut} ruled out",
+        de: "Nur noch {name} übrig, {ruledOut} gestrichen",
+    },
+    "undo.kept": {
+        en: "{count} zones kept, {ruledOut} ruled out",
+        de: "{count} Zonen behalten, {ruledOut} gestrichen",
+    },
+
+    // The zone list
+    "zones.title": { en: "Hiding zones", de: "Zonen" },
+    "zones.settings": { en: "Settings", de: "Einstellungen" },
+    "zones.settingsTitle": { en: "Zone settings", de: "Zonen-Einstellungen" },
+    "zones.settingsText": {
+        en: "Which stations count as hiding zones, and how big they are.",
+        de: "Welche Stationen als Zonen zählen und wie groß die Zonen sind.",
+    },
+    "zones.off": {
+        en: "Hiding zones are turned off.",
+        de: "Die Zonen sind ausgeschaltet.",
+    },
+    "zones.turnOn": { en: "Show hiding zones", de: "Zonen zeigen" },
+    "zones.style.zones": { en: "Zones", de: "Zonen" },
+    "zones.style.stations": { en: "Stations", de: "Stationen" },
+    "zones.style.merged": { en: "Merged", de: "Vereint" },
+    "zones.style.hidden": { en: "Hidden", de: "Aus" },
+    "zones.keepHelp": {
+        en: "Tick the zones the hider can still be in, e.g. after a photo. All other zones are ruled out.",
+        de: "Hake die Zonen an, in denen der Hider noch sein kann, z. B. nach einem Foto. Alle anderen Zonen werden gestrichen.",
+    },
+    "zones.listHelp": {
+        en: "Tap a zone to see it on the map. Swipe it sideways to rule it out, or back in.",
+        de: "Tippe eine Zone an, um sie auf der Karte zu sehen. Wische sie zur Seite, um sie zu streichen oder zurückzuholen.",
+    },
+    "zones.search": { en: "Search for a station...", de: "Station suchen …" },
+    "zones.keepOnly": { en: "Keep only...", de: "Nur behalten …" },
+    "zones.notFound": {
+        en: "No hiding zones found.",
+        de: "Keine Zonen gefunden.",
+    },
+    "zones.finding": {
+        en: "Finding the hiding zones...",
+        de: "Suche die Zonen …",
+    },
+    "zones.noneLeft": {
+        en: "No hiding zones left.",
+        de: "Keine Zonen mehr übrig.",
+    },
+    "zones.keepThis": { en: "Keep this zone", de: "Diese Zone behalten" },
+    "zones.keepThese": {
+        en: "Keep these {count}",
+        de: "Diese {count} behalten",
+    },
+    "zones.restoreAll": { en: "Restore all", de: "Alle zurückholen" },
+    "zones.ruleOutAll": { en: "Rule out all", de: "Alle streichen" },
+    "zones.display": { en: "Display hiding zones?", de: "Zonen anzeigen?" },
+    "zones.slow": {
+        en: "Hiding zones can slow down your phone.",
+        de: "Die Zonen können das Handy langsamer machen.",
+    },
+    "zones.stations": { en: "Stations", de: "Stationen" },
+    "zones.stationTypes": {
+        en: "Select allowed places",
+        de: "Arten von Stationen wählen",
+    },
+    "zones.ownList": {
+        en: "This phone uses its own station list (Settings > Advanced).",
+        de: "Dieses Handy nutzt eine eigene Stationsliste (Einstellungen > Erweitert).",
+    },
+    "zones.radius": { en: "Hiding zone radius", de: "Radius der Zonen" },
+    "zones.noName": { en: "Station without a name", de: "Station ohne Namen" },
+
+    // Kinds of stations for the hiding zones
+    "stationType.railway": { en: "Railway Stations", de: "Bahnhöfe" },
+    "stationType.halt": { en: "Railway Halts", de: "Haltepunkte" },
+    "stationType.stop": { en: "Railway Stops", de: "Bahn-Haltestellen" },
+    "stationType.tram": {
+        en: "Tram Stops",
+        de: "Straßenbahn-Haltestellen",
+    },
+    "stationType.bus": { en: "Bus Stops", de: "Bushaltestellen" },
+    "stationType.ferry": { en: "Ferry Terminals", de: "Fährterminals" },
+    "stationType.ferryPlatform": {
+        en: "Ferry Platforms (public transport)",
+        de: "Fähranleger (Öffis)",
+    },
+    "stationType.funicular": {
+        en: "Funicular Stations",
+        de: "Standseilbahn-Stationen",
+    },
+    "stationType.aerialway": {
+        en: "Aerialway Stations",
+        de: "Seilbahn-Stationen",
+    },
+    "stationType.noSubway": {
+        en: "Railway Stations Excluding Subways",
+        de: "Bahnhöfe ohne U-Bahn",
+    },
+    "stationType.subway": { en: "Subway Stations", de: "U-Bahn-Stationen" },
+    "stationType.lightRail": {
+        en: "Light Rail Stations",
+        de: "Stadtbahn-Stationen",
+    },
+    "stationType.lightRailHalt": {
+        en: "Light Rail Halts",
+        de: "Stadtbahn-Haltepunkte",
+    },
+
+    // Own station list (Settings > Advanced)
+    "stations.useOwn": {
+        en: "Use custom station list?",
+        de: "Eigene Stationsliste verwenden?",
+    },
+    "stations.importUrl": {
+        en: "Import stations from URL (CSV, GeoJSON, KML). This must be a raw file link.",
+        de: "Stationen von einer URL importieren (CSV, GeoJSON, KML). Das muss ein direkter Link auf die Datei sein.",
+    },
+    "stations.import": { en: "Import", de: "Importieren" },
+    "stations.includeDefault": {
+        en: "Include default stations with custom list?",
+        de: "Normale Stationen zusätzlich verwenden?",
+    },
+    "stations.importedOne": {
+        en: "1 custom station imported",
+        de: "1 eigene Station importiert",
+    },
+    "stations.importedMany": {
+        en: "{count} custom stations imported",
+        de: "{count} eigene Stationen importiert",
+    },
+    "stations.clear": { en: "Clear imported", de: "Importierte löschen" },
+    "stations.noneAtUrl": {
+        en: "No stations found at this URL",
+        de: "Unter dieser URL wurden keine Stationen gefunden",
+    },
+    "stations.noneInFiles": {
+        en: "No stations found in the files",
+        de: "In den Dateien wurden keine Stationen gefunden",
+    },
+    "stations.imported": {
+        en: "Imported {count} stations",
+        de: "{count} Stationen importiert",
+    },
+    "stations.urlFailed": {
+        en: "Couldn't import from the URL: {error}",
+        de: "Import von der URL fehlgeschlagen: {error}",
+    },
+    "stations.filesFailed": {
+        en: "Couldn't import the files: {error}",
+        de: "Import der Dateien fehlgeschlagen: {error}",
+    },
+
+    // The hider's screen
+    "hider.map": { en: "Map", de: "Karte" },
+    "hider.chooseHint": {
+        en: "Tap a zone on the map to choose it.",
+        de: "Tippe auf der Karte auf eine Zone, um sie zu wählen.",
+    },
+    "hider.poorGps": {
+        en: "Your GPS is only accurate to ±{meters} m here.",
+        de: "Dein GPS ist hier nur auf ±{meters} m genau.",
+    },
+    "hider.change": { en: "Change", de: "Wechseln" },
+    "hider.choose": { en: "Choose {station}", de: "{station} wählen" },
+    "hider.chooseAnother": {
+        en: "Choose another zone on the map",
+        de: "Andere Zone auf der Karte wählen",
+    },
+    "hider.chooseOnMap": {
+        en: "Choose on the map",
+        de: "Auf der Karte wählen",
+    },
+    "hider.forHider": {
+        en: "This question is for the hider. This phone is set to seeking.",
+        de: "Diese Frage ist für den Hider. Dieses Handy ist auf Suchen eingestellt.",
+    },
+    "hider.nowHider": {
+        en: "This phone is now the hider's. You can change this in the settings.",
+        de: "Dieses Handy gehört jetzt dem Hider. Du kannst das in den Einstellungen ändern.",
+    },
+    "hider.ownQuestion": {
+        en: "This is your own question. Send the link to the hider: their phone works out the answer.",
+        de: "Das ist deine eigene Frage. Schick den Link an den Hider: Das Handy des Hiders rechnet die Antwort aus.",
+    },
+    "hider.brokenLink": {
+        en: "This question link is broken. Ask the seekers to send it again.",
+        de: "Dieser Frage-Link ist kaputt. Bitte die Seeker, ihn nochmal zu schicken.",
+    },
+    "hider.locationFailed": {
+        en: "Couldn't get your location. Allow location access for this site, or use the violet H marker on the map.",
+        de: "Dein Standort ließ sich nicht bestimmen. Erlaube dieser Seite den Standortzugriff oder nimm die violette H-Nadel auf der Karte.",
+    },
+    "hider.locationGps": {
+        en: "Your location: GPS, {time}, ±{meters} m",
+        de: "Dein Standort: GPS, {time}, ±{meters} m",
+    },
+    "hider.locationMarker": {
+        en: "Your location: the H marker on the map",
+        de: "Dein Standort: die H-Nadel auf der Karte",
+    },
+    "hider.update": { en: "Update", de: "Aktualisieren" },
+    "hider.useMarker": { en: "Use the H marker", de: "H-Nadel verwenden" },
+    "hider.questionFrom": {
+        en: "Question from the seekers",
+        de: "Frage der Seeker",
+    },
+    "hider.questionFromAt": {
+        en: "Question from the seekers · asked {time}",
+        de: "Frage der Seeker · gestellt um {time}",
+    },
+    "hider.waitingForLocation": {
+        en: "Your answer appears once your location is known.",
+        de: "Deine Antwort erscheint, sobald dein Standort bekannt ist.",
+    },
+    "hider.working": {
+        en: "Working out your answer...",
+        de: "Rechne deine Antwort aus …",
+    },
+    "hider.failed": {
+        en: "Couldn't work out the answer: map data didn't load.",
+        de: "Die Antwort ließ sich nicht ausrechnen: Die Kartendaten haben nicht geladen.",
+    },
+    "hider.tryAgain": { en: "Try again", de: "Nochmal versuchen" },
+    "hider.yourAnswer": { en: "Your answer", de: "Deine Antwort" },
+    "hider.tellSeekers": {
+        en: "Tell the seekers this answer in your chat. Only the answer: the reason above is for you.",
+        de: "Schreib den Seekern diese Antwort in den Chat. Nur die Antwort: Der Grund oben ist nur für dich.",
+    },
+    "hider.noQuestion": {
+        en: "No question yet. When the seekers send you a question link, open it on this phone and your answer appears here.",
+        de: "Noch keine Frage. Wenn dir die Seeker einen Frage-Link schicken, öffne ihn auf diesem Handy, dann erscheint hier deine Antwort.",
+    },
+    "hider.earlier": { en: "Earlier questions", de: "Frühere Fragen" },
+
+    // The hider's hiding zone
+    "check.choose": { en: "Choose your hiding zone", de: "Wähle deine Zone" },
+    "check.inZone": {
+        en: "You are in the {station} zone, {distance} from the station",
+        de: "Du bist in der Zone {station}, {distance} von der Station",
+    },
+    "check.nearest": {
+        en: "Nearest: the {station} zone, {distance} away",
+        de: "Am nächsten: die Zone {station}, {distance} entfernt",
+    },
+    "check.yours": { en: "Your zone: {station}", de: "Deine Zone: {station}" },
+    "check.fromStation": {
+        en: "{distance} from the station",
+        de: "{distance} von der Station",
+    },
+    "check.outside": {
+        en: "Outside your hiding zone",
+        de: "Außerhalb deiner Zone",
+    },
+    "check.toZone": {
+        en: "{distance} to the {station} zone",
+        de: "{distance} bis zur Zone {station}",
+    },
+
+    // Waiting for a precise location
+    "locating.waiting": {
+        en: "Getting your location...",
+        de: "Suche deinen Standort …",
+    },
+    "locating.accuracy": {
+        en: "Getting your location · ±{meters} m",
+        de: "Suche deinen Standort · ±{meters} m",
+    },
+    "locating.useAnyway": { en: "Use anyway", de: "Trotzdem nehmen" },
+    "locating.mapCenter": {
+        en: 'Couldn\'t get your location. The question starts at the map center; move it with "Pick on map".',
+        de: "Dein Standort ließ sich nicht bestimmen. Die Frage startet in der Kartenmitte; verschiebe sie mit „Auf Karte wählen“.",
+    },
+
+    // The loading box at the top of the map
+    "loading.updating": {
+        en: "Updating the map...",
+        de: "Karte wird aktualisiert …",
+    },
+    "loading.gameReady": {
+        en: "Map data for the game is ready",
+        de: "Kartendaten für das Spiel sind bereit",
+    },
+    "loading.game": {
+        en: "Loading map data for the game",
+        de: "Lade Kartendaten für das Spiel",
+    },
+    "loading.mapData": { en: "Loading map data...", de: "Lade Kartendaten …" },
+    "loading.failed": {
+        en: "Map data didn't load ({what}). {reason}",
+        de: "Kartendaten haben nicht geladen ({what}). {reason}",
+    },
+    "loading.retry": { en: "Retry", de: "Nochmal" },
+    "loading.timeout": {
+        en: "The map servers didn't answer in time.",
+        de: "Die Kartenserver haben nicht rechtzeitig geantwortet.",
+    },
+    "loading.status": {
+        en: 'The map server answered "{status}".',
+        de: "Der Kartenserver hat mit „{status}“ geantwortet.",
+    },
+    "loading.unreachable": {
+        en: "The map servers couldn't be reached.",
+        de: "Die Kartenserver waren nicht erreichbar.",
+    },
+    "loading.gaveUp": {
+        en: "The map server gave up on the request.",
+        de: "Der Kartenserver hat die Anfrage abgebrochen.",
+    },
+    "loading.tentacles": {
+        en: "Finding tentacle locations...",
+        de: "Suche Tentakel-Orte …",
+    },
+    "loading.zone": { en: "Finding the zone...", de: "Suche das Gebiet …" },
+    "loading.coastline": {
+        en: "Loading coastline data...",
+        de: "Lade Küstenlinien …",
+    },
+    "loading.lines": { en: "Finding train lines...", de: "Suche Linien …" },
+    "loading.street": {
+        en: "Finding nearest street...",
+        de: "Suche die nächste Straße …",
+    },
+    "loading.named": { en: "Finding {name}...", de: "Suche {name} …" },
+    "loading.water": {
+        en: "Finding bodies of water...",
+        de: "Suche Gewässer …",
+    },
+    "loading.islands": { en: "Finding islands...", de: "Suche Inseln …" },
+    "loading.checkIslands": {
+        en: "Checking islands...",
+        de: "Prüfe Inseln …",
+    },
+    "loading.places": { en: "Finding {what}...", de: "Suche {what} …" },
+    "loading.highSpeed": {
+        en: "Finding high-speed lines...",
+        de: "Suche Schnellfahrstrecken …",
+    },
+    "loading.matchingPlaces": {
+        en: "Finding matching locations...",
+        de: "Suche passende Orte …",
+    },
+    "loading.zonePlaces": {
+        en: "Finding matching locations to hiding zone...",
+        de: "Suche passende Orte zur Zone …",
+    },
+    "loading.airports": { en: "Finding airports...", de: "Suche Flughäfen …" },
+    "loading.cities": { en: "Finding cities...", de: "Suche Großstädte …" },
+    "loading.letterZones": {
+        en: "Finding zones that start with the same letter ({letter})...",
+        de: "Suche Gebiete mit demselben Anfangsbuchstaben ({letter}) …",
+    },
+    "loading.stations": { en: "Finding stations...", de: "Suche Stationen …" },
+    "loading.elevation": {
+        en: "Loading elevation data...",
+        de: "Lade Höhendaten …",
+    },
+
+    // Kinds of places, as they appear in a sentence
+    "places.aquarium": { en: "aquariums", de: "Aquarien" },
+    "places.zoo": { en: "zoos", de: "Zoos" },
+    "places.theme_park": { en: "theme parks", de: "Vergnügungsparks" },
+    "places.peak": { en: "mountains", de: "Berge" },
+    "places.museum": { en: "museums", de: "Museen" },
+    "places.hospital": { en: "hospitals", de: "Krankenhäuser" },
+    "places.cinema": { en: "cinemas", de: "Kinos" },
+    "places.library": { en: "libraries", de: "Bibliotheken" },
+    "places.golf_course": { en: "golf courses", de: "Golfplätze" },
+    "places.consulate": { en: "foreign consulates", de: "Konsulate" },
+    "places.park": { en: "parks", de: "Parks" },
+    "places.airports": { en: "commercial airports", de: "Verkehrsflughäfen" },
+    "places.cities": { en: "major cities", de: "Großstädte" },
+    "places.stations": { en: "train stations", de: "Stationen" },
+    "places.mcdonalds": { en: "McDonald's", de: "McDonald's" },
+    "places.seven11": { en: "7-Elevens", de: "7-Eleven" },
+    "places.none": {
+        en: "No {what} inside the game area. By the rules the question has no answer, but it still counts.",
+        de: "Keine {what} im Spielgebiet. Laut Regeln hat die Frage keine Antwort, sie zählt aber trotzdem.",
+    },
+    "places.tooMany": {
+        en: "Too many {what} found ({count}). Please turn on hiding zones and choose the hiding zone mode of this question.",
+        de: "Zu viele {what} gefunden ({count}). Schalte die Zonen ein und wähle diese Frage im Zonen-Modus.",
+    },
+
+    // When a question can't change the map
+    "question.noPlaces": {
+        en: "None of these places are inside the game area. By the rules the question has no answer, but it still counts.",
+        de: "Keiner dieser Orte liegt im Spielgebiet. Laut Regeln hat die Frage keine Antwort, sie zählt aber trotzdem.",
+    },
+    "question.onePlace": {
+        en: "Only one of these places is inside the game area, so everyone's nearest one is the same. The map doesn't change.",
+        de: "Nur einer dieser Orte liegt im Spielgebiet, also ist für alle derselbe am nächsten. Die Karte ändert sich nicht.",
+    },
+    "question.noLandmass": {
+        en: "There are no separate landmasses in the game area. The map doesn't change.",
+        de: "Im Spielgebiet gibt es keine eigenen Landmassen. Die Karte ändert sich nicht.",
+    },
+    "question.noBoundary": {
+        en: "No boundary found for this zone",
+        de: "Für dieses Gebiet wurde keine Grenze gefunden",
+    },
+    "question.noEnglishName": {
+        en: "No English name found for this zone",
+        de: "Dieses Gebiet hat keinen englischen Namen",
+    },
+    "question.noStreet": {
+        en: "No street or path found near the seekers",
+        de: "Bei den Seekern wurde keine Straße und kein Weg gefunden",
+    },
+    "question.noWater": {
+        en: "No named bodies of water inside the game area. By the rules the question has no answer, but it still counts.",
+        de: "Keine benannten Gewässer im Spielgebiet. Laut Regeln hat die Frage keine Antwort, sie zählt aber trotzdem.",
+    },
+    "question.noAdminBorder": {
+        en: "No admin boundary found at this location",
+        de: "An diesem Ort wurde keine Verwaltungsgrenze gefunden",
+    },
+    "question.noElevation": {
+        en: "Couldn't load elevation data",
+        de: "Die Höhendaten ließen sich nicht laden",
+    },
+    "question.lineCustomList": {
+        en: '"Same train line" doesn\'t work with a custom-only station list, so it is skipped.',
+        de: "„Öffi-Linie“ geht nicht mit einer reinen eigenen Stationsliste und wird übersprungen.",
+    },
+    "question.lineNoData": {
+        en: 'The nearest station has no line data, so "Same train line" is skipped.',
+        de: "Die nächste Station hat keine Liniendaten, „Öffi-Linie“ wird übersprungen.",
+    },
+    "question.lineNotFound": {
+        en: "No train line found for {station}",
+        de: "Bei {station} wurde keine Linie gefunden",
+    },
+    "question.stationNoName": {
+        en: "The seekers' station has no name",
+        de: "Die Station der Seeker hat keinen Namen",
+    },
+    "question.noStationTypes": {
+        en: "Choose at least one kind of station",
+        de: "Wähle mindestens eine Art von Station",
+    },
+    "question.zonesFailed": {
+        en: "Couldn't work out the hiding zones",
+        de: "Die Zonen ließen sich nicht berechnen",
+    },
+    "question.zoneDetailFailed": {
+        en: "Couldn't work out where in the zone the hider can be",
+        de: "Es ließ sich nicht berechnen, wo in der Zone der Hider sein kann",
+    },
+    "question.zoneRuledOut": {
+        en: "The answers together rule out this whole zone, so the hider can't be in it.",
+        de: "Die Antworten zusammen schließen diese ganze Zone aus, der Hider kann also nicht dort sein.",
+    },
+    "question.mapFailed": {
+        en: "Couldn't work out the map",
+        de: "Die Karte ließ sich nicht berechnen",
+    },
+
+    // Adding questions of every type (for experts)
+    "add.description": {
+        en: "Select which question type you would like to add.",
+        de: "Welche Art von Frage möchtest du hinzufügen?",
+    },
+    "add.radar": { en: "Add Radar", de: "Radar hinzufügen" },
+    "add.thermometer": {
+        en: "Add Thermometer",
+        de: "Thermometer hinzufügen",
+    },
+    "add.tentacles": { en: "Add Tentacles", de: "Tentakel hinzufügen" },
+    "add.matching": { en: "Add Matching", de: "Matching hinzufügen" },
+    "add.measuring": { en: "Add Measuring", de: "Measuring hinzufügen" },
+    "add.excludeCountry": {
+        en: "Exclude Country",
+        de: "Staat ausschließen",
+    },
+    "add.paste": { en: "Paste Question", de: "Frage einfügen" },
+    "add.pasted": {
+        en: "Question added from clipboard",
+        de: "Frage aus der Zwischenablage hinzugefügt",
+    },
+    "add.pasteFailed": {
+        en: "No valid question found in clipboard",
+        de: "In der Zwischenablage ist keine gültige Frage",
+    },
+    "custom.title": { en: "New Custom Question", de: "Neue eigene Frage" },
+    "custom.text": {
+        en: "Do you want the new question to start blank, or copy what the current question contains?",
+        de: "Soll die neue Frage leer beginnen oder den Inhalt der aktuellen Frage übernehmen?",
+    },
+    "custom.blank": { en: "Start blank", de: "Leer beginnen" },
+    "custom.copy": { en: "Copy from current", de: "Aktuelle übernehmen" },
+
+    // The clipboard
+    "clipboard.unsupported": {
+        en: "This browser can't use the clipboard",
+        de: "Dieser Browser kann die Zwischenablage nicht nutzen",
+    },
+    "clipboard.reading": {
+        en: "Reading from clipboard...",
+        de: "Lese die Zwischenablage …",
+    },
+    "clipboard.writing": { en: "Copying...", de: "Kopiere …" },
+    "clipboard.copyFailed": {
+        en: "Couldn't copy to the clipboard",
+        de: "Kopieren in die Zwischenablage hat nicht geklappt",
+    },
+
+    // Presets for custom questions
+    "presets.title": { en: "Custom Presets", de: "Eigene Vorlagen" },
+    "presets.use": { en: "Use presets", de: "Vorlagen verwenden" },
+    "presets.save": { en: "Save as preset", de: "Als Vorlage speichern" },
+    "presets.fromClipboard": {
+        en: "Apply from clipboard",
+        de: "Aus Zwischenablage übernehmen",
+    },
+    "presets.none": {
+        en: "No presets saved.",
+        de: "Keine Vorlagen gespeichert.",
+    },
+    "presets.load": { en: "Load", de: "Laden" },
+    "presets.rename": { en: "Rename", de: "Umbenennen" },
+    "presets.share": { en: "Share", de: "Teilen" },
+    "presets.namePrompt": {
+        en: "Name for this preset",
+        de: "Name für diese Vorlage",
+    },
+    "presets.renamePrompt": {
+        en: "New preset name",
+        de: "Neuer Name der Vorlage",
+    },
+    "presets.saved": {
+        en: 'Saved preset "{name}"',
+        de: "Vorlage „{name}“ gespeichert",
+    },
+    "presets.loaded": {
+        en: 'Loaded preset "{name}"',
+        de: "Vorlage „{name}“ geladen",
+    },
+    "presets.renamed": {
+        en: 'Renamed preset to "{name}"',
+        de: "Vorlage in „{name}“ umbenannt",
+    },
+    "presets.deleteConfirm": {
+        en: 'Delete preset "{name}"?',
+        de: "Vorlage „{name}“ löschen?",
+    },
+    "presets.deleted": {
+        en: 'Deleted preset "{name}"',
+        de: "Vorlage „{name}“ gelöscht",
+    },
+    "presets.copied": {
+        en: "Preset copied to clipboard",
+        de: "Vorlage in die Zwischenablage kopiert",
+    },
+    "presets.clipboardEmpty": {
+        en: "The clipboard is empty",
+        de: "Die Zwischenablage ist leer",
+    },
+    "presets.notPreset": {
+        en: "The clipboard holds no preset",
+        de: "In der Zwischenablage ist keine Vorlage",
+    },
+    "presets.applied": {
+        en: 'Applied preset "{name}"',
+        de: "Vorlage „{name}“ übernommen",
+    },
+    "presets.appliedFromClipboard": {
+        en: "Applied preset from clipboard",
+        de: "Vorlage aus der Zwischenablage übernommen",
+    },
+    "presets.readFailed": {
+        en: "Couldn't read the clipboard",
+        de: "Die Zwischenablage ließ sich nicht lesen",
+    },
+
+    // Coordinates (drawing tools)
+    "coords.location": { en: "Location", de: "Ort" },
+    "coords.latitude": { en: "Latitude", de: "Breite" },
+    "coords.longitude": { en: "Longitude", de: "Länge" },
+    "coords.edit": { en: "Edit coordinates", de: "Koordinaten ändern" },
+    "coords.update": { en: "Update {label}", de: "{label} ändern" },
+    "coords.done": { en: "Done", de: "Fertig" },
+    "coords.current": {
+        en: "Set to current location",
+        de: "Auf meinen Standort setzen",
+    },
+    "coords.paste": {
+        en: "Paste coordinates from clipboard",
+        de: "Koordinaten aus der Zwischenablage einfügen",
+    },
+    "coords.copy": {
+        en: "Copy coordinates to clipboard",
+        de: "Koordinaten kopieren",
+    },
+    "coords.noGeolocation": {
+        en: "This browser can't get your location",
+        de: "Dieser Browser kann deinen Standort nicht bestimmen",
+    },
+    "coords.locating": {
+        en: "Getting your location...",
+        de: "Suche deinen Standort …",
+    },
+    "coords.located": { en: "Location found", de: "Standort gefunden" },
+    "coords.notFound": {
+        en: "No coordinates in the clipboard",
+        de: "In der Zwischenablage stehen keine Koordinaten",
+    },
+    "coords.pasted": {
+        en: "Coordinates set from clipboard",
+        de: "Koordinaten aus der Zwischenablage übernommen",
+    },
+    "coords.copied": { en: "Coordinates copied", de: "Koordinaten kopiert" },
+    "coords.searchPlace": { en: "Search place...", de: "Ort suchen …" },
+    "coords.searching": { en: "Loading...", de: "Lädt …" },
+    "coords.searchFailed": {
+        en: "Couldn't load places.",
+        de: "Orte ließen sich nicht laden.",
+    },
+    "coords.noPlaces": {
+        en: "No locations found.",
+        de: "Keine Orte gefunden.",
+    },
+
+    // The game area (Settings > Advanced)
+    "area.polygon": { en: "Polygon selected", de: "Gezeichnetes Gebiet" },
+    "area.none": { en: "Game area", de: "Spielgebiet" },
+    "area.included": { en: "Included location", de: "Eingeschlossener Ort" },
+    "area.excluded": { en: "Excluded location", de: "Ausgeschlossener Ort" },
+    "area.needAnother": {
+        en: "Add another location first.",
+        de: "Füge zuerst einen weiteren Ort hinzu.",
+    },
+    "area.searchDown": {
+        en: "{photon} is down. Please draw the game area on the map instead.",
+        de: "{photon} ist nicht erreichbar. Zeichne das Spielgebiet stattdessen auf der Karte.",
+    },
+    "area.clear": {
+        en: "Clear Questions & Cache",
+        de: "Fragen und Cache löschen",
+    },
+    "area.reuse": {
+        en: "Reuse Preset Locations",
+        de: "Gewählte Orte wieder verwenden",
+    },
+
+    // Drawing on the map (for experts)
+    "draw.hidingZone": {
+        en: "Draw the game area",
+        de: "Spielgebiet zeichnen",
+    },
+    "draw.matching": {
+        en: "Draw the matching zone(s)",
+        de: "Matching-Gebiet(e) zeichnen",
+    },
+    "draw.measuring": {
+        en: "Draw the measuring zone(s)",
+        de: "Measuring-Gebiet(e) zeichnen",
+    },
+    "draw.polyline": { en: "Draw a line", de: "Linie zeichnen" },
+    "draw.marker": { en: "Draw a marker", de: "Punkt setzen" },
+    "draw.cancel": { en: "Cancel", de: "Abbrechen" },
+    "draw.cancelTitle": {
+        en: "Cancel drawing",
+        de: "Zeichnen abbrechen",
+    },
+    "draw.finish": { en: "Finish", de: "Fertig" },
+    "draw.finishTitle": {
+        en: "Finish drawing",
+        de: "Zeichnen beenden",
+    },
+    "draw.undo": { en: "Delete last point", de: "Letzten Punkt löschen" },
+    "draw.markerStart": {
+        en: "Click map to place marker.",
+        de: "Tippe auf die Karte, um einen Punkt zu setzen.",
+    },
+    "draw.polygonStart": {
+        en: "Click to start drawing shape.",
+        de: "Tippe, um mit dem Zeichnen zu beginnen.",
+    },
+    "draw.polygonCont": {
+        en: "Click to continue drawing shape.",
+        de: "Tippe, um weiterzuzeichnen.",
+    },
+    "draw.polygonEnd": {
+        en: "Click first point to close this shape.",
+        de: "Tippe auf den ersten Punkt, um die Fläche zu schließen.",
+    },
+    "draw.lineError": {
+        en: "<strong>Error:</strong> shape edges cannot cross!",
+        de: "<strong>Fehler:</strong> Die Kanten dürfen sich nicht kreuzen!",
+    },
+    "draw.lineStart": {
+        en: "Click to start drawing line.",
+        de: "Tippe, um die Linie zu beginnen.",
+    },
+    "draw.lineCont": {
+        en: "Click to continue drawing line.",
+        de: "Tippe, um die Linie fortzusetzen.",
+    },
+    "draw.lineEnd": {
+        en: "Click last point to finish line.",
+        de: "Tippe auf den letzten Punkt, um die Linie zu beenden.",
+    },
+    "draw.save": { en: "Save", de: "Speichern" },
+    "draw.saveTitle": { en: "Save changes", de: "Änderungen speichern" },
+    "draw.cancelEditTitle": {
+        en: "Cancel editing, discards all changes",
+        de: "Bearbeiten abbrechen, alle Änderungen verwerfen",
+    },
+    "draw.clearAll": { en: "Clear all", de: "Alles löschen" },
+    "draw.clearAllTitle": {
+        en: "Clear all layers",
+        de: "Alles Gezeichnete löschen",
+    },
+    "draw.edit": { en: "Edit layers", de: "Gezeichnetes bearbeiten" },
+    "draw.editDisabled": {
+        en: "No layers to edit",
+        de: "Nichts zum Bearbeiten",
+    },
+    "draw.remove": { en: "Delete layers", de: "Gezeichnetes löschen" },
+    "draw.removeDisabled": {
+        en: "No layers to delete",
+        de: "Nichts zum Löschen",
+    },
+    "draw.editText": {
+        en: "Drag handles or markers to edit features.",
+        de: "Ziehe die Griffe oder Punkte, um zu bearbeiten.",
+    },
+    "draw.editSubtext": {
+        en: "Click cancel to undo changes.",
+        de: "Mit „Abbrechen“ machst du die Änderungen rückgängig.",
+    },
+    "draw.removeText": {
+        en: "Click on a feature to remove.",
+        de: "Tippe auf etwas, um es zu löschen.",
+    },
+
+    // Tentacles (for experts)
+    "tentacles.locationType": { en: "Location Type", de: "Art des Orts" },
+    "tentacles.location": { en: "Location", de: "Ort" },
+    "card.drawTentacles": {
+        en: "tentacle locations",
+        de: "die Tentakel-Orte",
+    },
+
+    // Lists to choose from
+    "select.placeholder": { en: "Select options", de: "Auswählen" },
+    "select.search": { en: "Search...", de: "Suchen …" },
+    "select.none": { en: "No results found.", de: "Nichts gefunden." },
+    "select.all": { en: "(Select All)", de: "(Alle auswählen)" },
+    "select.more": { en: "+ {count} more", de: "+ {count} weitere" },
+    "select.clear": { en: "Clear", de: "Leeren" },
+    "select.close": { en: "Close", de: "Schließen" },
+    "common.close": { en: "Close", de: "Schließen" },
+    "sidebar.toggle": {
+        en: "Toggle Sidebar",
+        de: "Seitenleiste ein- oder ausblenden",
+    },
+
+    // The kinds of questions, for experts ("Show all question types?")
+    "type.group.hidingZone": { en: "Hiding Zone Mode", de: "Zonen-Modus" },
+    "type.group.tentacles24": {
+        en: "24 km (Typically)",
+        de: "Meist 24 km",
+    },
+    "type.group.tentacles1.6": {
+        en: "1.6 km (Typically)",
+        de: "Meist 1,6 km",
+    },
+    "type.airport": {
+        en: "Commercial Airport In Zone Question",
+        de: "Verkehrsflughafen in der Zone",
+    },
+    "type.major-city": {
+        en: "Major City (1,000,000+ people) In Zone Question",
+        de: "Großstadt (über 1 Mio. Menschen) in der Zone",
+    },
+    "type.major-city.measuring": {
+        en: "Major City (1,000,000+ people) Question",
+        de: "Großstadt (über 1 Mio. Menschen)",
+    },
+    "type.aquarium-full": {
+        en: "Aquarium Question (Small+Medium Games)",
+        de: "Aquarium (Small und Medium)",
+    },
+    "type.zoo-full": {
+        en: "Zoo Question (Small+Medium Games)",
+        de: "Zoo (Small und Medium)",
+    },
+    "type.theme_park-full": {
+        en: "Theme Park Question (Small+Medium Games)",
+        de: "Vergnügungspark (Small und Medium)",
+    },
+    "type.peak-full": {
+        en: "Mountain Question (Small+Medium Games)",
+        de: "Berg (Small und Medium)",
+    },
+    "type.museum-full": {
+        en: "Museum Question (Small+Medium Games)",
+        de: "Museum (Small und Medium)",
+    },
+    "type.hospital-full": {
+        en: "Hospital Question (Small+Medium Games)",
+        de: "Krankenhaus (Small und Medium)",
+    },
+    "type.cinema-full": {
+        en: "Cinema Question (Small+Medium Games)",
+        de: "Kino (Small und Medium)",
+    },
+    "type.library-full": {
+        en: "Library Question (Small+Medium Games)",
+        de: "Bibliothek (Small und Medium)",
+    },
+    "type.golf_course-full": {
+        en: "Golf Course Question (Small+Medium Games)",
+        de: "Golfplatz (Small und Medium)",
+    },
+    "type.consulate-full": {
+        en: "Foreign Consulate Question (Small+Medium Games)",
+        de: "Konsulat (Small und Medium)",
+    },
+    "type.park-full": {
+        en: "Park Question (Small+Medium Games)",
+        de: "Park (Small und Medium)",
+    },
+    "type.aquarium": { en: "Aquarium Question", de: "Aquarium" },
+    "type.zoo": { en: "Zoo Question", de: "Zoo" },
+    "type.theme_park": { en: "Theme Park Question", de: "Vergnügungspark" },
+    "type.peak": { en: "Mountain Question", de: "Berg" },
+    "type.museum": { en: "Museum Question", de: "Museum" },
+    "type.hospital": { en: "Hospital Question", de: "Krankenhaus" },
+    "type.cinema": { en: "Cinema Question", de: "Kino" },
+    "type.library": { en: "Library Question", de: "Bibliothek" },
+    "type.golf_course": { en: "Golf Course Question", de: "Golfplatz" },
+    "type.consulate": { en: "Foreign Consulate Question", de: "Konsulat" },
+    "type.park": { en: "Park Question", de: "Park" },
+    "type.street": { en: "Street or Path Question", de: "Straße oder Weg" },
+    "type.landmass": { en: "Landmass Question", de: "Landmasse" },
+    "type.zone": { en: "Zone Question", de: "Verwaltungsgebiet" },
+    "type.letter-zone": {
+        en: "Zone Starts With Same Letter Question",
+        de: "Verwaltungsgebiet mit gleichem Anfangsbuchstaben",
+    },
+    "type.same-first-letter-station": {
+        en: "Station Starts With Same Letter Question",
+        de: "Station mit gleichem Anfangsbuchstaben",
+    },
+    "type.same-length-station": {
+        en: "Station Has Same Length Question",
+        de: "Stationsname gleich lang",
+    },
+    "type.same-train-line": {
+        en: "Station On Same Train Line Question",
+        de: "Station an derselben Linie",
+    },
+    "type.custom-zone": { en: "Custom Zone Question", de: "Eigenes Gebiet" },
+    "type.custom-points": {
+        en: "Custom Points Question",
+        de: "Eigene Punkte",
+    },
+    "type.coastline": { en: "Coastline Question", de: "Küste" },
+    "type.highspeed-measure-shinkansen": {
+        en: "High-Speed Rail Question",
+        de: "Schnellfahrstrecke",
+    },
+    "type.admin-measure": {
+        en: "Admin Border Question",
+        de: "Verwaltungsgrenze",
+    },
+    "type.water": { en: "Body of Water Question", de: "Gewässer" },
+    "type.sea-level": { en: "Sea Level Question", de: "Seehöhe" },
+    "type.mcdonalds": { en: "McDonald's Question", de: "McDonald's" },
+    "type.seven11": { en: "7-Eleven Question", de: "7-Eleven" },
+    "type.rail-measure": { en: "Train Station Question", de: "Bahnhof" },
+    "type.custom-measure": {
+        en: "Custom Measuring Question",
+        de: "Eigene Measuring-Frage",
+    },
+    "type.tentacles.theme_park": { en: "Theme Parks", de: "Vergnügungsparks" },
+    "type.tentacles.zoo": { en: "Zoos", de: "Zoos" },
+    "type.tentacles.aquarium": { en: "Aquariums", de: "Aquarien" },
+    "type.tentacles.museum": { en: "Museums", de: "Museen" },
+    "type.tentacles.hospital": { en: "Hospitals", de: "Krankenhäuser" },
+    "type.tentacles.cinema": { en: "Movie Theaters", de: "Kinos" },
+    "type.tentacles.library": { en: "Libraries", de: "Bibliotheken" },
+    "type.tentacles.custom": { en: "Custom Locations", de: "Eigene Orte" },
 } satisfies Record<string, Text>;
 
 export type MessageKey = keyof typeof messages;

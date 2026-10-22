@@ -8,6 +8,7 @@ import {
     includeDefaultStations,
     useCustomStations,
 } from "@/lib/context";
+import { t } from "@/lib/i18n";
 import {
     findPlacesInZone,
     normalizeToStationFeatures,
@@ -22,7 +23,7 @@ export const findStationPlaces = async (): Promise<StationPlace[]> => {
     return osmtogeojson(
         await findPlacesInZone(
             filter,
-            "Finding stations...",
+            t("loading.stations"),
             "nwr",
             "center",
             alternatives,

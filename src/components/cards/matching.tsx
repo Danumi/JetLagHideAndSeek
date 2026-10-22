@@ -20,7 +20,7 @@ import {
     showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
-import { t, tr, useLanguage } from "@/lib/i18n";
+import { labelOf, t, tr, useLanguage } from "@/lib/i18n";
 import { retryTrigger } from "@/lib/loading";
 import { findStationLines, type StationLine } from "@/maps/api";
 import {
@@ -326,9 +326,10 @@ export const MatchingQuestionComponent = ({
                             card
                                 ? undefined
                                 : {
-                                      [`other:${data.type}`]:
+                                      [`other:${data.type}`]: labelOf(
                                           MATCHING_TYPE_LABELS[data.type] ??
-                                          data.type,
+                                              data.type,
+                                      ),
                                   }
                         }
                         groups={deckSelectGroups(MATCHING_DECK)}
@@ -356,18 +357,18 @@ export const MatchingQuestionComponent = ({
                                 )
                                 .map((x) => [
                                     (x._def as any).value,
-                                    x.description,
+                                    labelOf(x.description),
                                 ]),
                         )}
                         groups={matchingQuestionSchema.options
                             .filter((x) => x.description !== NO_GROUP)
                             .map((x) => [
-                                x.description,
+                                labelOf(x.description),
                                 Object.fromEntries(
                                     determineUnionizedStrings(x.shape.type).map(
                                         (x) => [
                                             (x._def as any).value,
-                                            x.description,
+                                            labelOf(x.description),
                                         ],
                                     ),
                                 ),

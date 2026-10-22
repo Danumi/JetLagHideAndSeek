@@ -33,6 +33,7 @@ import {
     polyGeoJSON,
     questions,
 } from "@/lib/context";
+import { t, tx } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import {
     CacheType,
@@ -112,7 +113,7 @@ export const PlacePicker = ({
                     data-tutorial-id="place-picker"
                 >
                     {$polyGeoJSON
-                        ? "Polygon selected"
+                        ? t("area.polygon")
                         : $mapGeoLocation &&
                             $mapGeoLocation.properties &&
                             $mapGeoLocation.properties.name
@@ -124,7 +125,7 @@ export const PlacePicker = ({
                             ]
                                 .map((location) => determineName(location))
                                 .join("; ")
-                          : "Hiding bounds"}
+                          : t("area.none")}
                     <ChevronsUpDown className="opacity-50" />
                 </Button>
             </PopoverTrigger>
@@ -167,8 +168,8 @@ export const PlacePicker = ({
 
                                         <TooltipContent>
                                             {location.added
-                                                ? "Included location"
-                                                : "Excluded location"}
+                                                ? t("area.included")
+                                                : t("area.excluded")}
                                         </TooltipContent>
                                     </Tooltip>
                                 </TooltipProvider>
@@ -254,7 +255,7 @@ export const PlacePicker = ({
                                                 );
                                             } else {
                                                 return toast.error(
-                                                    "Please add another location in addition mode.",
+                                                    t("area.needAnother"),
                                                     {
                                                         autoClose: 3000,
                                                     },
@@ -284,29 +285,27 @@ export const PlacePicker = ({
                 <Separator className="h-[0.5px]" />
                 <Command shouldFilter={false}>
                     <CommandInput
-                        placeholder="Search place..."
+                        placeholder={t("coords.searchPlace")}
                         onKeyUp={(x) => {
                             setInputValue(x.currentTarget.value);
                         }}
                     />
                     <CommandList>
                         <CommandEmpty>
-                            {loading ? (
-                                <>Loading...</>
-                            ) : error ? (
-                                <>
-                                    <a
-                                        href="https://github.com/komoot/photon"
-                                        className="text-blue-500"
-                                    >
-                                        Photon
-                                    </a>{" "}
-                                    is down. Please draw a polygon instead at
-                                    the bottom left of the map.
-                                </>
-                            ) : (
-                                "No locations found."
-                            )}
+                            {loading
+                                ? t("coords.searching")
+                                : error
+                                  ? tx("area.searchDown", {
+                                        photon: (
+                                            <a
+                                                href="https://github.com/komoot/photon"
+                                                className="text-blue-500"
+                                            >
+                                                Photon
+                                            </a>
+                                        ),
+                                    })
+                                  : t("coords.noPlaces")}
                         </CommandEmpty>
                         <CommandGroup>
                             {results.map((result) => (
@@ -350,7 +349,7 @@ export const PlacePicker = ({
                             clearCache(CacheType.ZONE_CACHE);
                         }}
                     >
-                        Clear Questions & Cache
+                        {t("area.clear")}
                     </Button>
                     {$polyGeoJSON && (
                         <Button
@@ -362,7 +361,7 @@ export const PlacePicker = ({
                                 questions.set([...questions.get()]);
                             }}
                         >
-                            Reuse Preset Locations
+                            {t("area.reuse")}
                         </Button>
                     )}
                 </Command>

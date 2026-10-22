@@ -28,6 +28,7 @@ import {
     useCustomStations as useCustomStationsAtom,
 } from "@/lib/context";
 import { placePickedPoint } from "@/lib/gps";
+import { t } from "@/lib/i18n";
 import { questionApplies } from "@/maps/answers";
 import {
     BLANK_GEOJSON,
@@ -138,7 +139,7 @@ export const HidingZones = () => {
                 });
 
                 marker.bindPopup(
-                    `<b>${extractStationName(geoJsonPoint) || "Station without a name"}</b>`,
+                    `<b>${extractStationName(geoJsonPoint) || t("zones.noName")}</b>`,
                 );
                 // Picking a point: a tap on a station picks the station
                 marker.on("click", () => {
@@ -170,7 +171,7 @@ export const HidingZones = () => {
         const initializeHidingZones = async () => {
             const places = await findHidingZoneStations();
             if (places === null) {
-                toast.error("At least one place type must be selected");
+                toast.error(t("question.noStationTypes"));
                 return;
             }
 
@@ -231,17 +232,13 @@ export const HidingZones = () => {
                     if (question.data.type === "same-train-line") {
                         // Custom-only lists don't have reliable OSM IDs
                         if (useCustomStations && !includeDefaultStations) {
-                            toast.warning(
-                                "'Same train line' isn't supported with custom-only station lists; skipping this filter.",
-                            );
+                            toast.warning(t("question.lineCustomList"));
                         } else {
                             const nid = nearestTrainStation.properties.id as
                                 | string
                                 | undefined;
                             if (!nid || !nid.includes("/")) {
-                                toast.warning(
-                                    "The nearest station has no line data, so 'Same train line' is skipped.",
-                                );
+                                toast.warning(t("question.lineNoData"));
                                 continue;
                             }
 
@@ -256,9 +253,12 @@ export const HidingZones = () => {
 
                             if (nodes.length === 0) {
                                 toast.warning(
-                                    `No train line found for ${extractStationName(
-                                        nearestTrainStation,
-                                    )}`,
+                                    t("question.lineNotFound", {
+                                        station:
+                                            extractStationName(
+                                                nearestTrainStation,
+                                            ),
+                                    }),
                                 );
                                 continue;
                             } else {
@@ -286,7 +286,7 @@ export const HidingZones = () => {
                     const stationName = extractStationName(nearestTrainStation);
 
                     if (!stationName)
-                        return toast.error("Seekers' station has no name");
+                        return toast.error(t("question.stationNoName"));
 
                     if (question.data.type === "same-first-letter-station") {
                         const letter = stationName[0].toUpperCase();
@@ -391,10 +391,9 @@ export const HidingZones = () => {
                 .catch((error) => {
                     console.log("Error in hiding zone initialization:", error);
                     if (error instanceof OverpassError) return; // Retry offered
-                    toast.error(
-                        "An error occurred during hiding zone initialization",
-                        { toastId: "hiding-zone-initialization-error" },
-                    );
+                    toast.error(t("question.zonesFailed"), {
+                        toastId: "hiding-zone-initialization-error",
+                    });
                 })
                 .finally(() => isLoading.set(false));
         }, ZONES_DELAY_MS);
@@ -463,10 +462,9 @@ export const HidingZones = () => {
             .catch((error) => {
                 console.log("Error in hiding zone selection:", error);
                 if (cancelled || error instanceof OverpassError) return;
-                toast.error(
-                    "Couldn't work out where in the zone the hider can be",
-                    { toastId: "hiding-zone-selection-error" },
-                );
+                toast.error(t("question.zoneDetailFailed"), {
+                    toastId: "hiding-zone-selection-error",
+                });
             });
         return () => {
             cancelled = true;
@@ -642,7 +640,7 @@ async function zoneDetail(
                         unit: "miles",
                         locationType: question.data.type,
                     },
-                    "Finding matching locations to hiding zone...",
+                    t("loading.zonePlaces"),
                 );
 
                 const distances: any[] = await Promise.all(
@@ -801,10 +799,9 @@ async function zoneDetail(
     }
 
     if (_.isEqual(mapData, BLANK_GEOJSON)) {
-        toast.warning(
-            "The answers together rule out this whole zone, so the hider can't be in it.",
-            { toastId: "zone-ruled-out" },
-        );
+        toast.warning(t("question.zoneRuledOut"), {
+            toastId: "zone-ruled-out",
+        });
     }
 
     return mapData;

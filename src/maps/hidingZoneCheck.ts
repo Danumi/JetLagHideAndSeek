@@ -9,6 +9,7 @@ import {
     hidingRadiusUnits,
     myPosition,
 } from "@/lib/context";
+import { t } from "@/lib/i18n";
 import { formatKilometers } from "@/maps/answers";
 import type { StationPlace } from "@/maps/api";
 import { extractStationLabel } from "@/maps/geo-utils";
@@ -63,22 +64,23 @@ export const checkHidingZone = (
 export const zoneCheckText = (check: ZoneCheck) => {
     const fromStation = formatKilometers(check.meters / 1000);
     const toZone = formatKilometers(check.toEdge / 1000);
+    const station = check.station;
     if (!check.chosen) {
         return {
-            title: "Choose your hiding zone",
+            title: t("check.choose"),
             detail: check.inside
-                ? `You are in the ${check.station} zone, ${fromStation} from the station`
-                : `Nearest: the ${check.station} zone, ${toZone} away`,
+                ? t("check.inZone", { station, distance: fromStation })
+                : t("check.nearest", { station, distance: toZone }),
         };
     }
     return check.inside
         ? {
-              title: `Your zone: ${check.station}`,
-              detail: `${fromStation} from the station`,
+              title: t("check.yours", { station }),
+              detail: t("check.fromStation", { distance: fromStation }),
           }
         : {
-              title: "Outside your hiding zone",
-              detail: `${toZone} to the ${check.station} zone`,
+              title: t("check.outside"),
+              detail: t("check.toZone", { station, distance: toZone }),
           };
 };
 

@@ -8,6 +8,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { t, useLanguage } from "@/lib/i18n";
 
 type Props = {
     data: any;
@@ -18,17 +19,18 @@ type Props = {
 const PresetsDialog: React.FC<Props> = ({
     data,
     presetTypeHint,
-    triggerLabel = "Use presets",
+    triggerLabel,
 }) => {
+    useLanguage();
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <Button size="sm" className="w-full">
-                    {triggerLabel}
+                    {triggerLabel ?? t("presets.use")}
                 </Button>
             </DialogTrigger>
             <DialogContent>
-                <DialogTitle>Custom Presets</DialogTitle>
+                <DialogTitle>{t("presets.title")}</DialogTitle>
                 <CustomPresets data={data} presetTypeHint={presetTypeHint} />
             </DialogContent>
         </Dialog>

@@ -17,7 +17,7 @@ import {
     showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
-import { t, tr, useLanguage } from "@/lib/i18n";
+import { labelOf, t, tr, useLanguage } from "@/lib/i18n";
 import {
     type AdminLevel,
     adminLevelOptions,
@@ -204,9 +204,10 @@ export const MeasuringQuestionComponent = ({
                             card
                                 ? undefined
                                 : {
-                                      [`other:${data.type}`]:
+                                      [`other:${data.type}`]: labelOf(
                                           MEASURING_TYPE_LABELS[data.type] ??
-                                          data.type,
+                                              data.type,
+                                      ),
                                   }
                         }
                         groups={deckSelectGroups(MEASURING_DECK)}
@@ -236,18 +237,18 @@ export const MeasuringQuestionComponent = ({
                                 )
                                 .map((x) => [
                                     (x._def as any).value,
-                                    x.description,
+                                    labelOf(x.description),
                                 ]),
                         )}
                         groups={measuringQuestionSchema.options
                             .filter((x) => x.description !== NO_GROUP)
                             .map((x) => [
-                                x.description,
+                                labelOf(x.description),
                                 Object.fromEntries(
                                     determineUnionizedStrings(x.shape.type).map(
                                         (x) => [
                                             (x._def as any).value,
-                                            x.description,
+                                            labelOf(x.description),
                                         ],
                                     ),
                                 ),

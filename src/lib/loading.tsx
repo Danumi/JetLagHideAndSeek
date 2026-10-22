@@ -1,6 +1,8 @@
 import { atom } from "nanostores";
 import { toast } from "react-toastify";
 
+import { t } from "@/lib/i18n";
+
 export interface LoadingTask {
     id: number;
     /** What is being loaded, e.g. "Finding parks...". */
@@ -20,14 +22,14 @@ export const trackLoading = async <T,>(
 ): Promise<T> => {
     const task = {
         id: nextTaskId++,
-        label: label ?? "Loading map data...",
+        label: label ?? t("loading.mapData"),
         startedAt: Date.now(),
     };
     loadingTasks.set([...loadingTasks.get(), task]);
     try {
         return await promise;
     } finally {
-        loadingTasks.set(loadingTasks.get().filter((t) => t.id !== task.id));
+        loadingTasks.set(loadingTasks.get().filter((x) => x.id !== task.id));
     }
 };
 
@@ -40,14 +42,13 @@ export const retryLoading = () => retryTrigger.set(retryTrigger.get() + 1);
 
 /** One error message with a "Retry" button, however many requests failed. */
 export const showLoadError = (label: string | undefined, reason: string) => {
-    const what = (label ?? "Loading map data...").replace(/\.+$/, "");
+    // Without the dots at the end: "Finding parks..." or "Suche Parks …"
+    const what = (label ?? t("loading.mapData")).replace(/\s*(\.+|…)$/, "");
 
     toast.error(
         ({ closeToast }) => (
             <div className="flex items-center justify-between gap-3">
-                <span>
-                    Map data didn&apos;t load ({what}). {reason}
-                </span>
+                <span>{t("loading.failed", { what, reason })}</span>
                 <button
                     className="shrink-0 rounded-md bg-blue-600 px-3 py-1 font-semibold text-white"
                     onClick={() => {
@@ -55,7 +56,7 @@ export const showLoadError = (label: string | undefined, reason: string) => {
                         retryLoading();
                     }}
                 >
-                    Retry
+                    {t("loading.retry")}
                 </button>
             </div>
         ),

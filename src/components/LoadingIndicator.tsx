@@ -3,6 +3,7 @@ import { CheckIcon, LoaderCircleIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { isLoading } from "@/lib/context";
+import { t, useLanguage } from "@/lib/i18n";
 import { loadingTasks } from "@/lib/loading";
 import { preloadProgress } from "@/maps/preload";
 
@@ -15,6 +16,7 @@ const SHOW_SECONDS_AFTER_MS = 10_000;
  * game. It never blocks touches on the map.
  */
 export const LoadingIndicator = () => {
+    useLanguage();
     const $loadingTasks = useStore(loadingTasks);
     const $isLoading = useStore(isLoading);
     const $preloadProgress = useStore(preloadProgress);
@@ -40,7 +42,7 @@ export const LoadingIndicator = () => {
     }, [$isLoading]);
 
     const task = $loadingTasks[0];
-    const label = task?.label ?? (computing ? "Updating the map..." : null);
+    const label = task?.label ?? (computing ? t("loading.updating") : null);
     if (!label && !$preloadProgress) return null;
 
     const elapsed = task ? now - task.startedAt : 0;
@@ -74,8 +76,8 @@ export const LoadingIndicator = () => {
                                 <CheckIcon className="h-3 w-3 text-green-500" />
                             )}
                             {$preloadProgress.finished
-                                ? "Map data for the game is ready"
-                                : "Loading map data for the game"}
+                                ? t("loading.gameReady")
+                                : t("loading.game")}
                         </span>
                         <span>
                             {$preloadProgress.done}/{$preloadProgress.total}

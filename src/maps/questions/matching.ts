@@ -18,6 +18,7 @@ import {
     mapGeoLocation,
     polyGeoJSON,
 } from "@/lib/context";
+import { t } from "@/lib/i18n";
 import { memoizeAsync } from "@/lib/utils";
 import {
     findAdminBoundary,
@@ -51,7 +52,7 @@ export const findMatchingPlaces = async (question: MatchingQuestion) => {
                 (
                     await findPlacesInZone(
                         '["aeroway"="aerodrome"]["iata"]', // Only commercial airports have IATA codes,
-                        "Finding airports...",
+                        t("loading.airports"),
                     )
                 ).elements,
                 (feature: any) => feature.tags.iata,
@@ -66,7 +67,7 @@ export const findMatchingPlaces = async (question: MatchingQuestion) => {
             return (
                 await findPlacesInZone(
                     '[place=city]["population"~"^[1-9]+[0-9]{6}$"]', // The regex is faster than (if:number(t["population"])>1000000)
-                    "Finding cities...",
+                    t("loading.cities"),
                 )
             ).elements.map((x: any) =>
                 turf.point([
@@ -95,10 +96,10 @@ export const findMatchingPlaces = async (question: MatchingQuestion) => {
 
             if (data.elements.length >= MAX_PLACES_IN_ZONE) {
                 toast.error(
-                    `Too many ${prettifyLocation(
-                        location,
-                        true,
-                    ).toLowerCase()} found (${data.elements.length}). Please enable hiding zone mode and switch to the Large Game variation of this question.`,
+                    t("places.tooMany", {
+                        what: prettifyLocation(location),
+                        count: data.elements.length,
+                    }),
                 );
                 return [];
             }
@@ -146,7 +147,7 @@ export const determineMatchingBoundary = memoizeAsync(
                 );
 
                 if (!boundary) {
-                    toast.error("No boundary found for this zone");
+                    toast.error(t("question.noBoundary"));
                     throw new Error("No boundary found");
                 }
                 break;
@@ -159,7 +160,7 @@ export const determineMatchingBoundary = memoizeAsync(
                 );
 
                 if (!zone) {
-                    toast.error("No boundary found for this zone");
+                    toast.error(t("question.noBoundary"));
                     throw new Error("No boundary found");
                 }
 
@@ -171,7 +172,7 @@ export const determineMatchingBoundary = memoizeAsync(
                     if (/^[a-zA-Z]$/.test(name[0])) {
                         englishName = name;
                     } else {
-                        toast.error("No English name found for this zone");
+                        toast.error(t("question.noEnglishName"));
                         throw new Error("No English name");
                     }
                 }
@@ -182,7 +183,7 @@ export const determineMatchingBoundary = memoizeAsync(
                     osmtogeojson(
                         await findPlacesInZone(
                             `[admin_level=${question.cat.adminLevel}]["name:en"~"^${letter}.+"]`, // Regex is faster than filtering afterward
-                            `Finding zones that start with the same letter (${letter})...`,
+                            t("loading.letterZones", { letter }),
                             "relation",
                             "geom",
                             [
@@ -214,7 +215,7 @@ export const determineMatchingBoundary = memoizeAsync(
                     question.lng,
                 );
                 if (!street) {
-                    toast.error("No street or path found near the seekers");
+                    toast.error(t("question.noStreet"));
                     return false;
                 }
                 if (!question.same) {
@@ -245,10 +246,9 @@ export const determineMatchingBoundary = memoizeAsync(
             case "landmass": {
                 const islands = await findLandmassIslands();
                 if (islands.length === 0) {
-                    toast.info(
-                        "There are no separate landmasses in the game area. The map doesn't change.",
-                        { toastId: "no-landmass" },
-                    );
+                    toast.info(t("question.noLandmass"), {
+                        toastId: "no-landmass",
+                    });
                     return false;
                 }
                 const point = turf.point([question.lng, question.lat]);
@@ -290,17 +290,15 @@ export const determineMatchingBoundary = memoizeAsync(
                 const data = await findMatchingPlaces(question);
 
                 if (!data || data.length === 0) {
-                    toast.info(
-                        "None of these places are inside the game area. By the rules the question has no answer, but it still counts.",
-                        { toastId: `no-places-${question.type}` },
-                    );
+                    toast.info(t("question.noPlaces"), {
+                        toastId: `no-places-${question.type}`,
+                    });
                     return false;
                 }
                 if (data.length === 1) {
-                    toast.info(
-                        "Only one of these places is inside the game area, so everyone's nearest one is the same. The map doesn't change.",
-                        { toastId: `one-place-${question.type}` },
-                    );
+                    toast.info(t("question.onePlace"), {
+                        toastId: `one-place-${question.type}`,
+                    });
                     return false;
                 }
 
@@ -406,7 +404,7 @@ export const hiderifyMatching = async (
         const places = osmtogeojson(
             await findPlacesInZone(
                 stationFilter,
-                "Finding train stations. This may take a while. Do not press any buttons while this is processing. Don't worry, it will be cached.",
+                t("loading.stations"),
                 "nwr",
                 "center",
                 alternatives,

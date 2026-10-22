@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useDebounce } from "@/hooks/useDebounce";
 import { isLoading } from "@/lib/context";
+import { t } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { determineName, geocode, ICON_COLORS } from "@/maps/api";
 
@@ -143,17 +144,17 @@ const LatLngEditForm = ({
         <>
             <Command shouldFilter={false}>
                 <CommandInput
-                    placeholder="Search place..."
+                    placeholder={t("coords.searchPlace")}
                     onKeyUp={(x) => setInputValue(x.currentTarget.value)}
                     disabled={disabled}
                 />
                 <CommandList>
                     <CommandEmpty>
                         {loading
-                            ? "Loading..."
+                            ? t("coords.searching")
                             : error
-                              ? "Error loading places."
-                              : "No locations found."}
+                              ? t("coords.searchFailed")
+                              : t("coords.noPlaces")}
                     </CommandEmpty>
                     <CommandGroup>
                         {results.map((result) => (
@@ -178,7 +179,7 @@ const LatLngEditForm = ({
                 </CommandList>
             </Command>
             <div className="flex gap-2 items-center">
-                <Label className="min-w-16">Latitude</Label>
+                <Label className="min-w-16">{t("coords.latitude")}</Label>
                 <Input
                     type="number"
                     value={Math.abs(latitude)}
@@ -203,7 +204,7 @@ const LatLngEditForm = ({
                 </Button>
             </div>
             <div className="flex gap-2 items-center">
-                <Label className="min-w-16">Longitude</Label>
+                <Label className="min-w-16">{t("coords.longitude")}</Label>
                 <Input
                     type="number"
                     value={Math.abs(longitude)}
@@ -235,7 +236,7 @@ export const LatitudeLongitude = ({
     latitude,
     longitude,
     onChange,
-    label = "Location",
+    label = t("coords.location"),
     colorName,
     children,
     disabled,
@@ -315,7 +316,7 @@ export const LatitudeLongitude = ({
                                 <Button
                                     disabled={disabled}
                                     variant="outline"
-                                    title="Edit coordinates"
+                                    title={t("coords.edit")}
                                 >
                                     <EditIcon />
                                 </Button>
@@ -323,7 +324,7 @@ export const LatitudeLongitude = ({
                             <DialogContent>
                                 <DialogHeader>
                                     <DialogTitle className="text-2xl">
-                                        Update {label}
+                                        {t("coords.update", { label })}
                                     </DialogTitle>
                                 </DialogHeader>
                                 <LatLngEditForm
@@ -334,7 +335,7 @@ export const LatitudeLongitude = ({
                                 />
                                 <DialogFooter>
                                     <DialogClose asChild>
-                                        <Button>Done</Button>
+                                        <Button>{t("coords.done")}</Button>
                                     </DialogClose>
                                 </DialogFooter>
                             </DialogContent>
@@ -351,7 +352,7 @@ export const LatitudeLongitude = ({
                             variant="outline"
                             onClick={() => {
                                 if (!navigator || !navigator.geolocation)
-                                    return alert("Geolocation not supported");
+                                    return alert(t("coords.noGeolocation"));
 
                                 isLoading.set(true);
 
@@ -378,15 +379,15 @@ export const LatitudeLongitude = ({
                                             isLoading.set(false);
                                         }),
                                     {
-                                        pending: "Fetching location",
-                                        success: "Location fetched",
-                                        error: "Could not fetch location",
+                                        pending: t("coords.locating"),
+                                        success: t("coords.located"),
+                                        error: t("locate.failed"),
                                     },
                                     { autoClose: 500 },
                                 );
                             }}
                             disabled={disabled}
-                            title="Set to current location"
+                            title={t("coords.current")}
                         >
                             <LocateIcon />
                         </Button>
@@ -394,9 +395,7 @@ export const LatitudeLongitude = ({
                             variant="outline"
                             onClick={() => {
                                 if (!navigator || !navigator.clipboard) {
-                                    toast.error(
-                                        "Clipboard API not supported in your browser",
-                                    );
+                                    toast.error(t("clipboard.unsupported"));
                                     return;
                                 }
 
@@ -419,23 +418,22 @@ export const LatitudeLongitude = ({
                                                 return;
                                             }
                                             throw new Error(
-                                                "Could not find coordinates in clipboard content",
+                                                t("coords.notFound"),
                                             );
                                         })
                                         .finally(() => {
                                             isLoading.set(false);
                                         }),
                                     {
-                                        pending: "Reading from clipboard",
-                                        success:
-                                            "Coordinates set from clipboard",
-                                        error: "No valid coordinates found in clipboard",
+                                        pending: t("clipboard.reading"),
+                                        success: t("coords.pasted"),
+                                        error: t("coords.notFound"),
                                     },
                                     { autoClose: 1000 },
                                 );
                             }}
                             disabled={disabled}
-                            title="Paste coordinates from clipboard"
+                            title={t("coords.paste")}
                         >
                             <ClipboardPasteIcon />
                         </Button>
@@ -443,9 +441,7 @@ export const LatitudeLongitude = ({
                             variant="outline"
                             onClick={() => {
                                 if (!navigator || !navigator.clipboard) {
-                                    toast.error(
-                                        "Clipboard API not supported in your browser",
-                                    );
+                                    toast.error(t("clipboard.unsupported"));
                                     return;
                                 }
 
@@ -456,14 +452,14 @@ export const LatitudeLongitude = ({
                                         )}°${longitude > 0 ? "E" : "W"}`,
                                     ),
                                     {
-                                        pending: "Writing to clipboard...",
-                                        success: "Coordinates copied!",
-                                        error: "An error occurred while copying",
+                                        pending: t("clipboard.writing"),
+                                        success: t("coords.copied"),
+                                        error: t("clipboard.copyFailed"),
                                     },
                                     { autoClose: 1000 },
                                 );
                             }}
-                            title="Copy coordinates to clipboard"
+                            title={t("coords.copy")}
                         >
                             <ClipboardCopyIcon />
                         </Button>

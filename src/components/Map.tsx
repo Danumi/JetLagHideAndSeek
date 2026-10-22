@@ -27,6 +27,7 @@ import {
     showAllQuestionTypes,
 } from "@/lib/context";
 import { MY_POSITION_ZOOM, placePickedPoint, watchMyPosition } from "@/lib/gps";
+import { language, t } from "@/lib/i18n";
 import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
 import { applyQuestionsToMapGeoData, holedMask } from "@/maps";
@@ -127,6 +128,97 @@ const showRadarOutline = (map: L.Map, outline: L.LatLngBounds) => {
     }
     map.fitBounds(bounds, { padding: [24, 24] });
 };
+
+/** The long-press menu: questions of every type, for experts. */
+const longPressMenu = () => [
+    {
+        text: t("add.radar"),
+        callback: (e: any) =>
+            addQuestion({
+                id: "radius",
+                data: {
+                    lat: e.latlng.lat,
+                    lng: e.latlng.lng,
+                },
+            }),
+    },
+    {
+        text: t("add.thermometer"),
+        callback: (e: any) => {
+            const destination = turf.destination(
+                [e.latlng.lng, e.latlng.lat],
+                1,
+                90,
+                {
+                    units: "kilometers",
+                },
+            );
+
+            addQuestion({
+                id: "thermometer",
+                data: {
+                    latA: e.latlng.lat,
+                    lngA: e.latlng.lng,
+                    latB: destination.geometry.coordinates[1],
+                    lngB: destination.geometry.coordinates[0],
+                },
+            });
+        },
+    },
+    {
+        text: t("add.tentacles"),
+        callback: (e: any) => {
+            addQuestion({
+                id: "tentacles",
+                data: {
+                    lat: e.latlng.lat,
+                    lng: e.latlng.lng,
+                },
+            });
+        },
+    },
+    {
+        text: t("add.matching"),
+        callback: (e: any) => {
+            addQuestion({
+                id: "matching",
+                data: {
+                    lat: e.latlng.lat,
+                    lng: e.latlng.lng,
+                },
+            });
+        },
+    },
+    {
+        text: t("add.measuring"),
+        callback: (e: any) => {
+            addQuestion({
+                id: "measuring",
+                data: {
+                    lat: e.latlng.lat,
+                    lng: e.latlng.lng,
+                },
+            });
+        },
+    },
+    {
+        text: t("add.excludeCountry"),
+        callback: (e: any) => {
+            addQuestion({
+                id: "matching",
+                data: {
+                    lat: e.latlng.lat,
+                    lng: e.latlng.lng,
+                    same: false,
+                    cat: {
+                        adminLevel: 2,
+                    },
+                    type: "zone",
+                },
+            });
+        },
+    },
+];
 
 export const Map = ({ className }: { className?: string }) => {
     useStore(additionalMapGeoLocations);
@@ -283,7 +375,7 @@ export const Map = ({ className }: { className?: string }) => {
 
             isLoading.set(false);
             if (document.querySelectorAll(".Toastify__toast").length === 0) {
-                return toast.error("No solutions found / error occurred");
+                return toast.error(t("question.mapFailed"));
             }
         } finally {
             isLoading.set(false);
@@ -301,95 +393,7 @@ export const Map = ({ className }: { className?: string }) => {
                 // @ts-expect-error Typing doesn't update from react-contextmenu
                 contextmenu={true}
                 contextmenuWidth={140}
-                contextmenuItems={[
-                    {
-                        text: "Add Radius",
-                        callback: (e: any) =>
-                            addQuestion({
-                                id: "radius",
-                                data: {
-                                    lat: e.latlng.lat,
-                                    lng: e.latlng.lng,
-                                },
-                            }),
-                    },
-                    {
-                        text: "Add Thermometer",
-                        callback: (e: any) => {
-                            const destination = turf.destination(
-                                [e.latlng.lng, e.latlng.lat],
-                                1,
-                                90,
-                                {
-                                    units: "kilometers",
-                                },
-                            );
-
-                            addQuestion({
-                                id: "thermometer",
-                                data: {
-                                    latA: e.latlng.lat,
-                                    lngA: e.latlng.lng,
-                                    latB: destination.geometry.coordinates[1],
-                                    lngB: destination.geometry.coordinates[0],
-                                },
-                            });
-                        },
-                    },
-                    {
-                        text: "Add Tentacles",
-                        callback: (e: any) => {
-                            addQuestion({
-                                id: "tentacles",
-                                data: {
-                                    lat: e.latlng.lat,
-                                    lng: e.latlng.lng,
-                                },
-                            });
-                        },
-                    },
-                    {
-                        text: "Add Matching",
-                        callback: (e: any) => {
-                            addQuestion({
-                                id: "matching",
-                                data: {
-                                    lat: e.latlng.lat,
-                                    lng: e.latlng.lng,
-                                },
-                            });
-                        },
-                    },
-                    {
-                        text: "Add Measuring",
-                        callback: (e: any) => {
-                            addQuestion({
-                                id: "measuring",
-                                data: {
-                                    lat: e.latlng.lat,
-                                    lng: e.latlng.lng,
-                                },
-                            });
-                        },
-                    },
-                    {
-                        text: "Exclude Country",
-                        callback: (e: any) => {
-                            addQuestion({
-                                id: "matching",
-                                data: {
-                                    lat: e.latlng.lat,
-                                    lng: e.latlng.lng,
-                                    same: false,
-                                    cat: {
-                                        adminLevel: 2,
-                                    },
-                                    type: "zone",
-                                },
-                            });
-                        },
-                    },
-                ]}
+                contextmenuItems={longPressMenu()}
             >
                 {getTileLayer($baseTileLayer)}
                 <DraggableMarkers />
@@ -454,11 +458,18 @@ export const Map = ({ className }: { className?: string }) => {
             if (show) menu?.enable();
             else menu?.disable();
         });
+        // Its texts follow the language of the phone
+        const unbindLanguage = language.listen(() => {
+            const menu = (map as any).contextmenu;
+            menu?.removeAllItems();
+            for (const item of longPressMenu()) menu?.addItem(item);
+        });
 
         return () => {
             map.off("click", onClick);
             unbindPicking();
             unbindMenu();
+            unbindLanguage();
         };
     }, [map]);
 

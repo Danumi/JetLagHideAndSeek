@@ -21,6 +21,7 @@ import {
     questions,
     showDrawingTools,
 } from "@/lib/context";
+import { t, useLanguage } from "@/lib/i18n";
 import { CacheType, clearCache } from "@/maps/api";
 import { lngLatToText } from "@/maps/geo-utils";
 import type {
@@ -34,6 +35,51 @@ import { LatitudeLongitude } from "./LatLngPicker";
 import { Dialog, DialogContent } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { SidebarMenu } from "./ui/sidebar-l";
+
+/** The texts of the drawing toolbar, in the phone's language. */
+const localizeDrawing = (polygon: string) => {
+    const { draw, edit } = L.drawLocal;
+    draw.toolbar.actions = {
+        title: t("draw.cancelTitle"),
+        text: t("draw.cancel"),
+    };
+    draw.toolbar.finish = {
+        title: t("draw.finishTitle"),
+        text: t("draw.finish"),
+    };
+    draw.toolbar.undo = { title: t("draw.undo"), text: t("draw.undo") };
+    draw.toolbar.buttons.polygon = polygon;
+    draw.toolbar.buttons.polyline = t("draw.polyline");
+    draw.toolbar.buttons.marker = t("draw.marker");
+    draw.handlers.marker.tooltip.start = t("draw.markerStart");
+    draw.handlers.polygon.tooltip = {
+        start: t("draw.polygonStart"),
+        cont: t("draw.polygonCont"),
+        end: t("draw.polygonEnd"),
+    };
+    draw.handlers.polyline.error = t("draw.lineError");
+    draw.handlers.polyline.tooltip = {
+        start: t("draw.lineStart"),
+        cont: t("draw.lineCont"),
+        end: t("draw.lineEnd"),
+    };
+    edit.toolbar.actions = {
+        save: { title: t("draw.saveTitle"), text: t("draw.save") },
+        cancel: { title: t("draw.cancelEditTitle"), text: t("draw.cancel") },
+        clearAll: { title: t("draw.clearAllTitle"), text: t("draw.clearAll") },
+    };
+    edit.toolbar.buttons = {
+        edit: t("draw.edit"),
+        editDisabled: t("draw.editDisabled"),
+        remove: t("draw.remove"),
+        removeDisabled: t("draw.removeDisabled"),
+    };
+    edit.handlers.edit.tooltip = {
+        text: t("draw.editText"),
+        subtext: t("draw.editSubtext"),
+    };
+    edit.handlers.remove.tooltip = { text: t("draw.removeText") };
+};
 
 const swapCoordinates = (geojson: any) => {
     return JSON.parse(JSON.stringify(geojson), (key, value) => {
@@ -199,6 +245,7 @@ const MeasuringPointMarker = ({
 };
 
 export const PolygonDraw = () => {
+    useLanguage();
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $questions = useStore(questions);
     const $showDrawingTools = useStore(showDrawingTools);
@@ -218,21 +265,20 @@ export const PolygonDraw = () => {
     let question: Question | undefined;
 
     if ($drawingQuestionKey === -1) {
-        L.drawLocal.draw.toolbar.buttons.polygon = "Draw the hiding zone!";
+        localizeDrawing(t("draw.hidingZone"));
     } else {
         question = $questions.find((q) => q.key === $drawingQuestionKey);
 
         if (question?.data.drag === false) {
             drawingQuestionKey.set(-1);
         }
-        if (question?.id === "matching") {
-            L.drawLocal.draw.toolbar.buttons.polygon =
-                "Draw the matching zone(s)!";
-        }
-        if (question?.id === "measuring") {
-            L.drawLocal.draw.toolbar.buttons.polygon =
-                "Draw the measuring zone(s)!";
-        }
+        localizeDrawing(
+            question?.id === "matching"
+                ? t("draw.matching")
+                : question?.id === "measuring"
+                  ? t("draw.measuring")
+                  : t("draw.hidingZone"),
+        );
     }
 
     const onChange = () => {

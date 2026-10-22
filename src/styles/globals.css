@@ -177,15 +177,14 @@ div.leaflet-control-attribution.leaflet-control {
     position: fixed !important;
 }
 
-/* Status messages never block the map: touches pass through them to the map
-   below. Only their buttons (close, Undo) stay tappable, also while an open
-   sidebar or dialog blocks pointer events on the rest of the page. */
-.Toastify__toast-container,
-.Toastify__toast {
+/* Status messages can be swiped away sideways, also while an open sidebar or
+   dialog blocks pointer events on the rest of the page. The space around
+   them never blocks the map. */
+.Toastify__toast-container {
     pointer-events: none;
 }
 
-.Toastify__toast button {
+.Toastify__toast {
     pointer-events: auto;
 }
 

@@ -3,11 +3,19 @@ import { join } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import { hasMessage, language, t, type Text, tr } from "@/lib/i18n";
+import { hasMessage, labelOf, language, t, type Text, tr } from "@/lib/i18n";
 import { messages } from "@/lib/messages";
 import { answerOptions, formatKilometers, questionTitle } from "@/maps/answers";
+import { prettifyLocation } from "@/maps/api";
 import { ADMIN_LEVEL_LABELS, MATCHING_DECK, MEASURING_DECK } from "@/maps/deck";
-import { questionSchema } from "@/maps/schema";
+import {
+    determineUnionizedStrings,
+    matchingQuestionSchema,
+    measuringQuestionSchema,
+    NO_GROUP,
+    questionSchema,
+    tentacleQuestionSchema,
+} from "@/maps/schema";
 
 const placeholders = (text: string) =>
     [...text.matchAll(/\{(\w+)\}/g)].map((match) => match[1]).sort();
@@ -30,17 +38,35 @@ const sourceFiles = (dir: string): string[] =>
 const SRC = new URL("../src/", import.meta.url).pathname;
 
 /*
- * The files that are completely translated. Etappe 15 B adds the rest
- * (settings, zone list, hider screen, messages).
+ * The files that are completely translated: every file that shows players
+ * something. Left out: the old tutorial (replaced with Etappe 8), the deck
+ * and messages.ts (both languages side by side) and schema.ts, whose checks
+ * of saved data only developers see.
  */
 const TRANSLATED_FILES = [
+    "components/AddQuestionDialog.tsx",
     "components/AskQuestion.tsx",
     "components/BottomBar.tsx",
+    "components/CustomInitDialog.tsx",
+    "components/CustomPresets.tsx",
     "components/DraggableMarkers.tsx",
+    "components/HiderScreen.tsx",
+    "components/HidingZones.tsx",
+    "components/LatLngPicker.tsx",
+    "components/LoadingIndicator.tsx",
+    "components/LocatingToast.tsx",
+    "components/Map.tsx",
     "components/MapControls.tsx",
     "components/NearestMarks.tsx",
+    "components/NewGameDialog.tsx",
+    "components/OptionDrawers.tsx",
+    "components/PlacePicker.tsx",
+    "components/PolygonDraw.tsx",
+    "components/PresetsDialog.tsx",
     "components/QuestionSidebar.tsx",
+    "components/UndoToast.tsx",
     "components/UnitSelect.tsx",
+    "components/ZoneSheet.tsx",
     "components/cards/answer.tsx",
     "components/cards/base.tsx",
     "components/cards/location.tsx",
@@ -48,10 +74,24 @@ const TRANSLATED_FILES = [
     "components/cards/measuring.tsx",
     "components/cards/nearest.tsx",
     "components/cards/radius.tsx",
+    "components/cards/tentacles.tsx",
     "components/cards/thermometer.tsx",
+    "components/ui/dialog.tsx",
+    "components/ui/multi-select.tsx",
+    "components/ui/sheet.tsx",
+    "components/ui/sidebar-l.tsx",
+    "lib/gps.ts",
+    "lib/loading.tsx",
     "maps/answers.ts",
+    "maps/api/elevation.ts",
+    "maps/api/geo.ts",
+    "maps/api/overpass.ts",
     "maps/hider.ts",
+    "maps/hidingZoneCheck.ts",
     "maps/nearest.ts",
+    "maps/questions/matching.ts",
+    "maps/questions/measuring.ts",
+    "maps/stations.ts",
 ];
 
 /** Words that are the same in both languages: the kinds of questions. */
@@ -62,13 +102,17 @@ const SAME_IN_BOTH = new Set([
     "Thermometer",
     "Deutsch",
     "English",
+    "Photon",
 ]);
 
 /** English text written straight into a file instead of through t(). */
 const untranslated = (file: string) => {
     const source = file
         .replace(/\/\*[\s\S]*?\*\//g, "")
-        .replace(/(^|\s)\/\/.*$/gm, "");
+        .replace(/(^|\s)\/\/.*$/gm, "")
+        // Messages for developers, not players
+        .replace(/console\.\w+\([^;]*\);/g, "")
+        .replace(/new \w*Error\([^;]*\);/g, "");
     return [
         // Text between JSX tags, like <span>Rule out</span>
         ...[
@@ -92,7 +136,7 @@ const untranslated = (file: string) => {
         ...[...source.matchAll(/(["`])([A-Z][a-z']+ [^"`$]*?)\1/g)].map(
             (match) => match[2],
         ),
-    ].filter((text) => !SAME_IN_BOTH.has(text));
+    ].filter((text) => !SAME_IN_BOTH.has(text) && !/^https?:/.test(text));
 };
 
 describe("the app in German and English", () => {
@@ -126,6 +170,56 @@ describe("the app in German and English", () => {
                 .map((key) => `${file.replace(SRC, "")}: ${key}`),
         );
         expect(missing).toEqual([]);
+    });
+
+    it("names every kind of question for experts", () => {
+        const labels = (
+            schema: { options: readonly any[] },
+            field: "type" | "locationType",
+        ) =>
+            schema.options.flatMap((option) => [
+                option.description as string,
+                ...determineUnionizedStrings(option.shape[field]).map(
+                    (literal) => literal.description as string,
+                ),
+            ]);
+        const missing = [
+            ...labels(matchingQuestionSchema, "type"),
+            ...labels(measuringQuestionSchema, "type"),
+            ...labels(tentacleQuestionSchema, "locationType"),
+        ].filter((label) => label !== NO_GROUP && !hasMessage(label));
+        expect(missing).toEqual([]);
+
+        language.set("de");
+        expect(labelOf("type.park-full")).toBe("Park (Small und Medium)");
+        expect(labelOf("anything else")).toBe("anything else");
+    });
+
+    it("names every kind of place", () => {
+        for (const place of [
+            "aquarium",
+            "zoo",
+            "theme_park",
+            "peak",
+            "museum",
+            "hospital",
+            "cinema",
+            "library",
+            "golf_course",
+            "consulate",
+            "park",
+        ] as const) {
+            expect(hasMessage(`places.${place}`), place).toBe(true);
+        }
+        language.set("de");
+        expect(t("loading.places", { what: prettifyLocation("museum") })).toBe(
+            "Suche Museen …",
+        );
+        language.set("en");
+        expect(t("loading.places", { what: prettifyLocation("museum") })).toBe(
+            "Finding museums...",
+        );
+        language.set("de");
     });
 
     it("names what's nearest for every card", () => {

@@ -101,6 +101,6 @@ const { className } = Astro.props;
     </head>
     <body class:list={[className, "dark"]}>
         <slot />
-        <ToastContainer client:only />
+        <ToastContainer client:only draggable draggableDirection="x" />
     </body>
 </html>

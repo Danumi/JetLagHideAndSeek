@@ -146,6 +146,7 @@ const Hint = ({ children }: { children: ReactNode }) => (
 
 export const OptionDrawers = () => {
     useStore(triggerLocalRefresh);
+    useLanguage();
     const $hiderMode = useStore(hiderMode);
     const $hidingZone = useStore(hidingZone);
     const $baseTileLayer = useStore(baseTileLayer);
@@ -176,7 +177,7 @@ export const OptionDrawers = () => {
                 // Remove hiding zone parameter after initial load
                 window.history.replaceState({}, "", window.location.pathname);
             } catch (e) {
-                toast.error(`Invalid hiding zone settings: ${e}`);
+                toast.error(t("game.invalid", { error: String(e) }));
             }
         } else if (hidingZoneCompressed !== null) {
             // Modern compressed format
@@ -190,7 +191,7 @@ export const OptionDrawers = () => {
                         window.location.pathname,
                     );
                 } catch (e) {
-                    toast.error(`Invalid hiding zone settings: ${e}`);
+                    toast.error(t("game.invalid", { error: String(e) }));
                 }
             });
         } else if (pastebinId !== null) {
@@ -205,16 +206,19 @@ export const OptionDrawers = () => {
                             window.location.pathname,
                         );
                         toast.success(
-                            "Successfully loaded data from Pastebin link!",
+                            t("game.loadedFrom", { source: "Pastebin" }),
                         );
                     } catch (e) {
-                        toast.error(`Invalid data from Pastebin: ${e}`);
+                        toast.error(t("game.invalid", { error: String(e) }));
                     }
                 })
                 .catch((error) => {
                     console.error("Failed to fetch from Pastebin:", error);
                     toast.error(
-                        `Failed to load from Pastebin: ${error.message}`,
+                        t("game.loadFailed", {
+                            source: "Pastebin",
+                            error: error.message,
+                        }),
                     );
                 });
         } else if (fetchUrl !== null) {
@@ -234,16 +238,19 @@ export const OptionDrawers = () => {
                             window.location.pathname,
                         );
                         toast.success(
-                            `Successfully loaded data from ${fetchUrl}`,
+                            t("game.loadedFrom", { source: fetchUrl }),
                         );
                     } catch (e) {
-                        toast.error(`Invalid data from ${fetchUrl}: ${e}`);
+                        toast.error(t("game.invalid", { error: String(e) }));
                     }
                 })
                 .catch((error) => {
                     console.error(`Failed to fetch from ${fetchUrl}:`, error);
                     toast.error(
-                        `Failed to load from ${fetchUrl}: ${error.message}`,
+                        t("game.loadFailed", {
+                            source: fetchUrl,
+                            error: error.message,
+                        }),
                     );
                 });
         }
@@ -298,7 +305,7 @@ export const OptionDrawers = () => {
                                         "function"
                                         ? (crypto as any).randomUUID()
                                         : String(Date.now()) + Math.random()),
-                                name: p.name ?? "Imported preset",
+                                name: p.name ?? t("game.presetName"),
                                 type: p.type ?? "custom",
                                 data: p.data,
                                 createdAt:
@@ -307,7 +314,11 @@ export const OptionDrawers = () => {
                         });
                     if (normalized.length > 0) {
                         customPresets.set(normalized);
-                        toast.info(`Imported ${normalized.length} preset(s)`);
+                        toast.info(
+                            t("game.presetsImported", {
+                                count: normalized.length,
+                            }),
+                        );
                     }
                 } catch (err) {
                     console.warn("Failed to import presets", err);
@@ -357,11 +368,11 @@ export const OptionDrawers = () => {
                 includeDefaultStations.set(geojson.includeDefaultStations);
             }
 
-            toast.success("Hiding zone loaded successfully", {
+            toast.success(t("game.loaded"), {
                 autoClose: 2000,
             });
         } catch (e) {
-            toast.error(`Invalid hiding zone settings: ${e}`);
+            toast.error(t("game.invalid", { error: String(e) }));
         }
     };
 
@@ -381,10 +392,10 @@ export const OptionDrawers = () => {
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            toast.success("Hiding zone saved to file", { autoClose: 2000 });
+            toast.success(t("game.saved"), { autoClose: 2000 });
         } catch (e) {
             console.error("Failed to save file:", e);
-            toast.error(`Failed to save file: ${e}`);
+            toast.error(t("game.saveFailed", { error: String(e) }));
         }
     };
 
@@ -395,11 +406,11 @@ export const OptionDrawers = () => {
             if (typeof result === "string") {
                 loadHidingZone(result);
             } else {
-                toast.error("Failed to read file");
+                toast.error(t("game.readFailed"));
             }
         };
         reader.onerror = () => {
-            toast.error("Failed to read file");
+            toast.error(t("game.readFailed"));
         };
         reader.readAsText(file);
     };
@@ -411,7 +422,7 @@ export const OptionDrawers = () => {
             compressedData = await compress(hidingZoneString);
         } catch (error) {
             console.error("Compression failed:", error);
-            toast.error(`Failed to prepare data for sharing`);
+            toast.error(t("game.shareFailed"));
             return;
         }
 
@@ -419,9 +430,7 @@ export const OptionDrawers = () => {
         const shareUrl = `${baseUrl}?${HIDING_ZONE_COMPRESSED_URL_PARAM}=${compressedData}`;
 
         if (shareUrl.length > 2000) {
-            toast.info(
-                "The game is too large for a link, saving a file instead.",
-            );
+            toast.info(t("game.tooLarge"));
             saveToFile();
             return;
         }
@@ -430,14 +439,13 @@ export const OptionDrawers = () => {
         await shareOrFallback(shareUrl).then((result) => {
             console.log(`result ${result}`);
             if (result === false) {
-                return toast.error(
-                    `Clipboard not supported. Try manually copying/pasting: ${shareUrl}`,
-                    { className: "p-0 w-[1000px]" },
-                );
+                return toast.error(t("game.copyByHand", { link: shareUrl }), {
+                    className: "p-0 w-[1000px]",
+                });
             }
 
             if (result === "clipboard") {
-                toast.success("Hiding zone URL copied to clipboard", {
+                toast.success(t("game.linkCopied"), {
                     autoClose: 2000,
                 });
             }
@@ -463,7 +471,7 @@ export const OptionDrawers = () => {
                         size="icon"
                         variant="outline"
                         className="h-11 w-11 rounded-full bg-background/95 text-foreground shadow-lg"
-                        title="Settings"
+                        title={t("settings.title")}
                         data-tutorial-id="option-questions-button"
                     >
                         <SettingsIcon className="!size-5" />
@@ -473,7 +481,7 @@ export const OptionDrawers = () => {
                     <div className="flex flex-col items-center gap-4 mb-4">
                         <DrawerHeader>
                             <DrawerTitle className="text-4xl font-semibold font-poppins">
-                                Settings
+                                {t("settings.title")}
                             </DrawerTitle>
                         </DrawerHeader>
                         <div className="overflow-y-auto max-h-[70svh] flex w-full flex-col items-center gap-4 px-6">
@@ -481,12 +489,12 @@ export const OptionDrawers = () => {
                                 className="h-12 w-full max-w-[320px] text-lg"
                                 onStart={() => setOptionsOpen(false)}
                             />
-                            <Label>Your role on this phone</Label>
+                            <Label>{t("role.label")}</Label>
                             <div className="grid w-full max-w-[320px] grid-cols-2 gap-2">
                                 {(
                                     [
-                                        [false, "I'm seeking"],
-                                        [true, "I'm hiding"],
+                                        [false, t("role.seeking")],
+                                        [true, t("role.hiding")],
                                     ] as const
                                 ).map(([hider, label]) => {
                                     const active =
@@ -524,7 +532,7 @@ export const OptionDrawers = () => {
                                     onClick={share}
                                     data-tutorial-id="share-questions-button"
                                 >
-                                    Share game
+                                    {t("settings.share")}
                                 </Button>
                                 <Button
                                     variant="outline"
@@ -533,7 +541,7 @@ export const OptionDrawers = () => {
                                         showTutorial.set(true);
                                     }}
                                 >
-                                    Help
+                                    {t("settings.help")}
                                 </Button>
                             </div>
                             <AlertDialog>
@@ -543,31 +551,31 @@ export const OptionDrawers = () => {
                                         className="w-full max-w-[320px] border-red-500/60 text-red-500 hover:bg-red-500/10 hover:text-red-500"
                                         disabled={$questions.length === 0}
                                     >
-                                        Delete all questions
+                                        {t("settings.deleteAll")}
                                     </Button>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
                                     <AlertDialogHeader>
                                         <AlertDialogTitle>
-                                            Delete all questions?
+                                            {t("settings.deleteAllTitle")}
                                         </AlertDialogTitle>
                                         <AlertDialogDescription>
                                             {$questions.length === 1
-                                                ? "The question disappears"
-                                                : `All ${$questions.length} questions disappear`}{" "}
-                                            from the map. You can undo this
-                                            right afterwards.
+                                                ? t("card.deleteText")
+                                                : t("settings.deleteAllText", {
+                                                      count: $questions.length,
+                                                  })}
                                         </AlertDialogDescription>
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
                                         <AlertDialogCancel>
-                                            Cancel
+                                            {t("common.cancel")}
                                         </AlertDialogCancel>
                                         <AlertDialogAction
                                             onClick={deleteAllQuestionsWithUndo}
                                             className="mb-2 sm:mb-0"
                                         >
-                                            Delete All
+                                            {t("settings.deleteAllButton")}
                                         </AlertDialogAction>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
@@ -579,7 +587,7 @@ export const OptionDrawers = () => {
                                 aria-expanded={advancedOpen}
                                 onClick={() => setAdvancedOpen(!advancedOpen)}
                             >
-                                Advanced
+                                {t("settings.advanced")}
                                 <ChevronDownIcon
                                     className={cn(
                                         "transition-transform",
@@ -589,10 +597,14 @@ export const OptionDrawers = () => {
                             </Button>
                             {advancedOpen && (
                                 <div className="flex w-full max-w-[320px] flex-col gap-6 pb-4">
-                                    <AdvancedSection title="Map data">
-                                        <Label>Overpass API Host</Label>
+                                    <AdvancedSection
+                                        title={t("settings.mapData")}
+                                    >
+                                        <Label>
+                                            {t("settings.overpassHost")}
+                                        </Label>
                                         <Select
-                                            trigger="Overpass API host"
+                                            trigger={t("settings.overpassHost")}
                                             options={{
                                                 ...Object.fromEntries(
                                                     Object.entries(
@@ -602,7 +614,7 @@ export const OptionDrawers = () => {
                                                         label,
                                                     ]),
                                                 ),
-                                                custom: "Custom URL",
+                                                custom: t("settings.customUrl"),
                                             }}
                                             value={$overpassHost}
                                             onValueChange={(v) =>
@@ -623,30 +635,31 @@ export const OptionDrawers = () => {
                                         )}
                                         <Hint>
                                             {$overpassHost === "custom"
-                                                ? "The other hosts will be used as fallbacks if this one fails."
-                                                : "The remaining hosts will be tried as fallbacks if the selected one fails."}
+                                                ? t("settings.customFallback")
+                                                : t("settings.fallback")}
                                         </Hint>
                                         <Button
                                             variant="outline"
                                             disabled={$preloadProgress !== null}
                                             onClick={() => preloadGameData()}
                                         >
-                                            Preload map data
+                                            {t("settings.preload")}
                                         </Button>
-                                        <Hint>
-                                            Loads the data of every question
-                                            card for the game area, so answers
-                                            don&apos;t have to wait. &quot;New
-                                            Game&quot; does this by itself.
-                                        </Hint>
+                                        <Hint>{t("settings.preloadHint")}</Hint>
                                     </AdvancedSection>
-                                    <AdvancedSection title="Map style">
+                                    <AdvancedSection
+                                        title={t("settings.mapStyle")}
+                                    >
                                         <Select
-                                            trigger="Map style"
+                                            trigger={t("settings.mapStyle")}
                                             options={{
-                                                voyager: "Standard",
-                                                light: "Light",
-                                                dark: "Dark",
+                                                voyager: t(
+                                                    "settings.style.standard",
+                                                ),
+                                                light: t(
+                                                    "settings.style.light",
+                                                ),
+                                                dark: t("settings.style.dark"),
                                                 osmcarto: "OpenStreetMap",
                                             }}
                                             value={$baseTileLayer}
@@ -655,25 +668,27 @@ export const OptionDrawers = () => {
                                             }
                                         />
                                     </AdvancedSection>
-                                    <AdvancedSection title="Questions">
+                                    <AdvancedSection
+                                        title={t("settings.questions")}
+                                    >
                                         <CheckboxRow
-                                            label="Show all question types?"
+                                            label={t("settings.allTypes")}
                                             checked={$showAllQuestionTypes}
                                             onChange={showAllQuestionTypes.set}
                                         />
                                         <Hint>
-                                            For experts: question cards also
-                                            offer tentacles and the variants
-                                            that are not part of the Small deck.
+                                            {t("settings.allTypesHint")}
                                         </Hint>
                                     </AdvancedSection>
-                                    <AdvancedSection title="Game file">
+                                    <AdvancedSection
+                                        title={t("settings.gameFile")}
+                                    >
                                         <div className="grid grid-cols-2 gap-2">
                                             <Button
                                                 variant="outline"
                                                 onClick={saveToFile}
                                             >
-                                                Save file
+                                                {t("settings.saveFile")}
                                             </Button>
                                             <Button
                                                 variant="outline"
@@ -681,28 +696,27 @@ export const OptionDrawers = () => {
                                                     fileInputRef.current?.click()
                                                 }
                                             >
-                                                Load file
+                                                {t("settings.loadFile")}
                                             </Button>
                                         </div>
                                         <Hint>
-                                            Saves the game area, questions and
-                                            ruled-out zones in a file, or loads
-                                            such a file.
+                                            {t("settings.gameFileHint")}
                                         </Hint>
                                     </AdvancedSection>
-                                    <AdvancedSection title="Game area">
+                                    <AdvancedSection
+                                        title={t("settings.gameArea")}
+                                    >
                                         <PlacePicker className="w-full" />
                                         <CheckboxRow
-                                            label="Show drawing tools?"
+                                            label={t("settings.drawingTools")}
                                             checked={$showDrawingTools}
                                             onChange={showDrawingTools.set}
                                         />
-                                        <Hint>
-                                            Draw the game area by hand (top left
-                                            of the map).
-                                        </Hint>
+                                        <Hint>{t("settings.drawingHint")}</Hint>
                                     </AdvancedSection>
-                                    <AdvancedSection title="Hiding zones">
+                                    <AdvancedSection
+                                        title={t("settings.hidingZones")}
+                                    >
                                         <ZoneExpertSettings />
                                     </AdvancedSection>
                                 </div>
