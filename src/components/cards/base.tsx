@@ -63,6 +63,9 @@ export const QuestionCard = ({
     const $questions = useStore(questions);
     const $isLoading = useStore(isLoading);
     const copyButtonRef = useRef<HTMLButtonElement>(null);
+    const pending =
+        $questions.find((q) => q.key === questionKey)?.data.status ===
+        "pending";
 
     const toggleCollapse = () => {
         if (setCollapsed) {
@@ -73,7 +76,13 @@ export const QuestionCard = ({
 
     return (
         <>
-            <SidebarGroup className={className} data-question-key={questionKey}>
+            <SidebarGroup
+                className={cn(
+                    pending && "border-l-4 border-orange-500",
+                    className,
+                )}
+                data-question-key={questionKey}
+            >
                 <div className="relative">
                     <button
                         onClick={toggleCollapse}

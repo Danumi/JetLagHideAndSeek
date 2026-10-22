@@ -122,7 +122,6 @@ export const Map = ({ className }: { className?: string }) => {
     const $baseTileLayer = useStore(baseTileLayer);
     const $thunderforestApiKey = useStore(thunderforestApiKey);
     const $hiderMode = useStore(hiderMode);
-    const $isLoading = useStore(isLoading);
     const $followMe = useStore(followMe);
     const $permanentOverlay = useStore(permanentOverlay);
     const map = useStore(leafletMapContext);
@@ -137,11 +136,25 @@ export const Map = ({ className }: { className?: string }) => {
     );
     // Time of the last touch, click or scroll on the map
     const lastMapInteractionRef = useMemo(() => ({ current: 0 }), []);
+    // A refresh asked for while the map is busy runs once it is done, so an
+    // answer given during loading isn't lost (the value is its focus flag)
+    const refreshAgainRef = useMemo(
+        () => ({ current: null as boolean | null }),
+        [],
+    );
+    const latestRefreshRef = useMemo(
+        () => ({ current: null as ((focus: boolean) => void) | null }),
+        [],
+    );
 
     const refreshQuestions = async (focus: boolean = false) => {
         if (!map) return;
 
-        if ($isLoading) return;
+        if (isLoading.get()) {
+            refreshAgainRef.current =
+                (refreshAgainRef.current ?? false) || focus;
+            return;
+        }
 
         isLoading.set(true);
         const startedAt = Date.now();
@@ -192,7 +205,19 @@ export const Map = ({ className }: { className?: string }) => {
                 mapGeoData,
                 planningModeEnabled.get(),
                 (geoJSONObj, question) => {
-                    const geoJSONPlane = L.geoJSON(geoJSONObj);
+                    // Questions waiting for an answer: dashed orange outline
+                    const geoJSONPlane = L.geoJSON(
+                        geoJSONObj,
+                        question.data.status === "pending"
+                            ? {
+                                  style: {
+                                      color: "#f97316",
+                                      weight: 3,
+                                      dashArray: "8 6",
+                                  },
+                              }
+                            : undefined,
+                    );
                     // @ts-expect-error This is a check such that only this type of layer is removed
                     geoJSONPlane.questionKey = question.key;
                     geoJSONPlane.addTo(map);
@@ -399,6 +424,19 @@ export const Map = ({ className }: { className?: string }) => {
             </MapContainer>
         ),
         [map, $baseTileLayer, $thunderforestApiKey],
+    );
+
+    latestRefreshRef.current = refreshQuestions;
+
+    useEffect(
+        () =>
+            isLoading.listen((loading) => {
+                if (loading || refreshAgainRef.current === null) return;
+                const focus = refreshAgainRef.current;
+                refreshAgainRef.current = null;
+                setTimeout(() => latestRefreshRef.current?.(focus), 0);
+            }),
+        [],
     );
 
     useEffect(() => {

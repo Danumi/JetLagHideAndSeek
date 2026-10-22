@@ -4,15 +4,12 @@ import { useState } from "react";
 import { LatitudeLongitude } from "@/components/LatLngPicker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
     MENU_ITEM_CLASSNAME,
     SidebarMenuItem,
 } from "@/components/ui/sidebar-l";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { UnitSelect } from "@/components/UnitSelect";
 import {
-    hiderMode,
     isLoading,
     questionModified,
     questions,
@@ -22,6 +19,7 @@ import { cn } from "@/lib/utils";
 import { RADAR_DISTANCES, radarDistanceFor } from "@/maps/deck";
 import type { RadiusQuestion } from "@/maps/schema";
 
+import { AnswerButtons, numberedTitle } from "./answer";
 import { QuestionCard } from "./base";
 
 export const RadiusQuestionComponent = ({
@@ -36,17 +34,11 @@ export const RadiusQuestionComponent = ({
     className?: string;
 }) => {
     useStore(triggerLocalRefresh);
-    const $hiderMode = useStore(hiderMode);
     const $questions = useStore(questions);
     const $isLoading = useStore(isLoading);
     const distance = radarDistanceFor(data);
     const [chooseDistance, setChooseDistance] = useState(!distance);
-    const label = `Radar ${
-        $questions
-            .filter((q) => q.id === "radius")
-            .map((q) => q.key)
-            .indexOf(questionKey) + 1
-    }${distance ? `: ${distance.label}` : ""}`;
+    const label = numberedTitle($questions, questionKey);
 
     return (
         <QuestionCard
@@ -143,28 +135,9 @@ export const RadiusQuestionComponent = ({
                 }}
                 disabled={!data.drag || $isLoading}
             />
-            <div className="flex gap-2 items-center p-2">
-                <Label
-                    className={cn(
-                        "font-semibold text-lg",
-                        $isLoading && "text-muted-foreground",
-                    )}
-                >
-                    Result
-                </Label>
-                <ToggleGroup
-                    className="grow"
-                    type="single"
-                    value={data.within ? "inside" : "outside"}
-                    onValueChange={(value: "inside" | "outside") =>
-                        questionModified((data.within = value === "inside"))
-                    }
-                    disabled={!!$hiderMode || !data.drag || $isLoading}
-                >
-                    <ToggleGroupItem value="outside">Outside</ToggleGroupItem>
-                    <ToggleGroupItem value="inside">Inside</ToggleGroupItem>
-                </ToggleGroup>
-            </div>
+            <AnswerButtons
+                question={{ id: "radius", key: questionKey, data }}
+            />
         </QuestionCard>
     );
 };

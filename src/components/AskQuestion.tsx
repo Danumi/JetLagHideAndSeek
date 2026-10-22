@@ -20,6 +20,7 @@ import {
     displayHidingZones,
     isLoading,
     leafletMapContext,
+    questions,
     thermometerRun,
 } from "@/lib/context";
 import {
@@ -29,6 +30,7 @@ import {
     showQuestion,
 } from "@/lib/gps";
 import { cn } from "@/lib/utils";
+import { isPending, questionTitle } from "@/maps/answers";
 import {
     cardQuestionData,
     type DeckCard,
@@ -66,10 +68,35 @@ const formatDistance = (kilometers: number) =>
 export const AskQuestion = () => {
     const $thermometerRun = useStore(thermometerRun);
 
-    if ($thermometerRun) {
-        return <ThermometerTracker run={$thermometerRun} />;
-    }
-    return <AskQuestionDrawer />;
+    return (
+        <div className="flex flex-col items-center gap-2">
+            <WaitingForAnswer />
+            {$thermometerRun ? (
+                <ThermometerTracker run={$thermometerRun} />
+            ) : (
+                <AskQuestionDrawer />
+            )}
+        </div>
+    );
+};
+
+/** Reminder of questions without an answer; opens the first one. */
+const WaitingForAnswer = () => {
+    const $questions = useStore(questions);
+    const pending = $questions.filter(isPending);
+
+    if (pending.length === 0) return null;
+
+    return (
+        <button
+            className="max-w-[92vw] truncate rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-orange-600"
+            onClick={() => showQuestion(pending[0].key)}
+        >
+            {pending.length === 1
+                ? `Enter answer: ${questionTitle(pending[0])}`
+                : `${pending.length} questions waiting for an answer`}
+        </button>
+    );
 };
 
 const AskQuestionDrawer = () => {

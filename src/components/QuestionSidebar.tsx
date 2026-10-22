@@ -18,8 +18,10 @@ import {
     save,
     triggerLocalRefresh,
 } from "@/lib/context";
+import { isLogged } from "@/maps/answers";
 
 import { AddQuestionDialog } from "./AddQuestionDialog";
+import { QuestionLogRow } from "./cards/answer";
 import {
     MatchingQuestionComponent,
     MeasuringQuestionComponent,
@@ -46,7 +48,17 @@ export const QuestionSidebar = () => {
                 />
             </div>
             <SidebarContent>
-                {$questions.map((question) => {
+                {$questions.map((question, index) => {
+                    if (isLogged(question)) {
+                        return (
+                            <QuestionLogRow
+                                key={question.key}
+                                question={question}
+                                number={index + 1}
+                            />
+                        );
+                    }
+
                     switch (question.id) {
                         case "radius":
                             return (

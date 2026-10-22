@@ -109,11 +109,16 @@ export const AddQuestionDialog = ({
             await toast.promise(
                 navigator.clipboard.readText().then((text) => {
                     const parsed = JSON.parse(text);
+                    // Questions shared by older versions are already answered
                     const question =
                         parsed &&
                         typeof parsed === "object" &&
                         !Array.isArray(parsed)
-                            ? { ...parsed, key: Math.random() }
+                            ? {
+                                  ...parsed,
+                                  key: Math.random(),
+                                  data: { status: "answered", ...parsed.data },
+                              }
                             : parsed;
 
                     return addQuestion(question);

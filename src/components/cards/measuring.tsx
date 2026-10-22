@@ -12,19 +12,16 @@ import {
     MENU_ITEM_CLASSNAME,
     SidebarMenuItem,
 } from "@/components/ui/sidebar-l";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
     customInitPreference,
     displayHidingZones,
     drawingQuestionKey,
-    hiderMode,
     isLoading,
     questionModified,
     questions,
     showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
-import { cn } from "@/lib/utils";
 import {
     ADMIN_LEVEL_LABELS,
     type AdminLevel,
@@ -44,6 +41,7 @@ import {
     NO_GROUP,
 } from "@/maps/schema";
 
+import { AnswerButtons, numberedTitle } from "./answer";
 import { QuestionCard } from "./base";
 
 const MEASURING_TYPE_LABELS: Record<string, string> = Object.fromEntries(
@@ -72,7 +70,6 @@ export const MeasuringQuestionComponent = ({
     className?: string;
 }) => {
     useStore(triggerLocalRefresh);
-    const $hiderMode = useStore(hiderMode);
     const $questions = useStore(questions);
     const $displayHidingZones = useStore(displayHidingZones);
     const $drawingQuestionKey = useStore(drawingQuestionKey);
@@ -81,12 +78,7 @@ export const MeasuringQuestionComponent = ({
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
     const [customDialogOpen, setCustomDialogOpen] = React.useState(false);
     const card = measuringCardFor(data);
-    const label = `Measuring ${
-        $questions
-            .filter((q) => q.id === "measuring")
-            .map((q) => q.key)
-            .indexOf(questionKey) + 1
-    }${card ? `: ${card.label}` : ""}`;
+    const label = numberedTitle($questions, questionKey);
 
     let questionSpecific = <></>;
 
@@ -421,34 +413,9 @@ export const MeasuringQuestionComponent = ({
                 }}
                 disabled={!data.drag || $isLoading}
             />
-            <div className="flex gap-2 items-center p-2">
-                <Label
-                    className={cn(
-                        "font-semibold text-lg",
-                        $isLoading && "text-muted-foreground",
-                    )}
-                >
-                    Result
-                </Label>
-                <ToggleGroup
-                    className="grow"
-                    type="single"
-                    value={data.hiderCloser ? "closer" : "further"}
-                    onValueChange={(value: "closer" | "further") =>
-                        questionModified(
-                            (data.hiderCloser = value === "closer"),
-                        )
-                    }
-                    disabled={!!$hiderMode || !data.drag || $isLoading}
-                >
-                    <ToggleGroupItem value="further">
-                        Hider Further
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="closer">
-                        Hider Closer
-                    </ToggleGroupItem>
-                </ToggleGroup>
-            </div>
+            <AnswerButtons
+                question={{ id: "measuring", key: questionKey, data }}
+            />
         </QuestionCard>
     );
 };

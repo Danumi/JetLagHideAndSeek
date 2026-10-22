@@ -1,5 +1,6 @@
 import type { Feature, FeatureCollection } from "geojson";
 
+import { isPending, questionApplies } from "./answers";
 import {
     adjustPerMatching,
     hiderifyMatching,
@@ -27,6 +28,7 @@ import {
 } from "./questions/thermometer";
 import type { Question, Questions } from "./schema";
 
+export * from "./answers";
 export * from "./geo-utils";
 
 export const hiderifyQuestion = async (question: Question) => {
@@ -48,16 +50,25 @@ export const hiderifyQuestion = async (question: Question) => {
                 question.data = await hiderifyMeasuring(question.data);
                 break;
         }
+
+        // The app worked out the hider's answer
+        if (question.data.status === "pending") {
+            question.data.status = "answered";
+        }
     }
 
     return question;
 };
 
+/** Outline of what a question could rule out: for planning mode and pending questions. */
 export const determinePlanningPolygon = async (
     question: Question,
     planningModeEnabled: boolean,
 ) => {
-    if (planningModeEnabled && question.data.drag && !question.data.hidden) {
+    if (
+        ((planningModeEnabled && question.data.drag) || isPending(question)) &&
+        !question.data.hidden
+    ) {
         switch (question.id) {
             case "radius":
                 return radiusPlanningPolygon(question.data);
@@ -118,15 +129,20 @@ export async function applyQuestionsToMapGeoData(
 ): Promise<any> {
     for (const question of questions) {
         if (planningModeCallback) {
-            const planningPolygon = await determinePlanningPolygon(
-                question,
-                planningModeEnabled,
-            );
-            if (planningPolygon) {
-                planningModeCallback(planningPolygon, question);
+            try {
+                const planningPolygon = await determinePlanningPolygon(
+                    question,
+                    planningModeEnabled,
+                );
+                if (planningPolygon) {
+                    planningModeCallback(planningPolygon, question);
+                }
+            } catch (error) {
+                // An outline that can't be drawn shouldn't stop the map
+                console.log(error);
             }
         }
-        if (planningModeEnabled && question.data.drag) {
+        if (!questionApplies(question, planningModeEnabled)) {
             continue;
         }
 

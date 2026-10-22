@@ -41,7 +41,9 @@ pnpm vitest run       # Tests einmalig
 - `src/components/ZoneSidebar.tsx`: Hiding Zones und die Filter für Stationsfragen (inklusive „Same train line")
 - `src/components/OptionDrawers.tsx`: Einstellungen
 - `src/maps/deck.ts`: Small-Deck (20 Matching, 20 Measuring, Radar- und Thermometer-Distanzen) mit Zuordnung zu den Fragetypen der App; geprüft in `tests/deck.test.ts`
-- `src/components/AskQuestion.tsx`: großer Knopf „Ask a question" über der unteren Leiste und das laufende Thermometer
+- `src/components/AskQuestion.tsx`: großer Knopf „Ask a question" über der unteren Leiste, das laufende Thermometer und der orange Hinweis „Enter answer" für offene Fragen
+- `src/maps/answers.ts`: Antwortstatus einer Frage (`status`: `pending`, `answered`, `no-answer`), Antwortknöpfe, Texte fürs Fragenprotokoll; `questionApplies` entscheidet, ob eine Frage die Karte verändert (auch in `ZoneSidebar.tsx`). Geprüft in `tests/answers.test.ts`
+- `src/components/cards/answer.tsx`: große Antwortknöpfe und die Protokollzeile beantworteter Fragen
 - `src/lib/gps.ts`: GPS-Standort für neue Fragen, Seitenleiste zur neuen Frage öffnen
 - `src/lib/context.ts`: persistente Einstellungen (nanostores, localStorage)
 
@@ -90,6 +92,8 @@ Einheiten: Spieler sehen nur Meter und Kilometer, intern wird teils in Meilen ge
 - Neue Fragen: Straße/Weg, Landmasse, Gewässer, Seehöhe (Terrarium-Höhenkacheln)
 - Etappe 1: Augen-Knopf bei Matching/Measuring/Tentakel repariert, „Alle Fragen löschen" nur noch in den Optionen, Rückgängig nach dem Löschen, Thermometer-Start 1 km, Google Analytics, Clarity und Partytown entfernt
 - Etappe 3: Knopf „Ask a question" mit Auswahl nach Small-Deck, neue Fragen am GPS-Standort, Radar-Knöpfe, Thermometer mit mitlaufender Strecke, Verwaltungsebenen mit Wiener Namen, Experten-Schalter „Show all question types?" (Tentakel und alle Varianten), Park-Frage repariert
+- Statusmeldungen (Toasts) lassen Berührungen zur Karte durch, nur ihre Knöpfe (×, Undo) sind antippbar; die Karte springt nach dem Laden nicht zurück, wenn man sie währenddessen bewegt hat
+- Etappe 4: Neue Fragen warten auf die Antwort (`status: "pending"`, gestrichelter oranger Umriss, nichts wird gestrichen). Große Antwortknöpfe plus „No answer". Nach der Antwort gesperrt und als Zeile im Protokoll („1 · Radar 2 km · Karlsplatz · Outside · 15:20"), „Edit" öffnet die Frage wieder. Alte gespeicherte Fragen ohne Status gelten als beantwortet. Eine Änderung während die Karte lädt geht nicht mehr verloren (Map.tsx rechnet danach nochmal). Stationsnamen-Länge kennt jetzt auch „Different"
 - Etappe 2: Start in Wien (OSM-Relation 109166) mit Hiding Zones an U-Bahn-Stationen und 500 m, Knopf „New Game" (`NewGameDialog.tsx`), überall metrisch (Radar-Start 5 km), Tutorial startet nicht mehr von selbst, Stationsnamen nach `name` statt `name:en` (auch im Hider-Modus, der jetzt dieselben Stationsarten wie die Hiding Zones nutzt)
 
 ## Ideen für später
