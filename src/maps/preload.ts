@@ -3,7 +3,7 @@ import * as turf from "@turf/turf";
 import { atom } from "nanostores";
 
 import { displayHidingZones, isLoading, mapGeoJSON } from "@/lib/context";
-import { retryTrigger } from "@/lib/loading";
+import { loadingTasks, retryTrigger } from "@/lib/loading";
 import {
     type APILocations,
     CacheType,
@@ -87,9 +87,15 @@ export const preloadGameData = async ({
     let done = 0;
     let total = 0;
     let failures = 0;
+    // Data already saved on this phone takes only seconds to check: show the
+    // progress only once something has to be downloaded
+    let downloading = false;
+    preloadProgress.set(null);
 
     const report = () => {
-        if (!stale()) preloadProgress.set({ done, total, finished: false });
+        if (!stale() && downloading) {
+            preloadProgress.set({ done, total, finished: false });
+        }
     };
 
     /**
@@ -103,12 +109,19 @@ export const preloadGameData = async ({
         for (const job of jobs) {
             await mapIdle();
             if (stale() || (stopOnFailure && failures > 0)) return;
+            const unbind = loadingTasks.listen((tasks) => {
+                if (tasks.length === 0 || downloading) return;
+                downloading = true;
+                report();
+            });
             try {
                 await job();
             } catch (error) {
                 // The player was offered a retry
                 console.log(error);
                 failures++;
+            } finally {
+                unbind();
             }
             done++;
             report();
