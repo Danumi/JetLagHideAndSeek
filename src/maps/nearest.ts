@@ -15,6 +15,7 @@ import {
     mapGeoLocation,
     polyGeoJSON,
 } from "@/lib/context";
+import { hasMessage, t } from "@/lib/i18n";
 import { memoizeAsync } from "@/lib/utils";
 import { formatKilometers } from "@/maps/answers";
 import {
@@ -25,7 +26,6 @@ import {
     findNamedWaterLines,
     findNearestStreet,
     findPlacesOfKind,
-    prettifyLocation,
     type StationPlace,
 } from "@/maps/api";
 import {
@@ -58,14 +58,18 @@ type LatLng = { lat: number; lng: number };
 type Line = Feature<LineString | MultiLineString>;
 
 export type NearestMark = {
-    /** Name next to the mark on the map. */
-    label: string;
+    /** Name next to the mark on the map, as on the sign; none if unnamed. */
+    name?: string;
     /** Where the mark goes, [lng, lat]: the nearest point of the thing. */
     at: Position;
     /** Streets, rivers, railway lines and borders are drawn as lines. */
     lines?: Line[];
 };
 
+/*
+ * No texts in here: they are put together when shown (nearestText), so a
+ * phone shows them in its own language.
+ */
 export type Nearest = {
     /**
      * distance: the nearest of something ("Nearest museum: Albertina, 350 m")
@@ -73,39 +77,110 @@ export type Nearest = {
      * border: how far the border of its zone is; elevation: above sea level
      */
     kind: "distance" | "inside" | "on" | "border" | "elevation";
-    /** What the card asks about, like "museum" or "Gemeindebezirk". */
+    /**
+     * What the card asks about: a card id like "museum", "station",
+     * "street", "high-speed" or "water"; for zones the admin level name.
+     */
     what: string;
-    /** The nearest thing, like "Albertina" or "Gemeindebezirk Wieden". */
-    label: string;
+    /** Name of the nearest thing (or zone, or island); none if unnamed. */
+    name?: string;
+    /** Zones: their admin level, as in "Gemeindebezirk Wieden". */
+    adminLevel?: AdminLevel;
+    /** Station name length: show how many characters the name has. */
+    countCharacters?: boolean;
+    /** Landmass: on the mainland, not on an island. */
+    mainland?: boolean;
     kilometers?: number;
     meters?: number;
     mark?: NearestMark;
-};
-
-/** One line for the question card, like "Nearest museum: Albertina, 350 m". */
-export const nearestText = (nearest: Nearest) => {
-    switch (nearest.kind) {
-        case "distance":
-            return `Nearest ${nearest.what}: ${nearest.label}, ${formatKilometers(
-                nearest.kilometers ?? 0,
-            )}`;
-        case "inside":
-            return `You are in ${nearest.label}`;
-        case "on":
-            return `You are on ${nearest.label}`;
-        case "border":
-            return `You are ${formatKilometers(
-                nearest.kilometers ?? 0,
-            )} from the border of ${nearest.label}`;
-        case "elevation":
-            return `You are ${Math.round(nearest.meters ?? 0)} m above sea level`;
-    }
 };
 
 /** "Gemeindebezirk Wieden"; OSM already calls some "Katastralgemeinde …". */
 export const zoneLabel = (adminLevel: AdminLevel, name: string) => {
     const word = ADMIN_LEVEL_NAMES[adminLevel];
     return !word || name.startsWith(word) ? name : `${word} ${name}`;
+};
+
+/** "Nearest museum", "Nächstes Museum". */
+export const nearestTitle = (what: string) => {
+    const key = `nearest.title.${what}`;
+    return hasMessage(key) ? t(key) : t("nearest.title.other", { what });
+};
+
+const noun = (what: string) => {
+    const key = `nearest.noun.${what}`;
+    return hasMessage(key) ? t(key) : what;
+};
+
+/** The nearest thing, like "Albertina", "an unnamed park" or "Gemeindebezirk Wieden". */
+export const nearestName = (nearest: Nearest) => {
+    if (nearest.adminLevel !== undefined && nearest.name) {
+        return zoneLabel(nearest.adminLevel, nearest.name);
+    }
+    if (!nearest.name)
+        return t("nearest.unnamed", { what: noun(nearest.what) });
+    return nearest.countCharacters
+        ? t("nearest.characters", {
+              name: nearest.name,
+              count: nearest.name.length,
+          })
+        : nearest.name;
+};
+
+/**
+ * Where the point is, like "in Gemeindebezirk Wieden" or "auf dem Festland";
+ * also in the reason for the hider's answer.
+ */
+export const nearestWhere = (nearest: Nearest) => {
+    if (nearest.kind === "on") {
+        return nearest.name
+            ? t("nearest.onIsland", { name: nearest.name })
+            : t(nearest.mainland ? "nearest.mainland" : "nearest.island");
+    }
+    const key = `nearest.in.${nearest.adminLevel}`;
+    return t(hasMessage(key) ? key : "nearest.in", {
+        zone: nearestName(nearest),
+    });
+};
+
+/** One line for the question card, like "Nearest museum: Albertina, 350 m". */
+export const nearestText = (nearest: Nearest) => {
+    switch (nearest.kind) {
+        case "distance":
+            return t("nearest.distance", {
+                nearest: nearestTitle(nearest.what),
+                name: nearestName(nearest),
+                distance: formatKilometers(nearest.kilometers ?? 0),
+            });
+        case "inside":
+            return t("nearest.inside", { zone: nearestWhere(nearest) });
+        case "on":
+            return t("nearest.on", { land: nearestWhere(nearest) });
+        case "border":
+            return t("nearest.border", {
+                distance: formatKilometers(nearest.kilometers ?? 0),
+                zone: nearestName(nearest),
+            });
+        case "elevation":
+            return t("nearest.elevation", {
+                meters: Math.round(nearest.meters ?? 0),
+            });
+    }
+};
+
+/** The name next to the mark on the map, like "Albertina" or "Wieden border". */
+export const markLabel = (nearest: Nearest) => {
+    const name = nearest.mark?.name;
+    switch (nearest.kind) {
+        case "border":
+            return t("nearest.borderMark", { name: name ?? "" });
+        case "on":
+            return name ?? t("nearest.islandMark");
+        default:
+            return (
+                name ?? t("nearest.unnamedMark", { what: noun(nearest.what) })
+            );
+    }
 };
 
 const toPoint = (at: LatLng) => turf.point([at.lng, at.lat]);
@@ -172,7 +247,7 @@ const nearestOfPlaces = (
     what: string,
     places: Place[],
     at: LatLng,
-    describe: (name: string) => string = (name) => name,
+    countCharacters = false,
 ): Nearest | null => {
     const best = nearestPlace(places, at);
     if (!best) return null;
@@ -180,9 +255,10 @@ const nearestOfPlaces = (
     return {
         kind: "distance",
         what,
-        label: describe(name || `an unnamed ${what}`),
+        name: name || undefined,
+        countCharacters,
         kilometers: best.kilometers,
-        mark: { label: name || `Unnamed ${what}`, at: [lng, lat] },
+        mark: { name: name || undefined, at: [lng, lat] },
     };
 };
 
@@ -198,10 +274,10 @@ const nearestOfLines = (
     return {
         kind: "distance",
         what,
-        label: name ?? `an unnamed ${what}`,
+        name,
         kilometers: best.kilometers,
         mark: {
-            label: name ?? `Unnamed ${what}`,
+            name,
             at: best.at,
             // The whole river or railway line, not just its nearest piece
             lines: name
@@ -215,16 +291,10 @@ const nearestOfLines = (
     };
 };
 
-/** "museum" for "museum-full", named like the card ("amusement park"). */
-const placeWhat = (type: string) => {
-    const card = [...MATCHING_DECK, ...MEASURING_DECK].find(
-        (card) => card.type === type,
-    );
-    return (
-        card?.label ??
-        prettifyLocation(type.replace(/-full$/, "") as APILocations)
-    ).toLowerCase();
-};
+/** "museum" for "museum-full": the card's id, like "amusement-park". */
+const placeWhat = (type: string) =>
+    [...MATCHING_DECK, ...MEASURING_DECK].find((card) => card.type === type)
+        ?.id ?? type.replace(/-full$/, "");
 
 const STATION_TYPES = [
     "same-first-letter-station",
@@ -279,9 +349,10 @@ const nearestZone = async (
         return {
             kind: "inside",
             what,
-            label: zoneLabel(level, name),
+            name,
+            adminLevel: level,
             mark: {
-                label: name,
+                name,
                 at: turf.pointOnFeature(zone.boundary).geometry.coordinates,
             },
         };
@@ -292,10 +363,11 @@ const nearestZone = async (
     if (!best) return null;
     return {
         kind: "border",
-        what: `${what} border`,
-        label: zoneLabel(level, name),
+        what,
+        name,
+        adminLevel: level,
         kilometers: best.kilometers,
-        mark: { label: `${name} border`, at: best.at, lines },
+        mark: { name, at: best.at, lines },
     };
 };
 
@@ -309,9 +381,9 @@ const nearestLandmass = async (at: LatLng): Promise<Nearest | null> => {
         return {
             kind: "on",
             what: "landmass",
-            label: name ?? "an island",
+            name,
             mark: {
-                label: name ?? "Island",
+                name,
                 at: turf.pointOnFeature(island).geometry.coordinates,
                 lines: outlineOf(island),
             },
@@ -324,10 +396,10 @@ const nearestLandmass = async (at: LatLng): Promise<Nearest | null> => {
     return {
         kind: "on",
         what: "landmass",
-        label: "the mainland",
+        mainland: true,
         mark: best
             ? {
-                  label: best.line.properties?.name ?? "Island",
+                  name: best.line.properties?.name,
                   at: best.at,
                   lines: outlines,
               }
@@ -357,9 +429,7 @@ const nearestForMatching = async (
                 "station",
                 stationPoints(await findStationPlaces()),
                 at,
-                question.type === "same-length-station"
-                    ? (name) => `${name} (${name.length} characters)`
-                    : undefined,
+                question.type === "same-length-station",
             );
         }
         case "street": {
@@ -367,11 +437,11 @@ const nearestForMatching = async (
             if (!street) return null;
             return {
                 kind: "distance",
-                what: "street or path",
-                label: street.name ?? "an unnamed path",
+                what: "street",
+                name: street.name ?? undefined,
                 kilometers: street.distance / 1000,
                 mark: {
-                    label: street.name ?? "Unnamed path",
+                    name: street.name ?? undefined,
                     at: turf.nearestPointOnLine(street.line, toPoint(at))
                         .geometry.coordinates,
                     lines: [street.line],
@@ -410,7 +480,7 @@ const nearestForMeasuring = async (
         }
         case "highspeed-measure-shinkansen":
             return nearestOfLines(
-                "high-speed line",
+                "high-speed",
                 osmtogeojson(await findHighSpeedLines()).features.filter(
                     (feature): feature is Line =>
                         feature.geometry?.type === "LineString" ||
@@ -419,22 +489,13 @@ const nearestForMeasuring = async (
                 at,
             );
         case "water":
-            return nearestOfLines(
-                "body of water",
-                await findNamedWaterLines(),
-                at,
-            );
+            return nearestOfLines("water", await findNamedWaterLines(), at);
         case "admin-measure":
             return nearestZone(question, at);
         case "sea-level": {
             const meters = await elevationAt(at.lat, at.lng);
             if (meters === null) return null;
-            return {
-                kind: "elevation",
-                what: "sea level",
-                label: `${Math.round(meters)} m above sea level`,
-                meters,
-            };
+            return { kind: "elevation", what: "sea-level", meters };
         }
         default:
             return null;

@@ -6,7 +6,7 @@ Live-Version: https://danumi.github.io/JetLagHideAndSeek/
 ## Zusammenarbeit
 
 - Der Nutzer spricht Deutsch: Antworten und Erklärungen auf Deutsch. Code, Kommentare und Commit-Messages auf Englisch.
-- Die App bleibt durchgängig auf Englisch (wie das Spiel selbst): alle Texte, Knöpfe, Dialoge und Meldungen. Keine deutschen Texte in die App einbauen. Ausnahmen: Namen aus OSM (Stationsnamen wie auf dem Schild) und die Wiener Verwaltungsbegriffe Bundesland, Gemeindebezirk und Katastralgemeinde (Daniels Wunsch, Etappe 9; `ADMIN_LEVEL_NAMES` in `deck.ts`). Nicht „korrigieren".
+- Sprache der App (seit Etappe 15): Deutsch ist Standard, Englisch stellt jedes Handy in den Einstellungen selbst ein („Sprache: Deutsch / English“). Jeder neue Text braucht beide Sprachen: in `src/lib/messages.ts` (im Code `t("key")`, mit `{platzhalter}`) oder als `Text` (`{ en, de }`, mit `tr()`) direkt bei den Daten wie im Small-Deck. Keine Texte fest auf Englisch oder Deutsch einbauen. In beiden Sprachen gleich: Namen aus OSM (Stationsnamen wie auf dem Schild), die Wiener Verwaltungsbegriffe Bundesland, Gemeindebezirk und Katastralgemeinde (`ADMIN_LEVEL_NAMES` in `deck.ts`) und die Spielbegriffe Matching, Measuring, Radar und Thermometer (auf Deutsch mit je einer kurzen Erklärung, z. B. „Bist du im Umkreis?“). „Hider“ und „Seeker“ bleiben auch auf Deutsch, so reden die Spieler. Nicht „korrigieren".
 - Der Nutzer ist kein Entwickler. Änderungen in Alltagssprache erklären (was ändert sich im Spiel?), nicht im Code-Jargon.
 - Die Datei LICENSE (MIT, taibeled) bleibt im Repo, das verlangt die Lizenz. Sichtbare Credits oder Dank an taibeled will Daniel in der App nicht (Stand 2026-10-22); das alte Tutorial enthält noch Links und wird mit Etappe 8 ersetzt.
 - Niemals API-Keys oder Zugangsdaten ins Repo schreiben. Der Overpass.ch-Key des Nutzers wird nur in der App unter Einstellungen (Zahnrad oben rechts) → „Advanced" → „Overpass API Host" → „Custom URL" eingetragen und liegt im localStorage des Browsers.
@@ -69,6 +69,8 @@ pnpm vitest run       # Tests einmalig
 - `src/components/HiderScreen.tsx` und `src/maps/hider.ts`: Hider-Bildschirm, der Hauptbildschirm des Hiders (öffnet sich beim Start, über den Frage-Link und über „Hider mode" unten auf der Karte; oben „Map" und Zahnrad). Zeigt den Zonen-Check, holt den GPS-Standort und rechnet die Antwort mit denselben `hiderify*`-Funktionen wie die Karte (`workOutAnswer`), dazu ein Grund nur für den Hider (`explainAnswer`, über `findNearest` für Hider und Sucher). Es gibt keinen Rück-Link: Der Hider schreibt die Antwort im Chat, die Sucher tippen sie selbst ein (Daniels Wunsch). Die violette H-Stecknadel (Hider-Standort von Hand) erscheint nur ohne GPS. Die Karte beantwortet die eigenen Fragen des Handys nicht mehr selbst, auch nicht beim Hider.
 - `toast.promise` immer mit `pending` aufrufen: ohne schließt es beim Erfolg alle anderen Meldungen (so verschwanden früher Meldungen beim Öffnen der App nach 2 bis 3 Sekunden).
 - `src/lib/context.ts`: persistente Einstellungen (nanostores, localStorage)
+- `src/lib/i18n.ts`: Sprache des Handys (Atom `language`, Standard `de`, auch auf Handys von vorher), `t()` für Texte aus `src/lib/messages.ts`, `tr()` für `Text`-Objekte, `tx()` für Texte mit Teilen wie einer fetten Zahl, `formatNumber` („1,2 km“ auf Deutsch, `formatKilometers` nutzt es). Komponenten rufen `useLanguage()` auf, damit sie nach dem Umschalten sofort neu zeichnen. Gespeicherte oder zwischengespeicherte Daten enthalten keine fertigen Texte (z. B. `Nearest` in `nearest.ts`: nur Name, Art und Entfernung; der Satz entsteht erst in `nearestText`), sonst bleibt nach dem Umschalten die alte Sprache stehen. Der Link „Send to hider“ enthält die Frage, nicht ihren Text, also sieht der Hider sie in seiner Sprache.
+- `tests/i18n.test.ts`: prüft, dass jeder Text beide Sprachen und dieselben Platzhalter hat, dass es jeden Schlüssel gibt, den der Code nutzt, und dass in den fertig übersetzten Dateien (`TRANSLATED_FILES`) kein englischer Satz mehr fest drinsteht. Neue übersetzte Dateien dort eintragen.
 
 ## Wien-Besonderheiten (geprüft am 2026-10-22)
 
@@ -90,7 +92,7 @@ pnpm vitest run       # Tests einmalig
 - Radar: 500 m, 1, 2, 5, 10, 15, 40, 80, 160 km. Thermometer: 1 km und 5 km.
 - Anfangsbuchstabe und Namenslänge: deutscher Stationsname wie auf dem Schild, nicht `name:en`.
 - Verwaltungsebenen: 1. Bundesland (OSM-Ebene 4), 2. Gemeindebezirk (9), 3. Katastralgemeinde (10), 4. gibt es nicht (keine Antwort). In der App heißen die Karten so („Gemeindebezirk", „Gemeindebezirk border"), darunter klein „2nd administrative division".
-- Alle Texte in der App auf Englisch, auch neue Bildschirme (Ausnahme: die Verwaltungsbegriffe oben).
+- Alle Texte in der App auf Deutsch und Englisch, auch neue Bildschirme (Ausnahmen siehe „Zusammenarbeit“).
 - Gewässer: benannte Seen, Teiche, Flüsse und Kanäle; Flussabschnitte unter der Erde (`tunnel`, `covered`, z. B. die Wien unter dem Karlsplatz) zählen nicht, ebenso die Fluss-Relationen, die diese Abschnitte enthalten (`findNamedWaterLines`).
 
 ## Plan: App-Überarbeitung
@@ -104,7 +106,7 @@ Plan-Dokument: https://claude.ai/artifact/7REdEjsLoZS24z3aziJvBj. Acht Etappen, 
 5. Karte als Hauptbildschirm (drei Knöpfe unten, Zonen-Zähler, GPS-Punkt)
 6. Weniger warten (Kartendaten bei „Neues Spiel" vorladen, Bahnhof-Frage für alle Zonen)
 7. Hider antwortet per Link
-8. Kurzanleitung (auf Englisch)
+8. Kurzanleitung (auf Deutsch und Englisch)
 
 Nach Etappe 4 gibt es ein Probespiel; danach wird die Reihenfolge von 5 bis 8 festgelegt.
 
@@ -132,3 +134,4 @@ Einheiten: Spieler sehen nur Meter und Kilometer, intern wird teils in Meilen ge
 - Etappe 11 B: Alle Fragekarten gleich aufgebaut (`QuestionCard`), Ort per „Use my location“ oder „Pick on map“, Koordinaten-Knöpfe, Schloss, Einklapp-Pfeil und JSON-Teilen an der Frage entfernt. Offene Fragen oben, beantwortete darunter. Orange nur noch für „wartet auf Antwort“, Fachbegriffe (OSM) aus den Fragen entfernt, Langdrück-Menü nur für Experten. Nachtrag: Symbole statt Nummern auf Nadeln und Karten, graue Fläche heller (`ELIMINATED_STYLE` in `Map.tsx`, Deckkraft 0,3 statt 0,45).
 - Etappe 13: Zone antippen hebt sie hervor (Name, Linien, „Rule out“), die anderen bleiben sichtbar; Tipp auf eine andere Zone wechselt, Tipp daneben schließt. Seeker: „Only this zone“ und „Keep only…“ (mehrere Zonen in der Liste), rückgängig mit „Show all zones“; bei einer übrigen Zone die Detailansicht. Hider: „Choose as my zone“, Zonen-Check nur für diese Zone. Radar-Umriss: Karte zoomt hin. Doppelte Stationen fest zusammengeführt (99 statt 109 Zonen), Schalter entfernt. „Zones“ öffnet immer die Liste.
 - Etappe 14: Genauere Ortung. Neue Fragen warten bis zu 10 s auf eine Position bis 30 m („Getting your location · ±80 m“, „Use anyway“), die Fragekarte zeigt die Genauigkeit und warnt über 100 m. Der blaue Punkt springt nicht mehr auf kurz ungenaue Werte, die Ortung startet nach dem Entsperren neu. Hider-Bildschirm und Thermometer-Ende ebenso.
+- Etappe 15 A: App auf Deutsch, Teil A. Gerüst (`i18n.ts`, `messages.ts`, Test), Sprachwahl in den Einstellungen, übersetzt sind Karte (Leiste unten, Zonen-Zähler, angetippte Zone, Standort-Knopf, Nadeln, Markierungen des Nächsten), „Ask a question“, laufendes Thermometer, alle Fragekarten, Antworten, Protokoll, das Nächste und der Grund beim Hider. Noch englisch bis Etappe 15 B: Einstellungen (außer der Sprachwahl), New Game, Zonenliste, Hider-Bildschirm, Ladekasten und übrige Meldungen (Ortung, Rückgängig, Fehler), Expertenfunktionen (alle Fragetypen, Zeichnen, Tentakel), altes Tutorial (wird mit Etappe 8 ersetzt).

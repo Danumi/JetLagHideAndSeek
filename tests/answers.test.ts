@@ -1,5 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 
+import { language } from "@/lib/i18n";
 import {
     answerOptions,
     answerText,
@@ -19,6 +20,8 @@ const radar = (data: Record<string, unknown> = {}) =>
     });
 
 describe("answers", () => {
+    beforeEach(() => language.set("en"));
+
     it("treats questions saved by older versions as answered", () => {
         const question = radar({ within: false });
 

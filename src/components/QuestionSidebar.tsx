@@ -17,6 +17,7 @@ import {
     showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
+import { t, useLanguage } from "@/lib/i18n";
 import { isLogged } from "@/maps/answers";
 
 import { AddQuestionDialog } from "./AddQuestionDialog";
@@ -41,6 +42,7 @@ const SectionHeading = ({ children }: { children: React.ReactNode }) => (
  */
 export const QuestionSidebar = () => {
     useStore(triggerLocalRefresh);
+    useLanguage();
     const $questions = useStore(questions);
     const $isLoading = useStore(isLoading);
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
@@ -50,7 +52,9 @@ export const QuestionSidebar = () => {
     return (
         <Sidebar>
             <div className="flex items-center justify-between">
-                <h2 className="ml-4 mt-4 font-poppins text-2xl">Questions</h2>
+                <h2 className="ml-4 mt-4 font-poppins text-2xl">
+                    {t("sidebar.title")}
+                </h2>
                 <SidebarCloseIcon
                     className="mr-2 visible md:hidden"
                     onClick={() => {
@@ -61,12 +65,11 @@ export const QuestionSidebar = () => {
             <SidebarContent>
                 {$questions.length === 0 && (
                     <p className="px-4 py-2 text-sm text-muted-foreground">
-                        No questions yet. Tap &quot;Ask a question&quot; below
-                        the map.
+                        {t("sidebar.empty")}
                     </p>
                 )}
                 {open.length > 0 && answered.length > 0 && (
-                    <SectionHeading>Open</SectionHeading>
+                    <SectionHeading>{t("sidebar.open")}</SectionHeading>
                 )}
                 {open.map((question) => {
                     switch (question.id) {
@@ -115,7 +118,7 @@ export const QuestionSidebar = () => {
                     }
                 })}
                 {answered.length > 0 && (
-                    <SectionHeading>Answered</SectionHeading>
+                    <SectionHeading>{t("sidebar.answered")}</SectionHeading>
                 )}
                 {answered.map((question) => (
                     <QuestionLogRow key={question.key} question={question} />
@@ -130,7 +133,7 @@ export const QuestionSidebar = () => {
                             <SidebarMenuItem>
                                 <AddQuestionDialog>
                                     <SidebarMenuButton disabled={$isLoading}>
-                                        Add Question
+                                        {t("sidebar.addQuestion")}
                                     </SidebarMenuButton>
                                 </AddQuestionDialog>
                             </SidebarMenuItem>

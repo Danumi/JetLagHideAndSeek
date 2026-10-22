@@ -17,9 +17,10 @@ import {
     showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
+import { t, tr, useLanguage } from "@/lib/i18n";
 import {
-    ADMIN_LEVEL_LABELS,
     type AdminLevel,
+    adminLevelOptions,
     type DeckCard,
     deckSelectGroups,
     MEASURING_DECK,
@@ -61,6 +62,7 @@ export const MeasuringQuestionComponent = ({
     className?: string;
 }) => {
     useStore(triggerLocalRefresh);
+    useLanguage();
     const $displayHidingZones = useStore(displayHidingZones);
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $isLoading = useStore(isLoading);
@@ -77,8 +79,8 @@ export const MeasuringQuestionComponent = ({
                     {($showAllQuestionTypes || !card) && (
                         <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                             <Select
-                                trigger="Administrative level"
-                                options={ADMIN_LEVEL_LABELS}
+                                trigger={t("card.adminLevel")}
+                                options={adminLevelOptions()}
                                 value={(
                                     (data as any).cat?.adminLevel ?? 4
                                 ).toString()}
@@ -101,28 +103,15 @@ export const MeasuringQuestionComponent = ({
             break;
         case "sea-level":
             questionSpecific = (
-                <CardNote>
-                    Elevation from terrain data, accurate to a few meters.
-                </CardNote>
+                <CardNote>{t("measuring.seaLevel.note")}</CardNote>
             );
             break;
         case "water":
-            questionSpecific = (
-                <CardNote>
-                    Pools, fountains, streams and underground rivers don&apos;t
-                    count.
-                </CardNote>
-            );
+            questionSpecific = <CardNote>{t("measuring.water.note")}</CardNote>;
             break;
         case "mcdonalds":
         case "seven11":
-            questionSpecific = (
-                <CardNote>
-                    This question rules out hiding zones that don&apos;t fit.
-                    When you open a zone, the parts of it that don&apos;t fit
-                    turn grey.
-                </CardNote>
-            );
+            questionSpecific = <CardNote>{t("measuring.zones.note")}</CardNote>;
             break;
         case "aquarium":
         case "hospital":
@@ -135,19 +124,16 @@ export const MeasuringQuestionComponent = ({
         case "golf_course":
         case "consulate":
         case "park":
-            questionSpecific = (
-                <CardNote>
-                    This question only changes the map when you open a hiding
-                    zone (tap it on the map or in the Zones list).
-                </CardNote>
-            );
+            questionSpecific = <CardNote>{t("card.onlyInZone")}</CardNote>;
             break;
         case "custom-measure":
             if (data.drag) {
                 questionSpecific = (
                     <>
                         <p className="mb-1 px-1 text-sm text-muted-foreground">
-                            To modify the measuring question, enable it:
+                            {t("card.drawBefore", {
+                                what: t("card.drawMeasuring"),
+                            })}
                             <Checkbox
                                 className="mx-1 my-1"
                                 checked={$drawingQuestionKey === questionKey}
@@ -160,7 +146,7 @@ export const MeasuringQuestionComponent = ({
                                 }}
                                 disabled={!data.drag || $isLoading}
                             />
-                            and use the buttons at the bottom left of the map.
+                            {t("card.drawAfter")}
                         </p>
                         <div className="flex justify-center mb-2">
                             <PresetsDialog
@@ -213,7 +199,7 @@ export const MeasuringQuestionComponent = ({
             {!$showAllQuestionTypes && (
                 <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                     <Select
-                        trigger="Question"
+                        trigger={t("card.question")}
                         options={
                             card
                                 ? undefined
@@ -236,15 +222,12 @@ export const MeasuringQuestionComponent = ({
                 </SidebarMenuItem>
             )}
             {card?.needsHidingZones && !$displayHidingZones && (
-                <CardNote warning>
-                    This question needs the hiding zones. Turn them on under
-                    Zones → Settings.
-                </CardNote>
+                <CardNote warning>{t("card.needsZones")}</CardNote>
             )}
             {$showAllQuestionTypes && (
                 <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                     <Select
-                        trigger="Measuring Type"
+                        trigger={t("card.measuringType")}
                         options={Object.fromEntries(
                             measuringQuestionSchema.options
                                 .filter((x) => x.description === NO_GROUP)
@@ -314,7 +297,7 @@ export const MeasuringQuestionComponent = ({
                     />
                 </SidebarMenuItem>
             )}
-            {card?.hint && <CardNote>{card.hint}</CardNote>}
+            {card?.hint && <CardNote>{tr(card.hint)}</CardNote>}
             {questionSpecific}
         </QuestionCard>
     );

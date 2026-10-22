@@ -17,6 +17,7 @@ import {
     triggerLocalRefresh,
 } from "@/lib/context";
 import { pickOnMap, placePickedPoint } from "@/lib/gps";
+import { t, useLanguage } from "@/lib/i18n";
 import { isLogged, isPending } from "@/maps/answers";
 import { ICON_COLORS } from "@/maps/api";
 import type { Question } from "@/maps/schema";
@@ -86,6 +87,7 @@ const ColoredMarker = ({
     questionKey: number;
     sub?: string;
 }) => {
+    useLanguage();
     const $questions = useStore(questions);
     const $hiderMode = useStore(hiderMode);
     const [open, setOpen] = useState(false);
@@ -141,9 +143,7 @@ const ColoredMarker = ({
                     <div className="flex flex-col gap-3">
                         <h2 className="text-xl font-semibold">{sub}</h2>
                         <p className="text-sm text-muted-foreground">
-                            Without GPS, this marker shows where you are hiding.
-                            Drag it there, or tap &quot;Pick on map&quot; and
-                            then tap the spot.
+                            {t("pin.hiderHelp")}
                         </p>
                         <Button
                             variant="outline"
@@ -151,7 +151,7 @@ const ColoredMarker = ({
                             onClick={() => pickOnMap({ questionKey: -1 })}
                         >
                             <MousePointerClickIcon />
-                            Pick on map
+                            {t("location.pickOnMap")}
                         </Button>
                     </div>
                 )}
@@ -219,6 +219,7 @@ const ColoredMarker = ({
 
 export const DraggableMarkers = () => {
     useStore(triggerLocalRefresh);
+    useLanguage();
     const $questions = useStore(questions);
     const $hiderMode = useStore(hiderMode);
     const $hasMyPosition = useStore(hasMyPosition);
@@ -230,7 +231,7 @@ export const DraggableMarkers = () => {
                     color="violet"
                     letter="H"
                     key="hider"
-                    sub="Your hiding spot"
+                    sub={t("pin.hidingSpot")}
                     questionKey={-1}
                     latitude={$hiderMode.latitude}
                     longitude={$hiderMode.longitude}
@@ -291,7 +292,7 @@ export const DraggableMarkers = () => {
                                     draggable={draggable}
                                     key={"a" + question.key.toString()}
                                     questionKey={question.key}
-                                    sub="Start"
+                                    sub={t("location.start")}
                                     latitude={question.data.latA}
                                     longitude={question.data.lngA}
                                     onChange={(e) => {
@@ -308,7 +309,7 @@ export const DraggableMarkers = () => {
                                     draggable={draggable}
                                     key={"b" + question.key.toString()}
                                     questionKey={question.key}
-                                    sub="End"
+                                    sub={t("location.end")}
                                     latitude={question.data.latB}
                                     longitude={question.data.lngB}
                                     onChange={(e) => {

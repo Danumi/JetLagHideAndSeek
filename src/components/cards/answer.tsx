@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { allTrainStations, questionModified } from "@/lib/context";
 import { scrollToQuestion } from "@/lib/gps";
+import { t, useLanguage } from "@/lib/i18n";
 import { questionLink } from "@/lib/questionLink";
 import { cn, shareMessage } from "@/lib/utils";
 import {
@@ -54,6 +55,7 @@ export const QuestionBadge = ({ question }: { question: Question }) => {
  * only then does it change the map.
  */
 export const AnswerButtons = ({ question }: { question: Question }) => {
+    useLanguage();
     const pending = question.data.status === "pending";
     const options = answerOptions(question);
     const current =
@@ -75,9 +77,7 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
                     pending ? "text-orange-400" : "text-muted-foreground",
                 )}
             >
-                {pending
-                    ? "Waiting for the hider's answer"
-                    : "Hider's answer (tap one to save)"}
+                {pending ? t("answer.waitingForHider") : t("answer.tapToSave")}
             </span>
             {options.length > 0 ? (
                 <div className="grid grid-cols-2 gap-2">
@@ -104,7 +104,7 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
                     className="h-14 text-lg font-semibold"
                     onClick={() => answer("place")}
                 >
-                    Save answer
+                    {t("answer.save")}
                 </Button>
             )}
             <Button
@@ -115,7 +115,7 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
                     questionModified();
                 }}
             >
-                No answer
+                {t("answer.none")}
             </Button>
         </div>
     );
@@ -126,6 +126,7 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
  * their phone works out the answer from their location.
  */
 export const SendToHider = ({ question }: { question: Question }) => {
+    useLanguage();
     const [busy, setBusy] = useState(false);
 
     const send = async () => {
@@ -133,24 +134,17 @@ export const SendToHider = ({ question }: { question: Question }) => {
         try {
             const link = await questionLink(question);
             const result = await shareMessage(
-                `Question for the hider: ${questionTitle(
-                    question,
-                )}\nOpen this link to see your answer: ${link}`,
+                t("send.message", { title: questionTitle(question), link }),
             );
             if (result === "copied") {
-                toast.success(
-                    "Link copied. Paste it into your chat with the hider.",
-                );
+                toast.success(t("send.copied"));
             } else if (result === false) {
-                toast.error(
-                    `Couldn't share. Send the hider this link: ${link}`,
-                    {
-                        autoClose: false,
-                    },
-                );
+                toast.error(t("send.failed", { link }), {
+                    autoClose: false,
+                });
             }
         } catch (error) {
-            toast.error(`Couldn't make the link: ${error}`);
+            toast.error(t("send.linkFailed", { error: String(error) }));
         } finally {
             setBusy(false);
         }
@@ -163,7 +157,7 @@ export const SendToHider = ({ question }: { question: Question }) => {
             onClick={send}
         >
             <SendIcon />
-            Send to hider
+            {t("send.button")}
         </Button>
     );
 };
@@ -173,6 +167,7 @@ export const SendToHider = ({ question }: { question: Question }) => {
  * "3 · Radar 2 km · Karlsplatz · Outside · 14:32", with what's nearest below.
  */
 export const QuestionLogRow = ({ question }: { question: Question }) => {
+    useLanguage();
     const $allTrainStations = useStore(allTrainStations);
     const place = useMemo(
         () => placeText(question, $allTrainStations),
@@ -214,7 +209,7 @@ export const QuestionLogRow = ({ question }: { question: Question }) => {
                     {question.data.hidden && (
                         <span className="text-muted-foreground">
                             {" "}
-                            · hidden on the map
+                            · {t("answer.hiddenOnMap")}
                         </span>
                     )}
                     <NearestNote question={question} />
@@ -229,7 +224,7 @@ export const QuestionLogRow = ({ question }: { question: Question }) => {
                         setTimeout(() => scrollToQuestion(question.key), 100);
                     }}
                 >
-                    Edit
+                    {t("answer.edit")}
                 </Button>
             </div>
             <Separator className="h-1" />

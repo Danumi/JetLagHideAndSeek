@@ -1,11 +1,17 @@
 import * as turf from "@turf/turf";
 
 import { type HiderLocation, mapGeoJSON, polyGeoJSON } from "@/lib/context";
+import { t, tr } from "@/lib/i18n";
 import { hiderifyQuestion } from "@/maps";
 import { currentAnswer, formatKilometers } from "@/maps/answers";
 import { determineMapBoundaries } from "@/maps/api";
 import { matchingCardFor, measuringCardFor } from "@/maps/deck";
-import { findNearest } from "@/maps/nearest";
+import {
+    findNearest,
+    nearestName,
+    nearestTitle,
+    nearestWhere,
+} from "@/maps/nearest";
 import { type Question, type TentacleQuestion } from "@/maps/schema";
 
 /*
@@ -35,7 +41,7 @@ export const workOutAnswer = async (
               ? measuringCardFor(question.data)
               : undefined;
     if (card?.noAnswer) {
-        return { value: "no-answer", reason: card.noAnswer };
+        return { value: "no-answer", reason: tr(card.noAnswer) };
     }
 
     // Zones and places are worked out within the game area
@@ -79,21 +85,24 @@ export const explainAnswer = async (
 
     switch (question.id) {
         case "radius":
-            return `You are ${formatKilometers(
-                distance(question.data, you),
-            )} from where the seekers asked.`;
+            return t("reason.radar", {
+                distance: formatKilometers(distance(question.data, you)),
+            });
         case "thermometer":
-            return `You are ${formatKilometers(
-                distance(
-                    { lat: question.data.latA, lng: question.data.lngA },
-                    you,
+            return t("reason.thermometer", {
+                start: formatKilometers(
+                    distance(
+                        { lat: question.data.latA, lng: question.data.lngA },
+                        you,
+                    ),
                 ),
-            )} from where the seekers started and ${formatKilometers(
-                distance(
-                    { lat: question.data.latB, lng: question.data.lngB },
-                    you,
+                end: formatKilometers(
+                    distance(
+                        { lat: question.data.latB, lng: question.data.lngB },
+                        you,
+                    ),
                 ),
-            )} from where they stopped.`;
+            });
         case "matching":
         case "measuring":
             return explainNearest(question, you);
@@ -118,21 +127,24 @@ const explainNearest = async (
 
     switch (yours.kind) {
         case "inside":
-            return `You are in ${yours.label}, the seekers are in ${theirs.label}.`;
         case "on":
-            return `You are on ${yours.label}, the seekers are on ${theirs.label}.`;
+            return t("reason.inside", {
+                you: nearestWhere(yours),
+                them: nearestWhere(theirs),
+            });
         case "elevation":
-            return `You are ${Math.round(
-                yours.meters ?? 0,
-            )} m above sea level, the seekers ${Math.round(
-                theirs.meters ?? 0,
-            )} m.`;
+            return t("reason.elevation", {
+                you: Math.round(yours.meters ?? 0),
+                them: Math.round(theirs.meters ?? 0),
+            });
         case "distance":
-            return `Nearest ${yours.what} to you: ${yours.label}, ${formatKilometers(
-                yours.kilometers ?? 0,
-            )} away. To the seekers: ${theirs.label}, ${formatKilometers(
-                theirs.kilometers ?? 0,
-            )}.`;
+            return t("reason.distance", {
+                nearest: nearestTitle(yours.what),
+                you: nearestName(yours),
+                youDistance: formatKilometers(yours.kilometers ?? 0),
+                them: nearestName(theirs),
+                themDistance: formatKilometers(theirs.kilometers ?? 0),
+            });
         default:
             return undefined;
     }
