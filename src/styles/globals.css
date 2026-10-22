@@ -11,6 +11,14 @@ body {
 
 .leaflet-container {
     height: 100%;
+    /* No "save image" menu when holding a finger on the map */
+    -webkit-touch-callout: none;
+}
+
+/* "Pick on map": the next tap on the map sets the point */
+.leaflet-container.picking-location,
+.leaflet-container.picking-location .leaflet-interactive {
+    cursor: crosshair;
 }
 
 /* Scale and drawing tools sit below the zone count at the top left */

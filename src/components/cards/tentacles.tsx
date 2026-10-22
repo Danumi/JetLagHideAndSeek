@@ -2,13 +2,13 @@ import { useStore } from "@nanostores/react";
 import * as turf from "@turf/turf";
 import { Suspense, use, useEffect, useState } from "react";
 
-import { LatitudeLongitude } from "@/components/LatLngPicker";
 import { PositiveNumberInput } from "@/components/PositiveNumberInput";
 import PresetsDialog from "@/components/PresetsDialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select } from "@/components/ui/select";
 import {
     MENU_ITEM_CLASSNAME,
+    SidebarMenu,
     SidebarMenuItem,
 } from "@/components/ui/sidebar-l";
 import { UnitSelect } from "@/components/UnitSelect";
@@ -16,7 +16,6 @@ import {
     drawingQuestionKey,
     isLoading,
     questionModified,
-    questions,
     triggerLocalRefresh,
 } from "@/lib/context";
 import { cn, mapToObj } from "@/lib/utils";
@@ -30,7 +29,6 @@ import {
     type TraditionalTentacleQuestion,
 } from "@/maps/schema";
 
-import { AnswerButtons, numberedTitle } from "./answer";
 import { QuestionCard } from "./base";
 
 export const TentacleQuestionComponent = ({
@@ -44,25 +42,54 @@ export const TentacleQuestionComponent = ({
     sub?: string;
     className?: string;
 }) => {
-    const $questions = useStore(questions);
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $isLoading = useStore(isLoading);
-    const label = numberedTitle($questions, questionKey);
 
     return (
         <QuestionCard
-            questionKey={questionKey}
-            label={label}
+            question={{ id: "tentacles", key: questionKey, data }}
             sub={sub}
             className={className}
-            collapsed={data.collapsed}
-            setCollapsed={(collapsed) => {
-                data.collapsed = collapsed; // Doesn't trigger a re-render so no need for questionModified
-            }}
-            locked={!data.drag}
-            setLocked={(locked) => questionModified((data.drag = !locked))}
-            hidden={data.hidden}
-            setHidden={(hidden) => questionModified((data.hidden = hidden))}
+            beforeAnswer={
+                <SidebarMenu>
+                    <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
+                        <Suspense
+                            fallback={
+                                <div className="flex items-center justify-center w-full h-8">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="animate-spin"
+                                    >
+                                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                                    </svg>
+                                </div>
+                            }
+                        >
+                            <TentacleLocationSelector
+                                data={data}
+                                promise={
+                                    data.locationType === "custom"
+                                        ? Promise.resolve(
+                                              turf.featureCollection(
+                                                  data.places,
+                                              ),
+                                          )
+                                        : findTentacleLocations(data)
+                                }
+                                disabled={!data.drag || $isLoading}
+                            />
+                        </Suspense>
+                    </SidebarMenuItem>
+                </SidebarMenu>
+            }
         >
             <SidebarMenuItem>
                 <div className={cn(MENU_ITEM_CLASSNAME, "gap-2 flex flex-row")}>
@@ -137,7 +164,7 @@ export const TentacleQuestionComponent = ({
             </SidebarMenuItem>
             {data.locationType === "custom" && data.drag && (
                 <>
-                    <p className="px-2 mb-1 text-center text-orange-500">
+                    <p className="mb-1 px-1 text-sm text-muted-foreground">
                         To modify tentacle locations, enable it:
                         <Checkbox
                             className="mx-1 my-1"
@@ -161,58 +188,6 @@ export const TentacleQuestionComponent = ({
                     </div>
                 </>
             )}
-            <LatitudeLongitude
-                latitude={data.lat}
-                longitude={data.lng}
-                colorName={data.color}
-                onChange={(lat, lng) => {
-                    if (lat !== null) {
-                        data.lat = lat;
-                    }
-                    if (lng !== null) {
-                        data.lng = lng;
-                    }
-                    questionModified();
-                }}
-                disabled={!data.drag || $isLoading}
-            />
-            <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
-                <Suspense
-                    fallback={
-                        <div className="flex items-center justify-center w-full h-8">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="animate-spin"
-                            >
-                                <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-                            </svg>
-                        </div>
-                    }
-                >
-                    <TentacleLocationSelector
-                        data={data}
-                        promise={
-                            data.locationType === "custom"
-                                ? Promise.resolve(
-                                      turf.featureCollection(data.places),
-                                  )
-                                : findTentacleLocations(data)
-                        }
-                        disabled={!data.drag || $isLoading}
-                    />
-                </Suspense>
-            </SidebarMenuItem>
-            <AnswerButtons
-                question={{ id: "tentacles", key: questionKey, data }}
-            />
         </QuestionCard>
     );
 };

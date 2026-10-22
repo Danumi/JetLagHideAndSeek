@@ -4,7 +4,6 @@ import * as React from "react";
 import { toast } from "react-toastify";
 
 import CustomInitDialog from "@/components/CustomInitDialog";
-import { LatitudeLongitude } from "@/components/LatLngPicker";
 import PresetsDialog from "@/components/PresetsDialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select } from "@/components/ui/select";
@@ -18,7 +17,6 @@ import {
     drawingQuestionKey,
     isLoading,
     questionModified,
-    questions,
     showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
@@ -44,9 +42,7 @@ import {
     NO_GROUP,
 } from "@/maps/schema";
 
-import { AnswerButtons, numberedTitle } from "./answer";
-import { QuestionCard } from "./base";
-import { NearestInfo } from "./nearest";
+import { CardNote, QuestionCard } from "./base";
 
 const MATCHING_TYPE_LABELS: Record<string, string> = Object.fromEntries(
     matchingQuestionSchema.options
@@ -101,31 +97,23 @@ const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
 
     if (!stationId) {
         return (
-            <span className="px-2 text-center text-orange-500">
+            <CardNote warning>
                 Turn on hiding zones to choose the seekers&apos; line.
-            </span>
+            </CardNote>
         );
     }
     if (lines === null) {
-        return (
-            <span className="px-2 text-center">
-                Loading lines at {stationName}...
-            </span>
-        );
+        return <CardNote>Loading lines at {stationName}...</CardNote>;
     }
     if (lines === "failed") {
         return (
-            <span className="px-2 text-center text-orange-500">
+            <CardNote warning>
                 The lines at {stationName} didn&apos;t load.
-            </span>
+            </CardNote>
         );
     }
     if (lines.length === 0) {
-        return (
-            <span className="px-2 text-center text-orange-500">
-                No lines found at {stationName}.
-            </span>
-        );
+        return <CardNote warning>No lines found at {stationName}.</CardNote>;
     }
 
     const chosen = lines.some((line) => line.key === data.lineKey)
@@ -168,7 +156,6 @@ export const MatchingQuestionComponent = ({
     className?: string;
 }) => {
     useStore(triggerLocalRefresh);
-    const $questions = useStore(questions);
     const $displayHidingZones = useStore(displayHidingZones);
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $isLoading = useStore(isLoading);
@@ -178,7 +165,6 @@ export const MatchingQuestionComponent = ({
         "custom-zone" | "custom-points" | null
     >(null);
     const card = matchingCardFor(data);
-    const label = numberedTitle($questions, questionKey);
 
     let questionSpecific = <></>;
 
@@ -205,11 +191,10 @@ export const MatchingQuestionComponent = ({
                         </SidebarMenuItem>
                     )}
                     {data.type === "letter-zone" && (
-                        <span className="px-2 text-center text-orange-500">
-                            Warning: The zone data has been simplified by
-                            &plusmn;100 meters in order for the browser to not
-                            crash.
-                        </span>
+                        <CardNote>
+                            The borders are simplified by about 100 m so the
+                            phone can handle them.
+                        </CardNote>
                     )}
                 </>
             );
@@ -218,27 +203,27 @@ export const MatchingQuestionComponent = ({
             questionSpecific = (
                 <>
                     <TrainLinePicker data={data} />
-                    <span className="px-2 text-center text-orange-500">
-                        The line data is based on OpenStreetMap. Make sure all
-                        players use this tool.
-                    </span>
+                    <CardNote>
+                        The lines come from this app&apos;s map data, so the
+                        hider should answer with this app too.
+                    </CardNote>
                 </>
             );
             break;
         case "street":
             questionSpecific = (
-                <span className="px-2 text-center">
+                <CardNote>
                     &quot;Same&quot; keeps everything within 200 m of that
                     street; &quot;different&quot; can&apos;t rule anything out
                     reliably.
-                </span>
+                </CardNote>
             );
             break;
         case "landmass":
             questionSpecific = (
-                <span className="px-2 text-center">
+                <CardNote>
                     Islands in lakes count as part of the surrounding land.
-                </span>
+                </CardNote>
             );
             break;
         case "aquarium":
@@ -253,10 +238,10 @@ export const MatchingQuestionComponent = ({
         case "consulate":
         case "park":
             questionSpecific = (
-                <span className="px-2 text-center text-orange-500">
-                    This question will only influence the map when you open a
-                    hiding zone (tap it on the map or in the Zones list).
-                </span>
+                <CardNote>
+                    This question only changes the map when you open a hiding
+                    zone (tap it on the map or in the Zones list).
+                </CardNote>
             );
             break;
         case "custom-zone":
@@ -264,7 +249,7 @@ export const MatchingQuestionComponent = ({
             if (data.drag) {
                 questionSpecific = (
                     <>
-                        <p className="px-2 mb-1 text-center text-orange-500">
+                        <p className="mb-1 px-1 text-sm text-muted-foreground">
                             To modify the matching{" "}
                             {data.type === "custom-zone" ? "zones" : "points"},
                             enable it:
@@ -295,18 +280,9 @@ export const MatchingQuestionComponent = ({
 
     return (
         <QuestionCard
-            questionKey={questionKey}
-            label={label}
+            question={{ id: "matching", key: questionKey, data }}
             sub={sub}
             className={className}
-            collapsed={data.collapsed}
-            setCollapsed={(collapsed) => {
-                data.collapsed = collapsed; // Doesn't trigger a re-render so no need for questionModified
-            }}
-            locked={!data.drag}
-            setLocked={(locked) => questionModified((data.drag = !locked))}
-            hidden={data.hidden}
-            setHidden={(hidden) => questionModified((data.hidden = hidden))}
         >
             <CustomInitDialog
                 open={customDialogOpen}
@@ -380,10 +356,10 @@ export const MatchingQuestionComponent = ({
                 </SidebarMenuItem>
             )}
             {card?.needsHidingZones && !$displayHidingZones && (
-                <span className="px-2 text-center text-orange-500">
+                <CardNote warning>
                     This question needs the hiding zones. Turn them on under
-                    Zones → Zone settings.
-                </span>
+                    Zones → Settings.
+                </CardNote>
             )}
             {$showAllQuestionTypes && (
                 <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
@@ -465,36 +441,8 @@ export const MatchingQuestionComponent = ({
                     />
                 </SidebarMenuItem>
             )}
-            {card?.hint && (
-                <span className="px-2 text-center text-sm text-muted-foreground">
-                    {card.hint}
-                </span>
-            )}
-            <NearestInfo
-                question={{ id: "matching", key: questionKey, data }}
-            />
+            {card?.hint && <CardNote>{card.hint}</CardNote>}
             {questionSpecific}
-
-            {data.type !== "custom-zone" && (
-                <LatitudeLongitude
-                    latitude={data.lat}
-                    longitude={data.lng}
-                    colorName={data.color}
-                    onChange={(lat, lng) => {
-                        if (lat !== null) {
-                            data.lat = lat;
-                        }
-                        if (lng !== null) {
-                            data.lng = lng;
-                        }
-                        questionModified();
-                    }}
-                    disabled={!data.drag || $isLoading}
-                />
-            )}
-            <AnswerButtons
-                question={{ id: "matching", key: questionKey, data }}
-            />
         </QuestionCard>
     );
 };

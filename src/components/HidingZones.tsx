@@ -20,12 +20,14 @@ import {
     isLoading,
     leafletMapContext,
     mergeDuplicates as mergeDuplicatesAtom,
+    pickingLocation,
     questionFinishedMapData,
     questions,
     selectedZoneId,
     trainStations,
     useCustomStations as useCustomStationsAtom,
 } from "@/lib/context";
+import { placePickedPoint } from "@/lib/gps";
 import { questionApplies } from "@/maps/answers";
 import {
     BLANK_GEOJSON,
@@ -42,7 +44,6 @@ import {
     extractStationName,
     geoSpatialVoronoi,
     holedMask,
-    lngLatToText,
     safeUnion,
 } from "@/maps/geo-utils";
 import { findHidingZoneStations } from "@/maps/stations";
@@ -102,6 +103,8 @@ export const HidingZones = () => {
                 ? (feature, layer) => {
                       layer.on("click", async () => {
                           if (!map) return;
+                          // "Pick on map" takes this tap (see Map.tsx)
+                          if (pickingLocation.get()) return;
 
                           selectedZoneId.set(feature.properties.properties.id);
                       });
@@ -116,12 +119,12 @@ export const HidingZones = () => {
                 });
 
                 marker.bindPopup(
-                    `<b>${
-                        extractStationName(geoJsonPoint) || "No Name Found"
-                    } (${lngLatToText(
-                        geoJsonPoint.geometry.coordinates as [number, number],
-                    )})</b>`,
+                    `<b>${extractStationName(geoJsonPoint) || "Station without a name"}</b>`,
                 );
+                // Picking a point: a tap on a station picks the station
+                marker.on("click", () => {
+                    if (placePickedPoint(latlng)) marker.closePopup();
+                });
 
                 return marker;
             },
@@ -218,7 +221,7 @@ export const HidingZones = () => {
                                 | undefined;
                             if (!nid || !nid.includes("/")) {
                                 toast.warning(
-                                    "Nearest station has no OSM id; skipping 'same train line' filter.",
+                                    "The nearest station has no line data, so 'Same train line' is skipped.",
                                 );
                                 continue;
                             }

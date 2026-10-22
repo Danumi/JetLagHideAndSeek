@@ -151,7 +151,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
             },
         });
         toast.warning(
-            "Couldn't get your location. Drag the start and end markers to where you started and stopped.",
+            'Couldn\'t get your location. Set where you started and stopped with "Pick on map".',
             { autoClose: 6000 },
         );
         setOpen(false);

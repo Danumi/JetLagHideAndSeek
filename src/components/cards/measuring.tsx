@@ -2,7 +2,6 @@ import { useStore } from "@nanostores/react";
 import * as React from "react";
 
 import CustomInitDialog from "@/components/CustomInitDialog";
-import { LatitudeLongitude } from "@/components/LatLngPicker";
 import PresetsDialog from "@/components/PresetsDialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select } from "@/components/ui/select";
@@ -15,7 +14,6 @@ import {
     drawingQuestionKey,
     isLoading,
     questionModified,
-    questions,
     showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
@@ -35,9 +33,7 @@ import {
     NO_GROUP,
 } from "@/maps/schema";
 
-import { AnswerButtons, numberedTitle } from "./answer";
-import { QuestionCard } from "./base";
-import { NearestInfo } from "./nearest";
+import { CardNote, QuestionCard } from "./base";
 
 const MEASURING_TYPE_LABELS: Record<string, string> = Object.fromEntries(
     measuringQuestionSchema.options
@@ -65,14 +61,12 @@ export const MeasuringQuestionComponent = ({
     className?: string;
 }) => {
     useStore(triggerLocalRefresh);
-    const $questions = useStore(questions);
     const $displayHidingZones = useStore(displayHidingZones);
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $isLoading = useStore(isLoading);
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
     const [customDialogOpen, setCustomDialogOpen] = React.useState(false);
     const card = measuringCardFor(data);
-    const label = numberedTitle($questions, questionKey);
 
     let questionSpecific = <></>;
 
@@ -107,28 +101,27 @@ export const MeasuringQuestionComponent = ({
             break;
         case "sea-level":
             questionSpecific = (
-                <span className="px-2 text-center">
+                <CardNote>
                     Elevation from terrain data, accurate to a few meters.
-                </span>
+                </CardNote>
             );
             break;
         case "water":
             questionSpecific = (
-                <span className="px-2 text-center">
+                <CardNote>
                     Pools, fountains, streams and underground rivers don&apos;t
                     count.
-                </span>
+                </CardNote>
             );
             break;
         case "mcdonalds":
         case "seven11":
             questionSpecific = (
-                <span className="px-2 text-center text-orange-500">
-                    This question will eliminate hiding zones that don&apos;t
-                    fit the criteria. When you click on a zone, the parts of
-                    that zone that don&apos;t satisfy the criteria will be
-                    eliminated.
-                </span>
+                <CardNote>
+                    This question rules out hiding zones that don&apos;t fit.
+                    When you open a zone, the parts of it that don&apos;t fit
+                    turn grey.
+                </CardNote>
             );
             break;
         case "aquarium":
@@ -143,17 +136,17 @@ export const MeasuringQuestionComponent = ({
         case "consulate":
         case "park":
             questionSpecific = (
-                <span className="px-2 text-center text-orange-500">
-                    This question will only influence the map when you open a
-                    hiding zone (tap it on the map or in the Zones list).
-                </span>
+                <CardNote>
+                    This question only changes the map when you open a hiding
+                    zone (tap it on the map or in the Zones list).
+                </CardNote>
             );
             break;
         case "custom-measure":
             if (data.drag) {
                 questionSpecific = (
                     <>
-                        <p className="px-2 mb-1 text-center text-orange-500">
+                        <p className="mb-1 px-1 text-sm text-muted-foreground">
                             To modify the measuring question, enable it:
                             <Checkbox
                                 className="mx-1 my-1"
@@ -183,18 +176,9 @@ export const MeasuringQuestionComponent = ({
 
     return (
         <QuestionCard
-            questionKey={questionKey}
-            label={label}
+            question={{ id: "measuring", key: questionKey, data }}
             sub={sub}
             className={className}
-            collapsed={data.collapsed}
-            setCollapsed={(collapsed) => {
-                data.collapsed = collapsed; // Doesn't trigger a re-render so no need for questionModified
-            }}
-            locked={!data.drag}
-            setLocked={(locked) => questionModified((data.drag = !locked))}
-            hidden={data.hidden}
-            setHidden={(hidden) => questionModified((data.hidden = hidden))}
         >
             <CustomInitDialog
                 open={customDialogOpen}
@@ -252,10 +236,10 @@ export const MeasuringQuestionComponent = ({
                 </SidebarMenuItem>
             )}
             {card?.needsHidingZones && !$displayHidingZones && (
-                <span className="px-2 text-center text-orange-500">
+                <CardNote warning>
                     This question needs the hiding zones. Turn them on under
-                    Zones → Zone settings.
-                </span>
+                    Zones → Settings.
+                </CardNote>
             )}
             {$showAllQuestionTypes && (
                 <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
@@ -330,33 +314,8 @@ export const MeasuringQuestionComponent = ({
                     />
                 </SidebarMenuItem>
             )}
-            {card?.hint && (
-                <span className="px-2 text-center text-sm text-muted-foreground">
-                    {card.hint}
-                </span>
-            )}
-            <NearestInfo
-                question={{ id: "measuring", key: questionKey, data }}
-            />
+            {card?.hint && <CardNote>{card.hint}</CardNote>}
             {questionSpecific}
-            <LatitudeLongitude
-                latitude={data.lat}
-                longitude={data.lng}
-                colorName={data.color}
-                onChange={(lat, lng) => {
-                    if (lat !== null) {
-                        data.lat = lat;
-                    }
-                    if (lng !== null) {
-                        data.lng = lng;
-                    }
-                    questionModified();
-                }}
-                disabled={!data.drag || $isLoading}
-            />
-            <AnswerButtons
-                question={{ id: "measuring", key: questionKey, data }}
-            />
         </QuestionCard>
     );
 };

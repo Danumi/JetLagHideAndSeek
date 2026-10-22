@@ -1,19 +1,9 @@
 import { useStore } from "@nanostores/react";
-import { point } from "@turf/turf";
-import { useEffect, useState } from "react";
 
-import { LatitudeLongitude } from "@/components/LatLngPicker";
-import {
-    isLoading,
-    questionModified,
-    questions,
-    triggerLocalRefresh,
-} from "@/lib/context";
-import { arcDistance } from "@/maps/geo-utils";
+import { triggerLocalRefresh } from "@/lib/context";
 import type { ThermometerQuestion } from "@/maps/schema";
 
-import { AnswerButtons, numberedTitle } from "./answer";
-import { QuestionCard } from "./base";
+import { CardNote, QuestionCard } from "./base";
 
 export const ThermometerQuestionComponent = ({
     data,
@@ -27,91 +17,17 @@ export const ThermometerQuestionComponent = ({
     className?: string;
 }) => {
     useStore(triggerLocalRefresh);
-    const $questions = useStore(questions);
-    const $isLoading = useStore(isLoading);
-
-    const label = numberedTitle($questions, questionKey);
-
-    const hasCoords =
-        data.latA !== null &&
-        data.lngA !== null &&
-        data.latB !== null &&
-        data.lngB !== null;
-    const [distanceValue, setDistanceValue] = useState<number | null>(null);
-
-    useEffect(() => {
-        if (!hasCoords) {
-            setDistanceValue(null);
-            return;
-        }
-
-        let cancelled = false;
-        arcDistance(
-            point([data.lngA!, data.latA!]),
-            point([data.lngB!, data.latB!]),
-            "kilometers",
-        ).then((distance) => {
-            if (!cancelled) setDistanceValue(distance);
-        });
-
-        return () => {
-            cancelled = true;
-        };
-    }, [data.latA, data.lngA, data.latB, data.lngB, hasCoords]);
 
     return (
         <QuestionCard
-            questionKey={questionKey}
-            label={label}
+            question={{ id: "thermometer", key: questionKey, data }}
             sub={sub}
             className={className}
-            collapsed={data.collapsed}
-            setCollapsed={(collapsed) => {
-                data.collapsed = collapsed;
-            }}
-            locked={!data.drag}
-            setLocked={(locked) => questionModified((data.drag = !locked))}
-            hidden={data.hidden}
-            setHidden={(hidden) => questionModified((data.hidden = hidden))}
         >
-            <LatitudeLongitude
-                latitude={data.latA}
-                longitude={data.lngA}
-                label="Start"
-                colorName={data.colorA}
-                onChange={(lat, lng) => {
-                    if (lat !== null) data.latA = lat;
-                    if (lng !== null) data.lngA = lng;
-                    questionModified();
-                }}
-                disabled={!data.drag || $isLoading}
-            />
-
-            <LatitudeLongitude
-                latitude={data.latB}
-                longitude={data.lngB}
-                label="End"
-                colorName={data.colorB}
-                onChange={(lat, lng) => {
-                    if (lat !== null) data.latB = lat;
-                    if (lng !== null) data.lngB = lng;
-                    questionModified();
-                }}
-                disabled={!data.drag || $isLoading}
-            />
-
-            {distanceValue !== null && (
-                <div className="px-2 text-sm text-muted-foreground">
-                    Distance:{" "}
-                    <span className="font-medium text-foreground">
-                        {`${distanceValue.toFixed(3)} km`}
-                    </span>
-                </div>
-            )}
-
-            <AnswerButtons
-                question={{ id: "thermometer", key: questionKey, data }}
-            />
+            <CardNote>
+                Warmer: the hider is closer to the end than to the start (the
+                hollow pin).
+            </CardNote>
         </QuestionCard>
     );
 };

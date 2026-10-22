@@ -29,11 +29,24 @@ import {
     ThermometerQuestionComponent,
 } from "./QuestionCards";
 
+const SectionHeading = ({ children }: { children: React.ReactNode }) => (
+    <h3 className="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+        {children}
+    </h3>
+);
+
+/**
+ * The questions asked so far: open ones (waiting for the answer or being
+ * edited) on top as cards, answered ones below as the question log. The
+ * numbers stay the order they were asked in, like on the map pins.
+ */
 export const QuestionSidebar = () => {
     useStore(triggerLocalRefresh);
     const $questions = useStore(questions);
     const $isLoading = useStore(isLoading);
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
+    const open = $questions.filter((question) => !isLogged(question));
+    const answered = $questions.filter(isLogged);
 
     return (
         <Sidebar>
@@ -53,17 +66,10 @@ export const QuestionSidebar = () => {
                         the map.
                     </p>
                 )}
-                {$questions.map((question, index) => {
-                    if (isLogged(question)) {
-                        return (
-                            <QuestionLogRow
-                                key={question.key}
-                                question={question}
-                                number={index + 1}
-                            />
-                        );
-                    }
-
+                {open.length > 0 && answered.length > 0 && (
+                    <SectionHeading>Open</SectionHeading>
+                )}
+                {open.map((question) => {
                     switch (question.id) {
                         case "radius":
                             return (
@@ -109,6 +115,16 @@ export const QuestionSidebar = () => {
                             return null;
                     }
                 })}
+                {answered.length > 0 && (
+                    <SectionHeading>Answered</SectionHeading>
+                )}
+                {answered.map((question) => (
+                    <QuestionLogRow
+                        key={question.key}
+                        question={question}
+                        number={$questions.indexOf(question) + 1}
+                    />
+                ))}
             </SidebarContent>
             <SidebarGroup>
                 <SidebarGroupContent>

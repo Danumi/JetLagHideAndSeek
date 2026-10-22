@@ -1,7 +1,6 @@
 import { useStore } from "@nanostores/react";
 import { useState } from "react";
 
-import { LatitudeLongitude } from "@/components/LatLngPicker";
 import { PositiveNumberInput } from "@/components/PositiveNumberInput";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,14 +11,12 @@ import { UnitSelect } from "@/components/UnitSelect";
 import {
     isLoading,
     questionModified,
-    questions,
     triggerLocalRefresh,
 } from "@/lib/context";
 import { cn } from "@/lib/utils";
 import { RADAR_DISTANCES, radarDistanceFor } from "@/maps/deck";
 import type { RadiusQuestion } from "@/maps/schema";
 
-import { AnswerButtons, numberedTitle } from "./answer";
 import { QuestionCard } from "./base";
 
 export const RadiusQuestionComponent = ({
@@ -34,29 +31,18 @@ export const RadiusQuestionComponent = ({
     className?: string;
 }) => {
     useStore(triggerLocalRefresh);
-    const $questions = useStore(questions);
     const $isLoading = useStore(isLoading);
     const distance = radarDistanceFor(data);
     const [chooseDistance, setChooseDistance] = useState(!distance);
-    const label = numberedTitle($questions, questionKey);
 
     return (
         <QuestionCard
-            questionKey={questionKey}
-            label={label}
+            question={{ id: "radius", key: questionKey, data }}
             sub={sub}
             className={className}
-            collapsed={data.collapsed}
-            setCollapsed={(collapsed) => {
-                data.collapsed = collapsed; // Doesn't trigger a re-render so no need for questionModified
-            }}
-            locked={!data.drag}
-            setLocked={(locked) => questionModified((data.drag = !locked))}
-            hidden={data.hidden}
-            setHidden={(hidden) => questionModified((data.hidden = hidden))}
         >
             <SidebarMenuItem>
-                <div className="grid w-full grid-cols-5 gap-1 p-2">
+                <div className="grid w-full grid-cols-5 gap-1">
                     {RADAR_DISTANCES.map((option) => (
                         <Button
                             key={option.label}
@@ -65,8 +51,7 @@ export const RadiusQuestionComponent = ({
                                     ? "default"
                                     : "outline"
                             }
-                            size="sm"
-                            className="h-8 px-1 text-xs"
+                            className="h-10 px-1"
                             disabled={!data.drag || $isLoading}
                             onClick={() => {
                                 setChooseDistance(false);
@@ -82,8 +67,7 @@ export const RadiusQuestionComponent = ({
                         variant={
                             chooseDistance || !distance ? "default" : "outline"
                         }
-                        size="sm"
-                        className="h-8 px-1 text-xs"
+                        className="h-10 px-1"
                         disabled={!data.drag || $isLoading}
                         onClick={() => setChooseDistance(true)}
                     >
@@ -116,24 +100,6 @@ export const RadiusQuestionComponent = ({
                     </div>
                 </SidebarMenuItem>
             )}
-            <LatitudeLongitude
-                latitude={data.lat}
-                longitude={data.lng}
-                colorName={data.color}
-                onChange={(lat, lng) => {
-                    if (lat !== null) {
-                        data.lat = lat;
-                    }
-                    if (lng !== null) {
-                        data.lng = lng;
-                    }
-                    questionModified();
-                }}
-                disabled={!data.drag || $isLoading}
-            />
-            <AnswerButtons
-                question={{ id: "radius", key: questionKey, data }}
-            />
         </QuestionCard>
     );
 };
