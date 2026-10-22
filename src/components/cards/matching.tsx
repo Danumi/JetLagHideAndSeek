@@ -1,4 +1,5 @@
 import { useStore } from "@nanostores/react";
+import * as turf from "@turf/turf";
 import * as React from "react";
 import { toast } from "react-toastify";
 
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/sidebar-l";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
+    allTrainStations,
     customInitPreference,
     displayHidingZones,
     drawingQuestionKey,
@@ -24,6 +26,8 @@ import {
     triggerLocalRefresh,
 } from "@/lib/context";
 import { cn } from "@/lib/utils";
+import { findStationLines, type StationLine } from "@/maps/api";
+import { extractStationName } from "@/maps/geo-utils";
 import {
     determineMatchingBoundary,
     findMatchingPlaces,
@@ -36,6 +40,87 @@ import {
 } from "@/maps/schema";
 
 import { QuestionCard } from "./base";
+
+/** Lets the seekers pick the one line they are riding (rules: "Transit Line"). */
+const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
+    const $allStations = useStore(allTrainStations);
+    const $isLoading = useStore(isLoading);
+    const [lines, setLines] = React.useState<StationLine[] | null>(null);
+
+    const nearest = React.useMemo(() => {
+        if ($allStations.length === 0) return null;
+        return turf.nearestPoint(
+            turf.point([data.lng, data.lat]),
+            turf.featureCollection($allStations) as any,
+        );
+    }, [$allStations, data.lat, data.lng]);
+    const stationId: string | undefined = nearest?.properties?.id;
+    const stationName = nearest ? extractStationName(nearest) : null;
+
+    React.useEffect(() => {
+        let cancelled = false;
+        setLines(null);
+        if (!stationId || !stationId.includes("/")) return;
+        findStationLines(stationId)
+            .then((result) => !cancelled && setLines(result))
+            .catch(() => !cancelled && setLines([]));
+        return () => {
+            cancelled = true;
+        };
+    }, [stationId]);
+
+    if (!stationId) {
+        return (
+            <span className="px-2 text-center text-orange-500">
+                Turn on hiding zones to choose the seekers&apos; line.
+            </span>
+        );
+    }
+    if (lines === null) {
+        return (
+            <span className="px-2 text-center">
+                Loading lines at {stationName}...
+            </span>
+        );
+    }
+    if (lines.length === 0) {
+        return (
+            <span className="px-2 text-center text-orange-500">
+                No lines found at {stationName}.
+            </span>
+        );
+    }
+
+    const chosen = lines.some((line) => line.key === data.lineKey)
+        ? data.lineKey!
+        : "any";
+    return (
+        <>
+            <span className="px-2 text-center">
+                Seekers&apos; station: {stationName}
+            </span>
+            <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
+                <Select
+                    trigger="Seekers' line"
+                    options={{
+                        any: "Line not chosen (safe eliminations only)",
+                        ...Object.fromEntries(
+                            lines.map((line) => [line.key, line.label]),
+                        ),
+                    }}
+                    value={chosen}
+                    onValueChange={(value) =>
+                        questionModified(
+                            (data.lineKey =
+                                value === "any" ? undefined : value),
+                        )
+                    }
+                    disabled={!data.drag || $isLoading}
+                />
+            </SidebarMenuItem>
+        </>
+    );
+};
 
 export const MatchingQuestionComponent = ({
     data,
@@ -118,11 +203,30 @@ export const MatchingQuestionComponent = ({
             break;
         case "same-train-line":
             questionSpecific = (
-                <span className="px-2 text-center text-orange-500">
-                    Warning: The train line data is based on OpenStreetMap and
-                    may have fewer train stations than expected. If you are
-                    using this tool, ensure that the other players are also
-                    using this tool.
+                <>
+                    <TrainLinePicker data={data} />
+                    <span className="px-2 text-center text-orange-500">
+                        The line data is based on OpenStreetMap. Make sure all
+                        players use this tool.
+                    </span>
+                </>
+            );
+            break;
+        case "street":
+            questionSpecific = (
+                <span className="px-2 text-center">
+                    Uses the street or path nearest to the seekers&apos; marker.
+                    &quot;Same&quot; keeps everything within 200 m of that
+                    street; &quot;different&quot; can&apos;t rule anything out
+                    reliably.
+                </span>
+            );
+            break;
+        case "landmass":
+            questionSpecific = (
+                <span className="px-2 text-center">
+                    Islands in rivers count as their own landmass. Islands in
+                    lakes count as part of the surrounding land.
                 </span>
             );
             break;

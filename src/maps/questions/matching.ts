@@ -18,7 +18,10 @@ import {
 } from "@/lib/context";
 import {
     findAdminBoundary,
+    findLandmassIslands,
+    findNearestStreet,
     findPlacesInZone,
+    findStreetLines,
     LOCATION_FIRST_TAG,
     nearestToQuestion,
     prettifyLocation,
@@ -213,6 +216,79 @@ export const determineMatchingBoundary = _.memoize(
 
                 break;
             }
+            case "street": {
+                const street = await findNearestStreet(
+                    question.lat,
+                    question.lng,
+                );
+                if (!street) {
+                    toast.error("No street or path found near the seekers");
+                    return false;
+                }
+                toast.info(
+                    `Seekers' nearest street or path: ${street.name ?? "unnamed path"}`,
+                    { toastId: "street-name" },
+                );
+                if (!question.same) {
+                    // Only points right on the street are certainly nearer to
+                    // it than to any other street, so "different" can't
+                    // reliably rule anything out.
+                    return false;
+                }
+                const lines = street.name
+                    ? await findStreetLines(street.name)
+                    : [street.line];
+                if (lines.length === 0) lines.push(street.line);
+                // Anyone whose nearest street is this one is close to it.
+                // 200 m is generous: streets and paths are much denser.
+                boundary = turf.buffer(
+                    turf.combine(
+                        turf.featureCollection(
+                            lines.map((line) =>
+                                turf.simplify(line, { tolerance: 0.00005 }),
+                            ),
+                        ),
+                    ).features[0],
+                    200,
+                    { units: "meters" },
+                );
+                break;
+            }
+            case "landmass": {
+                const islands = await findLandmassIslands();
+                if (islands.length === 0) {
+                    toast.info(
+                        "There are no separate landmasses in the game area. The map doesn't change.",
+                        { toastId: "no-landmass" },
+                    );
+                    return false;
+                }
+                const point = turf.point([question.lng, question.lat]);
+                const island = islands.find((feature) =>
+                    turf.booleanPointInPolygon(point, feature),
+                );
+                if (island) {
+                    toast.info(
+                        `Seekers are on ${island.properties?.name ?? "an island"}`,
+                        { toastId: "landmass-name" },
+                    );
+                    boundary = island;
+                } else {
+                    // Seekers are on the mainland: everything except the islands.
+                    const everything = turf.bboxPolygon(
+                        turf.bbox(
+                            mapGeoJSON.get() ?? turf.featureCollection(islands),
+                        ),
+                    );
+                    boundary = turf.difference(
+                        turf.featureCollection([
+                            everything,
+                            safeUnion(turf.featureCollection(islands)),
+                        ]),
+                    );
+                }
+                break;
+            }
             case "airport":
             case "major-city":
             case "aquarium-full":
@@ -228,6 +304,21 @@ export const determineMatchingBoundary = _.memoize(
             case "park-full":
             case "custom-points": {
                 const data = await findMatchingPlaces(question);
+
+                if (!data || data.length === 0) {
+                    toast.info(
+                        "None of these places are inside the game area. By the rules the question has no answer, but it still counts.",
+                        { toastId: `no-places-${question.type}` },
+                    );
+                    return false;
+                }
+                if (data.length === 1) {
+                    toast.info(
+                        "Only one of these places is inside the game area, so everyone's nearest one is the same. The map doesn't change.",
+                        { toastId: `one-place-${question.type}` },
+                    );
+                    return false;
+                }
 
                 const voronoi = geoSpatialVoronoi(data);
                 const point = turf.point([question.lng, question.lat]);
@@ -251,6 +342,7 @@ export const determineMatchingBoundary = _.memoize(
             lng: question.lng,
             cat: question.cat,
             geo: question.geo,
+            same: question.type === "street" ? question.same : undefined,
             entirety: polyGeoJSON.get()
                 ? polyGeoJSON.get()
                 : mapGeoLocation.get(),
@@ -340,6 +432,8 @@ export const hiderifyMatching = async (question: MatchingQuestion) => {
         if (question.type === "same-train-line") {
             const nodes = await trainLineNodeFinder(
                 nearestSeekerTrainStation.properties.id,
+                question.lineKey,
+                true,
             );
 
             const hiderId = parseInt(
@@ -383,6 +477,19 @@ export const hiderifyMatching = async (question: MatchingQuestion) => {
             }
         }
 
+        return question;
+    }
+
+    if (question.type === "street") {
+        const [seekerStreet, hiderStreet] = await Promise.all([
+            findNearestStreet(question.lat, question.lng),
+            findNearestStreet($hiderMode.latitude, $hiderMode.longitude),
+        ]);
+        if (seekerStreet && hiderStreet) {
+            question.same = seekerStreet.name
+                ? seekerStreet.name === hiderStreet.name
+                : seekerStreet.id === hiderStreet.id;
+        }
         return question;
     }
 

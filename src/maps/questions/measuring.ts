@@ -5,6 +5,7 @@ import osmtogeojson from "osmtogeojson";
 import { toast } from "react-toastify";
 
 import {
+    allTrainStations,
     hiderMode,
     mapGeoJSON,
     mapGeoLocation,
@@ -12,14 +13,17 @@ import {
     trainStations,
 } from "@/lib/context";
 import {
+    elevationAt,
     fetchCoastline,
     findAdminBoundary,
+    findNamedWaterLines,
     findPlacesInZone,
     findPlacesSpecificInZone,
     LOCATION_FIRST_TAG,
     nearestToQuestion,
     prettifyLocation,
     QuestionSpecificLocation,
+    regionLowerThan,
 } from "@/maps/api";
 import {
     arcBufferToPoint,
@@ -112,6 +116,28 @@ const bboxExtension = (
     ];
 };
 
+const pointsOrNothing = (elements: any[], what: string) => {
+    if (elements.length === 0) {
+        toast.info(
+            `No ${what} inside the game area. By the rules the question has no answer, but it still counts.`,
+            { toastId: `no-places-${what}` },
+        );
+        return false as const;
+    }
+    return [
+        turf.combine(
+            turf.featureCollection(
+                elements.map((x: any) =>
+                    turf.point([
+                        x.center ? x.center.lon : x.lon,
+                        x.center ? x.center.lat : x.lat,
+                    ]),
+                ),
+            ),
+        ).features[0],
+    ];
+};
+
 export const determineMeasuringBoundary = async (
     question: MeasuringQuestion,
 ) => {
@@ -192,44 +218,50 @@ export const determineMeasuringBoundary = async (
             ];
         }
         case "airport":
-            return [
-                turf.combine(
-                    turf.featureCollection(
-                        _.uniqBy(
-                            (
-                                await findPlacesInZone(
-                                    '["aeroway"="aerodrome"]["iata"]', // Only commercial airports have IATA codes,
-                                    "Finding airports...",
-                                )
-                            ).elements,
-                            (feature: any) => feature.tags.iata,
-                        ).map((x: any) =>
-                            turf.point([
-                                x.center ? x.center.lon : x.lon,
-                                x.center ? x.center.lat : x.lat,
-                            ]),
-                        ),
-                    ),
-                ).features[0],
-            ];
+            return pointsOrNothing(
+                _.uniqBy(
+                    (
+                        await findPlacesInZone(
+                            '["aeroway"="aerodrome"]["iata"]', // Only commercial airports have IATA codes,
+                            "Finding airports...",
+                        )
+                    ).elements,
+                    (feature: any) => feature.tags.iata,
+                ),
+                "commercial airports",
+            );
         case "city":
+            return pointsOrNothing(
+                (
+                    await findPlacesInZone(
+                        '[place=city]["population"~"^[1-9]+[0-9]{6}$"]', // The regex is faster than (if:number(t["population"])>1000000)
+                        "Finding cities...",
+                    )
+                ).elements,
+                "major cities",
+            );
+        case "water": {
+            const lines = await findNamedWaterLines();
+            if (lines.length === 0) {
+                toast.info(
+                    "No named bodies of water inside the game area. By the rules the question has no answer, but it still counts.",
+                    { toastId: "no-water" },
+                );
+                return false;
+            }
             return [
                 turf.combine(
                     turf.featureCollection(
-                        (
-                            await findPlacesInZone(
-                                '[place=city]["population"~"^[1-9]+[0-9]{6}$"]', // The regex is faster than (if:number(t["population"])>1000000)
-                                "Finding cities...",
-                            )
-                        ).elements.map((x: any) =>
-                            turf.point([
-                                x.center ? x.center.lon : x.lon,
-                                x.center ? x.center.lat : x.lat,
-                            ]),
+                        lines.map((line) =>
+                            turf.simplify(line, { tolerance: 0.0001 }),
                         ),
                     ),
                 ).features[0],
             ];
+        }
+        case "sea-level":
+            // Handled in bufferedDeterminer: it is not a distance buffer.
+            return false;
         case "aquarium-full":
         case "zoo-full":
         case "theme_park-full":
@@ -272,18 +304,10 @@ export const determineMeasuringBoundary = async (
                 return [turf.multiPolygon([])];
             }
 
-            return [
-                turf.combine(
-                    turf.featureCollection(
-                        data.elements.map((x: any) =>
-                            turf.point([
-                                x.center ? x.center.lon : x.lon,
-                                x.center ? x.center.lat : x.lat,
-                            ]),
-                        ),
-                    ),
-                ).features[0],
-            ];
+            return pointsOrNothing(
+                data.elements,
+                prettifyLocation(location, true).toLowerCase(),
+            );
         }
         case "custom-measure":
             return turf.combine(
@@ -307,8 +331,37 @@ export const determineMeasuringBoundary = async (
     }
 };
 
+const seaLevelRegion = async (question: MeasuringQuestion) => {
+    const elevation = await elevationAt(question.lat, question.lng);
+    if (elevation === null) {
+        toast.error("Could not load elevation data");
+        return false;
+    }
+    toast.info(
+        `Seekers' elevation: ${Math.round(elevation)} m above sea level`,
+        {
+            toastId: "sea-level",
+        },
+    );
+    const region = await regionLowerThan(
+        turf.bbox(mapGeoJSON.get()!) as [number, number, number, number],
+        elevation,
+    );
+    if (region === null) {
+        toast.error("Could not load elevation data");
+        return false;
+    }
+    // Nothing in the game area is lower than the seekers.
+    if (region.geometry.coordinates.length === 0) {
+        return turf.multiPolygon([]);
+    }
+    return region;
+};
+
 const bufferedDeterminer = _.memoize(
     async (question: MeasuringQuestion) => {
+        if (question.type === "sea-level") return seaLevelRegion(question);
+
         const placeData = await determineMeasuringBoundary(question);
 
         if (placeData === false || placeData === undefined) return false;
@@ -386,8 +439,20 @@ export const hiderifyMeasuring = async (question: MeasuringQuestion) => {
         return question;
     }
 
+    if (question.type === "sea-level") {
+        const [seeker, hider] = await Promise.all([
+            elevationAt(question.lat, question.lng),
+            elevationAt($hiderMode.latitude, $hiderMode.longitude),
+        ]);
+        if (seeker !== null && hider !== null) {
+            question.hiderCloser = hider < seeker;
+        }
+        return question;
+    }
+
     if (question.type === "rail-measure") {
         const stations = trainStations.get();
+        const allStations = allTrainStations.get();
 
         if (stations.length === 0) {
             return question;
@@ -397,7 +462,11 @@ export const hiderifyMeasuring = async (question: MeasuringQuestion) => {
 
         const nearestTrainStation = turf.nearestPoint(
             location,
-            turf.featureCollection(stations.map((x) => x.properties)),
+            turf.featureCollection(
+                allStations.length > 0
+                    ? allStations
+                    : stations.map((x) => x.properties),
+            ) as any,
         );
 
         const distance = await arcDistance(location, nearestTrainStation);
@@ -406,7 +475,11 @@ export const hiderifyMeasuring = async (question: MeasuringQuestion) => {
 
         const hiderNearest = turf.nearestPoint(
             hider,
-            turf.featureCollection(stations.map((x) => x.properties)),
+            turf.featureCollection(
+                allStations.length > 0
+                    ? allStations
+                    : stations.map((x) => x.properties),
+            ) as any,
         );
 
         const hiderDistance = await arcDistance(hider, hiderNearest);

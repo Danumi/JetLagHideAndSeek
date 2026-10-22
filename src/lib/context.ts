@@ -8,6 +8,7 @@ import type {
     CustomStation,
     OpenStreetMap,
     StationCircle,
+    StationPlace,
 } from "@/maps/api";
 import { extractStationLabel } from "@/maps/geo-utils";
 import {
@@ -122,6 +123,12 @@ export const displayHidingZonesStyle = persistentAtom<
 export const questionFinishedMapData = atom<any>(null);
 
 export const trainStations = atom<StationCircle[]>([]);
+/**
+ * Every station in the game area, including ones already ruled out. The
+ * seekers' nearest station must be found among these, not just the
+ * remaining hiding zones.
+ */
+export const allTrainStations = atom<StationPlace[]>([]);
 onSet(trainStations, ({ newValue }) => {
     newValue.sort((a, b) => {
         const aName = (extractStationLabel(a.properties) || "") as string;

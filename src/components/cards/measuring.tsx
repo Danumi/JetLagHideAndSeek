@@ -127,6 +127,31 @@ export const MeasuringQuestionComponent = ({
                 </>
             );
             break;
+        case "sea-level":
+            questionSpecific = (
+                <span className="px-2 text-center">
+                    &quot;Closer&quot; means the hider is lower (closer to sea
+                    level) than the seekers. Elevation from terrain data,
+                    accurate to a few meters.
+                </span>
+            );
+            break;
+        case "water":
+            questionSpecific = (
+                <span className="px-2 text-center">
+                    Counts named lakes, ponds, rivers and canals in the game
+                    area. Pools, fountains and streams don&apos;t count.
+                </span>
+            );
+            break;
+        case "rail-measure":
+            questionSpecific = (
+                <span className="px-2 text-center text-orange-500">
+                    This question only changes the map when you click on a
+                    hiding zone in the hiding zone sidebar.
+                </span>
+            );
+            break;
         case "mcdonalds":
         case "seven11":
             questionSpecific = (

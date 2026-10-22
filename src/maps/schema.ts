@@ -203,6 +203,8 @@ export const tentacleQuestionSchema = z.union([
 const baseMatchingQuestionSchema = ordinaryBaseQuestionSchema.extend({
     same: z.boolean().default(true),
     lengthComparison: z.enum(["shorter", "longer", "same"]).optional(),
+    /** Same train line: the line the seekers are riding (see StationLine.key). */
+    lineKey: z.string().optional(),
 });
 
 const ordinaryMatchingQuestionSchema = baseMatchingQuestionSchema.extend({
@@ -245,6 +247,8 @@ const ordinaryMatchingQuestionSchema = baseMatchingQuestionSchema.extend({
             z
                 .literal("park-full")
                 .describe("Park Question (Small+Medium Games)"),
+            z.literal("street").describe("Street or Path Question"),
+            z.literal("landmass").describe("Landmass Question"),
         ])
         .default("airport"),
 });
@@ -337,6 +341,8 @@ const ordinaryMeasuringQuestionSchema = baseMeasuringQuestionSchema.extend({
                 .literal("highspeed-measure-shinkansen")
                 .describe("High-Speed Rail Question"),
             z.literal("admin-measure").describe("Admin Border Question"),
+            z.literal("water").describe("Body of Water Question"),
+            z.literal("sea-level").describe("Sea Level Question"),
             z
                 .literal("aquarium-full")
                 .describe("Aquarium Question (Small+Medium Games)"),

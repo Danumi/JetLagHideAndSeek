@@ -18,6 +18,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar-r";
 import {
+    allTrainStations,
     animateMapMovements,
     autoZoom,
     customStations as customStationsAtom,
@@ -262,6 +263,8 @@ export const ZoneSidebar = () => {
                 );
             }
 
+            allTrainStations.set(places);
+
             const unionized = safeUnion(
                 turf.simplify($questionFinishedMapData, {
                     tolerance: 0.001,
@@ -300,11 +303,11 @@ export const ZoneSidebar = () => {
                         question.data.lat,
                     ]);
 
+                    // Nearest among all stations: the seekers' own station
+                    // is usually already ruled out as a hiding zone.
                     const nearestTrainStation = turf.nearestPoint(
                         location,
-                        turf.featureCollection(
-                            circles.map((x) => x.properties),
-                        ) as any,
+                        turf.featureCollection(places) as any,
                     );
 
                     if (question.data.type === "same-train-line") {
@@ -324,7 +327,11 @@ export const ZoneSidebar = () => {
                                 continue;
                             }
 
-                            const nodes = await trainLineNodeFinder(nid);
+                            const nodes = await trainLineNodeFinder(
+                                nid,
+                                question.data.lineKey,
+                                question.data.same,
+                            );
 
                             if (nodes.length === 0) {
                                 toast.warning(
@@ -1292,11 +1299,14 @@ async function selectionProcess(
         ) {
             const location = turf.point([question.data.lng, question.data.lat]);
 
+            const allStations = allTrainStations.get();
             const nearestTrainStation = turf.nearestPoint(
                 location,
                 turf.featureCollection(
-                    stations.map((x) => x.properties.geometry),
-                ),
+                    allStations.length > 0
+                        ? allStations.map((x) => x.geometry)
+                        : stations.map((x) => x.properties.geometry),
+                ) as any,
             );
 
             const distance = await arcDistance(location, nearestTrainStation);
