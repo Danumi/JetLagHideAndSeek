@@ -7,7 +7,7 @@ import { type MessageKey, messages } from "@/lib/messages";
 export type { MessageKey };
 
 /*
- * The app speaks German, or English if this phone chose so in the settings.
+ * The app speaks English, or German if this phone chose so in the settings.
  * Every text the app writes itself comes in both languages: in messages.ts,
  * or as a `Text` right where it is used (the cards of the deck). Names from
  * OpenStreetMap stay as on the signs, and Bundesland, Gemeindebezirk and
@@ -21,10 +21,14 @@ export type Language = "de" | "en";
 /** A text in both languages. */
 export type Text = Record<Language, string>;
 
-/** German unless this phone switched to English, also on phones from before. */
-export const language = persistentAtom<Language>("language", "de", {
+/**
+ * English unless this phone switched to German. A new key, since the old one
+ * ("language") holds German on every phone that opened the app while German
+ * was the default, chosen or not.
+ */
+export const language = persistentAtom<Language>("appLanguage", "en", {
     encode: (value) => value,
-    decode: (value) => (value === "en" ? "en" : "de"),
+    decode: (value) => (value === "de" ? "de" : "en"),
 });
 
 if (typeof document !== "undefined") {
