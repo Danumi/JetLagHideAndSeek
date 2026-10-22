@@ -122,6 +122,10 @@ const thermometerQuestionSchema = z.object({
         .number()
         .min(-180, "Longitude must not overlap with the antemeridian")
         .max(180, "Longitude must not overlap with the antemeridian"),
+    /** How precise the GPS position of the start was, in meters; none when set by hand. */
+    accuracyA: z.number().optional(),
+    /** How precise the GPS position of the end was, in meters; none when set by hand. */
+    accuracyB: z.number().optional(),
     warmer: z.boolean().default(true),
     colorA: iconColorSchema.default(randomQuestionColor),
     colorB: iconColorSchema.default(randomQuestionColor),
@@ -141,6 +145,8 @@ const ordinaryBaseQuestionSchema = z.object({
         .number()
         .min(-180, "Longitude must not overlap with the antemeridian")
         .max(180, "Longitude must not overlap with the antemeridian"),
+    /** How precise the GPS position was, in meters; none when set by hand. */
+    accuracy: z.number().optional(),
     /** Note that drag is now synonymous with unlocked */
     drag: z.boolean().default(true),
     color: iconColorSchema.default(randomQuestionColor),

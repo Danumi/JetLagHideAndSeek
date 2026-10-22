@@ -275,6 +275,8 @@ export const DraggableMarkers = () => {
                                         e.target.getLatLng().lat;
                                     question.data.lng =
                                         e.target.getLatLng().lng;
+                                    // Placed by hand, not by GPS
+                                    question.data.accuracy = undefined;
                                     questionModified();
                                 }}
                             />
@@ -297,6 +299,7 @@ export const DraggableMarkers = () => {
                                             e.target.getLatLng().lat;
                                         question.data.lngA =
                                             e.target.getLatLng().lng;
+                                        question.data.accuracyA = undefined;
                                         questionModified();
                                     }}
                                 />
@@ -313,6 +316,7 @@ export const DraggableMarkers = () => {
                                             e.target.getLatLng().lat;
                                         question.data.lngB =
                                             e.target.getLatLng().lng;
+                                        question.data.accuracyB = undefined;
                                         questionModified();
                                     }}
                                 />
