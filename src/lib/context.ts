@@ -389,6 +389,25 @@ export const defaultCustomQuestions = persistentAtom<boolean>(
     },
 );
 
+/** Off: question cards only offer the Small deck. On: every question type. */
+export const showAllQuestionTypes = persistentAtom<boolean>(
+    "showAllQuestionTypes",
+    false,
+    {
+        encode: JSON.stringify,
+        decode: JSON.parse,
+    },
+);
+/** A thermometer the seekers have started but not finished yet. */
+export const thermometerRun = persistentAtom<{
+    latA: number;
+    lngA: number;
+    kilometers: number;
+} | null>("thermometerRun", null, {
+    encode: JSON.stringify,
+    decode: JSON.parse,
+});
+
 export const pastebinApiKey = persistentAtom<string>("pastebinApiKey", "");
 export const alwaysUsePastebin = persistentAtom<boolean>(
     "alwaysUsePastebin",

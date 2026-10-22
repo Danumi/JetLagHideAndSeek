@@ -20,6 +20,7 @@ import {
     findPlacesInZone,
     findPlacesSpecificInZone,
     LOCATION_FIRST_TAG,
+    MAX_PLACES_IN_ZONE,
     nearestToQuestion,
     prettifyLocation,
     QuestionSpecificLocation,
@@ -294,7 +295,7 @@ export const determineMeasuringBoundary = async (
                 return [turf.multiPolygon([])];
             }
 
-            if (data.elements.length >= 1000) {
+            if (data.elements.length >= MAX_PLACES_IN_ZONE) {
                 toast.error(
                     `Too many ${prettifyLocation(
                         location,

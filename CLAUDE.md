@@ -20,6 +20,7 @@ pnpm build            # Produktions-Build (muss vor jedem Push durchlaufen)
 pnpm vitest run       # Tests einmalig
 ```
 
+- Im Entwicklungsserver (`pnpm dev`) öffnet sich die Fragen-Seitenleiste nicht aus anderen Inseln heraus (Modul doppelt geladen). Das klappt nur im Build: `pnpm build && pnpm preview`.
 - `pnpm lint` formatiert das ganze Repo mit Prettier um und erzeugt riesige Diffs. Stattdessen nur geänderte Dateien formatieren: `pnpm eslint --fix <dateien> && pnpm prettier --write <dateien>`.
 - Bekannt und nicht von uns verursacht: 8 Tests in `tests/stationManipulations.test.ts` schlagen fehl (`ReferenceError: require is not defined` aus dem ArcGIS-WASM-Modul unter Vitest). Die übrigen Tests müssen grün bleiben.
 
@@ -39,6 +40,9 @@ pnpm vitest run       # Tests einmalig
 - `src/maps/schema.ts`: alle Fragetypen. Die Gruppe „Hiding Zone Mode" ist im Dropdown nur aktiv, wenn „Display hiding zones?" eingeschaltet ist.
 - `src/components/ZoneSidebar.tsx`: Hiding Zones und die Filter für Stationsfragen (inklusive „Same train line")
 - `src/components/OptionDrawers.tsx`: Einstellungen
+- `src/maps/deck.ts`: Small-Deck (20 Matching, 20 Measuring, Radar- und Thermometer-Distanzen) mit Zuordnung zu den Fragetypen der App; geprüft in `tests/deck.test.ts`
+- `src/components/AskQuestion.tsx`: großer Knopf „Ask a question" über der unteren Leiste und das laufende Thermometer
+- `src/lib/gps.ts`: GPS-Standort für neue Fragen, Seitenleiste zur neuen Frage öffnen
 - `src/lib/context.ts`: persistente Einstellungen (nanostores, localStorage)
 
 ## Wien-Besonderheiten (geprüft am 2026-10-22)
@@ -48,7 +52,8 @@ pnpm vitest run       # Tests einmalig
 - Wiener U-Bahn-Stationen sind `railway=station` + `subway=yes`, S-Bahn-Stationen `railway=station` + `train=yes`.
 - Verwaltungsebenen: 2 Österreich, 4 Bundesland Wien, 6 Wien (Statutarstadt), 9 Gemeindebezirke, 10 Katastralgemeinden. Ebene 8 fehlt.
 - Landmasse: Einzige eigene Landmasse im Spielgebiet ist die Donauinsel. Gänsehäufel und Rohrinsel liegen in der Alten Donau und zählen zum Festland.
-- Der Flughafen Wien liegt außerhalb der Stadtgrenze; Flughafen-Fragen haben laut Regeln keine Antwort.
+- Der Flughafen Wien liegt außerhalb der Stadtgrenze; Flughafen-Fragen haben laut Regeln keine Antwort. Ebenso Internationale Grenze, Küste und 4. Verwaltungsebene.
+- Wien hat rund 1.150 Parks (`leisure=park`). Die sphärische Voronoi-Berechnung liefert bei so dichten Orten einzelne kaputte Zellen; `nearestVoronoiCell` nimmt deshalb die Zelle des nächsten Orts und fällt bei kaputten Zellen auf eine ebene Rechnung zurück.
 
 ## Spielregeln „Small" (Hausregeln, festgelegt am 2026-10-22)
 
@@ -84,6 +89,7 @@ Einheiten: Spieler sehen nur Meter und Kilometer, intern wird teils in Meilen ge
 - Nächste Station der Sucher aus allen Stationen (`allTrainStations`), nicht nur aus den verbleibenden Zonen
 - Neue Fragen: Straße/Weg, Landmasse, Gewässer, Seehöhe (Terrarium-Höhenkacheln)
 - Etappe 1: Augen-Knopf bei Matching/Measuring/Tentakel repariert, „Alle Fragen löschen" nur noch in den Optionen, Rückgängig nach dem Löschen, Thermometer-Start 1 km, Google Analytics, Clarity und Partytown entfernt
+- Etappe 3: Knopf „Ask a question" mit Auswahl nach Small-Deck, neue Fragen am GPS-Standort, Radar-Knöpfe, Thermometer mit mitlaufender Strecke, Verwaltungsebenen mit Wiener Namen, Experten-Schalter „Show all question types?" (Tentakel und alle Varianten), Park-Frage repariert
 - Etappe 2: Start in Wien (OSM-Relation 109166) mit Hiding Zones an U-Bahn-Stationen und 500 m, Knopf „New Game" (`NewGameDialog.tsx`), überall metrisch (Radar-Start 5 km), Tutorial startet nicht mehr von selbst, Stationsnamen nach `name` statt `name:en` (auch im Hider-Modus, der jetzt dieselben Stationsarten wie die Hiding Zones nutzt)
 
 ## Ideen für später

@@ -73,7 +73,7 @@ export const QuestionCard = ({
 
     return (
         <>
-            <SidebarGroup className={className}>
+            <SidebarGroup className={className} data-question-key={questionKey}>
                 <div className="relative">
                     <button
                         onClick={toggleCollapse}

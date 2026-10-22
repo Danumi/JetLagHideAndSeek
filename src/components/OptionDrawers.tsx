@@ -41,6 +41,7 @@ import {
     polyGeoJSON,
     questions,
     save,
+    showAllQuestionTypes,
     showTutorial,
     thunderforestApiKey,
     triggerLocalRefresh,
@@ -109,6 +110,7 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
     const $pastebinApiKey = useStore(pastebinApiKey);
     const $alwaysUsePastebin = useStore(alwaysUsePastebin);
     const $followMe = useStore(followMe);
+    const $showAllQuestionTypes = useStore(showAllQuestionTypes);
     const $customInitPref = useStore(customInitPreference);
     const $overpassHost = useStore(overpassHost);
     const $overpassCustomHost = useStore(overpassCustomHost);
@@ -824,6 +826,24 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                                     }
                                 />
                             </div>
+                            <div className="flex flex-row items-center gap-2">
+                                <label className="text-2xl font-semibold font-poppins">
+                                    Show all question types?
+                                </label>
+                                <Checkbox
+                                    checked={$showAllQuestionTypes}
+                                    onCheckedChange={() =>
+                                        showAllQuestionTypes.set(
+                                            !$showAllQuestionTypes,
+                                        )
+                                    }
+                                />
+                            </div>
+                            <p className="text-xs text-gray-500 text-center">
+                                For experts: question cards also offer tentacles
+                                and the variants that are not part of the Small
+                                deck.
+                            </p>
                             <div className="flex flex-row items-center gap-2">
                                 <label className="text-2xl font-semibold font-poppins">
                                     Allow Google Plus codes?

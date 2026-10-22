@@ -24,6 +24,7 @@ import {
     findPlacesInZone,
     findStreetLines,
     LOCATION_FIRST_TAG,
+    MAX_PLACES_IN_ZONE,
     nearestToQuestion,
     prettifyLocation,
     trainLineNodeFinder,
@@ -32,9 +33,9 @@ import {
     extractStationName,
     holedMask,
     modifyMapData,
+    nearestVoronoiCell,
     safeUnion,
 } from "@/maps/geo-utils";
-import { geoSpatialVoronoi } from "@/maps/geo-utils";
 import type {
     APILocations,
     HomeGameMatchingQuestions,
@@ -107,7 +108,7 @@ export const findMatchingPlaces = async (question: MatchingQuestion) => {
                 return [];
             }
 
-            if (data.elements.length >= 1000) {
+            if (data.elements.length >= MAX_PLACES_IN_ZONE) {
                 toast.error(
                     `Too many ${prettifyLocation(
                         location,
@@ -326,15 +327,12 @@ export const determineMatchingBoundary = _.memoize(
                     return false;
                 }
 
-                const voronoi = geoSpatialVoronoi(data);
-                const point = turf.point([question.lng, question.lat]);
-
-                for (const feature of voronoi.features) {
-                    if (turf.booleanPointInPolygon(point, feature)) {
-                        boundary = feature;
-                        break;
-                    }
-                }
+                // The seekers' cell is the one of their nearest place.
+                // Searching all cells for the seekers can hit a broken one.
+                boundary = nearestVoronoiCell(
+                    data,
+                    turf.point([question.lng, question.lat]),
+                );
                 break;
             }
         }

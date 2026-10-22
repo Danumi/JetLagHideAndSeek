@@ -15,8 +15,9 @@ import {
     addQuestion,
     defaultCustomQuestions,
     isLoading,
-    leafletMapContext,
+    showAllQuestionTypes,
 } from "@/lib/context";
+import { questionLocation } from "@/lib/gps";
 
 export const AddQuestionDialog = ({
     children,
@@ -24,12 +25,12 @@ export const AddQuestionDialog = ({
     children: React.ReactNode;
 }) => {
     const $isLoading = useStore(isLoading);
+    const $showAllQuestionTypes = useStore(showAllQuestionTypes);
     const [open, setOpen] = React.useState(false);
 
-    const runAddRadius = () => {
-        const map = leafletMapContext.get();
-        if (!map) return false;
-        const center = map.getCenter();
+    const runAddRadius = async () => {
+        const center = await questionLocation();
+        if (!center) return false;
         addQuestion({
             id: "radius",
             data: { lat: center.lat, lng: center.lng },
@@ -37,10 +38,9 @@ export const AddQuestionDialog = ({
         return true;
     };
 
-    const runAddThermometer = () => {
-        const map = leafletMapContext.get();
-        if (!map) return false;
-        const center = map.getCenter();
+    const runAddThermometer = async () => {
+        const center = await questionLocation();
+        if (!center) return false;
         const destination = turf.destination([center.lng, center.lat], 1, 90, {
             units: "kilometers",
         });
@@ -58,10 +58,9 @@ export const AddQuestionDialog = ({
         return true;
     };
 
-    const runAddTentacles = () => {
-        const map = leafletMapContext.get();
-        if (!map) return false;
-        const center = map.getCenter();
+    const runAddTentacles = async () => {
+        const center = await questionLocation();
+        if (!center) return false;
         addQuestion({
             id: "tentacles",
             data: defaultCustomQuestions.get()
@@ -76,10 +75,9 @@ export const AddQuestionDialog = ({
         return true;
     };
 
-    const runAddMatching = () => {
-        const map = leafletMapContext.get();
-        if (!map) return false;
-        const center = map.getCenter();
+    const runAddMatching = async () => {
+        const center = await questionLocation();
+        if (!center) return false;
         addQuestion({
             id: "matching",
             data: defaultCustomQuestions.get()
@@ -89,10 +87,9 @@ export const AddQuestionDialog = ({
         return true;
     };
 
-    const runAddMeasuring = () => {
-        const map = leafletMapContext.get();
-        if (!map) return false;
-        const center = map.getCenter();
+    const runAddMeasuring = async () => {
+        const center = await questionLocation();
+        if (!center) return false;
         addQuestion({
             id: "measuring",
             data: defaultCustomQuestions.get()
@@ -146,40 +143,42 @@ export const AddQuestionDialog = ({
 
                 <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
                     <SidebarMenuButton
-                        onClick={() => {
-                            if (runAddRadius()) setOpen(false);
+                        onClick={async () => {
+                            if (await runAddRadius()) setOpen(false);
                         }}
                         disabled={$isLoading}
                     >
-                        Add Radius
+                        Add Radar
                     </SidebarMenuButton>
                     <SidebarMenuButton
-                        onClick={() => {
-                            if (runAddThermometer()) setOpen(false);
+                        onClick={async () => {
+                            if (await runAddThermometer()) setOpen(false);
                         }}
                         disabled={$isLoading}
                     >
                         Add Thermometer
                     </SidebarMenuButton>
+                    {$showAllQuestionTypes && (
+                        <SidebarMenuButton
+                            onClick={async () => {
+                                if (await runAddTentacles()) setOpen(false);
+                            }}
+                            disabled={$isLoading}
+                        >
+                            Add Tentacles
+                        </SidebarMenuButton>
+                    )}
                     <SidebarMenuButton
-                        onClick={() => {
-                            if (runAddTentacles()) setOpen(false);
-                        }}
-                        disabled={$isLoading}
-                    >
-                        Add Tentacles
-                    </SidebarMenuButton>
-                    <SidebarMenuButton
-                        onClick={() => {
-                            if (runAddMatching()) setOpen(false);
+                        onClick={async () => {
+                            if (await runAddMatching()) setOpen(false);
                         }}
                         disabled={$isLoading}
                     >
                         Add Matching
                     </SidebarMenuButton>
                     <SidebarMenuButton
-                        onClick={() => {
-                            if (runAddMeasuring()) setOpen(false);
+                        onClick={async () => {
+                            if (await runAddMeasuring()) setOpen(false);
                         }}
                         disabled={$isLoading}
                     >

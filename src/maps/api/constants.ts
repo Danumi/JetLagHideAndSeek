@@ -9,6 +9,12 @@ export const OVERPASS_HOSTS = {
         "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
 } as const;
 
+/**
+ * Questions about the nearest place of a kind give up above this many places.
+ * Vienna has about 1,150 parks.
+ */
+export const MAX_PLACES_IN_ZONE = 2000;
+
 export const GEOCODER_API = "https://photon.komoot.io/api/";
 export const PASTEBIN_API_POST_URL =
     "https://cors-anywhere.com/https://pastebin.com/api/api_post.php";

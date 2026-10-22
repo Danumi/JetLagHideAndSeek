@@ -1,0 +1,63 @@
+import { toast } from "react-toastify";
+
+import { SidebarContext } from "@/components/ui/sidebar-l";
+import { leafletMapContext } from "@/lib/context";
+
+export type LatLng = { lat: number; lng: number };
+
+/** The device's position, or null when the browser can't or won't tell. */
+export const getCurrentPosition = (): Promise<LatLng | null> =>
+    new Promise((resolve) => {
+        if (typeof navigator === "undefined" || !navigator.geolocation) {
+            resolve(null);
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(
+            (position) =>
+                resolve({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                }),
+            () => resolve(null),
+            { enableHighAccuracy: true, maximumAge: 15_000, timeout: 10_000 },
+        );
+    });
+
+/**
+ * Where a new question starts: the seekers' GPS position, or the map center
+ * when there is no GPS fix (the marker can still be dragged).
+ */
+export const questionLocation = async (): Promise<LatLng | null> => {
+    const position = await toast.promise(getCurrentPosition(), {
+        pending: "Getting your location...",
+    });
+    if (position) return position;
+
+    const map = leafletMapContext.get();
+    if (!map) return null;
+    toast.warning(
+        "Couldn't get your location. The question starts at the map center; drag its marker to where you are.",
+        { autoClose: 6000 },
+    );
+    const center = map.getCenter();
+    return { lat: center.lat, lng: center.lng };
+};
+
+/** Opens the questions sidebar and scrolls to the question just added. */
+export const showQuestion = (questionKey: number) => {
+    // Wait for the question drawer to close, or it takes the sidebar with it
+    setTimeout(() => {
+        const sidebar = SidebarContext.get();
+        if (sidebar.isMobile) {
+            sidebar.setOpenMobile(true);
+        } else {
+            sidebar.setOpen(true);
+        }
+    }, 500);
+    // Then wait for the sidebar to open and the card to render
+    setTimeout(() => {
+        document
+            .querySelector(`[data-question-key="${questionKey}"]`)
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 900);
+};
