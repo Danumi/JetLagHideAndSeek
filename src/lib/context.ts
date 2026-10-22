@@ -58,14 +58,6 @@ export const additionalMapGeoLocations = persistentAtom<
     encode: JSON.stringify,
     decode: JSON.parse,
 });
-export const permanentOverlay = persistentAtom<FeatureCollection | null>(
-    "permanentOverlay",
-    null,
-    {
-        encode: JSON.stringify,
-        decode: JSON.parse,
-    },
-);
 
 export const mapGeoJSON = atom<FeatureCollection<
     Polygon | MultiPolygon
@@ -106,16 +98,11 @@ export const addQuestion = (question: DeepPartial<Question>) =>
     );
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const questionModified = (..._: any[]) => {
-    if (autoSave.get()) {
-        questions.set([...questions.get()]);
-    } else {
-        triggerLocalRefresh.set(Math.random());
-    }
+    questions.set([...questions.get()]);
 };
 
 export const leafletMapContext = atom<Map | null>(null);
 
-export const defaultUnit = persistentAtom<Units>("defaultUnit", "kilometers");
 export type HiderLocation = { latitude: number; longitude: number };
 /** The hider's location while this phone is in hider mode, else false. */
 export const hiderMode = persistentAtom<false | HiderLocation>(
@@ -227,14 +214,6 @@ export const includeDefaultStations = persistentAtom<boolean>(
         decode: JSON.parse,
     },
 );
-export const animateMapMovements = persistentAtom<boolean>(
-    "animateMapMovements",
-    false,
-    {
-        encode: JSON.stringify,
-        decode: JSON.parse,
-    },
-);
 export const hidingRadius = persistentAtom<number>(
     "hidingRadius",
     SMALL_HIDING_RADIUS_METERS,
@@ -253,9 +232,6 @@ export const hidingRadiusUnits = persistentAtom<Units>(
 );
 
 // Players only see metric units: convert settings saved in miles by older versions.
-if (defaultUnit.get() === "miles") {
-    defaultUnit.set("kilometers");
-}
 if (hidingRadiusUnits.get() === "miles") {
     hidingRadius.set(
         Math.round(hidingRadius.get() * 1609.344), // meters per mile
@@ -276,18 +252,6 @@ export const disabledStations = persistentAtom<string[]>(
         decode: JSON.parse,
     },
 );
-export const autoSave = persistentAtom<boolean>("autoSave", true, {
-    encode: JSON.stringify,
-    decode: JSON.parse,
-});
-export const save = () => {
-    questions.set([...questions.get()]);
-    const $hiderMode = hiderMode.get();
-
-    if ($hiderMode !== false) {
-        hiderMode.set({ ...$hiderMode });
-    }
-};
 
 /* Presets for custom questions (savable / sharable / editable) */
 export type CustomPreset = {
@@ -356,7 +320,6 @@ export const hidingZone = computed(
         customStations,
         includeDefaultStations,
         customPresets,
-        permanentOverlay,
     ],
     (
         q,
@@ -371,7 +334,6 @@ export const hidingZone = computed(
         $customStations,
         includeDefault,
         presets,
-        $permanentOverlay,
     ) => {
         if (geo !== null) {
             return {
@@ -385,7 +347,6 @@ export const hidingZone = computed(
                 customStations: $customStations,
                 includeDefaultStations: includeDefault,
                 presets: structuredClone(presets),
-                permanentOverlay: $permanentOverlay,
             };
         } else {
             const $loc = structuredClone(loc);
@@ -402,25 +363,12 @@ export const hidingZone = computed(
                 customStations: $customStations,
                 includeDefaultStations: includeDefault,
                 presets: structuredClone(presets),
-                permanentOverlay: $permanentOverlay,
             };
         }
     },
 );
 
 export const drawingQuestionKey = atom<number>(-1);
-export const planningModeEnabled = persistentAtom<boolean>(
-    "planningModeEnabled",
-    false,
-    {
-        encode: JSON.stringify,
-        decode: JSON.parse,
-    },
-);
-export const autoZoom = persistentAtom<boolean>("autoZoom", true, {
-    encode: JSON.stringify,
-    decode: JSON.parse,
-});
 
 export const isLoading = atom<boolean>(false);
 /** Resolves once the map isn't computing, so its own questions go first. */
@@ -434,17 +382,20 @@ export const mapIdle = () =>
         });
     });
 
-export const baseTileLayer = persistentAtom<
-    "voyager" | "light" | "dark" | "transport" | "neighbourhood" | "osmcarto"
->("baseTileLayer", "voyager");
-export const thunderforestApiKey = persistentAtom<string>(
-    "thunderforestApiKey",
-    "",
-    {
-        encode: (value: string) => value,
-        decode: (value: string) => value,
-    },
+export const BASE_TILE_LAYERS = [
+    "voyager",
+    "light",
+    "dark",
+    "osmcarto",
+] as const;
+export const baseTileLayer = persistentAtom<(typeof BASE_TILE_LAYERS)[number]>(
+    "baseTileLayer",
+    "voyager",
 );
+// Older versions also offered Thunderforest maps, which needed an API key
+if (!BASE_TILE_LAYERS.includes(baseTileLayer.get())) {
+    baseTileLayer.set("voyager");
+}
 /**
  * This phone's last GPS position (accuracy in meters, time it was taken),
  * shown as a blue dot.
@@ -458,14 +409,6 @@ export const myPosition = atom<{
 /** Off: the drawing toolbar only shows while a custom question is drawn. */
 export const showDrawingTools = persistentAtom<boolean>(
     "showDrawingTools",
-    false,
-    {
-        encode: JSON.stringify,
-        decode: JSON.parse,
-    },
-);
-export const defaultCustomQuestions = persistentAtom<boolean>(
-    "defaultCustomQuestions",
     false,
     {
         encode: JSON.stringify,
@@ -492,39 +435,11 @@ export const thermometerRun = persistentAtom<{
     decode: JSON.parse,
 });
 
-export const pastebinApiKey = persistentAtom<string>("pastebinApiKey", "");
-export const alwaysUsePastebin = persistentAtom<boolean>(
-    "alwaysUsePastebin",
-    false,
-    {
-        encode: JSON.stringify,
-        decode: JSON.parse,
-    },
-);
-
 export const showTutorial = persistentAtom<boolean>("showTutorials", false, {
     encode: JSON.stringify,
     decode: JSON.parse,
 });
 export const tutorialStep = atom<number>(0);
-
-export const customInitPreference = persistentAtom<"ask" | "blank" | "prefill">(
-    "customInitPreference",
-    "ask",
-    {
-        encode: JSON.stringify,
-        decode: JSON.parse,
-    },
-);
-
-export const allowGooglePlusCodes = persistentAtom<boolean>(
-    "allowGooglePlusCodes",
-    false,
-    {
-        encode: JSON.stringify,
-        decode: JSON.parse,
-    },
-);
 
 export const overpassHost = persistentAtom<string>(
     "overpassHost",

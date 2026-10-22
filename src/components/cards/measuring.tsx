@@ -11,7 +11,6 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar-l";
 import {
-    customInitPreference,
     displayHidingZones,
     drawingQuestionKey,
     isLoading,
@@ -70,7 +69,6 @@ export const MeasuringQuestionComponent = ({
     const $displayHidingZones = useStore(displayHidingZones);
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $isLoading = useStore(isLoading);
-    const $customInitPref = useStore(customInitPreference);
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
     const [customDialogOpen, setCustomDialogOpen] = React.useState(false);
     const card = measuringCardFor(data);
@@ -316,34 +314,7 @@ export const MeasuringQuestionComponent = ({
                         value={data.type}
                         onValueChange={async (value) => {
                             if (value === "custom-measure") {
-                                if ($customInitPref === "ask") {
-                                    setCustomDialogOpen(true);
-                                    return;
-                                }
-                                if ($customInitPref === "blank") {
-                                    if (!(data as any).geo) {
-                                        (data as any).geo = {
-                                            type: "FeatureCollection",
-                                            features: [],
-                                        };
-                                    } else {
-                                        (data as any).geo.features = [];
-                                    }
-                                } else if ($customInitPref === "prefill") {
-                                    const boundary =
-                                        await determineMeasuringBoundary(data);
-                                    if (!(data as any).geo) {
-                                        (data as any).geo = {
-                                            type: "FeatureCollection",
-                                            features: [],
-                                        };
-                                    }
-                                    (data as any).geo.features = boundary
-                                        ? boundary
-                                        : [];
-                                }
-                                data.type = value;
-                                questionModified();
+                                setCustomDialogOpen(true);
                                 return;
                             }
                             if (

@@ -11,12 +11,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { SidebarMenuButton } from "@/components/ui/sidebar-l";
-import {
-    addQuestion,
-    defaultCustomQuestions,
-    isLoading,
-    showAllQuestionTypes,
-} from "@/lib/context";
+import { addQuestion, isLoading, showAllQuestionTypes } from "@/lib/context";
 import { questionLocation } from "@/lib/gps";
 
 export const AddQuestionDialog = ({
@@ -63,14 +58,7 @@ export const AddQuestionDialog = ({
         if (!center) return false;
         addQuestion({
             id: "tentacles",
-            data: defaultCustomQuestions.get()
-                ? {
-                      lat: center.lat,
-                      lng: center.lng,
-                      locationType: "custom",
-                      places: [],
-                  }
-                : { lat: center.lat, lng: center.lng },
+            data: { lat: center.lat, lng: center.lng },
         });
         return true;
     };
@@ -80,9 +68,7 @@ export const AddQuestionDialog = ({
         if (!center) return false;
         addQuestion({
             id: "matching",
-            data: defaultCustomQuestions.get()
-                ? { lat: center.lat, lng: center.lng, type: "custom-points" }
-                : { lat: center.lat, lng: center.lng },
+            data: { lat: center.lat, lng: center.lng },
         });
         return true;
     };
@@ -92,9 +78,7 @@ export const AddQuestionDialog = ({
         if (!center) return false;
         addQuestion({
             id: "measuring",
-            data: defaultCustomQuestions.get()
-                ? { lat: center.lat, lng: center.lng, type: "custom-measure" }
-                : { lat: center.lat, lng: center.lng },
+            data: { lat: center.lat, lng: center.lng },
         });
         return true;
     };

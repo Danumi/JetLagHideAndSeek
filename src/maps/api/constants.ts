@@ -16,8 +16,6 @@ export const OVERPASS_HOSTS = {
 export const MAX_PLACES_IN_ZONE = 2000;
 
 export const GEOCODER_API = "https://photon.komoot.io/api/";
-export const PASTEBIN_API_POST_URL =
-    "https://cors-anywhere.com/https://pastebin.com/api/api_post.php";
 export const PASTEBIN_API_RAW_URL = "https://pastebin.com/raw/";
 export const PASTEBIN_API_RAW_URL_PROXIED =
     "https://cors-anywhere.com/https://pastebin.com/raw/";

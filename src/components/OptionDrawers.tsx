@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
-import { SettingsIcon } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { ChevronDownIcon, SettingsIcon } from "lucide-react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 import {
@@ -12,17 +12,9 @@ import {
 } from "@/components/ui/drawer";
 import {
     additionalMapGeoLocations,
-    allowGooglePlusCodes,
-    alwaysUsePastebin,
-    animateMapMovements,
-    autoSave,
-    autoZoom,
     baseTileLayer,
-    customInitPreference,
     customPresets,
     customStations,
-    defaultCustomQuestions,
-    defaultUnit,
     disabledStations,
     displayHidingZonesOptions,
     hiderMode,
@@ -30,21 +22,16 @@ import {
     hidingRadiusUnits,
     hidingZone,
     includeDefaultStations,
-    leafletMapContext,
     mapGeoJSON,
     mapGeoLocation,
     overpassCustomHost,
     overpassHost,
-    pastebinApiKey,
-    permanentOverlay,
-    planningModeEnabled,
     polyGeoJSON,
     questions,
     settingsOpen,
     showAllQuestionTypes,
     showDrawingTools,
     showTutorial,
-    thunderforestApiKey,
     triggerLocalRefresh,
     useCustomStations,
 } from "@/lib/context";
@@ -55,7 +42,6 @@ import {
     decompress,
     fetchFromPastebin,
     shareOrFallback,
-    uploadToPastebin,
 } from "@/lib/utils";
 import { OVERPASS_HOSTS } from "@/maps/api/constants";
 import { preloadGameData, preloadProgress } from "@/maps/preload";
@@ -85,37 +71,63 @@ import { Label } from "./ui/label";
 import { Select } from "./ui/select";
 import { Separator } from "./ui/separator";
 import { deleteAllQuestionsWithUndo } from "./UndoToast";
-import { UnitSelect } from "./UnitSelect";
+import { ZoneExpertSettings } from "./ZoneSheet";
 
 const HIDING_ZONE_URL_PARAM = "hz";
 const HIDING_ZONE_COMPRESSED_URL_PARAM = "hzc";
 const PASTEBIN_URL_PARAM = "pb";
 const FETCH_URL_PARAM = "url";
 
+/** One group of options under "Advanced", with a heading. */
+const AdvancedSection = ({
+    title,
+    children,
+}: {
+    title: string;
+    children: ReactNode;
+}) => (
+    <section className="flex w-full flex-col gap-3">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            {title}
+        </h3>
+        {children}
+    </section>
+);
+
+/** A switch with its label, like in the zone settings. */
+const CheckboxRow = ({
+    label,
+    checked,
+    onChange,
+}: {
+    label: string;
+    checked: boolean;
+    onChange: (checked: boolean) => void;
+}) => (
+    <div className="flex items-center justify-between gap-2">
+        <Label className="font-semibold font-poppins">{label}</Label>
+        <Checkbox checked={checked} onCheckedChange={(v) => onChange(!!v)} />
+    </div>
+);
+
+const Hint = ({ children }: { children: ReactNode }) => (
+    <p className="text-xs text-muted-foreground">{children}</p>
+);
+
 export const OptionDrawers = () => {
     useStore(triggerLocalRefresh);
-    const $defaultCustomQuestions = useStore(defaultCustomQuestions);
-    const $allowGooglePlusCodes = useStore(allowGooglePlusCodes);
-    const $defaultUnit = useStore(defaultUnit);
-    const $animateMapMovements = useStore(animateMapMovements);
-    const $autoZoom = useStore(autoZoom);
     const $hiderMode = useStore(hiderMode);
-    const $autoSave = useStore(autoSave);
     const $hidingZone = useStore(hidingZone);
-    const $planningMode = useStore(planningModeEnabled);
     const $baseTileLayer = useStore(baseTileLayer);
-    const $thunderforestApiKey = useStore(thunderforestApiKey);
-    const $pastebinApiKey = useStore(pastebinApiKey);
-    const $alwaysUsePastebin = useStore(alwaysUsePastebin);
     const $showDrawingTools = useStore(showDrawingTools);
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
-    const $customInitPref = useStore(customInitPreference);
     const $overpassHost = useStore(overpassHost);
     const $preloadProgress = useStore(preloadProgress);
     const $overpassCustomHost = useStore(overpassCustomHost);
     const $questions = useStore(questions);
     const isOptionsOpen = useStore(settingsOpen);
     const setOptionsOpen = settingsOpen.set;
+    const [advancedOpen, setAdvancedOpen] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -314,12 +326,6 @@ export const OptionDrawers = () => {
                 includeDefaultStations.set(geojson.includeDefaultStations);
             }
 
-            if (geojson.permanentOverlay) {
-                permanentOverlay.set(geojson.permanentOverlay);
-            } else {
-                permanentOverlay.set(null);
-            }
-
             toast.success("Hiding zone loaded successfully", {
                 autoClose: 2000,
             });
@@ -379,38 +385,14 @@ export const OptionDrawers = () => {
         }
 
         const baseUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
-        let shareUrl = `${baseUrl}?${HIDING_ZONE_COMPRESSED_URL_PARAM}=${compressedData}`;
+        const shareUrl = `${baseUrl}?${HIDING_ZONE_COMPRESSED_URL_PARAM}=${compressedData}`;
 
-        if ($alwaysUsePastebin || shareUrl.length > 2000) {
-            if ($pastebinApiKey) {
-                try {
-                    toast.info("Data is being shared via Pastebin...");
-                    const pastebinUrl = await uploadToPastebin(
-                        $pastebinApiKey,
-                        hidingZoneString,
-                    );
-                    const pasteId = pastebinUrl.substring(
-                        pastebinUrl.lastIndexOf("/") + 1,
-                    );
-                    shareUrl = `${baseUrl}?${PASTEBIN_URL_PARAM}=${pasteId}`;
-                    toast.success(
-                        "Successfully uploaded to Pastebin! URL is ready to be shared.",
-                    );
-                } catch (error) {
-                    console.error("Pastebin upload failed:", error);
-                    toast.warning(
-                        "Pastebin upload failed, falling back to file download.",
-                    );
-                    saveToFile();
-                    return;
-                }
-            } else {
-                toast.info(
-                    "Data is too large for a URL — saving to file instead.",
-                );
-                saveToFile();
-                return;
-            }
+        if (shareUrl.length > 2000) {
+            toast.info(
+                "The game is too large for a link, saving a file instead.",
+            );
+            saveToFile();
+            return;
         }
 
         // Show platform native share sheet if possible
@@ -463,7 +445,7 @@ export const OptionDrawers = () => {
                                 Settings
                             </DrawerTitle>
                         </DrawerHeader>
-                        <div className="overflow-y-scroll max-h-[70svh] flex flex-col items-center gap-4 max-w-[1000px] px-6 sm:px-12">
+                        <div className="overflow-y-auto max-h-[70svh] flex w-full flex-col items-center gap-4 px-6">
                             <NewGameDialog
                                 className="h-12 w-full max-w-[320px] text-lg"
                                 onStart={() => setOptionsOpen(false)}
@@ -506,98 +488,30 @@ export const OptionDrawers = () => {
                             </div>
                             <div className="grid w-full max-w-[320px] grid-cols-2 gap-2">
                                 <Button
+                                    variant="outline"
                                     onClick={share}
                                     data-tutorial-id="share-questions-button"
                                 >
                                     Share game
                                 </Button>
                                 <Button
+                                    variant="outline"
                                     onClick={() => {
                                         setOptionsOpen(false);
                                         showTutorial.set(true);
                                     }}
                                 >
-                                    Tutorial
-                                </Button>
-                            </div>
-                            <Separator className="bg-slate-300 w-[280px]" />
-                            <Label>Game area</Label>
-                            <PlacePicker className="w-[300px] max-w-full" />
-                            <Separator className="bg-slate-300 w-[280px]" />
-                            <Label>Tools</Label>
-                            <div className="grid w-full max-w-[320px] grid-cols-2 gap-2">
-                                <Button
-                                    onClick={saveToFile}
-                                    title="Download current hiding zone as a JSON file"
-                                >
-                                    Save File
-                                </Button>
-                                <Button
-                                    onClick={() =>
-                                        fileInputRef.current?.click()
-                                    }
-                                    title="Load a hiding zone from a JSON file"
-                                >
-                                    Load File
-                                </Button>
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label className="text-2xl font-semibold font-poppins">
-                                    Show drawing tools?
-                                </label>
-                                <Checkbox
-                                    checked={$showDrawingTools}
-                                    onCheckedChange={() =>
-                                        showDrawingTools.set(!$showDrawingTools)
-                                    }
-                                />
-                            </div>
-                            <p className="text-xs text-gray-500 text-center">
-                                Draw the game area by hand (top left of the
-                                map).
-                            </p>
-                            <Separator className="bg-slate-300 w-[280px]" />
-                            <div className="flex flex-row max-[330px]:flex-col gap-4">
-                                <Button
-                                    onClick={() => {
-                                        if (!navigator || !navigator.clipboard)
-                                            return toast.error(
-                                                "Clipboard not supported",
-                                            );
-                                        navigator.clipboard.writeText(
-                                            JSON.stringify($hidingZone),
-                                        );
-                                        toast.success(
-                                            "Hiding zone copied successfully",
-                                            {
-                                                autoClose: 2000,
-                                            },
-                                        );
-                                    }}
-                                >
-                                    Copy Hiding Zone
-                                </Button>
-                                <Button
-                                    onClick={() => {
-                                        if (!navigator || !navigator.clipboard)
-                                            return toast.error(
-                                                "Clipboard not supported",
-                                            );
-                                        navigator.clipboard
-                                            .readText()
-                                            .then(loadHidingZone);
-                                    }}
-                                >
-                                    Paste Hiding Zone
+                                    Help
                                 </Button>
                             </div>
                             <AlertDialog>
                                 <AlertDialogTrigger asChild>
                                     <Button
-                                        variant="destructive"
+                                        variant="outline"
+                                        className="w-full max-w-[320px] border-red-500/60 text-red-500 hover:bg-red-500/10 hover:text-red-500"
                                         disabled={$questions.length === 0}
                                     >
-                                        Delete All Questions
+                                        Delete all questions
                                     </Button>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
@@ -626,296 +540,141 @@ export const OptionDrawers = () => {
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
                             </AlertDialog>
-                            <Separator className="bg-slate-300 w-[280px]" />
-                            <Label>Default Unit</Label>
-                            <UnitSelect
-                                unit={$defaultUnit}
-                                onChange={defaultUnit.set}
-                            />
-                            <Separator className="bg-slate-300 w-[280px]" />
-                            <Label>New Custom Question Defaults</Label>
-                            <Select
-                                trigger="New custom default"
-                                options={{
-                                    ask: "Ask each time",
-                                    blank: "Start blank",
-                                    prefill: "Copy from current",
-                                }}
-                                value={$customInitPref}
-                                onValueChange={(v) =>
-                                    customInitPreference.set(v as any)
-                                }
-                            />
-                            <Separator className="bg-slate-300 w-[280px]" />
-                            <Label>Base map style</Label>
-                            <Select
-                                trigger="Base map style"
-                                options={{
-                                    voyager: "CARTO Voyager",
-                                    light: "CARTO Light",
-                                    dark: "CARTO Dark",
-                                    transport: "Thunderforest Transport",
-                                    neighbourhood:
-                                        "Thunderforest Neighbourhood",
-                                    osmcarto: "OpenStreetMap Carto",
-                                }}
-                                value={$baseTileLayer}
-                                onValueChange={(v) =>
-                                    baseTileLayer.set(v as any)
-                                }
-                            />
-                            <div className="flex flex-col items-center gap-2">
-                                <Label>Thunderforest API Key</Label>
-                                <Input
-                                    type="text"
-                                    value={$thunderforestApiKey}
-                                    id="thunderforestApiKey"
-                                    onChange={(e) =>
-                                        thunderforestApiKey.set(e.target.value)
-                                    }
-                                    placeholder="Enter your Thunderforest API key"
+                            <Separator className="w-full max-w-[320px]" />
+                            <Button
+                                variant="ghost"
+                                className="w-full max-w-[320px] justify-between text-muted-foreground"
+                                aria-expanded={advancedOpen}
+                                onClick={() => setAdvancedOpen(!advancedOpen)}
+                            >
+                                Advanced
+                                <ChevronDownIcon
+                                    className={cn(
+                                        "transition-transform",
+                                        advancedOpen && "rotate-180",
+                                    )}
                                 />
-                                <p className="text-xs text-gray-500">
-                                    Needed for Thunderforest map styles. Create
-                                    a key{" "}
-                                    <a
-                                        href="https://manage.thunderforest.com/users/sign_up?price=hobby-project-usd"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-blue-500 cursor-pointer"
-                                    >
-                                        here.
-                                    </a>{" "}
-                                    Don&apos;t worry, it&apos;s free.
-                                </p>
-                            </div>
-                            <Separator className="bg-slate-300 w-[280px]" />
-                            <div className="flex flex-col items-center gap-2">
-                                <Label>Pastebin API Key</Label>
-                                <Input
-                                    type="text"
-                                    value={$pastebinApiKey}
-                                    id="pastebinApiKey"
-                                    onChange={(e) =>
-                                        pastebinApiKey.set(e.target.value)
-                                    }
-                                    placeholder="Enter your Pastebin API key"
-                                />
-                                <p className="text-xs text-gray-500">
-                                    Optional. If set, large game data will be
-                                    shared via Pastebin URL; otherwise it falls
-                                    back to a JSON file download. Create a key{" "}
-                                    <a
-                                        href="https://pastebin.com/doc_api"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-blue-500 cursor-pointer"
-                                    >
-                                        here
-                                    </a>
-                                    .
-                                </p>
-                            </div>
-                            <Separator className="bg-slate-300 w-[280px]" />
-                            <Label>Overpass API Host</Label>
-                            <Select
-                                trigger="Overpass API host"
-                                options={{
-                                    ...Object.fromEntries(
-                                        Object.entries(OVERPASS_HOSTS).map(
-                                            ([label, url]) => [url, label],
-                                        ),
-                                    ),
-                                    custom: "Custom URL",
-                                }}
-                                value={$overpassHost}
-                                onValueChange={(v) =>
-                                    overpassHost.set(v as any)
-                                }
-                            />
-                            {$overpassHost === "custom" && (
-                                <div className="flex flex-col items-center gap-2 w-full">
-                                    <Input
-                                        type="text"
-                                        value={$overpassCustomHost}
-                                        onChange={(e) =>
-                                            overpassCustomHost.set(
-                                                e.target.value,
-                                            )
-                                        }
-                                        placeholder="https://your-overpass-instance/api/interpreter"
-                                    />
+                            </Button>
+                            {advancedOpen && (
+                                <div className="flex w-full max-w-[320px] flex-col gap-6 pb-4">
+                                    <AdvancedSection title="Map data">
+                                        <Label>Overpass API Host</Label>
+                                        <Select
+                                            trigger="Overpass API host"
+                                            options={{
+                                                ...Object.fromEntries(
+                                                    Object.entries(
+                                                        OVERPASS_HOSTS,
+                                                    ).map(([label, url]) => [
+                                                        url,
+                                                        label,
+                                                    ]),
+                                                ),
+                                                custom: "Custom URL",
+                                            }}
+                                            value={$overpassHost}
+                                            onValueChange={(v) =>
+                                                overpassHost.set(v as any)
+                                            }
+                                        />
+                                        {$overpassHost === "custom" && (
+                                            <Input
+                                                type="text"
+                                                value={$overpassCustomHost}
+                                                onChange={(e) =>
+                                                    overpassCustomHost.set(
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                placeholder="https://your-overpass-instance/api/interpreter"
+                                            />
+                                        )}
+                                        <Hint>
+                                            {$overpassHost === "custom"
+                                                ? "The other hosts will be used as fallbacks if this one fails."
+                                                : "The remaining hosts will be tried as fallbacks if the selected one fails."}
+                                        </Hint>
+                                        <Button
+                                            variant="outline"
+                                            disabled={$preloadProgress !== null}
+                                            onClick={() => preloadGameData()}
+                                        >
+                                            Preload map data
+                                        </Button>
+                                        <Hint>
+                                            Loads the data of every question
+                                            card for the game area, so answers
+                                            don&apos;t have to wait. &quot;New
+                                            Game&quot; does this by itself.
+                                        </Hint>
+                                    </AdvancedSection>
+                                    <AdvancedSection title="Map style">
+                                        <Select
+                                            trigger="Map style"
+                                            options={{
+                                                voyager: "Standard",
+                                                light: "Light",
+                                                dark: "Dark",
+                                                osmcarto: "OpenStreetMap",
+                                            }}
+                                            value={$baseTileLayer}
+                                            onValueChange={(v) =>
+                                                baseTileLayer.set(v as any)
+                                            }
+                                        />
+                                    </AdvancedSection>
+                                    <AdvancedSection title="Questions">
+                                        <CheckboxRow
+                                            label="Show all question types?"
+                                            checked={$showAllQuestionTypes}
+                                            onChange={showAllQuestionTypes.set}
+                                        />
+                                        <Hint>
+                                            For experts: question cards also
+                                            offer tentacles and the variants
+                                            that are not part of the Small deck.
+                                        </Hint>
+                                    </AdvancedSection>
+                                    <AdvancedSection title="Game file">
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <Button
+                                                variant="outline"
+                                                onClick={saveToFile}
+                                            >
+                                                Save file
+                                            </Button>
+                                            <Button
+                                                variant="outline"
+                                                onClick={() =>
+                                                    fileInputRef.current?.click()
+                                                }
+                                            >
+                                                Load file
+                                            </Button>
+                                        </div>
+                                        <Hint>
+                                            Saves the game area, questions and
+                                            ruled-out zones in a file, or loads
+                                            such a file.
+                                        </Hint>
+                                    </AdvancedSection>
+                                    <AdvancedSection title="Game area">
+                                        <PlacePicker className="w-full" />
+                                        <CheckboxRow
+                                            label="Show drawing tools?"
+                                            checked={$showDrawingTools}
+                                            onChange={showDrawingTools.set}
+                                        />
+                                        <Hint>
+                                            Draw the game area by hand (top left
+                                            of the map).
+                                        </Hint>
+                                    </AdvancedSection>
+                                    <AdvancedSection title="Hiding zones">
+                                        <ZoneExpertSettings />
+                                    </AdvancedSection>
                                 </div>
                             )}
-                            <p className="text-xs text-gray-500 text-center">
-                                {$overpassHost === "custom"
-                                    ? "The other hosts will be used as fallbacks if this one fails."
-                                    : "The remaining hosts will be tried as fallbacks if the selected one fails."}
-                            </p>
-                            <Button
-                                variant="outline"
-                                disabled={$preloadProgress !== null}
-                                onClick={() => preloadGameData()}
-                            >
-                                Preload map data
-                            </Button>
-                            <p className="text-xs text-gray-500 text-center">
-                                Loads the data of every question card for the
-                                game area, so answers don&apos;t have to wait.
-                                &quot;New Game&quot; does this by itself.
-                            </p>
-                            <Separator className="bg-slate-300 w-[280px]" />
-                            <Label>Permanent Map Overlay</Label>
-                            <div className="flex flex-row max-[330px]:flex-col gap-4">
-                                <Button
-                                    onClick={() => permanentOverlay.set(null)}
-                                >
-                                    Remove
-                                </Button>
-                                <Button
-                                    onClick={async () => {
-                                        if (!navigator || !navigator.clipboard)
-                                            return toast.error(
-                                                "Clipboard not supported",
-                                            );
-
-                                        try {
-                                            const clipboard =
-                                                await navigator.clipboard.readText();
-                                            const geojson =
-                                                JSON.parse(clipboard);
-                                            permanentOverlay.set(geojson);
-                                        } catch (e) {
-                                            toast.error(
-                                                `Invalid GeoJSON overlay: ${e}`,
-                                            );
-                                        }
-                                    }}
-                                >
-                                    Paste GeoJSON
-                                </Button>
-                            </div>
-                            <Separator className="bg-slate-300 w-[280px]" />
-                            <div className="flex flex-row items-center gap-2">
-                                <label className="text-2xl font-semibold font-poppins">
-                                    Animate map movements?
-                                </label>
-                                <Checkbox
-                                    checked={$animateMapMovements}
-                                    onCheckedChange={() => {
-                                        animateMapMovements.set(
-                                            !$animateMapMovements,
-                                        );
-                                    }}
-                                />
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label className="text-2xl font-semibold font-poppins">
-                                    Force Pastebin for sharing?
-                                </label>
-                                <Checkbox
-                                    checked={$alwaysUsePastebin}
-                                    onCheckedChange={() =>
-                                        alwaysUsePastebin.set(
-                                            !$alwaysUsePastebin,
-                                        )
-                                    }
-                                />
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label className="text-2xl font-semibold font-poppins">
-                                    Enable planning mode?
-                                </label>
-                                <Checkbox
-                                    checked={$planningMode}
-                                    onCheckedChange={() => {
-                                        if ($planningMode === true) {
-                                            const map = leafletMapContext.get();
-
-                                            if (map) {
-                                                map.eachLayer((layer: any) => {
-                                                    if (
-                                                        layer.questionKey ||
-                                                        layer.questionKey === 0
-                                                    ) {
-                                                        map.removeLayer(layer);
-                                                    }
-                                                });
-                                            }
-                                        } else {
-                                            questions.set([...questions.get()]); // I think that this should always be auto-saved
-                                        }
-
-                                        planningModeEnabled.set(!$planningMode);
-                                    }}
-                                />
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label className="text-2xl font-semibold font-poppins">
-                                    Auto save?
-                                </label>
-                                <Checkbox
-                                    checked={$autoSave}
-                                    onCheckedChange={() =>
-                                        autoSave.set(!$autoSave)
-                                    }
-                                />
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label className="text-2xl font-semibold font-poppins">
-                                    Auto zoom?
-                                </label>
-                                <Checkbox
-                                    checked={$autoZoom}
-                                    onCheckedChange={() =>
-                                        autoZoom.set(!$autoZoom)
-                                    }
-                                />
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label className="text-2xl font-semibold font-poppins">
-                                    Default to custom questions?
-                                </label>
-                                <Checkbox
-                                    checked={$defaultCustomQuestions}
-                                    onCheckedChange={() =>
-                                        defaultCustomQuestions.set(
-                                            !$defaultCustomQuestions,
-                                        )
-                                    }
-                                />
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label className="text-2xl font-semibold font-poppins">
-                                    Show all question types?
-                                </label>
-                                <Checkbox
-                                    checked={$showAllQuestionTypes}
-                                    onCheckedChange={() =>
-                                        showAllQuestionTypes.set(
-                                            !$showAllQuestionTypes,
-                                        )
-                                    }
-                                />
-                            </div>
-                            <p className="text-xs text-gray-500 text-center">
-                                For experts: question cards also offer tentacles
-                                and the variants that are not part of the Small
-                                deck.
-                            </p>
-                            <div className="flex flex-row items-center gap-2">
-                                <label className="text-2xl font-semibold font-poppins">
-                                    Allow Google Plus codes?
-                                </label>
-                                <Checkbox
-                                    checked={$allowGooglePlusCodes}
-                                    onCheckedChange={() =>
-                                        allowGooglePlusCodes.set(
-                                            !$allowGooglePlusCodes,
-                                        )
-                                    }
-                                />
-                            </div>
                         </div>
                     </div>
                 </DrawerContent>

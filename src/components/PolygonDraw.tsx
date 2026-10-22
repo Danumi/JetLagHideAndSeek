@@ -14,13 +14,11 @@ import { FeatureGroup, Marker, Polygon, Polyline, useMap } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 
 import {
-    autoSave,
     drawingQuestionKey,
     mapGeoJSON,
     polyGeoJSON,
     questionModified,
     questions,
-    save,
     showDrawingTools,
 } from "@/lib/context";
 import { CacheType, clearCache } from "@/maps/api";
@@ -35,11 +33,7 @@ import type {
 import { LatitudeLongitude } from "./LatLngPicker";
 import { Dialog, DialogContent } from "./ui/dialog";
 import { Input } from "./ui/input";
-import {
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-} from "./ui/sidebar-l";
+import { SidebarMenu } from "./ui/sidebar-l";
 
 const swapCoordinates = (geojson: any) => {
     return JSON.parse(JSON.stringify(geojson), (key, value) => {
@@ -60,7 +54,6 @@ const TentacleMarker = ({
 }: {
     point: CustomTentacleQuestion["places"][number];
 }) => {
-    const $autoSave = useStore(autoSave);
     const [open, setOpen] = useState(false);
 
     return (
@@ -104,16 +97,6 @@ const TentacleMarker = ({
                                 questionModified();
                             }}
                         />
-                        {!$autoSave && (
-                            <SidebarMenuItem>
-                                <SidebarMenuButton
-                                    className="bg-blue-600 p-2 rounded-md font-semibold font-poppins transition-shadow duration-500 mt-2"
-                                    onClick={save}
-                                >
-                                    Save
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        )}
                     </SidebarMenu>
                 </div>
             </DialogContent>
@@ -126,7 +109,6 @@ const MatchingPointMarker = ({
 }: {
     point: CustomMatchingQuestion["geo"][number];
 }) => {
-    const $autoSave = useStore(autoSave);
     const [open, setOpen] = useState(false);
 
     return (
@@ -162,16 +144,6 @@ const MatchingPointMarker = ({
                                 questionModified();
                             }}
                         />
-                        {!$autoSave && (
-                            <SidebarMenuItem>
-                                <SidebarMenuButton
-                                    className="bg-blue-600 p-2 rounded-md font-semibold font-poppins transition-shadow duration-500 mt-2"
-                                    onClick={save}
-                                >
-                                    Save
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        )}
                     </SidebarMenu>
                 </div>
             </DialogContent>
@@ -184,7 +156,6 @@ const MeasuringPointMarker = ({
 }: {
     point: CustomMeasuringQuestion["geo"]["features"][number];
 }) => {
-    const $autoSave = useStore(autoSave);
     const [open, setOpen] = useState(false);
 
     return (
@@ -220,16 +191,6 @@ const MeasuringPointMarker = ({
                                 questionModified();
                             }}
                         />
-                        {!$autoSave && (
-                            <SidebarMenuItem>
-                                <SidebarMenuButton
-                                    className="bg-blue-600 p-2 rounded-md font-semibold font-poppins transition-shadow duration-500 mt-2"
-                                    onClick={save}
-                                >
-                                    Save
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        )}
                     </SidebarMenu>
                 </div>
             </DialogContent>

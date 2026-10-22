@@ -2,7 +2,6 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 import {
-    PASTEBIN_API_POST_URL,
     PASTEBIN_API_RAW_URL,
     PASTEBIN_API_RAW_URL_PROXIED,
 } from "@/maps/api/constants";
@@ -60,30 +59,6 @@ export const decompress = async (
     const arrayBuffer = await new Response(cs.readable).arrayBuffer();
     return new TextDecoder().decode(arrayBuffer);
 };
-
-export async function uploadToPastebin(
-    apiKey: string,
-    data: string,
-): Promise<string> {
-    const formData = new FormData();
-    formData.append("api_option", "paste");
-    formData.append("api_dev_key", apiKey);
-    formData.append("api_paste_code", data);
-    formData.append("api_paste_private", "1"); // 1 for unlisted
-    formData.append("api_paste_expire_date", "N"); // N for never
-
-    const response = await fetch(PASTEBIN_API_POST_URL, {
-        method: "POST",
-        body: formData,
-    });
-
-    const responseText = await response.text();
-    if (!response.ok || responseText.startsWith("Bad API request,")) {
-        throw new Error("Pastebin API error: " + responseText);
-    }
-
-    return responseText;
-}
 
 export async function fetchFromPastebin(pasteId: string): Promise<string> {
     let response;

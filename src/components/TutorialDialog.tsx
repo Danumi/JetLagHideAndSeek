@@ -573,8 +573,6 @@ const tutorialSteps: TutorialStep[] = [
                 in URL
                 <br />• <strong>Compressed Links:</strong> Smaller URLs for
                 complex games
-                <br />• <strong>Pastebin Integration:</strong> For very large
-                game states
                 <br />
                 <br />
                 <strong>What Gets Shared:</strong>
@@ -618,66 +616,6 @@ const tutorialSteps: TutorialStep[] = [
             </>
         ),
         position: "center",
-    },
-    {
-        title: "Advanced Options and Settings",
-        content: (
-            <>
-                The options menu contains powerful customization features that
-                significantly impact your gameplay experience:
-                <br />
-                <br />
-                <strong>Display Options:</strong>
-                <br />• <strong>Auto-zoom:</strong> Automatically fits map to
-                relevant areas when adding questions or analyzing zones. Disable
-                for manual zoom control.
-                <br />• <strong>Animate Map Movements:</strong> Smooth
-                transitions between map positions vs instant jumps.
-                <br />• <strong>Highlight Train Lines:</strong> Visual emphasis
-                on railway networks. Requires Thunderforest API key but provides
-                crucial visual context for train-related questions.
-                <br />• <strong>Follow Me:</strong> GPS tracking for mobile use.
-                Adds a marker that follows your location in real-time.
-                <br />
-                <br />
-                <strong>Unit Preferences:</strong>
-                <br />• <strong>Default Unit:</strong> Kilometers or meters for
-                new questions. This becomes the default for all new questions.
-                Choose based on your region&apos;s conventions.
-                <br />• Affects all distance-based questions and measurements
-                throughout the entire game
-                <br />
-                <br />
-                <strong>Automation:</strong>
-                <br />• <strong>Auto-save:</strong> Continuous saving vs manual
-                save control. When disabled, you&apos;ll see &ldquo;Save&rdquo;
-                buttons appear on question cards for manual control.{" "}
-                <strong>
-                    I highly recommend disabling this as I find that it makes
-                    changing data easier.
-                </strong>
-                <br />• <strong>Planning Mode:</strong> Preview question effects
-                before finalizing.{" "}
-                <strong>
-                    I highly recommend enabling this as it let&apos;s you see
-                    all potential outcomes of a question, better improving your
-                    strategy.
-                </strong>
-                <br />
-                <br />
-                <strong>API Integration:</strong>
-                <br />• <strong>Thunderforest API Key:</strong> Enhanced map
-                tiles
-                <br />• <strong>Pastebin API Key:</strong> Improved sharing for
-                large games
-                <br />• <strong>Always Use Pastebin:</strong> Force external
-                hosting for all shares. This is also useful if you want to
-                generate a QR code containing the link, as this makes the QR
-                code much less convoluted.
-            </>
-        ),
-        targetSelector: '[data-tutorial-id="option-questions-button"]',
-        position: "top",
     },
     {
         title: "Data Sources, Accuracy, and Limitations",
@@ -752,7 +690,6 @@ const tutorialSteps: TutorialStep[] = [
                 <br />✓ Set up your game area using Place Picker or custom
                 polygons
                 <br />✓ Add and configure questions using the five main types
-                <br />✓ Test your setup with Planning Mode if desired
                 <br />✓ Configure options for optimal performance and experience
                 <br />✓ Share the game link with all players using Share button
                 <br />✓ Use Hider Mode for automatic question answering

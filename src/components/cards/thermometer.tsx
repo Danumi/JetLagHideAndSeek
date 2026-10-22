@@ -3,7 +3,6 @@ import { point } from "@turf/turf";
 import { useEffect, useState } from "react";
 
 import { LatitudeLongitude } from "@/components/LatLngPicker";
-import { defaultUnit } from "@/lib/context";
 import {
     isLoading,
     questionModified,
@@ -31,9 +30,6 @@ export const ThermometerQuestionComponent = ({
     const $questions = useStore(questions);
     const $isLoading = useStore(isLoading);
 
-    const $defaultUnit = useStore(defaultUnit);
-    const DISTANCE_UNIT = $defaultUnit === "meters" ? "meters" : "kilometers";
-
     const label = numberedTitle($questions, questionKey);
 
     const hasCoords =
@@ -53,7 +49,7 @@ export const ThermometerQuestionComponent = ({
         arcDistance(
             point([data.lngA!, data.latA!]),
             point([data.lngB!, data.latB!]),
-            DISTANCE_UNIT,
+            "kilometers",
         ).then((distance) => {
             if (!cancelled) setDistanceValue(distance);
         });
@@ -61,7 +57,7 @@ export const ThermometerQuestionComponent = ({
         return () => {
             cancelled = true;
         };
-    }, [data.latA, data.lngA, data.latB, data.lngB, DISTANCE_UNIT, hasCoords]);
+    }, [data.latA, data.lngA, data.latB, data.lngB, hasCoords]);
 
     return (
         <QuestionCard
@@ -108,9 +104,7 @@ export const ThermometerQuestionComponent = ({
                 <div className="px-2 text-sm text-muted-foreground">
                     Distance:{" "}
                     <span className="font-medium text-foreground">
-                        {DISTANCE_UNIT === "meters"
-                            ? `${distanceValue.toFixed(0)} m`
-                            : `${distanceValue.toFixed(3)} km`}
+                        {`${distanceValue.toFixed(3)} km`}
                     </span>
                 </div>
             )}
