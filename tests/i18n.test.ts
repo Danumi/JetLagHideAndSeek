@@ -140,8 +140,8 @@ const untranslated = (file: string) => {
 };
 
 describe("the app in German and English", () => {
-    it("speaks German unless the phone chose English", () => {
-        expect(language.get()).toBe("de");
+    it("speaks English unless the phone chose German", () => {
+        expect(language.get()).toBe("en");
     });
 
     it("has every text in both languages", () => {
