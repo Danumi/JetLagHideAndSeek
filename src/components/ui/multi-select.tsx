@@ -144,7 +144,7 @@ export const MultiSelect = React.forwardRef<
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [isAnimating, setIsAnimating] = React.useState(false);
 
-        // Follow changes made elsewhere, e.g. by "Neues Spiel"
+        // Follow changes made elsewhere, e.g. by "New Game"
         const defaultValueKey = defaultValue.join("\n");
         React.useEffect(() => {
             setSelectedValues((current) =>

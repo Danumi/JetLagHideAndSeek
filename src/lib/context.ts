@@ -20,7 +20,7 @@ import {
     type Units,
 } from "@/maps/schema";
 
-/** Wien (OSM relation 109166, admin level 4), the default game area. */
+/** Vienna (OSM relation 109166, admin level 4), the default game area. */
 export const VIENNA: OpenStreetMap = {
     type: "Feature",
     properties: {
@@ -29,8 +29,8 @@ export const VIENNA: OpenStreetMap = {
         osm_key: "place",
         osm_value: "city",
         type: "city",
-        name: "Wien",
-        country: "Österreich",
+        name: "Vienna",
+        country: "Austria",
         countrycode: "AT",
     },
     geometry: {

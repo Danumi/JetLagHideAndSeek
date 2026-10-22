@@ -206,17 +206,17 @@ export const QuestionCard = ({
                                 <AlertDialogContent>
                                     <AlertDialogHeader>
                                         <AlertDialogTitle>
-                                            Frage löschen?
+                                            Delete question?
                                         </AlertDialogTitle>
                                         <AlertDialogDescription>
-                                            Die Frage verschwindet von der
-                                            Karte. Direkt danach kannst du das
-                                            noch rückgängig machen.
+                                            The question disappears from the
+                                            map. You can undo this right
+                                            afterwards.
                                         </AlertDialogDescription>
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
                                         <AlertDialogCancel>
-                                            Abbrechen
+                                            Cancel
                                         </AlertDialogCancel>
                                         <AlertDialogAction
                                             onClick={() =>
@@ -226,7 +226,7 @@ export const QuestionCard = ({
                                             }
                                             className="mb-2 sm:mb-0"
                                         >
-                                            Löschen
+                                            Delete
                                         </AlertDialogAction>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>

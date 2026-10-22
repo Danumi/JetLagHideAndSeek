@@ -12,6 +12,9 @@ export default defineConfig({
             applyBaseStyles: false,
         }),
         AstroPWA({
+            // Phones load a new deployment on the next visit instead of
+            // keeping the old version until every tab is closed
+            registerType: "autoUpdate",
             manifest: {
                 name: "Jet Lag Hide and Seek Map Generator",
                 short_name: "Map Generator",
