@@ -17,12 +17,14 @@ import {
     polyGeoJSON,
     questionFinishedMapData,
     questions,
+    selectedZoneId,
     SMALL_HIDING_RADIUS_METERS,
     SUBWAY_STATIONS,
     trainStations,
     useCustomStations,
     VIENNA,
 } from "@/lib/context";
+import { cn } from "@/lib/utils";
 import { preloadGameData } from "@/maps/preload";
 
 import {
@@ -49,6 +51,7 @@ export const startNewGame = () => {
     defaultUnit.set("kilometers");
     useCustomStations.set(false);
     disabledStations.set([]);
+    selectedZoneId.set("");
     displayHidingZonesOptions.set([SUBWAY_STATIONS]);
     hidingRadius.set(SMALL_HIDING_RADIUS_METERS);
     hidingRadiusUnits.set("meters");
@@ -72,7 +75,14 @@ export const startNewGame = () => {
     preloadGameData({ refreshOldData: true });
 };
 
-export const NewGameDialog = () => {
+export const NewGameDialog = ({
+    className,
+    onStart,
+}: {
+    className?: string;
+    /** Called once the new game has started, e.g. to close the settings. */
+    onStart?: () => void;
+}) => {
     const $isLoading = useStore(isLoading);
     const $questions = useStore(questions);
     const [open, setOpen] = useState(false);
@@ -81,7 +91,10 @@ export const NewGameDialog = () => {
         <AlertDialog open={open} onOpenChange={setOpen}>
             <AlertDialogTrigger asChild>
                 <Button
-                    className="shadow-md"
+                    className={cn(
+                        "bg-blue-600 font-semibold text-white shadow-md hover:bg-blue-700",
+                        className,
+                    )}
                     disabled={$isLoading}
                     title="Vienna, Small game: U-Bahn stations only, 500 m"
                 >
@@ -110,7 +123,10 @@ export const NewGameDialog = () => {
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
-                            onClick={startNewGame}
+                            onClick={() => {
+                                startNewGame();
+                                onStart?.();
+                            }}
                             className="mb-2 sm:mb-0"
                         >
                             New Game

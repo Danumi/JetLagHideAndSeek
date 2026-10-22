@@ -79,7 +79,16 @@ export const polyGeoJSON = persistentAtom<FeatureCollection<
 
 export const questions = persistentAtom<Questions>("questions", [], {
     encode: JSON.stringify,
-    decode: (x) => questionsSchema.parse(JSON.parse(x)),
+    decode: (x) => {
+        const saved = JSON.parse(x);
+        const parsed = questionsSchema.safeParse(saved);
+        if (parsed.success) return parsed.data;
+        // Keep every question that still loads instead of breaking the app
+        return (Array.isArray(saved) ? saved : []).flatMap((question) => {
+            const one = questionSchema.safeParse(question);
+            return one.success ? [one.data] : [];
+        });
+    },
 });
 /** New questions wait for the hider's answer before they change the map. */
 export const addQuestion = (question: DeepPartial<Question>) =>
@@ -153,6 +162,9 @@ export const displayHidingZonesOptions = persistentAtom<string[]>(
 export const displayHidingZonesStyle = persistentAtom<
     "zones" | "stations" | "no-overlap" | "no-display"
 >("displayHidingZonesStyle", "zones");
+/** The hiding zone shown on its own (its station's id), or "" for all zones. */
+export const selectedZoneId = atom<string>("");
+export const zoneSheetOpen = atom<boolean>(false);
 export const questionFinishedMapData = atom<any>(null);
 
 export const trainStations = atom<StationCircle[]>([]);
@@ -235,6 +247,12 @@ if (hidingRadiusUnits.get() === "miles") {
     hidingRadius.set(
         Math.round(hidingRadius.get() * 1609.344), // meters per mile
     );
+    hidingRadiusUnits.set("meters");
+}
+// An emptied radius field used to save an invalid radius
+const savedHidingRadius = hidingRadius.get();
+if (!(Number.isFinite(savedHidingRadius) && savedHidingRadius > 0)) {
+    hidingRadius.set(SMALL_HIDING_RADIUS_METERS);
     hidingRadiusUnits.set("meters");
 }
 export const disabledStations = persistentAtom<string[]>(
@@ -404,10 +422,25 @@ export const thunderforestApiKey = persistentAtom<string>(
         decode: (value: string) => value,
     },
 );
-export const followMe = persistentAtom<boolean>("followMe", false, {
-    encode: JSON.stringify,
-    decode: JSON.parse,
-});
+/**
+ * This phone's last GPS position (accuracy in meters, time it was taken),
+ * shown as a blue dot.
+ */
+export const myPosition = atom<{
+    lat: number;
+    lng: number;
+    accuracy: number;
+    at: number;
+} | null>(null);
+/** Off: the drawing toolbar only shows while a custom question is drawn. */
+export const showDrawingTools = persistentAtom<boolean>(
+    "showDrawingTools",
+    false,
+    {
+        encode: JSON.stringify,
+        decode: JSON.parse,
+    },
+);
 export const defaultCustomQuestions = persistentAtom<boolean>(
     "defaultCustomQuestions",
     false,

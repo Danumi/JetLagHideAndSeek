@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import * as turf from "@turf/turf";
-import { ChevronLeftIcon, VenetianMaskIcon } from "lucide-react";
+import { ChevronLeftIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { TbMessage2Question } from "react-icons/tb";
 import { toast } from "react-toastify";
@@ -18,8 +18,6 @@ import { Input } from "@/components/ui/input";
 import {
     addQuestion,
     displayHidingZones,
-    hiderMode,
-    hiderScreenOpen,
     isLoading,
     leafletMapContext,
     questions,
@@ -66,38 +64,8 @@ const formatDistance = (kilometers: number) =>
         ? `${Math.round(kilometers * 1000)} m`
         : `${kilometers.toFixed(2)} km`;
 
-/** The big "Ask a question" button, or the running thermometer. */
-export const AskQuestion = () => {
-    const $thermometerRun = useStore(thermometerRun);
-    const $hiderMode = useStore(hiderMode);
-
-    // The hider doesn't ask questions: back to the hider screen instead
-    if ($hiderMode !== false) {
-        return (
-            <Button
-                className="h-14 rounded-full bg-violet-700 px-6 text-lg font-semibold text-white shadow-lg hover:bg-violet-800"
-                onClick={() => hiderScreenOpen.set(true)}
-            >
-                <VenetianMaskIcon className="!size-6" />
-                Hider mode
-            </Button>
-        );
-    }
-
-    return (
-        <div className="flex flex-col items-center gap-2">
-            <WaitingForAnswer />
-            {$thermometerRun ? (
-                <ThermometerTracker run={$thermometerRun} />
-            ) : (
-                <AskQuestionDrawer />
-            )}
-        </div>
-    );
-};
-
 /** Reminder of questions without an answer; opens the first one. */
-const WaitingForAnswer = () => {
+export const WaitingForAnswer = () => {
     const $questions = useStore(questions);
     const pending = $questions.filter(isPending);
 
@@ -115,8 +83,10 @@ const WaitingForAnswer = () => {
     );
 };
 
-const AskQuestionDrawer = () => {
+/** The big "Ask a question" button and the question cards it opens. */
+export const AskQuestionDrawer = ({ className }: { className?: string }) => {
     const $isLoading = useStore(isLoading);
+    const $thermometerRun = useStore(thermometerRun);
     const $displayHidingZones = useStore(displayHidingZones);
     const [open, setOpen] = useState(false);
     const [kind, setKind] = useState<Kind | null>(null);
@@ -193,7 +163,7 @@ const AskQuestionDrawer = () => {
         const note = card.noAnswer
             ? `No answer in Vienna. ${card.noAnswer}`
             : needsZones
-              ? "Turn on hiding zones first (right sidebar)."
+              ? "Turn on hiding zones first (Zones → Zone settings)."
               : card.hint;
 
         return (
@@ -351,9 +321,13 @@ const AskQuestionDrawer = () => {
             }}
         >
             <DrawerTrigger asChild>
+                {/* One question at a time: not while a thermometer runs */}
                 <Button
-                    className="h-14 rounded-full bg-blue-600 px-6 text-lg font-semibold text-white shadow-lg hover:bg-blue-700"
-                    disabled={$isLoading}
+                    className={cn(
+                        "h-14 rounded-xl bg-blue-600 px-4 text-base font-semibold text-white shadow-lg hover:bg-blue-700",
+                        className,
+                    )}
+                    disabled={$isLoading || !!$thermometerRun}
                 >
                     <TbMessage2Question className="!size-6" />
                     Ask a question
@@ -390,7 +364,8 @@ const AskQuestionDrawer = () => {
     );
 };
 
-const ThermometerTracker = ({
+/** The thermometer on its way: distance so far and "Set end here". */
+export const ThermometerTracker = ({
     run,
 }: {
     run: { latA: number; lngA: number; kilometers: number };

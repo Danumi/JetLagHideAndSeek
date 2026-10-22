@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
-import { type DragEndEvent, Icon } from "leaflet";
-import { useState } from "react";
+import { divIcon, type DragEndEvent } from "leaflet";
+import { useMemo, useState } from "react";
 import { Fragment } from "react/jsx-runtime";
 import { Marker } from "react-leaflet";
 
@@ -13,8 +13,10 @@ import {
     save,
     triggerLocalRefresh,
 } from "@/lib/context";
-import type { ICON_COLORS } from "@/maps/api";
+import { isLogged, isPending } from "@/maps/answers";
+import { ICON_COLORS } from "@/maps/api";
 
+import { QuestionLogRow } from "./cards/answer";
 import { LatitudeLongitude } from "./LatLngPicker";
 import {
     MatchingQuestionComponent,
@@ -28,10 +30,32 @@ import { SidebarMenu } from "./ui/sidebar-l";
 
 let isDragging = false;
 
+/**
+ * A pin with the question's number. Hollow pins are a thermometer's start,
+ * an orange ring means the question still waits for its answer.
+ */
+const numberedPin = (
+    label: string,
+    color: string,
+    { hollow = false, pending = false } = {},
+) =>
+    divIcon({
+        className: "",
+        iconSize: [32, 42],
+        iconAnchor: [16, 40],
+        html: `<div style="position:relative;width:32px;height:42px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))">
+            <div style="position:absolute;left:10px;top:24px;width:12px;height:12px;background:${color};transform:rotate(45deg)"></div>
+            <div style="position:absolute;left:0;top:0;width:32px;height:32px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font:700 15px/1 Poppins,sans-serif;background:${hollow ? "#fff" : color};color:${hollow ? color : "#fff"};border:3px solid ${pending ? "#f97316" : hollow ? color : "#fff"}">${label}</div>
+        </div>`,
+    });
+
 const ColoredMarker = ({
     latitude,
     longitude,
     color,
+    label,
+    hollow = false,
+    draggable = true,
     onChange,
     questionKey,
     sub = "",
@@ -40,6 +64,9 @@ const ColoredMarker = ({
     latitude: number;
     longitude: number;
     color: keyof typeof ICON_COLORS;
+    label: string;
+    hollow?: boolean;
+    draggable?: boolean;
     questionKey: number;
     sub?: string;
 }) => {
@@ -47,25 +74,23 @@ const ColoredMarker = ({
     const $hiderMode = useStore(hiderMode);
     const $autoSave = useStore(autoSave);
     const [open, setOpen] = useState(false);
+    const question = $questions.find((q) => q.key === questionKey);
+    const pending = !!question && isPending(question);
+    const icon = useMemo(
+        () =>
+            numberedPin(label, ICON_COLORS[color] ?? ICON_COLORS.blue, {
+                hollow,
+                pending,
+            }),
+        [label, color, hollow, pending],
+    );
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <Marker
                 position={[latitude, longitude]}
-                icon={
-                    color
-                        ? new Icon({
-                              iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${color}.png`,
-                              shadowUrl:
-                                  "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
-                              iconSize: [25, 41],
-                              iconAnchor: [12, 41],
-                              popupAnchor: [1, -34],
-                              shadowSize: [41, 41],
-                          })
-                        : undefined
-                }
-                draggable={true}
+                icon={icon}
+                draggable={draggable}
                 eventHandlers={{
                     dragstart: () => {
                         isDragging = true;
@@ -110,6 +135,16 @@ const ColoredMarker = ({
                 {$questions
                     .filter((q) => q.key === questionKey)
                     .map((q) => {
+                        // Answered questions: their line from the question log
+                        if (isLogged(q)) {
+                            return (
+                                <QuestionLogRow
+                                    key={q.key}
+                                    question={q}
+                                    number={$questions.indexOf(q) + 1}
+                                />
+                            );
+                        }
                         switch (q.id) {
                             case "radius":
                                 return (
@@ -193,7 +228,8 @@ export const DraggableMarkers = () => {
         <Fragment>
             {$hiderMode !== false && (
                 <ColoredMarker
-                    color="green"
+                    color="violet"
+                    label="H"
                     key="hider"
                     sub="Hider Location"
                     questionKey={-1}
@@ -215,10 +251,12 @@ export const DraggableMarkers = () => {
                     }}
                 />
             )}
-            {$questions.map((question) => {
+            {$questions.map((question, index) => {
                 if (!question.data) return null;
-                if (!question.data.drag) return null;
                 if (question.data.hidden) return null;
+                // Answered questions stay on the map, locked in place
+                const draggable = !!question.data.drag;
+                const label = String(index + 1);
                 if (
                     question.id === "matching" &&
                     question.data.type === "custom-zone"
@@ -233,6 +271,8 @@ export const DraggableMarkers = () => {
                         return (
                             <ColoredMarker
                                 color={question.data.color}
+                                label={label}
+                                draggable={draggable}
                                 key={question.key}
                                 questionKey={question.key}
                                 latitude={question.data.lat}
@@ -251,6 +291,9 @@ export const DraggableMarkers = () => {
                             <Fragment key={question.key}>
                                 <ColoredMarker
                                     color={question.data.colorA}
+                                    label={label}
+                                    hollow
+                                    draggable={draggable}
                                     key={"a" + question.key.toString()}
                                     questionKey={question.key}
                                     sub="Start"
@@ -266,6 +309,8 @@ export const DraggableMarkers = () => {
                                 />
                                 <ColoredMarker
                                     color={question.data.colorB}
+                                    label={label}
+                                    draggable={draggable}
                                     key={"b" + question.key.toString()}
                                     questionKey={question.key}
                                     sub="End"

@@ -15,12 +15,12 @@ import {
     animateMapMovements,
     autoZoom,
     baseTileLayer,
-    followMe,
     hiderMode,
     isLoading,
     leafletMapContext,
     mapGeoJSON,
     mapGeoLocation,
+    myPosition,
     permanentOverlay,
     planningModeEnabled,
     polyGeoJSON,
@@ -36,12 +36,18 @@ import { hiderifyQuestion } from "@/maps";
 import { determineMapBoundaries } from "@/maps/api";
 
 import { DraggableMarkers } from "./DraggableMarkers";
-import { LeafletFullScreenButton } from "./LeafletFullScreenButton";
-import { MapPrint } from "./MapPrint";
 import { PolygonDraw } from "./PolygonDraw";
 
 /** The map is computed once questions stop changing for this long. */
 const MAP_REFRESH_DELAY_MS = 400;
+
+/** Where the hider can't be any more. */
+const ELIMINATED_STYLE: L.PathOptions = {
+    color: "#334155",
+    weight: 2,
+    fillColor: "#475569",
+    fillOpacity: 0.45,
+};
 
 const getTileLayer = (tileLayer: string, thunderforestApiKey: string) => {
     switch (tileLayer) {
@@ -126,18 +132,9 @@ export const Map = ({ className }: { className?: string }) => {
     const $baseTileLayer = useStore(baseTileLayer);
     const $thunderforestApiKey = useStore(thunderforestApiKey);
     const $hiderMode = useStore(hiderMode);
-    const $followMe = useStore(followMe);
     const $permanentOverlay = useStore(permanentOverlay);
     const map = useStore(leafletMapContext);
 
-    const followMeMarkerRef = useMemo(
-        () => ({ current: null as L.Marker | null }),
-        [],
-    );
-    const geoWatchIdRef = useMemo(
-        () => ({ current: null as number | null }),
-        [],
-    );
     // Time of the last touch, click or scroll on the map
     const lastMapInteractionRef = useMemo(() => ({ current: 0 }), []);
     // A refresh asked for while the map is busy runs once it is done, so an
@@ -246,7 +243,10 @@ export const Map = ({ className }: { className?: string }) => {
                 }
             });
 
-            const g = L.geoJSON(mapGeoData);
+            const g = L.geoJSON(mapGeoData, {
+                style: ELIMINATED_STYLE,
+                interactive: false,
+            });
             // @ts-expect-error This is a check such that only this type of layer is removed
             g.eliminationGeoJSON = true;
             g.addTo(map);
@@ -287,6 +287,7 @@ export const Map = ({ className }: { className?: string }) => {
             <MapContainer
                 center={$mapGeoLocation.geometry.coordinates}
                 zoom={5}
+                zoomControl={false}
                 className={cn("w-[500px] h-[500px]", className)}
                 ref={leafletMapContext.set}
                 // @ts-expect-error Typing doesn't update from react-contextmenu
@@ -412,25 +413,8 @@ export const Map = ({ className }: { className?: string }) => {
             >
                 {getTileLayer($baseTileLayer, $thunderforestApiKey)}
                 <DraggableMarkers />
-                <div className="leaflet-top leaflet-right">
-                    <div className="leaflet-control flex-col flex gap-2">
-                        <LeafletFullScreenButton />
-                    </div>
-                </div>
                 <PolygonDraw />
-                <ScaleControl position="bottomleft" imperial={false} />
-                <MapPrint
-                    position="topright"
-                    sizeModes={["Current", "A4Portrait", "A4Landscape"]}
-                    hideControlContainer={false}
-                    hideClasses={[
-                        "leaflet-full-screen-specific-name",
-                        "leaflet-top",
-                        "leaflet-control-easyPrint",
-                        "leaflet-draw",
-                    ]}
-                    title="Print"
-                />
+                <ScaleControl position="topleft" imperial={false} />
             </MapContainer>
         ),
         [map, $baseTileLayer, $thunderforestApiKey],
@@ -505,78 +489,60 @@ export const Map = ({ className }: { className?: string }) => {
     }, [map]);
 
     useEffect(() => {
-        const handleFullscreenChange = () => {
-            const mainElement: HTMLElement | null =
-                document.querySelector("main");
-
-            if (mainElement) {
-                if (document.fullscreenElement) {
-                    mainElement.classList.add("fullscreen");
-                } else {
-                    mainElement.classList.remove("fullscreen");
-                }
-            }
-        };
-
-        document.addEventListener("fullscreenchange", handleFullscreenChange);
-
-        return () => {
-            document.removeEventListener(
-                "fullscreenchange",
-                handleFullscreenChange,
-            );
-        };
-    }, []);
-
-    useEffect(() => {
-        if (!map) return;
-        if (!$followMe) {
-            if (followMeMarkerRef.current) {
-                map.removeLayer(followMeMarkerRef.current);
-                followMeMarkerRef.current = null;
-            }
-            if (geoWatchIdRef.current !== null) {
-                navigator.geolocation.clearWatch(geoWatchIdRef.current);
-                geoWatchIdRef.current = null;
-            }
+        if (!map || typeof navigator === "undefined" || !navigator.geolocation)
             return;
-        }
 
-        geoWatchIdRef.current = navigator.geolocation.watchPosition(
+        // Your own position: a blue dot with a light circle for its accuracy,
+        // above the grey area and the zones but below the question markers
+        const pane = map.getPane("myPosition") ?? map.createPane("myPosition");
+        pane.style.zIndex = "450";
+        pane.style.pointerEvents = "none";
+        let dot: L.CircleMarker | null = null;
+        let halo: L.Circle | null = null;
+        const watchId = navigator.geolocation.watchPosition(
             (pos) => {
-                const lat = pos.coords.latitude;
-                const lng = pos.coords.longitude;
-                if (followMeMarkerRef.current) {
-                    followMeMarkerRef.current.setLatLng([lat, lng]);
-                } else {
-                    const marker = L.marker([lat, lng], {
-                        icon: L.divIcon({
-                            html: `<div class="text-blue-700 bg-white rounded-full border-2 border-blue-700 shadow w-5 h-5 flex items-center justify-center"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="#2A81CB" opacity="0.5"/><circle cx="8" cy="8" r="3" fill="#2A81CB"/></svg></div>`,
-                            className: "",
-                        }),
-                        zIndexOffset: 1000,
-                    });
-                    marker.addTo(map);
-                    followMeMarkerRef.current = marker;
+                const position = {
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude,
+                    accuracy: pos.coords.accuracy,
+                    at: Date.now(),
+                };
+                myPosition.set(position);
+                const latLng: L.LatLngExpression = [position.lat, position.lng];
+                if (dot && halo) {
+                    dot.setLatLng(latLng);
+                    halo.setLatLng(latLng).setRadius(position.accuracy);
+                    return;
                 }
+                halo = L.circle(latLng, {
+                    radius: position.accuracy,
+                    stroke: false,
+                    fillColor: "#2563eb",
+                    fillOpacity: 0.12,
+                    interactive: false,
+                    pane: "myPosition",
+                }).addTo(map);
+                dot = L.circleMarker(latLng, {
+                    radius: 8,
+                    color: "#ffffff",
+                    weight: 3,
+                    fillColor: "#2563eb",
+                    fillOpacity: 1,
+                    interactive: false,
+                    pane: "myPosition",
+                }).addTo(map);
             },
-            () => {
-                toast.error("Unable to access your location.");
-                followMe.set(false);
-            },
-            { enableHighAccuracy: true, maximumAge: 10000, timeout: 20000 },
+            // No dot without permission or signal; questions still ask for GPS
+            () => {},
+            { enableHighAccuracy: true, maximumAge: 10_000 },
         );
+
         return () => {
-            if (followMeMarkerRef.current) {
-                map.removeLayer(followMeMarkerRef.current);
-                followMeMarkerRef.current = null;
-            }
-            if (geoWatchIdRef.current !== null) {
-                navigator.geolocation.clearWatch(geoWatchIdRef.current);
-                geoWatchIdRef.current = null;
-            }
+            navigator.geolocation.clearWatch(watchId);
+            dot?.remove();
+            halo?.remove();
         };
-    }, [$followMe, map]);
+    }, [map]);
 
     useEffect(() => {
         if (!map) return;

@@ -1,4 +1,5 @@
 import { useStore } from "@nanostores/react";
+import { SettingsIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -24,7 +25,6 @@ import {
     defaultUnit,
     disabledStations,
     displayHidingZonesOptions,
-    followMe,
     hiderMode,
     hiderScreenOpen,
     hidingRadius,
@@ -42,13 +42,13 @@ import {
     polyGeoJSON,
     questions,
     showAllQuestionTypes,
+    showDrawingTools,
     showTutorial,
     thunderforestApiKey,
     triggerLocalRefresh,
     useCustomStations,
 } from "@/lib/context";
 import {
-    cn,
     compress,
     decompress,
     fetchFromPastebin,
@@ -64,6 +64,7 @@ import {
 } from "@/maps/schema";
 
 import { NewGameDialog } from "./NewGameDialog";
+import { PlacePicker } from "./PlacePicker";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -89,7 +90,7 @@ const HIDING_ZONE_COMPRESSED_URL_PARAM = "hzc";
 const PASTEBIN_URL_PARAM = "pb";
 const FETCH_URL_PARAM = "url";
 
-export const OptionDrawers = ({ className }: { className?: string }) => {
+export const OptionDrawers = () => {
     useStore(triggerLocalRefresh);
     const $defaultCustomQuestions = useStore(defaultCustomQuestions);
     const $allowGooglePlusCodes = useStore(allowGooglePlusCodes);
@@ -104,7 +105,7 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
     const $thunderforestApiKey = useStore(thunderforestApiKey);
     const $pastebinApiKey = useStore(pastebinApiKey);
     const $alwaysUsePastebin = useStore(alwaysUsePastebin);
-    const $followMe = useStore(followMe);
+    const $showDrawingTools = useStore(showDrawingTools);
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
     const $customInitPref = useStore(customInitPreference);
     const $overpassHost = useStore(overpassHost);
@@ -363,13 +364,72 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
         reader.readAsText(file);
     };
 
+    const share = async () => {
+        const hidingZoneString = JSON.stringify($hidingZone);
+        let compressedData;
+        try {
+            compressedData = await compress(hidingZoneString);
+        } catch (error) {
+            console.error("Compression failed:", error);
+            toast.error(`Failed to prepare data for sharing`);
+            return;
+        }
+
+        const baseUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+        let shareUrl = `${baseUrl}?${HIDING_ZONE_COMPRESSED_URL_PARAM}=${compressedData}`;
+
+        if ($alwaysUsePastebin || shareUrl.length > 2000) {
+            if ($pastebinApiKey) {
+                try {
+                    toast.info("Data is being shared via Pastebin...");
+                    const pastebinUrl = await uploadToPastebin(
+                        $pastebinApiKey,
+                        hidingZoneString,
+                    );
+                    const pasteId = pastebinUrl.substring(
+                        pastebinUrl.lastIndexOf("/") + 1,
+                    );
+                    shareUrl = `${baseUrl}?${PASTEBIN_URL_PARAM}=${pasteId}`;
+                    toast.success(
+                        "Successfully uploaded to Pastebin! URL is ready to be shared.",
+                    );
+                } catch (error) {
+                    console.error("Pastebin upload failed:", error);
+                    toast.warning(
+                        "Pastebin upload failed, falling back to file download.",
+                    );
+                    saveToFile();
+                    return;
+                }
+            } else {
+                toast.info(
+                    "Data is too large for a URL — saving to file instead.",
+                );
+                saveToFile();
+                return;
+            }
+        }
+
+        // Show platform native share sheet if possible
+        await shareOrFallback(shareUrl).then((result) => {
+            console.log(`result ${result}`);
+            if (result === false) {
+                return toast.error(
+                    `Clipboard not supported. Try manually copying/pasting: ${shareUrl}`,
+                    { className: "p-0 w-[1000px]" },
+                );
+            }
+
+            if (result === "clipboard") {
+                toast.success("Hiding zone URL copied to clipboard", {
+                    autoClose: 2000,
+                });
+            }
+        });
+    };
+
     return (
-        <div
-            className={cn(
-                "flex justify-end gap-2 max-[412px]:!mb-4 max-[640px]:overflow-x-auto max-[640px]:w-[85vw] max-[640px]:justify-start max-[640px]:[&>button]:flex-shrink-0 max-[640px]:[&>div]:flex-shrink-0 max-[640px]:pb-1",
-                className,
-            )}
-        >
+        <>
             <input
                 ref={fileInputRef}
                 type="file"
@@ -381,120 +441,83 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                     e.target.value = "";
                 }}
             />
-            <NewGameDialog />
-            <Button
-                className="shadow-md"
-                onClick={saveToFile}
-                title="Download current hiding zone as a JSON file"
-            >
-                Save File
-            </Button>
-            <Button
-                className="shadow-md"
-                onClick={() => fileInputRef.current?.click()}
-                title="Load a hiding zone from a JSON file"
-            >
-                Load File
-            </Button>
-            <Button
-                className="shadow-md"
-                onClick={async () => {
-                    const hidingZoneString = JSON.stringify($hidingZone);
-                    let compressedData;
-                    try {
-                        compressedData = await compress(hidingZoneString);
-                    } catch (error) {
-                        console.error("Compression failed:", error);
-                        toast.error(`Failed to prepare data for sharing`);
-                        return;
-                    }
-
-                    const baseUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
-                    let shareUrl = `${baseUrl}?${HIDING_ZONE_COMPRESSED_URL_PARAM}=${compressedData}`;
-
-                    if ($alwaysUsePastebin || shareUrl.length > 2000) {
-                        if ($pastebinApiKey) {
-                            try {
-                                toast.info(
-                                    "Data is being shared via Pastebin...",
-                                );
-                                const pastebinUrl = await uploadToPastebin(
-                                    $pastebinApiKey,
-                                    hidingZoneString,
-                                );
-                                const pasteId = pastebinUrl.substring(
-                                    pastebinUrl.lastIndexOf("/") + 1,
-                                );
-                                shareUrl = `${baseUrl}?${PASTEBIN_URL_PARAM}=${pasteId}`;
-                                toast.success(
-                                    "Successfully uploaded to Pastebin! URL is ready to be shared.",
-                                );
-                            } catch (error) {
-                                console.error("Pastebin upload failed:", error);
-                                toast.warning(
-                                    "Pastebin upload failed, falling back to file download.",
-                                );
-                                saveToFile();
-                                return;
-                            }
-                        } else {
-                            toast.info(
-                                "Data is too large for a URL — saving to file instead.",
-                            );
-                            saveToFile();
-                            return;
-                        }
-                    }
-
-                    // Show platform native share sheet if possible
-                    await shareOrFallback(shareUrl).then((result) => {
-                        console.log(`result ${result}`);
-                        if (result === false) {
-                            return toast.error(
-                                `Clipboard not supported. Try manually copying/pasting: ${shareUrl}`,
-                                { className: "p-0 w-[1000px]" },
-                            );
-                        }
-
-                        if (result === "clipboard") {
-                            toast.success(
-                                "Hiding zone URL copied to clipboard",
-                                {
-                                    autoClose: 2000,
-                                },
-                            );
-                        }
-                    });
-                }}
-                data-tutorial-id="share-questions-button"
-            >
-                Share
-            </Button>
-            <Button
-                className="w-24 shadow-md"
-                onClick={() => {
-                    showTutorial.set(true);
-                }}
-            >
-                Tutorial
-            </Button>
             <Drawer open={isOptionsOpen} onOpenChange={setOptionsOpen}>
-                <DrawerTrigger className="w-24" asChild>
+                <DrawerTrigger asChild>
                     <Button
-                        className="w-24 shadow-md"
+                        size="icon"
+                        variant="outline"
+                        className="h-11 w-11 rounded-full bg-background/95 text-foreground shadow-lg"
+                        title="Settings"
                         data-tutorial-id="option-questions-button"
                     >
-                        Options
+                        <SettingsIcon className="!size-5" />
                     </Button>
                 </DrawerTrigger>
                 <DrawerContent>
                     <div className="flex flex-col items-center gap-4 mb-4">
                         <DrawerHeader>
                             <DrawerTitle className="text-4xl font-semibold font-poppins">
-                                Options
+                                Settings
                             </DrawerTitle>
                         </DrawerHeader>
-                        <div className="overflow-y-scroll max-h-[40vh] flex flex-col items-center gap-4 max-w-[1000px] px-12">
+                        <div className="overflow-y-scroll max-h-[70svh] flex flex-col items-center gap-4 max-w-[1000px] px-6 sm:px-12">
+                            <NewGameDialog
+                                className="h-12 w-full max-w-[320px] text-lg"
+                                onStart={() => setOptionsOpen(false)}
+                            />
+                            <div className="grid w-full max-w-[320px] grid-cols-2 gap-2">
+                                <Button
+                                    onClick={share}
+                                    data-tutorial-id="share-questions-button"
+                                >
+                                    Share game
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        setOptionsOpen(false);
+                                        showTutorial.set(true);
+                                    }}
+                                >
+                                    Tutorial
+                                </Button>
+                            </div>
+                            <Separator className="bg-slate-300 w-[280px]" />
+                            <Label>Game area</Label>
+                            <PlacePicker className="w-[300px] max-w-full" />
+                            <Separator className="bg-slate-300 w-[280px]" />
+                            <Label>Tools</Label>
+                            <div className="grid w-full max-w-[320px] grid-cols-2 gap-2">
+                                <Button
+                                    onClick={saveToFile}
+                                    title="Download current hiding zone as a JSON file"
+                                >
+                                    Save File
+                                </Button>
+                                <Button
+                                    onClick={() =>
+                                        fileInputRef.current?.click()
+                                    }
+                                    title="Load a hiding zone from a JSON file"
+                                >
+                                    Load File
+                                </Button>
+                            </div>
+                            <div className="flex flex-row items-center gap-2">
+                                <label className="text-2xl font-semibold font-poppins">
+                                    Show drawing tools?
+                                </label>
+                                <Checkbox
+                                    checked={$showDrawingTools}
+                                    onCheckedChange={() =>
+                                        showDrawingTools.set(!$showDrawingTools)
+                                    }
+                                />
+                            </div>
+                            <p className="text-xs text-gray-500 text-center">
+                                Draw the game area by hand (top left of the
+                                map).
+                            </p>
+                            <Separator className="bg-slate-300 w-[280px]" />
                             <div className="flex flex-row max-[330px]:flex-col gap-4">
                                 <Button
                                     onClick={() => {
@@ -812,17 +835,6 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                             </div>
                             <div className="flex flex-row items-center gap-2">
                                 <label className="text-2xl font-semibold font-poppins">
-                                    Follow Me (GPS)?
-                                </label>
-                                <Checkbox
-                                    checked={$followMe}
-                                    onCheckedChange={() =>
-                                        followMe.set(!$followMe)
-                                    }
-                                />
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label className="text-2xl font-semibold font-poppins">
                                     Default to custom questions?
                                 </label>
                                 <Checkbox
@@ -880,6 +892,6 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                     </div>
                 </DrawerContent>
             </Drawer>
-        </div>
+        </>
     );
 };

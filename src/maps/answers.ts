@@ -156,7 +156,9 @@ export const formatKilometers = (kilometers: number) =>
         : `${Number(kilometers.toFixed(1))} km`;
 
 const formatRadius = (radius: number, unit: Units) =>
-    formatKilometers(turf.convertLength(radius, unit, "kilometers"));
+    Number.isFinite(radius) && radius >= 0
+        ? formatKilometers(turf.convertLength(radius, unit, "kilometers"))
+        : "?";
 
 /** Short name of the question, like "Radar 2 km" or "Matching: Museum". */
 export const questionTitle = (question: Question) => {

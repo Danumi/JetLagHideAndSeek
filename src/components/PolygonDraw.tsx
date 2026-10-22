@@ -10,7 +10,7 @@ import type {
 import * as L from "leaflet";
 import _ from "lodash";
 import { useEffect, useRef, useState } from "react";
-import { FeatureGroup, Marker, Polygon, Polyline } from "react-leaflet";
+import { FeatureGroup, Marker, Polygon, Polyline, useMap } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 
 import {
@@ -21,6 +21,7 @@ import {
     questionModified,
     questions,
     save,
+    showDrawingTools,
 } from "@/lib/context";
 import { CacheType, clearCache } from "@/maps/api";
 import { lngLatToText } from "@/maps/geo-utils";
@@ -239,6 +240,17 @@ const MeasuringPointMarker = ({
 export const PolygonDraw = () => {
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $questions = useStore(questions);
+    const $showDrawingTools = useStore(showDrawingTools);
+    const map = useMap();
+
+    // The toolbar stays off the map unless turned on in the settings or
+    // a custom question is being drawn
+    useEffect(() => {
+        map.getContainer().classList.toggle(
+            "hide-draw-tools",
+            !$showDrawingTools && $drawingQuestionKey === -1,
+        );
+    }, [map, $showDrawingTools, $drawingQuestionKey]);
 
     const featureRef = useRef<any | null>(null);
 
@@ -479,7 +491,7 @@ export const PolygonDraw = () => {
                     />
                 ))}
             <EditControl
-                position="bottomleft"
+                position="topleft"
                 draw={{
                     rectangle: false,
                     circle: false,
