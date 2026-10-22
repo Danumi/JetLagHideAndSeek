@@ -76,9 +76,9 @@ export const NewGameDialog = () => {
                 <Button
                     className="shadow-md"
                     disabled={$isLoading}
-                    title="Wien, Small: nur U-Bahn-Stationen, 500 m"
+                    title="Vienna, Small game: U-Bahn stations only, 500 m"
                 >
-                    Neues Spiel
+                    New Game
                 </Button>
             </AlertDialogTrigger>
             {/* Only rendered when open: the dialog needs the browser's document */}
@@ -86,26 +86,26 @@ export const NewGameDialog = () => {
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>
-                            Neues Spiel (Wien, Small) starten?
+                            Start a new game (Vienna, Small)?
                         </AlertDialogTitle>
                         <AlertDialogDescription>
-                            Spielgebiet ist Wien. Hiding Zones sind alle
-                            U-Bahn-Stationen mit 500 m Radius.
+                            The game area is Vienna. Hiding zones are all U-Bahn
+                            stations with a 500 m radius.
                             {$questions.length > 0 &&
                                 ` ${
                                     $questions.length === 1
-                                        ? "Die Frage verschwindet"
-                                        : `Alle ${$questions.length} Fragen verschwinden`
-                                }; direkt danach kannst du das noch rückgängig machen.`}
+                                        ? "The question disappears"
+                                        : `All ${$questions.length} questions disappear`
+                                }; you can undo this right afterwards.`}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel>Abbrechen</AlertDialogCancel>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={startNewGame}
                             className="mb-2 sm:mb-0"
                         >
-                            Neues Spiel
+                            New Game
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

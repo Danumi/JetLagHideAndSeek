@@ -537,31 +537,31 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                                         variant="destructive"
                                         disabled={$questions.length === 0}
                                     >
-                                        Alle Fragen löschen
+                                        Delete All Questions
                                     </Button>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
                                     <AlertDialogHeader>
                                         <AlertDialogTitle>
-                                            Alle Fragen löschen?
+                                            Delete all questions?
                                         </AlertDialogTitle>
                                         <AlertDialogDescription>
                                             {$questions.length === 1
-                                                ? "Die Frage verschwindet"
-                                                : `Alle ${$questions.length} Fragen verschwinden`}{" "}
-                                            von der Karte. Direkt danach kannst
-                                            du das noch rückgängig machen.
+                                                ? "The question disappears"
+                                                : `All ${$questions.length} questions disappear`}{" "}
+                                            from the map. You can undo this
+                                            right afterwards.
                                         </AlertDialogDescription>
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
                                         <AlertDialogCancel>
-                                            Abbrechen
+                                            Cancel
                                         </AlertDialogCancel>
                                         <AlertDialogAction
                                             onClick={deleteAllQuestionsWithUndo}
                                             className="mb-2 sm:mb-0"
                                         >
-                                            Alle löschen
+                                            Delete All
                                         </AlertDialogAction>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>

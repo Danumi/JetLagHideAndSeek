@@ -16,7 +16,7 @@ export const showUndoToast = (message: string, onUndo: () => void) => {
                         closeToast();
                     }}
                 >
-                    Rückgängig
+                    Undo
                 </button>
             </div>
         ),
@@ -32,7 +32,7 @@ export const deleteQuestionWithUndo = (questionKey: number) => {
     const removed = current[index];
     questions.set(current.filter((q) => q.key !== questionKey));
 
-    showUndoToast("Frage gelöscht", () => {
+    showUndoToast("Question deleted", () => {
         const now = questions.get();
         if (now.some((q) => q.key === removed.key)) return;
 
@@ -50,8 +50,8 @@ export const deleteAllQuestionsWithUndo = () => {
 
     showUndoToast(
         removed.length === 1
-            ? "1 Frage gelöscht"
-            : `${removed.length} Fragen gelöscht`,
+            ? "1 question deleted"
+            : `${removed.length} questions deleted`,
         () => {
             // Keep questions added in the meantime, after the restored ones
             const now = questions.get();

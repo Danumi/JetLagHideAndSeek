@@ -6,6 +6,7 @@ Live-Version: https://danumi.github.io/JetLagHideAndSeek/
 ## Zusammenarbeit
 
 - Der Nutzer spricht Deutsch: Antworten und Erklärungen auf Deutsch. Code, Kommentare und Commit-Messages auf Englisch.
+- Die App bleibt durchgängig auf Englisch (wie das Spiel selbst): alle Texte, Knöpfe, Dialoge und Meldungen. Keine deutschen Texte in die App einbauen. Ausnahme sind nur Namen aus OSM (Stationsnamen wie auf dem Schild).
 - Der Nutzer ist kein Entwickler. Änderungen in Alltagssprache erklären (was ändert sich im Spiel?), nicht im Code-Jargon.
 - Lizenzhinweis und Credits des Originalautors (LICENSE, Links zu taibeled im Tutorial und in der Seitenleiste) bleiben erhalten.
 - Niemals API-Keys oder Zugangsdaten ins Repo schreiben. Der Overpass.ch-Key des Nutzers wird nur in der App unter Optionen → „Overpass API Host" → „Custom URL" eingetragen und liegt im localStorage des Browsers.
@@ -24,7 +25,8 @@ pnpm vitest run       # Tests einmalig
 
 ## Deployment
 
-- Jeder Push auf `master` startet die GitHub Action „Deploy to GitHub Pages" (`.github/workflows/deploy.yml`). Etwa 2 Minuten später ist die Änderung live.
+- Jeder Push auf `master` startet die GitHub Action „Deploy to GitHub Pages" (`.github/workflows/deploy.yml`). Etwa 2 Minuten später ist die Änderung live, wenn GitHub gleich einen Runner frei hat (manchmal steht der Lauf länger in der Warteschlange).
+- Die App ist eine PWA mit `registerType: "autoUpdate"`: Handys holen die neue Version beim nächsten Öffnen und laden die Seite einmal neu.
 - Arbeit auf Feature-Branches mit Pull Request. Erst nach dem Merge in `master` wird veröffentlicht. Nichts auf `master` bringen, das nicht baut.
 - Beide Teams spielen mit derselben Version. Änderungen an der Logik einer Frage im PR-Text klar benennen, damit die Spieler wissen, was sich geändert hat.
 
@@ -56,7 +58,7 @@ pnpm vitest run       # Tests einmalig
 - Radar: 500 m, 1, 2, 5, 10, 15, 40, 80, 160 km. Thermometer: 1 km und 5 km.
 - Anfangsbuchstabe und Namenslänge: deutscher Stationsname wie auf dem Schild, nicht `name:en`.
 - Verwaltungsebenen: 1. Bundesland (OSM-Ebene 4), 2. Gemeindebezirk (9), 3. Katastralgemeinde (10), 4. gibt es nicht (keine Antwort).
-- Neue Bildschirme und Texte auf Deutsch.
+- Alle Texte in der App auf Englisch, auch neue Bildschirme.
 
 ## Plan: App-Überarbeitung
 
@@ -69,7 +71,7 @@ Plan-Dokument: https://claude.ai/artifact/7REdEjsLoZS24z3aziJvBj. Acht Etappen, 
 5. Karte als Hauptbildschirm (drei Knöpfe unten, Zonen-Zähler, GPS-Punkt)
 6. Weniger warten (Kartendaten bei „Neues Spiel" vorladen, Bahnhof-Frage für alle Zonen)
 7. Hider antwortet per Link
-8. Deutsch und Kurzanleitung
+8. Kurzanleitung (auf Englisch)
 
 Nach Etappe 4 gibt es ein Probespiel; danach wird die Reihenfolge von 5 bis 8 festgelegt.
 
@@ -82,9 +84,8 @@ Einheiten: Spieler sehen nur Meter und Kilometer, intern wird teils in Meilen ge
 - Nächste Station der Sucher aus allen Stationen (`allTrainStations`), nicht nur aus den verbleibenden Zonen
 - Neue Fragen: Straße/Weg, Landmasse, Gewässer, Seehöhe (Terrarium-Höhenkacheln)
 - Etappe 1: Augen-Knopf bei Matching/Measuring/Tentakel repariert, „Alle Fragen löschen" nur noch in den Optionen, Rückgängig nach dem Löschen, Thermometer-Start 1 km, Google Analytics, Clarity und Partytown entfernt
-- Etappe 2: Start in Wien (OSM-Relation 109166) mit Hiding Zones an U-Bahn-Stationen und 500 m, Knopf „Neues Spiel" (`NewGameDialog.tsx`), überall metrisch (Radar-Start 5 km), Tutorial startet nicht mehr von selbst, Stationsnamen nach `name` statt `name:en` (auch im Hider-Modus, der jetzt dieselben Stationsarten wie die Hiding Zones nutzt)
+- Etappe 2: Start in Wien (OSM-Relation 109166) mit Hiding Zones an U-Bahn-Stationen und 500 m, Knopf „New Game" (`NewGameDialog.tsx`), überall metrisch (Radar-Start 5 km), Tutorial startet nicht mehr von selbst, Stationsnamen nach `name` statt `name:en` (auch im Hider-Modus, der jetzt dieselben Stationsarten wie die Hiding Zones nutzt)
 
 ## Ideen für später
 
 - Knopf „Daten fürs Spiel vorladen"
-- Optional deutsche Oberfläche (Etappe 8)
