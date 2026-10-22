@@ -48,9 +48,32 @@ pnpm vitest run       # Tests einmalig
 - Landmasse: Einzige eigene Landmasse im Spielgebiet ist die Donauinsel. Gänsehäufel und Rohrinsel liegen in der Alten Donau und zählen zum Festland.
 - Der Flughafen Wien liegt außerhalb der Stadtgrenze; Flughafen-Fragen haben laut Regeln keine Antwort.
 
-## Spielregeln „Small"
+## Spielregeln „Small" (Hausregeln, festgelegt am 2026-10-22)
 
-Matching (alle 20), Measuring (alle 20), Radar (alle), Thermometer ½ und 3 Meilen, keine Tentakel. Hiding-Zone-Radius ¼ Meile (0.25 mi). Quelle: https://jetlag.denull.ru/en/rules/questions
+- Fragen: Matching (alle 20), Measuring (alle 20), Radar (alle), Thermometer, keine Tentakel. Quelle: https://jetlag.denull.ru/en/rules/questions (nennt nur Meilen).
+- Alles metrisch: In der App stehen nirgends Meilen (Auswahlfelder, Maßstab, Texte, Startwerte). Intern darf weiter in Meilen gerechnet werden.
+- Hiding Zones: nur U-Bahn-Stationen, Radius 500 m.
+- Radar: 500 m, 1, 2, 5, 10, 15, 40, 80, 160 km. Thermometer: 1 km und 5 km.
+- Anfangsbuchstabe und Namenslänge: deutscher Stationsname wie auf dem Schild, nicht `name:en`.
+- Verwaltungsebenen: 1. Bundesland (OSM-Ebene 4), 2. Gemeindebezirk (9), 3. Katastralgemeinde (10), 4. gibt es nicht (keine Antwort).
+- Neue Bildschirme und Texte auf Deutsch.
+
+## Plan: App-Überarbeitung
+
+Plan-Dokument: https://claude.ai/artifact/7REdEjsLoZS24z3aziJvBj. Acht Etappen, jede ein eigener Branch mit Pull Request:
+
+1. Sofort-Fixes
+2. Wien und Small voreingestellt, alles metrisch („Neues Spiel"-Knopf, nur U-Bahn, 500 m)
+3. Fragen wie auf den Karten (Auswahl nach Small-Deck, GPS-Standort, Radar- und Thermometer-Knöpfe)
+4. Erst Antwort, dann Karte (Fragen wirken erst nach der Antwort, danach gesperrt)
+5. Karte als Hauptbildschirm (drei Knöpfe unten, Zonen-Zähler, GPS-Punkt)
+6. Weniger warten (Kartendaten bei „Neues Spiel" vorladen, Bahnhof-Frage für alle Zonen)
+7. Hider antwortet per Link
+8. Deutsch und Kurzanleitung
+
+Nach Etappe 4 gibt es ein Probespiel; danach wird die Reihenfolge von 5 bis 8 festgelegt.
+
+Stolperstein für Etappe 2: `ZoneSidebar.tsx` behandelt `$hidingRadius` an mehreren Stellen als Meilen (McDonald's-, Bahnhof- und Ort-Fragen pro Zone). Beim Umstieg auf Meter dort vorher umrechnen.
 
 ## Erledigt
 
@@ -58,6 +81,7 @@ Matching (alle 20), Measuring (alle 20), Radar (alle), Thermometer ½ und 3 Meil
 - Same train line repariert, Linienauswahl in der Frage
 - Nächste Station der Sucher aus allen Stationen (`allTrainStations`), nicht nur aus den verbleibenden Zonen
 - Neue Fragen: Straße/Weg, Landmasse, Gewässer, Seehöhe (Terrarium-Höhenkacheln)
+- Etappe 1: Augen-Knopf bei Matching/Measuring/Tentakel repariert, „Alle Fragen löschen" nur noch in den Optionen, Rückgängig nach dem Löschen, Thermometer-Start 1 km, Google Analytics, Clarity und Partytown entfernt
 
 ## Ideen für später
 

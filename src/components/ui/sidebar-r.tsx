@@ -217,6 +217,16 @@ const Sidebar = React.forwardRef<
                             } as React.CSSProperties
                         }
                         side={side}
+                        onInteractOutside={(event) => {
+                            // Toast buttons (like undo) must work without closing the sidebar
+                            if (
+                                (event.target as Element | null)?.closest?.(
+                                    ".Toastify",
+                                )
+                            ) {
+                                event.preventDefault();
+                            }
+                        }}
                     >
                         <div className="flex h-full w-full flex-col">
                             {children}

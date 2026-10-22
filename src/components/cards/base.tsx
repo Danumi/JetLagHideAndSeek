@@ -30,6 +30,7 @@ import {
     SidebarGroupLabel,
     SidebarMenu,
 } from "@/components/ui/sidebar-l";
+import { deleteQuestionWithUndo } from "@/components/UndoToast";
 import { isLoading, questions } from "@/lib/context";
 import { cn } from "@/lib/utils";
 
@@ -205,38 +206,27 @@ export const QuestionCard = ({
                                 <AlertDialogContent>
                                     <AlertDialogHeader>
                                         <AlertDialogTitle>
-                                            Are you absolutely sure?
+                                            Frage löschen?
                                         </AlertDialogTitle>
                                         <AlertDialogDescription>
-                                            This action cannot be undone. This
-                                            will permanently delete the
-                                            question.
+                                            Die Frage verschwindet von der
+                                            Karte. Direkt danach kannst du das
+                                            noch rückgängig machen.
                                         </AlertDialogDescription>
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
                                         <AlertDialogCancel>
-                                            Cancel
+                                            Abbrechen
                                         </AlertDialogCancel>
                                         <AlertDialogAction
-                                            onClick={() => {
-                                                questions.set([]);
-                                            }}
-                                        >
-                                            Delete All Questions
-                                        </AlertDialogAction>
-                                        <AlertDialogAction
-                                            onClick={() => {
-                                                questions.set(
-                                                    $questions.filter(
-                                                        (q) =>
-                                                            q.key !==
-                                                            questionKey,
-                                                    ),
-                                                );
-                                            }}
+                                            onClick={() =>
+                                                deleteQuestionWithUndo(
+                                                    questionKey,
+                                                )
+                                            }
                                             className="mb-2 sm:mb-0"
                                         >
-                                            Delete Question
+                                            Löschen
                                         </AlertDialogAction>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
