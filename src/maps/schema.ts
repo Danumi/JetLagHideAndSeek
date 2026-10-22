@@ -103,6 +103,8 @@ const answerFields = {
     status: answerStatusSchema.default("answered"),
     /** When the question was asked, in milliseconds since 1970. */
     askedAt: z.number().optional(),
+    /** When the seekers first sent it to the hider: the time to answer starts here. */
+    sentAt: z.number().optional(),
 };
 
 const thermometerQuestionSchema = z.object({

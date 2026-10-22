@@ -44,6 +44,42 @@ export const CardNote = ({
     </p>
 );
 
+/** "Delete" on a question card, after asking. */
+export const DeleteButton = ({ onDelete }: { onDelete: () => void }) => {
+    const $isLoading = useStore(isLoading);
+    return (
+        <AlertDialog>
+            <AlertDialogTrigger asChild>
+                <Button
+                    variant="outline"
+                    className="h-10"
+                    disabled={$isLoading}
+                >
+                    <Trash2Icon />
+                    {t("common.delete")}
+                </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>{t("card.deleteTitle")}</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        {t("card.deleteText")}
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
+                    <AlertDialogAction
+                        onClick={onDelete}
+                        className="mb-2 sm:mb-0"
+                    >
+                        {t("common.delete")}
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    );
+};
+
 /**
  * In German, the kinds keep their names from the game; one short line says
  * what they ask.
@@ -75,7 +111,6 @@ export const QuestionCard = ({
     /** "Start" or "End" when opened from a thermometer's pin. */
     sub?: string;
 }) => {
-    const $isLoading = useStore(isLoading);
     const $language = useLanguage();
     const pending = isPending(question);
     const explanation = KIND_EXPLANATIONS[question.id];
@@ -136,41 +171,11 @@ export const QuestionCard = ({
                                 ? t("card.showOnMap")
                                 : t("card.hideOnMap")}
                         </Button>
-                        <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    className="h-10"
-                                    disabled={$isLoading}
-                                >
-                                    <Trash2Icon />
-                                    {t("common.delete")}
-                                </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle>
-                                        {t("card.deleteTitle")}
-                                    </AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                        {t("card.deleteText")}
-                                    </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>
-                                        {t("common.cancel")}
-                                    </AlertDialogCancel>
-                                    <AlertDialogAction
-                                        onClick={() =>
-                                            deleteQuestionWithUndo(question.key)
-                                        }
-                                        className="mb-2 sm:mb-0"
-                                    >
-                                        {t("common.delete")}
-                                    </AlertDialogAction>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
+                        <DeleteButton
+                            onDelete={() =>
+                                deleteQuestionWithUndo(question.key)
+                            }
+                        />
                     </div>
                 </div>
             </SidebarGroup>

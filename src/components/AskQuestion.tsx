@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import * as turf from "@turf/turf";
-import { ChevronLeftIcon } from "lucide-react";
+import { CameraIcon, ChevronLeftIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { TbMessage2Question } from "react-icons/tb";
 import { toast } from "react-toastify";
@@ -16,10 +16,12 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import {
+    addPhotoQuestion,
     addQuestion,
     displayHidingZones,
     isLoading,
     leafletMapContext,
+    photoQuestions,
     questions,
     thermometerRun,
 } from "@/lib/context";
@@ -39,9 +41,12 @@ import {
     deckGroups,
     MATCHING_DECK,
     MEASURING_DECK,
+    PHOTO_DECK,
+    type PhotoCard,
     RADAR_DISTANCES,
     THERMOMETER_DISTANCES,
 } from "@/maps/deck";
+import { photoTitle } from "@/maps/hiderLog";
 
 import { QUESTION_ICONS } from "./questionIcons";
 
@@ -67,12 +72,21 @@ const KINDS = {
         question: "kind.thermometer.question",
         icon: QUESTION_ICONS.thermometer,
     },
+    photo: {
+        // Translated, unlike the others
+        label: "photo.kind",
+        question: "photo.question",
+        icon: CameraIcon,
+    },
 } satisfies Record<
     string,
     { label: string; question: MessageKey; icon: unknown }
 >;
 
 type Kind = keyof typeof KINDS;
+
+const kindLabel = (kind: Kind) =>
+    kind === "photo" ? t("photo.kind") : KINDS[kind].label;
 
 const formatDistance = (kilometers: number) =>
     kilometers < 1
@@ -83,7 +97,19 @@ const formatDistance = (kilometers: number) =>
 export const WaitingForAnswer = () => {
     useLanguage();
     const $questions = useStore(questions);
-    const pending = $questions.filter(isPending);
+    const $photoQuestions = useStore(photoQuestions);
+    const pending = [
+        ...$questions.filter(isPending).map((question) => ({
+            key: question.key,
+            title: questionTitle(question),
+        })),
+        ...$photoQuestions
+            .filter((photo) => photo.status === "pending")
+            .map((photo) => ({
+                key: photo.key,
+                title: photoTitle(photo.photo),
+            })),
+    ];
 
     if (pending.length === 0) return null;
 
@@ -93,7 +119,7 @@ export const WaitingForAnswer = () => {
             onClick={() => showQuestion(pending[0].key)}
         >
             {pending.length === 1
-                ? t("waiting.one", { title: questionTitle(pending[0]) })
+                ? t("waiting.one", { title: pending[0].title })
                 : t("waiting.many", { count: pending.length })}
         </button>
     );
@@ -147,6 +173,12 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                 unit,
             },
         }));
+
+    /** Photo questions don't need a location: only the log and the clock. */
+    const askPhoto = (card: PhotoCard) => {
+        setOpen(false);
+        showQuestion(addPhotoQuestion(card.id).key);
+    };
 
     const startThermometer = async (kilometers: number) => {
         setOpen(false);
@@ -229,12 +261,16 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                         return (
                             <button
                                 key={k}
-                                className="flex min-h-28 flex-col justify-center gap-1 rounded-lg border p-3 text-left transition-colors hover:bg-accent active:bg-accent"
+                                className={cn(
+                                    "flex min-h-28 flex-col justify-center gap-1 rounded-lg border p-3 text-left transition-colors hover:bg-accent active:bg-accent",
+                                    // The fifth kind fills the last row
+                                    k === "photo" && "col-span-2 min-h-20",
+                                )}
                                 onClick={() => setKind(k)}
                             >
                                 <Icon className="h-6 w-6 shrink-0" />
                                 <span className="text-xl font-semibold font-poppins">
-                                    {KINDS[k].label}
+                                    {kindLabel(k)}
                                 </span>
                                 <span className="text-xs text-muted-foreground">
                                     {t(KINDS[k].question)}
@@ -315,6 +351,30 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                 </div>
             );
             break;
+        case "photo":
+            content = (
+                <div className="flex flex-col gap-2">
+                    <p className="text-sm text-muted-foreground">
+                        {t("photo.help")}
+                    </p>
+                    {PHOTO_DECK.map((card) => (
+                        <button
+                            key={card.id}
+                            className="w-full rounded-md border px-3 py-2 text-left transition-colors hover:bg-accent active:bg-accent disabled:opacity-60"
+                            disabled={busy}
+                            onClick={() => askPhoto(card)}
+                        >
+                            <div className="font-semibold">
+                                {tr(card.label)}
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                                {tr(card.hint)}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+            );
+            break;
         case "thermometer":
             content = (
                 <div className="flex flex-col gap-3">
@@ -379,7 +439,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                                 </Button>
                             )}
                             <DrawerTitle className="text-2xl font-semibold font-poppins">
-                                {kind ? KINDS[kind].label : t("ask.button")}
+                                {kind ? kindLabel(kind) : t("ask.button")}
                             </DrawerTitle>
                         </div>
                         <DrawerDescription>

@@ -27,6 +27,7 @@ import {
     mapGeoLocation,
     overpassCustomHost,
     overpassHost,
+    photoQuestions,
     polyGeoJSON,
     questions,
     settingsOpen,
@@ -156,6 +157,8 @@ export const OptionDrawers = () => {
     const $preloadProgress = useStore(preloadProgress);
     const $overpassCustomHost = useStore(overpassCustomHost);
     const $questions = useStore(questions);
+    const $photoQuestions = useStore(photoQuestions);
+    const questionCount = $questions.length + $photoQuestions.length;
     const isOptionsOpen = useStore(settingsOpen);
     const setOptionsOpen = settingsOpen.set;
     const [advancedOpen, setAdvancedOpen] = useState(false);
@@ -549,7 +552,7 @@ export const OptionDrawers = () => {
                                     <Button
                                         variant="outline"
                                         className="w-full max-w-[320px] border-red-500/60 text-red-500 hover:bg-red-500/10 hover:text-red-500"
-                                        disabled={$questions.length === 0}
+                                        disabled={questionCount === 0}
                                     >
                                         {t("settings.deleteAll")}
                                     </Button>
@@ -560,10 +563,10 @@ export const OptionDrawers = () => {
                                             {t("settings.deleteAllTitle")}
                                         </AlertDialogTitle>
                                         <AlertDialogDescription>
-                                            {$questions.length === 1
+                                            {questionCount === 1
                                                 ? t("card.deleteText")
                                                 : t("settings.deleteAllText", {
-                                                      count: $questions.length,
+                                                      count: questionCount,
                                                   })}
                                         </AlertDialogDescription>
                                     </AlertDialogHeader>

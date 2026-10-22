@@ -15,6 +15,7 @@ import {
     keptZonesRuledOut,
     mapGeoJSON,
     mapGeoLocation,
+    photoQuestions,
     polyGeoJSON,
     questionFinishedMapData,
     questions,
@@ -69,7 +70,7 @@ export const startNewGame = (role: Role) => {
     setRole(role);
 
     // Clearing the questions also reloads the map
-    if (questions.get().length > 0) {
+    if (questions.get().length > 0 || photoQuestions.get().length > 0) {
         deleteAllQuestionsWithUndo();
     } else {
         questions.set([]);

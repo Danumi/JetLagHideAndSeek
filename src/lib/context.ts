@@ -13,6 +13,7 @@ import type {
 import { extractStationLabel } from "@/maps/geo-utils";
 import type { HiderAnswer } from "@/maps/hider";
 import {
+    type AnswerStatus,
     type DeepPartial,
     type Question,
     type Questions,
@@ -146,21 +147,104 @@ export const followMyPosition = atom<boolean>(true);
 export type PickTarget = { questionKey: number; point?: "start" | "end" };
 /** "Pick on map" is on: the next tap on the map moves this point. */
 export const pickingLocation = atom<PickTarget | null>(null);
-/** A question the seekers sent to the hider as a link. */
+/**
+ * A photo question the seekers asked. The app can't check photos: it is only
+ * an entry in the question log, with the time the hider has to answer.
+ */
+export type PhotoQuestion = {
+    key: number;
+    /** Its card in PHOTO_DECK. */
+    photo: string;
+    askedAt: number;
+    /** When the seekers first sent it to the hider. */
+    sentAt?: number;
+    /** "answered": the photo came. */
+    status: AnswerStatus;
+};
+export const photoQuestions = persistentAtom<PhotoQuestion[]>(
+    "photoQuestions",
+    [],
+    {
+        encode: JSON.stringify,
+        decode: JSON.parse,
+    },
+);
+/** A new photo question waits for the hider's photo. */
+export const addPhotoQuestion = (photo: string) => {
+    const question: PhotoQuestion = {
+        key: Math.random(),
+        photo,
+        askedAt: Date.now(),
+        status: "pending",
+    };
+    photoQuestions.set([...photoQuestions.get(), question]);
+    return question;
+};
+export const updatePhotoQuestion = (
+    key: number,
+    change: Partial<PhotoQuestion>,
+) =>
+    photoQuestions.set(
+        photoQuestions
+            .get()
+            .map((photo) =>
+                photo.key === key ? { ...photo, ...change } : photo,
+            ),
+    );
+/** Questions asked in the chat that the hider adds by hand: only their kind. */
+export type ChatQuestionKind =
+    | "matching"
+    | "measuring"
+    | "radar"
+    | "thermometer";
+/** A question in the hider's log: from a question link, or added by hand. */
 export type HiderInboxEntry = {
-    question: Question;
-    /** The question's number on the seekers' phone. */
+    key: number;
+    /** From a question link: the app works out the answer. */
+    question?: Question;
+    /** A photo question: its card in PHOTO_DECK. */
+    photo?: string;
+    /** A question asked in the chat, added by hand. */
+    kind?: ChatQuestionKind;
+    /** Added by the hider, not from a link. */
+    byHand?: boolean;
+    /** The question's number on the seekers' phone (older links). */
     number?: number;
+    /** When the seekers asked: the time to answer starts here. */
+    askedAt: number;
     receivedAt: number;
     /** The answer the app worked out last, shown in the phone's language. */
     workedOut?: Pick<HiderAnswer, "value" | "location">;
     /** The same as a text, like "Outside", from phones before Etappe 15. */
     answer?: string;
+    /** When the hider answered; the question is open until then. */
+    answeredAt?: number;
+    /**
+     * The answer the hider gave: an answer option's value, "no-answer",
+     * "photo" (sent), or "answered" (told in the chat).
+     */
+    sent?: Pick<HiderAnswer, "value" | "location">;
 };
+/**
+ * Entries saved before the hider could mark questions as answered (Etappe
+ * 17) count as answered, or they would all wait with a late clock.
+ */
+const migrateInbox = (saved: unknown): HiderInboxEntry[] =>
+    (Array.isArray(saved) ? saved : []).map((entry) =>
+        "key" in entry
+            ? entry
+            : {
+                  ...entry,
+                  key: entry.question?.key ?? Math.random(),
+                  askedAt:
+                      entry.question?.data?.askedAt ?? entry.receivedAt ?? 0,
+                  answeredAt: entry.receivedAt ?? 0,
+              },
+    );
 /** Questions the hider got on this phone, newest last. */
 export const hiderInbox = persistentAtom<HiderInboxEntry[]>("hiderInbox", [], {
     encode: JSON.stringify,
-    decode: JSON.parse,
+    decode: (x) => migrateInbox(JSON.parse(x)),
 });
 export const triggerLocalRefresh = atom<number>(0);
 export const displayHidingZones = persistentAtom<boolean>(

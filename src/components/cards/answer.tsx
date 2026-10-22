@@ -3,6 +3,7 @@ import { SendIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
+import { AnswerClock } from "@/components/AnswerClock";
 import { QUESTION_ICONS } from "@/components/questionIcons";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -22,6 +23,7 @@ import {
     setNoAnswer,
 } from "@/maps/answers";
 import { ICON_COLORS } from "@/maps/api";
+import { ANSWER_MINUTES, clockStart } from "@/maps/deadline";
 import type { Question } from "@/maps/schema";
 
 import { placeText } from "./location";
@@ -68,6 +70,7 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
         setAnswer(question, value);
         questionModified();
     };
+    const asked = clockStart(question.data);
 
     return (
         <div className="flex flex-col gap-2">
@@ -79,6 +82,9 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
             >
                 {pending ? t("answer.waitingForHider") : t("answer.tapToSave")}
             </span>
+            {pending && asked !== undefined && (
+                <AnswerClock start={asked} minutes={ANSWER_MINUTES} />
+            )}
             {options.length > 0 ? (
                 <div className="grid grid-cols-2 gap-2">
                     {options.map((option) => (
@@ -123,19 +129,40 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
 
 /**
  * Shares the question as a link (WhatsApp and co.). The hider opens it and
- * their phone works out the answer from their location.
+ * their phone works out the answer from their location. The time to answer
+ * starts when the seekers first send it.
  */
-export const SendToHider = ({ question }: { question: Question }) => {
+export const SendToHider = ({ question }: { question: Question }) => (
+    <SendLinkButton
+        makeLink={() => {
+            if (question.data.sentAt === undefined) {
+                question.data.sentAt = Date.now();
+                questionModified();
+            }
+            return questionLink(question);
+        }}
+        message={(link) =>
+            t("send.message", { title: questionTitle(question), link })
+        }
+    />
+);
+
+/** "Send to hider": shares a link to a question in a message. */
+export const SendLinkButton = ({
+    makeLink,
+    message,
+}: {
+    makeLink: () => Promise<string>;
+    message: (link: string) => string;
+}) => {
     useLanguage();
     const [busy, setBusy] = useState(false);
 
     const send = async () => {
         setBusy(true);
         try {
-            const link = await questionLink(question);
-            const result = await shareMessage(
-                t("send.message", { title: questionTitle(question), link }),
-            );
+            const link = await makeLink();
+            const result = await shareMessage(message(link));
             if (result === "copied") {
                 toast.success(t("send.copied"));
             } else if (result === false) {

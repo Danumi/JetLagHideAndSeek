@@ -10,6 +10,7 @@ import { SidebarContext } from "@/components/ui/sidebar-l";
 import {
     hiderMode,
     hiderScreenOpen,
+    photoQuestions,
     pickingLocation,
     type PickTarget,
     questions,
@@ -95,10 +96,13 @@ const PickOnMapHint = ({ target }: { target: PickTarget }) => (
 export const BottomBar = () => {
     useLanguage();
     const $questions = useStore(questions);
+    const $photoQuestions = useStore(photoQuestions);
     const $thermometerRun = useStore(thermometerRun);
     const $hiderMode = useStore(hiderMode);
     const $pickingLocation = useStore(pickingLocation);
-    const anyPending = $questions.some(isPending);
+    const anyPending =
+        $questions.some(isPending) ||
+        $photoQuestions.some((photo) => photo.status === "pending");
 
     return (
         <div className="relative z-[1030] shrink-0">
@@ -122,7 +126,7 @@ export const BottomBar = () => {
                         <SideButton
                             icon={<ListIcon />}
                             label={t("bar.questions")}
-                            badge={$questions.length}
+                            badge={$questions.length + $photoQuestions.length}
                             alert={anyPending}
                             onClick={() => SidebarContext.get().toggleSidebar()}
                             data-tutorial-id="left-sidebar-trigger"

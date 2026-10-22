@@ -492,3 +492,70 @@ export const THERMOMETER_DISTANCES = [
     { label: "1 km", kilometers: 1 },
     { label: "5 km", kilometers: 5 },
 ] as const;
+
+export type PhotoCard = { id: string; label: Text; hint: Text };
+
+/**
+ * The photo cards of a Small game, in the rule book's order, in our own
+ * words. The app can't check a photo: a photo question is only an entry in
+ * the question log, with the time the hider has to answer.
+ */
+export const PHOTO_DECK: PhotoCard[] = [
+    {
+        id: "building-from-station",
+        label: {
+            en: "Building seen from a station",
+            de: "Gebäude vom Stationseingang aus",
+        },
+        hint: {
+            en: "Stand right outside a station entrance. The whole building with its roof and both sides; its top in the upper third of the photo.",
+            de: "Direkt vor einem Stationseingang stehen. Das ganze Gebäude mit Dach und beiden Seiten, die Spitze im oberen Drittel des Fotos.",
+        },
+    },
+    {
+        id: "widest-street",
+        label: { en: "Widest street", de: "Breiteste Straße" },
+        hint: {
+            en: "Both sides of the street in the photo.",
+            de: "Beide Straßenseiten müssen drauf sein.",
+        },
+    },
+    {
+        id: "tree",
+        label: { en: "Tree", de: "Baum" },
+        hint: {
+            en: "The whole tree in the photo.",
+            de: "Der ganze Baum muss drauf sein.",
+        },
+    },
+    {
+        id: "tallest-in-sight",
+        label: {
+            en: "Tallest structure in sight",
+            de: "Höchstes Bauwerk in Sichtweite",
+        },
+        hint: {
+            en: "The tallest from where you stand, not the tallest in the city. Top and both sides in the photo, the top in the upper third.",
+            de: "Das höchste von deinem Standpunkt aus, nicht das höchste der Stadt. Spitze und beide Seiten drauf, die Spitze im oberen Drittel.",
+        },
+    },
+    {
+        id: "selfie",
+        label: { en: "You (selfie)", de: "Du (Selfie)" },
+        hint: {
+            en: "Front camera, phone upright, arm stretched out, no zoom.",
+            de: "Frontkamera, Handy senkrecht, Arm ausgestreckt, kein Zoom.",
+        },
+    },
+    {
+        id: "sky",
+        label: { en: "The sky", de: "Der Himmel" },
+        hint: {
+            en: "Phone flat on the ground, straight up, no zoom.",
+            de: "Handy flach auf den Boden, gerade nach oben, kein Zoom.",
+        },
+    },
+];
+
+export const photoCardFor = (id: string) =>
+    PHOTO_DECK.find((card) => card.id === id);
