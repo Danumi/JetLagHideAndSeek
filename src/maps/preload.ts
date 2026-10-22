@@ -2,7 +2,7 @@ import { persistentAtom } from "@nanostores/persistent";
 import * as turf from "@turf/turf";
 import { atom } from "nanostores";
 
-import { displayHidingZones, isLoading, mapGeoJSON } from "@/lib/context";
+import { displayHidingZones, mapGeoJSON, mapIdle } from "@/lib/context";
 import { loadingTasks, retryTrigger } from "@/lib/loading";
 import {
     type APILocations,
@@ -56,17 +56,6 @@ export const DECK_PLACE_KINDS = [
 
 let currentRun = 0;
 let lastRunFailed = false;
-
-/** Resolves once the map isn't busy, so the players' own questions go first. */
-const mapIdle = () =>
-    new Promise<void>((resolve) => {
-        if (!isLoading.get()) return resolve();
-        const unbind = isLoading.listen((loading) => {
-            if (loading) return;
-            unbind();
-            resolve();
-        });
-    });
 
 /** Resolves once the outline of the game area is known. */
 const gameAreaReady = () =>

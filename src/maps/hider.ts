@@ -3,25 +3,10 @@ import * as turf from "@turf/turf";
 import { type HiderLocation, mapGeoJSON, polyGeoJSON } from "@/lib/context";
 import { hiderifyQuestion } from "@/maps";
 import { currentAnswer, formatKilometers } from "@/maps/answers";
-import {
-    type APILocations,
-    determineMapBoundaries,
-    elevationAt,
-    findNearestStreet,
-    findPlacesOfKind,
-    prettifyLocation,
-    type StationPlace,
-} from "@/maps/api";
+import { determineMapBoundaries } from "@/maps/api";
 import { matchingCardFor, measuringCardFor } from "@/maps/deck";
-import { extractStationName } from "@/maps/geo-utils";
-import { findAdminZoneInfo } from "@/maps/questions/measuring";
-import {
-    type MatchingQuestion,
-    type MeasuringQuestion,
-    type Question,
-    type TentacleQuestion,
-} from "@/maps/schema";
-import { findHidingZoneStations, findStationPlaces } from "@/maps/stations";
+import { findNearest } from "@/maps/nearest";
+import { type Question, type TentacleQuestion } from "@/maps/schema";
 
 /*
  * The hider's side of a question: the seekers send it as a link (see
@@ -85,36 +70,6 @@ const distance = (
         units: "kilometers",
     });
 
-/** The nearest of `features` (each a `what`, like "park") to a point. */
-const nearestOf = (
-    features: { name?: string; lat: number; lng: number }[],
-    to: { lat: number; lng: number },
-    what: string,
-) => {
-    let best: { name: string; kilometers: number } | null = null;
-    for (const feature of features) {
-        const kilometers = distance(feature, to);
-        if (!best || kilometers < best.kilometers) {
-            best = { name: feature.name || `an unnamed ${what}`, kilometers };
-        }
-    }
-    return best;
-};
-
-const placesOfKind = async (location: APILocations) =>
-    (await findPlacesOfKind(location)).elements.map((x: any) => ({
-        name: x.tags?.name as string | undefined,
-        lat: x.center ? x.center.lat : x.lat,
-        lng: x.center ? x.center.lon : x.lon,
-    }));
-
-const stationPoints = (stations: StationPlace[]) =>
-    stations.map((station) => ({
-        name: extractStationName(station) as string | undefined,
-        lat: station.geometry.coordinates[1],
-        lng: station.geometry.coordinates[0],
-    }));
-
 /** One sentence on why the answer is what it is, where the app can tell. */
 export const explainAnswer = async (
     question: Question,
@@ -140,109 +95,45 @@ export const explainAnswer = async (
                 ),
             )} from where they stopped.`;
         case "matching":
-            return explainMatching(question.data, you);
         case "measuring":
-            return explainMeasuring(question.data, you);
+            return explainNearest(question, you);
     }
 };
 
-const explainMatching = async (
-    question: MatchingQuestion,
+/** What's nearest to the hider and to the seekers, worked out like on their map. */
+const explainNearest = async (
+    question: Question,
     you: { lat: number; lng: number },
 ) => {
-    if (question.type.endsWith("-full")) {
-        const location = question.type.split("-full")[0] as APILocations;
-        const what = prettifyLocation(location).toLowerCase();
-        const places = await placesOfKind(location);
-        const yours = nearestOf(places, you, what);
-        const theirs = nearestOf(places, question, what);
-        if (!yours || !theirs) return undefined;
-        return `Nearest ${what} to you: ${yours.name}. To the seekers: ${theirs.name}.`;
+    // The map measures to the border of the seekers' zone, the hider's own
+    // nearest border could be another one
+    if (question.id === "measuring" && question.data.type === "admin-measure") {
+        return undefined;
     }
 
-    switch (question.type) {
-        case "same-first-letter-station":
-        case "same-length-station":
-        case "same-train-line": {
-            const stations = stationPoints(await findStationPlaces());
-            const yours = nearestOf(stations, you, "station");
-            const theirs = nearestOf(stations, question, "station");
-            if (!yours || !theirs) return undefined;
-            if (question.type === "same-length-station") {
-                return `Your nearest station: ${yours.name} (${yours.name.length} characters). The seekers': ${theirs.name} (${theirs.name.length} characters).`;
-            }
-            return `Your nearest station: ${yours.name}. The seekers': ${theirs.name}.`;
-        }
-        case "street": {
-            const yours = await findNearestStreet(you.lat, you.lng);
-            const theirs = await findNearestStreet(question.lat, question.lng);
-            if (!yours || !theirs) return undefined;
-            return `Nearest street to you: ${
-                yours.name ?? "an unnamed path"
-            }. To the seekers: ${theirs.name ?? "an unnamed path"}.`;
-        }
-        case "zone":
-        case "letter-zone": {
-            const yours = await findAdminZoneInfo(
-                you.lat,
-                you.lng,
-                question.cat.adminLevel,
-            );
-            const theirs = await findAdminZoneInfo(
-                question.lat,
-                question.lng,
-                question.cat.adminLevel,
-            );
-            if (!yours || !theirs) return undefined;
-            // German names, as on the signs
-            const name = (zone: typeof yours) =>
-                zone.boundary.properties?.name ?? zone.name;
-            return `You are in ${name(yours)}, the seekers are in ${name(
-                theirs,
-            )}.`;
-        }
-    }
-};
+    // One after the other: some servers take one query at a time
+    const yours = await findNearest(question, you);
+    const theirs = await findNearest(question);
+    if (!yours || !theirs) return undefined;
 
-const explainMeasuring = async (
-    question: MeasuringQuestion,
-    you: { lat: number; lng: number },
-) => {
-    const nearestBoth = (
-        what: string,
-        places: { name?: string; lat: number; lng: number }[],
-    ) => {
-        const yours = nearestOf(places, you, what);
-        const theirs = nearestOf(places, question, what);
-        if (!yours || !theirs) return undefined;
-        return `Nearest ${what} to you: ${yours.name}, ${formatKilometers(
-            yours.kilometers,
-        )} away. To the seekers: ${theirs.name}, ${formatKilometers(
-            theirs.kilometers,
-        )}.`;
-    };
-
-    if (question.type.endsWith("-full")) {
-        const location = question.type.split("-full")[0] as APILocations;
-        return nearestBoth(
-            prettifyLocation(location).toLowerCase(),
-            await placesOfKind(location),
-        );
-    }
-
-    switch (question.type) {
-        case "rail-measure": {
-            const stations = await findHidingZoneStations();
-            if (!stations) return undefined;
-            return nearestBoth("station", stationPoints(stations));
-        }
-        case "sea-level": {
-            const yours = await elevationAt(you.lat, you.lng);
-            const theirs = await elevationAt(question.lat, question.lng);
-            if (yours === null || theirs === null) return undefined;
+    switch (yours.kind) {
+        case "inside":
+            return `You are in ${yours.label}, the seekers are in ${theirs.label}.`;
+        case "on":
+            return `You are on ${yours.label}, the seekers are on ${theirs.label}.`;
+        case "elevation":
             return `You are ${Math.round(
-                yours,
-            )} m above sea level, the seekers ${Math.round(theirs)} m.`;
-        }
+                yours.meters ?? 0,
+            )} m above sea level, the seekers ${Math.round(
+                theirs.meters ?? 0,
+            )} m.`;
+        case "distance":
+            return `Nearest ${yours.what} to you: ${yours.label}, ${formatKilometers(
+                yours.kilometers ?? 0,
+            )} away. To the seekers: ${theirs.label}, ${formatKilometers(
+                theirs.kilometers ?? 0,
+            )}.`;
+        default:
+            return undefined;
     }
 };

@@ -47,6 +47,7 @@ import {
 
 import { AnswerButtons, numberedTitle } from "./answer";
 import { QuestionCard } from "./base";
+import { NearestInfo } from "./nearest";
 
 const MATCHING_TYPE_LABELS: Record<string, string> = Object.fromEntries(
     matchingQuestionSchema.options
@@ -133,9 +134,6 @@ const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
         : "any";
     return (
         <>
-            <span className="px-2 text-center">
-                Seekers&apos; station: {stationName}
-            </span>
             <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                 <Select
                     trigger="Seekers' line"
@@ -232,7 +230,6 @@ export const MatchingQuestionComponent = ({
         case "street":
             questionSpecific = (
                 <span className="px-2 text-center">
-                    Uses the street or path nearest to the seekers&apos; marker.
                     &quot;Same&quot; keeps everything within 200 m of that
                     street; &quot;different&quot; can&apos;t rule anything out
                     reliably.
@@ -242,8 +239,7 @@ export const MatchingQuestionComponent = ({
         case "landmass":
             questionSpecific = (
                 <span className="px-2 text-center">
-                    Islands in rivers count as their own landmass. Islands in
-                    lakes count as part of the surrounding land.
+                    Islands in lakes count as part of the surrounding land.
                 </span>
             );
             break;
@@ -524,6 +520,14 @@ export const MatchingQuestionComponent = ({
                     />
                 </SidebarMenuItem>
             )}
+            {card?.hint && (
+                <span className="px-2 text-center text-sm text-muted-foreground">
+                    {card.hint}
+                </span>
+            )}
+            <NearestInfo
+                question={{ id: "matching", key: questionKey, data }}
+            />
             {questionSpecific}
 
             {data.type !== "custom-zone" && (

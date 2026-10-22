@@ -327,12 +327,6 @@ const seaLevelRegion = async (question: MeasuringQuestion) => {
         toast.error("Could not load elevation data");
         return false;
     }
-    toast.info(
-        `Seekers' elevation: ${Math.round(elevation)} m above sea level`,
-        {
-            toastId: "sea-level",
-        },
-    );
     const region = await regionLowerThan(
         turf.bbox(mapGeoJSON.get()!) as [number, number, number, number],
         elevation,

@@ -1,7 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { Label } from "@radix-ui/react-label";
 import * as React from "react";
-import { Suspense, use } from "react";
 
 import CustomInitDialog from "@/components/CustomInitDialog";
 import { LatitudeLongitude } from "@/components/LatLngPicker";
@@ -30,10 +28,7 @@ import {
     MEASURING_DECK,
     measuringCardFor,
 } from "@/maps/deck";
-import {
-    determineMeasuringBoundary,
-    findAdminZoneInfo,
-} from "@/maps/questions/measuring";
+import { determineMeasuringBoundary } from "@/maps/questions/measuring";
 import {
     determineUnionizedStrings,
     type MeasuringQuestion,
@@ -43,6 +38,7 @@ import {
 
 import { AnswerButtons, numberedTitle } from "./answer";
 import { QuestionCard } from "./base";
+import { NearestInfo } from "./nearest";
 
 const MEASURING_TYPE_LABELS: Record<string, string> = Object.fromEntries(
     measuringQuestionSchema.options
@@ -108,55 +104,21 @@ export const MeasuringQuestionComponent = ({
                             />
                         </SidebarMenuItem>
                     )}
-                    <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
-                        <Suspense
-                            fallback={
-                                <div className="flex items-center justify-center w-full h-[3rem]">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        className="animate-spin"
-                                    >
-                                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-                                    </svg>
-                                </div>
-                            }
-                        >
-                            <AdminZoneNameDisplay data={data} />
-                        </Suspense>
-                    </SidebarMenuItem>
                 </>
             );
             break;
         case "sea-level":
             questionSpecific = (
                 <span className="px-2 text-center">
-                    &quot;Closer&quot; means the hider is lower (closer to sea
-                    level) than the seekers. Elevation from terrain data,
-                    accurate to a few meters.
+                    Elevation from terrain data, accurate to a few meters.
                 </span>
             );
             break;
         case "water":
             questionSpecific = (
                 <span className="px-2 text-center">
-                    Counts named lakes, ponds, rivers and canals in the game
-                    area. Pools, fountains and streams don&apos;t count.
-                </span>
-            );
-            break;
-        case "rail-measure":
-            questionSpecific = (
-                <span className="px-2 text-center">
-                    Counts the stations the hiding zones are drawn around
-                    (U-Bahn in a Small game).
+                    Pools, fountains, streams and underground rivers don&apos;t
+                    count.
                 </span>
             );
             break;
@@ -397,6 +359,14 @@ export const MeasuringQuestionComponent = ({
                     />
                 </SidebarMenuItem>
             )}
+            {card?.hint && (
+                <span className="px-2 text-center text-sm text-muted-foreground">
+                    {card.hint}
+                </span>
+            )}
+            <NearestInfo
+                question={{ id: "measuring", key: questionKey, data }}
+            />
             {questionSpecific}
             <LatitudeLongitude
                 latitude={data.lat}
@@ -417,39 +387,5 @@ export const MeasuringQuestionComponent = ({
                 question={{ id: "measuring", key: questionKey, data }}
             />
         </QuestionCard>
-    );
-};
-
-const AdminZoneNameDisplay = ({ data }: { data: MeasuringQuestion }) => {
-    useStore(triggerLocalRefresh);
-
-    const adminLevel = (data as any).cat?.adminLevel ?? 4;
-    const zoneInfo = use(findAdminZoneInfo(data.lat, data.lng, adminLevel));
-
-    // Update the zone name in the data
-    if (
-        zoneInfo &&
-        (data as any).cat &&
-        (data as any).cat.zoneName !== zoneInfo.name
-    ) {
-        (data as any).cat.zoneName = zoneInfo.name;
-        questionModified();
-    }
-
-    if (!zoneInfo) {
-        return (
-            <div className="flex items-center justify-center w-full h-[3rem] text-muted-foreground text-sm">
-                No zone found
-            </div>
-        );
-    }
-
-    return (
-        <div className="flex flex-col items-center w-full h-[3rem]">
-            <Label className="text-xs text-muted-foreground">Zone</Label>
-            <span className="font-medium text-sm truncate max-w-full">
-                {zoneInfo.name}
-            </span>
-        </div>
     );
 };
