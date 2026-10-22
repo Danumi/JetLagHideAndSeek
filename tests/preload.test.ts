@@ -2,8 +2,9 @@ import * as turf from "@turf/turf";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { mapGeoJSON } from "@/lib/context";
+import { trackLoading } from "@/lib/loading";
 import { clearCache, findPlacesOfKind } from "@/maps/api";
-import { preloadGameData } from "@/maps/preload";
+import { preloadGameData, preloadProgress } from "@/maps/preload";
 
 vi.mock("@/maps/api", async (importOriginal) => ({
     ...(await importOriginal<typeof import("@/maps/api")>()),
@@ -59,5 +60,40 @@ describe("preloadGameData", () => {
         );
         await preloadGameData({ refreshOldData: true });
         expect(clearCache).not.toHaveBeenCalled();
+    });
+
+    it("shows progress only while map data is downloaded", async () => {
+        mapGeoJSON.set(
+            turf.featureCollection([
+                turf.bboxPolygon([16.2, 48.1, 16.6, 48.3]),
+            ]),
+        );
+        const shown: string[] = [];
+        const unbind = preloadProgress.listen((progress) => {
+            if (progress) {
+                shown.push(
+                    progress.finished
+                        ? "ready"
+                        : `${progress.done}/${progress.total}`,
+                );
+            }
+        });
+
+        // Everything is already saved on this phone
+        await preloadGameData();
+        expect(shown).toEqual(["ready"]);
+
+        // The parks have to be downloaded
+        shown.length = 0;
+        vi.mocked(findPlacesOfKind).mockImplementationOnce(
+            () =>
+                trackLoading("Finding parks...", Promise.resolve({})) as never,
+        );
+        await preloadGameData();
+        expect(shown.length).toBeGreaterThan(2);
+        expect(shown[0]).toMatch(/^\d+\/\d+$/);
+        expect(shown.at(-1)).toBe("ready");
+
+        unbind();
     });
 });

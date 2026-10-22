@@ -1,8 +1,6 @@
 import * as turf from "@turf/turf";
 import type { Feature, MultiPolygon } from "geojson";
 
-import { trackLoading } from "@/lib/loading";
-
 import { cacheFetch } from "./cache";
 import { CacheType } from "./types";
 
@@ -43,7 +41,7 @@ const loadTile = (x: number, y: number) => {
             try {
                 const response = await cacheFetch(
                     tileUrl(x, y),
-                    undefined,
+                    "Loading elevation data...",
                     CacheType.PERMANENT_CACHE,
                 );
                 if (!response.ok) return null;
@@ -95,10 +93,7 @@ export const preloadElevation = async (
             loads.push(loadTile(x, y));
         }
     }
-    const loaded = await trackLoading(
-        "Loading elevation data...",
-        Promise.all(loads),
-    );
+    const loaded = await Promise.all(loads);
     return loaded.every((data) => data !== null);
 };
 
