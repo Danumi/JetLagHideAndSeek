@@ -20,27 +20,32 @@ import {
     type Units,
 } from "@/maps/schema";
 
+/** Wien (OSM relation 109166, admin level 4), the default game area. */
+export const VIENNA: OpenStreetMap = {
+    type: "Feature",
+    properties: {
+        osm_type: "R",
+        osm_id: 109166,
+        osm_key: "place",
+        osm_value: "city",
+        type: "city",
+        name: "Wien",
+        country: "Österreich",
+        countrycode: "AT",
+    },
+    geometry: {
+        type: "Point",
+        coordinates: [48.2083537, 16.3725042],
+    },
+};
+
+/** Hiding zones in a Small game: U-Bahn stations only. */
+export const SUBWAY_STATIONS = "[railway=station][subway=yes]";
+export const SMALL_HIDING_RADIUS_METERS = 500;
+
 export const mapGeoLocation = persistentAtom<OpenStreetMap>(
     "mapGeoLocation",
-    {
-        type: "Feature",
-        properties: {
-            osm_type: "R",
-            osm_id: 175905,
-            osm_key: "place",
-            osm_value: "city",
-            type: "city",
-            name: "New York",
-            state: "New York",
-            country: "United States",
-            countrycode: "US",
-            extent: [40.91763, -74.258843, 40.476578, -73.700233],
-        },
-        geometry: {
-            type: "Point",
-            coordinates: [40.7127281, -74.0060152],
-        },
-    },
+    VIENNA,
     {
         encode: JSON.stringify,
         decode: JSON.parse,
@@ -89,7 +94,7 @@ export const questionModified = (..._: any[]) => {
 
 export const leafletMapContext = atom<Map | null>(null);
 
-export const defaultUnit = persistentAtom<Units>("defaultUnit", "miles");
+export const defaultUnit = persistentAtom<Units>("defaultUnit", "kilometers");
 export const hiderMode = persistentAtom<
     | false
     | {
@@ -103,7 +108,7 @@ export const hiderMode = persistentAtom<
 export const triggerLocalRefresh = atom<number>(0);
 export const displayHidingZones = persistentAtom<boolean>(
     "displayHidingZones",
-    false,
+    true,
     {
         encode: JSON.stringify,
         decode: JSON.parse,
@@ -111,7 +116,7 @@ export const displayHidingZones = persistentAtom<boolean>(
 );
 export const displayHidingZonesOptions = persistentAtom<string[]>(
     "displayHidingZonesOptions",
-    ["[railway=station]"],
+    [SUBWAY_STATIONS],
     {
         encode: JSON.stringify,
         decode: JSON.parse,
@@ -177,18 +182,33 @@ export const animateMapMovements = persistentAtom<boolean>(
         decode: JSON.parse,
     },
 );
-export const hidingRadius = persistentAtom<number>("hidingRadius", 0.5, {
-    encode: JSON.stringify,
-    decode: JSON.parse,
-});
-export const hidingRadiusUnits = persistentAtom<Units>(
-    "hidingRadiusUnits",
-    "miles",
+export const hidingRadius = persistentAtom<number>(
+    "hidingRadius",
+    SMALL_HIDING_RADIUS_METERS,
     {
         encode: JSON.stringify,
         decode: JSON.parse,
     },
 );
+export const hidingRadiusUnits = persistentAtom<Units>(
+    "hidingRadiusUnits",
+    "meters",
+    {
+        encode: JSON.stringify,
+        decode: JSON.parse,
+    },
+);
+
+// Players only see metric units: convert settings saved in miles by older versions.
+if (defaultUnit.get() === "miles") {
+    defaultUnit.set("kilometers");
+}
+if (hidingRadiusUnits.get() === "miles") {
+    hidingRadius.set(
+        Math.round(hidingRadius.get() * 1609.344), // meters per mile
+    );
+    hidingRadiusUnits.set("meters");
+}
 export const disabledStations = persistentAtom<string[]>(
     "disabledStations",
     [],
@@ -379,7 +399,7 @@ export const alwaysUsePastebin = persistentAtom<boolean>(
     },
 );
 
-export const showTutorial = persistentAtom<boolean>("showTutorials", true, {
+export const showTutorial = persistentAtom<boolean>("showTutorials", false, {
     encode: JSON.stringify,
     decode: JSON.parse,
 });

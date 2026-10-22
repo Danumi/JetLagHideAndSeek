@@ -21,11 +21,33 @@ export const determineUnionizedStrings = (
     return [];
 };
 
+/** Miles stay valid for internal calculations; players only see metric units. */
 const unitsSchema = z.union([
     z.literal("miles"),
     z.literal("kilometers"),
     z.literal("meters"),
 ]);
+
+export const KILOMETERS_PER_MILE = 1.609344;
+
+/** Questions saved in miles by older versions are converted to kilometers. */
+const milesToKilometers = (data: unknown) => {
+    if (
+        data === null ||
+        typeof data !== "object" ||
+        (data as { unit?: unknown }).unit !== "miles"
+    ) {
+        return data;
+    }
+
+    const { radius } = data as { radius?: unknown };
+    return {
+        ...data,
+        unit: "kilometers",
+        radius:
+            typeof radius === "number" ? radius * KILOMETERS_PER_MILE : radius,
+    };
+};
 
 const iconColorSchema = z.union([
     z.literal("green"),
@@ -107,12 +129,19 @@ const getDefaultUnit = () => {
     try {
         return defaultUnit.get();
     } catch {
-        return "miles";
+        return "kilometers";
     }
 };
 
+/** Start value for a new question: `kilometers` km, or the same in meters. */
+const defaultDistance = (kilometers: number) => () =>
+    getDefaultUnit() === "meters" ? kilometers * 1000 : kilometers;
+
 const radiusQuestionSchema = ordinaryBaseQuestionSchema.extend({
-    radius: z.number().min(0, "You cannot have a negative radius").default(50),
+    radius: z
+        .number()
+        .min(0, "You cannot have a negative radius")
+        .default(defaultDistance(5)),
     unit: unitsSchema.default(getDefaultUnit),
     within: z.boolean().default(true),
 });
@@ -140,7 +169,10 @@ const apiLocationSchema = z.union([
 ]);
 
 const baseTentacleQuestionSchema = ordinaryBaseQuestionSchema.extend({
-    radius: z.number().min(0, "You cannot have a negative radius").default(15),
+    radius: z
+        .number()
+        .min(0, "You cannot have a negative radius")
+        .default(defaultDistance(24)),
     unit: unitsSchema.default(getDefaultUnit),
     location: z
         .union([
@@ -196,8 +228,8 @@ const customTentacleQuestionSchema = baseTentacleQuestionSchema.extend({
 
 export const tentacleQuestionSchema = z.union([
     customTentacleQuestionSchema.describe(NO_GROUP),
-    tentacleQuestionSpecificSchemaFifteen.describe("15 Miles (Typically)"),
-    tentacleQuestionSpecificSchemaOne.describe("1 Mile (Typically)"),
+    tentacleQuestionSpecificSchemaFifteen.describe("24 km (Typically)"),
+    tentacleQuestionSpecificSchemaOne.describe("1.6 km (Typically)"),
 ]);
 
 const baseMatchingQuestionSchema = ordinaryBaseQuestionSchema.extend({
@@ -434,7 +466,7 @@ export const questionSchema = z.union([
     z.object({
         id: z.literal("radius"),
         key: z.number().default(Math.random),
-        data: radiusQuestionSchema,
+        data: z.preprocess(milesToKilometers, radiusQuestionSchema),
     }),
     z.object({
         id: z.literal("thermometer"),
@@ -444,7 +476,7 @@ export const questionSchema = z.union([
     z.object({
         id: z.literal("tentacles"),
         key: z.number().default(Math.random),
-        data: tentacleQuestionSchema,
+        data: z.preprocess(milesToKilometers, tentacleQuestionSchema),
     }),
     z.object({
         id: z.literal("measuring"),

@@ -5,8 +5,9 @@ export const lngLatToText = (coordinates: [number, number]) => {
     return `${Math.abs(coordinates[1])}°${coordinates[1] > 0 ? "N" : "S"}, ${Math.abs(coordinates[0])}°${coordinates[0] > 0 ? "E" : "W"}`;
 };
 
+/** The name on the station sign (German in Vienna), not the English one. */
 export const extractStationName = (stationPlace: any) =>
-    stationPlace.properties["name:en"] || stationPlace.properties.name;
+    stationPlace.properties.name || stationPlace.properties["name:en"];
 
 export const extractStationLabel = (stationPlace: any) =>
     extractStationName(stationPlace) ||

@@ -376,7 +376,7 @@ export const Map = ({ className }: { className?: string }) => {
                     </div>
                 </div>
                 <PolygonDraw />
-                <ScaleControl position="bottomleft" />
+                <ScaleControl position="bottomleft" imperial={false} />
                 <MapPrint
                     position="topright"
                     sizeModes={["Current", "A4Portrait", "A4Landscape"]}

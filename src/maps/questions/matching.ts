@@ -11,6 +11,7 @@ import osmtogeojson from "osmtogeojson";
 import { toast } from "react-toastify";
 
 import {
+    displayHidingZonesOptions,
     hiderMode,
     mapGeoJSON,
     mapGeoLocation,
@@ -27,7 +28,12 @@ import {
     prettifyLocation,
     trainLineNodeFinder,
 } from "@/maps/api";
-import { holedMask, modifyMapData, safeUnion } from "@/maps/geo-utils";
+import {
+    extractStationName,
+    holedMask,
+    modifyMapData,
+    safeUnion,
+} from "@/maps/geo-utils";
 import { geoSpatialVoronoi } from "@/maps/geo-utils";
 import type {
     APILocations,
@@ -415,11 +421,18 @@ export const hiderifyMatching = async (question: MatchingQuestion) => {
         ]);
         const seekerPoint = turf.point([question.lng, question.lat]);
 
+        // The same stations as the hiding zones (in Small: U-Bahn only)
+        const [stationFilter, ...alternatives] =
+            displayHidingZonesOptions.get().length > 0
+                ? displayHidingZonesOptions.get()
+                : ["[railway=station]"];
         const places = osmtogeojson(
             await findPlacesInZone(
-                "[railway=station]",
+                stationFilter,
                 "Finding train stations. This may take a while. Do not press any buttons while this is processing. Don't worry, it will be cached.",
-                "node",
+                "nwr",
+                "center",
+                alternatives,
             ),
         ) as FeatureCollection<Point>;
 
@@ -447,30 +460,26 @@ export const hiderifyMatching = async (question: MatchingQuestion) => {
             }
         }
 
-        const hiderEnglishName =
-            nearestHiderTrainStation.properties["name:en"] ||
-            nearestHiderTrainStation.properties.name;
-        const seekerEnglishName =
-            nearestSeekerTrainStation.properties["name:en"] ||
-            nearestSeekerTrainStation.properties.name;
+        const hiderStationName = extractStationName(nearestHiderTrainStation);
+        const seekerStationName = extractStationName(nearestSeekerTrainStation);
 
-        if (!hiderEnglishName || !seekerEnglishName) {
+        if (!hiderStationName || !seekerStationName) {
             return question;
         }
 
         if (question.type === "same-first-letter-station") {
             if (
-                hiderEnglishName[0].toUpperCase() ===
-                seekerEnglishName[0].toUpperCase()
+                hiderStationName[0].toUpperCase() ===
+                seekerStationName[0].toUpperCase()
             ) {
                 question.same = true;
             } else {
                 question.same = false;
             }
         } else if (question.type === "same-length-station") {
-            if (hiderEnglishName.length === seekerEnglishName.length) {
+            if (hiderStationName.length === seekerStationName.length) {
                 question.lengthComparison = "same";
-            } else if (hiderEnglishName.length < seekerEnglishName.length) {
+            } else if (hiderStationName.length < seekerStationName.length) {
                 question.lengthComparison = "shorter";
             } else {
                 question.lengthComparison = "longer";

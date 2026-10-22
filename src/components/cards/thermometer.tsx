@@ -36,7 +36,7 @@ export const ThermometerQuestionComponent = ({
     const $isLoading = useStore(isLoading);
 
     const $defaultUnit = useStore(defaultUnit);
-    const DISTANCE_UNIT = $defaultUnit ?? "miles";
+    const DISTANCE_UNIT = $defaultUnit === "meters" ? "meters" : "kilometers";
 
     const label = `Thermometer
     ${
@@ -72,13 +72,6 @@ export const ThermometerQuestionComponent = ({
             cancelled = true;
         };
     }, [data.latA, data.lngA, data.latB, data.lngB, DISTANCE_UNIT, hasCoords]);
-
-    const unitLabel =
-        DISTANCE_UNIT === "meters"
-            ? "Meters"
-            : DISTANCE_UNIT === "kilometers"
-              ? "KM"
-              : "Miles";
 
     return (
         <QuestionCard
@@ -125,7 +118,9 @@ export const ThermometerQuestionComponent = ({
                 <div className="px-2 text-sm text-muted-foreground">
                     Distance:{" "}
                     <span className="font-medium text-foreground">
-                        {distanceValue.toFixed(3)} {unitLabel}
+                        {DISTANCE_UNIT === "meters"
+                            ? `${distanceValue.toFixed(0)} m`
+                            : `${distanceValue.toFixed(3)} km`}
                     </span>
                 </div>
             )}

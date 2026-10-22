@@ -265,6 +265,13 @@ export const ZoneSidebar = () => {
 
             allTrainStations.set(places);
 
+            // Distances to McDonald's & co. below are measured in miles
+            const hidingRadiusMiles = turf.convertLength(
+                $hidingRadius,
+                $hidingRadiusUnits,
+                "miles",
+            );
+
             const unionized = safeUnion(
                 turf.simplify($questionFinishedMapData, {
                     tolerance: 0.001,
@@ -356,13 +363,13 @@ export const ZoneSidebar = () => {
                         }
                     }
 
-                    const englishName = extractStationName(nearestTrainStation);
+                    const stationName = extractStationName(nearestTrainStation);
 
-                    if (!englishName)
-                        return toast.error("No English name found");
+                    if (!stationName)
+                        return toast.error("Seekers' station has no name");
 
                     if (question.data.type === "same-first-letter-station") {
-                        const letter = englishName[0].toUpperCase();
+                        const letter = stationName[0].toUpperCase();
 
                         circles = circles.filter((circle) => {
                             const name = extractStationName(circle.properties);
@@ -373,7 +380,7 @@ export const ZoneSidebar = () => {
                                 : name[0].toUpperCase() !== letter;
                         });
                     } else if (question.data.type === "same-length-station") {
-                        const seekerLength = englishName.length;
+                        const seekerLength = stationName.length;
                         const comparison = question.data.lengthComparison;
 
                         circles = circles.filter((circle) => {
@@ -429,8 +436,9 @@ export const ZoneSidebar = () => {
                             );
 
                             return question.data.hiderCloser
-                                ? stationDistance < distance + $hidingRadius
-                                : stationDistance > distance - $hidingRadius;
+                                ? stationDistance < distance + hidingRadiusMiles
+                                : stationDistance >
+                                      distance - hidingRadiusMiles;
                         }),
                     );
                     circles = circles.filter(
@@ -480,7 +488,11 @@ export const ZoneSidebar = () => {
                     stations,
                     showGeoJSON,
                     $questionFinishedMapData,
-                    $hidingRadius,
+                    turf.convertLength(
+                        $hidingRadius,
+                        $hidingRadiusUnits,
+                        "miles",
+                    ),
                 ).catch((error) => {
                     console.log("Error in hiding zone selection:", error);
                     toast.error(
@@ -509,6 +521,7 @@ export const ZoneSidebar = () => {
         $displayHidingZones,
         $displayHidingZonesStyle,
         $hidingRadius,
+        $hidingRadiusUnits,
         $questionFinishedMapData,
         hidingZoneModeStationID,
         stations,
@@ -825,9 +838,18 @@ export const ZoneSidebar = () => {
                                             value: "[railway=halt][light_rail=yes]",
                                         },
                                     ]}
-                                    onValueChange={
-                                        displayHidingZonesOptions.set
-                                    }
+                                    onValueChange={(values) => {
+                                        if (
+                                            !_.isEqual(
+                                                values,
+                                                displayHidingZonesOptions.get(),
+                                            )
+                                        ) {
+                                            displayHidingZonesOptions.set(
+                                                values,
+                                            );
+                                        }
+                                    }}
                                     defaultValue={$displayHidingZonesOptions}
                                     placeholder="Select allowed places"
                                     animation={2}
@@ -1142,7 +1164,7 @@ async function selectionProcess(
     stations: any[],
     showGeoJSON: (geoJSONData: any) => void,
     $questionFinishedMapData: any,
-    $hidingRadius: number,
+    hidingRadiusMiles: number,
 ) {
     const bbox = turf.bbox(station);
 
@@ -1217,8 +1239,8 @@ async function selectionProcess(
 
                 const minimumPoint = _.minBy(distances, "distance")!;
 
-                if (minimumPoint.distance + $hidingRadius * 2 > radius) {
-                    radius = minimumPoint.distance + $hidingRadius * 2;
+                if (minimumPoint.distance + hidingRadiusMiles * 2 > radius) {
+                    radius = minimumPoint.distance + hidingRadiusMiles * 2;
                     continue;
                 }
 
@@ -1227,7 +1249,8 @@ async function selectionProcess(
                         .filter(
                             (x) =>
                                 x.distance <
-                                    minimumPoint.distance + $hidingRadius * 2 &&
+                                    minimumPoint.distance +
+                                        hidingRadiusMiles * 2 &&
                                 x.point.properties.name, // If it doesn't have a name, it's not a valid location
                         )
                         .map((x) => x.point),
@@ -1319,7 +1342,12 @@ async function selectionProcess(
                             station.properties.geometry,
                             x.properties.geometry,
                         )) <
-                        distance + 1.61 * $hidingRadius,
+                        distance +
+                            turf.convertLength(
+                                hidingRadiusMiles,
+                                "miles",
+                                "kilometers",
+                            ),
                 ),
             );
             const circles = stations
@@ -1363,7 +1391,7 @@ async function selectionProcess(
                             station.properties.geometry,
                             "miles",
                         )) <
-                        distance + $hidingRadius,
+                        distance + hidingRadiusMiles,
                 ),
             );
             const filtered = points.features.filter(
