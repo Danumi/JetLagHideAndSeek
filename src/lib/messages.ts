@@ -77,6 +77,24 @@ export const messages = {
         de: "Dein Standort ließ sich nicht bestimmen.",
     },
 
+    // Places and lines on the map: the button below the location button
+    "layers.button": {
+        en: "Places and lines on the map",
+        de: "Orte und Linien auf der Karte",
+    },
+    "layers.title": { en: "Show on the map", de: "Auf der Karte zeigen" },
+    "layers.hint": {
+        en: "What the question cards ask about. Tap a symbol to see its name.",
+        de: "Wonach die Fragekarten fragen. Tippe auf ein Symbol, um den Namen zu sehen.",
+    },
+    "layers.hideAll": { en: "Hide all", de: "Alle ausblenden" },
+    "layers.zoomIn": {
+        en: "Zoom in to see: {what}",
+        de: "Zum Anzeigen hineinzoomen: {what}",
+    },
+    "layers.uBahn": { en: "U-Bahn lines", de: "U-Bahn-Linien" },
+    "layers.sBahn": { en: "S-Bahn lines", de: "S-Bahn-Linien" },
+
     // The kinds of questions
     "kind.matching.question": {
         en: "Is your nearest ___ the same as mine?",
@@ -1041,6 +1059,10 @@ export const messages = {
         de: "Lade Küstenlinien …",
     },
     "loading.lines": { en: "Finding train lines...", de: "Suche Linien …" },
+    "loading.transitLines": {
+        en: "Finding U-Bahn and S-Bahn lines...",
+        de: "Suche U-Bahn- und S-Bahn-Linien …",
+    },
     "loading.street": {
         en: "Finding nearest street...",
         de: "Suche die nächste Straße …",

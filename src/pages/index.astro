@@ -6,6 +6,7 @@ import { QuestionSidebar } from "@/components/QuestionSidebar";
 import { HidingZones } from "@/components/HidingZones";
 import { ZoneSheet } from "@/components/ZoneSheet";
 import { LocateButton, ZoneCounter } from "@/components/MapControls";
+import { MapLayersButton } from "@/components/MapLayers";
 import { BottomBar } from "@/components/BottomBar";
 import { OptionDrawers } from "@/components/OptionDrawers";
 import { LoadingIndicator } from "@/components/LoadingIndicator";
@@ -30,6 +31,7 @@ import { HiderScreen } from "@/components/HiderScreen";
                     >
                         <OptionDrawers client:load />
                         <LocateButton client:only />
+                        <MapLayersButton client:only />
                     </div>
                     <div
                         class="pointer-events-none absolute left-0 right-0 top-[116px] z-[1030] mx-auto w-fit"

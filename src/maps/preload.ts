@@ -13,6 +13,7 @@ import {
     findNamedWaterLines,
     findPlacesOfKind,
     findStationLines,
+    findTransitLines,
     preloadElevation,
     type StationPlace,
 } from "@/maps/api";
@@ -139,6 +140,8 @@ export const preloadGameData = async ({
     // These are clipped to the outline of the game area
     const outlineJobs = [
         findNamedWaterLines,
+        // For the U-Bahn and S-Bahn lines on the map
+        findTransitLines,
         () =>
             preloadElevation(
                 turf.bbox(mapGeoJSON.get()!) as [

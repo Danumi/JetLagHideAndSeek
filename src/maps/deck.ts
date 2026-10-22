@@ -90,7 +90,7 @@ const NO_AIRPORT: Text = {
     de: "Der Flughafen Wien liegt außerhalb der Stadt, im Spielgebiet gibt es also keinen Verkehrsflughafen.",
 };
 
-const GROUPS = {
+export const GROUPS = {
     transit: { en: "Transit", de: "Verkehr" },
     admin: { en: "Administrative Divisions", de: "Verwaltungseinheiten" },
     natural: { en: "Natural", de: "Natur" },
@@ -401,8 +401,8 @@ export const MEASURING_DECK: DeckCard[] = flatten([
 ]);
 
 /** Cards in rule book order, grouped by their category. */
-export const deckGroups = (deck: DeckCard[]) =>
-    deck.reduce<{ group: Text; cards: DeckCard[] }[]>((groups, card) => {
+export const deckGroups = <C extends { group: Text }>(deck: C[]) =>
+    deck.reduce<{ group: Text; cards: C[] }[]>((groups, card) => {
         const last = groups[groups.length - 1];
         if (last && last.group.en === card.group.en) {
             last.cards.push(card);
