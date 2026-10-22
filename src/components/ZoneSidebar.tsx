@@ -39,6 +39,7 @@ import {
     useCustomStations as useCustomStationsAtom,
 } from "@/lib/context";
 import { cn } from "@/lib/utils";
+import { questionApplies } from "@/maps/answers";
 import {
     BLANK_GEOJSON,
     findPlacesInZone,
@@ -295,7 +296,7 @@ export const ZoneSidebar = () => {
                 });
 
             for (const question of questions.get()) {
-                if (planningModeEnabled.get() && question.data.drag) {
+                if (!questionApplies(question, planningModeEnabled.get())) {
                     continue;
                 }
 
@@ -393,6 +394,8 @@ export const ZoneSidebar = () => {
                                 return name.length < seekerLength;
                             } else if (comparison === "longer") {
                                 return name.length > seekerLength;
+                            } else if (comparison === "different") {
+                                return name.length !== seekerLength;
                             }
                             return false;
                         });
@@ -1183,7 +1186,7 @@ async function selectionProcess(
     ]);
 
     for (const question of questions.get()) {
-        if (planningModeEnabled.get() && question.data.drag) {
+        if (!questionApplies(question, planningModeEnabled.get())) {
             continue;
         }
 

@@ -75,6 +75,19 @@ const randomColorExcluding = (excluded: IconColor[] = []) => {
     return options[Math.floor(Math.random() * options.length)];
 };
 
+/**
+ * New questions wait for the hider's answer ("pending") and don't change the
+ * map until then. "no-answer" is for questions the hider can't answer.
+ * Questions saved by older versions were answered right away.
+ */
+const answerStatusSchema = z.enum(["pending", "answered", "no-answer"]);
+
+const answerFields = {
+    status: answerStatusSchema.default("answered"),
+    /** When the question was asked, in milliseconds since 1970. */
+    askedAt: z.number().optional(),
+};
+
 const thermometerQuestionSchema = z
     .object({
         latA: z
@@ -100,6 +113,7 @@ const thermometerQuestionSchema = z
         drag: z.boolean().default(true),
         collapsed: z.boolean().default(false),
         hidden: z.boolean().default(false),
+        ...answerFields,
     })
     .transform((question) => {
         if (question.colorA === question.colorB) {
@@ -123,6 +137,7 @@ const ordinaryBaseQuestionSchema = z.object({
     color: iconColorSchema.default(randomColor),
     collapsed: z.boolean().default(false),
     hidden: z.boolean().default(false),
+    ...answerFields,
 });
 
 const getDefaultUnit = () => {
@@ -234,7 +249,9 @@ export const tentacleQuestionSchema = z.union([
 
 const baseMatchingQuestionSchema = ordinaryBaseQuestionSchema.extend({
     same: z.boolean().default(true),
-    lengthComparison: z.enum(["shorter", "longer", "same"]).optional(),
+    lengthComparison: z
+        .enum(["shorter", "longer", "same", "different"])
+        .optional(),
     /** Same train line: the line the seekers are riding (see StationLine.key). */
     lineKey: z.string().optional(),
 });
@@ -493,6 +510,7 @@ export const questionSchema = z.union([
 export const questionsSchema = z.array(questionSchema);
 
 export type Units = z.infer<typeof unitsSchema>;
+export type AnswerStatus = z.infer<typeof answerStatusSchema>;
 export type RadiusQuestion = z.infer<typeof radiusQuestionSchema>;
 export type ThermometerQuestion = z.infer<typeof thermometerQuestionSchema>;
 export type TentacleQuestion = z.infer<typeof tentacleQuestionSchema>;

@@ -31,6 +31,7 @@ import {
     type TraditionalTentacleQuestion,
 } from "@/maps/schema";
 
+import { AnswerButtons, numberedTitle } from "./answer";
 import { QuestionCard } from "./base";
 
 export const TentacleQuestionComponent = ({
@@ -47,13 +48,7 @@ export const TentacleQuestionComponent = ({
     const $questions = useStore(questions);
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $isLoading = useStore(isLoading);
-    const label = `Tentacles
-    ${
-        $questions
-            .filter((q) => q.id === "tentacles")
-            .map((q) => q.key)
-            .indexOf(questionKey) + 1
-    }`;
+    const label = numberedTitle($questions, questionKey);
 
     return (
         <QuestionCard
@@ -220,6 +215,9 @@ export const TentacleQuestionComponent = ({
                     />
                 </Suspense>
             </SidebarMenuItem>
+            <AnswerButtons
+                question={{ id: "tentacles", key: questionKey, data }}
+            />
         </QuestionCard>
     );
 };

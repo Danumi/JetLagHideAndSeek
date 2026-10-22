@@ -3,20 +3,17 @@ import { point } from "@turf/turf";
 import { useEffect, useState } from "react";
 
 import { LatitudeLongitude } from "@/components/LatLngPicker";
-import { Label } from "@/components/ui/label";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { defaultUnit } from "@/lib/context";
 import {
-    hiderMode,
     isLoading,
     questionModified,
     questions,
     triggerLocalRefresh,
 } from "@/lib/context";
-import { cn } from "@/lib/utils";
 import { arcDistance } from "@/maps/geo-utils";
 import type { ThermometerQuestion } from "@/maps/schema";
 
+import { AnswerButtons, numberedTitle } from "./answer";
 import { QuestionCard } from "./base";
 
 export const ThermometerQuestionComponent = ({
@@ -31,20 +28,13 @@ export const ThermometerQuestionComponent = ({
     className?: string;
 }) => {
     useStore(triggerLocalRefresh);
-    const $hiderMode = useStore(hiderMode);
     const $questions = useStore(questions);
     const $isLoading = useStore(isLoading);
 
     const $defaultUnit = useStore(defaultUnit);
     const DISTANCE_UNIT = $defaultUnit === "meters" ? "meters" : "kilometers";
 
-    const label = `Thermometer
-    ${
-        $questions
-            .filter((q) => q.id === "thermometer")
-            .map((q) => q.key)
-            .indexOf(questionKey) + 1
-    }`;
+    const label = numberedTitle($questions, questionKey);
 
     const hasCoords =
         data.latA !== null &&
@@ -125,30 +115,9 @@ export const ThermometerQuestionComponent = ({
                 </div>
             )}
 
-            <div className="flex gap-2 items-center p-2">
-                <Label
-                    className={cn(
-                        "font-semibold text-lg",
-                        $isLoading && "text-muted-foreground",
-                    )}
-                >
-                    Result
-                </Label>
-                <ToggleGroup
-                    className="grow"
-                    type="single"
-                    value={data.warmer ? "warmer" : "colder"}
-                    onValueChange={(value: "warmer" | "colder") =>
-                        questionModified((data.warmer = value === "warmer"))
-                    }
-                    disabled={!!$hiderMode || !data.drag || $isLoading}
-                >
-                    <ToggleGroupItem color="red" value="colder">
-                        Colder
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="warmer">Warmer</ToggleGroupItem>
-                </ToggleGroup>
-            </div>
+            <AnswerButtons
+                question={{ id: "thermometer", key: questionKey, data }}
+            />
         </QuestionCard>
     );
 };

@@ -7,26 +7,22 @@ import CustomInitDialog from "@/components/CustomInitDialog";
 import { LatitudeLongitude } from "@/components/LatLngPicker";
 import PresetsDialog from "@/components/PresetsDialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import {
     MENU_ITEM_CLASSNAME,
     SidebarMenuItem,
 } from "@/components/ui/sidebar-l";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
     allTrainStations,
     customInitPreference,
     displayHidingZones,
     drawingQuestionKey,
-    hiderMode,
     isLoading,
     questionModified,
     questions,
     showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
-import { cn } from "@/lib/utils";
 import { findStationLines, type StationLine } from "@/maps/api";
 import {
     ADMIN_LEVEL_LABELS,
@@ -48,6 +44,7 @@ import {
     NO_GROUP,
 } from "@/maps/schema";
 
+import { AnswerButtons, numberedTitle } from "./answer";
 import { QuestionCard } from "./base";
 
 const MATCHING_TYPE_LABELS: Record<string, string> = Object.fromEntries(
@@ -163,7 +160,6 @@ export const MatchingQuestionComponent = ({
     className?: string;
 }) => {
     useStore(triggerLocalRefresh);
-    const $hiderMode = useStore(hiderMode);
     const $questions = useStore(questions);
     const $displayHidingZones = useStore(displayHidingZones);
     const $drawingQuestionKey = useStore(drawingQuestionKey);
@@ -175,12 +171,7 @@ export const MatchingQuestionComponent = ({
         "custom-zone" | "custom-points" | null
     >(null);
     const card = matchingCardFor(data);
-    const label = `Matching ${
-        $questions
-            .filter((q) => q.id === "matching")
-            .map((q) => q.key)
-            .indexOf(questionKey) + 1
-    }${card ? `: ${card.label}` : ""}`;
+    const label = numberedTitle($questions, questionKey);
 
     let questionSpecific = <></>;
 
@@ -541,79 +532,9 @@ export const MatchingQuestionComponent = ({
                     disabled={!data.drag || $isLoading}
                 />
             )}
-            <div
-                className={cn(
-                    "flex gap-2 items-center p-2",
-                    data.type === "same-length-station" && "flex-col",
-                )}
-            >
-                <Label
-                    className={cn(
-                        "font-semibold text-lg",
-                        $isLoading && "text-muted-foreground",
-                        data.type === "same-length-station" && "text-center",
-                    )}
-                >
-                    Result
-                </Label>
-                {data.type === "same-length-station" ? (
-                    <ToggleGroup
-                        className="grow"
-                        type="single"
-                        value={
-                            data.lengthComparison
-                                ? data.lengthComparison
-                                : data.same === true
-                                  ? "same"
-                                  : data.same === false
-                                    ? "different"
-                                    : "same"
-                        }
-                        onValueChange={(
-                            value: "shorter" | "same" | "longer" | "different",
-                        ) => {
-                            if (value === "shorter" || value === "longer") {
-                                questionModified(
-                                    (data.lengthComparison = value),
-                                );
-                            } else if (value === "same") {
-                                questionModified(
-                                    (data.lengthComparison = "same"),
-                                );
-                                questionModified((data.same = true));
-                            } else if (value === "different") {
-                                questionModified((data.same = false));
-                            }
-                        }}
-                        disabled={!!$hiderMode || !data.drag || $isLoading}
-                    >
-                        <ToggleGroupItem value="shorter">
-                            Shorter
-                        </ToggleGroupItem>
-                        <ToggleGroupItem value="same">Same</ToggleGroupItem>
-                        <ToggleGroupItem value="longer">Longer</ToggleGroupItem>
-                    </ToggleGroup>
-                ) : (
-                    <ToggleGroup
-                        className="grow"
-                        type="single"
-                        value={data.same ? "same" : "different"}
-                        onValueChange={(value) => {
-                            if (value === "same") {
-                                questionModified((data.same = true));
-                            } else if (value === "different") {
-                                questionModified((data.same = false));
-                            }
-                        }}
-                        disabled={!!$hiderMode || !data.drag || $isLoading}
-                    >
-                        <ToggleGroupItem value="different">
-                            Different
-                        </ToggleGroupItem>
-                        <ToggleGroupItem value="same">Same</ToggleGroupItem>
-                    </ToggleGroup>
-                )}
-            </div>
+            <AnswerButtons
+                question={{ id: "matching", key: questionKey, data }}
+            />
         </QuestionCard>
     );
 };
