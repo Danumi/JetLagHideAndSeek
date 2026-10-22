@@ -10,8 +10,17 @@ body {
 }
 
 .leaflet-container {
-    height: 100vh; /* Fallback for old browsers */
-    height: 100svh;
+    height: 100%;
+}
+
+/* Scale and drawing tools sit below the zone count at the top left */
+.leaflet-top.leaflet-left {
+    top: 44px;
+}
+
+/* The drawing toolbar only shows when it is needed (see PolygonDraw) */
+.hide-draw-tools .leaflet-draw {
+    display: none;
 }
 
 .leaflet-bottom.leaflet-right {
@@ -96,27 +105,6 @@ div.leaflet-control-attribution.leaflet-control {
         --sidebar-accent-foreground: 240 4.8% 95.9%;
         --sidebar-border: 240 3.7% 15.9%;
         --sidebar-ring: 217.2 91.2% 59.8%;
-    }
-
-    main:not(.fullscreen)
-        .leaflet-control-container
-        .leaflet-top.leaflet-left
-        .leaflet-control {
-        @apply !mt-[104px] md:!mt-[40px];
-    }
-
-    main:not(.fullscreen)
-        .leaflet-top
-        .leaflet-control:not(.leaflet-control-easyPrint) {
-        @apply !mt-[104px] md:!mt-[40px];
-    }
-
-    div.leaflet-top div.leaflet-control-easyPrint {
-        @apply !mt-[140px] md:!mt-[74px];
-    }
-
-    main.fullscreen div.leaflet-control-easyPrint {
-        @apply hidden;
     }
 
     .selected-card-background-temporary {

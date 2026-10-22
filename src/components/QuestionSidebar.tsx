@@ -16,6 +16,7 @@ import {
     isLoading,
     questions,
     save,
+    showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
 import { isLogged } from "@/maps/answers";
@@ -35,6 +36,7 @@ export const QuestionSidebar = () => {
     const $questions = useStore(questions);
     const $autoSave = useStore(autoSave);
     const $isLoading = useStore(isLoading);
+    const $showAllQuestionTypes = useStore(showAllQuestionTypes);
 
     return (
         <Sidebar>
@@ -48,6 +50,12 @@ export const QuestionSidebar = () => {
                 />
             </div>
             <SidebarContent>
+                {$questions.length === 0 && (
+                    <p className="px-4 py-2 text-sm text-muted-foreground">
+                        No questions yet. Tap &quot;Ask a question&quot; below
+                        the map.
+                    </p>
+                )}
                 {$questions.map((question, index) => {
                     if (isLogged(question)) {
                         return (
@@ -108,24 +116,17 @@ export const QuestionSidebar = () => {
             <SidebarGroup>
                 <SidebarGroupContent>
                     <SidebarMenu data-tutorial-id="add-questions-buttons">
-                        <SidebarMenuItem>
-                            <AddQuestionDialog>
-                                <SidebarMenuButton disabled={$isLoading}>
-                                    Add Question
-                                </SidebarMenuButton>
-                            </AddQuestionDialog>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            <a
-                                href="https://github.com/taibeled/JetLagHideAndSeek"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <SidebarMenuButton className="bg-emerald-600 transition-colors">
-                                    Star this on GitHub! It&apos;s free :)
-                                </SidebarMenuButton>
-                            </a>
-                        </SidebarMenuItem>
+                        {/* New questions come from "Ask a question"; this
+                            one offers every type, for experts */}
+                        {$showAllQuestionTypes && (
+                            <SidebarMenuItem>
+                                <AddQuestionDialog>
+                                    <SidebarMenuButton disabled={$isLoading}>
+                                        Add Question
+                                    </SidebarMenuButton>
+                                </AddQuestionDialog>
+                            </SidebarMenuItem>
+                        )}
                         {!$autoSave && (
                             <SidebarMenuItem>
                                 <SidebarMenuButton

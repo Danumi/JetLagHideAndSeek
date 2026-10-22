@@ -260,8 +260,8 @@ export const MatchingQuestionComponent = ({
         case "park":
             questionSpecific = (
                 <span className="px-2 text-center text-orange-500">
-                    This question will only influence the map when you click on
-                    a hiding zone in the hiding zone sidebar.
+                    This question will only influence the map when you open a
+                    hiding zone (tap it on the map or in the Zones list).
                 </span>
             );
             break;
@@ -387,8 +387,8 @@ export const MatchingQuestionComponent = ({
             )}
             {card?.needsHidingZones && !$displayHidingZones && (
                 <span className="px-2 text-center text-orange-500">
-                    This question needs the hiding zones. Turn them on in the
-                    right sidebar.
+                    This question needs the hiding zones. Turn them on under
+                    Zones → Zone settings.
                 </span>
             )}
             {$showAllQuestionTypes && (

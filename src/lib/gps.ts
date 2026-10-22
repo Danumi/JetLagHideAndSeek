@@ -1,17 +1,25 @@
 import { toast } from "react-toastify";
 
 import { SidebarContext } from "@/components/ui/sidebar-l";
-import { leafletMapContext } from "@/lib/context";
+import { leafletMapContext, myPosition } from "@/lib/context";
 
 export type LatLng = { lat: number; lng: number };
+
+/** The blue dot's position is used right away while it is this fresh. */
+const FRESH_POSITION_MS = 15_000;
 
 /** The device's position (accuracy in meters), or null when the browser can't or won't tell. */
 export const getCurrentPosition = (): Promise<
     (LatLng & { accuracy: number }) | null
 > =>
     new Promise((resolve) => {
+        const known = myPosition.get();
+        if (known && Date.now() - known.at < FRESH_POSITION_MS) {
+            resolve(known);
+            return;
+        }
         if (typeof navigator === "undefined" || !navigator.geolocation) {
-            resolve(null);
+            resolve(known);
             return;
         }
         navigator.geolocation.getCurrentPosition(
@@ -21,8 +29,14 @@ export const getCurrentPosition = (): Promise<
                     lng: position.coords.longitude,
                     accuracy: position.coords.accuracy,
                 }),
-            () => resolve(null),
-            { enableHighAccuracy: true, maximumAge: 15_000, timeout: 10_000 },
+            // The blue dot follows the phone, so it is still the best guess
+            // and isn't worth a long wait
+            () => resolve(known),
+            {
+                enableHighAccuracy: true,
+                maximumAge: 15_000,
+                timeout: known ? 3_000 : 10_000,
+            },
         );
     });
 

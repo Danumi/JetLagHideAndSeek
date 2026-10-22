@@ -1,19 +1,13 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { Map } from "@/components/Map";
-import { PlacePicker } from "@/components/PlacePicker";
-import {
-    SidebarProvider as SidebarProviderL,
-    SidebarTrigger as SidebarTriggerL,
-} from "@/components/ui/sidebar-l";
-import {
-    SidebarProvider as SidebarProviderR,
-    SidebarTrigger as SidebarTriggerR,
-} from "@/components/ui/sidebar-r";
+import { SidebarProvider as SidebarProviderL } from "@/components/ui/sidebar-l";
 import { QuestionSidebar } from "@/components/QuestionSidebar";
-import { ZoneSidebar } from "@/components/ZoneSidebar";
+import { HidingZones } from "@/components/HidingZones";
+import { ZoneSheet } from "@/components/ZoneSheet";
+import { LocateButton, ZoneCounter } from "@/components/MapControls";
+import { BottomBar } from "@/components/BottomBar";
 import { OptionDrawers } from "@/components/OptionDrawers";
-import { AskQuestion } from "@/components/AskQuestion";
 import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { TutorialDialog } from "@/components/TutorialDialog";
 import { HiderScreen } from "@/components/HiderScreen";
@@ -21,58 +15,35 @@ import { HiderScreen } from "@/components/HiderScreen";
 
 <Layout className="bg-jetlag">
     <SidebarProviderL client:load>
-        <SidebarProviderR client:load defaultOpen={false}>
-            <QuestionSidebar client:only />
-            <main class="flex flex-col flex-grow group">
-                <div
-                    class="flex justify-center"
-                    id="map-modal-dialog-container-leaflet"
-                >
-                    <div class="w-full h-full relative">
-                        <div
-                            class="absolute top-[72px] md:top-2 left-2 z-[1030] group-[.fullscreen]:hidden"
-                            data-tutorial-id="left-sidebar-trigger"
-                        >
-                            <SidebarTriggerL client:load />
-                        </div>
-                        <div
-                            class="absolute top-[72px] md:top-2 right-2 z-[1030] group-[.fullscreen]:hidden"
-                        >
-                            <SidebarTriggerR client:load />
-                        </div>
-                        <div
-                            class="flex flex-shrink max-w-fit z-[1030] absolute left-4 right-0 m-auto group-[.fullscreen]:hidden"
-                        >
-                            <PlacePicker
-                                client:only
-                                className="m-4 overflow-hidden"
-                            />
-                        </div>
-                        <div
-                            class="pointer-events-none absolute top-[72px] left-0 right-0 mx-auto w-fit z-[1030] group-[.fullscreen]:hidden"
-                        >
-                            <LoadingIndicator client:only />
-                        </div>
-                        <div
-                            class="absolute bottom-[100px] left-0 right-0 mx-auto w-fit z-[1030] group-[.fullscreen]:hidden"
-                        >
-                            <AskQuestion client:only />
-                        </div>
-                        <div
-                            class="bottom-5 right-2 mx-auto mb-2 w-fit absolute z-[1030] group-[.fullscreen]:hidden"
-                        >
-                            <OptionDrawers client:load />
-                        </div>
-                        <Map
-                            className="w-full group-[.fullscreen]:w-full group-[.fullscreen]:h-full"
-                            client:only
-                        />
+        <QuestionSidebar client:only />
+        <main class="flex h-[100svh] min-w-0 flex-grow flex-col">
+            <div
+                class="flex h-full flex-col"
+                id="map-modal-dialog-container-leaflet"
+            >
+                <div class="relative min-h-0 flex-1">
+                    <div class="absolute left-3 top-3 z-[1030]">
+                        <ZoneCounter client:only />
                     </div>
+                    <div
+                        class="absolute right-3 top-3 z-[1030] flex flex-col gap-2"
+                    >
+                        <OptionDrawers client:load />
+                        <LocateButton client:only />
+                    </div>
+                    <div
+                        class="pointer-events-none absolute left-0 right-0 top-[116px] z-[1030] mx-auto w-fit"
+                    >
+                        <LoadingIndicator client:only />
+                    </div>
+                    <Map className="h-full w-full" client:only />
                 </div>
-            </main>
-            <ZoneSidebar client:only />
-            <TutorialDialog client:only />
-            <HiderScreen client:only />
-        </SidebarProviderR>
+                <BottomBar client:only />
+            </div>
+        </main>
+        <HidingZones client:only />
+        <ZoneSheet client:only />
+        <TutorialDialog client:only />
+        <HiderScreen client:only />
     </SidebarProviderL>
 </Layout>

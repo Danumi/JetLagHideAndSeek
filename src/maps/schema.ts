@@ -49,6 +49,23 @@ const milesToKilometers = (data: unknown) => {
     };
 };
 
+/**
+ * A radius that isn't a number above 0 (an emptied number field used to save
+ * one) goes back to the start value, so the question still loads.
+ */
+const repairRadius = (data: unknown) => {
+    if (data === null || typeof data !== "object") return data;
+
+    const { radius } = data as { radius?: unknown };
+    if (
+        radius === undefined ||
+        (typeof radius === "number" && Number.isFinite(radius) && radius > 0)
+    ) {
+        return data;
+    }
+    return { ...data, radius: undefined, unit: undefined };
+};
+
 const iconColorSchema = z.union([
     z.literal("green"),
     z.literal("black"),
@@ -62,11 +79,6 @@ const iconColorSchema = z.union([
 
 type IconColor = z.infer<typeof iconColorSchema>;
 
-const randomColor = () =>
-    (Object.keys(ICON_COLORS) as IconColor[])[
-        Math.floor(Math.random() * Object.keys(ICON_COLORS).length)
-    ];
-
 const randomColorExcluding = (excluded: IconColor[] = []) => {
     const options = (Object.keys(ICON_COLORS) as IconColor[]).filter(
         (color) => !excluded.includes(color),
@@ -74,6 +86,10 @@ const randomColorExcluding = (excluded: IconColor[] = []) => {
 
     return options[Math.floor(Math.random() * options.length)];
 };
+
+/** Colors of new questions: not green (zones), grey or black (ruled out). */
+const randomQuestionColor = () =>
+    randomColorExcluding(["green", "grey", "black"]);
 
 /**
  * New questions wait for the hider's answer ("pending") and don't change the
@@ -88,40 +104,32 @@ const answerFields = {
     askedAt: z.number().optional(),
 };
 
-const thermometerQuestionSchema = z
-    .object({
-        latA: z
-            .number()
-            .min(-90, "Latitude must not overlap with the poles")
-            .max(90, "Latitude must not overlap with the poles"),
-        lngA: z
-            .number()
-            .min(-180, "Longitude must not overlap with the antemeridian")
-            .max(180, "Longitude must not overlap with the antemeridian"),
-        latB: z
-            .number()
-            .min(-90, "Latitude must not overlap with the poles")
-            .max(90, "Latitude must not overlap with the poles"),
-        lngB: z
-            .number()
-            .min(-180, "Longitude must not overlap with the antemeridian")
-            .max(180, "Longitude must not overlap with the antemeridian"),
-        warmer: z.boolean().default(true),
-        colorA: iconColorSchema.default(() => randomColorExcluding(["green"])),
-        colorB: iconColorSchema.default(() => randomColorExcluding(["green"])),
-        /** Note that drag is now synonymous with unlocked */
-        drag: z.boolean().default(true),
-        collapsed: z.boolean().default(false),
-        hidden: z.boolean().default(false),
-        ...answerFields,
-    })
-    .transform((question) => {
-        if (question.colorA === question.colorB) {
-            question.colorB = "green";
-        }
-
-        return question;
-    });
+const thermometerQuestionSchema = z.object({
+    latA: z
+        .number()
+        .min(-90, "Latitude must not overlap with the poles")
+        .max(90, "Latitude must not overlap with the poles"),
+    lngA: z
+        .number()
+        .min(-180, "Longitude must not overlap with the antemeridian")
+        .max(180, "Longitude must not overlap with the antemeridian"),
+    latB: z
+        .number()
+        .min(-90, "Latitude must not overlap with the poles")
+        .max(90, "Latitude must not overlap with the poles"),
+    lngB: z
+        .number()
+        .min(-180, "Longitude must not overlap with the antemeridian")
+        .max(180, "Longitude must not overlap with the antemeridian"),
+    warmer: z.boolean().default(true),
+    colorA: iconColorSchema.default(randomQuestionColor),
+    colorB: iconColorSchema.default(randomQuestionColor),
+    /** Note that drag is now synonymous with unlocked */
+    drag: z.boolean().default(true),
+    collapsed: z.boolean().default(false),
+    hidden: z.boolean().default(false),
+    ...answerFields,
+});
 
 const ordinaryBaseQuestionSchema = z.object({
     lat: z
@@ -134,7 +142,7 @@ const ordinaryBaseQuestionSchema = z.object({
         .max(180, "Longitude must not overlap with the antemeridian"),
     /** Note that drag is now synonymous with unlocked */
     drag: z.boolean().default(true),
-    color: iconColorSchema.default(randomColor),
+    color: iconColorSchema.default(randomQuestionColor),
     collapsed: z.boolean().default(false),
     hidden: z.boolean().default(false),
     ...answerFields,
@@ -483,7 +491,10 @@ export const questionSchema = z.union([
     z.object({
         id: z.literal("radius"),
         key: z.number().default(Math.random),
-        data: z.preprocess(milesToKilometers, radiusQuestionSchema),
+        data: z.preprocess(
+            (data) => milesToKilometers(repairRadius(data)),
+            radiusQuestionSchema,
+        ),
     }),
     z.object({
         id: z.literal("thermometer"),
@@ -493,7 +504,10 @@ export const questionSchema = z.union([
     z.object({
         id: z.literal("tentacles"),
         key: z.number().default(Math.random),
-        data: z.preprocess(milesToKilometers, tentacleQuestionSchema),
+        data: z.preprocess(
+            (data) => milesToKilometers(repairRadius(data)),
+            tentacleQuestionSchema,
+        ),
     }),
     z.object({
         id: z.literal("measuring"),
