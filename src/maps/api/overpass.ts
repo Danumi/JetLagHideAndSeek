@@ -475,31 +475,40 @@ export const trainLineNodeFinder = async (
     return _.intersection(...lines.map((line) => line.stationIds));
 };
 
-const toLineStrings = (elements: any[]): Feature<LineString>[] => {
-    const geometries: { lat: number; lon: number }[][] = [];
+/** Ways and relation members as lines, each with its name (a river's for its parts). */
+const toLineStrings = (
+    elements: any[],
+): Feature<LineString, { name?: string }>[] => {
+    const geometries: {
+        name?: string;
+        points: { lat: number; lon: number }[];
+    }[] = [];
     for (const element of elements) {
+        const name: string | undefined = element.tags?.name;
         if (element.type === "way" && element.geometry) {
-            geometries.push(element.geometry);
+            geometries.push({ name, points: element.geometry });
         } else if (element.type === "relation" && element.members) {
             for (const member of element.members) {
-                if (member.geometry) geometries.push(member.geometry);
+                if (member.geometry) {
+                    geometries.push({ name, points: member.geometry });
+                }
             }
         }
     }
 
-    const lines: Feature<LineString>[] = [];
-    for (const geometry of geometries) {
+    const lines: Feature<LineString, { name?: string }>[] = [];
+    for (const { name, points } of geometries) {
         // Clipped geometries contain gaps (null) where the way leaves the bbox.
         let run: [number, number][] = [];
-        for (const point of geometry) {
+        for (const point of points) {
             if (point && typeof point.lon === "number") {
                 run.push([point.lon, point.lat]);
             } else {
-                if (run.length >= 2) lines.push(turf.lineString(run));
+                if (run.length >= 2) lines.push(turf.lineString(run, { name }));
                 run = [];
             }
         }
-        if (run.length >= 2) lines.push(turf.lineString(run));
+        if (run.length >= 2) lines.push(turf.lineString(run, { name }));
     }
     return lines;
 };
@@ -561,7 +570,7 @@ export const findStreetLines = async (name: string) => {
 
 /**
  * Named bodies of water in the game area (lakes, ponds, rivers, canals) as
- * shore/center lines. Pools and fountains are excluded.
+ * shore/center lines. Pools, fountains and underground rivers are excluded.
  */
 export const findNamedWaterLines = async () => {
     const bboxValue = gameAreaBbox();
@@ -574,7 +583,17 @@ export const findNamedWaterLines = async () => {
         60,
     );
     const elements = (data.elements ?? []).filter(
-        (element: any) => !/brunnen/i.test(element.tags?.name ?? ""),
+        (element: any) =>
+            !/brunnen/i.test(element.tags?.name ?? "") &&
+            // Rivers count where they can be seen, not where they run
+            // underground (the Wien under Karlsplatz). Their relations also
+            // hold the underground parts, so only their ways count.
+            !(
+                element.tags?.waterway &&
+                (element.type === "relation" ||
+                    (element.tags.tunnel && element.tags.tunnel !== "no") ||
+                    element.tags.covered === "yes")
+            ),
     );
     return toLineStrings(elements);
 };

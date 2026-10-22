@@ -1,5 +1,6 @@
 import { useStore } from "@nanostores/react";
 import { LocateFixedIcon, MapPinIcon, XIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import {
@@ -13,14 +14,47 @@ import {
     zoneSheetOpen,
 } from "@/lib/context";
 import { getCurrentPosition } from "@/lib/gps";
+import { findStationLines } from "@/maps/api";
 import { extractStationLabel } from "@/maps/geo-utils";
 
 import { Button } from "./ui/button";
 import { stationId, toggleZone, zonesLeft } from "./ZoneSheet";
 
+/** U-Bahn and S-Bahn lines that stop at a station, like "U1 U2 U4". */
+const useStationLines = (id: string) => {
+    const [lines, setLines] = useState<{ id: string; text: string } | null>(
+        null,
+    );
+
+    useEffect(() => {
+        // Only OSM stations have lines; custom stations don't
+        if (!id.includes("/")) return;
+        let cancelled = false;
+        findStationLines(id)
+            .then((all) => {
+                const text = all
+                    .filter(
+                        (line) =>
+                            line.route === "subway" ||
+                            (line.route === "train" &&
+                                /^S\d+$/.test(line.label)),
+                    )
+                    .map((line) => line.label)
+                    .join(" ");
+                if (!cancelled) setLines({ id, text });
+            })
+            .catch((error) => console.log(error));
+        return () => {
+            cancelled = true;
+        };
+    }, [id]);
+
+    return lines?.id === id ? lines.text : "";
+};
+
 /**
- * Top of the map: how many hiding zones are left, or the name of the zone
- * picked on the map or in the zone list.
+ * Top of the map: how many hiding zones are left, or the name and lines of
+ * the zone picked on the map or in the zone list.
  */
 export const ZoneCounter = () => {
     const $displayHidingZones = useStore(displayHidingZones);
@@ -28,6 +62,7 @@ export const ZoneCounter = () => {
     const $disabledStations = useStore(disabledStations);
     const $allTrainStations = useStore(allTrainStations);
     const $selectedZoneId = useStore(selectedZoneId);
+    const lines = useStationLines($selectedZoneId);
 
     if (!$displayHidingZones || $allTrainStations.length === 0) return null;
 
@@ -40,8 +75,16 @@ export const ZoneCounter = () => {
         return (
             <div className="flex max-w-[calc(100vw-5rem)] items-center gap-1 rounded-full border bg-background/95 py-1 pl-3 pr-1 text-sm text-foreground shadow-lg">
                 <MapPinIcon className="h-4 w-4 shrink-0 text-green-500" />
-                <span className="min-w-0 truncate font-semibold">
-                    {extractStationLabel(selected.properties)}
+                <span className="min-w-0 truncate">
+                    <span className="font-semibold">
+                        {extractStationLabel(selected.properties)}
+                    </span>
+                    {lines && (
+                        <span className="text-muted-foreground">
+                            {" "}
+                            · {lines}
+                        </span>
+                    )}
                 </span>
                 <Button
                     size="sm"

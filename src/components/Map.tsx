@@ -36,6 +36,7 @@ import { hiderifyQuestion } from "@/maps";
 import { determineMapBoundaries } from "@/maps/api";
 
 import { DraggableMarkers } from "./DraggableMarkers";
+import { NearestMarks } from "./NearestMarks";
 import { PolygonDraw } from "./PolygonDraw";
 
 /** The map is computed once questions stop changing for this long. */
@@ -413,6 +414,7 @@ export const Map = ({ className }: { className?: string }) => {
             >
                 {getTileLayer($baseTileLayer, $thunderforestApiKey)}
                 <DraggableMarkers />
+                <NearestMarks />
                 <PolygonDraw />
                 <ScaleControl position="topleft" imperial={false} />
             </MapContainer>

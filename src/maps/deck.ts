@@ -15,24 +15,34 @@ import {
 /** OSM admin levels in Vienna: 4 state, 9 districts, 10 cadastral communities. */
 export type AdminLevel = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
+/**
+ * Vienna's names for its administrative divisions. The app is in English,
+ * but these stay German on purpose, like the station names on the signs.
+ */
+export const ADMIN_LEVEL_NAMES: Partial<Record<AdminLevel, string>> = {
+    4: "Bundesland",
+    9: "Gemeindebezirk",
+    10: "Katastralgemeinde",
+};
+
 /** Names for the admin level selects; Vienna has no levels 3, 5, 7 and 8. */
 export const ADMIN_LEVEL_LABELS: Record<AdminLevel, string> = {
     2: "Country (OSM level 2)",
     3: "OSM level 3 (none in Vienna)",
-    4: "1st division: state (OSM level 4)",
+    4: "Bundesland: 1st division (OSM level 4)",
     5: "OSM level 5 (none in Vienna)",
     6: "City (OSM level 6)",
     7: "OSM level 7 (none in Vienna)",
     8: "OSM level 8 (none in Vienna)",
-    9: "2nd division: district (OSM level 9)",
-    10: "3rd division: cadastral community (OSM level 10)",
+    9: "Gemeindebezirk: 2nd division (OSM level 9)",
+    10: "Katastralgemeinde: 3rd division (OSM level 10)",
 };
 
 export type DeckCard = {
     id: string;
     label: string;
     group: string;
-    /** Short explanation shown under the card name. */
+    /** Short explanation of what counts, shown under the card name. */
     hint?: string;
     /** Question type in this app; missing when there is nothing to ask about. */
     type?: string;
@@ -114,11 +124,16 @@ export const MATCHING_DECK: DeckCard[] = flatten([
             {
                 id: "station-name-length",
                 label: "Station Name's Length",
-                hint: "Name as on the sign",
+                hint: "Name as on the sign; spaces and hyphens count",
                 type: "same-length-station",
                 needsHidingZones: true,
             },
-            { id: "street", label: "Street or Path", type: "street" },
+            {
+                id: "street",
+                label: "Street or Path",
+                hint: "Any street or footpath, named or not",
+                type: "street",
+            },
         ],
     },
     {
@@ -126,22 +141,22 @@ export const MATCHING_DECK: DeckCard[] = flatten([
         cards: [
             {
                 id: "admin-1",
-                label: "1st Administrative Division",
-                hint: "State",
+                label: "Bundesland",
+                hint: "1st administrative division",
                 type: "zone",
                 adminLevel: 4,
             },
             {
                 id: "admin-2",
-                label: "2nd Administrative Division",
-                hint: "District",
+                label: "Gemeindebezirk",
+                hint: "2nd administrative division: one of the 23 districts",
                 type: "zone",
                 adminLevel: 9,
             },
             {
                 id: "admin-3",
-                label: "3rd Administrative Division",
-                hint: "Cadastral community",
+                label: "Katastralgemeinde",
+                hint: "3rd administrative division: the cadastral communities",
                 type: "zone",
                 adminLevel: 10,
             },
@@ -155,9 +170,24 @@ export const MATCHING_DECK: DeckCard[] = flatten([
     {
         group: "Natural",
         cards: [
-            { id: "mountain", label: "Mountain", type: "peak-full" },
-            { id: "landmass", label: "Landmass", type: "landmass" },
-            { id: "park", label: "Park", type: "park-full" },
+            {
+                id: "mountain",
+                label: "Mountain",
+                hint: "Every hilltop on the map, like Kahlenberg",
+                type: "peak-full",
+            },
+            {
+                id: "landmass",
+                label: "Landmass",
+                hint: "River islands like the Donauinsel are their own landmass",
+                type: "landmass",
+            },
+            {
+                id: "park",
+                label: "Park",
+                hint: "Every park, even small ones",
+                type: "park-full",
+            },
         ],
     },
     ...placeCards("-full"),
@@ -176,11 +206,13 @@ export const MEASURING_DECK: DeckCard[] = flatten([
             {
                 id: "high-speed",
                 label: "High-Speed Train Line",
+                hint: "Railway lines built for high-speed trains",
                 type: "highspeed-measure-shinkansen",
             },
             {
                 id: "rail-station",
                 label: "Rail Station",
+                hint: "The stations of the hiding zones (U-Bahn)",
                 type: "rail-measure",
             },
         ],
@@ -195,15 +227,15 @@ export const MEASURING_DECK: DeckCard[] = flatten([
             },
             {
                 id: "admin-1-border",
-                label: "1st Administrative Division Border",
-                hint: "State border",
+                label: "Bundesland border",
+                hint: "1st administrative division border: the city limits",
                 type: "admin-measure",
                 adminLevel: 4,
             },
             {
                 id: "admin-2-border",
-                label: "2nd Administrative Division Border",
-                hint: "District border",
+                label: "Gemeindebezirk border",
+                hint: "2nd administrative division border",
                 type: "admin-measure",
                 adminLevel: 9,
             },
@@ -212,15 +244,35 @@ export const MEASURING_DECK: DeckCard[] = flatten([
     {
         group: "Natural",
         cards: [
-            { id: "sea-level", label: "Sea Level", type: "sea-level" },
-            { id: "water", label: "Body of Water", type: "water" },
+            {
+                id: "sea-level",
+                label: "Sea Level",
+                hint: "Closer means the hider is lower than you",
+                type: "sea-level",
+            },
+            {
+                id: "water",
+                label: "Body of Water",
+                hint: "Named lakes, ponds, rivers and canals",
+                type: "water",
+            },
             {
                 id: "coastline",
                 label: "Coastline",
                 noAnswer: "Vienna has no coastline.",
             },
-            { id: "mountain", label: "Mountain", type: "peak-full" },
-            { id: "park", label: "Park", type: "park-full" },
+            {
+                id: "mountain",
+                label: "Mountain",
+                hint: "Every hilltop on the map, like Kahlenberg",
+                type: "peak-full",
+            },
+            {
+                id: "park",
+                label: "Park",
+                hint: "Every park, even small ones",
+                type: "park-full",
+            },
         ],
     },
     ...placeCards("-full"),

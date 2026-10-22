@@ -410,6 +410,16 @@ export const autoZoom = persistentAtom<boolean>("autoZoom", true, {
 });
 
 export const isLoading = atom<boolean>(false);
+/** Resolves once the map isn't computing, so its own questions go first. */
+export const mapIdle = () =>
+    new Promise<void>((resolve) => {
+        if (!isLoading.get()) return resolve();
+        const unbind = isLoading.listen((loading) => {
+            if (loading) return;
+            unbind();
+            resolve();
+        });
+    });
 
 export const baseTileLayer = persistentAtom<
     "voyager" | "light" | "dark" | "transport" | "neighbourhood" | "osmcarto"

@@ -27,6 +27,8 @@ import type { StationPlace } from "@/maps/api";
 import { extractStationName } from "@/maps/geo-utils";
 import type { Question, Questions } from "@/maps/schema";
 
+import { NearestNote } from "./nearest";
+
 /** "3 · Radar 2 km": the question's number in the list and its name. */
 export const numberedTitle = (questions: Questions, questionKey: number) => {
     const index = questions.findIndex((q) => q.key === questionKey);
@@ -201,7 +203,7 @@ const placeText = (question: Question, stations: StationPlace[]) => {
 
 /**
  * An answered question as one line of the question log, like
- * "3 · Radar 2 km · Karlsplatz · Outside · 14:32".
+ * "3 · Radar 2 km · Karlsplatz · Outside · 14:32", with what's nearest below.
  */
 export const QuestionLogRow = ({
     question,
@@ -250,6 +252,7 @@ export const QuestionLogRow = ({
                     {question.data.hidden && (
                         <span className="text-orange-400"> · hidden</span>
                     )}
+                    <NearestNote question={question} />
                 </div>
                 <Button
                     variant="outline"

@@ -23,9 +23,9 @@ const EXPECTED_MATCHING: Record<string, Record<string, string | null>> = {
         "Street or Path": "street",
     },
     "Administrative Divisions": {
-        "1st Administrative Division": "zone/4",
-        "2nd Administrative Division": "zone/9",
-        "3rd Administrative Division": "zone/10",
+        Bundesland: "zone/4",
+        Gemeindebezirk: "zone/9",
+        Katastralgemeinde: "zone/10",
         "4th Administrative Division": null,
     },
     Natural: {
@@ -56,8 +56,8 @@ const EXPECTED_MEASURING: Record<string, Record<string, string | null>> = {
     },
     Borders: {
         "International Border": null,
-        "1st Administrative Division Border": "admin-measure/4",
-        "2nd Administrative Division Border": "admin-measure/9",
+        "Bundesland border": "admin-measure/4",
+        "Gemeindebezirk border": "admin-measure/9",
     },
     Natural: {
         "Sea Level": "sea-level",

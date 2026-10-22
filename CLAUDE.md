@@ -6,7 +6,7 @@ Live-Version: https://danumi.github.io/JetLagHideAndSeek/
 ## Zusammenarbeit
 
 - Der Nutzer spricht Deutsch: Antworten und Erklärungen auf Deutsch. Code, Kommentare und Commit-Messages auf Englisch.
-- Die App bleibt durchgängig auf Englisch (wie das Spiel selbst): alle Texte, Knöpfe, Dialoge und Meldungen. Keine deutschen Texte in die App einbauen. Ausnahme sind nur Namen aus OSM (Stationsnamen wie auf dem Schild).
+- Die App bleibt durchgängig auf Englisch (wie das Spiel selbst): alle Texte, Knöpfe, Dialoge und Meldungen. Keine deutschen Texte in die App einbauen. Ausnahmen: Namen aus OSM (Stationsnamen wie auf dem Schild) und die Wiener Verwaltungsbegriffe Bundesland, Gemeindebezirk und Katastralgemeinde (Daniels Wunsch, Etappe 9; `ADMIN_LEVEL_NAMES` in `deck.ts`). Nicht „korrigieren".
 - Der Nutzer ist kein Entwickler. Änderungen in Alltagssprache erklären (was ändert sich im Spiel?), nicht im Code-Jargon.
 - Die Datei LICENSE (MIT, taibeled) bleibt im Repo, das verlangt die Lizenz. Sichtbare Credits oder Dank an taibeled will Daniel in der App nicht (Stand 2026-10-22); das alte Tutorial enthält noch Links und wird mit Etappe 8 ersetzt.
 - Niemals API-Keys oder Zugangsdaten ins Repo schreiben. Der Overpass.ch-Key des Nutzers wird nur in der App unter Einstellungen (Zahnrad oben rechts) → „Overpass API Host" → „Custom URL" eingetragen und liegt im localStorage des Browsers.
@@ -55,7 +55,8 @@ pnpm vitest run       # Tests einmalig
 - `src/components/cards/answer.tsx`: große Antwortknöpfe und die Protokollzeile beantworteter Fragen
 - `src/lib/gps.ts`: GPS-Standort für neue Fragen, Seitenleiste zur neuen Frage öffnen. Der eigene Standort läuft immer mit (blauer Punkt in `Map.tsx`, Atom `myPosition`); `getCurrentPosition` nimmt ihn direkt, wenn er jünger als 15 s ist, sonst wartet sie höchstens 3 s auf einen neuen.
 - `src/lib/questionLink.ts`: Frage als Link für den Hider (`?ask=…`, komprimiert, enthält die ganze Frage, braucht beim Hider nichts Gespeichertes); geprüft in `tests/questionLink.test.ts`
-- `src/components/HiderScreen.tsx` und `src/maps/hider.ts`: Hider-Bildschirm. Öffnet sich über den Frage-Link oder Einstellungen → „Hider mode", holt den GPS-Standort und rechnet die Antwort mit denselben `hiderify*`-Funktionen wie die Karte (`workOutAnswer`), dazu ein Grund nur für den Hider (`explainAnswer`). Es gibt keinen Rück-Link: Der Hider schreibt die Antwort im Chat, die Sucher tippen sie selbst ein (Daniels Wunsch).
+- `src/maps/nearest.ts`: „Was ist das Nächste?" je Matching-/Measuring-Frage, von einem Punkt aus (`findNearest`): nächster Ort mit Name und Entfernung, Zone, in der man ist, Abstand zur Bezirksgrenze, Landmasse, Seehöhe. Nutzt dieselben Abfragen wie die Fragen (Cache-Treffer). Angezeigt auf der offenen Frage und in der Protokollzeile (`src/components/cards/nearest.tsx`, wartet, bis die Karte fertig gerechnet hat), als Markierung mit Namen auf der Karte für offene Fragen (`src/components/NearestMarks.tsx`, eigene Leaflet-Pane „nearest") und beim Hider als Grund. Geprüft in `tests/nearest.test.ts`
+- `src/components/HiderScreen.tsx` und `src/maps/hider.ts`: Hider-Bildschirm. Öffnet sich über den Frage-Link oder Einstellungen → „Hider mode", holt den GPS-Standort und rechnet die Antwort mit denselben `hiderify*`-Funktionen wie die Karte (`workOutAnswer`), dazu ein Grund nur für den Hider (`explainAnswer`, über `findNearest` für Hider und Sucher). Es gibt keinen Rück-Link: Der Hider schreibt die Antwort im Chat, die Sucher tippen sie selbst ein (Daniels Wunsch).
 - `src/lib/context.ts`: persistente Einstellungen (nanostores, localStorage)
 
 ## Wien-Besonderheiten (geprüft am 2026-10-22)
@@ -66,6 +67,8 @@ pnpm vitest run       # Tests einmalig
 - Verwaltungsebenen: 2 Österreich, 4 Bundesland Wien, 6 Wien (Statutarstadt), 9 Gemeindebezirke, 10 Katastralgemeinden. Ebene 8 fehlt.
 - Landmasse: Einzige eigene Landmasse im Spielgebiet ist die Donauinsel. Gänsehäufel und Rohrinsel liegen in der Alten Donau und zählen zum Festland.
 - Der Flughafen Wien liegt außerhalb der Stadtgrenze; Flughafen-Fragen haben laut Regeln keine Antwort. Ebenso Internationale Grenze, Küste und 4. Verwaltungsebene.
+- Bekannt, nicht geändert: Die Messfrage „Gemeindebezirk border" misst zur Grenze des Bezirks der Sucher, nicht zur nächsten Bezirksgrenze überhaupt. Für einen Hider in einem anderen Bezirk kann das von den Regeln abweichen. Der Hider-Bildschirm zeigt dazu deshalb keinen Grund.
+- In Wien gibt es laut OSM nur eine Schnellfahrstrecke (`highspeed=yes`): die Neue Westbahn. Die Bezirke heißen in OSM ohne Zusatz („Innere Stadt"), die Katastralgemeinden mit („Katastralgemeinde Innere Stadt").
 - Wien hat rund 1.150 Parks (`leisure=park`). Die sphärische Voronoi-Berechnung liefert bei so dichten Orten einzelne kaputte Zellen; `nearestVoronoiCell` nimmt deshalb die Zelle des nächsten Orts und fällt bei kaputten Zellen auf eine ebene Rechnung zurück.
 
 ## Spielregeln „Small" (Hausregeln, festgelegt am 2026-10-22)
@@ -75,8 +78,9 @@ pnpm vitest run       # Tests einmalig
 - Hiding Zones: nur U-Bahn-Stationen, Radius 500 m.
 - Radar: 500 m, 1, 2, 5, 10, 15, 40, 80, 160 km. Thermometer: 1 km und 5 km.
 - Anfangsbuchstabe und Namenslänge: deutscher Stationsname wie auf dem Schild, nicht `name:en`.
-- Verwaltungsebenen: 1. Bundesland (OSM-Ebene 4), 2. Gemeindebezirk (9), 3. Katastralgemeinde (10), 4. gibt es nicht (keine Antwort).
-- Alle Texte in der App auf Englisch, auch neue Bildschirme.
+- Verwaltungsebenen: 1. Bundesland (OSM-Ebene 4), 2. Gemeindebezirk (9), 3. Katastralgemeinde (10), 4. gibt es nicht (keine Antwort). In der App heißen die Karten so („Gemeindebezirk", „Gemeindebezirk border"), darunter klein „2nd administrative division".
+- Alle Texte in der App auf Englisch, auch neue Bildschirme (Ausnahme: die Verwaltungsbegriffe oben).
+- Gewässer: benannte Seen, Teiche, Flüsse und Kanäle; Flussabschnitte unter der Erde (`tunnel`, `covered`, z. B. die Wien unter dem Karlsplatz) zählen nicht, ebenso die Fluss-Relationen, die diese Abschnitte enthalten (`findNamedWaterLines`).
 
 ## Plan: App-Überarbeitung
 
@@ -111,3 +115,4 @@ Einheiten: Spieler sehen nur Meter und Kilometer, intern wird teils in Meilen ge
 - Etappe 7: Knopf „Send to hider" bei offenen Fragen (Link per Teilen-Menü, sonst Zwischenablage). Der Link öffnet beim Hider einen eigenen Bildschirm „Hider mode" (statt Häkchen in den Optionen) mit GPS-Standort, Antwort und Grund. Eigene Frage-Links schalten nicht in den Hider-Modus; ein Handy mit offenen eigenen Fragen fragt erst „Are you the hider?". Im Hider-Modus zeigt die Karte statt „Ask a question" den Knopf „Hider mode".
 - Etappe 2: Start in Wien (OSM-Relation 109166) mit Hiding Zones an U-Bahn-Stationen und 500 m, Knopf „New Game" (`NewGameDialog.tsx`), überall metrisch (Radar-Start 5 km), Tutorial startet nicht mehr von selbst, Stationsnamen nach `name` statt `name:en` (auch im Hider-Modus, der jetzt dieselben Stationsarten wie die Hiding Zones nutzt)
 - Etappe 5: Karte als Hauptbildschirm. Unten feste Leiste mit „Questions", „Ask a question", „Zones"; oben Zonen-Zähler, Zahnrad und Standort-Knopf. Zoom, Vollbild, Drucken, Stecknadel-Knopf und „Star this on GitHub" entfernt; „Add Question" nur noch mit „Show all question types?". Eigener Standort immer als blauer Punkt (Option „Follow Me" entfällt). Ausgeschlossene Fläche grau, Fragen als nummerierte Stecknadeln. Zonenliste als Blatt von unten, Antippen einer Zone (Liste oder Karte) zeigt sie mit Stationsnamen. Absturz bei geleertem Zahlenfeld behoben.
+- Etappe 9: Jede Matching-/Measuring-Frage zeigt das Nächste („Nearest museum: Albertina, 350 m", „You are in Gemeindebezirk Wieden") auf der Frage, im Protokoll und als Markierung mit Namen auf der Karte. Kurze Erklärzeile, was zählt, bei der Auswahl und auf der Frage. Verwaltungsebenen heißen Bundesland, Gemeindebezirk, Katastralgemeinde. Angetippte Zone zeigt U-Bahn- und S-Bahn-Linien („Karlsplatz · U1 U2 U4"). Unterirdische Flüsse zählen nicht mehr als Gewässer.

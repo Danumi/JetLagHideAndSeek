@@ -217,10 +217,6 @@ export const determineMatchingBoundary = memoizeAsync(
                     toast.error("No street or path found near the seekers");
                     return false;
                 }
-                toast.info(
-                    `Seekers' nearest street or path: ${street.name ?? "unnamed path"}`,
-                    { toastId: "street-name" },
-                );
                 if (!question.same) {
                     // Only points right on the street are certainly nearer to
                     // it than to any other street, so "different" can't
@@ -260,10 +256,6 @@ export const determineMatchingBoundary = memoizeAsync(
                     turf.booleanPointInPolygon(point, feature),
                 );
                 if (island) {
-                    toast.info(
-                        `Seekers are on ${island.properties?.name ?? "an island"}`,
-                        { toastId: "landmass-name" },
-                    );
                     boundary = island;
                 } else {
                     // Seekers are on the mainland: everything except the islands.
