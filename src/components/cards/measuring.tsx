@@ -21,9 +21,18 @@ import {
     isLoading,
     questionModified,
     questions,
+    showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
 import { cn } from "@/lib/utils";
+import {
+    ADMIN_LEVEL_LABELS,
+    type AdminLevel,
+    type DeckCard,
+    deckSelectGroups,
+    MEASURING_DECK,
+    measuringCardFor,
+} from "@/maps/deck";
 import {
     determineMeasuringBoundary,
     findAdminZoneInfo,
@@ -36,6 +45,20 @@ import {
 } from "@/maps/schema";
 
 import { QuestionCard } from "./base";
+
+const MEASURING_TYPE_LABELS: Record<string, string> = Object.fromEntries(
+    measuringQuestionSchema.options
+        .flatMap((x) => determineUnionizedStrings(x.shape.type))
+        .map((x) => [(x._def as any).value, x.description]),
+);
+
+const applyMeasuringCard = (data: MeasuringQuestion, card: DeckCard) => {
+    if (card.adminLevel !== undefined) {
+        (data as any).cat = { adminLevel: card.adminLevel };
+    }
+    data.type = card.type as MeasuringQuestion["type"];
+    questionModified();
+};
 
 export const MeasuringQuestionComponent = ({
     data,
@@ -55,14 +78,15 @@ export const MeasuringQuestionComponent = ({
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $isLoading = useStore(isLoading);
     const $customInitPref = useStore(customInitPreference);
+    const $showAllQuestionTypes = useStore(showAllQuestionTypes);
     const [customDialogOpen, setCustomDialogOpen] = React.useState(false);
-    const label = `Measuring
-    ${
+    const card = measuringCardFor(data);
+    const label = `Measuring ${
         $questions
             .filter((q) => q.id === "measuring")
             .map((q) => q.key)
             .indexOf(questionKey) + 1
-    }`;
+    }${card ? `: ${card.label}` : ""}`;
 
     let questionSpecific = <></>;
 
@@ -70,36 +94,28 @@ export const MeasuringQuestionComponent = ({
         case "admin-measure":
             questionSpecific = (
                 <>
-                    <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
-                        <Select
-                            trigger="OSM Zone"
-                            options={{
-                                2: "OSM Zone 2 (Country)",
-                                3: "OSM Zone 3 (region in Japan)",
-                                4: "OSM Zone 4 (prefecture in Japan)",
-                                5: "OSM Zone 5",
-                                6: "OSM Zone 6",
-                                7: "OSM Zone 7",
-                                8: "OSM Zone 8",
-                                9: "OSM Zone 9",
-                                10: "OSM Zone 10",
-                            }}
-                            value={(
-                                (data as any).cat?.adminLevel ?? 4
-                            ).toString()}
-                            onValueChange={(value) => {
-                                if (!(data as any).cat) {
-                                    (data as any).cat = { adminLevel: 4 };
-                                }
-                                (data as any).cat.adminLevel = parseInt(
-                                    value,
-                                ) as 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-                                (data as any).cat.zoneName = undefined;
-                                questionModified();
-                            }}
-                            disabled={!data.drag || $isLoading}
-                        />
-                    </SidebarMenuItem>
+                    {($showAllQuestionTypes || !card) && (
+                        <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
+                            <Select
+                                trigger="Administrative level"
+                                options={ADMIN_LEVEL_LABELS}
+                                value={(
+                                    (data as any).cat?.adminLevel ?? 4
+                                ).toString()}
+                                onValueChange={(value) => {
+                                    if (!(data as any).cat) {
+                                        (data as any).cat = { adminLevel: 4 };
+                                    }
+                                    (data as any).cat.adminLevel = parseInt(
+                                        value,
+                                    ) as AdminLevel;
+                                    (data as any).cat.zoneName = undefined;
+                                    questionModified();
+                                }}
+                                disabled={!data.drag || $isLoading}
+                            />
+                        </SidebarMenuItem>
+                    )}
                     <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                         <Suspense
                             fallback={
@@ -258,98 +274,137 @@ export const MeasuringQuestionComponent = ({
                     setCustomDialogOpen(false);
                 }}
             />
-            <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
-                <Select
-                    trigger="Measuring Type"
-                    options={Object.fromEntries(
-                        measuringQuestionSchema.options
-                            .filter((x) => x.description === NO_GROUP)
-                            .flatMap((x) =>
-                                determineUnionizedStrings(x.shape.type),
-                            )
-                            .map((x) => [(x._def as any).value, x.description]),
-                    )}
-                    groups={measuringQuestionSchema.options
-                        .filter((x) => x.description !== NO_GROUP)
-                        .map((x) => [
-                            x.description,
-                            Object.fromEntries(
-                                determineUnionizedStrings(x.shape.type).map(
-                                    (x) => [
-                                        (x._def as any).value,
-                                        x.description,
-                                    ],
-                                ),
-                            ),
-                        ])
-                        .reduce(
-                            (acc, [key, value]) => {
-                                const values = {
-                                    disabled: !$displayHidingZones,
-                                    options: value,
-                                };
-
-                                if (acc[key]) {
-                                    acc[key].options = {
-                                        ...acc[key].options,
-                                        ...value,
-                                    };
-                                } else {
-                                    acc[key] = values;
-                                }
-
-                                return acc;
-                            },
-                            {} as Record<
-                                string,
-                                {
-                                    disabled: boolean;
-                                    options: Record<string, string>;
-                                }
-                            >,
+            {!$showAllQuestionTypes && (
+                <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
+                    <Select
+                        trigger="Question"
+                        options={
+                            card
+                                ? undefined
+                                : {
+                                      [`other:${data.type}`]:
+                                          MEASURING_TYPE_LABELS[data.type] ??
+                                          data.type,
+                                  }
+                        }
+                        groups={deckSelectGroups(MEASURING_DECK)}
+                        value={card ? card.id : `other:${data.type}`}
+                        onValueChange={(id) => {
+                            const next = MEASURING_DECK.find(
+                                (c) => c.id === id,
+                            );
+                            if (next) applyMeasuringCard(data, next);
+                        }}
+                        disabled={!data.drag || $isLoading}
+                    />
+                </SidebarMenuItem>
+            )}
+            {card?.needsHidingZones && !$displayHidingZones && (
+                <span className="px-2 text-center text-orange-500">
+                    This question needs the hiding zones. Turn them on in the
+                    right sidebar.
+                </span>
+            )}
+            {$showAllQuestionTypes && (
+                <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
+                    <Select
+                        trigger="Measuring Type"
+                        options={Object.fromEntries(
+                            measuringQuestionSchema.options
+                                .filter((x) => x.description === NO_GROUP)
+                                .flatMap((x) =>
+                                    determineUnionizedStrings(x.shape.type),
+                                )
+                                .map((x) => [
+                                    (x._def as any).value,
+                                    x.description,
+                                ]),
                         )}
-                    value={data.type}
-                    onValueChange={async (value) => {
-                        if (value === "custom-measure") {
-                            if ($customInitPref === "ask") {
-                                setCustomDialogOpen(true);
+                        groups={measuringQuestionSchema.options
+                            .filter((x) => x.description !== NO_GROUP)
+                            .map((x) => [
+                                x.description,
+                                Object.fromEntries(
+                                    determineUnionizedStrings(x.shape.type).map(
+                                        (x) => [
+                                            (x._def as any).value,
+                                            x.description,
+                                        ],
+                                    ),
+                                ),
+                            ])
+                            .reduce(
+                                (acc, [key, value]) => {
+                                    const values = {
+                                        disabled: !$displayHidingZones,
+                                        options: value,
+                                    };
+
+                                    if (acc[key]) {
+                                        acc[key].options = {
+                                            ...acc[key].options,
+                                            ...value,
+                                        };
+                                    } else {
+                                        acc[key] = values;
+                                    }
+
+                                    return acc;
+                                },
+                                {} as Record<
+                                    string,
+                                    {
+                                        disabled: boolean;
+                                        options: Record<string, string>;
+                                    }
+                                >,
+                            )}
+                        value={data.type}
+                        onValueChange={async (value) => {
+                            if (value === "custom-measure") {
+                                if ($customInitPref === "ask") {
+                                    setCustomDialogOpen(true);
+                                    return;
+                                }
+                                if ($customInitPref === "blank") {
+                                    if (!(data as any).geo) {
+                                        (data as any).geo = {
+                                            type: "FeatureCollection",
+                                            features: [],
+                                        };
+                                    } else {
+                                        (data as any).geo.features = [];
+                                    }
+                                } else if ($customInitPref === "prefill") {
+                                    const boundary =
+                                        await determineMeasuringBoundary(data);
+                                    if (!(data as any).geo) {
+                                        (data as any).geo = {
+                                            type: "FeatureCollection",
+                                            features: [],
+                                        };
+                                    }
+                                    (data as any).geo.features = boundary
+                                        ? boundary
+                                        : [];
+                                }
+                                data.type = value;
+                                questionModified();
                                 return;
                             }
-                            if ($customInitPref === "blank") {
-                                if (!(data as any).geo) {
-                                    (data as any).geo = {
-                                        type: "FeatureCollection",
-                                        features: [],
-                                    };
-                                } else {
-                                    (data as any).geo.features = [];
-                                }
-                            } else if ($customInitPref === "prefill") {
-                                const boundary =
-                                    await determineMeasuringBoundary(data);
-                                if (!(data as any).geo) {
-                                    (data as any).geo = {
-                                        type: "FeatureCollection",
-                                        features: [],
-                                    };
-                                }
-                                (data as any).geo.features = boundary
-                                    ? boundary
-                                    : [];
+                            if (
+                                value === "admin-measure" &&
+                                !(data as any).cat
+                            ) {
+                                (data as any).cat = { adminLevel: 4 };
                             }
                             data.type = value;
                             questionModified();
-                            return;
-                        }
-                        if (value === "admin-measure" && !(data as any).cat) {
-                            (data as any).cat = { adminLevel: 4 };
-                        }
-                        data.type = value;
-                        questionModified();
-                    }}
-                    disabled={!data.drag || $isLoading}
-                />
-            </SidebarMenuItem>
+                        }}
+                        disabled={!data.drag || $isLoading}
+                    />
+                </SidebarMenuItem>
+            )}
             {questionSpecific}
             <LatitudeLongitude
                 latitude={data.lat}

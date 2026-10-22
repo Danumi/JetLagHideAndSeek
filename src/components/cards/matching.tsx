@@ -23,10 +23,19 @@ import {
     isLoading,
     questionModified,
     questions,
+    showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
 import { cn } from "@/lib/utils";
 import { findStationLines, type StationLine } from "@/maps/api";
+import {
+    ADMIN_LEVEL_LABELS,
+    type AdminLevel,
+    type DeckCard,
+    deckSelectGroups,
+    MATCHING_DECK,
+    matchingCardFor,
+} from "@/maps/deck";
 import { extractStationName } from "@/maps/geo-utils";
 import {
     determineMatchingBoundary,
@@ -40,6 +49,26 @@ import {
 } from "@/maps/schema";
 
 import { QuestionCard } from "./base";
+
+const MATCHING_TYPE_LABELS: Record<string, string> = Object.fromEntries(
+    matchingQuestionSchema.options
+        .flatMap((x) => determineUnionizedStrings(x.shape.type))
+        .map((x) => [(x._def as any).value, x.description]),
+);
+
+const applyMatchingCard = (data: MatchingQuestion, card: DeckCard) => {
+    if (card.type === "same-length-station") {
+        data.lengthComparison = "same";
+        data.same = true;
+    }
+    // Zone questions need a category, so every question keeps one
+    (data as any).cat =
+        card.adminLevel !== undefined
+            ? { adminLevel: card.adminLevel }
+            : ((data as any).cat ?? { adminLevel: 3 });
+    data.type = card.type as MatchingQuestion["type"];
+    questionModified();
+};
 
 /** Lets the seekers pick the one line they are riding (rules: "Transit Line"). */
 const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
@@ -140,17 +169,18 @@ export const MatchingQuestionComponent = ({
     const $drawingQuestionKey = useStore(drawingQuestionKey);
     const $isLoading = useStore(isLoading);
     const $customInitPref = useStore(customInitPreference);
+    const $showAllQuestionTypes = useStore(showAllQuestionTypes);
     const [customDialogOpen, setCustomDialogOpen] = React.useState(false);
     const [pendingCustomType, setPendingCustomType] = React.useState<
         "custom-zone" | "custom-points" | null
     >(null);
-    const label = `Matching
-    ${
+    const card = matchingCardFor(data);
+    const label = `Matching ${
         $questions
             .filter((q) => q.id === "matching")
             .map((q) => q.key)
             .indexOf(questionKey) + 1
-    }`;
+    }${card ? `: ${card.label}` : ""}`;
 
     let questionSpecific = <></>;
 
@@ -159,38 +189,23 @@ export const MatchingQuestionComponent = ({
         case "letter-zone":
             questionSpecific = (
                 <>
-                    <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
-                        <Select
-                            trigger="OSM Zone"
-                            options={{
-                                2: "OSM Zone 2 (Country)",
-                                3: "OSM Zone 3 (region in Japan)",
-                                4: "OSM Zone 4 (prefecture in Japan)",
-                                5: "OSM Zone 5",
-                                6: "OSM Zone 6",
-                                7: "OSM Zone 7",
-                                8: "OSM Zone 8",
-                                9: "OSM Zone 9",
-                                10: "OSM Zone 10",
-                            }}
-                            value={data.cat.adminLevel.toString()}
-                            onValueChange={(value) =>
-                                questionModified(
-                                    (data.cat.adminLevel = parseInt(value) as
-                                        | 2
-                                        | 3
-                                        | 4
-                                        | 5
-                                        | 6
-                                        | 7
-                                        | 8
-                                        | 9
-                                        | 10),
-                                )
-                            }
-                            disabled={!data.drag || $isLoading}
-                        />
-                    </SidebarMenuItem>
+                    {($showAllQuestionTypes || !card) && (
+                        <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
+                            <Select
+                                trigger="Administrative level"
+                                options={ADMIN_LEVEL_LABELS}
+                                value={data.cat.adminLevel.toString()}
+                                onValueChange={(value) =>
+                                    questionModified(
+                                        (data.cat.adminLevel = parseInt(
+                                            value,
+                                        ) as AdminLevel),
+                                    )
+                                }
+                                disabled={!data.drag || $isLoading}
+                            />
+                        </SidebarMenuItem>
+                    )}
                     {data.type === "letter-zone" && (
                         <span className="px-2 text-center text-orange-500">
                             Warning: The zone data has been simplified by
@@ -345,132 +360,168 @@ export const MatchingQuestionComponent = ({
                     setCustomDialogOpen(false);
                 }}
             />
-            <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
-                <Select
-                    trigger="Matching Type"
-                    options={Object.fromEntries(
-                        matchingQuestionSchema.options
-                            .filter((x) => x.description === NO_GROUP)
-                            .flatMap((x) =>
-                                determineUnionizedStrings(x.shape.type),
-                            )
-                            .map((x) => [(x._def as any).value, x.description]),
-                    )}
-                    groups={matchingQuestionSchema.options
-                        .filter((x) => x.description !== NO_GROUP)
-                        .map((x) => [
-                            x.description,
-                            Object.fromEntries(
-                                determineUnionizedStrings(x.shape.type).map(
-                                    (x) => [
-                                        (x._def as any).value,
-                                        x.description,
-                                    ],
-                                ),
-                            ),
-                        ])
-                        .reduce(
-                            (acc, [key, value]) => {
-                                const values = {
-                                    disabled: !$displayHidingZones,
-                                    options: value,
-                                };
-
-                                if (acc[key]) {
-                                    acc[key].options = {
-                                        ...acc[key].options,
-                                        ...value,
-                                    };
-                                } else {
-                                    acc[key] = values;
-                                }
-
-                                return acc;
-                            },
-                            {} as Record<
-                                string,
-                                {
-                                    disabled: boolean;
-                                    options: Record<string, string>;
-                                }
-                            >,
+            {!$showAllQuestionTypes && (
+                <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
+                    <Select
+                        trigger="Question"
+                        options={
+                            card
+                                ? undefined
+                                : {
+                                      [`other:${data.type}`]:
+                                          MATCHING_TYPE_LABELS[data.type] ??
+                                          data.type,
+                                  }
+                        }
+                        groups={deckSelectGroups(MATCHING_DECK)}
+                        value={card ? card.id : `other:${data.type}`}
+                        onValueChange={(id) => {
+                            const next = MATCHING_DECK.find((c) => c.id === id);
+                            if (next) applyMatchingCard(data, next);
+                        }}
+                        disabled={!data.drag || $isLoading}
+                    />
+                </SidebarMenuItem>
+            )}
+            {card?.needsHidingZones && !$displayHidingZones && (
+                <span className="px-2 text-center text-orange-500">
+                    This question needs the hiding zones. Turn them on in the
+                    right sidebar.
+                </span>
+            )}
+            {$showAllQuestionTypes && (
+                <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
+                    <Select
+                        trigger="Matching Type"
+                        options={Object.fromEntries(
+                            matchingQuestionSchema.options
+                                .filter((x) => x.description === NO_GROUP)
+                                .flatMap((x) =>
+                                    determineUnionizedStrings(x.shape.type),
+                                )
+                                .map((x) => [
+                                    (x._def as any).value,
+                                    x.description,
+                                ]),
                         )}
-                    value={data.type}
-                    onValueChange={async (value) => {
-                        if (
-                            value === "custom-zone" ||
-                            value === "custom-points"
-                        ) {
-                            if ($customInitPref === "ask") {
-                                setPendingCustomType(value);
-                                setCustomDialogOpen(true);
-                                return;
-                            }
-                            // Apply preference without dialog
-                            if ($customInitPref === "blank") {
-                                if (value === "custom-zone") {
-                                    (data as any).geo = undefined;
-                                    toast.info(
-                                        "Please draw the zone on the map.",
-                                    );
-                                } else {
-                                    (data as any).geo = [];
-                                    toast.info(
-                                        "Please draw the points on the map.",
-                                    );
+                        groups={matchingQuestionSchema.options
+                            .filter((x) => x.description !== NO_GROUP)
+                            .map((x) => [
+                                x.description,
+                                Object.fromEntries(
+                                    determineUnionizedStrings(x.shape.type).map(
+                                        (x) => [
+                                            (x._def as any).value,
+                                            x.description,
+                                        ],
+                                    ),
+                                ),
+                            ])
+                            .reduce(
+                                (acc, [key, value]) => {
+                                    const values = {
+                                        disabled: !$displayHidingZones,
+                                        options: value,
+                                    };
+
+                                    if (acc[key]) {
+                                        acc[key].options = {
+                                            ...acc[key].options,
+                                            ...value,
+                                        };
+                                    } else {
+                                        acc[key] = values;
+                                    }
+
+                                    return acc;
+                                },
+                                {} as Record<
+                                    string,
+                                    {
+                                        disabled: boolean;
+                                        options: Record<string, string>;
+                                    }
+                                >,
+                            )}
+                        value={data.type}
+                        onValueChange={async (value) => {
+                            if (
+                                value === "custom-zone" ||
+                                value === "custom-points"
+                            ) {
+                                if ($customInitPref === "ask") {
+                                    setPendingCustomType(value);
+                                    setCustomDialogOpen(true);
+                                    return;
                                 }
-                            } else if ($customInitPref === "prefill") {
-                                if (value === "custom-zone") {
-                                    (data as any).geo =
-                                        await determineMatchingBoundary(data);
-                                } else {
-                                    if (
-                                        data.type === "airport" ||
-                                        data.type === "major-city" ||
-                                        data.type === "aquarium-full" ||
-                                        data.type === "zoo-full" ||
-                                        data.type === "theme_park-full" ||
-                                        data.type === "peak-full" ||
-                                        data.type === "museum-full" ||
-                                        data.type === "hospital-full" ||
-                                        data.type === "cinema-full" ||
-                                        data.type === "library-full" ||
-                                        data.type === "golf_course-full" ||
-                                        data.type === "consulate-full" ||
-                                        data.type === "park-full"
-                                    ) {
-                                        (data as any).geo =
-                                            await findMatchingPlaces(data);
+                                // Apply preference without dialog
+                                if ($customInitPref === "blank") {
+                                    if (value === "custom-zone") {
+                                        (data as any).geo = undefined;
+                                        toast.info(
+                                            "Please draw the zone on the map.",
+                                        );
                                     } else {
                                         (data as any).geo = [];
                                         toast.info(
                                             "Please draw the points on the map.",
                                         );
                                     }
+                                } else if ($customInitPref === "prefill") {
+                                    if (value === "custom-zone") {
+                                        (data as any).geo =
+                                            await determineMatchingBoundary(
+                                                data,
+                                            );
+                                    } else {
+                                        if (
+                                            data.type === "airport" ||
+                                            data.type === "major-city" ||
+                                            data.type === "aquarium-full" ||
+                                            data.type === "zoo-full" ||
+                                            data.type === "theme_park-full" ||
+                                            data.type === "peak-full" ||
+                                            data.type === "museum-full" ||
+                                            data.type === "hospital-full" ||
+                                            data.type === "cinema-full" ||
+                                            data.type === "library-full" ||
+                                            data.type === "golf_course-full" ||
+                                            data.type === "consulate-full" ||
+                                            data.type === "park-full"
+                                        ) {
+                                            (data as any).geo =
+                                                await findMatchingPlaces(data);
+                                        } else {
+                                            (data as any).geo = [];
+                                            toast.info(
+                                                "Please draw the points on the map.",
+                                            );
+                                        }
+                                    }
                                 }
+                                // The category should be defined such that no error is thrown if this is a zone question.
+                                if (!(data as any).cat) {
+                                    (data as any).cat = { adminLevel: 3 };
+                                }
+                                questionModified((data.type = value));
+                                return;
                             }
+
+                            if (value === "same-length-station") {
+                                data.lengthComparison = "same";
+                                data.same = true;
+                            }
+
                             // The category should be defined such that no error is thrown if this is a zone question.
                             if (!(data as any).cat) {
                                 (data as any).cat = { adminLevel: 3 };
                             }
                             questionModified((data.type = value));
-                            return;
-                        }
-
-                        if (value === "same-length-station") {
-                            data.lengthComparison = "same";
-                            data.same = true;
-                        }
-
-                        // The category should be defined such that no error is thrown if this is a zone question.
-                        if (!(data as any).cat) {
-                            (data as any).cat = { adminLevel: 3 };
-                        }
-                        questionModified((data.type = value));
-                    }}
-                    disabled={!data.drag || $isLoading}
-                />
-            </SidebarMenuItem>
+                        }}
+                        disabled={!data.drag || $isLoading}
+                    />
+                </SidebarMenuItem>
+            )}
             {questionSpecific}
 
             {data.type !== "custom-zone" && (

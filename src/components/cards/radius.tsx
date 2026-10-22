@@ -1,6 +1,8 @@
 import { useStore } from "@nanostores/react";
+import { useState } from "react";
 
 import { LatitudeLongitude } from "@/components/LatLngPicker";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -17,6 +19,7 @@ import {
     triggerLocalRefresh,
 } from "@/lib/context";
 import { cn } from "@/lib/utils";
+import { RADAR_DISTANCES, radarDistanceFor } from "@/maps/deck";
 import type { RadiusQuestion } from "@/maps/schema";
 
 import { QuestionCard } from "./base";
@@ -36,13 +39,14 @@ export const RadiusQuestionComponent = ({
     const $hiderMode = useStore(hiderMode);
     const $questions = useStore(questions);
     const $isLoading = useStore(isLoading);
-    const label = `Radius
-    ${
+    const distance = radarDistanceFor(data);
+    const [chooseDistance, setChooseDistance] = useState(!distance);
+    const label = `Radar ${
         $questions
             .filter((q) => q.id === "radius")
             .map((q) => q.key)
             .indexOf(questionKey) + 1
-    }`;
+    }${distance ? `: ${distance.label}` : ""}`;
 
     return (
         <QuestionCard
@@ -60,27 +64,70 @@ export const RadiusQuestionComponent = ({
             setHidden={(hidden) => questionModified((data.hidden = hidden))}
         >
             <SidebarMenuItem>
-                <div className={cn(MENU_ITEM_CLASSNAME, "gap-2 flex flex-row")}>
-                    <Input
-                        type="number"
-                        className="rounded-md p-2 w-16"
-                        value={data.radius}
-                        disabled={!data.drag || $isLoading}
-                        onChange={(e) =>
-                            questionModified(
-                                (data.radius = parseFloat(e.target.value)),
-                            )
+                <div className="grid w-full grid-cols-5 gap-1 p-2">
+                    {RADAR_DISTANCES.map((option) => (
+                        <Button
+                            key={option.label}
+                            variant={
+                                !chooseDistance && distance === option
+                                    ? "default"
+                                    : "outline"
+                            }
+                            size="sm"
+                            className="h-8 px-1 text-xs"
+                            disabled={!data.drag || $isLoading}
+                            onClick={() => {
+                                setChooseDistance(false);
+                                data.radius = option.radius;
+                                data.unit = option.unit;
+                                questionModified();
+                            }}
+                        >
+                            {option.label}
+                        </Button>
+                    ))}
+                    <Button
+                        variant={
+                            chooseDistance || !distance ? "default" : "outline"
                         }
-                    />
-                    <UnitSelect
-                        unit={data.unit}
+                        size="sm"
+                        className="h-8 px-1 text-xs"
                         disabled={!data.drag || $isLoading}
-                        onChange={(unit) =>
-                            questionModified((data.unit = unit))
-                        }
-                    />
+                        onClick={() => setChooseDistance(true)}
+                    >
+                        Choose
+                    </Button>
                 </div>
             </SidebarMenuItem>
+            {(chooseDistance || !distance) && (
+                <SidebarMenuItem>
+                    <div
+                        className={cn(
+                            MENU_ITEM_CLASSNAME,
+                            "gap-2 flex flex-row",
+                        )}
+                    >
+                        <Input
+                            type="number"
+                            className="rounded-md p-2 w-16"
+                            value={data.radius}
+                            disabled={!data.drag || $isLoading}
+                            onChange={(e) =>
+                                questionModified(
+                                    (data.radius = parseFloat(e.target.value)),
+                                )
+                            }
+                        />
+                        <UnitSelect
+                            unit={data.unit}
+                            disabled={!data.drag || $isLoading}
+                            onChange={(unit) =>
+                                questionModified((data.unit = unit))
+                            }
+                        />
+                    </div>
+                </SidebarMenuItem>
+            )}
             <LatitudeLongitude
                 latitude={data.lat}
                 longitude={data.lng}
