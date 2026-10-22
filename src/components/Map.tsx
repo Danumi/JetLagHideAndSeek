@@ -267,10 +267,10 @@ export const Map = ({ className }: { className?: string }) => {
                         callback: (e: any) => {
                             const destination = turf.destination(
                                 [e.latlng.lng, e.latlng.lat],
-                                5,
+                                1,
                                 90,
                                 {
-                                    units: "miles",
+                                    units: "kilometers",
                                 },
                             );
 

@@ -457,6 +457,7 @@ export const ZoneSidebar = () => {
         $displayHidingZones,
         $displayHidingZonesOptions,
         $hidingRadius,
+        $hidingRadiusUnits,
         useCustomStations,
         includeDefaultStations,
         $customStations,

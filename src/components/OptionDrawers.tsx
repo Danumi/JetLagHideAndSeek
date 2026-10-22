@@ -58,6 +58,17 @@ import { OVERPASS_HOSTS } from "@/maps/api/constants";
 import { questionsSchema } from "@/maps/schema";
 
 import { LatitudeLongitude } from "./LatLngPicker";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "./ui/alert-dialog";
 import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Input } from "./ui/input";
@@ -69,6 +80,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "./ui/sidebar-l";
+import { deleteAllQuestionsWithUndo } from "./UndoToast";
 import { UnitSelect } from "./UnitSelect";
 
 const HIDING_ZONE_URL_PARAM = "hz";
@@ -95,6 +107,7 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
     const $customInitPref = useStore(customInitPreference);
     const $overpassHost = useStore(overpassHost);
     const $overpassCustomHost = useStore(overpassCustomHost);
+    const $questions = useStore(questions);
     const lastDefaultUnit = useRef($defaultUnit);
     const hasSyncedInitialUnit = useRef(false);
     const [isOptionsOpen, setOptionsOpen] = useState(false);
@@ -517,6 +530,41 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                                     Paste Hiding Zone
                                 </Button>
                             </div>
+                            <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                    <Button
+                                        variant="destructive"
+                                        disabled={$questions.length === 0}
+                                    >
+                                        Alle Fragen löschen
+                                    </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>
+                                            Alle Fragen löschen?
+                                        </AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            {$questions.length === 1
+                                                ? "Die Frage verschwindet"
+                                                : `Alle ${$questions.length} Fragen verschwinden`}{" "}
+                                            von der Karte. Direkt danach kannst
+                                            du das noch rückgängig machen.
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel>
+                                            Abbrechen
+                                        </AlertDialogCancel>
+                                        <AlertDialogAction
+                                            onClick={deleteAllQuestionsWithUndo}
+                                            className="mb-2 sm:mb-0"
+                                        >
+                                            Alle löschen
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
                             <Separator className="bg-slate-300 w-[280px]" />
                             <Label>Default Unit</Label>
                             <UnitSelect
@@ -843,7 +891,7 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                                         }}
                                         label="Hider Location"
                                     />
-                                    {!autoSave && (
+                                    {!$autoSave && (
                                         <SidebarMenuItem>
                                             <SidebarMenuButton
                                                 className="bg-blue-600 p-2 rounded-md font-semibold font-poppins transition-shadow duration-500 mt-2"
