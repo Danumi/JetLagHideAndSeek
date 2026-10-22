@@ -182,7 +182,6 @@ export const MEASURING_DECK: DeckCard[] = flatten([
                 id: "rail-station",
                 label: "Rail Station",
                 type: "rail-measure",
-                needsHidingZones: true,
             },
         ],
     },

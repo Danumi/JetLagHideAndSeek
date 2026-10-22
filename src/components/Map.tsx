@@ -29,15 +29,19 @@ import {
     thunderforestApiKey,
     triggerLocalRefresh,
 } from "@/lib/context";
+import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
 import { applyQuestionsToMapGeoData, holedMask } from "@/maps";
 import { hiderifyQuestion } from "@/maps";
-import { clearCache, determineMapBoundaries } from "@/maps/api";
+import { determineMapBoundaries } from "@/maps/api";
 
 import { DraggableMarkers } from "./DraggableMarkers";
 import { LeafletFullScreenButton } from "./LeafletFullScreenButton";
 import { MapPrint } from "./MapPrint";
 import { PolygonDraw } from "./PolygonDraw";
+
+/** The map is computed once questions stop changing for this long. */
+const MAP_REFRESH_DELAY_MS = 400;
 
 const getTileLayer = (tileLayer: string, thunderforestApiKey: string) => {
     switch (tileLayer) {
@@ -159,10 +163,6 @@ export const Map = ({ className }: { className?: string }) => {
         isLoading.set(true);
         const startedAt = Date.now();
 
-        if ($questions.length === 0) {
-            await clearCache();
-        }
-
         let mapGeoData = mapGeoJSON.get();
 
         if (!mapGeoData) {
@@ -185,9 +185,19 @@ export const Map = ({ className }: { className?: string }) => {
             }
         }
 
+        if (!mapGeoData) {
+            // The game area didn't load; "Retry" tries again
+            isLoading.set(false);
+            return;
+        }
+
         if ($hiderMode !== false) {
             for (const question of $questions) {
-                await hiderifyQuestion(question);
+                try {
+                    await hiderifyQuestion(question);
+                } catch (error) {
+                    console.log(error);
+                }
             }
 
             triggerLocalRefresh.set(Math.random()); // Refresh the question sidebar with new information but not this map
@@ -442,8 +452,20 @@ export const Map = ({ className }: { className?: string }) => {
     useEffect(() => {
         if (!map) return;
 
-        refreshQuestions(true);
+        // Wait until typing or dragging has stopped
+        const timer = setTimeout(
+            () => refreshQuestions(true),
+            MAP_REFRESH_DELAY_MS,
+        );
+        return () => clearTimeout(timer);
     }, [$questions, map, $hiderMode]);
+
+    useEffect(
+        () =>
+            // Questions whose data failed to load are computed again
+            retryTrigger.listen(() => latestRefreshRef.current?.(false)),
+        [],
+    );
 
     useEffect(() => {
         if (!map) return;

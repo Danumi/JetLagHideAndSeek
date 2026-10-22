@@ -56,6 +56,7 @@ import {
     uploadToPastebin,
 } from "@/lib/utils";
 import { OVERPASS_HOSTS } from "@/maps/api/constants";
+import { preloadGameData, preloadProgress } from "@/maps/preload";
 import {
     KILOMETERS_PER_MILE,
     questionsSchema,
@@ -113,6 +114,7 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
     const $customInitPref = useStore(customInitPreference);
     const $overpassHost = useStore(overpassHost);
+    const $preloadProgress = useStore(preloadProgress);
     const $overpassCustomHost = useStore(overpassCustomHost);
     const $questions = useStore(questions);
     const [isOptionsOpen, setOptionsOpen] = useState(false);
@@ -693,6 +695,18 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                                 {$overpassHost === "custom"
                                     ? "The other hosts will be used as fallbacks if this one fails."
                                     : "The remaining hosts will be tried as fallbacks if the selected one fails."}
+                            </p>
+                            <Button
+                                variant="outline"
+                                disabled={$preloadProgress !== null}
+                                onClick={() => preloadGameData()}
+                            >
+                                Preload map data
+                            </Button>
+                            <p className="text-xs text-gray-500 text-center">
+                                Loads the data of every question card for the
+                                game area, so answers don&apos;t have to wait.
+                                &quot;New Game&quot; does this by itself.
                             </p>
                             <Separator className="bg-slate-300 w-[280px]" />
                             <Label>Permanent Map Overlay</Label>

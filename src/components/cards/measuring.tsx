@@ -154,9 +154,9 @@ export const MeasuringQuestionComponent = ({
             break;
         case "rail-measure":
             questionSpecific = (
-                <span className="px-2 text-center text-orange-500">
-                    This question only changes the map when you click on a
-                    hiding zone in the hiding zone sidebar.
+                <span className="px-2 text-center">
+                    Counts the stations the hiding zones are drawn around
+                    (U-Bahn in a Small game).
                 </span>
             );
             break;

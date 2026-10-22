@@ -1,5 +1,6 @@
 import _ from "lodash";
-import { toast } from "react-toastify";
+
+import { trackLoading } from "@/lib/loading";
 
 import { CacheType } from "./types";
 
@@ -61,9 +62,7 @@ export const cacheFetch = async (
 
         try {
             const response = await (loadingText
-                ? toast.promise(fetchPromise, {
-                      pending: loadingText,
-                  })
+                ? trackLoading(loadingText, fetchPromise)
                 : fetchPromise);
 
             return response.clone();
@@ -80,11 +79,8 @@ export const cacheFetch = async (
 export const clearCache = async (cacheType: CacheType = CacheType.CACHE) => {
     try {
         const cache = await determineCache(cacheType);
-        await cache.keys().then((keys) => {
-            keys.forEach((key) => {
-                cache.delete(key);
-            });
-        });
+        const keys = await cache.keys();
+        await Promise.all(keys.map((key) => cache.delete(key)));
     } catch (e) {
         console.log(e); // Probably a caches not supported error
     }

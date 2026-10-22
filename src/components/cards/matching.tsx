@@ -23,6 +23,7 @@ import {
     showAllQuestionTypes,
     triggerLocalRefresh,
 } from "@/lib/context";
+import { retryTrigger } from "@/lib/loading";
 import { findStationLines, type StationLine } from "@/maps/api";
 import {
     ADMIN_LEVEL_LABELS,
@@ -71,7 +72,10 @@ const applyMatchingCard = (data: MatchingQuestion, card: DeckCard) => {
 const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
     const $allStations = useStore(allTrainStations);
     const $isLoading = useStore(isLoading);
-    const [lines, setLines] = React.useState<StationLine[] | null>(null);
+    const $retryTrigger = useStore(retryTrigger);
+    const [lines, setLines] = React.useState<StationLine[] | "failed" | null>(
+        null,
+    );
 
     const nearest = React.useMemo(() => {
         if ($allStations.length === 0) return null;
@@ -89,11 +93,11 @@ const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
         if (!stationId || !stationId.includes("/")) return;
         findStationLines(stationId)
             .then((result) => !cancelled && setLines(result))
-            .catch(() => !cancelled && setLines([]));
+            .catch(() => !cancelled && setLines("failed"));
         return () => {
             cancelled = true;
         };
-    }, [stationId]);
+    }, [stationId, $retryTrigger]);
 
     if (!stationId) {
         return (
@@ -106,6 +110,13 @@ const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
         return (
             <span className="px-2 text-center">
                 Loading lines at {stationName}...
+            </span>
+        );
+    }
+    if (lines === "failed") {
+        return (
+            <span className="px-2 text-center text-orange-500">
+                The lines at {stationName} didn&apos;t load.
             </span>
         );
     }
