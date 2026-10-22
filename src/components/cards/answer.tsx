@@ -6,12 +6,7 @@ import { toast } from "react-toastify";
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-    allTrainStations,
-    hiderMode,
-    questionModified,
-    questions,
-} from "@/lib/context";
+import { allTrainStations, questionModified, questions } from "@/lib/context";
 import { questionLink } from "@/lib/questionLink";
 import { cn, shareMessage } from "@/lib/utils";
 import {
@@ -42,7 +37,6 @@ export const numberedTitle = (questions: Questions, questionKey: number) => {
  * only then does it change the map.
  */
 export const AnswerButtons = ({ question }: { question: Question }) => {
-    const $hiderMode = useStore(hiderMode);
     const pending = question.data.status === "pending";
     const options = answerOptions(question);
     const current =
@@ -51,9 +45,6 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
             : question.data.status === "no-answer"
               ? "no-answer"
               : (currentAnswer(question) ?? "answered");
-    // In hider mode the app works out the answer itself
-    const disabled = $hiderMode !== false;
-
     const answer = (value: string) => {
         setAnswer(question, value);
         questionModified();
@@ -61,7 +52,7 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
 
     return (
         <div className="flex flex-col gap-2 p-2">
-            {pending && !disabled && <SendToHider question={question} />}
+            {pending && <SendToHider question={question} />}
             <span
                 className={cn(
                     "text-sm font-semibold",
@@ -81,7 +72,6 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
                                 current === option.value ? "default" : "outline"
                             }
                             className="h-14 text-lg font-semibold"
-                            disabled={disabled}
                             onClick={() => answer(option.value)}
                         >
                             {option.label}
@@ -96,7 +86,6 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
                             : "outline"
                     }
                     className="h-14 text-lg font-semibold"
-                    disabled={disabled}
                     onClick={() => answer("place")}
                 >
                     Save answer
@@ -105,7 +94,6 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
             <Button
                 variant={current === "no-answer" ? "default" : "outline"}
                 className="h-10"
-                disabled={disabled}
                 onClick={() => {
                     setNoAnswer(question);
                     questionModified();

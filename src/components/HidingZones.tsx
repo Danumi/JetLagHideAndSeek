@@ -15,6 +15,7 @@ import {
     displayHidingZones,
     displayHidingZonesOptions,
     displayHidingZonesStyle,
+    followMyPosition,
     hidingRadius,
     hidingRadiusUnits,
     includeDefaultStations as includeDefaultStationsAtom,
@@ -696,6 +697,8 @@ async function selectionProcess(
     showGeoJSON(mapData);
 
     if (autoZoom.get()) {
+        // Show the zone, not the blue dot
+        followMyPosition.set(false);
         if (animateMapMovements.get()) {
             map?.flyToBounds(bounds);
         } else {

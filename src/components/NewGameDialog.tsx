@@ -24,6 +24,7 @@ import {
     useCustomStations,
     VIENNA,
 } from "@/lib/context";
+import { type Role, setRole } from "@/lib/role";
 import { cn } from "@/lib/utils";
 import { preloadGameData } from "@/maps/preload";
 
@@ -33,7 +34,6 @@ import {
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
-    AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
@@ -42,7 +42,7 @@ import { Button } from "./ui/button";
 import { deleteAllQuestionsWithUndo } from "./UndoToast";
 
 /** Vienna, Small game: U-Bahn stations with 500 m hiding zones, no questions. */
-export const startNewGame = () => {
+export const startNewGame = (role: Role) => {
     mapGeoLocation.set(structuredClone(VIENNA));
     additionalMapGeoLocations.set([]);
     polyGeoJSON.set(null);
@@ -63,6 +63,7 @@ export const startNewGame = () => {
     displayHidingZones.set(true);
 
     hiderInbox.set([]);
+    setRole(role);
 
     // Clearing the questions also reloads the map
     if (questions.get().length > 0) {
@@ -120,18 +121,36 @@ export const NewGameDialog = ({
                                 }; you can undo this right afterwards.`}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction
-                            onClick={() => {
-                                startNewGame();
-                                onStart?.();
-                            }}
-                            className="mb-2 sm:mb-0"
-                        >
-                            New Game
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
+                    <div className="flex flex-col gap-2">
+                        <span className="text-sm font-semibold">
+                            Your role on this phone:
+                        </span>
+                        {(
+                            [
+                                ["seeker", "I'm seeking"],
+                                ["hider", "I'm hiding"],
+                            ] as const
+                        ).map(([role, label]) => (
+                            <AlertDialogAction
+                                key={role}
+                                onClick={() => {
+                                    startNewGame(role);
+                                    onStart?.();
+                                }}
+                                className={cn(
+                                    "h-14 text-lg font-semibold text-white",
+                                    role === "seeker"
+                                        ? "bg-blue-600 hover:bg-blue-700"
+                                        : "bg-violet-700 hover:bg-violet-800",
+                                )}
+                            >
+                                {label}
+                            </AlertDialogAction>
+                        ))}
+                        <AlertDialogCancel className="mt-0 h-12">
+                            Cancel
+                        </AlertDialogCancel>
+                    </div>
                 </AlertDialogContent>
             )}
         </AlertDialog>

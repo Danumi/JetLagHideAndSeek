@@ -15,7 +15,7 @@ import {
     animateMapMovements,
     autoZoom,
     baseTileLayer,
-    hiderMode,
+    followMyPosition,
     isLoading,
     leafletMapContext,
     mapGeoJSON,
@@ -27,12 +27,11 @@ import {
     questionFinishedMapData,
     questions,
     thunderforestApiKey,
-    triggerLocalRefresh,
 } from "@/lib/context";
+import { MY_POSITION_ZOOM } from "@/lib/gps";
 import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
 import { applyQuestionsToMapGeoData, holedMask } from "@/maps";
-import { hiderifyQuestion } from "@/maps";
 import { determineMapBoundaries } from "@/maps/api";
 
 import { DraggableMarkers } from "./DraggableMarkers";
@@ -132,7 +131,6 @@ export const Map = ({ className }: { className?: string }) => {
     const $questions = useStore(questions);
     const $baseTileLayer = useStore(baseTileLayer);
     const $thunderforestApiKey = useStore(thunderforestApiKey);
-    const $hiderMode = useStore(hiderMode);
     const $permanentOverlay = useStore(permanentOverlay);
     const map = useStore(leafletMapContext);
 
@@ -169,17 +167,14 @@ export const Map = ({ className }: { className?: string }) => {
                 mapGeoData = polyGeoData;
                 mapGeoJSON.set(polyGeoData);
             } else {
-                await toast.promise(
-                    determineMapBoundaries()
-                        .then((x) => {
-                            mapGeoJSON.set(x);
-                            mapGeoData = x;
-                        })
-                        .catch((error) => console.log(error)),
-                    {
-                        error: "Error refreshing map data",
-                    },
-                );
+                // No toast.promise here: without a "pending" message it
+                // dismisses every other message once the area has loaded
+                await determineMapBoundaries()
+                    .then((x) => {
+                        mapGeoJSON.set(x);
+                        mapGeoData = x;
+                    })
+                    .catch((error) => console.log(error));
             }
         }
 
@@ -187,18 +182,6 @@ export const Map = ({ className }: { className?: string }) => {
             // The game area didn't load; "Retry" tries again
             isLoading.set(false);
             return;
-        }
-
-        if ($hiderMode !== false) {
-            for (const question of $questions) {
-                try {
-                    await hiderifyQuestion(question);
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-
-            triggerLocalRefresh.set(Math.random()); // Refresh the question sidebar with new information but not this map
         }
 
         map.eachLayer((layer: any) => {
@@ -254,11 +237,14 @@ export const Map = ({ className }: { className?: string }) => {
 
             questionFinishedMapData.set(mapGeoData);
 
-            // Don't pull the map away from where the user moved it while loading
+            // Don't pull the map away from where the user moved it while
+            // loading, or from the blue dot while the map follows it
             const movedWhileLoading =
                 lastMapInteractionRef.current >= startedAt;
+            const following =
+                followMyPosition.get() && myPosition.get() !== null;
 
-            if (autoZoom.get() && focus && !movedWhileLoading) {
+            if (autoZoom.get() && focus && !movedWhileLoading && !following) {
                 const bbox = turf.bbox(holedMask(mapGeoData) as any);
                 const bounds = [
                     [bbox[1], bbox[0]],
@@ -444,7 +430,7 @@ export const Map = ({ className }: { className?: string }) => {
             MAP_REFRESH_DELAY_MS,
         );
         return () => clearTimeout(timer);
-    }, [$questions, map, $hiderMode]);
+    }, [$questions, map]);
 
     useEffect(
         () =>
@@ -501,6 +487,19 @@ export const Map = ({ className }: { className?: string }) => {
         pane.style.pointerEvents = "none";
         let dot: L.CircleMarker | null = null;
         let halo: L.Circle | null = null;
+
+        // The map follows the blue dot until you move it yourself
+        const stopFollowing = () => followMyPosition.set(false);
+        map.on("dragstart", stopFollowing);
+        const follow = (latLng: L.LatLngExpression, first: boolean) => {
+            if (!followMyPosition.get()) return;
+            if (first) {
+                map.setView(latLng, Math.max(map.getZoom(), MY_POSITION_ZOOM));
+            } else {
+                map.panTo(latLng);
+            }
+        };
+
         const watchId = navigator.geolocation.watchPosition(
             (pos) => {
                 const position = {
@@ -514,8 +513,10 @@ export const Map = ({ className }: { className?: string }) => {
                 if (dot && halo) {
                     dot.setLatLng(latLng);
                     halo.setLatLng(latLng).setRadius(position.accuracy);
+                    follow(latLng, false);
                     return;
                 }
+                follow(latLng, true);
                 halo = L.circle(latLng, {
                     radius: position.accuracy,
                     stroke: false,
@@ -540,6 +541,7 @@ export const Map = ({ className }: { className?: string }) => {
         );
 
         return () => {
+            map.off("dragstart", stopFollowing);
             navigator.geolocation.clearWatch(watchId);
             dot?.remove();
             halo?.remove();
