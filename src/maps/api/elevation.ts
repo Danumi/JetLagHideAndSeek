@@ -1,6 +1,8 @@
 import * as turf from "@turf/turf";
 import type { Feature, MultiPolygon } from "geojson";
 
+import { t } from "@/lib/i18n";
+
 import { cacheFetch } from "./cache";
 import { CacheType } from "./types";
 
@@ -41,7 +43,7 @@ const loadTile = (x: number, y: number) => {
             try {
                 const response = await cacheFetch(
                     tileUrl(x, y),
-                    "Loading elevation data...",
+                    t("loading.elevation"),
                     CacheType.PERMANENT_CACHE,
                 );
                 if (!response.ok) return null;

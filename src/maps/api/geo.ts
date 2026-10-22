@@ -1,5 +1,7 @@
 import type { LatLngTuple } from "leaflet";
 
+import { t } from "@/lib/i18n";
+
 import type { APILocations, OpenStreetMap } from "./types";
 
 export const convertToLongLat = (coordinates: LatLngTuple): number[] => {
@@ -10,44 +12,9 @@ export const convertToLatLong = (coordinates: number[]): LatLngTuple => {
     return [coordinates[1], coordinates[0]];
 };
 
-export const prettifyLocation = (
-    location: APILocations,
-    plural: boolean = false,
-): string => {
-    if (plural) {
-        switch (location) {
-            case "library":
-                return "Libraries";
-            default:
-                return prettifyLocation(location) + "s";
-        }
-    }
-
-    switch (location) {
-        case "aquarium":
-            return "Aquarium";
-        case "hospital":
-            return "Hospital";
-        case "peak":
-            return "Mountain";
-        case "museum":
-            return "Museum";
-        case "theme_park":
-            return "Theme Park";
-        case "zoo":
-            return "Zoo";
-        case "cinema":
-            return "Cinema";
-        case "library":
-            return "Library";
-        case "golf_course":
-            return "Golf Course";
-        case "consulate":
-            return "Foreign Consulate";
-        case "park":
-            return "Park";
-    }
-};
+/** "parks" (German: "Parks"): a kind of place inside a sentence. */
+export const prettifyLocation = (location: APILocations): string =>
+    t(`places.${location}`);
 
 export const determineName = (feature: OpenStreetMap) => {
     const props = feature.properties;

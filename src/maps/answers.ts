@@ -1,6 +1,6 @@
 import * as turf from "@turf/turf";
 
-import { formatNumber, type MessageKey, t, tr } from "@/lib/i18n";
+import { formatNumber, labelOf, type MessageKey, t, tr } from "@/lib/i18n";
 import {
     matchingCardFor,
     measuringCardFor,
@@ -183,8 +183,10 @@ export const questionTitle = (question: Question) => {
             return `Matching: ${
                 card
                     ? tr(card.label)
-                    : (MATCHING_TYPE_LABELS[question.data.type] ??
-                      question.data.type)
+                    : labelOf(
+                          MATCHING_TYPE_LABELS[question.data.type] ??
+                              question.data.type,
+                      )
             }`;
         }
         case "measuring": {
@@ -192,8 +194,10 @@ export const questionTitle = (question: Question) => {
             return `Measuring: ${
                 card
                     ? tr(card.label)
-                    : (MEASURING_TYPE_LABELS[question.data.type] ??
-                      question.data.type)
+                    : labelOf(
+                          MEASURING_TYPE_LABELS[question.data.type] ??
+                              question.data.type,
+                      )
             }`;
         }
     }

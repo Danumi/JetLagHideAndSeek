@@ -11,6 +11,7 @@ import type {
     StationPlace,
 } from "@/maps/api";
 import { extractStationLabel } from "@/maps/geo-utils";
+import type { HiderAnswer } from "@/maps/hider";
 import {
     type DeepPartial,
     type Question,
@@ -151,7 +152,9 @@ export type HiderInboxEntry = {
     /** The question's number on the seekers' phone. */
     number?: number;
     receivedAt: number;
-    /** The answer the app worked out last, like "Outside". */
+    /** The answer the app worked out last, shown in the phone's language. */
+    workedOut?: Pick<HiderAnswer, "value" | "location">;
+    /** The same as a text, like "Outside", from phones before Etappe 15. */
     answer?: string;
 };
 /** Questions the hider got on this phone, newest last. */

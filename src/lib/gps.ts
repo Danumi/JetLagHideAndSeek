@@ -12,6 +12,7 @@ import {
     questionModified,
     questions,
 } from "@/lib/context";
+import { t } from "@/lib/i18n";
 
 export type LatLng = { lat: number; lng: number };
 /** A GPS position, with how far off it may be in meters. */
@@ -277,10 +278,7 @@ export const questionLocation = async (): Promise<
 
     const map = leafletMapContext.get();
     if (!map) return null;
-    toast.warning(
-        'Couldn\'t get your location. The question starts at the map center; move it with "Pick on map".',
-        { autoClose: 6000 },
-    );
+    toast.warning(t("locating.mapCenter"), { autoClose: 6000 });
     const center = map.getCenter();
     return { lat: center.lat, lng: center.lng };
 };
@@ -342,7 +340,7 @@ const movePoint = (target: PickTarget, at: LatLng, accuracy?: number) => {
 export const moveToMyLocation = async (target: PickTarget) => {
     const position = await getPrecisePosition();
     if (!position) {
-        toast.error("Couldn't get your location.", { autoClose: 3000 });
+        toast.error(t("locate.failed"), { autoClose: 3000 });
         return;
     }
     movePoint(target, position, position.accuracy);

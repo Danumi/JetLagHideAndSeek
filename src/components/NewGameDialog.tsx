@@ -25,6 +25,7 @@ import {
     useCustomStations,
     VIENNA,
 } from "@/lib/context";
+import { t, useLanguage } from "@/lib/i18n";
 import { type Role, setRole } from "@/lib/role";
 import { cn } from "@/lib/utils";
 import { preloadGameData } from "@/maps/preload";
@@ -86,6 +87,7 @@ export const NewGameDialog = ({
     /** Called once the new game has started, e.g. to close the settings. */
     onStart?: () => void;
 }) => {
+    useLanguage();
     const $isLoading = useStore(isLoading);
     const $questions = useStore(questions);
     const [open, setOpen] = useState(false);
@@ -99,9 +101,9 @@ export const NewGameDialog = ({
                         className,
                     )}
                     disabled={$isLoading}
-                    title="Vienna, Small game: U-Bahn stations only, 500 m"
+                    title={t("newGame.hint")}
                 >
-                    New Game
+                    {t("newGame.button")}
                 </Button>
             </AlertDialogTrigger>
             {/* Only rendered when open: the dialog needs the browser's document */}
@@ -109,28 +111,28 @@ export const NewGameDialog = ({
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>
-                            Start a new game (Vienna, Small)?
+                            {t("newGame.title")}
                         </AlertDialogTitle>
                         <AlertDialogDescription>
-                            The game area is Vienna. Hiding zones are all U-Bahn
-                            stations with a 500 m radius. While the hider hides,
-                            the app loads the map data for every question card.
+                            {t("newGame.text")}
                             {$questions.length > 0 &&
                                 ` ${
                                     $questions.length === 1
-                                        ? "The question disappears"
-                                        : `All ${$questions.length} questions disappear`
-                                }; you can undo this right afterwards.`}
+                                        ? t("newGame.deletesOne")
+                                        : t("newGame.deletesMany", {
+                                              count: $questions.length,
+                                          })
+                                }`}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <div className="flex flex-col gap-2">
                         <span className="text-sm font-semibold">
-                            Your role on this phone:
+                            {t("role.label")}:
                         </span>
                         {(
                             [
-                                ["seeker", "I'm seeking"],
-                                ["hider", "I'm hiding"],
+                                ["seeker", t("role.seeking")],
+                                ["hider", t("role.hiding")],
                             ] as const
                         ).map(([role, label]) => (
                             <AlertDialogAction
@@ -150,7 +152,7 @@ export const NewGameDialog = ({
                             </AlertDialogAction>
                         ))}
                         <AlertDialogCancel className="mt-0 h-12">
-                            Cancel
+                            {t("common.cancel")}
                         </AlertDialogCancel>
                     </div>
                 </AlertDialogContent>

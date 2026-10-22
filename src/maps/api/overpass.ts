@@ -17,6 +17,7 @@ import {
     overpassHost,
     polyGeoJSON,
 } from "@/lib/context";
+import { t } from "@/lib/i18n";
 import { showLoadError, trackLoading } from "@/lib/loading";
 import { safeUnion } from "@/maps/geo-utils";
 
@@ -218,10 +219,12 @@ export const getOverpassData = async (
         showLoadError(
             loadingText,
             timedOut
-                ? "The map servers didn't answer in time."
+                ? t("loading.timeout")
                 : response
-                  ? `The map server answered "${response.status} ${response.statusText}".`
-                  : "The map servers couldn't be reached.",
+                  ? t("loading.status", {
+                        status: `${response.status} ${response.statusText}`,
+                    })
+                  : t("loading.unreachable"),
         );
         throw new OverpassError(
             `Overpass request failed${response ? `: ${response.status}` : ""}`,
@@ -237,7 +240,7 @@ export const getOverpassData = async (
     if (!data || isRuntimeError(data)) {
         // Don't keep a broken answer: a retry should ask again
         await forgetCached(url, cacheType);
-        showLoadError(loadingText, "The map server gave up on the request.");
+        showLoadError(loadingText, t("loading.gaveUp"));
         throw new OverpassError(data?.remark ?? "Invalid Overpass response");
     }
 
@@ -266,7 +269,7 @@ export const determineGeoJSON = async (
     const query = `[out:json];${osmType}(${osmId});out geom;`;
     const data = await getOverpassData(
         query,
-        "Loading map data...",
+        t("loading.mapData"),
         CacheType.PERMANENT_CACHE,
     );
     const geo = osmtogeojson(data);
@@ -280,7 +283,7 @@ export const determineGeoJSON = async (
 
 export const findTentacleLocations = async (
     question: TentacleLocationQuery,
-    text: string = "Determining tentacle locations...",
+    text: string = t("loading.tentacles"),
 ) => {
     const query = `
 [out:json][timeout:25];
@@ -335,7 +338,7 @@ is_in(${latitude}, ${longitude})->.a;
 rel(pivot.a)["admin_level"="${adminLevel}"];
 out geom;
     `;
-    const data = await getOverpassData(query, "Determining matching zone...");
+    const data = await getOverpassData(query, t("loading.zone"));
     const geo = osmtogeojson(data);
     return geo.features?.[0];
 };
@@ -343,7 +346,7 @@ out geom;
 export const fetchCoastline = async () => {
     const response = await cacheFetch(
         import.meta.env.BASE_URL + "/coastline50.geojson",
-        "Fetching coastline data...",
+        t("loading.coastline"),
         CacheType.PERMANENT_CACHE,
     );
     const data = await response.json();
@@ -420,7 +423,7 @@ out ids;
 
     const data = await getOverpassData(
         query,
-        "Finding train lines...",
+        t("loading.lines"),
         CacheType.ZONE_CACHE,
     );
 
@@ -523,7 +526,7 @@ const STREET_FILTER =
 export const findNearestStreet = async (lat: number, lng: number) => {
     const data = await getOverpassData(
         `[out:json][timeout:30];way(around:100,${lat},${lng})${STREET_FILTER};out geom;`,
-        "Finding nearest street...",
+        t("loading.street"),
     );
     const point = turf.point([lng, lat]);
     const candidates = (data.elements ?? [])
@@ -561,7 +564,7 @@ export const findStreetLines = async (name: string) => {
     const escaped = name.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
     const data = await findPlacesInZone(
         `["highway"]["name"="${escaped}"]`,
-        `Finding ${name}...`,
+        t("loading.named", { name }),
         "way",
         "geom",
     );
@@ -576,7 +579,7 @@ export const findNamedWaterLines = async () => {
     const bboxValue = gameAreaBbox();
     const data = await findPlacesInZone(
         '["natural"="water"]["name"]["water"!~"^(pool|swimming_pool|wastewater|basin|fountain|reflecting_pool)$"]["amenity"!="fountain"]',
-        "Finding bodies of water...",
+        t("loading.water"),
         "wr",
         bboxValue ? `geom(${bboxValue})` : "geom",
         ['["waterway"~"^(river|canal)$"]["name"]'],
@@ -608,7 +611,7 @@ export const findLandmassIslands = async (): Promise<
 > => {
     const data = await findPlacesInZone(
         '["place"~"^(island|islet)$"]',
-        "Finding islands...",
+        t("loading.islands"),
         "wr",
         "geom",
     );
@@ -629,7 +632,7 @@ export const findLandmassIslands = async (): Promise<
 
     const lakes = await getOverpassData(
         `[out:json][timeout:30];way(id:${wayIds.join(",")})->.i;rel(bw.i)["natural"="water"]["water"!~"^(river|canal|stream)$"];out body;`,
-        "Checking islands...",
+        t("loading.checkIslands"),
     );
     const enclosed = new Set<string>();
     for (const lake of lakes.elements ?? []) {
@@ -765,7 +768,7 @@ out ${outType};
 export const findPlacesOfKind = (location: APILocations) =>
     findPlacesInZone(
         `[${LOCATION_FIRST_TAG[location]}=${location}]`,
-        `Finding ${prettifyLocation(location, true).toLowerCase()}...`,
+        t("loading.places", { what: prettifyLocation(location) }),
         "nwr",
         "center",
         [],
@@ -773,12 +776,7 @@ export const findPlacesOfKind = (location: APILocations) =>
     );
 
 export const findHighSpeedLines = () =>
-    findPlacesInZone(
-        "[highspeed=yes]",
-        "Finding high-speed lines...",
-        "nwr",
-        "geom",
-    );
+    findPlacesInZone("[highspeed=yes]", t("loading.highSpeed"), "nwr", "geom");
 
 export const findPlacesSpecificInZone = async (
     location: `${QuestionSpecificLocation}`,
@@ -786,11 +784,13 @@ export const findPlacesSpecificInZone = async (
     const locations = (
         await findPlacesInZone(
             location,
-            `Finding ${
-                location === '["brand:wikidata"="Q38076"]'
-                    ? "McDonald's"
-                    : "7-Elevens"
-            }...`,
+            t("loading.places", {
+                what: t(
+                    location === '["brand:wikidata"="Q38076"]'
+                        ? "places.mcdonalds"
+                        : "places.seven11",
+                ),
+            }),
         )
     ).elements;
     return turf.featureCollection(
@@ -817,7 +817,7 @@ export const nearestToQuestion = async (
                 unit: "miles",
                 locationType: question.type,
             },
-            "Finding matching locations...",
+            t("loading.matchingPlaces"),
         );
         radius += 30;
     }

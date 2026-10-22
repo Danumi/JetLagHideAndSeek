@@ -60,6 +60,13 @@ export const tr = (text: Text, params?: Params) =>
 export const hasMessage = (key: string): key is MessageKey => key in messages;
 
 /**
+ * The text for a key kept as data, like the kinds of questions in schema.ts
+ * (`.describe("type.park")`); anything else stays as it is.
+ */
+export const labelOf = (key: string | undefined) =>
+    key !== undefined && hasMessage(key) ? t(key) : (key ?? "");
+
+/**
  * The same, with parts that are more than text: a bold number in "37 of 99
  * zones left", say.
  */
