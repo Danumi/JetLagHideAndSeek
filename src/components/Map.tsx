@@ -19,11 +19,13 @@ import {
     mapGeoJSON,
     mapGeoLocation,
     myPosition,
+    pickingLocation,
     polyGeoJSON,
     questionFinishedMapData,
     questions,
+    showAllQuestionTypes,
 } from "@/lib/context";
-import { MY_POSITION_ZOOM } from "@/lib/gps";
+import { MY_POSITION_ZOOM, placePickedPoint } from "@/lib/gps";
 import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
 import { applyQuestionsToMapGeoData, holedMask } from "@/maps";
@@ -329,34 +331,6 @@ export const Map = ({ className }: { className?: string }) => {
                             });
                         },
                     },
-                    {
-                        text: "Copy Coordinates",
-                        callback: (e: any) => {
-                            if (!navigator || !navigator.clipboard) {
-                                toast.error(
-                                    "Clipboard API not supported in your browser",
-                                );
-                                return;
-                            }
-
-                            const latitude = e.latlng.lat;
-                            const longitude = e.latlng.lng;
-
-                            toast.promise(
-                                navigator.clipboard.writeText(
-                                    `${Math.abs(latitude)}°${latitude > 0 ? "N" : "S"}, ${Math.abs(
-                                        longitude,
-                                    )}°${longitude > 0 ? "E" : "W"}`,
-                                ),
-                                {
-                                    pending: "Writing to clipboard...",
-                                    success: "Coordinates copied!",
-                                    error: "An error occurred while copying",
-                                },
-                                { autoClose: 1000 },
-                            );
-                        },
-                    },
                 ]}
             >
                 {getTileLayer($baseTileLayer)}
@@ -399,6 +373,31 @@ export const Map = ({ className }: { className?: string }) => {
             retryTrigger.listen(() => latestRefreshRef.current?.(false)),
         [],
     );
+
+    useEffect(() => {
+        if (!map) return;
+
+        // "Pick on map": the next tap on the map sets the point
+        const onClick = (event: L.LeafletMouseEvent) =>
+            placePickedPoint(event.latlng);
+        map.on("click", onClick);
+        const unbindPicking = pickingLocation.subscribe((target) =>
+            map.getContainer().classList.toggle("picking-location", !!target),
+        );
+
+        // The long-press menu adds questions of every type: for experts
+        const unbindMenu = showAllQuestionTypes.subscribe((show) => {
+            const menu = (map as any).contextmenu;
+            if (show) menu?.enable();
+            else menu?.disable();
+        });
+
+        return () => {
+            map.off("click", onClick);
+            unbindPicking();
+            unbindMenu();
+        };
+    }, [map]);
 
     useEffect(() => {
         if (!map) return;

@@ -1,14 +1,22 @@
 import { useStore } from "@nanostores/react";
-import { ListIcon, MapIcon, VenetianMaskIcon } from "lucide-react";
+import {
+    ListIcon,
+    MapIcon,
+    MousePointerClickIcon,
+    VenetianMaskIcon,
+} from "lucide-react";
 
 import { SidebarContext } from "@/components/ui/sidebar-l";
 import {
     hiderMode,
     hiderScreenOpen,
+    pickingLocation,
+    type PickTarget,
     questions,
     thermometerRun,
     zoneSheetOpen,
 } from "@/lib/context";
+import { cancelPickOnMap } from "@/lib/gps";
 import { cn } from "@/lib/utils";
 import { isPending } from "@/maps/answers";
 
@@ -54,6 +62,39 @@ const SideButton = ({
     </Button>
 );
 
+const pickText = (target: PickTarget, number: number) => {
+    if (target.questionKey === -1) return "Tap where you are hiding";
+    if (target.point === "start") {
+        return `Tap where thermometer ${number} started`;
+    }
+    if (target.point === "end") {
+        return `Tap where thermometer ${number} ended`;
+    }
+    return `Tap where question ${number} was asked`;
+};
+
+/** "Pick on map" is on: what to tap, and "Cancel". */
+const PickOnMapHint = ({ target }: { target: PickTarget }) => {
+    const $questions = useStore(questions);
+    const number =
+        $questions.findIndex((q) => q.key === target.questionKey) + 1;
+
+    return (
+        <div className="flex max-w-[92vw] items-center gap-2 rounded-2xl bg-blue-600 py-1 pl-4 pr-1 text-sm font-semibold leading-tight text-white shadow-lg">
+            <MousePointerClickIcon className="h-4 w-4 shrink-0" />
+            <span className="min-w-0">{pickText(target, number)}</span>
+            <Button
+                size="sm"
+                variant="secondary"
+                className="h-8 shrink-0 rounded-full"
+                onClick={cancelPickOnMap}
+            >
+                Cancel
+            </Button>
+        </div>
+    );
+};
+
 /**
  * The three big buttons below the map: the questions asked so far, a new
  * question, the hiding zones (the hider: back to the hider screen, the
@@ -64,11 +105,17 @@ export const BottomBar = () => {
     const $questions = useStore(questions);
     const $thermometerRun = useStore(thermometerRun);
     const $hiderMode = useStore(hiderMode);
+    const $pickingLocation = useStore(pickingLocation);
     const anyPending = $questions.some(isPending);
 
     return (
         <div className="relative z-[1030] shrink-0">
-            {$hiderMode === false && (
+            {$pickingLocation && (
+                <div className="pointer-events-none absolute bottom-full left-0 right-0 mb-3 flex flex-col items-center gap-2 px-2 [&>*]:pointer-events-auto">
+                    <PickOnMapHint target={$pickingLocation} />
+                </div>
+            )}
+            {$hiderMode === false && !$pickingLocation && (
                 <div className="pointer-events-none absolute bottom-full left-0 right-0 mb-3 flex flex-col items-center gap-2 px-2 [&>*]:pointer-events-auto">
                     <WaitingForAnswer />
                     {$thermometerRun && (

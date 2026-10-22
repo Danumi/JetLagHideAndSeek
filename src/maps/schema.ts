@@ -85,9 +85,12 @@ const randomColorExcluding = (excluded: IconColor[] = []) => {
     return options[Math.floor(Math.random() * options.length)];
 };
 
-/** Colors of new questions: not green (zones), grey or black (ruled out). */
+/**
+ * Colors of new questions: not green (zones), grey or black (ruled out), or
+ * orange (waiting for the answer).
+ */
 const randomQuestionColor = () =>
-    randomColorExcluding(["green", "grey", "black"]);
+    randomColorExcluding(["green", "grey", "black", "orange"]);
 
 /**
  * New questions wait for the hider's answer ("pending") and don't change the

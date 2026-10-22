@@ -1,5 +1,4 @@
 import { useStore } from "@nanostores/react";
-import * as turf from "@turf/turf";
 import { SendIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
@@ -7,6 +6,7 @@ import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { allTrainStations, questionModified, questions } from "@/lib/context";
+import { scrollToQuestion } from "@/lib/gps";
 import { questionLink } from "@/lib/questionLink";
 import { cn, shareMessage } from "@/lib/utils";
 import {
@@ -14,22 +14,43 @@ import {
     answerText,
     askedAtText,
     currentAnswer,
+    isPending,
     questionTitle,
     setAnswer,
     setNoAnswer,
 } from "@/maps/answers";
-import type { StationPlace } from "@/maps/api";
-import { extractStationName } from "@/maps/geo-utils";
-import type { Question, Questions } from "@/maps/schema";
+import { ICON_COLORS } from "@/maps/api";
+import type { Question } from "@/maps/schema";
 
+import { placeText } from "./location";
 import { NearestNote } from "./nearest";
 
-/** "3 · Radar 2 km": the question's number in the list and its name. */
-export const numberedTitle = (questions: Questions, questionKey: number) => {
-    const index = questions.findIndex((q) => q.key === questionKey);
-    return index === -1
-        ? ""
-        : `${index + 1} · ${questionTitle(questions[index])}`;
+/**
+ * The question's number, colored like its pin on the map. An orange ring:
+ * the question waits for the hider's answer.
+ */
+export const QuestionBadge = ({
+    question,
+    number,
+}: {
+    question: Question;
+    number: number;
+}) => {
+    const color =
+        question.id === "thermometer"
+            ? question.data.colorB
+            : question.data.color;
+    return (
+        <span
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 text-sm font-bold text-white"
+            style={{
+                background: ICON_COLORS[color] ?? ICON_COLORS.blue,
+                borderColor: isPending(question) ? "#f97316" : "#ffffff",
+            }}
+        >
+            {number}
+        </span>
+    );
 };
 
 /**
@@ -51,8 +72,7 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
     };
 
     return (
-        <div className="flex flex-col gap-2 p-2">
-            {pending && <SendToHider question={question} />}
+        <div className="flex flex-col gap-2">
             <span
                 className={cn(
                     "text-sm font-semibold",
@@ -93,7 +113,7 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
             )}
             <Button
                 variant={current === "no-answer" ? "default" : "outline"}
-                className="h-10"
+                className="h-10 font-semibold"
                 onClick={() => {
                     setNoAnswer(question);
                     questionModified();
@@ -109,7 +129,7 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
  * Shares the question as a link (WhatsApp and co.). The hider opens it and
  * their phone works out the answer from their location.
  */
-const SendToHider = ({ question }: { question: Question }) => {
+export const SendToHider = ({ question }: { question: Question }) => {
     const $questions = useStore(questions);
     const [busy, setBusy] = useState(false);
 
@@ -145,48 +165,14 @@ const SendToHider = ({ question }: { question: Question }) => {
 
     return (
         <Button
-            className="h-12 gap-2 bg-violet-600 text-base font-semibold text-white hover:bg-violet-700"
+            className="h-10 bg-violet-600 font-semibold text-white hover:bg-violet-700"
             disabled={busy}
             onClick={send}
         >
-            <SendIcon className="!size-5" />
+            <SendIcon />
             Send to hider
         </Button>
     );
-};
-
-/** Name of the station nearest to a point, if one is within 1 km. */
-const nearestStationName = (
-    lat: number,
-    lng: number,
-    stations: StationPlace[],
-) => {
-    if (stations.length === 0) return undefined;
-    const nearest = turf.nearestPoint(
-        turf.point([lng, lat]),
-        turf.featureCollection(stations) as any,
-    );
-    if (turf.distance([lng, lat], nearest, { units: "kilometers" }) > 1) {
-        return undefined;
-    }
-    return extractStationName(nearest) || undefined;
-};
-
-const placeText = (question: Question, stations: StationPlace[]) => {
-    if (question.id === "thermometer") {
-        const start = nearestStationName(
-            question.data.latA,
-            question.data.lngA,
-            stations,
-        );
-        const end = nearestStationName(
-            question.data.latB,
-            question.data.lngB,
-            stations,
-        );
-        return start || end ? `${start ?? "?"} → ${end ?? "?"}` : undefined;
-    }
-    return nearestStationName(question.data.lat, question.data.lng, stations);
 };
 
 /**
@@ -210,12 +196,13 @@ export const QuestionLogRow = ({
     return (
         <>
             <div
-                className="flex items-center gap-2 px-3 py-2"
+                className="flex items-start gap-2 px-3 py-2"
                 data-question-key={question.key}
             >
+                <QuestionBadge question={question} number={number} />
                 <div className="min-w-0 flex-1 text-sm leading-snug">
                     <span className="font-semibold">
-                        {number} · {questionTitle(question)}
+                        {questionTitle(question)}
                     </span>
                     {place && (
                         <span className="text-muted-foreground">
@@ -238,17 +225,21 @@ export const QuestionLogRow = ({
                         <span className="text-muted-foreground"> · {time}</span>
                     )}
                     {question.data.hidden && (
-                        <span className="text-orange-400"> · hidden</span>
+                        <span className="text-muted-foreground">
+                            {" "}
+                            · hidden on the map
+                        </span>
                     )}
                     <NearestNote question={question} />
                 </div>
                 <Button
                     variant="outline"
-                    size="sm"
+                    className="h-10"
                     onClick={() => {
                         question.data.drag = true;
-                        question.data.collapsed = false;
                         questionModified();
+                        // Its card moves up to the open questions
+                        setTimeout(() => scrollToQuestion(question.key), 100);
                     }}
                 >
                     Edit

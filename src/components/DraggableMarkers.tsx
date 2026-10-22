@@ -1,23 +1,26 @@
 import { useStore } from "@nanostores/react";
 import { divIcon, type DragEndEvent } from "leaflet";
+import { MousePointerClickIcon } from "lucide-react";
 import { computed } from "nanostores";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Fragment } from "react/jsx-runtime";
 import { Marker } from "react-leaflet";
 
+import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
     hiderMode,
     myPosition,
+    pickingLocation,
     questionModified,
     questions,
     triggerLocalRefresh,
 } from "@/lib/context";
+import { pickOnMap, placePickedPoint } from "@/lib/gps";
 import { isLogged, isPending } from "@/maps/answers";
 import { ICON_COLORS } from "@/maps/api";
 
 import { QuestionLogRow } from "./cards/answer";
-import { LatitudeLongitude } from "./LatLngPicker";
 import {
     MatchingQuestionComponent,
     MeasuringQuestionComponent,
@@ -25,7 +28,6 @@ import {
     TentacleQuestionComponent,
     ThermometerQuestionComponent,
 } from "./QuestionCards";
-import { SidebarMenu } from "./ui/sidebar-l";
 
 let isDragging = false;
 
@@ -77,6 +79,11 @@ const ColoredMarker = ({
     const [open, setOpen] = useState(false);
     const question = $questions.find((q) => q.key === questionKey);
     const pending = !!question && isPending(question);
+    // "Pick on map" needs the map: the question card here makes way
+    useEffect(
+        () => pickingLocation.listen((target) => target && setOpen(false)),
+        [],
+    );
     const icon = useMemo(
         () =>
             numberedPin(label, ICON_COLORS[color] ?? ICON_COLORS.blue, {
@@ -103,35 +110,35 @@ const ColoredMarker = ({
                         }, 100);
                     },
                     click: () => {
-                        if (!isDragging) {
-                            setOpen(true);
+                        if (isDragging) return;
+                        // Picking a point: a tap on a pin picks the pin's spot
+                        if (
+                            placePickedPoint({ lat: latitude, lng: longitude })
+                        ) {
+                            return;
                         }
+                        setOpen(true);
                     },
                 }}
             />
             <DialogContent className="!bg-[hsl(var(--sidebar-background))] !text-white">
                 {questionKey === -1 && $hiderMode !== false && (
-                    <>
-                        <h2 className="text-center text-2xl font-bold font-poppins">
-                            {sub}
-                        </h2>
-                        <SidebarMenu>
-                            <LatitudeLongitude
-                                latitude={$hiderMode.latitude}
-                                longitude={$hiderMode.longitude}
-                                inlineEdit
-                                onChange={(latitude, longitude) => {
-                                    hiderMode.set({
-                                        latitude:
-                                            latitude ?? $hiderMode.latitude,
-                                        longitude:
-                                            longitude ?? $hiderMode.longitude,
-                                    });
-                                }}
-                                label="Hider Location"
-                            />
-                        </SidebarMenu>
-                    </>
+                    <div className="flex flex-col gap-3">
+                        <h2 className="text-xl font-semibold">{sub}</h2>
+                        <p className="text-sm text-muted-foreground">
+                            Without GPS, this marker shows where you are hiding.
+                            Drag it there, or tap &quot;Pick on map&quot; and
+                            then tap the spot.
+                        </p>
+                        <Button
+                            variant="outline"
+                            className="h-10"
+                            onClick={() => pickOnMap({ questionKey: -1 })}
+                        >
+                            <MousePointerClickIcon />
+                            Pick on map
+                        </Button>
+                    </div>
                 )}
                 {$questions
                     .filter((q) => q.key === questionKey)
@@ -214,7 +221,7 @@ export const DraggableMarkers = () => {
                     color="violet"
                     label="H"
                     key="hider"
-                    sub="Hider Location"
+                    sub="Your hiding spot"
                     questionKey={-1}
                     latitude={$hiderMode.latitude}
                     longitude={$hiderMode.longitude}

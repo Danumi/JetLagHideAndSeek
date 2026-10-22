@@ -69,17 +69,30 @@ export const polyGeoJSON = persistentAtom<FeatureCollection<
     decode: JSON.parse,
 });
 
+/**
+ * Questions waiting for an answer can always be changed: older versions had
+ * a lock button that could leave them locked with no way to unlock them.
+ */
+const unlockPending = (list: Questions) => {
+    for (const question of list) {
+        if (question.data.status === "pending") question.data.drag = true;
+    }
+    return list;
+};
+
 export const questions = persistentAtom<Questions>("questions", [], {
     encode: JSON.stringify,
     decode: (x) => {
         const saved = JSON.parse(x);
         const parsed = questionsSchema.safeParse(saved);
-        if (parsed.success) return parsed.data;
+        if (parsed.success) return unlockPending(parsed.data);
         // Keep every question that still loads instead of breaking the app
-        return (Array.isArray(saved) ? saved : []).flatMap((question) => {
-            const one = questionSchema.safeParse(question);
-            return one.success ? [one.data] : [];
-        });
+        return unlockPending(
+            (Array.isArray(saved) ? saved : []).flatMap((question) => {
+                const one = questionSchema.safeParse(question);
+                return one.success ? [one.data] : [];
+            }),
+        );
     },
 });
 /** New questions wait for the hider's answer before they change the map. */
@@ -128,6 +141,10 @@ export const hiderScreenOpen = atom<boolean>(false);
 export const settingsOpen = atom<boolean>(false);
 /** On: the map keeps your own position (the blue dot) in the middle. */
 export const followMyPosition = atom<boolean>(true);
+/** A point that "Pick on map" moves: a question's (a thermometer's start or end) or, with questionKey -1, the hider's H marker. */
+export type PickTarget = { questionKey: number; point?: "start" | "end" };
+/** "Pick on map" is on: the next tap on the map moves this point. */
+export const pickingLocation = atom<PickTarget | null>(null);
 /** A question the seekers sent to the hider as a link. */
 export type HiderInboxEntry = {
     question: Question;

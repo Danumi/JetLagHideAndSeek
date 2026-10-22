@@ -76,7 +76,7 @@ export const NearestInfo = ({ question }: { question: Question }) => {
     return (
         <div
             className={cn(
-                "mx-2 rounded-md border px-3 py-2 text-sm",
+                "rounded-md border px-3 py-2 text-sm",
                 typeof nearest === "string"
                     ? "text-muted-foreground"
                     : "font-semibold",

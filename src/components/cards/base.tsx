@@ -1,7 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { EyeIcon, EyeOffIcon, LockIcon, UnlockIcon } from "lucide-react";
-import { useRef, useState } from "react";
-import { VscChevronDown, VscShare, VscTrash } from "react-icons/vsc";
+import { EyeIcon, EyeOffIcon, Trash2Icon } from "lucide-react";
 
 import {
     AlertDialog,
@@ -15,251 +13,147 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
-import {
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
-    SidebarMenu,
-} from "@/components/ui/sidebar-l";
+import { SidebarGroup, SidebarMenu } from "@/components/ui/sidebar-l";
 import { deleteQuestionWithUndo } from "@/components/UndoToast";
-import { isLoading, questions } from "@/lib/context";
+import { isLoading, questionModified, questions } from "@/lib/context";
 import { cn } from "@/lib/utils";
+import { isPending, questionTitle } from "@/maps/answers";
+import type { Question } from "@/maps/schema";
 
-export const QuestionCard = ({
+import { AnswerButtons, QuestionBadge, SendToHider } from "./answer";
+import { QuestionLocation } from "./location";
+import { NearestInfo } from "./nearest";
+
+/** A line on a question card that explains it; a warning needs doing first. */
+export const CardNote = ({
     children,
-    questionKey,
-    className,
-    label,
-    sub,
-    collapsed,
-    locked,
-    hidden,
-    setLocked,
-    setHidden,
-    setCollapsed,
+    warning = false,
 }: {
     children: React.ReactNode;
-    questionKey: number;
+    warning?: boolean;
+}) => (
+    <p
+        className={cn(
+            "px-1 text-sm",
+            warning ? "text-red-400" : "text-muted-foreground",
+        )}
+    >
+        {children}
+    </p>
+);
+
+/**
+ * Every open question looks the same: number and name, the settings of its
+ * card (`children`), where it was asked and what's nearest, the answer
+ * buttons, then "Send to hider", "Hide on map" and "Delete".
+ */
+export const QuestionCard = ({
+    question,
+    children,
+    beforeAnswer,
+    className,
+    sub,
+}: {
+    question: Question;
+    children?: React.ReactNode;
+    /** Shown right above the answer buttons (tentacles: the hider's place). */
+    beforeAnswer?: React.ReactNode;
     className?: string;
-    label?: string;
+    /** "Start" or "End" when opened from a thermometer's pin. */
     sub?: string;
-    collapsed?: boolean;
-    locked?: boolean;
-    hidden?: boolean;
-    setLocked?: (locked: boolean) => void;
-    setHidden?: (hidden: boolean) => void;
-    setCollapsed?: (collapsed: boolean) => void;
 }) => {
-    const [isCollapsed, setIsCollapsed] = useState(collapsed ?? false);
     const $questions = useStore(questions);
     const $isLoading = useStore(isLoading);
-    const copyButtonRef = useRef<HTMLButtonElement>(null);
-    const pending =
-        $questions.find((q) => q.key === questionKey)?.data.status ===
-        "pending";
-
-    const toggleCollapse = () => {
-        if (setCollapsed) {
-            setCollapsed(!isCollapsed);
-        }
-        setIsCollapsed((prevState) => !prevState);
-    };
+    const number = $questions.findIndex((q) => q.key === question.key) + 1;
+    const pending = isPending(question);
 
     return (
         <>
             <SidebarGroup
                 className={cn(
-                    pending && "border-l-4 border-orange-500",
+                    "gap-3 border-l-4",
+                    pending ? "border-orange-500" : "border-transparent",
                     className,
                 )}
-                data-question-key={questionKey}
+                data-question-key={question.key}
             >
-                <div className="relative">
-                    <button
-                        onClick={toggleCollapse}
-                        className={cn(
-                            "absolute top-2 left-2 text-white border rounded-md transition-all duration-500",
-                            isCollapsed && "-rotate-90",
+                <div className="flex items-center gap-2 px-1">
+                    <QuestionBadge question={question} number={number} />
+                    <h3 className="min-w-0 flex-1 text-base font-semibold leading-tight">
+                        {questionTitle(question)}
+                        {sub && (
+                            <span className="font-normal text-muted-foreground">
+                                {" "}
+                                · {sub}
+                            </span>
                         )}
-                    >
-                        <VscChevronDown />
-                    </button>
-                    <SidebarGroupLabel
-                        className="ml-8 mr-8 cursor-pointer"
-                        onClick={toggleCollapse}
-                    >
-                        {label} {sub && `(${sub})`}
-                    </SidebarGroupLabel>
-                    <SidebarGroupContent
-                        className={cn(
-                            "overflow-hidden transition-all duration-1000 max-h-[100rem]", // 100rem is arbitrary
-                            isCollapsed && "max-h-0",
-                        )}
-                    >
-                        <SidebarMenu>{children}</SidebarMenu>
-                        <div className="flex gap-2 pt-2 px-2 justify-center">
-                            <Dialog>
-                                <DialogTrigger asChild>
-                                    <Button variant="outline" size="sm">
-                                        <VscShare />
-                                    </Button>
-                                </DialogTrigger>
-                                <DialogContent>
-                                    <DialogHeader>
-                                        <DialogTitle className="text-2xl">
-                                            Share this Question!
-                                        </DialogTitle>
-                                        <DialogDescription>
-                                            Below you can access the JSON
-                                            representing the question. Send this
-                                            to another player for them to copy.
-                                            They can then click &ldquo;Paste
-                                            Question&rdquo; at the bottom of the
-                                            &ldquo;Questions&rdquo; sidebar.
-                                        </DialogDescription>
-                                    </DialogHeader>
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        className="mb-2 sm:mb-0 transition-colors"
-                                        ref={copyButtonRef}
-                                        onClick={() => {
-                                            navigator.clipboard
-                                                .writeText(
-                                                    JSON.stringify(
-                                                        $questions.find(
-                                                            (q) =>
-                                                                q.key ===
-                                                                questionKey,
-                                                        ),
-                                                        null,
-                                                        4,
-                                                    ),
-                                                )
-                                                .then(() => {
-                                                    if (copyButtonRef.current) {
-                                                        copyButtonRef.current.textContent =
-                                                            "Copied!";
-                                                        copyButtonRef.current.classList.add(
-                                                            "bg-green-500",
-                                                        );
-                                                        setTimeout(() => {
-                                                            if (
-                                                                copyButtonRef.current
-                                                            ) {
-                                                                copyButtonRef.current.textContent =
-                                                                    "Copy to Clipboard";
-                                                                copyButtonRef.current.classList.remove(
-                                                                    "bg-green-500",
-                                                                );
-                                                            }
-                                                        }, 2000);
-                                                    }
-                                                })
-                                                .catch(() => {
-                                                    if (copyButtonRef.current) {
-                                                        copyButtonRef.current.textContent =
-                                                            "Failed to Copy";
-                                                        copyButtonRef.current.classList.add(
-                                                            "bg-red-500",
-                                                        );
-                                                        setTimeout(() => {
-                                                            if (
-                                                                copyButtonRef.current
-                                                            ) {
-                                                                copyButtonRef.current.textContent =
-                                                                    "Copy to Clipboard";
-                                                                copyButtonRef.current.classList.remove(
-                                                                    "bg-red-500",
-                                                                );
-                                                            }
-                                                        }, 2000);
-                                                    }
-                                                });
-                                        }}
-                                    >
-                                        Copy to Clipboard
-                                    </Button>
-                                    <textarea
-                                        className="w-full h-[300px] bg-slate-900 text-white rounded-md p-2"
-                                        readOnly
-                                        value={JSON.stringify(
-                                            $questions.find(
-                                                (q) => q.key === questionKey,
-                                            ),
-                                            null,
-                                            4,
-                                        )}
-                                    ></textarea>
-                                </DialogContent>
-                            </Dialog>
-                            <AlertDialog>
-                                <AlertDialogTrigger asChild>
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        disabled={$isLoading}
-                                    >
-                                        <VscTrash />
-                                    </Button>
-                                </AlertDialogTrigger>
-                                <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                        <AlertDialogTitle>
-                                            Delete question?
-                                        </AlertDialogTitle>
-                                        <AlertDialogDescription>
-                                            The question disappears from the
-                                            map. You can undo this right
-                                            afterwards.
-                                        </AlertDialogDescription>
-                                    </AlertDialogHeader>
-                                    <AlertDialogFooter>
-                                        <AlertDialogCancel>
-                                            Cancel
-                                        </AlertDialogCancel>
-                                        <AlertDialogAction
-                                            onClick={() =>
-                                                deleteQuestionWithUndo(
-                                                    questionKey,
-                                                )
-                                            }
-                                            className="mb-2 sm:mb-0"
-                                        >
-                                            Delete
-                                        </AlertDialogAction>
-                                    </AlertDialogFooter>
-                                </AlertDialogContent>
-                            </AlertDialog>
-                            {locked !== undefined && (
+                    </h3>
+                </div>
+                {children && <SidebarMenu>{children}</SidebarMenu>}
+                <QuestionLocation question={question} number={number} />
+                <NearestInfo question={question} />
+                {beforeAnswer}
+                <AnswerButtons question={question} />
+                <div className="flex flex-col gap-2">
+                    {pending && <SendToHider question={question} />}
+                    <div className="grid grid-cols-2 gap-2">
+                        <Button
+                            variant="outline"
+                            className="h-10"
+                            onClick={() =>
+                                questionModified(
+                                    (question.data.hidden =
+                                        !question.data.hidden),
+                                )
+                            }
+                        >
+                            {question.data.hidden ? (
+                                <EyeIcon />
+                            ) : (
+                                <EyeOffIcon />
+                            )}
+                            {question.data.hidden
+                                ? "Show on map"
+                                : "Hide on map"}
+                        </Button>
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
                                 <Button
                                     variant="outline"
-                                    size="sm"
-                                    onClick={() => setLocked!(!locked)}
+                                    className="h-10"
                                     disabled={$isLoading}
                                 >
-                                    {locked ? <LockIcon /> : <UnlockIcon />}
+                                    <Trash2Icon />
+                                    Delete
                                 </Button>
-                            )}
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => setHidden!(!hidden)}
-                                disabled={$isLoading}
-                            >
-                                {hidden ? <EyeOffIcon /> : <EyeIcon />}
-                            </Button>
-                        </div>
-                    </SidebarGroupContent>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                        Delete question?
+                                    </AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        The question disappears from the map.
+                                        You can undo this right afterwards.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>
+                                        Cancel
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                        onClick={() =>
+                                            deleteQuestionWithUndo(question.key)
+                                        }
+                                        className="mb-2 sm:mb-0"
+                                    >
+                                        Delete
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
+                    </div>
                 </div>
             </SidebarGroup>
             <Separator className="h-1" />

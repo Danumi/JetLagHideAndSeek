@@ -1,7 +1,16 @@
 import { toast } from "react-toastify";
 
 import { SidebarContext } from "@/components/ui/sidebar-l";
-import { followMyPosition, leafletMapContext, myPosition } from "@/lib/context";
+import {
+    followMyPosition,
+    hiderMode,
+    leafletMapContext,
+    myPosition,
+    pickingLocation,
+    type PickTarget,
+    questionModified,
+    questions,
+} from "@/lib/context";
 
 export type LatLng = { lat: number; lng: number };
 
@@ -71,7 +80,7 @@ export const questionLocation = async (): Promise<LatLng | null> => {
     const map = leafletMapContext.get();
     if (!map) return null;
     toast.warning(
-        "Couldn't get your location. The question starts at the map center; drag its marker to where you are.",
+        'Couldn\'t get your location. The question starts at the map center; move it with "Pick on map".',
         { autoClose: 6000 },
     );
     const center = map.getCenter();
@@ -90,9 +99,79 @@ export const showQuestion = (questionKey: number) => {
         }
     }, 500);
     // Then wait for the sidebar to open and the card to render
-    setTimeout(() => {
-        document
-            .querySelector(`[data-question-key="${questionKey}"]`)
-            ?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 900);
+    setTimeout(() => scrollToQuestion(questionKey), 900);
+};
+
+/** Scrolls the questions to this question's card. */
+export const scrollToQuestion = (questionKey: number) =>
+    document
+        .querySelector(`[data-question-key="${questionKey}"]`)
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+/** Moves a question's point (a thermometer's start or end) or the hider's H marker. */
+const movePoint = (target: PickTarget, at: LatLng) => {
+    if (target.questionKey === -1) {
+        if (hiderMode.get() !== false) {
+            hiderMode.set({ latitude: at.lat, longitude: at.lng });
+        }
+        return;
+    }
+    const question = questions.get().find((q) => q.key === target.questionKey);
+    // Answered questions stay where they were asked
+    if (!question || !question.data.drag) return;
+    if (question.id === "thermometer") {
+        if (target.point === "end") {
+            question.data.latB = at.lat;
+            question.data.lngB = at.lng;
+        } else {
+            question.data.latA = at.lat;
+            question.data.lngA = at.lng;
+        }
+    } else {
+        question.data.lat = at.lat;
+        question.data.lng = at.lng;
+    }
+    questionModified();
+};
+
+/** "Use my location": moves the point to where this phone is. */
+export const moveToMyLocation = async (target: PickTarget) => {
+    const position = await toast.promise(getCurrentPosition(), {
+        pending: "Getting your location...",
+    });
+    if (!position) {
+        toast.error("Couldn't get your location.", { autoClose: 3000 });
+        return;
+    }
+    movePoint(target, position);
+};
+
+/**
+ * "Pick on map": puts the questions away so the map is free; the next tap on
+ * the map moves the point there.
+ */
+export const pickOnMap = (target: PickTarget) => {
+    pickingLocation.set(target);
+    const sidebar = SidebarContext.get();
+    if (sidebar.isMobile) sidebar.setOpenMobile(false);
+};
+
+/** Ends "Pick on map" without moving anything and shows the question again. */
+export const cancelPickOnMap = () => {
+    const target = pickingLocation.get();
+    pickingLocation.set(null);
+    if (target && target.questionKey !== -1) showQuestion(target.questionKey);
+};
+
+/**
+ * The tap on the map while "Pick on map" is on: moves the point there and
+ * shows the question again. False when nothing was being picked.
+ */
+export const placePickedPoint = (at: LatLng) => {
+    const target = pickingLocation.get();
+    if (!target) return false;
+    pickingLocation.set(null);
+    movePoint(target, at);
+    if (target.questionKey !== -1) showQuestion(target.questionKey);
+    return true;
 };
