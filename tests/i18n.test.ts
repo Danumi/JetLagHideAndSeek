@@ -44,9 +44,9 @@ const SRC = new URL("../src/", import.meta.url).pathname;
 
 /*
  * The files that are completely translated: every file that shows players
- * something. Left out: the old tutorial (replaced with Etappe 8), the deck
- * and messages.ts (both languages side by side) and schema.ts, whose checks
- * of saved data only developers see.
+ * something. Left out: the deck, the rules and messages.ts (both languages
+ * side by side; tests/rules.test.ts checks the rules) and schema.ts, whose
+ * checks of saved data only developers see.
  */
 const TRANSLATED_FILES = [
     "components/AddQuestionDialog.tsx",
@@ -56,6 +56,7 @@ const TRANSLATED_FILES = [
     "components/CustomInitDialog.tsx",
     "components/CustomPresets.tsx",
     "components/DraggableMarkers.tsx",
+    "components/HelpDialog.tsx",
     "components/HiderScreen.tsx",
     "components/HidingZones.tsx",
     "components/LatLngPicker.tsx",

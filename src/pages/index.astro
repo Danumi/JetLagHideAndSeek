@@ -10,11 +10,33 @@ import { MapLayersButton } from "@/components/MapLayers";
 import { BottomBar } from "@/components/BottomBar";
 import { OptionDrawers } from "@/components/OptionDrawers";
 import { LoadingIndicator } from "@/components/LoadingIndicator";
-import { TutorialDialog } from "@/components/TutorialDialog";
+import { HelpDialog } from "@/components/HelpDialog";
 import { HiderScreen } from "@/components/HiderScreen";
 ---
 
 <Layout className="bg-jetlag">
+    <!--
+        Loading screen until the map is there (Map.tsx fades it out); the
+        script takes it away should the map never come.
+    -->
+    <div
+        id="splash"
+        class="fixed inset-0 z-[2000] flex flex-col items-center justify-center gap-5 bg-jetlag transition-opacity duration-300"
+    >
+        <img
+            src={`${import.meta.env.BASE_URL}/icon.svg`}
+            alt=""
+            width="128"
+            height="128"
+            class="rounded-[28px] shadow-2xl"
+        />
+        <p class="text-2xl font-semibold text-white font-poppins">
+            Hide &amp; Seek Vienna
+        </p>
+    </div>
+    <script is:inline>
+        setTimeout(() => document.getElementById("splash")?.remove(), 15000);
+    </script>
     <SidebarProviderL client:load>
         <QuestionSidebar client:only />
         <main class="flex h-[100svh] min-w-0 flex-grow flex-col">
@@ -45,7 +67,7 @@ import { HiderScreen } from "@/components/HiderScreen";
         </main>
         <HidingZones client:only />
         <ZoneSheet client:only />
-        <TutorialDialog client:only />
+        <HelpDialog client:only />
         <HiderScreen client:only />
     </SidebarProviderL>
 </Layout>

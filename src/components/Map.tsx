@@ -104,6 +104,14 @@ const getTileLayer = (tileLayer: string) => {
  * Zooms to a new radar outline, as far as it is in the game area (a big
  * radar encloses all of it). The map keeps following you if you are in view.
  */
+/** The loading screen (index.astro) fades out once the map is there. */
+const hideSplash = () => {
+    const splash = document.getElementById("splash");
+    if (!splash) return;
+    splash.style.opacity = "0";
+    setTimeout(() => splash.remove(), 400);
+};
+
 const showRadarOutline = (map: L.Map, outline: L.LatLngBounds) => {
     let bounds = outline;
     const area = mapGeoJSON.get();
@@ -408,6 +416,10 @@ export const Map = ({ className }: { className?: string }) => {
     );
 
     latestRefreshRef.current = refreshQuestions;
+
+    useEffect(() => {
+        if (map) hideSplash();
+    }, [map]);
 
     useEffect(
         () =>

@@ -1,0 +1,1677 @@
+import type { HiderInboxEntry } from "@/lib/context";
+import type { Text } from "@/lib/i18n";
+import {
+    type DeckCard,
+    deckGroups,
+    MATCHING_DECK,
+    matchingCardFor,
+    MEASURING_DECK,
+    measuringCardFor,
+    PHOTO_DECK,
+} from "@/maps/deck";
+import type { Question } from "@/maps/schema";
+
+/*
+ * The rules of Hide and Seek for our Small games in Vienna, in our own words
+ * (the rule book's wording belongs to Jet Lag: The Game, the app is public):
+ * our house rules first, then the rule book's order. Every card of the deck
+ * has an entry that says what it asks, what counts and what that means in
+ * Vienna; the "?" on a question opens its entry.
+ *
+ * **Bold** marks words to stress. A name in braces, like {ask}, becomes the
+ * name of that button in the app's language (HelpDialog.tsx), since the
+ * help can be German while the app is English.
+ */
+
+/** A paragraph, or a list of points. */
+export type RuleBlock = Text | { list: Text[] };
+
+/** One card or one rule to look up, folded away until tapped. */
+export type RuleEntry = { id: string; title: Text; blocks: RuleBlock[] };
+
+export type RuleSection = {
+    id: string;
+    title: Text;
+    blocks: RuleBlock[];
+    groups?: { title?: Text; entries: RuleEntry[] }[];
+};
+
+const NO_ANSWER_THEN: Text = {
+    de: "Der Hider antwortet „keine Antwort“; die Frage gilt als gestellt, und er zieht trotzdem Karten.",
+    en: "The hider answers “no answer”; the question counts as asked, and they still draw cards.",
+};
+
+type CardRule = {
+    /** The question as the seekers ask it, for each deck the card is in. */
+    matching?: Text;
+    measuring?: Text;
+    /** What counts, as the rule book means it and as the app does it. */
+    counts?: Text;
+    /** What that means in Vienna, or an example from Vienna. */
+    vienna?: Text;
+};
+
+const placeCounts = (de: string, en: string): Text => ({
+    de: `Alles, was in OpenStreetMap als ${de} eingetragen ist, so wie es die App zeigt. Gemessen wird zum Punkt des Orts, nicht zu seinem Rand.`,
+    en: `Anything mapped as ${en} in OpenStreetMap, as the app shows it. Distances go to the place's point, not to its edge.`,
+});
+
+/** Keyed by the card's id in deck.ts; cards in both decks share one entry. */
+const CARD_RULES: Record<string, CardRule> = {
+    airport: {
+        matching: {
+            de: "Ist dein nächster Verkehrsflughafen derselbe wie meiner?",
+            en: "Is your nearest commercial airport the same as mine?",
+        },
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einem Verkehrsflughafen oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a commercial airport?",
+        },
+        counts: {
+            de: "Ein Flughafen mit Linienflügen; im Zweifel einer, den man in Google Flights findet.",
+            en: "An airport with scheduled flights; when in doubt, one you can find in Google Flights.",
+        },
+    },
+    "transit-line": {
+        matching: {
+            de: "Hält das Verkehrsmittel, in dem wir gerade sitzen, an deiner Station?",
+            en: "Will the transit we're riding stop at your station?",
+        },
+        counts: {
+            de: "Nur erlaubt, während die Seeker in den Öffis sitzen. Ja heißt: Ihr Zug, ihre Straßenbahn oder ihr Bus hält an der Station des Hiders. Fährt er dort nur durch, ist die Antwort Nein. Am besten schicken die Seeker einen Screenshot mit allen Halten ihrer Fahrt.",
+            en: "Only while the seekers are riding transit. Yes means their train, tram or bus stops at the hider's station. If it passes through without stopping, the answer is no. Best practice: the seekers send a screenshot of all the stops of their ride.",
+        },
+        vienna: {
+            de: "**In Wien:** Ihr sitzt in der U3. Ist die Station des Hiders Volkstheater, lautet die Antwort Ja, bei Karlsplatz Nein. Tippt ihr eine Zone an, zeigt die App ihre Linien (Karlsplatz · U1 U2 U4).",
+            en: "**In Vienna:** You're on the U3. If the hider's station is Volkstheater, the answer is yes; for Karlsplatz it's no. Tap a zone and the app shows its lines (Karlsplatz · U1 U2 U4).",
+        },
+    },
+    "station-name-length": {
+        matching: {
+            de: "Ist der Name deiner Station gleich lang wie der Name meiner nächsten Station?",
+            en: "Is your station's name the same length as the name of my nearest station?",
+        },
+        counts: {
+            de: "Gezählt werden alle Zeichen des Namens, Leerzeichen und Bindestriche mit. Bei uns gilt der deutsche Name wie auf dem Schild.",
+            en: "Every character of the name counts, spaces and hyphens included. We use the German name as on the sign.",
+        },
+        vienna: {
+            de: "**In Wien:** Volkstheater und Pilgramgasse haben beide 12 Zeichen, die Antwort wäre Ja. Karlsplatz hat 10.",
+            en: "**In Vienna:** Volkstheater and Pilgramgasse both have 12 characters, so the answer would be yes. Karlsplatz has 10.",
+        },
+    },
+    street: {
+        matching: {
+            de: "Ist die Straße oder der Weg, auf dem du bist, derselbe wie meiner?",
+            en: "Is the street or path you're on the same as mine?",
+        },
+        counts: {
+            de: "Jede Straße und jeder Fußweg auf der Karte. Eine Straße endet dort, wo sie anders heißt. Ein Weg ohne Namen reicht von einer Kreuzung zur nächsten.",
+            en: "Any street or footpath on the map. A street ends where its name changes. A path without a name runs from one intersection to the next.",
+        },
+        vienna: {
+            de: "**In Wien:** Die Mariahilfer Straße heißt hinter dem Gürtel Äußere Mariahilfer Straße. Steht der Hider dort und ihr innerhalb des Gürtels, lautet die Antwort Nein.",
+            en: "**In Vienna:** Beyond the Gürtel, Mariahilfer Straße becomes Äußere Mariahilfer Straße. If the hider is out there and you're inside the Gürtel, the answer is no.",
+        },
+    },
+    "admin-1": {
+        matching: {
+            de: "Ist dein Bundesland dasselbe wie meines?",
+            en: "Is your Bundesland the same as mine?",
+        },
+        counts: {
+            de: "Die 1. Verwaltungsebene, die größte Einteilung eines Landes (in den USA die Bundesstaaten). In Österreich sind das die Bundesländer.",
+            en: "The 1st administrative division, the largest division of a country (states in the US). In Austria, the Bundesländer.",
+        },
+        vienna: {
+            de: "**In Wien:** Das ganze Spielgebiet ist Wien. Die Antwort ist also immer Ja, die Frage bringt nichts.",
+            en: "**In Vienna:** The whole game area is Vienna. The answer is always yes, so the question tells you nothing.",
+        },
+    },
+    "admin-2": {
+        matching: {
+            de: "Ist dein Gemeindebezirk derselbe wie meiner?",
+            en: "Is your Gemeindebezirk the same as mine?",
+        },
+        counts: {
+            de: "Die 2. Verwaltungsebene. In Wien sind das die 23 Gemeindebezirke.",
+            en: "The 2nd administrative division. In Vienna, the 23 districts (Gemeindebezirke).",
+        },
+        vienna: {
+            de: "**In Wien:** Ihr seid beim Schloss Schönbrunn in Hietzing (13. Bezirk). Ist der Hider in Meidling (12. Bezirk), lautet die Antwort Nein.",
+            en: "**In Vienna:** You're at Schönbrunn Palace in Hietzing (13th district). If the hider is in Meidling (12th district), the answer is no.",
+        },
+    },
+    "admin-3": {
+        matching: {
+            de: "Ist deine Katastralgemeinde dieselbe wie meine?",
+            en: "Is your Katastralgemeinde the same as mine?",
+        },
+        counts: {
+            de: "Die 3. Verwaltungsebene. In Wien sind das die 89 Katastralgemeinden, die alten Grundbuch-Gemeinden, meist frühere Dörfer und Vorstädte. In OpenStreetMap heißen sie „Katastralgemeinde …“.",
+            en: "The 3rd administrative division. In Vienna, the 89 cadastral communities (Katastralgemeinden), the old land register communities, mostly former villages and suburbs. OpenStreetMap calls them “Katastralgemeinde …”.",
+        },
+        vienna: {
+            de: "**In Wien:** Grinzing und Nußdorf gehören beide zu Döbling (19. Bezirk), sind aber verschiedene Katastralgemeinden. Die Bezirksfrage sagt dort Ja, diese Frage Nein. In den inneren Bezirken ist der Bezirk meist genau eine Katastralgemeinde, dort bringt die Frage kaum mehr als der Bezirk.",
+            en: "**In Vienna:** Grinzing and Nußdorf both belong to Döbling (19th district) but are different cadastral communities. The district question says yes there, this one says no. In the inner districts, a district is usually exactly one Katastralgemeinde, so the question adds little to the district.",
+        },
+    },
+    "admin-4": {
+        matching: {
+            de: "Ist deine 4. Verwaltungsebene dieselbe wie meine?",
+            en: "Is your 4th administrative division the same as mine?",
+        },
+        counts: {
+            de: "Eine noch feinere Einteilung, die manche großen Städte haben.",
+            en: "An even finer division that some large cities have.",
+        },
+    },
+    mountain: {
+        matching: {
+            de: "Ist dein nächster Berg derselbe wie meiner?",
+            en: "Is your nearest mountain the same as mine?",
+        },
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einem Berg oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a mountain?",
+        },
+        counts: {
+            de: "Jeder Gipfel, der in OpenStreetMap als Gipfel eingetragen ist. Gemessen wird zum Gipfelpunkt.",
+            en: "Any summit mapped as a peak in OpenStreetMap. Distances go to the summit's point.",
+        },
+        vienna: {
+            de: "**In Wien:** Die Gipfel liegen vor allem im Wienerwald, etwa Kahlenberg, Leopoldsberg und Hermannskogel, mit 542 m der höchste Punkt Wiens.",
+            en: "**In Vienna:** Most peaks are in the Vienna Woods, like Kahlenberg, Leopoldsberg and Hermannskogel, at 542 m the highest point in Vienna.",
+        },
+    },
+    landmass: {
+        matching: {
+            de: "Ist deine Landmasse dieselbe wie meine?",
+            en: "Is your landmass the same as mine?",
+        },
+        counts: {
+            de: "Eine Landmasse ist zusammenhängendes Land, das kein Gewässer durchtrennt. Liegt die Insel des Hiders ganz innerhalb der Landmasse der Seeker, etwa in einem See, zählt das als dieselbe.",
+            en: "A landmass is land in one piece, not cut by water. If the hider's island lies entirely within the seekers' landmass, like an island in a lake, it counts as the same.",
+        },
+        vienna: {
+            de: "**In Wien:** Die einzige eigene Landmasse ist die Donauinsel. Gänsehäufel und Rohrinsel liegen in der Alten Donau, also mitten im Festland, und zählen zum Festland. Seid ihr auf der Donauinsel und der Hider in Floridsdorf, lautet die Antwort Nein.",
+            en: "**In Vienna:** The only landmass of its own is the Donauinsel. Gänsehäufel and Rohrinsel lie in the Alte Donau, surrounded by the mainland, so they count as mainland. If you're on the Donauinsel and the hider is in Floridsdorf, the answer is no.",
+        },
+    },
+    park: {
+        matching: {
+            de: "Ist dein nächster Park derselbe wie meiner?",
+            en: "Is your nearest park the same as mine?",
+        },
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einem Park oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a park?",
+        },
+        counts: {
+            de: "Jeder Park, der in OpenStreetMap als Park eingetragen ist, auch ganz kleine. Gemessen wird zum Punkt des Parks, nicht zu seinem Rand. Das wirkt manchmal seltsam: Wer am Rand eines großen Parks steht, ist vielleicht näher am Punkt eines kleinen Parks daneben. Das Rulebook bleibt trotzdem bei dieser Regel, weil sie eindeutig ist.",
+            en: "Any park mapped as a park in OpenStreetMap, even tiny ones. Distances go to the park's point, not to its edge. That can feel odd: at the edge of a big park, the point of a small park nearby may be closer. The rule book sticks with this rule anyway, because it's clear-cut.",
+        },
+        vienna: {
+            de: "**In Wien:** Es gibt rund 1.150 Parks. Mit dem Ebenen-Knopf auf der Karte (unter dem Standort-Knopf) seht ihr alle Parks als Symbole.",
+            en: "**In Vienna:** There are about 1,150 parks. The layers button on the map (below the location button) shows them all as symbols.",
+        },
+    },
+    "amusement-park": {
+        matching: {
+            de: "Ist dein nächster Vergnügungspark derselbe wie meiner?",
+            en: "Is your nearest amusement park the same as mine?",
+        },
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einem Vergnügungspark oder weiter weg?",
+            en: "Compared to me, are you closer to or further from an amusement park?",
+        },
+        counts: placeCounts("Vergnügungspark", "an amusement park"),
+        vienna: {
+            de: "**In Wien:** Der bekannteste ist der Wurstelprater.",
+            en: "**In Vienna:** The best known is the Wurstelprater.",
+        },
+    },
+    zoo: {
+        matching: {
+            de: "Ist dein nächster Zoo derselbe wie meiner?",
+            en: "Is your nearest zoo the same as mine?",
+        },
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einem Zoo oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a zoo?",
+        },
+        counts: placeCounts("Zoo", "a zoo"),
+        vienna: {
+            de: "**In Wien:** Der bekannteste ist der Tiergarten Schönbrunn.",
+            en: "**In Vienna:** The best known is Tiergarten Schönbrunn.",
+        },
+    },
+    aquarium: {
+        matching: {
+            de: "Ist dein nächstes Aquarium dasselbe wie meines?",
+            en: "Is your nearest aquarium the same as mine?",
+        },
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einem Aquarium oder weiter weg?",
+            en: "Compared to me, are you closer to or further from an aquarium?",
+        },
+        counts: placeCounts("Aquarium", "an aquarium"),
+        vienna: {
+            de: "**In Wien:** Etwa das Haus des Meeres in Mariahilf.",
+            en: "**In Vienna:** For example the Haus des Meeres in Mariahilf.",
+        },
+    },
+    "golf-course": {
+        matching: {
+            de: "Ist dein nächster Golfplatz derselbe wie meiner?",
+            en: "Is your nearest golf course the same as mine?",
+        },
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einem Golfplatz oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a golf course?",
+        },
+        counts: {
+            de: "Nur echte Golfplätze im Freien; Minigolf und reine Abschlagplätze (Driving Ranges) zählen nicht. Die Seeker sagen beim Fragen am besten dazu, was sie meinen. Gemessen wird zum Punkt des Platzes.",
+            en: "Only real outdoor golf courses; mini golf and driving ranges don't count. The seekers had better say what they mean when asking. Distances go to the course's point.",
+        },
+        vienna: {
+            de: "**In Wien:** Etwa der Golfplatz in der Freudenau im Prater.",
+            en: "**In Vienna:** For example the golf course in the Freudenau in the Prater.",
+        },
+    },
+    museum: {
+        matching: {
+            de: "Ist dein nächstes Museum dasselbe wie meines?",
+            en: "Is your nearest museum the same as mine?",
+        },
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einem Museum oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a museum?",
+        },
+        counts: placeCounts("Museum", "a museum"),
+        vienna: {
+            de: "**In Wien:** Es gibt sehr viele Museen, von der Albertina bis zu kleinen Bezirksmuseen. Der Ebenen-Knopf zeigt sie auf der Karte.",
+            en: "**In Vienna:** There are a great many museums, from the Albertina to small district museums. The layers button shows them on the map.",
+        },
+    },
+    "movie-theater": {
+        matching: {
+            de: "Ist dein nächstes Kino dasselbe wie meines?",
+            en: "Is your nearest movie theater the same as mine?",
+        },
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einem Kino oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a movie theater?",
+        },
+        counts: placeCounts("Kino", "a cinema"),
+        vienna: {
+            de: "**In Wien:** Etwa das Gartenbaukino am Parkring.",
+            en: "**In Vienna:** For example the Gartenbaukino on the Parkring.",
+        },
+    },
+    hospital: {
+        matching: {
+            de: "Ist dein nächstes Krankenhaus dasselbe wie meines?",
+            en: "Is your nearest hospital the same as mine?",
+        },
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einem Krankenhaus oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a hospital?",
+        },
+        counts: placeCounts("Krankenhaus", "a hospital"),
+        vienna: {
+            de: "**In Wien:** Etwa das AKH am Alsergrund.",
+            en: "**In Vienna:** For example the AKH in Alsergrund.",
+        },
+    },
+    library: {
+        matching: {
+            de: "Ist deine nächste Bibliothek dieselbe wie meine?",
+            en: "Is your nearest library the same as mine?",
+        },
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einer Bibliothek oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a library?",
+        },
+        counts: placeCounts("Bibliothek", "a library"),
+        vienna: {
+            de: "**In Wien:** Auch die Zweigstellen der Büchereien Wien zählen, nicht nur die Hauptbücherei am Gürtel.",
+            en: "**In Vienna:** The branches of the Büchereien Wien count too, not only the main library on the Gürtel.",
+        },
+    },
+    consulate: {
+        matching: {
+            de: "Ist dein nächstes ausländisches Konsulat dasselbe wie meines?",
+            en: "Is your nearest foreign consulate the same as mine?",
+        },
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einem ausländischen Konsulat oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a foreign consulate?",
+        },
+        counts: {
+            de: "Alles, was in OpenStreetMap als Konsulat eingetragen ist; Botschaften zählen nicht. Laut Rulebook zählen auch Honorarkonsulate nicht. Die App unterscheidet sie nicht, im Zweifel klären das die Seeker beim Fragen.",
+            en: "Anything mapped as a consulate in OpenStreetMap; embassies don't count. By the rule book, honorary consulates don't count either. The app doesn't tell them apart, so when in doubt the seekers clarify when asking.",
+        },
+        vienna: {
+            de: "**In Wien:** Als Hauptstadt hat Wien vor allem Botschaften, Konsulate gibt es deutlich weniger.",
+            en: "**In Vienna:** As a capital, Vienna mostly has embassies; there are far fewer consulates.",
+        },
+    },
+    "high-speed": {
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einer Schnellfahrstrecke oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a high-speed train line?",
+        },
+        counts: {
+            de: "Es gilt die Definition vor Ort, sonst die der EU: neu gebaute Strecken für mindestens 250 km/h und ausgebaute für etwa 200 km/h. Die App nimmt die Strecken, die in OpenStreetMap als Schnellfahrstrecke markiert sind.",
+            en: "Use the local definition, otherwise the EU's: newly built lines for at least 250 km/h and upgraded lines for about 200 km/h. The app takes the lines marked as high-speed in OpenStreetMap.",
+        },
+        vienna: {
+            de: "**In Wien:** Das ist nur die Neue Westbahn im Westen der Stadt. Wer im Westen ist, ist nah dran, wer in der Donaustadt ist, weit weg.",
+            en: "**In Vienna:** That's only the Neue Westbahn in the west of the city. Anyone in the west is close, anyone in Donaustadt far away.",
+        },
+    },
+    "rail-station": {
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einer Bahnstation oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a rail station?",
+        },
+        counts: {
+            de: "Im Rulebook zählen alle Bahnstationen, U-Bahn eingeschlossen. In der App zählen die U-Bahn-Stationen, also die Stationen der Zonen: Verglichen wird der Abstand des Hiders zu seiner nächsten U-Bahn-Station mit dem der Seeker zu ihrer.",
+            en: "In the rule book, every rail station counts, metro included. In the app, the U-Bahn stations count, the stations of the zones: it compares the hider's distance to their nearest U-Bahn station with the seekers' distance to theirs.",
+        },
+        vienna: {
+            de: "**In Wien:** Der Hider ist höchstens 500 m von seiner Station entfernt. Die Antwort sagt also vor allem, wie weit er sich von ihr wegbewegt hat.",
+            en: "**In Vienna:** The hider is at most 500 m from their station, so the answer mostly tells you how far they've moved away from it.",
+        },
+    },
+    "international-border": {
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einer Staatsgrenze oder weiter weg?",
+            en: "Compared to me, are you closer to or further from an international border?",
+        },
+        counts: {
+            de: "Jede Grenze zwischen zwei Staaten; Enklaven zählen mit.",
+            en: "Any border between two countries; enclaves count.",
+        },
+    },
+    "admin-1-border": {
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einer Bundeslandgrenze oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a Bundesland border?",
+        },
+        counts: {
+            de: "Die Grenze der 1. Verwaltungsebene, in Österreich zwischen zwei Bundesländern.",
+            en: "The border of the 1st administrative division, in Austria between two Bundesländer.",
+        },
+        vienna: {
+            de: "**In Wien:** Wien ist ganz von Niederösterreich umgeben, gemeint ist also die Stadtgrenze. Wer in Liesing am Stadtrand ist, ist nah dran, wer in der Innenstadt ist, weit weg.",
+            en: "**In Vienna:** Vienna is surrounded by Lower Austria, so this means the city limits. Anyone at the edge of the city in Liesing is close, anyone in the city centre far away.",
+        },
+    },
+    "admin-2-border": {
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einer Gemeindebezirksgrenze oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a Gemeindebezirk border?",
+        },
+        counts: {
+            de: "Die Grenze der 2. Verwaltungsebene, in Wien zwischen zwei Gemeindebezirken. Achtung: Die App misst zur Grenze des Bezirks, in dem die Seeker gerade sind. Ist der Hider in einem anderen Bezirk, kann ihre Rechnung von den Regeln abweichen; der Hider misst dann selbst nach.",
+            en: "The border of the 2nd administrative division, in Vienna between two districts. Watch out: the app measures to the border of the district the seekers are in. If the hider is in another district, its result can differ from the rules; the hider then checks for themselves.",
+        },
+        vienna: {
+            de: "**In Wien:** Der Gürtel ist über weite Strecken eine Bezirksgrenze.",
+            en: "**In Vienna:** For long stretches, the Gürtel is a district border.",
+        },
+    },
+    "sea-level": {
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an der Meereshöhe oder weiter weg?",
+            en: "Compared to me, are you closer to or further from sea level?",
+        },
+        counts: {
+            de: "Es geht um die Seehöhe, also wie hoch man steht. Näher heißt: Der Hider steht tiefer als die Seeker. Die App nimmt die Höhe aus Geländedaten; der Höhenmesser im Handy liegt manchmal daneben.",
+            en: "It's about altitude, how high up you are. Closer means the hider is lower than the seekers. The app takes the altitude from terrain data; a phone's altimeter is sometimes off.",
+        },
+        vienna: {
+            de: "**In Wien:** Die Stadt liegt zwischen etwa 150 m an der Donau und 542 m am Hermannskogel. Wer am Kahlenberg fragt, bekommt fast immer „näher“.",
+            en: "**In Vienna:** The city lies between about 150 m by the Danube and 542 m on the Hermannskogel. Ask from the Kahlenberg and the answer is almost always “closer”.",
+        },
+    },
+    water: {
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einem Gewässer oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a body of water?",
+        },
+        counts: {
+            de: "Jedes Gewässer mit Namen auf der Karte, außer Schwimmbecken. Bei uns: benannte Seen, Teiche, Flüsse und Kanäle. Abschnitte unter der Erde zählen nicht.",
+            en: "Any named body of water on the map, except pools. For us: named lakes, ponds, rivers and canals. Sections underground don't count.",
+        },
+        vienna: {
+            de: "**In Wien:** Donau, Neue Donau, Alte Donau, Donaukanal und Wienfluss zählen, der Wienfluss unter dem Karlsplatz aber nicht, weil er dort überdeckt ist.",
+            en: "**In Vienna:** The Danube, Neue Donau, Alte Donau, Donaukanal and Wien river count, but not the Wien river under Karlsplatz, where it's covered.",
+        },
+    },
+    coastline: {
+        measuring: {
+            de: "Im Vergleich zu mir: Bist du näher an einer Küste oder weiter weg?",
+            en: "Compared to me, are you closer to or further from a coastline?",
+        },
+        counts: {
+            de: "Küste ist, wo Land auf das Meer trifft, auf einen der großen Seen Nordamerikas oder auf ein Gewässer, das über einen mindestens 1,6 km breiten Wasserweg dorthin fließt.",
+            en: "A coastline is where land meets the ocean, one of the Great Lakes, or water flowing into them through a waterway at least 1 mile wide.",
+        },
+    },
+};
+
+/** Extra lines for a photo card, after what its photo must show. */
+const PHOTO_RULES: Record<string, Text> = {
+    "building-from-station": {
+        de: "Gibt es mehrere Eingänge oder Gebäude, sucht sich der Hider eines aus.",
+        en: "If there are several entrances or buildings, the hider picks one.",
+    },
+    "widest-street": {
+        de: "Der Hintergrund muss nicht drauf sein.",
+        en: "The background doesn't have to be in it.",
+    },
+};
+
+/** The entry of a card of a deck: the question, what counts, Vienna. */
+const cardEntry = (
+    deck: "matching" | "measuring",
+    card: DeckCard,
+): RuleEntry => {
+    const rule = CARD_RULES[card.id] ?? {};
+    const question = rule[deck];
+    return {
+        id: `${deck}-${card.id}`,
+        title: card.label,
+        blocks: [
+            ...(question
+                ? [{ de: `„${question.de}“`, en: `“${question.en}”` }]
+                : []),
+            ...(rule.counts ? [rule.counts] : []),
+            ...(card.noAnswer
+                ? [
+                      {
+                          de: `**In Wien:** ${card.noAnswer.de} ${NO_ANSWER_THEN.de}`,
+                          en: `**In Vienna:** ${card.noAnswer.en} ${NO_ANSWER_THEN.en}`,
+                      },
+                  ]
+                : rule.vienna
+                  ? [rule.vienna]
+                  : []),
+        ],
+    };
+};
+
+const deckEntries = (deck: "matching" | "measuring") =>
+    deckGroups(deck === "matching" ? MATCHING_DECK : MEASURING_DECK).map(
+        ({ group, cards }) => ({
+            title: group,
+            entries: cards.map((card) => cardEntry(deck, card)),
+        }),
+    );
+
+const curse = (
+    id: string,
+    name: string,
+    de: string,
+    effect: Text,
+    cost: Text,
+    details?: Text,
+): RuleEntry => ({
+    id: `curse-${id}`,
+    title: { de: `${name} (${de})`, en: name },
+    blocks: [
+        effect,
+        { de: `**Preis:** ${cost.de}`, en: `**Cost:** ${cost.en}` },
+        ...(details ? [details] : []),
+    ],
+});
+
+const powerup = (
+    id: string,
+    name: string,
+    de: string,
+    count: number,
+    text: Text,
+): RuleEntry => ({
+    id: `powerup-${id}`,
+    title: {
+        de: `${name} (${de}, ${count}×)`,
+        en: `${name} (${count}×)`,
+    },
+    blocks: [text],
+});
+
+export const RULE_SECTIONS: RuleSection[] = [
+    {
+        id: "house",
+        title: { de: "Unsere Hausregeln", en: "Our house rules" },
+        blocks: [
+            {
+                de: "Wir spielen die Größe **Small** in **Wien**. Wo das Rulebook etwas offen lässt oder wir es anders machen, gilt bei uns:",
+                en: "We play the **Small** size in **Vienna**. Where the rule book leaves a choice, or we do it differently, this is how we play:",
+            },
+            {
+                list: [
+                    {
+                        de: "**Spielgebiet:** ganz Wien bis zur Stadtgrenze.",
+                        en: "**Game area:** all of Vienna up to the city limits.",
+                    },
+                    {
+                        de: "**Hiding Zones:** nur U-Bahn-Stationen, Radius 500 m (Rulebook: 400 m). Die App zeigt alle 99 Zonen.",
+                        en: "**Hiding zones:** U-Bahn stations only, 500 m radius (rule book: 400 m). The app shows all 99 zones.",
+                    },
+                    {
+                        de: "**Versteckphase:** 30 Minuten.",
+                        en: "**Hiding period:** 30 minutes.",
+                    },
+                    {
+                        de: "**Antwortzeit:** 5 Minuten, bei Fotos 10 Minuten, ab dem Moment, in dem die Seeker fragen.",
+                        en: "**Time to answer:** 5 minutes, 10 for photos, from the moment the seekers ask.",
+                    },
+                    {
+                        de: "**Fragen:** alle 20 Matching- und 20 Measuring-Fragen, alle Radar-Fragen, die Thermometer 1 km und 5 km und die 6 Foto-Fragen für Small. Keine Tentakel.",
+                        en: "**Questions:** all 20 matching and 20 measuring questions, every radar, the 1 km and 5 km thermometers and the 6 photo questions for Small. No tentacles.",
+                    },
+                    {
+                        de: "**Alles metrisch:** Radar 500 m, 1, 2, 5, 10, 15, 40, 80 und 160 km, dazu eine frei gewählte Distanz.",
+                        en: "**All metric:** radars of 500 m, 1, 2, 5, 10, 15, 40, 80 and 160 km, plus one distance of your choice.",
+                    },
+                    {
+                        de: "**Eine Karte für alle:** Das Rulebook verlangt, dass alle dieselbe Karten-App verwenden. Bei uns ist das diese App mit den Daten von OpenStreetMap. Was als Museum, Park oder Gewässer zählt, zeigt der Ebenen-Knopf auf der Karte.",
+                        en: "**One map for everyone:** the rule book wants all players to use the same map app. For us, that's this app with OpenStreetMap data. What counts as a museum, park or body of water, the layers button on the map shows.",
+                    },
+                    {
+                        de: "**Stationsnamen:** der deutsche Name, wie er auf dem Schild steht.",
+                        en: "**Station names:** the German name, as on the sign.",
+                    },
+                    {
+                        de: "**Verwaltungsebenen:** 1. Bundesland, 2. Gemeindebezirk, 3. Katastralgemeinde. Eine 4. Ebene gibt es in Wien nicht.",
+                        en: "**Administrative divisions:** 1st Bundesland, 2nd Gemeindebezirk, 3rd Katastralgemeinde. Vienna has no 4th.",
+                    },
+                    {
+                        de: "**Live-Standort:** Die Seeker teilen ihren Live-Standort in WhatsApp mit dem Hider. Der Hider teilt seinen nicht.",
+                        en: "**Live location:** the seekers share their live location with the hider in WhatsApp. The hider doesn't share theirs.",
+                    },
+                    {
+                        de: "**Fragen und Antworten:** Die Seeker schicken jede Frage mit {sendToHider} in den Chat, der Hider antwortet mit {sendAnswer}, und die Seeker tippen die Antwort in ihrer App ein.",
+                        en: "**Questions and answers:** the seekers send each question to the chat with {sendToHider}, the hider answers with {sendAnswer}, and the seekers enter the answer in their app.",
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        id: "vienna",
+        title: {
+            de: "Was in Wien besonders ist",
+            en: "What's special in Vienna",
+        },
+        blocks: [
+            {
+                list: [
+                    {
+                        de: "**Keine Antwort** gibt es bei Verkehrsflughafen (der Flughafen Wien liegt außerhalb der Stadt), 4. Verwaltungsebene, Staatsgrenze und Küste. Der Hider sagt dann „keine Antwort“; die Frage gilt als gestellt, und er zieht trotzdem Karten.",
+                        en: "**No answer** for commercial airport (Vienna Airport lies outside the city), 4th administrative division, international border and coastline. The hider says “no answer”; the question counts as asked, and they still draw cards.",
+                    },
+                    {
+                        de: "**Bundesland:** Im Spielgebiet ist alles Wien, die Matching-Frage ist also immer Ja. Die Measuring-Frage misst zur Stadtgrenze.",
+                        en: "**Bundesland:** everything in the game area is Vienna, so the matching question is always yes. The measuring question measures to the city limits.",
+                    },
+                    {
+                        de: "**Gemeindebezirk oder Katastralgemeinde?** Wien hat 23 Gemeindebezirke und 89 Katastralgemeinden, die alten Grundbuch-Gemeinden. In den inneren Bezirken ist der Bezirk meist genau eine Katastralgemeinde, dort sind beide Fragen fast gleich. Weiter draußen besteht ein Bezirk aus mehreren, Döbling etwa aus Grinzing, Heiligenstadt, Nußdorf, Unterdöbling und weiteren. Dort grenzt die Katastralgemeinde viel stärker ein.",
+                        en: "**Gemeindebezirk or Katastralgemeinde?** Vienna has 23 districts and 89 cadastral communities, the old land register communities. In the inner districts, a district is usually exactly one Katastralgemeinde, so both questions are nearly the same there. Further out, a district has several, Döbling for example Grinzing, Heiligenstadt, Nußdorf, Unterdöbling and more. There the Katastralgemeinde narrows things down much more.",
+                    },
+                    {
+                        de: "**Landmasse:** Die einzige eigene Landmasse ist die Donauinsel. Gänsehäufel und Rohrinsel liegen in der Alten Donau und zählen zum Festland.",
+                        en: "**Landmass:** the only landmass of its own is the Donauinsel. Gänsehäufel and Rohrinsel lie in the Alte Donau and count as mainland.",
+                    },
+                    {
+                        de: "**Schnellfahrstrecke:** Laut OpenStreetMap gibt es nur eine, die Neue Westbahn im Westen der Stadt.",
+                        en: "**High-speed line:** according to OpenStreetMap there's only one, the Neue Westbahn in the west of the city.",
+                    },
+                    {
+                        de: "**Gewässer:** benannte Seen, Teiche, Flüsse und Kanäle. Abschnitte unter der Erde zählen nicht, etwa der Wienfluss unter dem Karlsplatz.",
+                        en: "**Bodies of water:** named lakes, ponds, rivers and canals. Sections underground don't count, like the Wien river under Karlsplatz.",
+                    },
+                    {
+                        de: "**Parks:** Wien hat rund 1.150 Parks, auch die kleinen zählen. Gemessen wird zum Punkt des Parks, nicht zu seinem Rand.",
+                        en: "**Parks:** Vienna has about 1,150 parks, and the small ones count too. Distances go to the park's point, not to its edge.",
+                    },
+                    {
+                        de: "**Bahnstation:** In der App zählen die U-Bahn-Stationen der Zonen.",
+                        en: "**Rail station:** in the app, the U-Bahn stations of the zones count.",
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        id: "overview",
+        title: { de: "Das Spiel in Kürze", en: "The game in short" },
+        blocks: [
+            {
+                de: "Ein Spieler (oder ein Team) versteckt sich irgendwo im Spielgebiet und kommt dorthin nur zu Fuß und mit den Öffis. Alle anderen suchen gemeinsam als Seeker. Mit Fragen grenzen sie ein, wo der Hider sein kann, und fahren hin.",
+                en: "One player (or team) hides somewhere in the game area, getting there only on foot and by public transit. Everyone else seeks together. With questions, the seekers narrow down where the hider can be, and travel there.",
+            },
+            {
+                list: [
+                    {
+                        de: "Mindestens 2 Spieler, am besten höchstens 4. Bei mehr Leuten bildet ihr Teams, die wie ein Spieler zählen. Teams sind auch sinnvoll, wenn sich jemand allein unwohl fühlen würde.",
+                        en: "At least 2 players, ideally no more than 4. With more people, form teams that count as one player. Teams also make sense if someone wouldn't feel comfortable alone.",
+                    },
+                    {
+                        de: "Jede Runde hat einen Hider. Normalerweise gibt es so viele Runden wie Spieler, jeder versteckt sich also einmal.",
+                        en: "Each round has one hider. Usually there are as many rounds as players, so everyone hides once.",
+                    },
+                    {
+                        de: "Am Anfang jeder Runde hat der Hider eine Versteckphase, um seine Hiding Zone zu erreichen. Danach bleibt er bis zum Ende der Runde in dieser Zone.",
+                        en: "Each round starts with a hiding period for the hider to reach their hiding zone. After that, they stay in that zone until the round ends.",
+                    },
+                    {
+                        de: "Die Seeker sind immer gemeinsam unterwegs und stellen Fragen. Für jede Antwort zieht der Hider Karten, die ihm helfen: Zeitbonus, Powerups und Flüche.",
+                        en: "The seekers always travel together and ask questions. For every answer, the hider draws cards that help them: time bonuses, powerups and curses.",
+                    },
+                    {
+                        de: "Wird der Hider gefunden, ist die Runde vorbei und der Nächste versteckt sich.",
+                        en: "Once the hider is found, the round is over and the next player hides.",
+                    },
+                    {
+                        de: "Es gewinnt, wer in einer Runde am längsten unentdeckt blieb.",
+                        en: "Whoever stayed hidden the longest in a round wins.",
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        id: "preparation",
+        title: { de: "Vorbereitung", en: "Getting ready" },
+        blocks: [
+            {
+                de: "Vor dem Spiel legt ihr fest, wer mitspielt, die Spielgröße, welche Öffis gelten und die Grenzen des Spielgebiets. Alle verwenden dieselben Grenzen. Gegenden, in denen sich jemand nicht sicher fühlt, nehmt ihr heraus.",
+                en: "Before the game, agree on the players, the game size, which transit counts, and the borders of the game area. Everyone uses the same borders. Leave out any area where someone wouldn't feel safe.",
+            },
+            {
+                de: "Jeder braucht diese App: die Seeker zum Fragen, der Hider zum Antworten. Dazu kommen das Hider-Deck für den Hider (gedruckt oder online), der Live-Standort der Seeker und 4 Würfel, 2 für den Hider und 2 für die Seeker; manche Flüche brauchen sie.",
+                en: "Everyone needs this app: the seekers to ask, the hider to answer. Add the hider deck for the hider (printed or online), the seekers' live location, and 4 dice, 2 for the hider and 2 for the seekers; some curses need them.",
+            },
+            {
+                de: "**In der App:** Zahnrad oben rechts → {newGame}. Wer sucht, wählt {seeking}, wer sich versteckt, {hiding}. Dabei lädt die App die Kartendaten für das Spiel; das dauert beim ersten Mal ein paar Minuten.",
+                en: "**In the app:** gear at the top right → {newGame}. Seekers choose {seeking}, the hider {hiding}. The app then loads the map data for the game, which takes a few minutes the first time.",
+            },
+            {
+                de: "Die Reihenfolge der Hider lost ihr vor dem Spiel aus.",
+                en: "Draw lots for the order of the hiders before the game.",
+            },
+            {
+                de: "**Die Spielgrößen des Rulebooks:** Small ist eine Stadt oder ein Teil einer großen Stadt (4 bis 8 Stunden, 30 bis 100 Stationen), Medium eine große Stadt mit Umland (etwa ein Tag), Large eine Region oder ein ganzes Land (2 bis 4 Tage). Bei Spielen über mehrere Tage gibt es Ruhezeiten über Nacht.",
+                en: "**The rule book's game sizes:** Small is a town or part of a big city (4 to 8 hours, 30 to 100 stations), Medium a big city with its surroundings (about a day), Large a region or a whole country (2 to 4 days). Games over several days have rest periods overnight.",
+            },
+        ],
+    },
+    {
+        id: "hiding",
+        title: { de: "Verstecken", en: "Hiding" },
+        blocks: [
+            {
+                de: "Jede Runde beginnt mit der **Versteckphase**, bei uns 30 Minuten. Der Hider fährt oder geht zu irgendeiner Station im Spiel. Die Seeker teilen ihren Live-Standort mit dem Hider, damit er sie die ganze Runde verfolgen kann; der Hider teilt seinen nicht.",
+                en: "Each round starts with the **hiding period**, 30 minutes for us. The hider travels or walks to any station in play. The seekers share their live location with the hider so they can follow them all round; the hider doesn't share theirs.",
+            },
+            {
+                de: "Am Ende der Versteckphase muss der Hider an einer Station stehen. Sie ist der Mittelpunkt seiner **Hiding Zone**: ein Kreis mit 500 m Radius. Liegen weitere Stationen in der Zone, gilt trotzdem nur diese eine als seine Station; manche Fragen beziehen sich auf sie.",
+                en: "At the end of the hiding period, the hider must be at a station. It becomes the centre of their **hiding zone**: a circle with a 500 m radius. If other stations lie in the zone, only this one is their station; some questions refer to it.",
+            },
+            {
+                de: "Bis zum Endgame darf sich der Hider in der Zone frei bewegen: einkaufen, essen, spazieren gehen. Verlassen darf er sie bis zum Ende der Runde nicht.",
+                en: "Until the endgame, the hider can move freely within the zone: shop, eat, go for a walk. They mustn't leave it until the round is over.",
+            },
+            {
+                de: "**In der App:** Der Hider wählt seine Zone auf dem Hider-Bildschirm oder tippt sie auf der Karte an und wählt {chooseZone}. Verlässt er sie, warnt ihn die App.",
+                en: "**In the app:** the hider chooses their zone on the hider screen, or taps it on the map and chooses {chooseZone}. If they leave it, the app warns them.",
+            },
+            {
+                de: "**Tipps für den Hider:** Die Wahl der Zone ist die wichtigste Entscheidung der Runde. Abgelegene Zonen sind schwerer zu erraten, aber haben die Seeker sie einmal eingegrenzt, gibt es dort wenige Stationen. In dichten Gegenden wird es kompliziert, dafür kommen die Seeker schnell überall hin. Manche Foto-Fragen verlangen, schnell an eine bestimmte Stelle der Zone zu kommen; solche Fotos kannst du vorher machen. Und such dir rechtzeitig einen guten Platz für das Endgame.",
+                en: "**Tips for the hider:** choosing the zone is the most important decision of the round. Remote zones are harder to guess, but once the seekers have narrowed them down, there are few stations around. Dense areas get complicated, but the seekers get everywhere quickly. Some photo questions need you to reach a certain spot in your zone fast; you can take those photos in advance. And find a good spot for the endgame in time.",
+            },
+        ],
+    },
+    {
+        id: "asking",
+        title: { de: "Fragen stellen", en: "Asking questions" },
+        blocks: [
+            {
+                de: "Die Seeker fragen aus fünf Kategorien: Matching, Measuring, Radar, Thermometer und Fotos. Eine neue Frage geht erst, wenn die vorige beantwortet ist.",
+                en: "The seekers ask from five categories: matching, measuring, radar, thermometer and photos. A new question can only be asked once the previous one is answered.",
+            },
+            {
+                list: [
+                    {
+                        de: "Der Hider antwortet ehrlich, innerhalb von **5 Minuten**, bei Fotos **10 Minuten**.",
+                        en: "The hider answers truthfully, within **5 minutes**, **10 minutes** for photos.",
+                    },
+                    {
+                        de: "Zum Antworten darf er das Internet benutzen, aber kein Google Street View oder Ähnliches.",
+                        en: "They may use the internet to answer, but not Google Street View or anything like it.",
+                    },
+                    {
+                        de: "Nach jeder Antwort zieht der Hider Karten vom Hider-Deck, wie viele, steht bei jeder Kategorie.",
+                        en: "After each answer, the hider draws cards from the hider deck; how many is given for each category.",
+                    },
+                    {
+                        de: "Antwortet er zu spät, bleibt seine Versteckzeit stehen, bis er antwortet, und er bekommt für diese Frage keine Karten. Er muss sich aber ernsthaft bemühen, rechtzeitig zu antworten.",
+                        en: "If they answer late, their hiding time stops until they answer, and they get no cards for that question. They must make a real effort to answer in time, though.",
+                    },
+                    {
+                        de: "Jede Frage gibt es nur einmal. Ein zweites Mal geht nur zum doppelten Preis: Der Hider zieht dann zweimal, also etwa zweimal 3 Karten und behält je 1, nicht 6 und behält 2. Beim dritten Mal dreimal, und so weiter.",
+                        en: "Each question can be asked once. Asking it again costs double: the hider draws twice, say twice draw 3 keep 1, not draw 6 keep 2. The third time three times, and so on.",
+                    },
+                    {
+                        de: "Was außerhalb des Spielgebiets liegt, gibt es im Spiel nicht. Gibt es deshalb keine Antwort, sagt der Hider „keine Antwort“. Die Frage gilt trotzdem als gestellt, und der Hider zieht Karten.",
+                        en: "Anything outside the game area doesn't exist in the game. If that leaves no answer, the hider says “no answer”. The question still counts as asked, and the hider draws cards.",
+                    },
+                    {
+                        de: "Unklarheiten klären die Seeker beim Fragen, zum Beispiel mit einem Screenshot aller Orte, die sie meinen.",
+                        en: "The seekers clear up anything unclear when they ask, for example with a screenshot of all the places they mean.",
+                    },
+                ],
+            },
+            {
+                de: "**Was als Ort zählt:** Das Rulebook rechnet mit den Symbolen in Google Maps. Bei uns zählt, was in OpenStreetMap eingetragen ist, so wie es die App zeigt; so schauen Hider und Seeker in dieselbe Karte. Gemessen wird zum Punkt des Orts, nicht zu seinem Rand.",
+                en: "**What counts as a place:** the rule book goes by the icons in Google Maps. For us, what's in OpenStreetMap counts, as the app shows it, so hider and seekers look at the same map. Distances go to the place's point, not to its edge.",
+            },
+            {
+                de: "**In der App:** {ask} → Karte wählen. Die Frage nimmt deinen Standort und zeigt das Nächste, etwa das nächste Museum. Mit {sendToHider} geht sie als Link in den Chat. Kommt die Antwort, tippst du sie auf der Frage ein; erst dann ändert sich die Karte.",
+                en: "**In the app:** {ask} → pick a card. The question takes your location and shows what's nearest, like the nearest museum. {sendToHider} sends it to the chat as a link. When the answer comes, enter it on the question; only then does the map change.",
+            },
+        ],
+    },
+    {
+        id: "matching",
+        title: { de: "Matching", en: "Matching" },
+        blocks: [
+            {
+                de: "„Ist dein nächstes ___ dasselbe wie mein nächstes ___?“ Der Hider antwortet **Ja** oder **Nein**, innerhalb von 5 Minuten. Danach zieht er **3 Karten und behält 1**.",
+                en: "“Is your nearest ___ the same as my nearest ___?” The hider answers **yes** or **no**, within 5 minutes. Then they **draw 3 cards and keep 1**.",
+            },
+            {
+                de: "Matching hilft in jeder Phase. Oft lohnt es sich, vorher an einen passenden Ort zu fahren. Bei Ja bleibt nur das Gebiet übrig, in dem derselbe Ort am nächsten ist; bei Nein fällt genau dieses Gebiet weg.",
+                en: "Matching helps at any stage. It often pays to travel to a good spot first. A yes leaves only the area where the same place is nearest; a no rules out exactly that area.",
+            },
+        ],
+        groups: deckEntries("matching"),
+    },
+    {
+        id: "measuring",
+        title: { de: "Measuring", en: "Measuring" },
+        blocks: [
+            {
+                de: "„Im Vergleich zu mir: Bist du näher an ___ oder weiter weg?“ Der Hider antwortet **näher** oder **weiter weg**, innerhalb von 5 Minuten. Danach zieht er **3 Karten und behält 1**.",
+                en: "“Compared to me, are you closer to or further from ___?” The hider answers **closer** or **further**, within 5 minutes. Then they **draw 3 cards and keep 1**.",
+            },
+            {
+                de: "Measuring hilft fast immer und teilt die Karte auf ungewohnte Weise. Verglichen wird der Abstand zum jeweils nächsten solchen Ort, beim Hider wie bei den Seekern.",
+                en: "Measuring almost always helps and slices the map in unusual ways. It compares the distance to the nearest such place, for the hider and for the seekers.",
+            },
+        ],
+        groups: deckEntries("measuring"),
+    },
+    {
+        id: "radar",
+        title: { de: "Radar", en: "Radar" },
+        blocks: [
+            {
+                de: "„Bist du im Umkreis von ___ um mich?“ Der Hider antwortet **Ja** oder **Nein**, innerhalb von 5 Minuten. Danach zieht er **2 Karten und behält 1**.",
+                en: "“Are you within ___ of me?” The hider answers **yes** or **no**, within 5 minutes. Then they **draw 2 cards and keep 1**.",
+            },
+            {
+                de: "Es zählt, wo der Hider beim Antworten gerade ist, nicht seine ganze Zone. Ragt der Kreis in seine Zone, reicht aber nicht bis zu ihm, ist die Antwort Nein.",
+                en: "What counts is where the hider is when answering, not their whole zone. If the circle reaches into their zone but not to them, the answer is no.",
+            },
+            {
+                de: "**Distanzen bei uns:** 500 m, 1, 2, 5, 10, 15, 40, 80 und 160 km, dazu eine frei gewählte Distanz. Jede gibt es einmal.",
+                en: "**Our distances:** 500 m, 1, 2, 5, 10, 15, 40, 80 and 160 km, plus one distance of your choice. Each can be asked once.",
+            },
+            {
+                de: "Gut, um zu prüfen, ob ihr grob richtig liegt, oder um eine dichte Gegend auf einmal zu streichen.",
+                en: "Good for checking you're in roughly the right area, or for crossing off a dense part of the map in one go.",
+            },
+        ],
+    },
+    {
+        id: "thermometer",
+        title: { de: "Thermometer", en: "Thermometer" },
+        blocks: [
+            {
+                de: "„Ich bin ___ gefahren: Bin ich jetzt wärmer oder kälter?“ Wärmer heißt: näher am Hider als beim Start. Der Hider antwortet **wärmer** oder **kälter**, innerhalb von 5 Minuten. Danach zieht er **2 Karten und behält 1**.",
+                en: "“After traveling ___, am I hotter or colder?” Hotter means closer to the hider than at the start. The hider answers **hotter** or **colder**, within 5 minutes. Then they **draw 2 cards and keep 1**.",
+            },
+            {
+                de: "Am Start sagen die Seeker dem Hider, dass sie ein Thermometer beginnen, und schicken ihren Standort. Nach der Strecke (Luftlinie, bei uns **1 km** oder **5 km**) schicken sie den neuen Standort. Verglichen wird mit dem Ort, an dem der Hider beim Antworten ist.",
+                en: "At the start, the seekers tell the hider they're starting a thermometer and send their location. After the distance (as the crow flies, **1 km** or **5 km** for us), they send their new location. Both are compared with where the hider is when answering.",
+            },
+            {
+                de: "**In der App:** {ask} → Thermometer → Start. Die App misst mit und meldet sich, wenn die Strecke geschafft ist.",
+                en: "**In the app:** {ask} → thermometer → start. The app keeps track and tells you when you've covered the distance.",
+            },
+            {
+                de: "Gut, um zu sehen, ob ihr in die richtige Richtung fahrt.",
+                en: "Good for finding out whether you're heading the right way.",
+            },
+        ],
+    },
+    {
+        id: "photo",
+        title: { de: "Fotos", en: "Photos" },
+        blocks: [
+            {
+                de: "„Schick mir ein Foto von ___.“ Der Hider schickt ein Foto, das die Vorgaben der Karte erfüllt, oder sagt „kann ich nicht beantworten“, wenn es das Motiv in seiner Zone nicht gibt. Er hat **10 Minuten** Zeit. Danach zieht er **1 Karte und behält sie**.",
+                en: "“Send me a photo of ___.” The hider sends a photo that meets the card's requirements, or says “I can't answer” if their zone has no such subject. They have **10 minutes**. Then they **draw 1 card and keep it**.",
+            },
+            {
+                de: "Fotos immer im normalen Seitenverhältnis des Handys. Die Seeker dürfen ein Foto nicht mit Street View aus der Ferne prüfen.",
+                en: "Photos always in the phone's normal aspect ratio. The seekers mustn't check a photo from afar with Street View.",
+            },
+            {
+                de: "**In der App:** Foto-Fragen sind nur ein Eintrag mit Uhr, das Foto selbst kommt im Chat.",
+                en: "**In the app:** photo questions are just an entry with a clock; the photo itself comes in the chat.",
+            },
+        ],
+        groups: [
+            {
+                entries: PHOTO_DECK.map((card) => ({
+                    id: `photo-${card.id}`,
+                    title: card.label,
+                    blocks: [
+                        card.hint,
+                        ...(PHOTO_RULES[card.id] ? [PHOTO_RULES[card.id]] : []),
+                    ],
+                })),
+            },
+        ],
+    },
+    {
+        id: "cards",
+        title: { de: "Die Karten des Hiders", en: "The hider's cards" },
+        blocks: [
+            {
+                de: "Das Hider-Deck hat drei Arten von Karten: **Zeitbonus**, **Powerups** und **Flüche**. Nach jeder Antwort zieht der Hider, etwa nach Measuring 3 Karten: eine behält er, die anderen legt er ab. Behaltene Karten bleiben auf der Hand, bis er sie spielt oder ablegt.",
+                en: "The hider deck has three kinds of cards: **time bonuses**, **powerups** and **curses**. After each answer, the hider draws, after measuring 3 cards for example: they keep one and discard the rest. Kept cards stay in hand until played or discarded.",
+            },
+            {
+                de: "Auf der Hand dürfen höchstens **6 Karten** sein (mehr nur mit einem Powerup). Sind es mehr, muss der Hider sofort spielen oder ablegen, bis es wieder 6 sind.",
+                en: "The hand holds at most **6 cards** (more only with a powerup). With more, the hider must play or discard right away until they're back to 6.",
+            },
+        ],
+        groups: [
+            {
+                title: { de: "Zeitbonus", en: "Time bonus" },
+                entries: [
+                    {
+                        id: "time-bonus",
+                        title: { de: "Zeitbonus", en: "Time bonus" },
+                        blocks: [
+                            {
+                                de: "Zeitbonus-Karten kommen am Ende zur Versteckzeit dazu, aber nur, wenn sie dann noch auf der Hand sind. Spielen kann man sie nicht, nur ablegen, und dann ist der Bonus weg.",
+                                en: "Time bonus cards are added to the hiding time at the end, but only if they're still in hand then. They can't be played, only discarded, and then the bonus is gone.",
+                            },
+                            {
+                                de: "Auf jeder Karte stehen drei Werte für Small, Medium und Large; wir nehmen den ersten. Im Deck: 25 × 2 Minuten, 15 × 4, 10 × 6, 3 × 8 und 2 × 12 Minuten.",
+                                en: "Each card has three values for Small, Medium and Large; we use the first. In the deck: 25 × 2 minutes, 15 × 4, 10 × 6, 3 × 8 and 2 × 12 minutes.",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                title: { de: "Powerups", en: "Powerups" },
+                entries: [
+                    {
+                        id: "powerups",
+                        title: {
+                            de: "Wie Powerups funktionieren",
+                            en: "How powerups work",
+                        },
+                        blocks: [
+                            {
+                                de: "Der Hider kann ein Powerup jederzeit spielen; danach wird es abgelegt. Den Seekern sagt er es nur, wenn es sie direkt betrifft.",
+                                en: "The hider can play a powerup at any time; then it's discarded. They only tell the seekers if it affects them directly.",
+                            },
+                        ],
+                    },
+                    powerup("veto", "Veto Question", "Veto", 4, {
+                        de: "Statt zu antworten, solange die Antwortzeit läuft. Die Seeker bekommen keine Antwort, nur die Info, dass ein Veto gespielt wurde. Die Frage gilt als gestellt (nochmal nur zum höheren Preis), und der Hider zieht dafür keine Karten.",
+                        en: "Instead of answering, while the time to answer runs. The seekers get no answer, only the news that a veto was played. The question counts as asked (again only at the higher cost), and the hider draws no cards for it.",
+                    }),
+                    powerup(
+                        "randomize",
+                        "Randomize Question",
+                        "Frage tauschen",
+                        4,
+                        {
+                            de: "Statt zu antworten, solange die Antwortzeit läuft. Die Seeker ziehen per Zufall eine andere, noch nicht gestellte Frage derselben Kategorie, aus einem Radar 2 km wird so vielleicht ein Radar 40 km. Die beantwortet der Hider ganz normal. Die ursprüngliche Frage gilt als nicht gestellt. Kommt „keine Antwort“ heraus, ist das erlaubt.",
+                            en: "Instead of answering, while the time to answer runs. The seekers pick another unasked question of the same category at random, so a 2 km radar might become a 40 km radar. The hider answers that one as usual. The original question doesn't count as asked. If it leads to “no answer”, that's allowed.",
+                        },
+                    ),
+                    powerup(
+                        "draw-2",
+                        "Discard 1, Draw 2",
+                        "1 ablegen, 2 ziehen",
+                        4,
+                        {
+                            de: "Jederzeit: 1 andere Karte ablegen, dann 2 ziehen und behalten. Ohne Karte zum Ablegen geht es nicht.",
+                            en: "Any time: discard 1 other card, then draw and keep 2. Not possible without a card to discard.",
+                        },
+                    ),
+                    powerup(
+                        "draw-3",
+                        "Discard 2, Draw 3",
+                        "2 ablegen, 3 ziehen",
+                        4,
+                        {
+                            de: "Jederzeit: 2 andere Karten ablegen, dann 3 ziehen und behalten. Ohne 2 Karten zum Ablegen geht es nicht.",
+                            en: "Any time: discard 2 other cards, then draw and keep 3. Not possible without 2 cards to discard.",
+                        },
+                    ),
+                    powerup(
+                        "expand-1",
+                        "Draw 1, Expand 1",
+                        "1 ziehen, Hand +1",
+                        2,
+                        {
+                            de: "Jederzeit: 1 Karte ziehen. Für den Rest der Runde darf der Hider eine Karte mehr auf der Hand haben, also 7, mit beiden solchen Karten 8.",
+                            en: "Any time: draw 1 card. For the rest of the round, the hider may hold one more card, so 7, or 8 with both of these cards.",
+                        },
+                    ),
+                    powerup(
+                        "duplicate",
+                        "Duplicate Another Card",
+                        "Karte kopieren",
+                        2,
+                        {
+                            de: "Zählt als Kopie einer anderen Karte auf der Hand; die Karte selbst bleibt. Ist sie am Ende der Runde noch auf der Hand, kann sie einen Zeitbonus kopieren und ihn so verdoppeln.",
+                            en: "Counts as a copy of another card in hand; that card stays. If it's still in hand at the end of the round, it can copy a time bonus and so double it.",
+                        },
+                    ),
+                    powerup("move", "Move", "Umziehen", 1, {
+                        de: "Der Hider bekommt **10 Minuten**, um eine neue Zone an einer anderen Station zu beziehen, nur mit erlaubten Öffis. So lange stehen die Seeker still und fragen nicht, und seine Versteckzeit läuft nicht weiter. Beim Spielen legt er sofort alle Karten auf der Hand ab und verrät den Seekern seine bisherige Station. Nicht im Endgame.",
+                        en: "The hider gets **10 minutes** to set up a new zone at another station, using only allowed transit. Meanwhile the seekers stay put and don't ask, and the hiding time doesn't run. When playing it, the hider discards their whole hand right away and tells the seekers their old station. Not during the endgame.",
+                    }),
+                ],
+            },
+            {
+                title: { de: "Flüche", en: "Curses" },
+                entries: [
+                    {
+                        id: "curses",
+                        title: {
+                            de: "Wie Flüche funktionieren",
+                            en: "How curses work",
+                        },
+                        blocks: [
+                            {
+                                de: "Flüche spielt der Hider gegen die Seeker, um sie aufzuhalten oder zu ärgern. Jeder wirkt einmal und wird danach abgelegt. Jeder hat einen Preis: mal Karten ablegen, mal eine Bedingung, etwa ein Mindestabstand zu den Seekern.",
+                                en: "The hider plays curses on the seekers to slow them down or annoy them. Each works once and is then discarded. Each has a cost: sometimes discarding cards, sometimes a condition, like a minimum distance to the seekers.",
+                            },
+                            {
+                                de: "Mehrere Flüche gleichzeitig sind erlaubt, aber nie mehr als einer, der Fragen oder Öffis blockiert. Die Seeker sagen Bescheid, sobald sie einen Fluch erledigt haben. Angegeben sind die Werte für Small.",
+                                en: "Several curses at once are fine, but never more than one that blocks questions or transit. The seekers say when they've cleared a curse. The values given are for Small.",
+                            },
+                        ],
+                    },
+                    curse(
+                        "luxury-car",
+                        "The Luxury Car",
+                        "Luxusauto",
+                        {
+                            de: "Der Hider fotografiert ein Auto. Die Seeker müssen ein teureres Auto fotografieren, bevor sie wieder fragen.",
+                            en: "The hider photographs a car. The seekers must photograph a more expensive car before asking again.",
+                        },
+                        {
+                            de: "ein Foto eines Autos.",
+                            en: "a photo of a car.",
+                        },
+                        {
+                            de: "Verglichen wird der Neupreis des Modells im Baujahr, ohne Extras. Beide Autos müssen auf dem Foto erkennbar sein; bei Unklarheit einigt ihr euch auf Modell und Jahr.",
+                            en: "Compare the model's list price in its year, without extras. Both cars must be recognisable in the photo; if unsure, agree on model and year.",
+                        },
+                    ),
+                    curse(
+                        "bridge-troll",
+                        "The Bridge Troll",
+                        "Brückentroll",
+                        {
+                            de: "Die Seeker müssen ihre nächste Frage unter einer Brücke stellen, jeder mit einem Teil des Körpers darunter.",
+                            en: "The seekers must ask their next question from under a bridge, each with some part of their body under it.",
+                        },
+                        {
+                            de: "Die Seeker sind mindestens 300 m vom Hider entfernt.",
+                            en: "the seekers are at least 300 m from the hider.",
+                        },
+                        {
+                            de: "Brücke ist jedes Bauwerk, über das ein Weg, eine Straße oder eine Bahn führt.",
+                            en: "A bridge is any structure carrying a path, road or railway.",
+                        },
+                    ),
+                    curse(
+                        "drained-brain",
+                        "The Drained Brain",
+                        "Leeres Hirn",
+                        {
+                            de: "Der Hider wählt drei Fragen aus drei verschiedenen Kategorien. Die dürfen die Seeker für den Rest der Runde nicht mehr stellen, auch nicht zum höheren Preis.",
+                            en: "The hider picks three questions from three different categories. The seekers can't ask them for the rest of the round, not even at a higher cost.",
+                        },
+                        {
+                            de: "die ganze Hand ablegen.",
+                            en: "discard your whole hand.",
+                        },
+                        {
+                            de: "Geht auch, während eine Frage offen ist, also bevor der Hider dafür Karten zieht. Die gerade gestellte Frage darf er aber nicht sperren.",
+                            en: "Also possible while a question is open, before drawing cards for it. The question just asked can't be one of the three.",
+                        },
+                    ),
+                    curse(
+                        "water-weight",
+                        "Water Weight",
+                        "Wassergewicht",
+                        {
+                            de: "Die Seeker müssen 2 Liter Flüssigkeit pro Person besorgen und für den Rest der Runde mittragen; vorher keine neue Frage. Geht etwas davon verloren oder bleibt zurück, bekommt der Hider 30 Minuten Bonus.",
+                            en: "The seekers must get 2 litres of liquid per person and carry it for the rest of the round; no new question until they have. If any of it is lost or left behind, the hider gets a 30 minute bonus.",
+                        },
+                        {
+                            de: "Die Seeker sind höchstens 300 m von einem Gewässer entfernt.",
+                            en: "the seekers are within 300 m of a body of water.",
+                        },
+                        {
+                            de: "Was sie schon dabeihaben, zählt nicht. Verteilen dürfen sie es beliebig. Abstellen dürfen sie es, solange sie stehen oder in den Öffis sitzen; zurückgelassen ist es, sobald es mehr als 3 m von allen Seekern weg ist. Gewässer: auf der Karte eingezeichnet, kein Pool.",
+                            en: "What they already carry doesn't count. They can share it out as they like. They may put it down while standing still or riding transit; it's left behind once it's more than 3 m from every seeker. Body of water: marked on the map, not a pool.",
+                        },
+                    ),
+                    curse(
+                        "zoologist",
+                        "The Zoologist",
+                        "Zoologe",
+                        {
+                            de: "Der Hider fotografiert ein wildes Tier: Fisch, Vogel, Säugetier, Reptil, Amphibie oder Krabbeltier. Die Seeker müssen ein wildes Tier derselben Gruppe fotografieren, bevor sie wieder fragen.",
+                            en: "The hider photographs a wild animal: fish, bird, mammal, reptile, amphibian or bug. The seekers must photograph a wild animal of the same group before asking again.",
+                        },
+                        {
+                            de: "ein Foto eines Tieres.",
+                            en: "a photo of an animal.",
+                        },
+                        {
+                            de: "Wild heißt: nicht gehalten, also auch nicht auf Bauernhöfen oder in Gehegen. Krabbeltiere sind Insekten, Spinnen, Tausendfüßer und Ähnliches. Bei Streit gilt Wikipedia.",
+                            en: "Wild means not kept, so not on farms or in enclosures either. Bugs are insects, spiders, millipedes and the like. In a dispute, Wikipedia decides.",
+                        },
+                    ),
+                    curse(
+                        "egg-partner",
+                        "The Egg Partner",
+                        "Ei-Partner",
+                        {
+                            de: "Die Seeker müssen ein echtes Ei besorgen, bevor sie wieder fragen. Das Ei ist ab jetzt ein Teammitglied. Bleibt es zurück oder bekommt es einen Sprung, bekommt der Hider 30 Minuten Bonus. Nicht im Endgame.",
+                            en: "The seekers must get a real egg before asking again. The egg is now a team member. If it's left behind or gets a crack, the hider gets a 30 minute bonus. Not during the endgame.",
+                        },
+                        {
+                            de: "2 Karten ablegen.",
+                            en: "discard 2 cards.",
+                        },
+                        {
+                            de: "Bei anderen Flüchen für alle Seeker zählt das Ei mit (bei The Lemon Phylactery braucht es also auch eine Zitrone). Wer nichts kaufen will, nimmt den Fluch aus dem Deck.",
+                            en: "For other curses on all seekers, the egg counts as one (with The Lemon Phylactery it needs a lemon too). If you don't want to buy things, take the curse out of the deck.",
+                        },
+                    ),
+                    curse(
+                        "jammed-door",
+                        "The Jammed Door",
+                        "Klemmende Tür",
+                        {
+                            de: "30 Minuten lang müssen die Seeker vor jeder Tür in ein Gebäude, ein Geschäft, einen Zug oder ein anderes Fahrzeug mit 2 Würfeln mindestens 7 würfeln. Sonst dürfen sie dort nicht hinein, auch nicht durch eine andere Tür. Dieselbe Tür dürfen sie nach 5 Minuten wieder versuchen.",
+                            en: "For 30 minutes, before every door into a building, shop, train or other vehicle, the seekers must roll at least 7 with 2 dice. Otherwise they can't enter, not even through another door. They may try the same door again after 5 minutes.",
+                        },
+                        {
+                            de: "2 Karten ablegen.",
+                            en: "discard 2 cards.",
+                        },
+                        {
+                            de: "Gewürfelt wird erst, wenn die Tür zu sehen ist, beim Zug also erst, wenn er da ist. Türen innerhalb desselben Gebäudes zählen nicht.",
+                            en: "Roll only once the door is in sight, for a train only once it's there. Doors within the same building don't count.",
+                        },
+                    ),
+                    curse(
+                        "spotty-memory",
+                        "Spotty Memory",
+                        "Lückenhaftes Gedächtnis",
+                        {
+                            de: "Für den Rest der Runde ist immer eine zufällige Kategorie gesperrt. Die Seeker würfeln sie aus und nach jeder Frage neu; dieselbe Kategorie kann mehrmals hintereinander kommen.",
+                            en: "For the rest of the round, one random category is always blocked. The seekers roll for it, and again after every question; the same category can come up several times in a row.",
+                        },
+                        {
+                            de: "einen Zeitbonus ablegen.",
+                            en: "discard a time bonus.",
+                        },
+                        {
+                            de: "Vorher bekommt jede Kategorie eine Zahl. Small hat fünf Kategorien, bei einer 6 wird neu gewürfelt.",
+                            en: "Give each category a number first. Small has five categories, so a 6 is rolled again.",
+                        },
+                    ),
+                    curse(
+                        "bird-guide",
+                        "The Bird Guide",
+                        "Vogelführer",
+                        {
+                            de: "Der Hider hat einen Versuch, einen Vogel so lange wie möglich zu filmen, höchstens 5 Minuten am Stück. Verlässt der Vogel das Bild, ist die Zeit vorbei. Die Seeker müssen dann einen Vogel mindestens genauso lange filmen; sie haben beliebig viele Versuche.",
+                            en: "The hider has one go at filming a bird for as long as possible, at most 5 minutes straight. Once the bird leaves the frame, time's up. The seekers must then film a bird for at least as long; they have unlimited tries.",
+                        },
+                        {
+                            de: "einen Vogel filmen.",
+                            en: "film a bird.",
+                        },
+                    ),
+                    curse(
+                        "unguided-tourist",
+                        "The Unguided Tourist",
+                        "Tourist ohne Führer",
+                        {
+                            de: "Der Hider schickt ein Street-View-Bild von einer Straße höchstens 150 m von den Seekern: ohne Zoom, waagrecht, mit mindestens einem Bauwerk außer der Straße. Ohne Internet müssen die Seeker die Stelle finden und ein Foto davon schicken, bevor sie wieder Öffis nutzen oder fragen.",
+                            en: "The hider sends a Street View image of a street within 150 m of the seekers: no zoom, level, with at least one structure other than the road. Without the internet, the seekers must find the spot and send a photo of it before using transit or asking again.",
+                        },
+                        {
+                            de: "Die Seeker sind im Freien.",
+                            en: "the seekers are outdoors.",
+                        },
+                        {
+                            de: "Gehsteige und Randsteine zählen nicht als Bauwerk.",
+                            en: "Pavements and kerbs don't count as structures.",
+                        },
+                    ),
+                    curse(
+                        "ransom-note",
+                        "The Ransom Note",
+                        "Erpresserbrief",
+                        {
+                            de: "Die nächste Frage der Seeker muss aus ausgeschnittenen Wörtern und Buchstaben aus Gedrucktem bestehen: mindestens 5 Wörter und verständlich.",
+                            en: "The seekers' next question must be made of words and letters cut out of printed material: at least 5 words, and understandable.",
+                        },
+                        {
+                            de: "„Ransom Note“ selbst als Erpresserbrief zusammensetzen, ohne diese Karte.",
+                            en: "spell out “Ransom Note” as a ransom note yourself, without using this card.",
+                        },
+                        {
+                            de: "Nichts selbst ausdrucken. Gängige Abkürzungen sind erlaubt; Zusatzinfos wie Standorte dürfen normal geschickt werden. Der Hider fängt erst an, wenn er gerade einen Fluch spielen dürfte, und spielt ihn dann sofort.",
+                            en: "Nothing printed by the players themselves. Common abbreviations are fine; extra details like locations can be sent as usual. The hider only starts when they could play a curse right now, and plays it straight away.",
+                        },
+                    ),
+                    curse(
+                        "mediocre-travel-agent",
+                        "The Mediocre Travel Agent",
+                        "Mittelmäßiges Reisebüro",
+                        {
+                            de: "Der Hider wählt einen öffentlich zugänglichen Ort höchstens 400 m von den Seekern; sie dürfen gerade nicht in den Öffis sein. Die Seeker müssen hin, mindestens 5 Minuten bleiben, mindestens drei Urlaubsfotos schicken und ein Souvenir mitnehmen, bevor sie wieder fragen. Geht das Souvenir verloren, bevor sie den Hider finden, bekommt er 30 Minuten Bonus.",
+                            en: "The hider picks a publicly accessible place within 400 m of the seekers, who mustn't be on transit right now. The seekers must go there, stay at least 5 minutes, send at least three holiday photos and pick up a souvenir before asking again. If the souvenir is lost before they find the hider, the hider gets a 30 minute bonus.",
+                        },
+                        {
+                            de: "Der Urlaubsort ist weiter vom Hider weg als die Seeker jetzt.",
+                            en: "the holiday spot is further from the hider than the seekers are now.",
+                        },
+                    ),
+                    curse(
+                        "impressionable-consumer",
+                        "The Impressionable Consumer",
+                        "Beeinflussbare Kundschaft",
+                        {
+                            de: "Die Seeker müssen etwas kaufen oder irgendwo hineingehen (mit Eintritt, falls nötig), wofür sie draußen eine Werbung gesehen haben, bevor sie wieder fragen. Die Werbung muss mindestens 30 m vom Geschäft oder Produkt entfernt sein.",
+                            en: "The seekers must buy something or go somewhere (paying admission if needed) that they saw an ad for out in the world, before asking again. The ad must be at least 30 m from the shop or product.",
+                        },
+                        {
+                            de: "Die nächste Frage der Seeker ist gratis: Der Hider zieht dafür keine Karten.",
+                            en: "the seekers' next question is free: the hider draws no cards for it.",
+                        },
+                        {
+                            de: "Öffentliche Orte wie Parks zählen nicht. Wer kein Geld ausgeben will, nimmt den Fluch aus dem Deck.",
+                            en: "Public places like parks don't count. If you don't want to spend money, take the curse out of the deck.",
+                        },
+                    ),
+                    curse(
+                        "u-turn",
+                        "The U-Turn",
+                        "Kehrtwende",
+                        {
+                            de: "Die Seeker müssen an der nächsten Station aussteigen, sofern dort innerhalb von 30 Minuten etwas anderes fährt.",
+                            en: "The seekers must get off at the next station, as long as something else leaves from there within 30 minutes.",
+                        },
+                        {
+                            de: "Die Seeker fahren in die falsche Richtung: Ihre nächste Station ist weiter vom Hider weg als sie selbst.",
+                            en: "the seekers are heading the wrong way: their next station is further from the hider than they are.",
+                        },
+                        {
+                            de: "Nächste Station heißt: der nächste Halt dieser Fahrt. Im Zweifel fragt der Hider nach.",
+                            en: "Next station means the next stop of this ride. If unsure, the hider asks.",
+                        },
+                    ),
+                    curse(
+                        "cairn",
+                        "The Cairn",
+                        "Steinmännchen",
+                        {
+                            de: "Der Hider hat einen Versuch, Steine zu einem freistehenden Turm zu stapeln. Jeder Stein berührt nur einen anderen, und vor jedem neuen Stein muss der Turm 5 Sekunden stehen. Fällt er, sagt der Hider, wie hoch er zuletzt 5 Sekunden stand. Die Seeker müssen einen gleich hohen Turm bauen, bevor sie wieder fragen; fällt ihrer, fangen sie neu an.",
+                            en: "The hider has one go at stacking stones into a free-standing tower. Each stone touches only one other, and the tower must stand 5 seconds before the next stone. When it falls, the hider says how tall it last stood for 5 seconds. The seekers must build a tower as tall before asking again; if theirs falls, they start over.",
+                        },
+                        {
+                            de: "einen Steinturm bauen.",
+                            en: "build a stone tower.",
+                        },
+                        {
+                            de: "Die Steine selbst finden, nicht kaufen, und danach wieder verstreuen.",
+                            en: "Find the stones yourself, don't buy them, and scatter them again afterwards.",
+                        },
+                    ),
+                    curse(
+                        "distant-cuisine",
+                        "The Distant Cuisine",
+                        "Ferne Küche",
+                        {
+                            de: "Der Hider sucht in seiner Zone ein Restaurant, das ausdrücklich Küche aus einem bestimmten Land anbietet. Die Seeker müssen ein Restaurant besuchen, dessen Land mindestens genauso weit weg ist, bevor sie wieder fragen.",
+                            en: "The hider finds a restaurant in their zone that explicitly serves food from one particular country. The seekers must visit a restaurant whose country is at least as far away before asking again.",
+                        },
+                        {
+                            de: "Der Hider ist in diesem Restaurant.",
+                            en: "the hider is at that restaurant.",
+                        },
+                        {
+                            de: "Nur Restaurants mit genau einem Land (oder einer Region darin) im Namen oder auf der Speisekarte; „asiatisch“ zählt nicht. Gemessen wird vom Hider zum nächsten Punkt des Landes.",
+                            en: "Only restaurants naming exactly one country (or a region within it) in their name or menu; “Asian” doesn't count. Measure from the hider to the nearest point of that country.",
+                        },
+                    ),
+                    curse(
+                        "lemon-phylactery",
+                        "The Lemon Phylactery",
+                        "Zitronen-Amulett",
+                        {
+                            de: "Jeder Seeker muss eine echte Zitrone finden und außen an Kleidung oder Haut befestigen, bevor sie wieder fragen. Berührt eine Zitrone ihren Seeker nicht mehr, bekommt der Hider 30 Minuten Bonus. Nicht im Endgame.",
+                            en: "Each seeker must find a real lemon and attach it to the outside of their clothes or skin before asking again. If a lemon stops touching its seeker, the hider gets a 30 minute bonus. Not during the endgame.",
+                        },
+                        {
+                            de: "ein Powerup ablegen.",
+                            en: "discard a powerup.",
+                        },
+                    ),
+                    curse(
+                        "gamblers-feet",
+                        "The Gambler's Feet",
+                        "Spielerfüße",
+                        {
+                            de: "20 Minuten lang müssen die Seeker vor dem Gehen würfeln und dürfen nur so viele Schritte machen, wie der Würfel zeigt, dann wieder würfeln.",
+                            en: "For 20 minutes, the seekers must roll a die before walking and may only take as many steps as it shows, then roll again.",
+                        },
+                        {
+                            de: "Der Hider würfelt; bei einer geraden Zahl wirkt der Fluch nicht.",
+                            en: "the hider rolls a die; on an even number the curse has no effect.",
+                        },
+                        {
+                            de: "Mehrere Seeker würfeln jeder selbst oder einer für alle. Wo Stehenbleiben gefährlich wäre, etwa auf der Straße, dürfen sie weitergehen.",
+                            en: "Several seekers each roll for themselves, or one rolls for all. Where stopping would be unsafe, like in the road, they may keep going.",
+                        },
+                    ),
+                    curse(
+                        "hidden-hangman",
+                        "The Hidden Hangman",
+                        "Galgenmännchen",
+                        {
+                            de: "Bevor die Seeker wieder fragen oder in ein Verkehrsmittel steigen, müssen sie den Hider bei Galgenmännchen schlagen.",
+                            en: "Before asking again or boarding any transport, the seekers must beat the hider at hangman.",
+                        },
+                        {
+                            de: "2 Karten ablegen.",
+                            en: "discard 2 cards.",
+                        },
+                        {
+                            de: "Der Hider denkt sich ein echtes Wort mit 5 Buchstaben aus, in einer Sprache, die alle sprechen. Antwortet er einmal nicht innerhalb von 30 Sekunden, ist der Fluch erledigt.",
+                            en: "The hider thinks of a real five-letter word, in a language everyone speaks. If they ever take more than 30 seconds to respond, the curse is cleared.",
+                        },
+                    ),
+                    curse(
+                        "endless-tumble",
+                        "The Endless Tumble",
+                        "Endloses Rollen",
+                        {
+                            de: "Die Seeker müssen einen Würfel mindestens 30 m weit rollen lassen, und er muss auf 5 oder 6 landen, bevor sie wieder fragen. Er muss die ganze Strecke von selbst rollen, nur durch den Wurf und das Gefälle. Treffen sie dabei jemanden, bekommt der Hider 10 Minuten Bonus.",
+                            en: "The seekers must roll a die at least 30 m and have it land on 5 or 6 before asking again. It must roll the whole way on its own, from the throw and the slope only. If they hit someone with it, the hider gets a 10 minute bonus.",
+                        },
+                        {
+                            de: "Der Hider würfelt; bei 5 oder 6 wirkt der Fluch nicht.",
+                            en: "the hider rolls a die; on 5 or 6 the curse has no effect.",
+                        },
+                        {
+                            de: "Die 30 m werden waagrecht gemessen, ein Hang hilft. Geht der Würfel verloren oder liegt er schief, zählt der Wurf nicht.",
+                            en: "The 30 m are measured level; a slope helps. If the die is lost or doesn't land flat, the roll doesn't count.",
+                        },
+                    ),
+                    curse(
+                        "right-turn",
+                        "The Right Turn",
+                        "Rechts abbiegen",
+                        {
+                            de: "20 Minuten lang dürfen die Seeker an Kreuzungen nur rechts abbiegen. Geht es 300 m lang weder geradeaus noch rechts weiter, müssen sie umdrehen.",
+                            en: "For 20 minutes, the seekers may only turn right at intersections. If they can't go straight on or right for 300 m, they must turn around.",
+                        },
+                        {
+                            de: "1 Karte ablegen.",
+                            en: "discard 1 card.",
+                        },
+                        {
+                            de: "Gilt nur an Kreuzungen von Straßen für Autos, samt Gehsteig. Jede Abzweigung nach rechts zählt als rechts. In Gebäuden wirkt der Fluch nicht.",
+                            en: "Only applies at intersections of roads for cars, pavements included. Any road veering right counts as right. It has no effect indoors.",
+                        },
+                    ),
+                    curse(
+                        "urban-explorer",
+                        "The Urban Explorer",
+                        "Stadtforscher",
+                        {
+                            de: "Für den Rest der Runde dürfen die Seeker nicht fragen, solange sie in den Öffis oder in einer Station sind.",
+                            en: "For the rest of the round, the seekers can't ask questions while on transit or in a station.",
+                        },
+                        {
+                            de: "2 Karten ablegen.",
+                            en: "discard 2 cards.",
+                        },
+                        {
+                            de: "Neben einer Station dürfen sie fragen, nicht aber am Bahnsteig oder in Gebäuden der Station. Schon gestellte Fragen beantwortet der Hider trotzdem.",
+                            en: "Next to a station they may ask, but not on the platform or in station buildings. Questions already asked still get answered.",
+                        },
+                    ),
+                    curse(
+                        "overflowing-chalice",
+                        "The Overflowing Chalice",
+                        "Überlaufender Kelch",
+                        {
+                            de: "Bei den nächsten drei Fragen zieht der Hider je eine Karte mehr, behält aber gleich viele: Matching und Measuring 4 ziehen, 1 behalten; Radar und Thermometer 3 ziehen, 1 behalten; Foto 2 ziehen, 1 behalten.",
+                            en: "For the next three questions, the hider draws one extra card but keeps the same number: matching and measuring draw 4 keep 1; radar and thermometer draw 3 keep 1; photo draw 2 keep 1.",
+                        },
+                        {
+                            de: "1 Karte ablegen.",
+                            en: "discard 1 card.",
+                        },
+                    ),
+                    curse(
+                        "labyrinth",
+                        "The Labyrinth",
+                        "Labyrinth",
+                        {
+                            de: "Der Hider zeichnet höchstens 10 Minuten lang ein lösbares Labyrinth, ohne Vorlage aus dem Internet, und schickt ein Foto. Die Seeker müssen es lösen, bevor sie wieder fragen.",
+                            en: "The hider spends up to 10 minutes drawing a solvable maze, without looking for designs online, and sends a photo. The seekers must solve it before asking again.",
+                        },
+                        {
+                            de: "ein Labyrinth zeichnen.",
+                            en: "draw a maze.",
+                        },
+                        {
+                            de: "Lösbar heißt: Eine durchgehende Linie vom Start zum Ziel ist möglich. Die Zeit läuft ab dem ersten Strich.",
+                            en: "Solvable means an unbroken line from start to finish is possible. Time runs from the first line drawn.",
+                        },
+                    ),
+                ],
+            },
+        ],
+    },
+    {
+        id: "endgame",
+        title: { de: "Endgame", en: "Endgame" },
+        blocks: [
+            {
+                de: "Das Endgame beginnt, sobald die Seeker in der Zone des Hiders sind und die Öffis verlassen haben; der Hider sieht das an ihrem Live-Standort. Ab dann bleibt er an einem einzigen Versteck, bis er gefunden wird.",
+                en: "The endgame starts once the seekers are in the hider's zone and have left transit; the hider sees that from their live location. From then on, the hider stays at one hiding spot until found.",
+            },
+            {
+                list: [
+                    {
+                        de: "Das Versteck liegt in der Zone und ist öffentlich zugänglich: keine Toilettenkabine, keine Wohnung. Öffentlicher Grund muss es nicht sein, nur zugänglich, und du solltest dort weder weggeschickt werden noch auffallen. Geschäfte meidest du besser.",
+                        en: "The spot is in the zone and publicly accessible: no toilet cubicle, no one's home. It needn't be public land, just accessible, and you shouldn't get thrown out or look suspicious. Better avoid shops.",
+                    },
+                    {
+                        de: "Es liegt höchstens 3 m von einem Weg oder einer Straße, die auf der Karte eingezeichnet sind. Die Seeker müssen bis auf 3 m an dich herankommen können.",
+                        en: "It's within 3 m of a path or road shown on the map. The seekers must be able to get within 3 m of you.",
+                    },
+                    {
+                        de: "Das Versteck steht fest, sobald das Endgame beginnt. Bist du dann nicht am geplanten Platz, gilt, wo du gerade bist. Ist das nicht öffentlich zugänglich, gehst du sofort zum nächsten Platz, der es ist.",
+                        en: "The spot is fixed the moment the endgame starts. If you're not where you planned, wherever you are counts. If that's not publicly accessible, go straight to the nearest place that is.",
+                    },
+                    {
+                        de: "Fragen gehen weiter. Kann der Hider eine Frage wegen des Verstecks nicht beantworten, etwa ein Foto vom Stationseingang, sagt er „kann ich nicht beantworten“ und zieht trotzdem Karten.",
+                        en: "Questions go on. If the hider can't answer one because of their spot, like a photo from a station entrance, they say “I can't answer” and still draw cards.",
+                    },
+                    {
+                        de: "Move und manche Flüche dürfen im Endgame nicht gespielt werden.",
+                        en: "Move and some curses can't be played during the endgame.",
+                    },
+                ],
+            },
+            {
+                de: "Ein gut gewähltes Versteck bringt oft noch eine Stunde oder mehr, auch wenn die Seeker die Station schon kennen.",
+                en: "A well-chosen spot often buys another hour or more, even once the seekers know the station.",
+            },
+        ],
+    },
+    {
+        id: "found",
+        title: {
+            de: "Gefunden und nächste Runde",
+            en: "Found, and the next round",
+        },
+        blocks: [
+            {
+                de: "Der Hider ist gefunden, wenn ihn die Seeker sehen und höchstens 1,5 m entfernt sind. Wer nur in der Nähe ist, ihn aber nicht erkannt hat, hat ihn noch nicht gefunden.",
+                en: "The hider is found once the seekers see them and are within 1.5 m. Being nearby without having spotted them doesn't count.",
+            },
+            {
+                de: "Dann stoppt die Uhr. Die **Versteckzeit** ist die Zeit vom Ende der Versteckphase bis zum Finden, dazu kommen die Zeitbonus-Karten auf der Hand.",
+                en: "Then the clock stops. The **hiding time** runs from the end of the hiding period until found, plus the time bonus cards in hand.",
+            },
+            {
+                de: "Der nächste Hider hat 10 Minuten zur Vorbereitung: Er übernimmt das Hider-Deck und schaltet seinen Live-Standort aus. Die neue Runde startet dort, wo der vorige Hider gefunden wurde.",
+                en: "The next hider gets 10 minutes to get ready: they take over the hider deck and turn off their live location. The new round starts where the previous hider was found.",
+            },
+            {
+                de: "**In der App:** Zahnrad → {newGame}, jeder mit seiner neuen Rolle.",
+                en: "**In the app:** gear → {newGame}, everyone with their new role.",
+            },
+        ],
+    },
+    {
+        id: "end",
+        title: { de: "Spielende", en: "End of the game" },
+        blocks: [
+            {
+                de: "Das Spiel endet, wenn sich jeder so oft versteckt hat wie vereinbart, normalerweise einmal. Es gewinnt die längste einzelne Versteckzeit. Spielt ihr mehr Runden, zählt für jeden nur seine beste.",
+                en: "The game ends once everyone has hidden as often as agreed, usually once. The longest single hiding time wins. If you play extra rounds, only each player's best counts.",
+            },
+            {
+                de: "Müsst ihr zu einer bestimmten Zeit aufhören, stellt einen Wecker: Das Spiel endet, wenn alle Runden gespielt sind oder die Zeit um ist, je nachdem, was zuerst kommt.",
+                en: "If you have to stop at a certain time, set a timer: the game ends when all rounds are played or time is up, whichever comes first.",
+            },
+        ],
+    },
+    {
+        id: "tips",
+        title: { de: "Tipps", en: "Tips" },
+        blocks: [
+            {
+                list: [
+                    {
+                        de: "Genug Essen und Trinken mitnehmen; als Hider bist du vielleicht stundenlang ohne.",
+                        en: "Bring enough food and water; as the hider you may go without for hours.",
+                    },
+                    {
+                        de: "Eine Powerbank mitnehmen: GPS, Karte und Chat brauchen viel Akku.",
+                        en: "Bring a power bank: GPS, map and chat use a lot of battery.",
+                    },
+                    {
+                        de: "Als Hider eine Toilette in der Zone suchen; kleine Stationen haben oft keine.",
+                        en: "As the hider, find a toilet in your zone; small stations often have none.",
+                    },
+                    {
+                        de: "Aufs Wetter achten.",
+                        en: "Keep an eye on the weather.",
+                    },
+                    {
+                        de: "Pausieren ist erlaubt, wenn es nötig ist, nicht als Taktik. Dann stehen alle Uhren still, und alle machen dort weiter, wo sie waren.",
+                        en: "Pausing is allowed when needed, not as a tactic. All clocks stop, and everyone carries on from where they were.",
+                    },
+                    {
+                        de: "Sicherheit geht vor. Teilt euren Standort zusätzlich mit jemandem, der nicht mitspielt.",
+                        en: "Safety first. Also share your location with someone who isn't playing.",
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        id: "glossary",
+        title: { de: "Begriffe", en: "Glossary" },
+        blocks: [
+            {
+                list: [
+                    {
+                        de: "**Hider:** wer sich in dieser Runde versteckt.",
+                        en: "**Hider:** whoever hides this round.",
+                    },
+                    {
+                        de: "**Seeker:** alle anderen; sie suchen gemeinsam.",
+                        en: "**Seekers:** everyone else; they search together.",
+                    },
+                    {
+                        de: "**Hiding Zone:** der Kreis um die Station des Hiders, in dem er sich frei bewegen darf.",
+                        en: "**Hiding zone:** the circle around the hider's station in which they can move freely.",
+                    },
+                    {
+                        de: "**Versteckphase:** die ersten 30 Minuten einer Runde, um die Zone zu erreichen.",
+                        en: "**Hiding period:** the first 30 minutes of a round, to reach the zone.",
+                    },
+                    {
+                        de: "**Versteckzeit:** vom Ende der Versteckphase bis zum Finden, plus Zeitbonus. Sie entscheidet, wer gewinnt.",
+                        en: "**Hiding time:** from the end of the hiding period until found, plus time bonuses. It decides who wins.",
+                    },
+                    {
+                        de: "**Endgame:** ab dem Moment, in dem die Seeker in der Zone sind und die Öffis verlassen haben; der Hider bleibt an seinem Versteck.",
+                        en: "**Endgame:** from the moment the seekers are in the zone and off transit; the hider stays at their spot.",
+                    },
+                    {
+                        de: "**Zeitbonus, Powerup, Fluch:** die drei Arten von Karten im Hider-Deck.",
+                        en: "**Time bonus, powerup, curse:** the three kinds of cards in the hider deck.",
+                    },
+                ],
+            },
+        ],
+    },
+];
+
+/** Every section and entry by its id, to jump to. */
+export const ruleIds = () =>
+    RULE_SECTIONS.flatMap((section) => [
+        section.id,
+        ...(section.groups ?? []).flatMap((group) =>
+            group.entries.map((entry) => entry.id),
+        ),
+    ]);
+
+/** The entry the "?" on a question opens. */
+export const ruleIdFor = (question: Question): string => {
+    switch (question.id) {
+        case "matching": {
+            const card = matchingCardFor(question.data);
+            return card ? `matching-${card.id}` : "matching";
+        }
+        case "measuring": {
+            const card = measuringCardFor(question.data);
+            return card ? `measuring-${card.id}` : "measuring";
+        }
+        case "radius":
+            return "radar";
+        case "thermometer":
+            return "thermometer";
+        default:
+            return "asking";
+    }
+};
+
+/** The entry of a photo card. */
+export const photoRuleId = (cardId: string) =>
+    PHOTO_DECK.some((card) => card.id === cardId) ? `photo-${cardId}` : "photo";
+
+/** The entry for a question in the hider's log. */
+export const hiderEntryRuleId = (entry: HiderInboxEntry) =>
+    entry.question
+        ? ruleIdFor(entry.question)
+        : entry.photo
+          ? photoRuleId(entry.photo)
+          : (entry.kind ?? "asking");
+
+/**
+ * The quick guide: one card per step, with a picture of the app in the
+ * app's language (public/guide/<id>-<language>.webp).
+ */
+export const GUIDE_SLIDES: { id: string; title: Text; text: Text }[] = [
+    {
+        id: "new-game",
+        title: { de: "Neues Spiel", en: "New game" },
+        text: {
+            de: "Tippe oben rechts auf das Zahnrad und dann auf {newGame}. Wähle {seeking} oder {hiding}. Die App lädt die Karte von Wien mit allen Zonen; beim ersten Mal dauert das ein paar Minuten.",
+            en: "Tap the gear at the top right, then {newGame}. Choose {seeking} or {hiding}. The app loads the map of Vienna with all zones; the first time, that takes a few minutes.",
+        },
+    },
+    {
+        id: "ask",
+        title: { de: "Frage stellen", en: "Ask a question" },
+        text: {
+            de: "Als Seeker tippst du unten auf {ask} und wählst eine Karte. Die Frage nimmt deinen Standort. Mit {sendToHider} schickst du sie als Link in den Chat, ab dann läuft die Uhr des Hiders.",
+            en: "As a seeker, tap {ask} at the bottom and pick a card. The question takes your location. {sendToHider} sends it to the chat as a link, and the hider's clock starts.",
+        },
+    },
+    {
+        id: "answer",
+        title: { de: "Antwort eintragen", en: "Enter the answer" },
+        text: {
+            de: "Kommt die Antwort im Chat, tippst du sie auf der Frage ein. Erst dann ändert sich die Karte. Offene und beantwortete Fragen findest du unten unter {questions}.",
+            en: "When the answer arrives in the chat, enter it on the question. Only then does the map change. Open and answered questions are under {questions} at the bottom.",
+        },
+    },
+    {
+        id: "map",
+        title: { de: "Karte lesen", en: "Reading the map" },
+        text: {
+            de: "Hell ist, wo der Hider noch sein kann, grau ist ausgeschlossen. Oben links steht, wie viele Zonen übrig sind. Tippe eine Zone an, um ihre Station zu sehen; {zones} unten öffnet die Liste aller Zonen.",
+            en: "Bright is where the hider can still be, grey is ruled out. The top left shows how many zones are left. Tap a zone to see its station; {zones} at the bottom opens the list of all zones.",
+        },
+    },
+    {
+        id: "hider",
+        title: { de: "Als Hider", en: "As the hider" },
+        text: {
+            de: "Wähle zuerst auf dem Hider-Bildschirm deine Zone, oder tippe sie auf der Karte an und wähle {chooseZone}. Fragen kommen als Link: Die App rechnet die Antwort an deinem Standort aus, und du schickst sie mit {sendAnswer} in den Chat. Die Uhr zeigt, wie viel Zeit dir bleibt.",
+            en: "First choose your zone on the hider screen, or tap it on the map and choose {chooseZone}. Questions arrive as links: the app works out the answer at your location, and {sendAnswer} sends it to the chat. The clock shows how much time you have left.",
+        },
+    },
+];
+
+/** The help's own buttons, in the help's language like everything in it. */
+export const HELP_TEXTS = {
+    title: { de: "Hilfe", en: "Help" },
+    guide: { de: "Kurzanleitung", en: "Quick guide" },
+    rules: { de: "Regeln", en: "Rules" },
+    contents: { de: "Inhalt", en: "Contents" },
+    next: { de: "Weiter", en: "Next" },
+    back: { de: "Zurück", en: "Back" },
+    skip: { de: "Überspringen", en: "Skip" },
+    done: { de: "Los geht's", en: "Let's go" },
+    readRules: { de: "Regeln lesen", en: "Read the rules" },
+    close: { de: "Schließen", en: "Close" },
+    step: { de: "{n} von {count}", en: "{n} of {count}" },
+    toTop: { de: "Zum Inhalt", en: "To contents" },
+    rulesHint: {
+        de: "Die Regeln und was bei jeder Frage zählt, stehen unter „Regeln“. Das „?“ an jeder Frage führt direkt hin.",
+        en: "The rules, and what counts for each question, are under “Rules”. The “?” on every question takes you straight there.",
+    },
+} satisfies Record<string, Text>;

@@ -17,6 +17,7 @@ import {
     customStations,
     disabledStations,
     displayHidingZonesOptions,
+    helpOpen,
     hiderMode,
     hidingRadius,
     hidingRadiusUnits,
@@ -33,7 +34,6 @@ import {
     settingsOpen,
     showAllQuestionTypes,
     showDrawingTools,
-    showTutorial,
     triggerLocalRefresh,
     useCustomStations,
 } from "@/lib/context";
@@ -475,7 +475,6 @@ export const OptionDrawers = () => {
                         variant="outline"
                         className="h-11 w-11 rounded-full bg-background/95 text-foreground shadow-lg"
                         title={t("settings.title")}
-                        data-tutorial-id="option-questions-button"
                     >
                         <SettingsIcon className="!size-5" />
                     </Button>
@@ -530,18 +529,14 @@ export const OptionDrawers = () => {
                             </div>
                             <LanguageChoice />
                             <div className="grid w-full max-w-[320px] grid-cols-2 gap-2">
-                                <Button
-                                    variant="outline"
-                                    onClick={share}
-                                    data-tutorial-id="share-questions-button"
-                                >
+                                <Button variant="outline" onClick={share}>
                                     {t("settings.share")}
                                 </Button>
                                 <Button
                                     variant="outline"
                                     onClick={() => {
                                         setOptionsOpen(false);
-                                        showTutorial.set(true);
+                                        helpOpen.set({ tab: "guide" });
                                     }}
                                 >
                                     {t("settings.help")}
