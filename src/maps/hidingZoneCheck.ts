@@ -4,6 +4,7 @@ import { computed } from "nanostores";
 import {
     allTrainStations,
     hiderMode,
+    hiderZoneId,
     hidingRadius,
     hidingRadiusUnits,
     myPosition,
@@ -15,7 +16,11 @@ import { extractStationLabel } from "@/maps/geo-utils";
 /** Where the hider is compared to the hiding zones. */
 export type ZoneCheck = {
     inside: boolean;
-    /** The station of the nearest hiding zone. */
+    /** The id of the zone's station. */
+    id: string;
+    /** Whether it is the zone the hider chose, else the nearest zone. */
+    chosen: boolean;
+    /** The station of the zone. */
     station: string;
     /** Meters from that station. */
     meters: number;
@@ -46,37 +51,67 @@ export const checkHidingZone = (
 
     return {
         inside: nearest.meters <= radiusMeters,
+        id: nearest.station.properties.id,
+        chosen: false,
         station: extractStationLabel(nearest.station),
         meters: nearest.meters,
         toEdge: Math.abs(radiusMeters - nearest.meters),
     };
 };
 
-/** Like "In your hiding zone" and "320 m from Karlsplatz". */
-export const zoneCheckText = (check: ZoneCheck) =>
-    check.inside
+/** Like "Your zone: Karlsplatz" and "320 m from the station". */
+export const zoneCheckText = (check: ZoneCheck) => {
+    const fromStation = formatKilometers(check.meters / 1000);
+    const toZone = formatKilometers(check.toEdge / 1000);
+    if (!check.chosen) {
+        return {
+            title: "Choose your hiding zone",
+            detail: check.inside
+                ? `You are in the ${check.station} zone, ${fromStation} from the station`
+                : `Nearest: the ${check.station} zone, ${toZone} away`,
+        };
+    }
+    return check.inside
         ? {
-              title: "In your hiding zone",
-              detail: `${formatKilometers(check.meters / 1000)} from ${check.station}`,
+              title: `Your zone: ${check.station}`,
+              detail: `${fromStation} from the station`,
           }
         : {
-              title: "Outside the hiding zones",
-              detail: `${formatKilometers(check.toEdge / 1000)} to the ${check.station} zone`,
+              title: "Outside your hiding zone",
+              detail: `${toZone} to the ${check.station} zone`,
           };
+};
 
 /**
  * The hider's zone check at the blue dot, or null: on seekers' phones,
- * without GPS, or before the stations have loaded.
+ * without GPS, or before the stations have loaded. Once the hider chose a
+ * zone, only that zone counts, also where zones overlap.
  */
 export const hiderZoneCheck = computed(
-    [hiderMode, myPosition, allTrainStations, hidingRadius, hidingRadiusUnits],
-    (hider, position, stations, radius, units) => {
+    [
+        hiderMode,
+        myPosition,
+        allTrainStations,
+        hidingRadius,
+        hidingRadiusUnits,
+        hiderZoneId,
+    ],
+    (hider, position, stations, radius, units, chosenId) => {
         if (hider === false || !position) return null;
+        const chosen = stations.filter(
+            (station) => station.properties.id === chosenId,
+        );
         const check = checkHidingZone(
             position,
-            stations,
+            chosen.length > 0 ? chosen : stations,
             turf.convertLength(radius, units, "meters"),
         );
-        return check && { ...check, accuracy: position.accuracy };
+        return (
+            check && {
+                ...check,
+                chosen: chosen.length > 0,
+                accuracy: position.accuracy,
+            }
+        );
     },
 );

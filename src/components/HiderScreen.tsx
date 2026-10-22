@@ -17,6 +17,7 @@ import {
     type HiderInboxEntry,
     hiderMode,
     hiderScreenOpen,
+    hiderZoneId,
     questions,
     settingsOpen,
 } from "@/lib/context";
@@ -82,36 +83,78 @@ const removeUrlParam = (param: string) => {
 /** Worse than this, the zone check may be wrong (e.g. underground). */
 const POOR_GPS_METERS = 50;
 
-/** Whether the hider is in a hiding zone, live from the blue dot. */
+/**
+ * Whether the hider is in their hiding zone, live from the blue dot. Until
+ * they chose one: the zone they are in, to choose it.
+ */
 const ZoneCheckCard = () => {
     const $zoneCheck = useStore(hiderZoneCheck);
     if (!$zoneCheck) return null;
 
     const { title, detail } = zoneCheckText($zoneCheck);
+    const { chosen, inside } = $zoneCheck;
+    const showMap = () => {
+        hiderScreenOpen.set(false);
+        toast.info("Tap a zone on the map to choose it.", {
+            autoClose: 4000,
+            toastId: "choose-zone-hint",
+        });
+    };
+
     return (
         <div
             className={cn(
-                "flex items-center gap-3 rounded-lg border-2 p-3",
-                $zoneCheck.inside
-                    ? "border-green-600 bg-green-600/10"
-                    : "border-orange-500 bg-orange-500/10",
+                "flex flex-col gap-3 rounded-lg border-2 p-3",
+                !chosen
+                    ? "border-violet-600 bg-violet-600/10"
+                    : inside
+                      ? "border-green-600 bg-green-600/10"
+                      : "border-orange-500 bg-orange-500/10",
             )}
         >
-            {$zoneCheck.inside ? (
-                <MapPinIcon className="size-6 shrink-0 text-green-500" />
-            ) : (
-                <TriangleAlertIcon className="size-6 shrink-0 text-orange-500" />
-            )}
-            <div className="min-w-0 flex-1">
-                <div className="font-semibold">{title}</div>
-                <div className="text-sm text-muted-foreground">{detail}</div>
-                {($zoneCheck.accuracy ?? 0) > POOR_GPS_METERS && (
-                    <div className="text-xs text-orange-400">
-                        Your GPS is only accurate to ±
-                        {Math.round($zoneCheck.accuracy ?? 0)} m here.
+            <div className="flex items-center gap-3">
+                {!chosen ? (
+                    <MapPinIcon className="size-6 shrink-0 text-violet-500" />
+                ) : inside ? (
+                    <MapPinIcon className="size-6 shrink-0 text-green-500" />
+                ) : (
+                    <TriangleAlertIcon className="size-6 shrink-0 text-orange-500" />
+                )}
+                <div className="min-w-0 flex-1">
+                    <div className="font-semibold">{title}</div>
+                    <div className="text-sm text-muted-foreground">
+                        {detail}
                     </div>
+                    {($zoneCheck.accuracy ?? 0) > POOR_GPS_METERS && (
+                        <div className="text-xs text-orange-400">
+                            Your GPS is only accurate to ±
+                            {Math.round($zoneCheck.accuracy ?? 0)} m here.
+                        </div>
+                    )}
+                </div>
+                {chosen && (
+                    <Button variant="outline" size="sm" onClick={showMap}>
+                        Change
+                    </Button>
                 )}
             </div>
+            {!chosen && (
+                <div className="flex flex-col gap-2">
+                    {inside && (
+                        <Button
+                            className="h-11 bg-violet-700 font-semibold text-white hover:bg-violet-800"
+                            onClick={() => hiderZoneId.set($zoneCheck.id)}
+                        >
+                            Choose {$zoneCheck.station}
+                        </Button>
+                    )}
+                    <Button variant="outline" onClick={showMap}>
+                        {inside
+                            ? "Choose another zone on the map"
+                            : "Choose on the map"}
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };

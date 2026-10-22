@@ -22,6 +22,7 @@ import {
     hidingRadiusUnits,
     hidingZone,
     includeDefaultStations,
+    keptZonesRuledOut,
     mapGeoJSON,
     mapGeoLocation,
     overpassCustomHost,
@@ -289,6 +290,7 @@ export const OptionDrawers = () => {
                 geojson.disabledStations.constructor === Array
             ) {
                 disabledStations.set(geojson.disabledStations);
+                keptZonesRuledOut.set([]);
             }
 
             if (typeof geojson.hidingRadius === "number") {

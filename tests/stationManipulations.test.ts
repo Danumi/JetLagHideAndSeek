@@ -273,3 +273,50 @@ describe("checkIfStationsShareZones", () => {
         expect(result).false;
     });
 });
+
+describe("Vienna's duplicated stations", () => {
+    // OSM has Karlsplatz once per line (U1, U2, U4)
+    const place = (id: string, name: string, lng: number, lat: number) =>
+        turf.point([lng, lat], { id, name }) as StationPlace;
+    const KARLSPLATZ = [
+        place("node/3503264091", "Karlsplatz", 16.36975, 48.20058),
+        place("node/4560843526", "Karlsplatz", 16.36946, 48.19944),
+        place("node/4560843527", "Karlsplatz", 16.37042, 48.20005),
+    ];
+    const MUSEUMSQUARTIER = place(
+        "node/1",
+        "Museumsquartier",
+        16.36087,
+        48.20253,
+    );
+
+    it("makes one zone of a station with every id kept", async () => {
+        const result = await mergeDuplicateStation(
+            [...KARLSPLATZ, MUSEUMSQUARTIER],
+            500,
+            "meters",
+        );
+        expect(result).toHaveLength(2);
+        const karlsplatz = result.find(
+            (x) => x.properties.name === "Karlsplatz",
+        );
+        // The first station's id, so ruled out zones and lines still work
+        expect(karlsplatz?.properties.id).toBe("node/3503264091");
+        expect(karlsplatz?.properties.ids).toEqual(
+            KARLSPLATZ.map((x) => x.properties.id),
+        );
+        expect(
+            result.find((x) => x.properties.name === "Museumsquartier"),
+        ).toBe(MUSEUMSQUARTIER);
+    });
+
+    it("keeps stations without a name apart", async () => {
+        const unnamed = [
+            place("node/2", "", 16.37, 48.2),
+            place("node/3", "", 16.3701, 48.2),
+        ];
+        expect(
+            await mergeDuplicateStation(unnamed, 500, "meters"),
+        ).toHaveLength(2);
+    });
+});

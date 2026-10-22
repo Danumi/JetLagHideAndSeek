@@ -8,9 +8,11 @@ import {
     displayHidingZones,
     displayHidingZonesOptions,
     hiderInbox,
+    hiderZoneId,
     hidingRadius,
     hidingRadiusUnits,
     isLoading,
+    keptZonesRuledOut,
     mapGeoJSON,
     mapGeoLocation,
     polyGeoJSON,
@@ -49,7 +51,9 @@ export const startNewGame = (role: Role) => {
 
     useCustomStations.set(false);
     disabledStations.set([]);
+    keptZonesRuledOut.set([]);
     selectedZoneId.set("");
+    hiderZoneId.set("");
     displayHidingZonesOptions.set([SUBWAY_STATIONS]);
     hidingRadius.set(SMALL_HIDING_RADIUS_METERS);
     hidingRadiusUnits.set("meters");

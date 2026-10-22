@@ -6,6 +6,7 @@ import {
     followMyPosition,
     hiderMode,
     hiderScreenOpen,
+    hiderZoneId,
     hidingRadius,
     hidingRadiusUnits,
     myPosition,
@@ -49,8 +50,12 @@ describe("hiding zone check", () => {
         expect(check?.station).toBe("Karlsplatz");
         expect(check?.meters).toBeCloseTo(320, 0);
         expect(zoneCheckText(check!)).toEqual({
-            title: "In your hiding zone",
-            detail: "320 m from Karlsplatz",
+            title: "Choose your hiding zone",
+            detail: "You are in the Karlsplatz zone, 320 m from the station",
+        });
+        expect(zoneCheckText({ ...check!, chosen: true })).toEqual({
+            title: "Your zone: Karlsplatz",
+            detail: "320 m from the station",
         });
     });
 
@@ -65,7 +70,11 @@ describe("hiding zone check", () => {
         const check = checkHidingZone({ lat, lng }, [KARLSPLATZ], 500);
         expect(check?.inside).toBe(false);
         expect(zoneCheckText(check!)).toEqual({
-            title: "Outside the hiding zones",
+            title: "Choose your hiding zone",
+            detail: "Nearest: the Karlsplatz zone, 150 m away",
+        });
+        expect(zoneCheckText({ ...check!, chosen: true })).toEqual({
+            title: "Outside your hiding zone",
             detail: "150 m to the Karlsplatz zone",
         });
     });
@@ -89,6 +98,43 @@ describe("hiding zone check", () => {
         // The hider walks away
         myPosition.set({ ...northOfKarlsplatz(700), accuracy: 10, at: 1 });
         expect(hiderZoneCheck.get()?.inside).toBe(false);
+    });
+
+    it("only counts the zone the hider chose", () => {
+        hidingRadius.set(500);
+        hidingRadiusUnits.set("meters");
+        allTrainStations.set([KARLSPLATZ, STEPHANSPLATZ]);
+        hiderMode.set({ latitude: 48.2, longitude: 16.37 });
+        // Where the Karlsplatz and Stephansplatz zones overlap, nearer to
+        // Stephansplatz
+        myPosition.set({ ...northOfKarlsplatz(470), accuracy: 10, at: 0 });
+
+        hiderZoneId.set("");
+        expect(hiderZoneCheck.get()).toMatchObject({
+            chosen: false,
+            inside: true,
+            station: "Stephansplatz",
+        });
+
+        hiderZoneId.set("node/Karlsplatz");
+        expect(hiderZoneCheck.get()).toMatchObject({
+            chosen: true,
+            inside: true,
+            station: "Karlsplatz",
+        });
+
+        // Still in the Stephansplatz zone, but out of the chosen one
+        myPosition.set({ ...northOfKarlsplatz(600), accuracy: 10, at: 1 });
+        expect(hiderZoneCheck.get()).toMatchObject({
+            chosen: true,
+            inside: false,
+            station: "Karlsplatz",
+        });
+
+        // A zone that isn't in the game: back to the nearest zone
+        hiderZoneId.set("node/Elsewhere");
+        expect(hiderZoneCheck.get()?.chosen).toBe(false);
+        hiderZoneId.set("");
     });
 });
 

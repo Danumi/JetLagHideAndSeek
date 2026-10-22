@@ -6,7 +6,6 @@ import {
     hidingRadius,
     hidingRadiusUnits,
     includeDefaultStations,
-    mergeDuplicates,
     useCustomStations,
 } from "@/lib/context";
 import {
@@ -44,8 +43,9 @@ const customStationPlaces = (): StationPlace[] =>
     }));
 
 /**
- * Every station hiding zones are drawn around, as set up in the hiding zone
- * sidebar, or null if no station type is selected.
+ * Every station hiding zones are drawn around, as set up in the zone
+ * settings, or null if no station type is selected. Stations OSM has more
+ * than once are merged into one.
  */
 export const findHidingZoneStations = async (): Promise<
     StationPlace[] | null
@@ -84,15 +84,12 @@ export const findHidingZoneStations = async (): Promise<
         }
     }
 
-    if (mergeDuplicates.get()) {
-        places = await mergeDuplicateStation(
-            places,
-            hidingRadius.get(),
-            hidingRadiusUnits.get(),
-        );
-    }
-
-    return places;
+    // OSM has some stations once per line (Karlsplatz three times): one zone
+    return mergeDuplicateStation(
+        places,
+        hidingRadius.get(),
+        hidingRadiusUnits.get(),
+    );
 };
 
 /** Changes to these settings change the stations above. */
@@ -102,8 +99,10 @@ export const hidingZoneStationsKey = () =>
         useCustomStations.get(),
         includeDefaultStations.get(),
         useCustomStations.get() ? customStations.get() : [],
-        mergeDuplicates.get(),
-        mergeDuplicates.get()
-            ? [hidingRadius.get(), hidingRadiusUnits.get()]
-            : [],
+        // Duplicates are merged when their zones overlap
+        [hidingRadius.get(), hidingRadiusUnits.get()],
     ]);
+
+/** The OSM ids of a station, more than one for a merged station. */
+export const stationOsmIds = (place: StationPlace): string[] =>
+    place.properties.ids ?? [place.properties.id];

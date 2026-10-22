@@ -1,7 +1,6 @@
 import * as turf from "@turf/turf";
 
 import type { StationPlace } from "@/maps/api";
-import { arcDistance } from "@/maps/geo-utils/operators";
 
 /**
  * Function to merge duplicates stations into one station, by averaging their longitude and latitude
@@ -14,11 +13,17 @@ export async function mergeDuplicateStation(
     places: StationPlace[],
     radius: number,
     units: turf.Units,
-): StationPlace[] {
+): Promise<StationPlace[]> {
     const grouped = new Map<string, any[]>();
     // 1. Group by name
+    const merged: StationPlace[] = [];
     for (const place of places) {
-        const name = place.properties.name ?? "";
+        const name = (place.properties.name ?? "") as string;
+        // Stations without a name aren't duplicates of each other
+        if (!name) {
+            merged.push(place);
+            continue;
+        }
         // Check if the group already exist, if not add a new group entry.
         if (!grouped.has(name)) {
             grouped.set(name, [place]);
@@ -81,8 +86,11 @@ export async function mergeDuplicateStation(
     }
 
     // 2. Compute central point per group
-    const merged: any[] = [];
     grouped.forEach((group) => {
+        if (group.length === 1) {
+            merged.push(group[0]);
+            return;
+        }
         const avgLng =
             group.reduce((sum, p) => sum + p.geometry.coordinates[0], 0) /
             group.length;
@@ -92,6 +100,11 @@ export async function mergeDuplicateStation(
 
         merged.push({
             ...group[0], // copy other fields from the first feature
+            properties: {
+                ...group[0].properties,
+                // Every station's id, e.g. for the lines that stop there
+                ids: group.map((p) => p.properties.id),
+            },
             geometry: {
                 type: "Point",
                 coordinates: [avgLng, avgLat],
@@ -127,7 +140,7 @@ export async function checkIfStationsShareZones(
     station2: Location,
     radius: number,
     units: turf.Units,
-): boolean {
+): Promise<boolean> {
     // Convert to turf points
     const point1 = turf.point([
         station1.coordinates[0],
@@ -138,8 +151,9 @@ export async function checkIfStationsShareZones(
         station2.coordinates[1],
     ]);
 
-    // Distance of the 2 center points
-    const d = await arcDistance(point1, point2, units);
+    // Distance of the 2 center points (stations are close, so no need for
+    // the geodesic distance, which needs ArcGIS loaded first)
+    const d = turf.distance(point1, point2, { units });
 
     // If the distance of the 2 center points is smaller or equal of the radius, the 2 zones overlap.
     return d <= radius;

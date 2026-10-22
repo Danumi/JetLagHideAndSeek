@@ -3,7 +3,7 @@ import * as turf from "@turf/turf";
 import type { Feature, FeatureCollection } from "geojson";
 import * as L from "leaflet";
 import _ from "lodash";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 import {
@@ -14,13 +14,13 @@ import {
     displayHidingZonesOptions,
     displayHidingZonesStyle,
     followMyPosition,
+    hiderMode,
+    hiderZoneId,
     hidingRadius,
     hidingRadiusUnits,
     includeDefaultStations as includeDefaultStationsAtom,
     isLoading,
     leafletMapContext,
-    mergeDuplicates as mergeDuplicatesAtom,
-    pickingLocation,
     questionFinishedMapData,
     questions,
     selectedZoneId,
@@ -46,15 +46,41 @@ import {
     holedMask,
     safeUnion,
 } from "@/maps/geo-utils";
-import { findHidingZoneStations } from "@/maps/stations";
+import { findHidingZoneStations, stationOsmIds } from "@/maps/stations";
+import { stationId, zonesLeft } from "@/maps/zones";
+
+import { ELIMINATED_STYLE } from "./Map";
 
 /** Hiding zones are computed once settings stop changing for this long. */
 const ZONES_DELAY_MS = 400;
 
+/** A zone tapped on the map or in the zone list. */
+const SELECTED_STYLE: L.PathOptions = {
+    color: "#15803d",
+    weight: 4,
+    fillColor: "#22c55e",
+    fillOpacity: 0.35,
+};
+
+/** The zone the hider chose. */
+const HIDER_ZONE_STYLE: L.PathOptions = {
+    color: "#7c3aed",
+    weight: 4,
+    fill: false,
+};
+
+/** The only zone left: its edge, inside it what the answers ruled out. */
+const ONLY_ZONE_STYLE: L.PathOptions = {
+    color: "green",
+    weight: 3,
+    fill: false,
+};
+
 /**
- * Works out which hiding zones are left and draws them on the map, or the
- * one zone picked on the map or in the zone list. Shows nothing itself: the
- * list is the ZoneSheet, the count is at the top of the map.
+ * Works out which hiding zones are left and draws them on the map. With only
+ * one zone left, the map shows in detail where in it the hider can be. Shows
+ * nothing itself: the list is the ZoneSheet, the count is at the top of the
+ * map, a tap on the map picks a zone (Map.tsx).
  */
 export const HidingZones = () => {
     const $displayHidingZones = useStore(displayHidingZones);
@@ -67,10 +93,12 @@ export const HidingZones = () => {
     const stations = useStore(trainStations);
     const $disabledStations = useStore(disabledStations);
     const useCustomStations = useStore(useCustomStationsAtom);
-    const mergeDuplicates = useStore(mergeDuplicatesAtom);
     const includeDefaultStations = useStore(includeDefaultStationsAtom);
     const $customStations = useStore(customStationsAtom);
-    const hidingZoneModeStationID = useStore(selectedZoneId);
+    const $allTrainStations = useStore(allTrainStations);
+    const $selectedZoneId = useStore(selectedZoneId);
+    const $hiderZoneId = useStore(hiderZoneId);
+    const $hiderMode = useStore(hiderMode);
     const setStations = trainStations.set;
 
     const removeHidingZones = () => {
@@ -86,7 +114,6 @@ export const HidingZones = () => {
 
     const showGeoJSON = (
         geoJSONData: any,
-        nonOverlappingStations: boolean = false,
         additionalOptions: L.GeoJSONOptions = {},
     ) => {
         if (!map) return;
@@ -99,17 +126,9 @@ export const HidingZones = () => {
                 fillColor: "green",
                 fillOpacity: 0.2,
             },
-            onEachFeature: nonOverlappingStations
-                ? (feature, layer) => {
-                      layer.on("click", async () => {
-                          if (!map) return;
-                          // "Pick on map" takes this tap (see Map.tsx)
-                          if (pickingLocation.get()) return;
-
-                          selectedZoneId.set(feature.properties.properties.id);
-                      });
-                  }
-                : undefined,
+            // Taps go to the map, which picks the zone (also where zones
+            // overlap or are merged)
+            interactive: false,
             pointToLayer(geoJsonPoint, latlng) {
                 const marker = L.marker(latlng, {
                     icon: L.divIcon({
@@ -244,15 +263,21 @@ export const HidingZones = () => {
                                 continue;
                             } else {
                                 circles = circles.filter((circle) => {
-                                    const idProp =
-                                        circle.properties.properties.id;
-                                    if (!idProp || !idProp.includes("/"))
-                                        return false;
-                                    const id = parseInt(idProp.split("/")[1]);
+                                    // A merged station is on the line if
+                                    // any of its OSM stations is
+                                    const ids = stationOsmIds(circle.properties)
+                                        .filter((id) => id?.includes("/"))
+                                        .map((id) =>
+                                            parseInt(id.split("/")[1]),
+                                        );
+                                    if (ids.length === 0) return false;
+                                    const onLine = ids.some((id) =>
+                                        nodes.includes(id),
+                                    );
 
                                     return question.data.same
-                                        ? nodes.includes(id)
-                                        : !nodes.includes(id);
+                                        ? onLine
+                                        : !onLine;
                                 });
                             }
                         }
@@ -384,11 +409,12 @@ export const HidingZones = () => {
         useCustomStations,
         includeDefaultStations,
         $customStations,
-        mergeDuplicates,
         zonesWaited,
     ]);
 
     const [drawWaited, setDrawWaited] = useState(0);
+    // The zone last shown on its own: the map moves to a new one
+    const onlyZoneRef = useRef("");
 
     useEffect(() => {
         if (!map) return;
@@ -398,45 +424,53 @@ export const HidingZones = () => {
             });
         }
 
-        if ($displayHidingZones && hidingZoneModeStationID) {
-            const hiderStation = _.find(
-                stations,
-                (c) => c.properties.properties.id === hidingZoneModeStationID,
-            );
-
-            if (hiderStation !== undefined) {
-                selectionProcess(
-                    hiderStation,
-                    map,
-                    showGeoJSON,
-                    $questionFinishedMapData,
-                    turf.convertLength(
-                        $hidingRadius,
-                        $hidingRadiusUnits,
-                        "miles",
-                    ),
-                ).catch((error) => {
-                    console.log("Error in hiding zone selection:", error);
-                    toast.error(
-                        "An error occurred during hiding zone selection",
-                        { toastId: "hiding-zone-selection-error" },
-                    );
-                });
-            } else {
-                // The zone is gone, e.g. after a new game: back to all zones
-                selectedZoneId.set("");
-            }
-        } else if ($displayHidingZones) {
-            const activeStations = stations.filter(
-                (x) => !$disabledStations.includes(x.properties.properties.id),
-            );
-            showGeoJSON(
-                styleStations(activeStations, $displayHidingZonesStyle),
-                $displayHidingZonesStyle === "zones",
-            );
-        } else {
+        if (!$displayHidingZones) {
             removeHidingZones();
+            return;
         }
+
+        const left = zonesLeft(stations, $disabledStations);
+        showGeoJSON(styleStations(left, $displayHidingZonesStyle));
+        if (left.length !== 1 || $displayHidingZonesStyle === "no-display") {
+            onlyZoneRef.current = "";
+            return;
+        }
+
+        // One zone left: where in it the hider can still be
+        const station = left[0];
+        if (onlyZoneRef.current !== stationId(station)) {
+            onlyZoneRef.current = stationId(station);
+            const [west, south, east, north] = turf.bbox(station);
+            followMyPosition.set(false);
+            map.fitBounds(
+                [
+                    [south, west],
+                    [north, east],
+                ],
+                { padding: [40, 40] },
+            );
+        }
+
+        let cancelled = false;
+        zoneDetail(
+            station,
+            $questionFinishedMapData,
+            turf.convertLength($hidingRadius, $hidingRadiusUnits, "miles"),
+        )
+            .then((mapData) => {
+                if (!cancelled) showOnlyZone(station, mapData);
+            })
+            .catch((error) => {
+                console.log("Error in hiding zone selection:", error);
+                if (cancelled || error instanceof OverpassError) return;
+                toast.error(
+                    "Couldn't work out where in the zone the hider can be",
+                    { toastId: "hiding-zone-selection-error" },
+                );
+            });
+        return () => {
+            cancelled = true;
+        };
     }, [
         $disabledStations,
         $displayHidingZones,
@@ -444,9 +478,92 @@ export const HidingZones = () => {
         $hidingRadius,
         $hidingRadiusUnits,
         $questionFinishedMapData,
-        hidingZoneModeStationID,
         stations,
         drawWaited,
+    ]);
+
+    /** The only zone left: grey where the answers rule out parts of it. */
+    const showOnlyZone = (station: StationCircle, mapData: any) => {
+        if (!map) return;
+
+        // Only what the zone adds to the grey area the map already shows
+        let ruledOut: Feature | null = null;
+        try {
+            const all =
+                mapData.type === "FeatureCollection"
+                    ? safeUnion(mapData)
+                    : mapData;
+            const shown = $questionFinishedMapData?.features?.[0];
+            ruledOut = shown
+                ? turf.difference(turf.featureCollection([all, shown]))
+                : all;
+        } catch (error) {
+            console.log(error);
+            ruledOut = null;
+        }
+
+        removeHidingZones();
+        const layers = [
+            L.geoJSON(station, { style: ONLY_ZONE_STYLE, interactive: false }),
+        ];
+        if (ruledOut) {
+            layers.push(
+                L.geoJSON(ruledOut, {
+                    style: ELIMINATED_STYLE,
+                    interactive: false,
+                }),
+            );
+        }
+        for (const layer of layers) {
+            // @ts-expect-error This is intentionally added as a check
+            layer.hidingZones = true;
+            layer.addTo(map);
+        }
+    };
+
+    useEffect(() => {
+        if (!map) return;
+
+        // Above the zones, below the blue dot and the question markers
+        const pane =
+            map.getPane("zoneHighlight") ?? map.createPane("zoneHighlight");
+        pane.style.zIndex = "405";
+        pane.style.pointerEvents = "none";
+
+        const zoneOutline = (id: string, style: L.PathOptions) => {
+            const station = $allTrainStations.find(
+                (x) => x.properties.id === id,
+            );
+            if (!station) return null;
+            return L.geoJSON(
+                turf.circle(turf.getCoord(station), $hidingRadius, {
+                    steps: 32,
+                    units: $hidingRadiusUnits,
+                }),
+                { style, interactive: false, pane: "zoneHighlight" },
+            );
+        };
+
+        const layers: (L.GeoJSON | null)[] = [];
+        if ($displayHidingZones) {
+            if ($hiderMode !== false && $hiderZoneId) {
+                layers.push(zoneOutline($hiderZoneId, HIDER_ZONE_STYLE));
+            }
+            if ($selectedZoneId) {
+                layers.push(zoneOutline($selectedZoneId, SELECTED_STYLE));
+            }
+        }
+        const shown = layers.filter((x) => x !== null).map((x) => x.addTo(map));
+        return () => shown.forEach((layer) => layer.remove());
+    }, [
+        map,
+        $allTrainStations,
+        $displayHidingZones,
+        $hiderMode,
+        $hiderZoneId,
+        $hidingRadius,
+        $hidingRadiusUnits,
+        $selectedZoneId,
     ]);
 
     return null;
@@ -471,20 +588,15 @@ function styleStations(
     }
 }
 
-async function selectionProcess(
+/**
+ * Where the hider can't be, for one zone: everything outside it, and inside
+ * it what the answers rule out near its station (e.g. "same nearest park").
+ */
+async function zoneDetail(
     station: any,
-    map: L.Map,
-    showGeoJSON: (geoJSONData: any) => void,
     $questionFinishedMapData: any,
     hidingRadiusMiles: number,
 ) {
-    const bbox = turf.bbox(station);
-
-    const bounds: [[number, number], [number, number]] = [
-        [bbox[1], bbox[0]],
-        [bbox[3], bbox[2]],
-    ];
-
     let mapData: any = turf.featureCollection([
         safeUnion(
             turf.featureCollection([
@@ -690,29 +802,10 @@ async function selectionProcess(
 
     if (_.isEqual(mapData, BLANK_GEOJSON)) {
         toast.warning(
-            "The hider cannot be in this hiding zone. This wasn't eliminated on the sidebar as its absence was caused by multiple criteria.",
+            "The answers together rule out this whole zone, so the hider can't be in it.",
+            { toastId: "zone-ruled-out" },
         );
     }
 
-    showGeoJSON(mapData);
-
-    // Show the zone, not the blue dot
-    followMyPosition.set(false);
-    map?.fitBounds(bounds);
-
-    const element: HTMLDivElement | null = document.querySelector(
-        `[data-station-id="${station.properties.properties.id}"]`,
-    );
-
-    if (element) {
-        element.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-        });
-        element.classList.add("selected-card-background-temporary");
-
-        setTimeout(() => {
-            element.classList.remove("selected-card-background-temporary");
-        }, 5000);
-    }
+    return mapData;
 }
