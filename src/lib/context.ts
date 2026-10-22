@@ -126,8 +126,21 @@ export const hiderMode = persistentAtom<false | HiderLocation>(
         decode: JSON.parse,
     },
 );
+/**
+ * Whether someone picked this phone's role ("I'm seeking" or "I'm hiding"),
+ * at "New Game" or in the settings. Until then, a question link turns the
+ * phone into the hider's.
+ */
+export const roleChosen = persistentAtom<boolean>("roleChosen", false, {
+    encode: JSON.stringify,
+    decode: JSON.parse,
+});
 /** Whether the hider mode screen is shown on top of the map. */
 export const hiderScreenOpen = atom<boolean>(false);
+/** Whether the settings drawer is open. */
+export const settingsOpen = atom<boolean>(false);
+/** On: the map keeps your own position (the blue dot) in the middle. */
+export const followMyPosition = atom<boolean>(true);
 /** A question the seekers sent to the hider as a link. */
 export type HiderInboxEntry = {
     question: Question;

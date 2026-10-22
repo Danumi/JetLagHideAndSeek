@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import { SettingsIcon } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 
 import {
@@ -26,7 +26,6 @@ import {
     disabledStations,
     displayHidingZonesOptions,
     hiderMode,
-    hiderScreenOpen,
     hidingRadius,
     hidingRadiusUnits,
     hidingZone,
@@ -41,6 +40,7 @@ import {
     planningModeEnabled,
     polyGeoJSON,
     questions,
+    settingsOpen,
     showAllQuestionTypes,
     showDrawingTools,
     showTutorial,
@@ -48,7 +48,9 @@ import {
     triggerLocalRefresh,
     useCustomStations,
 } from "@/lib/context";
+import { setRole } from "@/lib/role";
 import {
+    cn,
     compress,
     decompress,
     fetchFromPastebin,
@@ -112,7 +114,8 @@ export const OptionDrawers = () => {
     const $preloadProgress = useStore(preloadProgress);
     const $overpassCustomHost = useStore(overpassCustomHost);
     const $questions = useStore(questions);
-    const [isOptionsOpen, setOptionsOpen] = useState(false);
+    const isOptionsOpen = useStore(settingsOpen);
+    const setOptionsOpen = settingsOpen.set;
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -465,6 +468,42 @@ export const OptionDrawers = () => {
                                 className="h-12 w-full max-w-[320px] text-lg"
                                 onStart={() => setOptionsOpen(false)}
                             />
+                            <Label>Your role on this phone</Label>
+                            <div className="grid w-full max-w-[320px] grid-cols-2 gap-2">
+                                {(
+                                    [
+                                        [false, "I'm seeking"],
+                                        [true, "I'm hiding"],
+                                    ] as const
+                                ).map(([hider, label]) => {
+                                    const active =
+                                        ($hiderMode !== false) === hider;
+                                    return (
+                                        <Button
+                                            key={label}
+                                            variant={
+                                                active ? "default" : "outline"
+                                            }
+                                            className={cn(
+                                                active &&
+                                                    (hider
+                                                        ? "bg-violet-700 text-white hover:bg-violet-800"
+                                                        : "bg-blue-600 text-white hover:bg-blue-700"),
+                                            )}
+                                            aria-pressed={active}
+                                            onClick={() => {
+                                                if (active) return;
+                                                setOptionsOpen(false);
+                                                setRole(
+                                                    hider ? "hider" : "seeker",
+                                                );
+                                            }}
+                                        >
+                                            {label}
+                                        </Button>
+                                    );
+                                })}
+                            </div>
                             <div className="grid w-full max-w-[320px] grid-cols-2 gap-2">
                                 <Button
                                     onClick={share}
@@ -877,17 +916,6 @@ export const OptionDrawers = () => {
                                     }
                                 />
                             </div>
-                            <Button
-                                className="bg-violet-700 text-white hover:bg-violet-800"
-                                onClick={() => {
-                                    setOptionsOpen(false);
-                                    hiderScreenOpen.set(true);
-                                }}
-                            >
-                                {$hiderMode === false
-                                    ? "Hider mode: use this phone as the hider's"
-                                    : "Open the hider screen"}
-                            </Button>
                         </div>
                     </div>
                 </DrawerContent>

@@ -3,6 +3,9 @@ import {
     LoaderCircleIcon,
     LocateFixedIcon,
     MapIcon,
+    MapPinIcon,
+    SettingsIcon,
+    TriangleAlertIcon,
     VenetianMaskIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -14,22 +17,20 @@ import {
     type HiderInboxEntry,
     hiderMode,
     hiderScreenOpen,
-    leafletMapContext,
     questions,
-    VIENNA,
+    settingsOpen,
 } from "@/lib/context";
 import { getCurrentPosition } from "@/lib/gps";
 import { loadingTasks, retryTrigger } from "@/lib/loading";
 import { QUESTION_URL_PARAM, readQuestionLink } from "@/lib/questionLink";
+import { questionLinkRole, setRole } from "@/lib/role";
 import { cn } from "@/lib/utils";
-import {
-    answerOptions,
-    askedAtText,
-    isPending,
-    questionTitle,
-} from "@/maps/answers";
+import { answerOptions, askedAtText, questionTitle } from "@/maps/answers";
 import { type HiderAnswer, workOutAnswer } from "@/maps/hider";
+import { hiderZoneCheck, zoneCheckText } from "@/maps/hidingZoneCheck";
 import type { Question } from "@/maps/schema";
+
+import { showActionToast } from "./UndoToast";
 
 /** Where the hider's location comes from. */
 type Fix =
@@ -42,7 +43,7 @@ type Fix =
           accuracy: number;
           at: number;
       }
-    /** The green hider marker on the map, placed by hand. */
+    /** The violet H marker on the map, placed by hand. */
     | { state: "marker" };
 
 type Result =
@@ -72,29 +73,87 @@ const clockTime = (time: number) =>
         minute: "2-digit",
     });
 
-/** Hider mode starts where the map is until GPS knows better. */
-const startHiderMode = () => {
-    if (hiderMode.get() !== false) return;
-    const center = leafletMapContext.get()?.getCenter();
-    hiderMode.set(
-        center
-            ? { latitude: center.lat, longitude: center.lng }
-            : {
-                  latitude: VIENNA.geometry.coordinates[0],
-                  longitude: VIENNA.geometry.coordinates[1],
-              },
-    );
-};
-
 const removeUrlParam = (param: string) => {
     const url = new URL(window.location.href);
     url.searchParams.delete(param);
     window.history.replaceState({}, "", url);
 };
 
+/** Worse than this, the zone check may be wrong (e.g. underground). */
+const POOR_GPS_METERS = 50;
+
+/** Whether the hider is in a hiding zone, live from the blue dot. */
+const ZoneCheckCard = () => {
+    const $zoneCheck = useStore(hiderZoneCheck);
+    if (!$zoneCheck) return null;
+
+    const { title, detail } = zoneCheckText($zoneCheck);
+    return (
+        <div
+            className={cn(
+                "flex items-center gap-3 rounded-lg border-2 p-3",
+                $zoneCheck.inside
+                    ? "border-green-600 bg-green-600/10"
+                    : "border-orange-500 bg-orange-500/10",
+            )}
+        >
+            {$zoneCheck.inside ? (
+                <MapPinIcon className="size-6 shrink-0 text-green-500" />
+            ) : (
+                <TriangleAlertIcon className="size-6 shrink-0 text-orange-500" />
+            )}
+            <div className="min-w-0 flex-1">
+                <div className="font-semibold">{title}</div>
+                <div className="text-sm text-muted-foreground">{detail}</div>
+                {($zoneCheck.accuracy ?? 0) > POOR_GPS_METERS && (
+                    <div className="text-xs text-orange-400">
+                        Your GPS is only accurate to ±
+                        {Math.round($zoneCheck.accuracy ?? 0)} m here.
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
+/** A question link opened on this phone: the hider's phone answers it. */
+const receiveQuestionLink = (entry: HiderInboxEntry) => {
+    hiderInbox.set([
+        ...hiderInbox
+            .get()
+            .filter((x) => x.question.key !== entry.question.key),
+        entry,
+    ]);
+
+    const role = questionLinkRole();
+    if (role === "hider") {
+        hiderScreenOpen.set(true);
+        return;
+    }
+
+    if (role === "seeker") {
+        showActionToast(
+            "This question is for the hider. This phone is set to seeking.",
+            "I'm hiding",
+            () => setRole("hider"),
+            10000,
+        );
+        return;
+    }
+
+    setRole("hider");
+    showActionToast(
+        "This phone is now the hider's. You can change this in the settings.",
+        "I'm seeking",
+        () => setRole("seeker"),
+        10000,
+    );
+};
+
 /**
- * The hider's own screen: questions the seekers sent as links, with the
- * answer the app works out from the hider's GPS location.
+ * The hider's main screen: whether they are in a hiding zone, and the
+ * questions the seekers sent as links, with the answer the app works out
+ * from the hider's GPS location.
  */
 export const HiderScreen = () => {
     const $open = useStore(hiderScreenOpen);
@@ -106,8 +165,6 @@ export const HiderScreen = () => {
     const [selectedKey, setSelectedKey] = useState<number | null>(null);
     const [result, setResult] = useState<Result | null>(null);
     const [attempt, setAttempt] = useState(0);
-    // A question link opened on a phone that has questions of its own
-    const [confirming, setConfirming] = useState(false);
 
     const locate = async () => {
         setFix({ state: "locating" });
@@ -148,23 +205,12 @@ export const HiderScreen = () => {
                     return;
                 }
 
-                hiderInbox.set([
-                    ...hiderInbox
-                        .get()
-                        .filter((entry) => entry.question.key !== question.key),
-                    { question, number, receivedAt: Date.now() },
-                ]);
                 setSelectedKey(null);
-
-                if (
-                    hiderMode.get() === false &&
-                    questions.get().some(isPending)
-                ) {
-                    setConfirming(true);
-                } else {
-                    startHiderMode();
-                }
-                hiderScreenOpen.set(true);
+                receiveQuestionLink({
+                    question,
+                    number,
+                    receivedAt: Date.now(),
+                });
             })
             .catch((error) => {
                 removeUrlParam(QUESTION_URL_PARAM);
@@ -177,8 +223,8 @@ export const HiderScreen = () => {
 
     // Find the hider whenever the screen opens: they may have moved
     useEffect(() => {
-        if ($open && hiderMode.get() !== false && !confirming) locate();
-    }, [$open, $hiderMode === false, confirming]);
+        if ($open && hiderMode.get() !== false) locate();
+    }, [$open, $hiderMode === false]);
 
     const entry =
         $inbox.find((x) => x.question.key === selectedKey) ??
@@ -232,227 +278,157 @@ export const HiderScreen = () => {
         $retryTrigger,
     ]);
 
-    if (!$open) return null;
+    // Only the hider's phone has this screen
+    if (!$open || $hiderMode === false) return null;
 
-    const close = () => {
-        setConfirming(false);
-        hiderScreenOpen.set(false);
-    };
-
-    const leave = () => {
-        hiderMode.set(false);
-        close();
-    };
+    const close = () => hiderScreenOpen.set(false);
 
     const fromGps =
         fix.state === "gps" &&
-        $hiderMode !== false &&
         fix.latitude === $hiderMode.latitude &&
         fix.longitude === $hiderMode.longitude;
 
     const current = result && entry && result.key === entry.question.key;
     const earlier = $inbox.filter((x) => x !== entry).reverse();
 
-    let body;
-    if (confirming) {
-        const pending = questions.get().filter(isPending).length;
-        body = (
-            <div className="flex flex-col gap-4">
-                <h2 className="text-2xl font-semibold font-poppins">
-                    Are you the hider?
-                </h2>
-                <p>
-                    The seekers sent you a question. This phone has{" "}
-                    {pending === 1 ? "a question" : `${pending} questions`} of
-                    its own waiting for an answer, so it looks like a
-                    seeker&apos;s phone. In hider mode, the map answers those
-                    questions from this phone&apos;s location.
-                </p>
-                <Button
-                    className="h-14 bg-violet-600 text-lg font-semibold text-white hover:bg-violet-700"
-                    onClick={() => {
-                        setConfirming(false);
-                        startHiderMode();
-                    }}
-                >
-                    I&apos;m the hider
-                </Button>
-                <Button variant="outline" className="h-12" onClick={close}>
-                    Cancel
-                </Button>
-            </div>
-        );
-    } else if ($hiderMode === false) {
-        body = (
-            <div className="flex flex-col gap-4">
-                <h2 className="text-2xl font-semibold font-poppins">
-                    Use this phone as the hider&apos;s phone
-                </h2>
-                <p>
-                    The seekers send each question as a link. Open it on this
-                    phone: the app takes your GPS location and shows you the
-                    answer. Then tell the seekers the answer in your chat.
-                </p>
-                <Button
-                    className="h-14 bg-violet-600 text-lg font-semibold text-white hover:bg-violet-700"
-                    onClick={startHiderMode}
-                >
-                    Start hider mode
-                </Button>
-                <Button variant="outline" className="h-12" onClick={close}>
-                    Cancel
-                </Button>
-            </div>
-        );
-    } else {
-        body = (
-            <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-3 rounded-lg border p-3">
-                    <LocateFixedIcon className="size-5 shrink-0" />
-                    <div className="min-w-0 flex-1 text-sm">
-                        {fix.state === "locating" && "Getting your location..."}
-                        {fix.state === "failed" && (
-                            <span className="text-orange-400">
-                                Couldn&apos;t get your location. Allow location
-                                access for this site, or use the green marker on
-                                the map.
-                            </span>
-                        )}
-                        {fix.state === "gps" &&
-                            (fromGps
-                                ? `Your location: GPS, ${clockTime(fix.at)}, ±${Math.round(
-                                      fix.accuracy,
-                                  )} m`
-                                : "Your location: the green marker on the map")}
-                        {fix.state === "marker" &&
-                            "Your location: the green marker on the map"}
-                    </div>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        disabled={fix.state === "locating"}
-                        onClick={locate}
-                    >
-                        Update
-                    </Button>
+    const body = (
+        <div className="flex flex-col gap-4">
+            <ZoneCheckCard />
+            <div className="flex items-center gap-3 rounded-lg border p-3">
+                <LocateFixedIcon className="size-5 shrink-0" />
+                <div className="min-w-0 flex-1 text-sm">
+                    {fix.state === "locating" && "Getting your location..."}
+                    {fix.state === "failed" && (
+                        <span className="text-orange-400">
+                            Couldn&apos;t get your location. Allow location
+                            access for this site, or use the violet H marker on
+                            the map.
+                        </span>
+                    )}
+                    {fix.state === "gps" &&
+                        (fromGps
+                            ? `Your location: GPS, ${clockTime(fix.at)}, ±${Math.round(
+                                  fix.accuracy,
+                              )} m`
+                            : "Your location: the H marker on the map")}
+                    {fix.state === "marker" &&
+                        "Your location: the H marker on the map"}
                 </div>
-                {fix.state === "failed" && (
-                    <Button
-                        variant="outline"
-                        onClick={() => setFix({ state: "marker" })}
-                    >
-                        Use the green marker
-                    </Button>
-                )}
-
-                {entry ? (
-                    <div className="flex flex-col gap-3 rounded-lg border-2 border-violet-500 p-4">
-                        <div>
-                            <div className="text-sm text-muted-foreground">
-                                Question from the seekers
-                                {askedAtText(entry.question) &&
-                                    ` · asked ${askedAtText(entry.question)}`}
-                            </div>
-                            <div className="text-xl font-semibold font-poppins">
-                                {entryTitle(entry)}
-                            </div>
-                        </div>
-                        {!location && (
-                            <p className="text-sm text-muted-foreground">
-                                Your answer appears once your location is known.
-                            </p>
-                        )}
-                        {location && current && result.state === "working" && (
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                <LoaderCircleIcon className="size-4 animate-spin" />
-                                {$loadingTasks[0]?.label ??
-                                    "Working out your answer..."}
-                            </div>
-                        )}
-                        {location && current && result.state === "error" && (
-                            <div className="flex flex-col gap-2">
-                                <p className="text-sm text-orange-400">
-                                    Couldn&apos;t work out the answer: map data
-                                    didn&apos;t load.
-                                </p>
-                                <Button
-                                    variant="outline"
-                                    onClick={() => setAttempt(attempt + 1)}
-                                >
-                                    Try again
-                                </Button>
-                            </div>
-                        )}
-                        {location && current && result.state === "done" && (
-                            <div className="flex flex-col gap-2">
-                                <div className="text-sm text-muted-foreground">
-                                    Your answer
-                                </div>
-                                <div className="text-4xl font-bold font-poppins text-violet-300">
-                                    {answerLabel(entry.question, result.answer)}
-                                </div>
-                                {result.answer.reason && (
-                                    <p className="text-sm">
-                                        {result.answer.reason}
-                                    </p>
-                                )}
-                                <p className="text-sm text-muted-foreground">
-                                    Tell the seekers this answer in your chat.
-                                    Only the answer: the reason above is for
-                                    you.
-                                </p>
-                            </div>
-                        )}
-                    </div>
-                ) : (
-                    <p className="text-muted-foreground">
-                        No question yet. When the seekers send you a question
-                        link, open it on this phone and your answer appears
-                        here.
-                    </p>
-                )}
-
-                {earlier.length > 0 && (
-                    <div className="flex flex-col gap-1">
-                        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                            Earlier questions
-                        </h3>
-                        {earlier.map((x) => (
-                            <button
-                                key={x.question.key}
-                                className="flex items-center gap-2 rounded-md px-2 py-2 text-left text-sm hover:bg-accent"
-                                onClick={() => setSelectedKey(x.question.key)}
-                            >
-                                <span className="min-w-0 flex-1">
-                                    <span className="font-semibold">
-                                        {entryTitle(x)}
-                                    </span>
-                                    {x.answer && (
-                                        <span className="text-violet-300">
-                                            {" "}
-                                            · {x.answer}
-                                        </span>
-                                    )}
-                                    <span className="text-muted-foreground">
-                                        {" "}
-                                        · {clockTime(x.receivedAt)}
-                                    </span>
-                                </span>
-                            </button>
-                        ))}
-                    </div>
-                )}
-
                 <Button
                     variant="outline"
-                    className="mt-4 text-red-400"
-                    onClick={leave}
+                    size="sm"
+                    disabled={fix.state === "locating"}
+                    onClick={locate}
                 >
-                    Leave hider mode
+                    Update
                 </Button>
             </div>
-        );
-    }
+            {fix.state === "failed" && (
+                <Button
+                    variant="outline"
+                    onClick={() => setFix({ state: "marker" })}
+                >
+                    Use the H marker
+                </Button>
+            )}
+
+            {entry ? (
+                <div className="flex flex-col gap-3 rounded-lg border-2 border-violet-500 p-4">
+                    <div>
+                        <div className="text-sm text-muted-foreground">
+                            Question from the seekers
+                            {askedAtText(entry.question) &&
+                                ` · asked ${askedAtText(entry.question)}`}
+                        </div>
+                        <div className="text-xl font-semibold font-poppins">
+                            {entryTitle(entry)}
+                        </div>
+                    </div>
+                    {!location && (
+                        <p className="text-sm text-muted-foreground">
+                            Your answer appears once your location is known.
+                        </p>
+                    )}
+                    {location && current && result.state === "working" && (
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <LoaderCircleIcon className="size-4 animate-spin" />
+                            {$loadingTasks[0]?.label ??
+                                "Working out your answer..."}
+                        </div>
+                    )}
+                    {location && current && result.state === "error" && (
+                        <div className="flex flex-col gap-2">
+                            <p className="text-sm text-orange-400">
+                                Couldn&apos;t work out the answer: map data
+                                didn&apos;t load.
+                            </p>
+                            <Button
+                                variant="outline"
+                                onClick={() => setAttempt(attempt + 1)}
+                            >
+                                Try again
+                            </Button>
+                        </div>
+                    )}
+                    {location && current && result.state === "done" && (
+                        <div className="flex flex-col gap-2">
+                            <div className="text-sm text-muted-foreground">
+                                Your answer
+                            </div>
+                            <div className="text-4xl font-bold font-poppins text-violet-300">
+                                {answerLabel(entry.question, result.answer)}
+                            </div>
+                            {result.answer.reason && (
+                                <p className="text-sm">
+                                    {result.answer.reason}
+                                </p>
+                            )}
+                            <p className="text-sm text-muted-foreground">
+                                Tell the seekers this answer in your chat. Only
+                                the answer: the reason above is for you.
+                            </p>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <p className="text-muted-foreground">
+                    No question yet. When the seekers send you a question link,
+                    open it on this phone and your answer appears here.
+                </p>
+            )}
+
+            {earlier.length > 0 && (
+                <div className="flex flex-col gap-1">
+                    <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                        Earlier questions
+                    </h3>
+                    {earlier.map((x) => (
+                        <button
+                            key={x.question.key}
+                            className="flex items-center gap-2 rounded-md px-2 py-2 text-left text-sm hover:bg-accent"
+                            onClick={() => setSelectedKey(x.question.key)}
+                        >
+                            <span className="min-w-0 flex-1">
+                                <span className="font-semibold">
+                                    {entryTitle(x)}
+                                </span>
+                                {x.answer && (
+                                    <span className="text-violet-300">
+                                        {" "}
+                                        · {x.answer}
+                                    </span>
+                                )}
+                                <span className="text-muted-foreground">
+                                    {" "}
+                                    · {clockTime(x.receivedAt)}
+                                </span>
+                            </span>
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
 
     return (
         <div className="fixed inset-0 z-[1036] flex flex-col bg-background text-foreground">
@@ -461,13 +437,17 @@ export const HiderScreen = () => {
                 <h1 className="flex-1 text-2xl font-semibold font-poppins">
                     Hider mode
                 </h1>
-                <Button
-                    variant="secondary"
-                    className={cn("gap-2", $hiderMode === false && "hidden")}
-                    onClick={close}
-                >
+                <Button variant="secondary" className="gap-2" onClick={close}>
                     <MapIcon />
                     Map
+                </Button>
+                <Button
+                    variant="secondary"
+                    size="icon"
+                    title="Settings"
+                    onClick={() => settingsOpen.set(true)}
+                >
+                    <SettingsIcon />
                 </Button>
             </div>
             <div className="flex-1 overflow-y-auto">

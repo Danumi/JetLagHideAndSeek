@@ -56,8 +56,9 @@ const SideButton = ({
 
 /**
  * The three big buttons below the map: the questions asked so far, a new
- * question, the hiding zones. Above them, the running thermometer and the
- * reminder of questions waiting for an answer.
+ * question, the hiding zones (the hider: back to the hider screen, the
+ * hiding zones). Above them, the running thermometer and the reminder of
+ * questions waiting for an answer.
  */
 export const BottomBar = () => {
     const $questions = useStore(questions);
@@ -77,14 +78,17 @@ export const BottomBar = () => {
             )}
             <nav className="flex justify-center border-t bg-background px-2 py-2">
                 <div className="flex w-full max-w-xl items-center gap-2">
-                    <SideButton
-                        icon={<ListIcon />}
-                        label="Questions"
-                        badge={$questions.length}
-                        alert={anyPending}
-                        onClick={() => SidebarContext.get().toggleSidebar()}
-                        data-tutorial-id="left-sidebar-trigger"
-                    />
+                    {/* The hider's questions are on the hider screen */}
+                    {$hiderMode === false && (
+                        <SideButton
+                            icon={<ListIcon />}
+                            label="Questions"
+                            badge={$questions.length}
+                            alert={anyPending}
+                            onClick={() => SidebarContext.get().toggleSidebar()}
+                            data-tutorial-id="left-sidebar-trigger"
+                        />
+                    )}
                     {$hiderMode === false ? (
                         <AskQuestionDrawer className="flex-[1.6]" />
                     ) : (

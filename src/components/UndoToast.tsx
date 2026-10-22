@@ -3,26 +3,35 @@ import { toast } from "react-toastify";
 import { questions } from "@/lib/context";
 import type { Questions } from "@/maps/schema";
 
-/** Shows a toast with an undo button for a few seconds. */
-export const showUndoToast = (message: string, onUndo: () => void) => {
+/** Shows a toast with one button for a few seconds. */
+export const showActionToast = (
+    message: string,
+    label: string,
+    onAction: () => void,
+    autoClose = 8000,
+) => {
     toast.info(
         ({ closeToast }) => (
             <div className="flex items-center justify-between gap-3">
                 <span>{message}</span>
                 <button
-                    className="rounded-md bg-blue-600 px-3 py-1 font-semibold text-white"
+                    className="shrink-0 rounded-md bg-blue-600 px-3 py-1 font-semibold text-white"
                     onClick={() => {
-                        onUndo();
+                        onAction();
                         closeToast();
                     }}
                 >
-                    Undo
+                    {label}
                 </button>
             </div>
         ),
-        { autoClose: 8000, closeOnClick: false },
+        { autoClose, closeOnClick: false },
     );
 };
+
+/** Shows a toast with an undo button for a few seconds. */
+export const showUndoToast = (message: string, onUndo: () => void) =>
+    showActionToast(message, "Undo", onUndo);
 
 export const deleteQuestionWithUndo = (questionKey: number) => {
     const current = questions.get();

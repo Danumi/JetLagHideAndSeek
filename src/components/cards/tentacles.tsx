@@ -14,7 +14,6 @@ import {
 import { UnitSelect } from "@/components/UnitSelect";
 import {
     drawingQuestionKey,
-    hiderMode,
     isLoading,
     questionModified,
     questions,
@@ -228,7 +227,6 @@ const TentacleLocationSelector = ({
     disabled: boolean;
 }) => {
     useStore(triggerLocalRefresh);
-    const $hiderMode = useStore(hiderMode);
     const locations = use(promise);
     const [filteredFeatures, setFilteredFeatures] = useState<any[]>([]);
 
@@ -318,7 +316,7 @@ const TentacleLocationSelector = ({
 
                 questionModified();
             }}
-            disabled={!!$hiderMode || disabled}
+            disabled={disabled}
         />
     );
 };

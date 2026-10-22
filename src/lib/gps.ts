@@ -1,12 +1,14 @@
 import { toast } from "react-toastify";
 
 import { SidebarContext } from "@/components/ui/sidebar-l";
-import { leafletMapContext, myPosition } from "@/lib/context";
+import { followMyPosition, leafletMapContext, myPosition } from "@/lib/context";
 
 export type LatLng = { lat: number; lng: number };
 
 /** The blue dot's position is used right away while it is this fresh. */
 const FRESH_POSITION_MS = 15_000;
+/** How close the map zooms in when it jumps to your position. */
+export const MY_POSITION_ZOOM = 15;
 
 /** The device's position (accuracy in meters), or null when the browser can't or won't tell. */
 export const getCurrentPosition = (): Promise<
@@ -39,6 +41,22 @@ export const getCurrentPosition = (): Promise<
             },
         );
     });
+
+/**
+ * Puts your own position (the blue dot) in the middle of the map, and keeps
+ * it there until you move the map. False when there is no position.
+ */
+export const followMe = async () => {
+    const map = leafletMapContext.get();
+    const position = myPosition.get() ?? (await getCurrentPosition());
+    if (!map || !position) return false;
+    followMyPosition.set(true);
+    map.setView(
+        [position.lat, position.lng],
+        Math.max(map.getZoom(), MY_POSITION_ZOOM),
+    );
+    return true;
+};
 
 /**
  * Where a new question starts: the seekers' GPS position, or the map center

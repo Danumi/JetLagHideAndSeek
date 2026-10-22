@@ -1,5 +1,6 @@
 import { useStore } from "@nanostores/react";
 import { divIcon, type DragEndEvent } from "leaflet";
+import { computed } from "nanostores";
 import { useMemo, useState } from "react";
 import { Fragment } from "react/jsx-runtime";
 import { Marker } from "react-leaflet";
@@ -8,6 +9,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
     autoSave,
     hiderMode,
+    myPosition,
     questionModified,
     questions,
     save,
@@ -25,10 +27,12 @@ import {
     TentacleQuestionComponent,
     ThermometerQuestionComponent,
 } from "./QuestionCards";
-import { Button } from "./ui/button";
 import { SidebarMenu } from "./ui/sidebar-l";
 
 let isDragging = false;
+
+/** The blue dot shows where you are; without it the hider places the H marker. */
+const hasMyPosition = computed(myPosition, (position) => position !== null);
 
 /**
  * A pin with the question's number. Hollow pins are a thermometer's start,
@@ -195,17 +199,6 @@ const ColoredMarker = ({
                                 return null;
                         }
                     })}
-                {questionKey === -1 && (
-                    <Button // If it's the hider mode marker
-                        onClick={() => {
-                            hiderMode.set(false);
-                        }}
-                        variant="destructive"
-                        className="font-semibold font-poppins"
-                    >
-                        Leave hider mode
-                    </Button>
-                )}
                 {!$autoSave && (
                     <button
                         onClick={save}
@@ -223,10 +216,11 @@ export const DraggableMarkers = () => {
     useStore(triggerLocalRefresh);
     const $questions = useStore(questions);
     const $hiderMode = useStore(hiderMode);
+    const $hasMyPosition = useStore(hasMyPosition);
 
     return (
         <Fragment>
-            {$hiderMode !== false && (
+            {$hiderMode !== false && !$hasMyPosition && (
                 <ColoredMarker
                     color="violet"
                     label="H"
