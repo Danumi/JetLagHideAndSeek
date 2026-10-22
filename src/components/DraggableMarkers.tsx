@@ -19,6 +19,7 @@ import {
 import { pickOnMap, placePickedPoint } from "@/lib/gps";
 import { isLogged, isPending } from "@/maps/answers";
 import { ICON_COLORS } from "@/maps/api";
+import type { Question } from "@/maps/schema";
 
 import { QuestionLogRow } from "./cards/answer";
 import {
@@ -28,6 +29,7 @@ import {
     TentacleQuestionComponent,
     ThermometerQuestionComponent,
 } from "./QuestionCards";
+import { questionIconSvg } from "./questionIcons";
 
 let isDragging = false;
 
@@ -35,29 +37,38 @@ let isDragging = false;
 const hasMyPosition = computed(myPosition, (position) => position !== null);
 
 /**
- * A pin with the question's number. Hollow pins are a thermometer's start,
- * an orange ring means the question still waits for its answer.
+ * A pin with the symbol of the question's kind (or a letter). Hollow pins
+ * are a thermometer's start, an orange ring means the question still waits
+ * for its answer, answered questions get a smaller, paler pin.
  */
-const numberedPin = (
-    label: string,
+const questionPin = (
+    symbol: { kind: Question["id"] } | { letter: string },
     color: string,
-    { hollow = false, pending = false } = {},
-) =>
-    divIcon({
+    { hollow = false, pending = false, answered = false } = {},
+) => {
+    const size = answered ? 24 : 32;
+    const tip = size * 0.375;
+    const ink = hollow ? color : "#fff";
+    const inner =
+        "kind" in symbol
+            ? questionIconSvg(symbol.kind, size / 2, ink)
+            : symbol.letter;
+    return divIcon({
         className: "",
-        iconSize: [32, 42],
-        iconAnchor: [16, 40],
-        html: `<div style="position:relative;width:32px;height:42px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))">
-            <div style="position:absolute;left:10px;top:24px;width:12px;height:12px;background:${color};transform:rotate(45deg)"></div>
-            <div style="position:absolute;left:0;top:0;width:32px;height:32px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font:700 15px/1 Poppins,sans-serif;background:${hollow ? "#fff" : color};color:${hollow ? color : "#fff"};border:3px solid ${pending ? "#f97316" : hollow ? color : "#fff"}">${label}</div>
+        iconSize: [size, size + tip],
+        iconAnchor: [size / 2, size * 0.75 + tip * 1.3],
+        html: `<div style="position:relative;width:${size}px;height:${size + tip}px;opacity:${answered ? 0.8 : 1};filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))">
+            <div style="position:absolute;left:${(size - tip) / 2}px;top:${size * 0.75}px;width:${tip}px;height:${tip}px;background:${color};transform:rotate(45deg)"></div>
+            <div style="position:absolute;left:0;top:0;width:${size}px;height:${size}px;box-sizing:border-box;border-radius:9999px;display:flex;align-items:center;justify-content:center;font:700 15px/1 Poppins,sans-serif;background:${hollow ? "#fff" : color};color:${ink};border:${answered ? 2 : 3}px solid ${pending ? "#f97316" : hollow ? color : "#fff"}">${inner}</div>
         </div>`,
     });
+};
 
 const ColoredMarker = ({
     latitude,
     longitude,
     color,
-    label,
+    letter,
     hollow = false,
     draggable = true,
     onChange,
@@ -68,7 +79,8 @@ const ColoredMarker = ({
     latitude: number;
     longitude: number;
     color: keyof typeof ICON_COLORS;
-    label: string;
+    /** Shown instead of the question's symbol, like "H" for the hider. */
+    letter?: string;
     hollow?: boolean;
     draggable?: boolean;
     questionKey: number;
@@ -79,18 +91,21 @@ const ColoredMarker = ({
     const [open, setOpen] = useState(false);
     const question = $questions.find((q) => q.key === questionKey);
     const pending = !!question && isPending(question);
+    const answered = !!question && isLogged(question);
     // "Pick on map" needs the map: the question card here makes way
     useEffect(
         () => pickingLocation.listen((target) => target && setOpen(false)),
         [],
     );
+    const kind = question?.id;
     const icon = useMemo(
         () =>
-            numberedPin(label, ICON_COLORS[color] ?? ICON_COLORS.blue, {
-                hollow,
-                pending,
-            }),
-        [label, color, hollow, pending],
+            questionPin(
+                kind && !letter ? { kind } : { letter: letter ?? "?" },
+                ICON_COLORS[color] ?? ICON_COLORS.blue,
+                { hollow, pending, answered },
+            ),
+        [kind, letter, color, hollow, pending, answered],
     );
 
     return (
@@ -145,13 +160,7 @@ const ColoredMarker = ({
                     .map((q) => {
                         // Answered questions: their line from the question log
                         if (isLogged(q)) {
-                            return (
-                                <QuestionLogRow
-                                    key={q.key}
-                                    question={q}
-                                    number={$questions.indexOf(q) + 1}
-                                />
-                            );
+                            return <QuestionLogRow key={q.key} question={q} />;
                         }
                         switch (q.id) {
                             case "radius":
@@ -219,7 +228,7 @@ export const DraggableMarkers = () => {
             {$hiderMode !== false && !$hasMyPosition && (
                 <ColoredMarker
                     color="violet"
-                    label="H"
+                    letter="H"
                     key="hider"
                     sub="Your hiding spot"
                     questionKey={-1}
@@ -237,12 +246,11 @@ export const DraggableMarkers = () => {
                     }}
                 />
             )}
-            {$questions.map((question, index) => {
+            {$questions.map((question) => {
                 if (!question.data) return null;
                 if (question.data.hidden) return null;
                 // Answered questions stay on the map, locked in place
                 const draggable = !!question.data.drag;
-                const label = String(index + 1);
                 if (
                     question.id === "matching" &&
                     question.data.type === "custom-zone"
@@ -257,7 +265,6 @@ export const DraggableMarkers = () => {
                         return (
                             <ColoredMarker
                                 color={question.data.color}
-                                label={label}
                                 draggable={draggable}
                                 key={question.key}
                                 questionKey={question.key}
@@ -275,9 +282,9 @@ export const DraggableMarkers = () => {
                     case "thermometer":
                         return (
                             <Fragment key={question.key}>
+                                {/* One color for both ends: they're one question */}
                                 <ColoredMarker
-                                    color={question.data.colorA}
-                                    label={label}
+                                    color={question.data.colorB}
                                     hollow
                                     draggable={draggable}
                                     key={"a" + question.key.toString()}
@@ -295,7 +302,6 @@ export const DraggableMarkers = () => {
                                 />
                                 <ColoredMarker
                                     color={question.data.colorB}
-                                    label={label}
                                     draggable={draggable}
                                     key={"b" + question.key.toString()}
                                     questionKey={question.key}

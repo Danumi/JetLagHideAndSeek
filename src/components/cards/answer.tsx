@@ -3,9 +3,10 @@ import { SendIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
+import { QUESTION_ICONS } from "@/components/questionIcons";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { allTrainStations, questionModified, questions } from "@/lib/context";
+import { allTrainStations, questionModified } from "@/lib/context";
 import { scrollToQuestion } from "@/lib/gps";
 import { questionLink } from "@/lib/questionLink";
 import { cn, shareMessage } from "@/lib/utils";
@@ -26,29 +27,24 @@ import { placeText } from "./location";
 import { NearestNote } from "./nearest";
 
 /**
- * The question's number, colored like its pin on the map. An orange ring:
- * the question waits for the hider's answer.
+ * The symbol of the question's kind, colored like its pin on the map. An
+ * orange ring: the question waits for the hider's answer.
  */
-export const QuestionBadge = ({
-    question,
-    number,
-}: {
-    question: Question;
-    number: number;
-}) => {
+export const QuestionBadge = ({ question }: { question: Question }) => {
     const color =
         question.id === "thermometer"
             ? question.data.colorB
             : question.data.color;
+    const Icon = QUESTION_ICONS[question.id];
     return (
         <span
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 text-sm font-bold text-white"
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 text-white"
             style={{
                 background: ICON_COLORS[color] ?? ICON_COLORS.blue,
                 borderColor: isPending(question) ? "#f97316" : "#ffffff",
             }}
         >
-            {number}
+            <Icon className="h-4 w-4" strokeWidth={2.5} />
         </span>
     );
 };
@@ -130,17 +126,14 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
  * their phone works out the answer from their location.
  */
 export const SendToHider = ({ question }: { question: Question }) => {
-    const $questions = useStore(questions);
     const [busy, setBusy] = useState(false);
 
     const send = async () => {
         setBusy(true);
         try {
-            const index = $questions.findIndex((q) => q.key === question.key);
-            const number = index === -1 ? undefined : index + 1;
-            const link = await questionLink(question, number);
+            const link = await questionLink(question);
             const result = await shareMessage(
-                `Question${number ? ` ${number}` : ""} for the hider: ${questionTitle(
+                `Question for the hider: ${questionTitle(
                     question,
                 )}\nOpen this link to see your answer: ${link}`,
             );
@@ -179,13 +172,7 @@ export const SendToHider = ({ question }: { question: Question }) => {
  * An answered question as one line of the question log, like
  * "3 · Radar 2 km · Karlsplatz · Outside · 14:32", with what's nearest below.
  */
-export const QuestionLogRow = ({
-    question,
-    number,
-}: {
-    question: Question;
-    number: number;
-}) => {
+export const QuestionLogRow = ({ question }: { question: Question }) => {
     const $allTrainStations = useStore(allTrainStations);
     const place = useMemo(
         () => placeText(question, $allTrainStations),
@@ -199,7 +186,7 @@ export const QuestionLogRow = ({
                 className="flex items-start gap-2 px-3 py-2"
                 data-question-key={question.key}
             >
-                <QuestionBadge question={question} number={number} />
+                <QuestionBadge question={question} />
                 <div className="min-w-0 flex-1 text-sm leading-snug">
                     <span className="font-semibold">
                         {questionTitle(question)}

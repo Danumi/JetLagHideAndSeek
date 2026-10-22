@@ -49,14 +49,12 @@ const PointRow = ({
     label,
     lat,
     lng,
-    number,
     target,
     disabled,
 }: {
     label: string;
     lat: number;
     lng: number;
-    number: number;
     target: PickTarget;
     disabled?: boolean;
 }) => {
@@ -69,7 +67,7 @@ const PointRow = ({
                 <MapPinIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
                 <span className="text-muted-foreground">{label}:</span>
                 <span className="min-w-0 truncate font-semibold">
-                    {station ? `near ${station}` : `pin ${number} on the map`}
+                    {station ? `near ${station}` : "its pin on the map"}
                 </span>
             </div>
             <div className="grid grid-cols-2 gap-2">
@@ -101,13 +99,7 @@ const PointRow = ({
  * The point moves with "Use my location", "Pick on map" or by dragging its
  * pin on the map.
  */
-export const QuestionLocation = ({
-    question,
-    number,
-}: {
-    question: Question;
-    number: number;
-}) => {
+export const QuestionLocation = ({ question }: { question: Question }) => {
     const disabled = !question.data.drag;
 
     if (question.id === "thermometer") {
@@ -117,7 +109,6 @@ export const QuestionLocation = ({
                     label="Start"
                     lat={question.data.latA}
                     lng={question.data.lngA}
-                    number={number}
                     target={{ questionKey: question.key, point: "start" }}
                     disabled={disabled}
                 />
@@ -125,7 +116,6 @@ export const QuestionLocation = ({
                     label="End"
                     lat={question.data.latB}
                     lng={question.data.lngB}
-                    number={number}
                     target={{ questionKey: question.key, point: "end" }}
                     disabled={disabled}
                 />
@@ -143,7 +133,6 @@ export const QuestionLocation = ({
             label="Asked at"
             lat={question.data.lat}
             lng={question.data.lng}
-            number={number}
             target={{ questionKey: question.key }}
             disabled={disabled}
         />
