@@ -43,7 +43,7 @@ const ELIMINATED_STYLE: L.PathOptions = {
     color: "#334155",
     weight: 2,
     fillColor: "#475569",
-    fillOpacity: 0.45,
+    fillOpacity: 0.3,
 };
 
 const getTileLayer = (tileLayer: string) => {

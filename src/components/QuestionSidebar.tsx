@@ -37,8 +37,7 @@ const SectionHeading = ({ children }: { children: React.ReactNode }) => (
 
 /**
  * The questions asked so far: open ones (waiting for the answer or being
- * edited) on top as cards, answered ones below as the question log. The
- * numbers stay the order they were asked in, like on the map pins.
+ * edited) on top as cards, answered ones below as the question log.
  */
 export const QuestionSidebar = () => {
     useStore(triggerLocalRefresh);
@@ -119,11 +118,7 @@ export const QuestionSidebar = () => {
                     <SectionHeading>Answered</SectionHeading>
                 )}
                 {answered.map((question) => (
-                    <QuestionLogRow
-                        key={question.key}
-                        question={question}
-                        number={$questions.indexOf(question) + 1}
-                    />
+                    <QuestionLogRow key={question.key} question={question} />
                 ))}
             </SidebarContent>
             <SidebarGroup>

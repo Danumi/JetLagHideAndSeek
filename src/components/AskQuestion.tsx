@@ -41,19 +41,28 @@ import {
     THERMOMETER_DISTANCES,
 } from "@/maps/deck";
 
+import { QUESTION_ICONS } from "./questionIcons";
+
 const KINDS = {
     matching: {
         label: "Matching",
         question: "Is your nearest ___ the same as mine?",
+        icon: QUESTION_ICONS.matching,
     },
     measuring: {
         label: "Measuring",
         question: "Compared to me, are you closer to or further from ___?",
+        icon: QUESTION_ICONS.measuring,
     },
-    radar: { label: "Radar", question: "Are you within ___ of me?" },
+    radar: {
+        label: "Radar",
+        question: "Are you within ___ of me?",
+        icon: QUESTION_ICONS.radius,
+    },
     thermometer: {
         label: "Thermometer",
         question: "After traveling ___, am I hotter or colder?",
+        icon: QUESTION_ICONS.thermometer,
     },
 } as const;
 
@@ -196,20 +205,24 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
         case null:
             content = (
                 <div className="grid grid-cols-2 gap-3">
-                    {(Object.keys(KINDS) as Kind[]).map((k) => (
-                        <button
-                            key={k}
-                            className="flex min-h-28 flex-col justify-center gap-1 rounded-lg border p-3 text-left transition-colors hover:bg-accent active:bg-accent"
-                            onClick={() => setKind(k)}
-                        >
-                            <span className="text-xl font-semibold font-poppins">
-                                {KINDS[k].label}
-                            </span>
-                            <span className="text-xs text-muted-foreground">
-                                {KINDS[k].question}
-                            </span>
-                        </button>
-                    ))}
+                    {(Object.keys(KINDS) as Kind[]).map((k) => {
+                        const Icon = KINDS[k].icon;
+                        return (
+                            <button
+                                key={k}
+                                className="flex min-h-28 flex-col justify-center gap-1 rounded-lg border p-3 text-left transition-colors hover:bg-accent active:bg-accent"
+                                onClick={() => setKind(k)}
+                            >
+                                <Icon className="h-6 w-6 shrink-0" />
+                                <span className="text-xl font-semibold font-poppins">
+                                    {KINDS[k].label}
+                                </span>
+                                <span className="text-xs text-muted-foreground">
+                                    {KINDS[k].question}
+                                </span>
+                            </button>
+                        );
+                    })}
                 </div>
             );
             break;

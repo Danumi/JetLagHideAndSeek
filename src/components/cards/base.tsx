@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SidebarGroup, SidebarMenu } from "@/components/ui/sidebar-l";
 import { deleteQuestionWithUndo } from "@/components/UndoToast";
-import { isLoading, questionModified, questions } from "@/lib/context";
+import { isLoading, questionModified } from "@/lib/context";
 import { cn } from "@/lib/utils";
 import { isPending, questionTitle } from "@/maps/answers";
 import type { Question } from "@/maps/schema";
@@ -44,7 +44,7 @@ export const CardNote = ({
 );
 
 /**
- * Every open question looks the same: number and name, the settings of its
+ * Every open question looks the same: symbol and name, the settings of its
  * card (`children`), where it was asked and what's nearest, the answer
  * buttons, then "Send to hider", "Hide on map" and "Delete".
  */
@@ -63,9 +63,7 @@ export const QuestionCard = ({
     /** "Start" or "End" when opened from a thermometer's pin. */
     sub?: string;
 }) => {
-    const $questions = useStore(questions);
     const $isLoading = useStore(isLoading);
-    const number = $questions.findIndex((q) => q.key === question.key) + 1;
     const pending = isPending(question);
 
     return (
@@ -79,7 +77,7 @@ export const QuestionCard = ({
                 data-question-key={question.key}
             >
                 <div className="flex items-center gap-2 px-1">
-                    <QuestionBadge question={question} number={number} />
+                    <QuestionBadge question={question} />
                     <h3 className="min-w-0 flex-1 text-base font-semibold leading-tight">
                         {questionTitle(question)}
                         {sub && (
@@ -91,7 +89,7 @@ export const QuestionCard = ({
                     </h3>
                 </div>
                 {children && <SidebarMenu>{children}</SidebarMenu>}
-                <QuestionLocation question={question} number={number} />
+                <QuestionLocation question={question} />
                 <NearestInfo question={question} />
                 {beforeAnswer}
                 <AnswerButtons question={question} />
