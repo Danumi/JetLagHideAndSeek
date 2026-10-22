@@ -1,5 +1,6 @@
 import { useStore } from "@nanostores/react";
 import {
+    ChevronRightIcon,
     LocateFixedIcon,
     LocateIcon,
     MapPinIcon,
@@ -34,7 +35,9 @@ import {
 } from "@/maps/hidingZoneCheck";
 import {
     canShowAllZones,
+    nextTappedZone,
     showAllZones,
+    tappedZones,
     toggleZone,
     zonesLeft,
 } from "@/maps/zones";
@@ -232,10 +235,14 @@ const SelectedZone = ({ id, hider }: { id: string; hider: boolean }) => {
     const $stations = useStore(trainStations);
     const $disabledStations = useStore(disabledStations);
     const $allTrainStations = useStore(allTrainStations);
+    const $tappedZones = useStore(tappedZones);
     const lines = useStationLines(id);
 
     const station = $allTrainStations.find((x) => x.properties.id === id);
     if (!station) return null;
+
+    // Where zones overlap: which of the zones at the tapped spot this is
+    const here = $tappedZones.indexOf(id);
 
     const name = String(extractStationLabel(station));
     const ruledOut = $disabledStations.includes(id);
@@ -246,7 +253,7 @@ const SelectedZone = ({ id, hider }: { id: string; hider: boolean }) => {
         <div className="flex max-w-[calc(100vw-5rem)] flex-col gap-1.5 rounded-2xl border bg-background/95 p-2 pl-3 text-sm text-foreground shadow-lg">
             <div className="flex min-w-0 items-center gap-1.5">
                 <MapPinIcon className="h-4 w-4 shrink-0 text-green-500" />
-                <span className="min-w-0 truncate">
+                <span className="min-w-0 flex-1 truncate">
                     <span className="font-semibold">{name}</span>
                     {lines && (
                         <span className="text-muted-foreground">
@@ -255,6 +262,21 @@ const SelectedZone = ({ id, hider }: { id: string; hider: boolean }) => {
                         </span>
                     )}
                 </span>
+                {here !== -1 && (
+                    <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-7 shrink-0 gap-0.5 rounded-full px-2 text-xs"
+                        title={t("zones.nextHere")}
+                        onClick={nextTappedZone}
+                    >
+                        {t("zones.overlap", {
+                            n: here + 1,
+                            count: $tappedZones.length,
+                        })}
+                        <ChevronRightIcon className="!size-3.5" />
+                    </Button>
+                )}
             </div>
             <div className="flex flex-wrap items-center gap-1.5">
                 {hider ? (

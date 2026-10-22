@@ -46,6 +46,11 @@ export const messages = {
     "zones.ruleOut": { en: "Rule out", de: "Streichen" },
     "zones.backIn": { en: "Back in", de: "Zurückholen" },
     "zones.onlyThis": { en: "Only this zone", de: "Nur diese Zone" },
+    "zones.overlap": { en: "{n} of {count}", de: "{n} von {count}" },
+    "zones.nextHere": {
+        en: "Next zone here (or tap the same spot again)",
+        de: "Nächste Zone hier (oder nochmal auf dieselbe Stelle tippen)",
+    },
     "zones.yours": { en: "Your hiding zone", de: "Deine Zone" },
     "zones.choose": { en: "Choose as my zone", de: "Als meine Zone wählen" },
     "zones.changeTitle": {

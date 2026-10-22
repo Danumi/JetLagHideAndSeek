@@ -1,5 +1,12 @@
 import * as turf from "@turf/turf";
+import type {
+    Feature,
+    FeatureCollection,
+    MultiPolygon,
+    Polygon,
+} from "geojson";
 import _ from "lodash";
+import { atom } from "nanostores";
 
 import {
     disabledStations,
@@ -14,6 +21,7 @@ import {
     trainStations,
 } from "@/lib/context";
 import type { StationCircle } from "@/maps/api";
+import { holedMask } from "@/maps/geo-utils";
 
 export const stationId = (station: StationCircle) =>
     station.properties.properties.id as string;
@@ -21,6 +29,32 @@ export const stationId = (station: StationCircle) =>
 /** Hiding zones not ruled out by the questions or by hand. */
 export const zonesLeft = (stations: StationCircle[], disabled: string[]) =>
     stations.filter((station) => !disabled.includes(stationId(station)));
+
+/**
+ * Where the hider can't be because it is outside every zone left, without
+ * what the answers already rule out (the map shows that grey already, and
+ * grey twice would look darker). Null when there's nothing to show.
+ */
+export const outsideZones = (
+    zones: StationCircle[],
+    ruledOut: FeatureCollection | null,
+): Feature | null => {
+    // Before the zones are worked out (or with none left), nothing is grey
+    if (zones.length === 0) return null;
+    try {
+        const outside = holedMask(
+            turf.featureCollection(zones as Feature<Polygon | MultiPolygon>[]),
+        );
+        const shown = ruledOut?.features?.[0] as
+            | Feature<Polygon | MultiPolygon>
+            | undefined;
+        if (!outside || !shown) return outside;
+        return turf.difference(turf.featureCollection([outside, shown]));
+    } catch (error) {
+        console.log("Error greying out what is outside the zones:", error);
+        return null;
+    }
+};
 
 export const toggleZone = (id: string) => {
     const disabled = disabledStations.get();
@@ -32,42 +66,87 @@ export const toggleZone = (id: string) => {
 };
 
 /**
- * The hiding zone left at a point on the map, or "" for none. Where zones
- * overlap, the one whose station is nearest.
+ * The hiding zones left at a point on the map, the one whose station is
+ * nearest first.
  */
-export const zoneAt = (at: { lat: number; lng: number }) => {
+export const zonesAt = (at: { lat: number; lng: number }) => {
     const radiusMeters = turf.convertLength(
         hidingRadius.get(),
         hidingRadiusUnits.get(),
         "meters",
     );
-    let nearest = { id: "", meters: Infinity };
-    for (const station of zonesLeft(
-        trainStations.get(),
-        disabledStations.get(),
-    )) {
-        const meters = turf.distance(
-            [at.lng, at.lat],
-            station.properties.geometry.coordinates,
-            { units: "meters" },
-        );
-        if (meters <= radiusMeters && meters < nearest.meters) {
-            nearest = { id: stationId(station), meters };
-        }
-    }
-    return nearest.id;
+    return _.sortBy(
+        zonesLeft(trainStations.get(), disabledStations.get())
+            .map((station) => ({
+                id: stationId(station),
+                meters: turf.distance(
+                    [at.lng, at.lat],
+                    station.properties.geometry.coordinates,
+                    { units: "meters" },
+                ),
+            }))
+            .filter(({ meters }) => meters <= radiusMeters),
+        "meters",
+    ).map(({ id }) => id);
 };
 
-/** A tap on the map: picks the zone there, or closes the zone shown. */
+/**
+ * The zones under the last tap on the map where zones overlap, for
+ * "Karlsplatz · 1 of 3" on the zone shown. Empty under a single zone.
+ */
+export const tappedZones = atom<string[]>([]);
+
+/** Taps this close together (on screen) are on the same spot. */
+const SAME_SPOT_PX = 30;
+let lastTap: { lat: number; lng: number } | null = null;
+
+const sameSpot = (
+    a: { lat: number; lng: number },
+    b: { lat: number; lng: number },
+) => {
+    const map = leafletMapContext.get();
+    if (!map) return a.lat === b.lat && a.lng === b.lng;
+    return (
+        map
+            .latLngToContainerPoint(a)
+            .distanceTo(map.latLngToContainerPoint(b)) <= SAME_SPOT_PX
+    );
+};
+
+/** The zone after the one shown among the zones at the tapped spot. */
+const nextOf = (ids: string[]) =>
+    ids[(ids.indexOf(selectedZoneId.get()) + 1) % ids.length];
+
+/**
+ * A tap on the map: picks the zone there, or closes the zone shown. Where
+ * zones overlap, the one with the nearest station; each further tap on the
+ * same spot picks the next one there.
+ */
 export const tapZoneAt = (at: { lat: number; lng: number }) => {
     const visible =
         displayHidingZones.get() &&
         displayHidingZonesStyle.get() !== "no-display";
-    selectedZoneId.set(visible ? zoneAt(at) : "");
+    const ids = visible ? zonesAt(at) : [];
+    const again =
+        lastTap !== null &&
+        sameSpot(lastTap, at) &&
+        ids.includes(selectedZoneId.get());
+
+    lastTap = { lat: at.lat, lng: at.lng };
+    tappedZones.set(ids.length > 1 ? ids : []);
+    selectedZoneId.set(again ? nextOf(ids) : (ids[0] ?? ""));
+};
+
+/** "1 of 3" on the zone shown: the next zone at the tapped spot. */
+export const nextTappedZone = () => {
+    const ids = tappedZones.get();
+    if (ids.includes(selectedZoneId.get())) selectedZoneId.set(nextOf(ids));
 };
 
 /** Picks a zone from the zone list and moves the map to it. */
 export const showZone = (id: string) => {
+    lastTap = null;
+    tappedZones.set([]);
     selectedZoneId.set(id);
     const station = trainStations.get().find((x) => stationId(x) === id);
     const map = leafletMapContext.get();

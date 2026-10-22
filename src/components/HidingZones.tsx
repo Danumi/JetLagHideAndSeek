@@ -48,19 +48,41 @@ import {
     safeUnion,
 } from "@/maps/geo-utils";
 import { findHidingZoneStations, stationOsmIds } from "@/maps/stations";
-import { stationId, zonesLeft } from "@/maps/zones";
+import { outsideZones, stationId, zonesLeft } from "@/maps/zones";
 
 import { ELIMINATED_STYLE } from "./Map";
 
 /** Hiding zones are computed once settings stop changing for this long. */
 const ZONES_DELAY_MS = 400;
 
+/**
+ * The grey outside the zones takes a moment with many zones: it follows
+ * once the zones are drawn (and a swipe in the zone list is done).
+ */
+const OUTSIDE_ZONES_DELAY_MS = 150;
+
+/**
+ * The zones left: a thin edge only, so the map stays readable and overlaps
+ * don't get darker. Outside them the map is grey (OUTSIDE_ZONES_STYLE).
+ */
+const ZONE_STYLE: L.PathOptions = {
+    color: "#15803d",
+    weight: 1.5,
+    fill: false,
+};
+
+/** Outside every zone left: grey like the area the answers rule out. */
+const OUTSIDE_ZONES_STYLE: L.PathOptions = {
+    ...ELIMINATED_STYLE,
+    stroke: false,
+};
+
 /** A zone tapped on the map or in the zone list. */
 const SELECTED_STYLE: L.PathOptions = {
     color: "#15803d",
-    weight: 4,
+    weight: 3,
     fillColor: "#22c55e",
-    fillOpacity: 0.35,
+    fillOpacity: 0.15,
 };
 
 /** The zone the hider chose. */
@@ -72,9 +94,8 @@ const HIDER_ZONE_STYLE: L.PathOptions = {
 
 /** The only zone left: its edge, inside it what the answers ruled out. */
 const ONLY_ZONE_STYLE: L.PathOptions = {
-    color: "green",
-    weight: 3,
-    fill: false,
+    ...ZONE_STYLE,
+    weight: 2,
 };
 
 /**
@@ -113,6 +134,25 @@ export const HidingZones = () => {
         });
     };
 
+    // The grey outside the zones left, kept until the next one is ready
+    const outsideLayerRef = useRef<L.GeoJSON | null>(null);
+    const showOutside = (outside: Feature | null) => {
+        outsideLayerRef.current?.remove();
+        outsideLayerRef.current = null;
+        if (!map || !outside) return;
+
+        // Below the zones' edges and the questions
+        const pane =
+            map.getPane("outsideZones") ?? map.createPane("outsideZones");
+        pane.style.zIndex = "350";
+        pane.style.pointerEvents = "none";
+        outsideLayerRef.current = L.geoJSON(outside, {
+            style: OUTSIDE_ZONES_STYLE,
+            interactive: false,
+            pane: "outsideZones",
+        }).addTo(map);
+    };
+
     const showGeoJSON = (
         geoJSONData: any,
         additionalOptions: L.GeoJSONOptions = {},
@@ -122,11 +162,7 @@ export const HidingZones = () => {
         removeHidingZones();
 
         const geoJsonLayer = L.geoJSON(geoJSONData, {
-            style: {
-                color: "green",
-                fillColor: "green",
-                fillOpacity: 0.2,
-            },
+            style: ZONE_STYLE,
             // Taps go to the map, which picks the zone (also where zones
             // overlap or are merged)
             interactive: false,
@@ -425,18 +461,62 @@ export const HidingZones = () => {
 
         if (!$displayHidingZones) {
             removeHidingZones();
+            showOutside(null);
             return;
         }
 
         const left = zonesLeft(stations, $disabledStations);
+        const hidden = $displayHidingZonesStyle === "no-display";
         showGeoJSON(styleStations(left, $displayHidingZonesStyle));
-        if (left.length !== 1 || $displayHidingZonesStyle === "no-display") {
-            onlyZoneRef.current = "";
-            return;
-        }
 
+        let cancelled = false;
         // One zone left: where in it the hider can still be
-        const station = left[0];
+        const showZoneDetail = (station: StationCircle) =>
+            zoneDetail(
+                station,
+                $questionFinishedMapData,
+                turf.convertLength($hidingRadius, $hidingRadiusUnits, "miles"),
+            )
+                .then((mapData) => {
+                    if (!cancelled) showOnlyZone(station, mapData);
+                })
+                .catch((error) => {
+                    console.log("Error in hiding zone selection:", error);
+                    if (cancelled || error instanceof OverpassError) return;
+                    toast.error(t("question.zoneDetailFailed"), {
+                        toastId: "hiding-zone-selection-error",
+                    });
+                });
+
+        if (left.length !== 1 || hidden) onlyZoneRef.current = "";
+        else moveToOnlyZone(left[0]);
+
+        // The detail replaces the grey outside the zone, so it comes after
+        const outsideTimer = setTimeout(() => {
+            showOutside(
+                hidden ? null : outsideZones(left, $questionFinishedMapData),
+            );
+            if (left.length === 1 && !hidden) showZoneDetail(left[0]);
+        }, OUTSIDE_ZONES_DELAY_MS);
+
+        return () => {
+            cancelled = true;
+            clearTimeout(outsideTimer);
+        };
+    }, [
+        $disabledStations,
+        $displayHidingZones,
+        $displayHidingZonesStyle,
+        $hidingRadius,
+        $hidingRadiusUnits,
+        $questionFinishedMapData,
+        stations,
+        drawWaited,
+    ]);
+
+    /** The map moves to a zone the first time it is the only one left. */
+    const moveToOnlyZone = (station: StationCircle) => {
+        if (!map) return;
         if (onlyZoneRef.current !== stationId(station)) {
             onlyZoneRef.current = stationId(station);
             const [west, south, east, north] = turf.bbox(station);
@@ -449,36 +529,7 @@ export const HidingZones = () => {
                 { padding: [40, 40] },
             );
         }
-
-        let cancelled = false;
-        zoneDetail(
-            station,
-            $questionFinishedMapData,
-            turf.convertLength($hidingRadius, $hidingRadiusUnits, "miles"),
-        )
-            .then((mapData) => {
-                if (!cancelled) showOnlyZone(station, mapData);
-            })
-            .catch((error) => {
-                console.log("Error in hiding zone selection:", error);
-                if (cancelled || error instanceof OverpassError) return;
-                toast.error(t("question.zoneDetailFailed"), {
-                    toastId: "hiding-zone-selection-error",
-                });
-            });
-        return () => {
-            cancelled = true;
-        };
-    }, [
-        $disabledStations,
-        $displayHidingZones,
-        $displayHidingZonesStyle,
-        $hidingRadius,
-        $hidingRadiusUnits,
-        $questionFinishedMapData,
-        stations,
-        drawWaited,
-    ]);
+    };
 
     /** The only zone left: grey where the answers rule out parts of it. */
     const showOnlyZone = (station: StationCircle, mapData: any) => {
@@ -501,6 +552,8 @@ export const HidingZones = () => {
         }
 
         removeHidingZones();
+        // The detail greys out what is outside the zone itself
+        showOutside(null);
         const layers = [
             L.geoJSON(station, { style: ONLY_ZONE_STYLE, interactive: false }),
         ];
@@ -576,6 +629,8 @@ function styleStations(
             return { type: "FeatureCollection", features: [] };
 
         case "no-overlap":
+            // Before the zones are worked out there's nothing to merge
+            if (circles.length === 0) return turf.featureCollection([]);
             return safeUnion(turf.featureCollection(circles));
 
         case "stations":
