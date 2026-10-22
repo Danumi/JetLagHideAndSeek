@@ -16,6 +16,7 @@ import { OptionDrawers } from "@/components/OptionDrawers";
 import { AskQuestion } from "@/components/AskQuestion";
 import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { TutorialDialog } from "@/components/TutorialDialog";
+import { HiderScreen } from "@/components/HiderScreen";
 ---
 
 <Layout className="bg-jetlag">
@@ -71,6 +72,7 @@ import { TutorialDialog } from "@/components/TutorialDialog";
             </main>
             <ZoneSidebar client:only />
             <TutorialDialog client:only />
+            <HiderScreen client:only />
         </SidebarProviderR>
     </SidebarProviderL>
 </Layout>

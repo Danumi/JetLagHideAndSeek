@@ -1,0 +1,83 @@
+import { describe, expect, test } from "vitest";
+
+import {
+    QUESTION_URL_PARAM,
+    questionLink,
+    readQuestionLink,
+} from "@/lib/questionLink";
+import { questionSchema } from "@/maps/schema";
+
+const APP_URL = "https://danumi.github.io/JetLagHideAndSeek/?hzc=old#top";
+
+const linkValue = (link: string) =>
+    new URL(link).searchParams.get(QUESTION_URL_PARAM)!;
+
+describe("question links for the hider", () => {
+    test("carry the question, not the seekers' state", async () => {
+        const question = questionSchema.parse({
+            id: "radius",
+            key: 0.42,
+            data: {
+                lat: 48.2,
+                lng: 16.37,
+                radius: 2,
+                unit: "kilometers",
+                status: "pending",
+                askedAt: 1_700_000_000_000,
+                hidden: true,
+                collapsed: true,
+                color: "red",
+            },
+        });
+
+        const link = await questionLink(question, 3, APP_URL);
+        expect(
+            link.startsWith("https://danumi.github.io/JetLagHideAndSeek/?ask="),
+        ).toBe(true);
+        expect(link).not.toContain("hzc");
+
+        const received = await readQuestionLink(linkValue(link));
+        expect(received.number).toBe(3);
+        expect(received.question.id).toBe("radius");
+        expect(received.question.key).toBe(0.42);
+        expect(received.question.data).toMatchObject({
+            lat: 48.2,
+            lng: 16.37,
+            radius: 2,
+            unit: "kilometers",
+            askedAt: 1_700_000_000_000,
+            status: "pending",
+            drag: true,
+            hidden: false,
+            collapsed: false,
+        });
+    });
+
+    test("keep what the question is about", async () => {
+        const question = questionSchema.parse({
+            id: "matching",
+            key: 0.7,
+            data: {
+                lat: 48.19,
+                lng: 16.36,
+                type: "zone",
+                cat: { adminLevel: 9 },
+                status: "pending",
+            },
+        });
+
+        const received = await readQuestionLink(
+            linkValue(await questionLink(question, undefined, APP_URL)),
+        );
+        expect(received.number).toBeUndefined();
+        expect(received.question.data).toMatchObject({
+            type: "zone",
+            cat: { adminLevel: 9 },
+            status: "pending",
+        });
+    });
+
+    test("reject broken links", async () => {
+        await expect(readQuestionLink("not-a-question")).rejects.toThrow();
+    });
+});

@@ -168,7 +168,7 @@ const ColoredMarker = ({
                         variant="destructive"
                         className="font-semibold font-poppins"
                     >
-                        Disable
+                        Leave hider mode
                     </Button>
                 )}
                 {!$autoSave && (

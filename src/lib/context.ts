@@ -107,13 +107,29 @@ export const questionModified = (..._: any[]) => {
 export const leafletMapContext = atom<Map | null>(null);
 
 export const defaultUnit = persistentAtom<Units>("defaultUnit", "kilometers");
-export const hiderMode = persistentAtom<
-    | false
-    | {
-          latitude: number;
-          longitude: number;
-      }
->("isHiderMode", false, {
+export type HiderLocation = { latitude: number; longitude: number };
+/** The hider's location while this phone is in hider mode, else false. */
+export const hiderMode = persistentAtom<false | HiderLocation>(
+    "isHiderMode",
+    false,
+    {
+        encode: JSON.stringify,
+        decode: JSON.parse,
+    },
+);
+/** Whether the hider mode screen is shown on top of the map. */
+export const hiderScreenOpen = atom<boolean>(false);
+/** A question the seekers sent to the hider as a link. */
+export type HiderInboxEntry = {
+    question: Question;
+    /** The question's number on the seekers' phone. */
+    number?: number;
+    receivedAt: number;
+    /** The answer the app worked out last, like "Outside". */
+    answer?: string;
+};
+/** Questions the hider got on this phone, newest last. */
+export const hiderInbox = persistentAtom<HiderInboxEntry[]>("hiderInbox", [], {
     encode: JSON.stringify,
     decode: JSON.parse,
 });

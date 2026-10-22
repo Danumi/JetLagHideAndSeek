@@ -1,5 +1,7 @@
 import type { Feature, FeatureCollection } from "geojson";
 
+import { type HiderLocation, hiderMode } from "@/lib/context";
+
 import { isPending, questionApplies } from "./answers";
 import {
     adjustPerMatching,
@@ -31,23 +33,27 @@ import type { Question, Questions } from "./schema";
 export * from "./answers";
 export * from "./geo-utils";
 
-export const hiderifyQuestion = async (question: Question) => {
+/** Works out the hider's answer to an unlocked question (default: hider mode location). */
+export const hiderifyQuestion = async (
+    question: Question,
+    hider: HiderLocation | false = hiderMode.get(),
+) => {
     if (question.data.drag) {
         switch (question.id) {
             case "radius":
-                question.data = await hiderifyRadius(question.data);
+                question.data = await hiderifyRadius(question.data, hider);
                 break;
             case "thermometer":
-                question.data = await hiderifyThermometer(question.data);
+                question.data = await hiderifyThermometer(question.data, hider);
                 break;
             case "tentacles":
-                question.data = await hiderifyTentacles(question.data);
+                question.data = await hiderifyTentacles(question.data, hider);
                 break;
             case "matching":
-                question.data = await hiderifyMatching(question.data);
+                question.data = await hiderifyMatching(question.data, hider);
                 break;
             case "measuring":
-                question.data = await hiderifyMeasuring(question.data);
+                question.data = await hiderifyMeasuring(question.data, hider);
                 break;
         }
 

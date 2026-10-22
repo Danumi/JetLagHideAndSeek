@@ -5,6 +5,7 @@ import osmtogeojson from "osmtogeojson";
 import { toast } from "react-toastify";
 
 import {
+    type HiderLocation,
     hiderMode,
     mapGeoJSON,
     mapGeoLocation,
@@ -391,8 +392,10 @@ export const adjustPerMeasuring = async (
     return modifyMapData(mapData, buffer, question.hiderCloser);
 };
 
-export const hiderifyMeasuring = async (question: MeasuringQuestion) => {
-    const $hiderMode = hiderMode.get();
+export const hiderifyMeasuring = async (
+    question: MeasuringQuestion,
+    $hiderMode: HiderLocation | false = hiderMode.get(),
+) => {
     if ($hiderMode === false) {
         return question;
     }

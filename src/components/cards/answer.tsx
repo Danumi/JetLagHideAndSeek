@@ -1,11 +1,19 @@
 import { useStore } from "@nanostores/react";
 import * as turf from "@turf/turf";
-import { useMemo } from "react";
+import { SendIcon } from "lucide-react";
+import { useMemo, useState } from "react";
+import { toast } from "react-toastify";
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { allTrainStations, hiderMode, questionModified } from "@/lib/context";
-import { cn } from "@/lib/utils";
+import {
+    allTrainStations,
+    hiderMode,
+    questionModified,
+    questions,
+} from "@/lib/context";
+import { questionLink } from "@/lib/questionLink";
+import { cn, shareMessage } from "@/lib/utils";
 import {
     answerOptions,
     answerText,
@@ -51,6 +59,7 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
 
     return (
         <div className="flex flex-col gap-2 p-2">
+            {pending && !disabled && <SendToHider question={question} />}
             <span
                 className={cn(
                     "text-sm font-semibold",
@@ -103,6 +112,56 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
                 No answer
             </Button>
         </div>
+    );
+};
+
+/**
+ * Shares the question as a link (WhatsApp and co.). The hider opens it and
+ * their phone works out the answer from their location.
+ */
+const SendToHider = ({ question }: { question: Question }) => {
+    const $questions = useStore(questions);
+    const [busy, setBusy] = useState(false);
+
+    const send = async () => {
+        setBusy(true);
+        try {
+            const index = $questions.findIndex((q) => q.key === question.key);
+            const number = index === -1 ? undefined : index + 1;
+            const link = await questionLink(question, number);
+            const result = await shareMessage(
+                `Question${number ? ` ${number}` : ""} for the hider: ${questionTitle(
+                    question,
+                )}\nOpen this link to see your answer: ${link}`,
+            );
+            if (result === "copied") {
+                toast.success(
+                    "Link copied. Paste it into your chat with the hider.",
+                );
+            } else if (result === false) {
+                toast.error(
+                    `Couldn't share. Send the hider this link: ${link}`,
+                    {
+                        autoClose: false,
+                    },
+                );
+            }
+        } catch (error) {
+            toast.error(`Couldn't make the link: ${error}`);
+        } finally {
+            setBusy(false);
+        }
+    };
+
+    return (
+        <Button
+            className="h-12 gap-2 bg-violet-600 text-base font-semibold text-white hover:bg-violet-700"
+            disabled={busy}
+            onClick={send}
+        >
+            <SendIcon className="!size-5" />
+            Send to hider
+        </Button>
     );
 };
 

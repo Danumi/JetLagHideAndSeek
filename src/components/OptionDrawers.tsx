@@ -26,6 +26,7 @@ import {
     displayHidingZonesOptions,
     followMe,
     hiderMode,
+    hiderScreenOpen,
     hidingRadius,
     hidingRadiusUnits,
     hidingZone,
@@ -40,7 +41,6 @@ import {
     planningModeEnabled,
     polyGeoJSON,
     questions,
-    save,
     showAllQuestionTypes,
     showTutorial,
     thunderforestApiKey,
@@ -63,7 +63,6 @@ import {
     type Units,
 } from "@/maps/schema";
 
-import { LatitudeLongitude } from "./LatLngPicker";
 import { NewGameDialog } from "./NewGameDialog";
 import {
     AlertDialog,
@@ -82,11 +81,6 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Select } from "./ui/select";
 import { Separator } from "./ui/separator";
-import {
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-} from "./ui/sidebar-l";
 import { deleteAllQuestionsWithUndo } from "./UndoToast";
 import { UnitSelect } from "./UnitSelect";
 
@@ -871,73 +865,17 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                                     }
                                 />
                             </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label className="text-2xl font-semibold font-poppins">
-                                    Hider mode?
-                                </label>
-                                <Checkbox
-                                    checked={!!$hiderMode}
-                                    onCheckedChange={() => {
-                                        if ($hiderMode === false) {
-                                            const $leafletMapContext =
-                                                leafletMapContext.get();
-
-                                            if ($leafletMapContext) {
-                                                const center =
-                                                    $leafletMapContext.getCenter();
-                                                hiderMode.set({
-                                                    latitude: center.lat,
-                                                    longitude: center.lng,
-                                                });
-                                            } else {
-                                                hiderMode.set({
-                                                    latitude: 0,
-                                                    longitude: 0,
-                                                });
-                                            }
-                                        } else {
-                                            hiderMode.set(false);
-                                        }
-                                    }}
-                                />
-                            </div>
-                            {$hiderMode !== false && (
-                                <SidebarMenu>
-                                    <LatitudeLongitude
-                                        latitude={$hiderMode.latitude}
-                                        longitude={$hiderMode.longitude}
-                                        inlineEdit
-                                        onChange={(latitude, longitude) => {
-                                            $hiderMode.latitude =
-                                                latitude ?? $hiderMode.latitude;
-                                            $hiderMode.longitude =
-                                                longitude ??
-                                                $hiderMode.longitude;
-
-                                            if ($autoSave) {
-                                                hiderMode.set({
-                                                    ...$hiderMode,
-                                                });
-                                            } else {
-                                                triggerLocalRefresh.set(
-                                                    Math.random(),
-                                                );
-                                            }
-                                        }}
-                                        label="Hider Location"
-                                    />
-                                    {!$autoSave && (
-                                        <SidebarMenuItem>
-                                            <SidebarMenuButton
-                                                className="bg-blue-600 p-2 rounded-md font-semibold font-poppins transition-shadow duration-500 mt-2"
-                                                onClick={save}
-                                            >
-                                                Save
-                                            </SidebarMenuButton>
-                                        </SidebarMenuItem>
-                                    )}
-                                </SidebarMenu>
-                            )}
+                            <Button
+                                className="bg-violet-700 text-white hover:bg-violet-800"
+                                onClick={() => {
+                                    setOptionsOpen(false);
+                                    hiderScreenOpen.set(true);
+                                }}
+                            >
+                                {$hiderMode === false
+                                    ? "Hider mode: use this phone as the hider's"
+                                    : "Open the hider screen"}
+                            </Button>
                         </div>
                     </div>
                 </DrawerContent>

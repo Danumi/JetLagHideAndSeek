@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import * as turf from "@turf/turf";
-import { ChevronLeftIcon } from "lucide-react";
+import { ChevronLeftIcon, VenetianMaskIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { TbMessage2Question } from "react-icons/tb";
 import { toast } from "react-toastify";
@@ -18,6 +18,8 @@ import { Input } from "@/components/ui/input";
 import {
     addQuestion,
     displayHidingZones,
+    hiderMode,
+    hiderScreenOpen,
     isLoading,
     leafletMapContext,
     questions,
@@ -67,6 +69,20 @@ const formatDistance = (kilometers: number) =>
 /** The big "Ask a question" button, or the running thermometer. */
 export const AskQuestion = () => {
     const $thermometerRun = useStore(thermometerRun);
+    const $hiderMode = useStore(hiderMode);
+
+    // The hider doesn't ask questions: back to the hider screen instead
+    if ($hiderMode !== false) {
+        return (
+            <Button
+                className="h-14 rounded-full bg-violet-700 px-6 text-lg font-semibold text-white shadow-lg hover:bg-violet-800"
+                onClick={() => hiderScreenOpen.set(true)}
+            >
+                <VenetianMaskIcon className="!size-6" />
+                Hider mode
+            </Button>
+        );
+    }
 
     return (
         <div className="flex flex-col items-center gap-2">
