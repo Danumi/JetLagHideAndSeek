@@ -55,7 +55,9 @@ export interface CustomStation {
 
 export interface StationPlaceProperties {
     id: string;
-    [key: string]: string | undefined;
+    /** All ids of a station OSM has more than once (once per line). */
+    ids?: string[];
+    [key: string]: string | string[] | undefined;
 }
 
 export type StationPlace = Feature<Point, StationPlaceProperties>;

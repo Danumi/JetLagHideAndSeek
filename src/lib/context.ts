@@ -179,7 +179,7 @@ export const displayHidingZonesOptions = persistentAtom<string[]>(
 export const displayHidingZonesStyle = persistentAtom<
     "zones" | "stations" | "no-overlap" | "no-display"
 >("displayHidingZonesStyle", "zones");
-/** The hiding zone shown on its own (its station's id), or "" for all zones. */
+/** The hiding zone tapped on the map or in the zone list (its station's id), or "". */
 export const selectedZoneId = atom<string>("");
 export const zoneSheetOpen = atom<boolean>(false);
 export const questionFinishedMapData = atom<any>(null);
@@ -210,14 +210,6 @@ export const useCustomStations = persistentAtom<boolean>(
 export const customStations = persistentAtom<CustomStation[]>(
     "customStations",
     [],
-    {
-        encode: JSON.stringify,
-        decode: JSON.parse,
-    },
-);
-export const mergeDuplicates = persistentAtom<boolean>(
-    "removeDuplicates",
-    false,
     {
         encode: JSON.stringify,
         decode: JSON.parse,
@@ -269,6 +261,20 @@ export const disabledStations = persistentAtom<string[]>(
         decode: JSON.parse,
     },
 );
+/**
+ * Zones ruled out by "Only this zone" or "Keep only these": "Show all zones"
+ * brings back just these, not the ones ruled out one by one.
+ */
+export const keptZonesRuledOut = persistentAtom<string[]>(
+    "keptZonesRuledOut",
+    [],
+    {
+        encode: JSON.stringify,
+        decode: JSON.parse,
+    },
+);
+/** The hiding zone the hider chose for the endgame (its station's id), or "". */
+export const hiderZoneId = persistentAtom<string>("hiderZoneId", "");
 
 /* Presets for custom questions (savable / sharable / editable) */
 export type CustomPreset = {

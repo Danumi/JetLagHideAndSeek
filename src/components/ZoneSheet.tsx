@@ -6,7 +6,7 @@ import {
     SettingsIcon,
     XIcon,
 } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 import {
@@ -23,19 +23,27 @@ import {
     displayHidingZones,
     displayHidingZonesOptions,
     displayHidingZonesStyle,
+    hiderMode,
     hidingRadius,
     hidingRadiusUnits,
     includeDefaultStations as includeDefaultStationsAtom,
     isLoading,
-    mergeDuplicates as mergeDuplicatesAtom,
-    selectedZoneId,
+    keptZonesRuledOut,
     trainStations,
     useCustomStations as useCustomStationsAtom,
     zoneSheetOpen,
 } from "@/lib/context";
 import { cn } from "@/lib/utils";
-import { parseCustomStationsFromText, type StationCircle } from "@/maps/api";
+import { parseCustomStationsFromText } from "@/maps/api";
 import { extractStationLabel } from "@/maps/geo-utils";
+import {
+    canShowAllZones,
+    showAllZones,
+    showZone,
+    stationId,
+    toggleZone,
+    zonesLeft,
+} from "@/maps/zones";
 
 import { PositiveNumberInput } from "./PositiveNumberInput";
 import { Button } from "./ui/button";
@@ -43,6 +51,7 @@ import { Checkbox } from "./ui/checkbox";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { MultiSelect } from "./ui/multi-select";
+import { keepOnlyZonesWithUndo } from "./UndoToast";
 import { UnitSelect } from "./UnitSelect";
 
 /** A sideways swipe this far rules a zone out (or back in). */
@@ -55,22 +64,6 @@ const STYLES = {
     "no-display": "Hidden",
 } as const;
 
-export const stationId = (station: StationCircle) =>
-    station.properties.properties.id as string;
-
-/** Hiding zones not ruled out by the questions or by hand. */
-export const zonesLeft = (stations: StationCircle[], disabled: string[]) =>
-    stations.filter((station) => !disabled.includes(stationId(station)));
-
-export const toggleZone = (id: string) => {
-    const disabled = disabledStations.get();
-    disabledStations.set(
-        disabled.includes(id)
-            ? disabled.filter((x) => x !== id)
-            : [...disabled, id],
-    );
-};
-
 /** The list of hiding zones, from the "Zones" button at the bottom. */
 export const ZoneSheet = () => {
     const $open = useStore(zoneSheetOpen);
@@ -80,16 +73,15 @@ export const ZoneSheet = () => {
     const $displayHidingZones = useStore(displayHidingZones);
     const [settings, setSettings] = useState(false);
 
+    // "Zones" always opens the list, not the settings shown last time
+    useEffect(() => {
+        if ($open) setSettings(false);
+    }, [$open]);
+
     const left = zonesLeft($stations, $disabledStations).length;
 
     return (
-        <Drawer
-            open={$open}
-            onOpenChange={(value) => {
-                zoneSheetOpen.set(value);
-                if (value) setSettings(false);
-            }}
-        >
+        <Drawer open={$open} onOpenChange={zoneSheetOpen.set}>
             <DrawerContent className="max-h-[85svh]">
                 <div className="mx-auto flex min-h-0 w-full max-w-lg flex-col overflow-hidden">
                     <DrawerHeader className="text-left">
@@ -141,10 +133,14 @@ export const ZoneSheet = () => {
 const ZoneList = () => {
     const $stations = useStore(trainStations);
     const $disabledStations = useStore(disabledStations);
+    const $keptZonesRuledOut = useStore(keptZonesRuledOut);
     const $displayHidingZones = useStore(displayHidingZones);
     const $displayHidingZonesStyle = useStore(displayHidingZonesStyle);
+    const $hiderMode = useStore(hiderMode);
     const $isLoading = useStore(isLoading);
     const [search, setSearch] = useState("");
+    // "Keep only these": the zones ticked so far, or null
+    const [keeping, setKeeping] = useState<string[] | null>(null);
 
     if (!$displayHidingZones) {
         return (
@@ -158,51 +154,87 @@ const ZoneList = () => {
     }
 
     const term = search.trim().toLowerCase();
+    const listed = keeping
+        ? zonesLeft($stations, $disabledStations)
+        : $stations;
     const shown = term
-        ? $stations.filter((station) =>
+        ? listed.filter((station) =>
               String(extractStationLabel(station.properties))
                   .toLowerCase()
                   .includes(term),
           )
-        : $stations;
+        : listed;
 
     const show = (id: string) => {
-        selectedZoneId.set(id);
         zoneSheetOpen.set(false);
+        showZone(id);
+    };
+    const tick = (id: string) =>
+        setKeeping((ticked) =>
+            ticked?.includes(id)
+                ? ticked.filter((x) => x !== id)
+                : [...(ticked ?? []), id],
+        );
+    const keep = (ids: string[]) => {
+        keepOnlyZonesWithUndo(ids);
+        setKeeping(null);
+        setSearch("");
     };
 
     return (
         <div className="flex flex-col gap-3">
-            <div className="grid grid-cols-4 gap-1">
-                {(Object.keys(STYLES) as (keyof typeof STYLES)[]).map(
-                    (style) => (
-                        <Button
-                            key={style}
-                            size="sm"
-                            variant={
-                                $displayHidingZonesStyle === style
-                                    ? "default"
-                                    : "outline"
-                            }
-                            onClick={() => {
-                                selectedZoneId.set("");
-                                displayHidingZonesStyle.set(style);
-                            }}
-                        >
-                            {STYLES[style]}
-                        </Button>
-                    ),
+            {keeping ? (
+                <p className="text-sm">
+                    Tick the zones the hider can still be in, e.g. after a
+                    photo. All other zones are ruled out.
+                </p>
+            ) : (
+                <>
+                    <div className="grid grid-cols-4 gap-1">
+                        {(Object.keys(STYLES) as (keyof typeof STYLES)[]).map(
+                            (style) => (
+                                <Button
+                                    key={style}
+                                    size="sm"
+                                    variant={
+                                        $displayHidingZonesStyle === style
+                                            ? "default"
+                                            : "outline"
+                                    }
+                                    onClick={() =>
+                                        displayHidingZonesStyle.set(style)
+                                    }
+                                >
+                                    {STYLES[style]}
+                                </Button>
+                            ),
+                        )}
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                        Tap a zone to see it on the map. Swipe it sideways to
+                        rule it out, or back in.
+                    </p>
+                </>
+            )}
+            <div className="flex gap-2">
+                <Input
+                    placeholder="Search for a station..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+                {!keeping && $hiderMode === false && (
+                    <Button
+                        variant="outline"
+                        className="shrink-0"
+                        disabled={
+                            zonesLeft($stations, $disabledStations).length < 2
+                        }
+                        onClick={() => setKeeping([])}
+                    >
+                        Keep only...
+                    </Button>
                 )}
             </div>
-            <p className="text-xs text-muted-foreground">
-                Tap a zone to see it on the map. Swipe it sideways to rule it
-                out, or back in.
-            </p>
-            <Input
-                placeholder="Search for a station..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-            />
             {shown.length === 0 ? (
                 <p className="py-4 text-center text-sm text-muted-foreground">
                     {term
@@ -215,13 +247,27 @@ const ZoneList = () => {
                 <div className="flex flex-col divide-y overflow-hidden rounded-md border">
                     {shown.map((station) => {
                         const id = stationId(station);
-                        return (
+                        const name = String(
+                            extractStationLabel(station.properties),
+                        );
+                        return keeping ? (
+                            <label
+                                key={id}
+                                className="flex cursor-pointer select-none items-center gap-3 px-3 py-2"
+                            >
+                                <Checkbox
+                                    checked={keeping.includes(id)}
+                                    onCheckedChange={() => tick(id)}
+                                />
+                                <span className="min-w-0 flex-1 truncate">
+                                    {name}
+                                </span>
+                            </label>
+                        ) : (
                             <ZoneRow
                                 key={id}
                                 id={id}
-                                name={String(
-                                    extractStationLabel(station.properties),
-                                )}
+                                name={name}
                                 ruledOut={$disabledStations.includes(id)}
                                 onShow={() => show(id)}
                             />
@@ -229,33 +275,68 @@ const ZoneList = () => {
                     })}
                 </div>
             )}
-            <div className="flex gap-2">
-                {$disabledStations.length > 0 && (
+            {keeping ? (
+                <div className="sticky bottom-0 flex gap-2 bg-background py-2">
                     <Button
                         variant="outline"
                         className="flex-1"
-                        onClick={() => disabledStations.set([])}
+                        onClick={() => setKeeping(null)}
                     >
-                        Restore all
+                        Cancel
                     </Button>
-                )}
-                {$stations.length > 0 && (
                     <Button
-                        variant="outline"
                         className="flex-1"
-                        onClick={() =>
-                            disabledStations.set(
-                                _.uniq([
-                                    ...$disabledStations,
-                                    ...$stations.map(stationId),
-                                ]),
-                            )
-                        }
+                        disabled={keeping.length === 0}
+                        onClick={() => keep(keeping)}
                     >
-                        Rule out all
+                        Keep{" "}
+                        {keeping.length === 1
+                            ? "this zone"
+                            : `these ${keeping.length}`}
                     </Button>
-                )}
-            </div>
+                </div>
+            ) : (
+                <div className="flex gap-2">
+                    {canShowAllZones($disabledStations, $keptZonesRuledOut) ? (
+                        <Button
+                            variant="outline"
+                            className="flex-1"
+                            onClick={showAllZones}
+                        >
+                            Show all zones
+                        </Button>
+                    ) : (
+                        $disabledStations.length > 0 && (
+                            <Button
+                                variant="outline"
+                                className="flex-1"
+                                onClick={() => {
+                                    disabledStations.set([]);
+                                    keptZonesRuledOut.set([]);
+                                }}
+                            >
+                                Restore all
+                            </Button>
+                        )
+                    )}
+                    {$stations.length > 0 && (
+                        <Button
+                            variant="outline"
+                            className="flex-1"
+                            onClick={() =>
+                                disabledStations.set(
+                                    _.uniq([
+                                        ...$disabledStations,
+                                        ...$stations.map(stationId),
+                                    ]),
+                                )
+                            }
+                        >
+                            Rule out all
+                        </Button>
+                    )}
+                </div>
+            )}
         </div>
     );
 };
@@ -464,23 +545,12 @@ const ZoneSettings = () => {
 export const ZoneExpertSettings = () => {
     const $isLoading = useStore(isLoading);
     const useCustomStations = useStore(useCustomStationsAtom);
-    const mergeDuplicates = useStore(mergeDuplicatesAtom);
     const includeDefaultStations = useStore(includeDefaultStationsAtom);
     const $customStations = useStore(customStationsAtom);
     const [importUrl, setImportUrl] = useState("");
 
     return (
         <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between gap-2">
-                <Label className="font-semibold font-poppins">
-                    Merge duplicated stations?
-                </Label>
-                <Checkbox
-                    checked={mergeDuplicates}
-                    onCheckedChange={(v) => mergeDuplicatesAtom.set(!!v)}
-                    disabled={$isLoading}
-                />
-            </div>
             <div className="flex items-center justify-between gap-2">
                 <Label className="font-semibold font-poppins">
                     Use custom station list?

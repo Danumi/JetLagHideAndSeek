@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 
 import { questions } from "@/lib/context";
 import type { Questions } from "@/maps/schema";
+import { keepOnlyZones } from "@/maps/zones";
 
 /** Shows a toast with one button for a few seconds. */
 export const showActionToast = (
@@ -70,5 +71,14 @@ export const deleteAllQuestionsWithUndo = () => {
                 ...now.filter((q) => !restoredKeys.has(q.key)),
             ]);
         },
+    );
+};
+
+/** "Only this zone" and "Keep only these": rules out every other zone left. */
+export const keepOnlyZonesWithUndo = (ids: string[], name?: string) => {
+    const { ruledOut, undo } = keepOnlyZones(ids);
+    showUndoToast(
+        `${ids.length === 1 && name ? `Only ${name} is left` : `${ids.length} zones kept`}, ${ruledOut} ruled out`,
+        undo,
     );
 };

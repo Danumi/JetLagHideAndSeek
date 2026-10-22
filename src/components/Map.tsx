@@ -13,6 +13,7 @@ import {
     additionalMapGeoLocations,
     addQuestion,
     baseTileLayer,
+    drawingQuestionKey,
     followMyPosition,
     isLoading,
     leafletMapContext,
@@ -30,6 +31,7 @@ import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
 import { applyQuestionsToMapGeoData, holedMask } from "@/maps";
 import { determineMapBoundaries } from "@/maps/api";
+import { tapZoneAt } from "@/maps/zones";
 
 import { DraggableMarkers } from "./DraggableMarkers";
 import { NearestMarks } from "./NearestMarks";
@@ -39,7 +41,7 @@ import { PolygonDraw } from "./PolygonDraw";
 const MAP_REFRESH_DELAY_MS = 400;
 
 /** Where the hider can't be any more. */
-const ELIMINATED_STYLE: L.PathOptions = {
+export const ELIMINATED_STYLE: L.PathOptions = {
     color: "#334155",
     weight: 2,
     fillColor: "#475569",
@@ -96,6 +98,36 @@ const getTileLayer = (tileLayer: string) => {
     );
 };
 
+/**
+ * Zooms to a new radar outline, as far as it is in the game area (a big
+ * radar encloses all of it). The map keeps following you if you are in view.
+ */
+const showRadarOutline = (map: L.Map, outline: L.LatLngBounds) => {
+    let bounds = outline;
+    const area = mapGeoJSON.get();
+    if (area) {
+        const [west, south, east, north] = turf.bbox(area);
+        const inArea = {
+            south: Math.max(south, outline.getSouth()),
+            west: Math.max(west, outline.getWest()),
+            north: Math.min(north, outline.getNorth()),
+            east: Math.min(east, outline.getEast()),
+        };
+        if (inArea.south < inArea.north && inArea.west < inArea.east) {
+            bounds = L.latLngBounds(
+                [inArea.south, inArea.west],
+                [inArea.north, inArea.east],
+            );
+        }
+    }
+
+    const position = myPosition.get();
+    if (position && !bounds.contains([position.lat, position.lng])) {
+        followMyPosition.set(false);
+    }
+    map.fitBounds(bounds, { padding: [24, 24] });
+};
+
 export const Map = ({ className }: { className?: string }) => {
     useStore(additionalMapGeoLocations);
     const $mapGeoLocation = useStore(mapGeoLocation);
@@ -113,6 +145,13 @@ export const Map = ({ className }: { className?: string }) => {
     );
     const latestRefreshRef = useMemo(
         () => ({ current: null as ((focus: boolean) => void) | null }),
+        [],
+    );
+    // Where each radar outline on the map is (null before the first map):
+    // the map zooms to a new or changed one, which may be bigger than the
+    // screen while the map follows you
+    const radarOutlinesRef = useMemo(
+        () => ({ current: null as Record<number, string> | null }),
         [],
     );
 
@@ -159,6 +198,10 @@ export const Map = ({ className }: { className?: string }) => {
             }
         });
 
+        const knownRadarOutlines = radarOutlinesRef.current;
+        const radarOutlines: Record<number, string> = {};
+        let newRadarOutline: L.LatLngBounds | null = null;
+
         try {
             mapGeoData = await applyQuestionsToMapGeoData(
                 $questions,
@@ -181,8 +224,21 @@ export const Map = ({ className }: { className?: string }) => {
                     // @ts-expect-error This is a check such that only this type of layer is removed
                     geoJSONPlane.questionKey = question.key;
                     geoJSONPlane.addTo(map);
+
+                    if (question.id === "radius") {
+                        const { lat, lng, radius, unit } = question.data;
+                        const where = JSON.stringify([lat, lng, radius, unit]);
+                        radarOutlines[question.key] = where;
+                        if (
+                            knownRadarOutlines &&
+                            knownRadarOutlines[question.key] !== where
+                        ) {
+                            newRadarOutline = geoJSONPlane.getBounds();
+                        }
+                    }
                 },
             );
+            radarOutlinesRef.current = radarOutlines;
 
             mapGeoData = {
                 type: "FeatureCollection",
@@ -213,7 +269,9 @@ export const Map = ({ className }: { className?: string }) => {
             const following =
                 followMyPosition.get() && myPosition.get() !== null;
 
-            if (focus && !movedWhileLoading && !following) {
+            if (newRadarOutline && !movedWhileLoading) {
+                showRadarOutline(map, newRadarOutline);
+            } else if (focus && !movedWhileLoading && !following) {
                 const bbox = turf.bbox(holedMask(mapGeoData) as any);
                 map.fitBounds([
                     [bbox[1], bbox[0]],
@@ -377,9 +435,14 @@ export const Map = ({ className }: { className?: string }) => {
     useEffect(() => {
         if (!map) return;
 
-        // "Pick on map": the next tap on the map sets the point
-        const onClick = (event: L.LeafletMouseEvent) =>
-            placePickedPoint(event.latlng);
+        // "Pick on map": the next tap on the map sets the point. Otherwise a
+        // tap picks the hiding zone there, or closes the one shown
+        const onClick = (event: L.LeafletMouseEvent) => {
+            if (placePickedPoint(event.latlng)) return;
+            // Drawing a custom question: taps add corners
+            if (drawingQuestionKey.get() !== -1) return;
+            tapZoneAt(event.latlng);
+        };
         map.on("click", onClick);
         const unbindPicking = pickingLocation.subscribe((target) =>
             map.getContainer().classList.toggle("picking-location", !!target),
