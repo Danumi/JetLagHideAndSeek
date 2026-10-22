@@ -73,7 +73,7 @@ Plan-Dokument: https://claude.ai/artifact/7REdEjsLoZS24z3aziJvBj. Acht Etappen, 
 
 Nach Etappe 4 gibt es ein Probespiel; danach wird die Reihenfolge von 5 bis 8 festgelegt.
 
-Stolperstein für Etappe 2: `ZoneSidebar.tsx` behandelt `$hidingRadius` an mehreren Stellen als Meilen (McDonald's-, Bahnhof- und Ort-Fragen pro Zone). Beim Umstieg auf Meter dort vorher umrechnen.
+Einheiten: Spieler sehen nur Meter und Kilometer, intern wird teils in Meilen gerechnet. `ZoneSidebar.tsx` rechnet den Hiding-Zone-Radius deshalb vor den Fragen pro Zone (McDonald's, Bahnhof, Orte) mit `turf.convertLength` in Meilen um. Alte Daten in Meilen (gespeicherte Fragen, Einstellungen, geteilte Links) werden beim Laden in metrische Werte umgerechnet (`milesToKilometers` in `schema.ts`, Migration in `context.ts`, `loadHidingZone` in `OptionDrawers.tsx`).
 
 ## Erledigt
 
@@ -82,8 +82,9 @@ Stolperstein für Etappe 2: `ZoneSidebar.tsx` behandelt `$hidingRadius` an mehre
 - Nächste Station der Sucher aus allen Stationen (`allTrainStations`), nicht nur aus den verbleibenden Zonen
 - Neue Fragen: Straße/Weg, Landmasse, Gewässer, Seehöhe (Terrarium-Höhenkacheln)
 - Etappe 1: Augen-Knopf bei Matching/Measuring/Tentakel repariert, „Alle Fragen löschen" nur noch in den Optionen, Rückgängig nach dem Löschen, Thermometer-Start 1 km, Google Analytics, Clarity und Partytown entfernt
+- Etappe 2: Start in Wien (OSM-Relation 109166) mit Hiding Zones an U-Bahn-Stationen und 500 m, Knopf „Neues Spiel" (`NewGameDialog.tsx`), überall metrisch (Radar-Start 5 km), Tutorial startet nicht mehr von selbst, Stationsnamen nach `name` statt `name:en` (auch im Hider-Modus, der jetzt dieselben Stationsarten wie die Hiding Zones nutzt)
 
 ## Ideen für später
 
 - Knopf „Daten fürs Spiel vorladen"
-- Wien-Voreinstellung und optional deutsche Oberfläche
+- Optional deutsche Oberfläche (Etappe 8)

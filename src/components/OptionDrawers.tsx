@@ -55,9 +55,14 @@ import {
     uploadToPastebin,
 } from "@/lib/utils";
 import { OVERPASS_HOSTS } from "@/maps/api/constants";
-import { questionsSchema } from "@/maps/schema";
+import {
+    KILOMETERS_PER_MILE,
+    questionsSchema,
+    type Units,
+} from "@/maps/schema";
 
 import { LatitudeLongitude } from "./LatLngPicker";
+import { NewGameDialog } from "./NewGameDialog";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -108,25 +113,8 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
     const $overpassHost = useStore(overpassHost);
     const $overpassCustomHost = useStore(overpassCustomHost);
     const $questions = useStore(questions);
-    const lastDefaultUnit = useRef($defaultUnit);
-    const hasSyncedInitialUnit = useRef(false);
     const [isOptionsOpen, setOptionsOpen] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
-
-    useEffect(() => {
-        const currentDefault = $defaultUnit;
-
-        if (!hasSyncedInitialUnit.current) {
-            hasSyncedInitialUnit.current = true;
-            if (hidingRadiusUnits.get() !== currentDefault) {
-                hidingRadiusUnits.set(currentDefault);
-            }
-        } else if (lastDefaultUnit.current !== currentDefault) {
-            hidingRadiusUnits.set(currentDefault);
-        }
-
-        lastDefaultUnit.current = currentDefault;
-    }, [$defaultUnit]);
 
     useEffect(() => {
         const params = new URL(window.location.toString()).searchParams;
@@ -289,8 +277,20 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                 disabledStations.set(geojson.disabledStations);
             }
 
-            if (geojson.hidingRadius !== null) {
-                hidingRadius.set(geojson.hidingRadius);
+            if (typeof geojson.hidingRadius === "number") {
+                // Older versions measured hiding zones in miles
+                const units: Units = geojson.hidingRadiusUnits ?? "miles";
+                if (units === "miles") {
+                    hidingRadius.set(
+                        Math.round(
+                            geojson.hidingRadius * KILOMETERS_PER_MILE * 1000,
+                        ),
+                    );
+                    hidingRadiusUnits.set("meters");
+                } else {
+                    hidingRadius.set(geojson.hidingRadius);
+                    hidingRadiusUnits.set(units);
+                }
             }
 
             if (geojson.zoneOptions) {
@@ -383,6 +383,7 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                     e.target.value = "";
                 }}
             />
+            <NewGameDialog />
             <Button
                 className="shadow-md"
                 onClick={saveToFile}
