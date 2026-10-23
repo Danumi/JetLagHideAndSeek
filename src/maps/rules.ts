@@ -176,8 +176,8 @@ const CARD_RULES: Record<string, CardRule> = {
             en: "A landmass is land in one piece, not cut by water. If the hider's island lies entirely within the seekers' landmass, like an island in a lake, it counts as the same.",
         },
         note: {
-            de: "**In Wien:** Die einzige eigene Landmasse ist die Donauinsel. Gänsehäufel und Rohrinsel liegen in der Alten Donau und zählen zum Festland.",
-            en: "**In Vienna:** The only landmass of its own is the Donauinsel. Gänsehäufel and Rohrinsel lie in the Alte Donau and count as mainland.",
+            de: "**In Wien:** Donau, Neue Donau und Donaukanal teilen Wien in vier Landmassen: den 2. und 20. Bezirk zwischen Donaukanal und Donau, die Donauinsel, den 21. und 22. Bezirk nördlich der Neuen Donau und alle anderen Bezirke. Sie berühren sich nur außerhalb der Stadt, und außerhalb des Spielgebiets gibt es nichts. Gänsehäufel und Rohrinsel liegen in der Alten Donau und gehören zum 22. Bezirk. **Hausregel:** Wer auf einer Brücke oder auf dem Wasser ist, zählt zum näheren Ufer.",
+            en: "**In Vienna:** the Donau, the Neue Donau and the Donaukanal split Vienna into four landmasses: the 2nd and 20th district between the Donaukanal and the Donau, the Donauinsel, the 21st and 22nd district north of the Neue Donau, and all other districts. They only meet outside the city, and outside the game area there is nothing. Gänsehäufel and Rohrinsel lie in the Alte Donau and belong to the 22nd district. **House rule:** on a bridge or on the water, the nearer shore counts.",
         },
     },
     park: {
@@ -349,8 +349,8 @@ const CARD_RULES: Record<string, CardRule> = {
             en: "Compared to me, are you closer to or further from sea level?",
         },
         counts: {
-            de: "Es geht um die Seehöhe, also wie hoch man steht. Näher heißt: Der Hider steht tiefer als die Seeker. Die App nimmt die Höhe aus Geländedaten; der Höhenmesser im Handy liegt manchmal daneben.",
-            en: "It's about altitude, how high up you are. Closer means the hider is lower than the seekers. The app takes the altitude from terrain data; a phone's altimeter is sometimes off.",
+            de: "Es geht um die Seehöhe, also wie hoch man steht. Näher heißt: Der Hider steht tiefer als die Seeker. Bei uns zählt der Boden am Standort, nicht das Stockwerk, der Turm oder der Bahnsteig unter der Erde. Die App nimmt die Höhe aus Geländedaten; der Höhenmesser im Handy liegt manchmal daneben.",
+            en: "It's about altitude, how high up you are. Closer means the hider is lower than the seekers. For us, the ground where you are counts, not the floor, the tower or the platform underground. The app takes the altitude from terrain data; a phone's altimeter is sometimes off.",
         },
     },
     water: {
@@ -359,8 +359,8 @@ const CARD_RULES: Record<string, CardRule> = {
             en: "Compared to me, are you closer to or further from a body of water?",
         },
         counts: {
-            de: "Jedes Gewässer mit Namen auf der Karte, außer Schwimmbecken. Bei uns: benannte Seen, Teiche, Flüsse und Kanäle. Abschnitte unter der Erde zählen nicht.",
-            en: "Any named body of water on the map, except pools. For us: named lakes, ponds, rivers and canals. Sections underground don't count.",
+            de: "Jedes Gewässer mit Namen auf der Karte, außer Schwimmbecken. Bei uns: benannte Seen, Teiche, Flüsse und Kanäle. Abschnitte unter der Erde zählen nicht. Wer über dem Wasser ist, etwa auf einer Brücke oder einem Steg, ist 0 m davon entfernt.",
+            en: "Any named body of water on the map, except pools. For us: named lakes, ponds, rivers and canals. Sections underground don't count. Whoever is over the water, like on a bridge or a pier, is 0 m away from it.",
         },
     },
     coastline: {
@@ -504,6 +504,14 @@ export const RULE_SECTIONS: RuleSection[] = [
                         en: "**Station names:** the German name, as on the sign.",
                     },
                     {
+                        de: "**Brücken und Wasser:** Wer bei „Landmasse“ auf einer Brücke oder auf dem Wasser ist, zählt zum näheren Ufer. Bei „Gewässer“ ist der Abstand dann 0.",
+                        en: "**Bridges and water:** for “Landmass”, whoever is on a bridge or on the water counts to the nearer shore. For “Body of water”, the distance is then 0.",
+                    },
+                    {
+                        de: "**Seehöhe:** Es zählt der Boden an deinem Standort, nicht das Stockwerk, der Turm oder der Bahnsteig unter der Erde. So rechnet die App.",
+                        en: "**Sea level:** the ground where you are counts, not the floor, the tower or the platform underground. That's how the app works it out.",
+                    },
+                    {
                         de: "**Verwaltungsebenen:** 1. Bundesland, 2. Gemeindebezirk, 3. Katastralgemeinde. Eine 4. Ebene gibt es in Wien nicht.",
                         en: "**Administrative divisions:** 1st Bundesland, 2nd Gemeindebezirk, 3rd Katastralgemeinde. Vienna has no 4th.",
                     },
@@ -545,8 +553,8 @@ export const RULE_SECTIONS: RuleSection[] = [
                         en: "**Gemeindebezirk or Katastralgemeinde?** Vienna has 23 districts and 89 cadastral communities. In the inner districts, a district is usually exactly one Katastralgemeinde; further out it has several, and there the Katastralgemeinde narrows things down more.",
                     },
                     {
-                        de: "**Landmasse:** Die einzige eigene Landmasse ist die Donauinsel. Gänsehäufel und Rohrinsel liegen in der Alten Donau und zählen zum Festland.",
-                        en: "**Landmass:** the only landmass of its own is the Donauinsel. Gänsehäufel and Rohrinsel lie in the Alte Donau and count as mainland.",
+                        de: "**Landmasse:** Donau, Neue Donau und Donaukanal teilen Wien in vier Landmassen: 2. und 20. Bezirk, Donauinsel, 21. und 22. Bezirk, alle anderen Bezirke. Gänsehäufel und Rohrinsel in der Alten Donau gehören zum 22. Bezirk.",
+                        en: "**Landmass:** the Donau, the Neue Donau and the Donaukanal split Vienna into four landmasses: the 2nd and 20th district, the Donauinsel, the 21st and 22nd district, all other districts. Gänsehäufel and Rohrinsel in the Alte Donau belong to the 22nd district.",
                     },
                     {
                         de: "**Gewässer:** benannte Seen, Teiche, Flüsse und Kanäle. Abschnitte unter der Erde zählen nicht, etwa der Wienfluss unter dem Karlsplatz.",

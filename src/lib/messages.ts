@@ -329,8 +329,8 @@ export const messages = {
         de: "„Gleich“ behält alles im Umkreis von 200 m um diese Straße; „Verschieden“ kann nichts sicher ausschließen.",
     },
     "matching.landmass.note": {
-        en: "Islands in lakes count as part of the surrounding land.",
-        de: "Inseln in Seen zählen zum Land rundherum.",
+        en: "On a bridge or on the water, the nearer shore counts. Islands in lakes belong to the land around them.",
+        de: "Auf einer Brücke oder auf dem Wasser zählt das nähere Ufer. Inseln in Seen gehören zum Land rundherum.",
     },
 
     // Measuring cards
@@ -467,9 +467,25 @@ export const messages = {
     "nearest.in.4": { en: "in {zone}", de: "im {zone}" },
     "nearest.in.9": { en: "in {zone}", de: "im {zone}" },
     "nearest.in.10": { en: "in {zone}", de: "in der {zone}" },
-    "nearest.mainland": { en: "on the mainland", de: "auf dem Festland" },
+    "nearest.landmass.mainland": {
+        en: "on the mainland",
+        de: "auf dem Festland",
+    },
+    // Vienna's landmasses besides the Donauinsel (src/maps/landmass.ts)
+    "nearest.landmass.leopoldstadt": {
+        en: "between the Donaukanal and the Donau (2nd and 20th district)",
+        de: "zwischen Donaukanal und Donau (2. und 20. Bezirk)",
+    },
+    "nearest.landmass.transdanubia": {
+        en: "north of the Neue Donau (21st and 22nd district)",
+        de: "nördlich der Neuen Donau (21. und 22. Bezirk)",
+    },
+    "nearest.landmass.rest": {
+        en: "south of the Donaukanal and the Donau (all other districts)",
+        de: "südlich von Donaukanal und Donau (alle anderen Bezirke)",
+    },
     "nearest.island": { en: "on an island", de: "auf einer Insel" },
-    // The only separate landmass in Vienna is the Donauinsel
+    // In Vienna: the Donauinsel
     "nearest.onIsland": { en: "on {name}", de: "auf der {name}" },
     "nearest.islandMark": { en: "Island", de: "Insel" },
     "nearest.borderMark": { en: "{name} border", de: "Grenze {name}" },

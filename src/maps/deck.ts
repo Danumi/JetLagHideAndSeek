@@ -287,8 +287,8 @@ export const MATCHING_DECK: DeckCard[] = flatten([
                 id: "landmass",
                 label: { en: "Landmass", de: "Landmasse" },
                 hint: {
-                    en: "River islands like the Donauinsel are their own landmass",
-                    de: "Flussinseln wie die Donauinsel sind eine eigene Landmasse",
+                    en: "Donau, Neue Donau and Donaukanal split Vienna into four landmasses",
+                    de: "Donau, Neue Donau und Donaukanal teilen Wien in vier Landmassen",
                 },
                 type: "landmass",
             },

@@ -2,7 +2,11 @@ import * as turf from "@turf/turf";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { language } from "@/lib/i18n";
-import { findNamedWaterLines, findPlacesOfKind } from "@/maps/api";
+import {
+    findNamedWaterAreas,
+    findNamedWaterLines,
+    findPlacesOfKind,
+} from "@/maps/api";
 import {
     findNearest,
     hasNearest,
@@ -19,6 +23,7 @@ vi.mock("@/maps/api", async (importOriginal) => ({
     ...(await importOriginal<typeof import("@/maps/api")>()),
     findPlacesOfKind: vi.fn(),
     findNamedWaterLines: vi.fn(),
+    findNamedWaterAreas: vi.fn(async () => []),
 }));
 vi.mock("@/maps/stations", () => ({
     findHidingZoneStations: vi.fn(async () => []),
@@ -77,8 +82,25 @@ describe("what's nearest to a question", () => {
             }),
         ).toBe("You are 230 m from the border of Gemeindebezirk Wieden");
         expect(
-            nearestText({ kind: "on", what: "landmass", mainland: true }),
+            nearestText({ kind: "on", what: "landmass", landmass: "mainland" }),
         ).toBe("You are on the mainland");
+        expect(
+            nearestText({
+                kind: "on",
+                what: "landmass",
+                landmass: "leopoldstadt",
+            }),
+        ).toBe(
+            "You are between the Donaukanal and the Donau (2nd and 20th district)",
+        );
+        expect(
+            nearestText({
+                kind: "on",
+                what: "landmass",
+                landmass: "way/183963191",
+                name: "Donauinsel",
+            }),
+        ).toBe("You are on Donauinsel");
         expect(
             nearestText({
                 kind: "elevation",
@@ -252,5 +274,39 @@ describe("what's nearest to a question", () => {
             "Nearest body of water: Wien, 267 m",
         );
         expect(nearest?.mark?.lines).toHaveLength(2);
+    });
+
+    it("is 0 m from the water on it, like on a bridge", async () => {
+        vi.mocked(findNamedWaterAreas).mockResolvedValueOnce([
+            turf.polygon(
+                [
+                    [
+                        [16.369, 48.2],
+                        [16.371, 48.2],
+                        [16.371, 48.201],
+                        [16.369, 48.201],
+                        [16.369, 48.2],
+                    ],
+                ],
+                { name: "Donaukanal" },
+            ),
+        ]);
+        vi.mocked(findNamedWaterLines).mockResolvedValueOnce([]);
+
+        // Elsewhere than the other questions: answers are remembered
+        const onBridge = questionSchema.parse({
+            id: "measuring",
+            data: {
+                ...SEEKERS,
+                lat: 48.2005,
+                type: "water",
+                status: "pending",
+            },
+        });
+        const nearest = await findNearest(onBridge);
+
+        expect(nearest && nearestText(nearest)).toBe(
+            "Nearest body of water: Donaukanal, 0 m",
+        );
     });
 });
