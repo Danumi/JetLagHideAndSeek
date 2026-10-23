@@ -1,3 +1,4 @@
+import * as turf from "@turf/turf";
 import type { Feature, FeatureCollection } from "geojson";
 
 import { type HiderLocation, hiderMode } from "@/lib/context";
@@ -124,6 +125,13 @@ export async function adjustMapGeoDataForQuestion(
     }
 }
 
+/** Less than this is left only where two answers meet. */
+const NOTHING_LEFT_SQUARE_METERS = 100;
+
+/**
+ * Where the hider can still be after the answered questions; no features
+ * when the answers leave nothing.
+ */
 export async function applyQuestionsToMapGeoData(
     questions: Questions,
     mapGeoData: any,
@@ -148,11 +156,22 @@ export async function applyQuestionsToMapGeoData(
                 console.log(error);
             }
         }
-        if (!questionApplies(question, planningModeEnabled)) {
+        if (
+            !questionApplies(question, planningModeEnabled) ||
+            mapGeoData.features?.length === 0
+        ) {
             continue;
         }
 
         mapGeoData = await adjustMapGeoDataForQuestion(question, mapGeoData);
+
+        // Nothing left where the hider could be (at most a sliver along a
+        // border): the answers contradict each other, e.g. after a wrong
+        // answer button
+        if (!mapGeoData || turf.area(mapGeoData) < NOTHING_LEFT_SQUARE_METERS) {
+            mapGeoData = { type: "FeatureCollection", features: [] };
+            continue;
+        }
 
         if (mapGeoData.type !== "FeatureCollection") {
             mapGeoData = {

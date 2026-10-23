@@ -1362,6 +1362,10 @@ export const messages = {
         en: "Couldn't work out the map",
         de: "Die Karte ließ sich nicht berechnen",
     },
+    "question.nothingLeft": {
+        en: "The answers rule out everything, so one of them must be wrong. Check the last answer you entered (Questions → Edit).",
+        de: "Die Antworten schließen alles aus, eine davon stimmt also nicht. Prüft die zuletzt eingetippte Antwort (Fragen → Ändern).",
+    },
 
     // Adding questions of every type (for experts)
     "add.description": {
