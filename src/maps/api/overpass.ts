@@ -5,6 +5,7 @@ import type {
     LineString,
     MultiPolygon,
     Polygon,
+    Position,
 } from "geojson";
 import _ from "lodash";
 import osmtogeojson from "osmtogeojson";
@@ -756,9 +757,36 @@ export interface TransitLine {
     /** Where it runs, e.g. "Hütteldorf" and "Heiligenstadt" (OSM names). */
     from?: string;
     to?: string;
+    /**
+     * Where its ends are on the map: the end stations, or the last stops in
+     * the area where it runs on beyond it (the S-Bahn to Mödling).
+     */
+    ends?: { name: string; at: Position; beyond: boolean }[];
     /** Its tracks in the game area, each once (both directions share them). */
     lines: Feature<LineString, { name?: string }>[];
 }
+
+/**
+ * The first and last stop of a route on the map. Stops outside the area
+ * have no geometry: then the line runs on beyond the stop on the map.
+ */
+const routeEnds = (members: any[], from: string, to: string) => {
+    const stops = members.filter(
+        (member) => member.type === "node" && /^stop/.test(member.role ?? ""),
+    );
+    const onMap = stops.filter((stop) => typeof stop.lat === "number");
+    if (onMap.length < 2) return undefined;
+    const first = onMap[0];
+    const last = onMap[onMap.length - 1];
+    return [
+        { name: from, at: [first.lon, first.lat], beyond: first !== stops[0] },
+        {
+            name: to,
+            at: [last.lon, last.lat],
+            beyond: last !== stops[stops.length - 1],
+        },
+    ];
+};
 
 /** Route relations with their tracks as lines, by line. */
 const transitLinesFrom = (data: any): TransitLine[] => {
@@ -782,6 +810,7 @@ const transitLinesFrom = (data: any): TransitLine[] => {
             longest.set(tags.ref, size);
             line.from = tags.from;
             line.to = tags.to;
+            line.ends = routeEnds(element.members ?? [], tags.from, tags.to);
         }
         lines.set(tags.ref, line);
         // The tracks, not the platforms; ways outside the area have no geometry

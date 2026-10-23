@@ -207,6 +207,18 @@ const lineLabelIcon = (ref: string, color: string) =>
         html: `<div style="display:flex;justify-content:center">${lineBadgeHtml(ref, color)}</div>`,
     });
 
+/**
+ * An end station of the tapped line: a dot, its name beside it on the side
+ * away from the other end, so the two names don't overlap (the S60 has both
+ * ends in the south).
+ */
+const lineEndIcon = (name: string, color: string, side: "left" | "right") =>
+    L.divIcon({
+        className: "",
+        iconSize: [0, 0],
+        html: `<div style="position:relative"><div style="position:absolute;left:-6px;top:-6px;width:12px;height:12px;box-sizing:border-box;border-radius:9999px;background:#fff;border:3px solid ${color}"></div><div style="position:absolute;left:0;top:0;transform:translate(${side === "left" ? "calc(-100% - 9px)" : "9px"},-50%);width:max-content;color:#0f172a;font:600 12px/1.2 Poppins,sans-serif;text-shadow:0 0 2px #fff,0 0 2px #fff,0 0 3px #fff">${escapeHtml(name)}</div></div>`,
+    });
+
 /** A colour mixed with white, for the lines not tapped. */
 const paler = (color: string, white = 0.7) => {
     const hex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(color)?.[1];
@@ -363,6 +375,8 @@ const TransitLayer = ({
     const map = useMap();
     const lines = useLayerData(id, load);
     const $selected = highlightedLine(useStore(tappedLines))?.ref;
+    // "towards Mödling" at the end of a tapped line
+    const $language = useLanguage();
     const shown = useMemo(
         () =>
             lines?.filter((line) => routes.split(",").includes(line.route)) ??
@@ -443,12 +457,25 @@ const TransitLayer = ({
                     ...LINES,
                     style: { color: colorOf(line), weight: 6, opacity: 1 },
                 }),
+                // Its end stations, small, where they are
+                ...(line.ends ?? []).map(({ name, at, beyond }, i, ends) =>
+                    L.marker([at[1], at[0]], {
+                        icon: lineEndIcon(
+                            beyond ? t("layers.line.towards", { name }) : name,
+                            colorOf(line),
+                            at[0] < ends[1 - i].at[0] ? "left" : "right",
+                        ),
+                        interactive: false,
+                        keyboard: false,
+                        pane: NAMES_PANE,
+                    }),
+                ),
             ]).addTo(map);
         return () => {
             highlight?.remove();
             for (const { path } of colored.current) path.resetStyle();
         };
-    }, [map, shown, $selected]);
+    }, [map, shown, $selected, $language]);
 
     return null;
 };
