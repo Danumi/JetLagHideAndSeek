@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { ChevronDownIcon, SettingsIcon } from "lucide-react";
+import { ChevronDownIcon, InfoIcon, SettingsIcon } from "lucide-react";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -52,6 +52,7 @@ import {
     type Units,
 } from "@/maps/schema";
 
+import { AboutDialog } from "./AboutDialog";
 import { NewGameDialog } from "./NewGameDialog";
 import {
     OverpassAccessSettings,
@@ -161,6 +162,7 @@ export const OptionDrawers = () => {
     const isOptionsOpen = useStore(settingsOpen);
     const setOptionsOpen = settingsOpen.set;
     const [advancedOpen, setAdvancedOpen] = useState(false);
+    const [aboutOpen, setAboutOpen] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -683,10 +685,25 @@ export const OptionDrawers = () => {
                                     </AdvancedSection>
                                 </div>
                             )}
+                            <Button
+                                variant="ghost"
+                                className="w-full max-w-[320px] justify-between text-muted-foreground"
+                                onClick={() => {
+                                    setOptionsOpen(false);
+                                    setAboutOpen(true);
+                                }}
+                            >
+                                {t("settings.about")}
+                                <InfoIcon />
+                            </Button>
                         </div>
                     </div>
                 </DrawerContent>
             </Drawer>
+            {/* Only in the browser: the dialog looks for its place on the page */}
+            {aboutOpen && (
+                <AboutDialog open={aboutOpen} onOpenChange={setAboutOpen} />
+            )}
         </>
     );
 };
