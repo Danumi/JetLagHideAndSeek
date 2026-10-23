@@ -166,6 +166,15 @@ describe("the rules and the quick guide", () => {
         ]) {
             expect(ids.has(ruleId), ruleId).toBe(true);
         }
+        expect(
+            ruleIdFor(
+                question("tentacles", {
+                    radius: 1.6,
+                    unit: "kilometers",
+                    locationType: "museum",
+                }),
+            ),
+        ).toBe("tentacles");
     });
 
     it("show a picture of the app for every card of the quick guide", () => {
