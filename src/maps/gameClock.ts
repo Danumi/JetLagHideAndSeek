@@ -108,6 +108,50 @@ export const gameClockState = (
     };
 };
 
+/** A finished round: its hiding time, kept across "New Game". */
+export type PastRound = {
+    number: number;
+    /** When it ended: "Found", else "New Game". */
+    endedAt: number;
+    hidingTime: number;
+    /** Stopped with "Found"; else the time when "New Game" ended it. */
+    found: boolean;
+};
+
+const MAX_PAST_ROUNDS = 10;
+
+/** The last rounds on this phone, oldest first. */
+export const pastRounds = persistentAtom<PastRound[]>("pastRounds", [], {
+    encode: JSON.stringify,
+    decode: JSON.parse,
+});
+
+/**
+ * "New Game": the round's hiding time goes into the list of past rounds
+ * (not before the hiding period is over), and the clock is cleared.
+ */
+export const endRound = (now = Date.now(), late: Interval[] = []) => {
+    const clock = gameClock.get();
+    if (clock) {
+        const state = gameClockState(clock, now, late);
+        if (state.phase !== "hiding") {
+            const rounds = pastRounds.get();
+            pastRounds.set(
+                [
+                    ...rounds,
+                    {
+                        number: (rounds.at(-1)?.number ?? 0) + 1,
+                        endedAt: clock.foundAt ?? now,
+                        hidingTime: state.hidingTime,
+                        found: state.phase === "found",
+                    },
+                ].slice(-MAX_PAST_ROUNDS),
+            );
+        }
+    }
+    gameClock.set(null);
+};
+
 export const startGameClock = (now = Date.now()) =>
     gameClock.set({ startedAt: now, pausedMs: 0 });
 
