@@ -48,6 +48,7 @@ import {
     safeUnion,
 } from "@/maps/geo-utils";
 import { findHidingZoneStations, stationOsmIds } from "@/maps/stations";
+import { steadyRenderer } from "@/maps/steadyRenderer";
 import { outsideZones, stationId, zonesLeft } from "@/maps/zones";
 
 import { ELIMINATED_STYLE } from "./Map";
@@ -136,6 +137,8 @@ export const HidingZones = () => {
 
     // The grey outside the zones left, kept until the next one is ready
     const outsideLayerRef = useRef<L.GeoJSON | null>(null);
+    // Keeps it drawn while the map is dragged
+    const outsideRendererRef = useRef<L.Renderer | null>(null);
     const showOutside = (outside: Feature | null) => {
         outsideLayerRef.current?.remove();
         outsideLayerRef.current = null;
@@ -146,11 +149,14 @@ export const HidingZones = () => {
             map.getPane("outsideZones") ?? map.createPane("outsideZones");
         pane.style.zIndex = "350";
         pane.style.pointerEvents = "none";
+        outsideRendererRef.current ??= steadyRenderer("outsideZones");
         outsideLayerRef.current = L.geoJSON(outside, {
             style: OUTSIDE_ZONES_STYLE,
             interactive: false,
             pane: "outsideZones",
-        }).addTo(map);
+            // Passed on to the shapes, like the style
+            renderer: outsideRendererRef.current,
+        } as L.GeoJSONOptions).addTo(map);
     };
 
     const showGeoJSON = (

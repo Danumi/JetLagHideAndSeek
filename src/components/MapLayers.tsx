@@ -19,6 +19,7 @@ import {
 } from "@/maps/api";
 import { deckGroups } from "@/maps/deck";
 import {
+    asOnePath,
     highlightedLine,
     lineLabelPositions,
     linesAt,
@@ -389,15 +390,13 @@ const TransitLayer = ({
         if (!shown) return;
         const group = L.layerGroup().addTo(map);
         // A white edge sets the lines apart from the map below
-        for (const line of shown) {
-            L.geoJSON(turf.featureCollection(line.lines), {
-                ...pane,
-                style: { color: "#ffffff", weight: weight + 2.5, opacity: 0.9 },
-            }).addTo(group);
-        }
+        L.geoJSON(asOnePath(shown.flatMap((line) => line.lines)), {
+            ...pane,
+            style: { color: "#ffffff", weight: weight + 2.5, opacity: 0.9 },
+        }).addTo(group);
         for (const line of [...shown].reverse()) {
             const color = colorOf(line);
-            const path = L.geoJSON(turf.featureCollection(line.lines), {
+            const path = L.geoJSON(asOnePath(line.lines), {
                 ...pane,
                 style: { color, weight, opacity: 1 },
             }).addTo(group);
@@ -449,11 +448,11 @@ const TransitLayer = ({
         const highlight =
             line &&
             L.layerGroup([
-                L.geoJSON(turf.featureCollection(line.lines), {
+                L.geoJSON(asOnePath(line.lines), {
                     ...LINES,
                     style: { color: "#ffffff", weight: 10, opacity: 1 },
                 }),
-                L.geoJSON(turf.featureCollection(line.lines), {
+                L.geoJSON(asOnePath(line.lines), {
                     ...LINES,
                     style: { color: colorOf(line), weight: 6, opacity: 1 },
                 }),
@@ -493,7 +492,7 @@ const WaterLayer = () => {
     const lines = useLayerData("water", findNamedWaterLines);
     const color = mapLayer("water")!.color;
     useDrawn(lines, (lines) =>
-        L.geoJSON(turf.featureCollection(lines), {
+        L.geoJSON(asOnePath(lines), {
             ...LINES,
             style: { color, weight: 2, opacity: 0.8 },
         }),

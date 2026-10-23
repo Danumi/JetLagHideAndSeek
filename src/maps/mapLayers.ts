@@ -1,6 +1,6 @@
 import { persistentAtom } from "@nanostores/persistent";
 import * as turf from "@turf/turf";
-import type { Feature, LineString, Position } from "geojson";
+import type { Feature, LineString, MultiLineString, Position } from "geojson";
 import { atom } from "nanostores";
 
 import type { Text } from "@/lib/i18n";
@@ -167,6 +167,16 @@ export const placesInView = <P extends { lat: number; lng: number }>(
     );
     return inView.length > max ? null : inView;
 };
+
+/**
+ * Pieces of lines as one path on the map. Drawn piece by piece (one per OSM
+ * way: some 13,000 paths for the U-Bahn, S-Bahn and trams with their white
+ * edges), each move of the map redrew every piece and the map stuttered.
+ */
+export const asOnePath = (
+    pieces: Feature<LineString>[],
+): Feature<MultiLineString> =>
+    turf.multiLineString(pieces.map((piece) => piece.geometry.coordinates));
 
 /**
  * Where to put the name of each line ("U4"): in the game area, the middle of

@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { mapGeoJSON, overpassCustomHost } from "@/lib/context";
 import { findTransitLines, placeCounts } from "@/maps/api";
 import {
+    asOnePath,
     highlightedLine,
     lineLabelPositions,
     linesAt,
@@ -174,6 +175,26 @@ describe("places and lines on the map", () => {
         vi.stubGlobal("fetch", fetch);
         expect(await findTransitLines()).toEqual([]);
         expect(fetch).not.toHaveBeenCalled();
+    });
+
+    it("draws all pieces of a line as one path", () => {
+        // One path per OSM way made the map stutter with every move
+        const pieces = [
+            turf.lineString([
+                [16.3, 48.2],
+                [16.31, 48.2],
+            ]),
+            turf.lineString([
+                [16.31, 48.2],
+                [16.32, 48.21],
+                [16.33, 48.21],
+            ]),
+        ];
+        const path = asOnePath(pieces);
+        expect(path.geometry.type).toBe("MultiLineString");
+        expect(path.geometry.coordinates).toEqual(
+            pieces.map((piece) => piece.geometry.coordinates),
+        );
     });
 
     it("keeps the names of lines on shared tracks apart", () => {
