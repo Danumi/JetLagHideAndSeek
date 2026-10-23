@@ -73,6 +73,7 @@ const BUTTONS = [
     "pasteLink",
     "hiderMoved",
     "moving",
+    "pickOnMap",
 ];
 
 const PUBLIC = new URL("../public/", import.meta.url).pathname;

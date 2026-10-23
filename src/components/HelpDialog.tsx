@@ -45,6 +45,7 @@ const buttonNames = () => ({
     pasteLink: t("hider.paste"),
     hiderMoved: t("move.button"),
     moving: t("move.hiderButton"),
+    pickOnMap: t("location.pickOnMap"),
 });
 
 /** A text of the help with **bold** words and the app's buttons in it. */

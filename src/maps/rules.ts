@@ -1536,6 +1536,10 @@ export const RULE_SECTIONS: RuleSection[] = [
                         en: "As the hider, find a toilet in your zone; small stations often have none.",
                     },
                     {
+                        de: "Unter der Erde liegt das GPS oft 100 m und mehr daneben. Der Hider-Bildschirm sagt es dir; mit {pickOnMap} setzt du deinen Standort selbst.",
+                        en: "Underground, GPS is often off by 100 m or more. The hider screen tells you; with {pickOnMap} you set your location yourself.",
+                    },
+                    {
                         de: "Aufs Wetter achten.",
                         en: "Keep an eye on the weather.",
                     },

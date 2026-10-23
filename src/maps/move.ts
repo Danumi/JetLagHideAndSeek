@@ -1,5 +1,6 @@
 import {
     disabledStations,
+    hiderPlacedAt,
     hiderZoneId,
     keptZonesRuledOut,
     questions,
@@ -59,6 +60,8 @@ export const hiderMoves = (now = Date.now()) => {
     const before = remember();
     hideAnswers();
     hiderZoneId.set("");
+    // Wherever the hider set their location by hand, they leave it
+    hiderPlacedAt.set(null);
     pauseGameClock(now);
     return before;
 };

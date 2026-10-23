@@ -7,6 +7,7 @@ import {
     LocateFixedIcon,
     MapIcon,
     MapPinIcon,
+    MousePointerClickIcon,
     PlusIcon,
     SendIcon,
     SettingsIcon,
@@ -23,13 +24,15 @@ import {
     hiderInbox,
     type HiderInboxEntry,
     hiderMode,
+    hiderPlacedAt,
     hiderScreenOpen,
     hiderZoneId,
     photoQuestions,
+    pickingLocation,
     questions,
     settingsOpen,
 } from "@/lib/context";
-import { findPrecisePosition } from "@/lib/gps";
+import { findPrecisePosition, pickOnMap } from "@/lib/gps";
 import { t, tr, useLanguage } from "@/lib/i18n";
 import { loadingTasks, retryTrigger } from "@/lib/loading";
 import {
@@ -66,7 +69,10 @@ import { RuleButton } from "./HelpDialog";
 import { MoveButton } from "./MoveCard";
 import { showActionToast, showUndoToast } from "./UndoToast";
 
-/** Where the hider's location comes from. */
+/**
+ * The hider's GPS location. Set by hand instead ("Pick on map", the violet
+ * H marker): `hiderPlacedAt`.
+ */
 type Fix =
     /** `accuracy`: of the most precise position so far, in meters. */
     | { state: "locating"; accuracy?: number }
@@ -77,9 +83,7 @@ type Fix =
           longitude: number;
           accuracy: number;
           at: number;
-      }
-    /** The violet H marker on the map, placed by hand. */
-    | { state: "marker" };
+      };
 
 type Result =
     | { key: number; state: "working" }
@@ -92,7 +96,10 @@ const removeUrlParam = (param: string) => {
     window.history.replaceState({}, "", url);
 };
 
-/** Worse than this, the zone check may be wrong (e.g. underground). */
+/**
+ * Worse than this, the zone check and the answers may be wrong (e.g.
+ * underground): the hider can set their location on the map.
+ */
 const POOR_GPS_METERS = 50;
 
 /**
@@ -510,6 +517,7 @@ export const HiderScreen = () => {
     const $hiderMode = useStore(hiderMode);
     const $inbox = useStore(hiderInbox);
     const $hiderZoneId = useStore(hiderZoneId);
+    const $hiderPlacedAt = useStore(hiderPlacedAt);
     const $retryTrigger = useStore(retryTrigger);
     const $loadingTasks = useStore(loadingTasks);
     const [fix, setFix] = useState<Fix>({ state: "locating" });
@@ -520,9 +528,12 @@ export const HiderScreen = () => {
     const [inBrowser, setInBrowser] = useState(false);
 
     const stopWaiting = useRef(() => {});
+    /** "Pick on map" from this screen: it comes back after the tap. */
+    const picking = useRef(false);
 
     /** Waits a few seconds for a precise position, like new questions. */
     const locate = async () => {
+        hiderPlacedAt.set(null);
         setFix({ state: "locating" });
         const search = findPrecisePosition((best) =>
             setFix({ state: "locating", accuracy: best?.accuracy }),
@@ -533,6 +544,8 @@ export const HiderScreen = () => {
             setFix({ state: "failed" });
             return;
         }
+        // Set by hand meanwhile: that counts
+        if (hiderPlacedAt.get() !== null) return;
         hiderMode.set({ latitude: position.lat, longitude: position.lng });
         setFix({
             state: "gps",
@@ -564,10 +577,35 @@ export const HiderScreen = () => {
         });
     }, []);
 
-    // Find the hider whenever the screen opens: they may have moved
+    // Find the hider whenever the screen opens: they may have moved. Not
+    // where they set their location by hand, until they tap "Update"
     useEffect(() => {
-        if ($open && hiderMode.get() !== false) locate();
+        if (
+            $open &&
+            hiderMode.get() !== false &&
+            hiderPlacedAt.get() === null
+        ) {
+            locate();
+        }
     }, [$open, $hiderMode === false]);
+
+    // Back from "Pick on map", tapped or cancelled
+    useEffect(
+        () =>
+            pickingLocation.listen((target) => {
+                if (target || !picking.current) return;
+                picking.current = false;
+                hiderScreenOpen.set(true);
+            }),
+        [],
+    );
+
+    /** Puts this screen away so the hider can tap where they are. */
+    const placeOnMap = () => {
+        picking.current = true;
+        hiderScreenOpen.set(false);
+        pickOnMap({ questionKey: -1 });
+    };
 
     const openEntries = $inbox.filter(isOpen);
     // The question tapped last, else the one waiting longest
@@ -576,8 +614,9 @@ export const HiderScreen = () => {
     // The app works out answers to open questions from links
     const workingOut = entry?.question && isOpen(entry) ? entry : null;
 
+    const byHand = $hiderPlacedAt !== null;
     const location =
-        $hiderMode !== false && (fix.state === "gps" || fix.state === "marker")
+        $hiderMode !== false && (byHand || fix.state === "gps")
             ? $hiderMode
             : null;
 
@@ -640,9 +679,12 @@ export const HiderScreen = () => {
     const close = () => hiderScreenOpen.set(false);
 
     const fromGps =
+        !byHand &&
         fix.state === "gps" &&
         fix.latitude === $hiderMode.latitude &&
         fix.longitude === $hiderMode.longitude;
+    const poorGps =
+        fromGps && fix.state === "gps" && fix.accuracy > POOR_GPS_METERS;
 
     const current = result && workingOut && result.key === workingOut.key;
     const otherOpen = openEntries.filter((x) => x !== entry);
@@ -872,27 +914,36 @@ export const HiderScreen = () => {
             <div className="flex items-center gap-3 rounded-lg border p-3">
                 <LocateFixedIcon className="size-5 shrink-0" />
                 <div className="min-w-0 flex-1 text-sm">
-                    {fix.state === "locating" &&
+                    {byHand &&
+                        t("hider.locationMarker", {
+                            time: clockTime($hiderPlacedAt),
+                        })}
+                    {!byHand &&
+                        fix.state === "locating" &&
                         (fix.accuracy === undefined
                             ? t("locating.waiting")
                             : t("locating.accuracy", {
                                   meters: Math.round(fix.accuracy),
                               }))}
-                    {fix.state === "failed" && (
+                    {!byHand && fix.state === "failed" && (
                         <span className="text-orange-400">
                             {t("hider.locationFailed")}
                         </span>
                     )}
-                    {fix.state === "gps" &&
-                        (fromGps
-                            ? t("hider.locationGps", {
-                                  time: clockTime(fix.at),
-                                  meters: Math.round(fix.accuracy),
-                              })
-                            : t("hider.locationMarker"))}
-                    {fix.state === "marker" && t("hider.locationMarker")}
+                    {fromGps &&
+                        t("hider.locationGps", {
+                            time: clockTime(fix.at),
+                            meters: Math.round(fix.accuracy),
+                        })}
+                    {poorGps && (
+                        <div className="text-orange-400">
+                            {t("hider.poorGpsPick")}
+                        </div>
+                    )}
                 </div>
-                {fix.state === "locating" && fix.accuracy !== undefined ? (
+                {!byHand &&
+                fix.state === "locating" &&
+                fix.accuracy !== undefined ? (
                     <Button
                         variant="outline"
                         size="sm"
@@ -904,20 +955,34 @@ export const HiderScreen = () => {
                     <Button
                         variant="outline"
                         size="sm"
-                        disabled={fix.state === "locating"}
+                        disabled={!byHand && fix.state === "locating"}
                         onClick={locate}
                     >
                         {t("hider.update")}
                     </Button>
                 )}
             </div>
-            {fix.state === "failed" && (
-                <Button
-                    variant="outline"
-                    onClick={() => setFix({ state: "marker" })}
-                >
-                    {t("hider.useMarker")}
-                </Button>
+            {/* GPS off or way off, e.g. underground: set it on the map */}
+            {(byHand || poorGps || fix.state === "failed") && (
+                <div className="flex gap-2">
+                    {!byHand && fix.state === "failed" && (
+                        <Button
+                            variant="outline"
+                            className="flex-1"
+                            onClick={() => hiderPlacedAt.set(Date.now())}
+                        >
+                            {t("hider.useMarker")}
+                        </Button>
+                    )}
+                    <Button
+                        variant="outline"
+                        className="flex-1"
+                        onClick={placeOnMap}
+                    >
+                        <MousePointerClickIcon />
+                        {t("location.pickOnMap")}
+                    </Button>
+                </div>
             )}
 
             {entry ? (

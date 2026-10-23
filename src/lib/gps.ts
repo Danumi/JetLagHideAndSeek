@@ -5,6 +5,7 @@ import { SidebarContext } from "@/components/ui/sidebar-l";
 import {
     followMyPosition,
     hiderMode,
+    hiderPlacedAt,
     leafletMapContext,
     myPosition,
     pickingLocation,
@@ -312,6 +313,7 @@ const movePoint = (target: PickTarget, at: LatLng, accuracy?: number) => {
     if (target.questionKey === -1) {
         if (hiderMode.get() !== false) {
             hiderMode.set({ latitude: at.lat, longitude: at.lng });
+            hiderPlacedAt.set(Date.now());
         }
         return;
     }
