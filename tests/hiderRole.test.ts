@@ -5,6 +5,7 @@ import {
     allTrainStations,
     followMyPosition,
     hiderMode,
+    hiderPlacedAt,
     hiderScreenOpen,
     hiderZoneId,
     hidingRadius,
@@ -144,6 +145,32 @@ describe("hiding zone check", () => {
         // A zone that isn't in the game: back to the nearest zone
         hiderZoneId.set("node/Elsewhere");
         expect(hiderZoneCheck.get()?.chosen).toBe(false);
+        hiderZoneId.set("");
+    });
+
+    it("goes by the location the hider set by hand, until GPS again", () => {
+        hidingRadius.set(500);
+        hidingRadiusUnits.set("meters");
+        allTrainStations.set([KARLSPLATZ]);
+        hiderZoneId.set("node/Karlsplatz");
+        // Underground: GPS 200 m off and out of the zone
+        myPosition.set({ ...northOfKarlsplatz(600), accuracy: 200, at: 0 });
+        const platform = northOfKarlsplatz(50);
+        hiderMode.set({ latitude: platform.lat, longitude: platform.lng });
+        expect(hiderZoneCheck.get()).toMatchObject({
+            inside: false,
+            accuracy: 200,
+        });
+
+        hiderPlacedAt.set(1000);
+        expect(hiderZoneCheck.get()?.inside).toBe(true);
+        expect(hiderZoneCheck.get()?.meters).toBeCloseTo(50, 0);
+        expect(hiderZoneCheck.get()?.accuracy).toBeUndefined();
+
+        // A new role starts from GPS again
+        setRole("hider");
+        expect(hiderPlacedAt.get()).toBeNull();
+        expect(hiderZoneCheck.get()?.inside).toBe(false);
         hiderZoneId.set("");
     });
 });

@@ -129,6 +129,12 @@ export const hiderMode = persistentAtom<false | HiderLocation>(
     },
 );
 /**
+ * When the hider set their location by hand ("Pick on map", the H marker),
+ * else null: then GPS. Until the hider looks up GPS again ("Update"), a new
+ * role or a move; not kept when the app starts again.
+ */
+export const hiderPlacedAt = atom<number | null>(null);
+/**
  * Whether someone picked this phone's role ("I'm seeking" or "I'm hiding"),
  * at "New Game" or in the settings. Until then, a question link turns the
  * phone into the hider's.

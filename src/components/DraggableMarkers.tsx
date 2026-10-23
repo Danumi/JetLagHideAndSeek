@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
     hiderMode,
+    hiderPlacedAt,
     myPosition,
     pickingLocation,
     questionModified,
@@ -223,30 +224,35 @@ export const DraggableMarkers = () => {
     const $questions = useStore(questions);
     const $hiderMode = useStore(hiderMode);
     const $hasMyPosition = useStore(hasMyPosition);
+    const $hiderPlacedAt = useStore(hiderPlacedAt);
 
     return (
         <Fragment>
-            {$hiderMode !== false && !$hasMyPosition && (
-                <ColoredMarker
-                    color="violet"
-                    letter="H"
-                    key="hider"
-                    sub={t("pin.hidingSpot")}
-                    questionKey={-1}
-                    latitude={$hiderMode.latitude}
-                    longitude={$hiderMode.longitude}
-                    onChange={(e) => {
-                        $hiderMode.latitude =
-                            e.target.getLatLng().lat ?? $hiderMode.latitude;
-                        $hiderMode.longitude =
-                            e.target.getLatLng().lng ?? $hiderMode.longitude;
+            {/* Without GPS, or where the hider set their location by hand */}
+            {$hiderMode !== false &&
+                (!$hasMyPosition || $hiderPlacedAt !== null) && (
+                    <ColoredMarker
+                        color="violet"
+                        letter="H"
+                        key="hider"
+                        sub={t("pin.hidingSpot")}
+                        questionKey={-1}
+                        latitude={$hiderMode.latitude}
+                        longitude={$hiderMode.longitude}
+                        onChange={(e) => {
+                            $hiderMode.latitude =
+                                e.target.getLatLng().lat ?? $hiderMode.latitude;
+                            $hiderMode.longitude =
+                                e.target.getLatLng().lng ??
+                                $hiderMode.longitude;
 
-                        hiderMode.set({
-                            ...$hiderMode,
-                        });
-                    }}
-                />
-            )}
+                            hiderMode.set({
+                                ...$hiderMode,
+                            });
+                            hiderPlacedAt.set(Date.now());
+                        }}
+                    />
+                )}
             {$questions.map((question) => {
                 if (!question.data) return null;
                 if (question.data.hidden) return null;

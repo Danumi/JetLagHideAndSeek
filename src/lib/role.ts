@@ -1,6 +1,7 @@
 import {
     followMyPosition,
     hiderMode,
+    hiderPlacedAt,
     hiderScreenOpen,
     leafletMapContext,
     myPosition,
@@ -39,6 +40,7 @@ const startHiderMode = () => {
 
 export const setRole = (role: Role) => {
     roleChosen.set(true);
+    hiderPlacedAt.set(null);
     if (role === "hider") {
         startHiderMode();
         hiderScreenOpen.set(true);

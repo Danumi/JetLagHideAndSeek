@@ -1000,8 +1000,12 @@ export const messages = {
         de: "Dein Standort: GPS, {time}, ±{meters} m",
     },
     "hider.locationMarker": {
-        en: "Your location: the H marker on the map",
-        de: "Dein Standort: die H-Nadel auf der Karte",
+        en: "Your location: the H marker on the map, set at {time}",
+        de: "Dein Standort: die H-Nadel auf der Karte, gesetzt um {time}",
+    },
+    "hider.poorGpsPick": {
+        en: "Too imprecise for some answers (e.g. underground). If you know where you are, set it on the map.",
+        de: "Zu ungenau für manche Antworten (etwa unter der Erde). Wenn du weißt, wo du bist, setz es auf der Karte.",
     },
     "hider.update": { en: "Update", de: "Aktualisieren" },
     "hider.useMarker": { en: "Use the H marker", de: "H-Nadel verwenden" },

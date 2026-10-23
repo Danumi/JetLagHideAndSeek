@@ -4,6 +4,7 @@ import { computed } from "nanostores";
 import {
     allTrainStations,
     hiderMode,
+    hiderPlacedAt,
     hiderZoneId,
     hidingRadius,
     hidingRadiusUnits,
@@ -85,9 +86,10 @@ export const zoneCheckText = (check: ZoneCheck) => {
 };
 
 /**
- * The hider's zone check at the blue dot, or null: on seekers' phones,
- * without GPS, or before the stations have loaded. Once the hider chose a
- * zone, only that zone counts, also where zones overlap.
+ * The hider's zone check at the blue dot, or where the hider set their
+ * location by hand; null on seekers' phones, without a location, or before
+ * the stations have loaded. Once the hider chose a zone, only that zone
+ * counts, also where zones overlap.
  */
 export const hiderZoneCheck = computed(
     [
@@ -97,9 +99,15 @@ export const hiderZoneCheck = computed(
         hidingRadius,
         hidingRadiusUnits,
         hiderZoneId,
+        hiderPlacedAt,
     ],
-    (hider, position, stations, radius, units, chosenId) => {
-        if (hider === false || !position) return null;
+    (hider, gps, stations, radius, units, chosenId, placedAt) => {
+        if (hider === false) return null;
+        const position =
+            placedAt !== null
+                ? { lat: hider.latitude, lng: hider.longitude }
+                : gps;
+        if (!position) return null;
         const chosen = stations.filter(
             (station) => station.properties.id === chosenId,
         );
@@ -112,7 +120,7 @@ export const hiderZoneCheck = computed(
             check && {
                 ...check,
                 chosen: chosen.length > 0,
-                accuracy: position.accuracy,
+                accuracy: placedAt !== null ? undefined : gps?.accuracy,
             }
         );
     },
