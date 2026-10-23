@@ -204,8 +204,37 @@ export const lineLabelPositions = (
     return placed;
 };
 
-/** The line tapped on the map ("U4"), while it is highlighted. */
-export const selectedTransitLine = atom<string | null>(null);
+/** A line as it is named in the strip above the buttons below the map. */
+export type TappedLine = {
+    ref: string;
+    route: string;
+    color: string;
+    /** Where it runs, e.g. "Heiligenstadt" and "Hütteldorf". */
+    from?: string;
+    to?: string;
+};
+
+/**
+ * The lines at the spot tapped on the map (several where they share tracks)
+ * and which of them is highlighted.
+ */
+export const tappedLines = atom<{ lines: TappedLine[]; shown: number } | null>(
+    null,
+);
+
+/** The line highlighted on the map, if any. */
+export const highlightedLine = (tapped = tappedLines.get()) =>
+    tapped ? tapped.lines[tapped.shown] : null;
+
+/** The next line at the tapped spot ("2 of 7"). */
+export const nextTappedLine = () => {
+    const tapped = tappedLines.get();
+    if (!tapped || tapped.lines.length < 2) return;
+    tappedLines.set({
+        ...tapped,
+        shown: (tapped.shown + 1) % tapped.lines.length,
+    });
+};
 
 /** Taps this close to a line (on the screen, in pixels) are on it. */
 export const LINE_TAP_PX = 14;

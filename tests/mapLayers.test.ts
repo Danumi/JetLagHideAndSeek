@@ -4,11 +4,14 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { mapGeoJSON, overpassCustomHost } from "@/lib/context";
 import { findTransitLines, placeCounts } from "@/maps/api";
 import {
+    highlightedLine,
     lineLabelPositions,
     linesAt,
     MAP_LAYERS,
+    nextTappedLine,
     placesInView,
     shownMapLayers,
+    tappedLines,
     toggleMapLayer,
     waterLabels,
     waterLabelsInView,
@@ -229,6 +232,18 @@ describe("tapping a line", () => {
         expect(linesAt(lines, [16.37, 48.25], toPixel)).toEqual([]);
         // Beyond the end of the tracks
         expect(linesAt(lines, [16.45, 48.2], toPixel)).toEqual([]);
+    });
+
+    it("goes through the lines at the tapped spot", () => {
+        const line = (ref: string) => ({ ref, route: "train", color: "#000" });
+        tappedLines.set({ lines: [line("S1"), line("S2")], shown: 0 });
+        expect(highlightedLine()?.ref).toBe("S1");
+        nextTappedLine();
+        expect(highlightedLine()?.ref).toBe("S2");
+        nextTappedLine();
+        expect(highlightedLine()?.ref).toBe("S1");
+        tappedLines.set(null);
+        expect(highlightedLine()).toBeNull();
     });
 
     it("puts the nearest line first", () => {

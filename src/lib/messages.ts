@@ -96,9 +96,10 @@ export const messages = {
     "layers.sBahn": { en: "S-Bahn lines", de: "S-Bahn-Linien" },
     "layers.tram": { en: "Tram lines", de: "Straßenbahnlinien" },
     "layers.line.tram": { en: "Tram", de: "Straßenbahn" },
-    "layers.line.next": {
-        en: "Line {n} of {total} here. Tap again for the next.",
-        de: "Linie {n} von {total} hier. Nochmal tippen für die nächste.",
+    "layers.line.count": { en: "{n} of {total}", de: "{n} von {total}" },
+    "layers.line.nextTitle": {
+        en: "Next line here",
+        de: "Nächste Linie hier",
     },
 
     // The kinds of questions
