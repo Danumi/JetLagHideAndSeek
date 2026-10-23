@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { EyeIcon, EyeOffIcon, Trash2Icon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, PencilIcon, Trash2Icon } from "lucide-react";
 
 import { RuleButton } from "@/components/HelpDialog";
 import {
@@ -20,7 +20,12 @@ import { deleteQuestionWithUndo } from "@/components/UndoToast";
 import { isLoading, questionModified } from "@/lib/context";
 import { type MessageKey, t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import { isPending, questionTitle } from "@/maps/answers";
+import {
+    changeSent,
+    isPending,
+    isSentLocked,
+    questionTitle,
+} from "@/maps/answers";
 import { ruleIdFor } from "@/maps/rules";
 import type { Question } from "@/maps/schema";
 
@@ -45,6 +50,33 @@ export const CardNote = ({
         {children}
     </p>
 );
+
+/**
+ * A sent question stays as the hider has it. To change it, open it here;
+ * then it needs sending again.
+ */
+export const ChangeSent = ({ question }: { question: Question }) => {
+    useLanguage();
+    if (!isPending(question) || question.data.sentAt === undefined) {
+        return null;
+    }
+    if (!isSentLocked(question)) {
+        return <CardNote>{t("send.changing")}</CardNote>;
+    }
+    return (
+        <Button
+            variant="outline"
+            className="h-10"
+            onClick={() => {
+                changeSent(question);
+                questionModified();
+            }}
+        >
+            <PencilIcon />
+            {t("send.change")}
+        </Button>
+    );
+};
 
 /** "Delete" on a question card, after asking. */
 export const DeleteButton = ({ onDelete }: { onDelete: () => void }) => {
@@ -154,6 +186,7 @@ export const QuestionCard = ({
                 <AnswerButtons question={question} />
                 <div className="flex flex-col gap-2">
                     {pending && <SendToHider question={question} />}
+                    <ChangeSent question={question} />
                     <div className="grid grid-cols-2 gap-2">
                         <Button
                             variant="outline"

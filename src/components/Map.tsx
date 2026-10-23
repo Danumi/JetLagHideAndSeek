@@ -31,7 +31,11 @@ import { MY_POSITION_ZOOM, placePickedPoint, watchMyPosition } from "@/lib/gps";
 import { language, t } from "@/lib/i18n";
 import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
-import { applyQuestionsToMapGeoData, holedMask } from "@/maps";
+import {
+    applyQuestionsToMapGeoData,
+    holedMask,
+    retryQuestionsNotLoaded,
+} from "@/maps";
 import { BLANK_GEOJSON, determineMapBoundaries } from "@/maps/api";
 import { steadyRenderer } from "@/maps/steadyRenderer";
 import { tapZoneAt } from "@/maps/zones";
@@ -481,7 +485,10 @@ export const Map = ({ className }: { className?: string }) => {
     useEffect(
         () =>
             // Questions whose data failed to load are computed again
-            retryTrigger.listen(() => latestRefreshRef.current?.(false)),
+            retryTrigger.listen(() => {
+                retryQuestionsNotLoaded();
+                latestRefreshRef.current?.(false);
+            }),
         [],
     );
 

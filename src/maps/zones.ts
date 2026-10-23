@@ -71,6 +71,33 @@ export const outsideZones = (
     }
 };
 
+/**
+ * The zones the answers leave light somewhere. A zone whose edge is all
+ * grey can still hold a light island inside (typical late in the game), so
+ * this looks at what is left, not at the edge.
+ */
+export const zonesNotRuledOut = <T extends Feature<Polygon | MultiPolygon>>(
+    zones: T[],
+    ruledOut: FeatureCollection | null,
+): T[] => {
+    const grey = ruledOut?.features?.[0] as
+        | Feature<Polygon | MultiPolygon>
+        | undefined;
+    if (zones.length === 0 || !grey) return zones;
+    try {
+        // What the answers leave, around the zones
+        const around = turf.bboxPolygon(
+            turf.bbox(turf.featureCollection(zones)),
+        );
+        const left = turf.difference(turf.featureCollection([around, grey]));
+        if (!left) return [];
+        return zones.filter((zone) => turf.booleanIntersects(zone, left));
+    } catch (error) {
+        console.log("Error working out the zones left:", error);
+        return zones;
+    }
+};
+
 export const toggleZone = (id: string) => {
     const disabled = disabledStations.get();
     disabledStations.set(

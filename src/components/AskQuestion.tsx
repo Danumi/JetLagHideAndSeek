@@ -19,7 +19,6 @@ import {
     addPhotoQuestion,
     addQuestion,
     displayHidingZones,
-    isLoading,
     leafletMapContext,
     photoQuestions,
     questions,
@@ -193,7 +192,6 @@ const HidingPeriodNote = () => {
 
 export const AskQuestionDrawer = ({ className }: { className?: string }) => {
     useLanguage();
-    const $isLoading = useStore(isLoading);
     const $thermometerRun = useStore(thermometerRun);
     const $displayHidingZones = useStore(displayHidingZones);
     const $questions = useStore(questions);
@@ -295,9 +293,11 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
         const repeat = askedNote(asked.get(deckCardId(id, card)));
         const note = card.noAnswer
             ? t("ask.noAnswer", { reason: tr(card.noAnswer) })
-            : needsZones
-              ? t("ask.needsZones")
-              : card.hint && tr(card.hint);
+            : card.alwaysSame
+              ? t("ask.alwaysSame", { reason: tr(card.alwaysSame) })
+              : needsZones
+                ? t("ask.needsZones")
+                : card.hint && tr(card.hint);
 
         return (
             <button
@@ -306,19 +306,14 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                     "w-full rounded-md border px-3 py-2 text-left transition-colors",
                     "hover:bg-accent active:bg-accent disabled:opacity-60",
                 )}
-                disabled={busy || !!card.noAnswer || needsZones}
+                disabled={
+                    busy || !!card.noAnswer || !!card.alwaysSame || needsZones
+                }
                 onClick={() => askCard(id, card)}
             >
                 <div className="font-semibold">{tr(card.label)}</div>
                 {note && (
-                    <div
-                        className={cn(
-                            "text-xs text-muted-foreground",
-                            (card.noAnswer || needsZones) && "text-orange-500",
-                        )}
-                    >
-                        {note}
-                    </div>
+                    <div className="text-xs text-muted-foreground">{note}</div>
                 )}
                 {repeat && (
                     <div className="text-xs font-medium text-sky-400">
@@ -553,7 +548,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                         "h-14 rounded-xl bg-blue-600 px-4 text-base font-semibold text-white shadow-lg hover:bg-blue-700",
                         className,
                     )}
-                    disabled={$isLoading || !!$thermometerRun || busy}
+                    disabled={!!$thermometerRun || busy}
                 >
                     <TbMessage2Question className="!size-6" />
                     {t("ask.button")}

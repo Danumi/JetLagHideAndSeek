@@ -81,6 +81,8 @@ export type DeckCard = {
     adminLevel?: AdminLevel;
     /** Why the hider can only answer "no answer" in Vienna. */
     noAnswer?: Text;
+    /** Why the answer is always "Same" in Vienna: not worth a question. */
+    alwaysSame?: Text;
     /** Station questions work on the hiding zones (U-Bahn stations). */
     needsHidingZones?: boolean;
 };
@@ -121,6 +123,7 @@ const PARK: Omit<DeckCard, "group"> = {
 
 const placeCards = (
     suffix: string,
+    aquarium: Partial<DeckCard> = {},
 ): { group: Text; cards: Omit<DeckCard, "group">[] }[] => [
     {
         group: GROUPS.places,
@@ -139,6 +142,7 @@ const placeCards = (
                 id: "aquarium",
                 label: { en: "Aquarium", de: "Aquarium" },
                 type: `aquarium${suffix}`,
+                ...aquarium,
             },
             {
                 id: "golf-course",
@@ -245,6 +249,10 @@ export const MATCHING_DECK: DeckCard[] = flatten([
                 },
                 type: "zone",
                 adminLevel: 4,
+                alwaysSame: {
+                    en: "The whole game area is one Bundesland, Wien.",
+                    de: "Das ganze Spielgebiet ist ein Bundesland, Wien.",
+                },
             },
             {
                 id: "admin-2",
@@ -295,7 +303,12 @@ export const MATCHING_DECK: DeckCard[] = flatten([
             PARK,
         ],
     },
-    ...placeCards("-full"),
+    ...placeCards("-full", {
+        alwaysSame: {
+            en: "Vienna has one aquarium, the Haus des Meeres.",
+            de: "Wien hat ein Aquarium, das Haus des Meeres.",
+        },
+    }),
 ]);
 
 export const MEASURING_DECK: DeckCard[] = flatten([

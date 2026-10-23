@@ -23,6 +23,7 @@ import {
     tappedZones,
     tapZoneAt,
     zonesAt,
+    zonesNotRuledOut,
 } from "@/maps/zones";
 
 const ORIGIN: [number, number] = [16.37, 48.2];
@@ -224,5 +225,56 @@ describe("outsideZones", () => {
 
     it("greys nothing while there are no zones", () => {
         expect(outsideZones([], null)).toBeNull();
+    });
+});
+
+describe("zonesNotRuledOut", () => {
+    /** Grey everywhere except a light circle of this radius around a point. */
+    const greyExcept = (point: { lat: number; lng: number }, meters: number) =>
+        turf.featureCollection([
+            turf.polygon([
+                [
+                    [0, 0],
+                    [60, 0],
+                    [60, 60],
+                    [0, 60],
+                    [0, 0],
+                ],
+                turf
+                    .circle([point.lng, point.lat], meters, {
+                        steps: 16,
+                        units: "meters",
+                    })
+                    .geometry.coordinates[0].slice()
+                    .reverse(),
+            ]),
+        ]);
+
+    const names = (zones: StationCircle[]) =>
+        zones.map((zone) => zone.properties.properties.name);
+
+    it("keeps a zone with a light island inside, away from its edge", () => {
+        // 100 m around a spot 350 m west of A's station: A's edge is all
+        // grey, and B (from 200 m west) doesn't reach it
+        expect(
+            names(zonesNotRuledOut(ZONES, greyExcept(east(-350), 100))),
+        ).toEqual(["A"]);
+    });
+
+    it("keeps every zone the light part reaches", () => {
+        expect(
+            names(zonesNotRuledOut(ZONES, greyExcept(east(250), 100))),
+        ).toEqual(["A", "B", "C"]);
+    });
+
+    it("rules out every zone when nothing is light", () => {
+        const allGrey = turf.featureCollection([
+            turf.bboxPolygon([0, 0, 60, 60]),
+        ]);
+        expect(zonesNotRuledOut(ZONES, allGrey)).toEqual([]);
+    });
+
+    it("keeps all zones before any answer", () => {
+        expect(zonesNotRuledOut(ZONES, null)).toHaveLength(4);
     });
 });

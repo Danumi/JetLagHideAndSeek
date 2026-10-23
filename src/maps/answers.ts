@@ -41,6 +41,31 @@ export const questionApplies = (
 export const isPending = (question: Question) =>
     question.data.status === "pending";
 
+/**
+ * Sent to the hider and not being changed: the hider has this version, so
+ * the question stays as it is ("Change and send again" opens it).
+ */
+export const isSentLocked = (question: Question) =>
+    isPending(question) &&
+    question.data.sentAt !== undefined &&
+    !question.data.drag;
+
+/**
+ * "Send to hider" locks the question. The hider's time starts with the
+ * first link, and again with the link of a changed question.
+ */
+export const markSent = (question: Question) => {
+    if (question.data.sentAt === undefined || question.data.drag) {
+        question.data.sentAt = Date.now();
+    }
+    question.data.drag = false;
+};
+
+/** "Change and send again": the question opens until it is sent again. */
+export const changeSent = (question: Question) => {
+    question.data.drag = true;
+};
+
 /** Answered questions are locked and shown as one line in the question log. */
 export const isLogged = (question: Question) =>
     question.data.status !== "pending" && !question.data.drag;

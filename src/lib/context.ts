@@ -72,12 +72,16 @@ export const polyGeoJSON = persistentAtom<FeatureCollection<
 });
 
 /**
- * Questions waiting for an answer can always be changed: older versions had
- * a lock button that could leave them locked with no way to unlock them.
+ * Questions waiting for an answer can be changed until they are sent: older
+ * versions had a lock button that could leave them locked with no way to
+ * unlock them. Sent ones open with "Change and send again".
  */
 const unlockPending = (list: Questions) => {
     for (const question of list) {
-        if (question.data.status === "pending") question.data.drag = true;
+        // Except those sent to the hider: they keep the version sent
+        if (question.data.status === "pending") {
+            question.data.drag = question.data.sentAt === undefined;
+        }
     }
     return list;
 };

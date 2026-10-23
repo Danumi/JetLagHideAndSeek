@@ -47,7 +47,13 @@ import {
 } from "@/maps/geo-utils";
 import { findHidingZoneStations, stationOsmIds } from "@/maps/stations";
 import { steadyRenderer } from "@/maps/steadyRenderer";
-import { hiderOwnZone, outsideZones, stationId, zonesLeft } from "@/maps/zones";
+import {
+    hiderOwnZone,
+    outsideZones,
+    stationId,
+    zonesLeft,
+    zonesNotRuledOut,
+} from "@/maps/zones";
 
 import { ELIMINATED_STYLE } from "./Map";
 
@@ -223,27 +229,16 @@ export const HidingZones = () => {
                 "miles",
             );
 
-            const unionized = safeUnion(
-                turf.simplify($questionFinishedMapData, {
-                    tolerance: 0.001,
-                }),
-            );
-
-            let circles = places
-                .map((place) => {
-                    const radius = $hidingRadius;
-                    const center = turf.getCoord(place);
-                    const circle = turf.circle(center, radius, {
+            let circles = zonesNotRuledOut(
+                places.map((place) =>
+                    turf.circle(turf.getCoord(place), $hidingRadius, {
                         steps: 32,
                         units: $hidingRadiusUnits,
                         properties: place,
-                    });
-
-                    return circle;
-                })
-                .filter((circle) => {
-                    return !turf.booleanWithin(circle, unionized);
-                });
+                    }),
+                ),
+                $questionFinishedMapData,
+            );
 
             for (const question of questions.get()) {
                 if (!questionApplies(question, false)) {

@@ -29,6 +29,7 @@ import {
     prettifyLocation,
     QuestionSpecificLocation,
     regionLowerThan,
+    seaLevelLimit,
 } from "@/maps/api";
 import {
     arcBufferToPoint,
@@ -355,7 +356,7 @@ const seaLevelRegion = async (question: MeasuringQuestion) => {
     }
     const region = await regionLowerThan(
         turf.bbox(mapGeoJSON.get()!) as [number, number, number, number],
-        elevation,
+        seaLevelLimit(elevation, question.hiderCloser),
     );
     if (region === null) {
         toast.error(t("question.noElevation"));
@@ -428,6 +429,11 @@ const bufferedDeterminer = memoizeAsync(
             stations:
                 question.type === "rail-measure"
                     ? hidingZoneStationsKey()
+                    : undefined,
+            // The sea level margin goes the other way for the other answer
+            closer:
+                question.type === "sea-level"
+                    ? question.hiderCloser
                     : undefined,
         }),
 );
