@@ -11,12 +11,12 @@ import { GROUPS, MATCHING_DECK, MEASURING_DECK } from "@/maps/deck";
 /*
  * What players can show on the map besides the zones: the places of the
  * question cards (every museum, hospital, park, ...), bodies of water and the
- * U-Bahn and S-Bahn lines. The places come from the same queries as the
+ * U-Bahn, S-Bahn and tram lines. The places come from the same queries as the
  * questions, so "New Game" has already loaded them.
  */
 
 export type MapLayer = {
-    /** The card's id, like "museum" or "water"; "u-bahn" and "s-bahn". */
+    /** The card's id, like "museum" or "water"; "u-bahn", "s-bahn", "tram". */
     id: string;
     group: Text;
     label: Text;
@@ -25,7 +25,7 @@ export type MapLayer = {
     icon: string;
     /** Places are drawn as small symbols; the other layers as lines. */
     location?: APILocations;
-    /** Lines: the OSM route type ("subway", "train"). */
+    /** Lines: the OSM route type ("subway", "train", "tram"). */
     route?: string;
     /** The colours in the list, if the lines have several. */
     colors?: string[];
@@ -33,6 +33,7 @@ export type MapLayer = {
 
 const ICONS = {
     train: '<path d="M8 3.1V7a4 4 0 0 0 8 0V3.1"/><path d="m9 15-1-1"/><path d="m15 15 1-1"/><path d="M9 19c-2.8 0-5-2.2-5-5v-4a8 8 0 0 1 16 0v4c0 2.8-2.2 5-5 5Z"/><path d="m8 19-2 3"/><path d="m16 19 2 3"/>',
+    tram: '<rect width="16" height="16" x="4" y="3" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-2 3"/><path d="m18 22-2-3"/><path d="M8 15h.01"/><path d="M16 15h.01"/>',
     mountain: '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>',
     trees: '<path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z"/><path d="M7 16v6"/><path d="M13 19v3"/><path d="M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5"/>',
     waves: '<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>',
@@ -90,6 +91,15 @@ export const MAP_LAYERS: MapLayer[] = [
         color: "#159dd9",
         icon: ICONS.train,
         route: "train",
+    },
+    {
+        id: "tram",
+        group: GROUPS.transit,
+        label: messages["layers.tram"],
+        // Apart from the U1's red: darker, and the lines are thinner
+        color: "#9f1239",
+        icon: ICONS.tram,
+        route: "tram",
     },
     cardLayer("mountain", "#92400e", ICONS.mountain, "peak"),
     cardLayer("park", "#15803d", ICONS.trees, "park"),
@@ -192,6 +202,81 @@ export const lineLabelPositions = (
         placed.push({ ref: line.ref, at: free ?? candidates[0] });
     }
     return placed;
+};
+
+/** The line tapped on the map ("U4"), while it is highlighted. */
+export const selectedTransitLine = atom<string | null>(null);
+
+/** Taps this close to a line (on the screen, in pixels) are on it. */
+export const LINE_TAP_PX = 14;
+
+type Pixel = { x: number; y: number };
+
+/** From a point to the piece between a and b, on the screen. */
+const pixelDistance = (point: Pixel, a: Pixel, b: Pixel) => {
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const share =
+        dx === 0 && dy === 0
+            ? 0
+            : Math.max(
+                  0,
+                  Math.min(
+                      1,
+                      ((point.x - a.x) * dx + (point.y - a.y) * dy) /
+                          (dx * dx + dy * dy),
+                  ),
+              );
+    return Math.hypot(
+        point.x - (a.x + share * dx),
+        point.y - (a.y + share * dy),
+    );
+};
+
+/**
+ * The lines near a tap on the map, the nearest first. Lines on the same
+ * tracks (the S-Bahn through the city) are all there, in their order.
+ */
+export const linesAt = (
+    lines: { ref: string; lines: Feature<LineString>[] }[],
+    at: Position,
+    /** Where a point is on the screen, in pixels. */
+    toPixel: (at: Position) => Pixel,
+    maxPixels = LINE_TAP_PX,
+) => {
+    const tap = toPixel(at);
+    const found: { ref: string; distance: number }[] = [];
+    for (const line of lines) {
+        let nearest = Infinity;
+        for (const piece of line.lines) {
+            // Most pieces are nowhere near
+            const [west, south, east, north] = turf.bbox(piece);
+            const topLeft = toPixel([west, north]);
+            const bottomRight = toPixel([east, south]);
+            if (
+                tap.x < topLeft.x - maxPixels ||
+                tap.x > bottomRight.x + maxPixels ||
+                tap.y < topLeft.y - maxPixels ||
+                tap.y > bottomRight.y + maxPixels
+            ) {
+                continue;
+            }
+            const points = piece.geometry.coordinates.map(toPixel);
+            for (let i = 1; i < points.length; i++) {
+                nearest = Math.min(
+                    nearest,
+                    pixelDistance(tap, points[i - 1], points[i]),
+                );
+            }
+        }
+        if (nearest <= maxPixels)
+            found.push({ ref: line.ref, distance: nearest });
+    }
+    // Shared tracks are mapped as separate ways at times: a pixel apart
+    // is the same
+    return found
+        .sort((a, b) => Math.round(a.distance) - Math.round(b.distance))
+        .map(({ ref }) => ref);
 };
 
 /** A body of water's name and where it can go on the map. */

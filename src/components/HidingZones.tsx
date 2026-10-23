@@ -282,6 +282,7 @@ export const HidingZones = () => {
                                 nid,
                                 question.data.lineKey,
                                 question.data.same,
+                                question.data,
                             ).catch(() => null);
 
                             // Lines didn't load; the player was offered a retry

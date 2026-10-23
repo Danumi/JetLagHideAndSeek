@@ -3,7 +3,7 @@ import * as turf from "@turf/turf";
 import type { Position } from "geojson";
 import * as L from "leaflet";
 import { LayersIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Pane, useMap } from "react-leaflet";
 
 import { mapGeoJSON } from "@/lib/context";
@@ -11,16 +11,23 @@ import { placePickedPoint } from "@/lib/gps";
 import { hasMessage, t, tr, useLanguage } from "@/lib/i18n";
 import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
-import { findNamedWaterLines, findTransitLines } from "@/maps/api";
+import {
+    findNamedWaterLines,
+    findTramLines,
+    findTransitLines,
+    type TransitLine,
+} from "@/maps/api";
 import { deckGroups } from "@/maps/deck";
 import {
     lineLabelPositions,
+    linesAt,
     MAP_LAYERS,
     type MapLayer,
     mapLayer,
     markTooManyPlaces,
     placesInView,
     placeSymbolHtml,
+    selectedTransitLine,
     shownMapLayers,
     toggleMapLayer,
     tooManyPlacesInView,
@@ -35,8 +42,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 /*
  * Places and lines on the map: every museum, park or hospital of the
- * question cards, bodies of water and the U-Bahn and S-Bahn lines. A button
- * below the location button picks what to show.
+ * question cards, bodies of water and the U-Bahn, S-Bahn and tram lines. A
+ * button below the location button picks what to show.
  */
 
 const escapeHtml = (text: string) =>
@@ -96,6 +103,8 @@ const useDrawn = <T,>(
 };
 
 const LINES = { interactive: false, pane: "mapLayerLines" } as const;
+/** Trams below the U-Bahn and S-Bahn lines. */
+const TRAMS = { interactive: false, pane: "mapLayerTrams" } as const;
 /**
  * Names of lines and waters go into Leaflet's pane for names, above the
  * question pins, so a pin never hides them (like the names of the nearest).
@@ -184,61 +193,247 @@ const PlaceLayer = ({ layer }: { layer: MapLayer }) => {
     return null;
 };
 
+const lineBadgeHtml = (ref: string, color: string) =>
+    `<div style="padding:0 4px;border-radius:4px;border:1.5px solid #fff;background:${color};color:#fff;font:700 11px/15px Poppins,sans-serif;box-shadow:0 1px 2px rgba(0,0,0,.4)">${escapeHtml(ref)}</div>`;
+
 const lineLabelIcon = (ref: string, color: string) =>
     L.divIcon({
         className: "",
         iconSize: [34, 18],
         iconAnchor: [17, 9],
-        html: `<div style="display:flex;justify-content:center"><div style="padding:0 4px;border-radius:4px;border:1.5px solid #fff;background:${color};color:#fff;font:700 11px/15px Poppins,sans-serif;box-shadow:0 1px 2px rgba(0,0,0,.4)">${escapeHtml(ref)}</div></div>`,
+        html: `<div style="display:flex;justify-content:center">${lineBadgeHtml(ref, color)}</div>`,
     });
 
-/** The U-Bahn and S-Bahn lines in their colours, each with its name. */
-const TransitLayer = ({ routes }: { routes: string }) => {
-    const lines = useLayerData("transit", findTransitLines);
-
-    useDrawn(
-        lines,
-        (lines) => {
-            const shown = lines.filter((line) =>
-                routes.split(",").includes(line.route),
-            );
-            const colorOf = (line: (typeof shown)[number]) =>
-                line.colour ??
-                MAP_LAYERS.find((layer) => layer.route === line.route)?.color ??
-                "#334155";
-            const group = L.layerGroup();
-            // A white edge sets the lines apart from the map below
-            for (const line of shown) {
-                L.geoJSON(turf.featureCollection(line.lines), {
-                    ...LINES,
-                    style: { color: "#ffffff", weight: 6, opacity: 0.9 },
-                }).addTo(group);
-            }
-            for (const line of [...shown].reverse()) {
-                L.geoJSON(turf.featureCollection(line.lines), {
-                    ...LINES,
-                    style: { color: colorOf(line), weight: 3.5, opacity: 1 },
-                }).addTo(group);
-            }
-            const area = mapGeoJSON.get();
-            const inArea = (at: Position) =>
-                !area ||
-                area.features.some((feature) =>
-                    turf.booleanPointInPolygon(at, feature),
-                );
-            for (const { ref, at } of lineLabelPositions(shown, inArea)) {
-                const line = shown.find((line) => line.ref === ref)!;
-                L.marker([at[1], at[0]], {
-                    icon: lineLabelIcon(ref, colorOf(line)),
-                    interactive: false,
-                    keyboard: false,
-                    pane: NAMES_PANE,
-                }).addTo(group);
-            }
-            return group;
-        },
-        [routes],
+/** A colour mixed with white, for the lines not tapped. */
+const paler = (color: string, white = 0.7) => {
+    const hex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(color)?.[1];
+    if (!hex) return "#cbd5e1";
+    const full = hex.length === 3 ? [...hex].map((c) => c + c).join("") : hex;
+    const mix = [0, 2, 4].map((i) =>
+        Math.round(
+            parseInt(full.slice(i, i + 2), 16) * (1 - white) + 255 * white,
+        )
+            .toString(16)
+            .padStart(2, "0"),
     );
+    return `#${mix.join("")}`;
+};
+
+const colorOf = (line: TransitLine) =>
+    line.colour ??
+    MAP_LAYERS.find((layer) => layer.route === line.route)?.color ??
+    "#334155";
+
+/** The lines drawn on the map, for taps on them: U-Bahn and S-Bahn, trams. */
+const drawnLines = new Map<string, TransitLine[]>();
+const allDrawnLines = () =>
+    ["rail", "tram"].flatMap((id) => drawnLines.get(id) ?? []);
+/** The last tap on a line, to go through the lines there one by one. */
+let lastLineTap: { at: L.LatLng; refs: string[]; ref: string } | null = null;
+let linePopup: L.Popup | null = null;
+
+/** Taps this close together (on screen) are on the same spot. */
+const SAME_SPOT_PX = 30;
+
+/** "U4 · Hütteldorf – Heiligenstadt" where a line was tapped. */
+const showLine = (
+    map: L.Map,
+    line: TransitLine,
+    at: L.LatLng,
+    refs: string[],
+) => {
+    selectedTransitLine.set(line.ref);
+
+    const content = document.createElement("div");
+    const title = document.createElement("div");
+    title.className = "flex items-center gap-2";
+    const badge = document.createElement("span");
+    badge.innerHTML = lineBadgeHtml(line.ref, colorOf(line));
+    title.append(badge);
+    if (line.from && line.to) {
+        const ends = document.createElement("span");
+        ends.className = "font-semibold";
+        ends.textContent = `${line.from} – ${line.to}`;
+        title.append(ends);
+    }
+    content.append(title);
+    // "D" alone could be anything
+    if (line.route === "tram") {
+        const kind = document.createElement("div");
+        kind.className = "mt-1 text-xs";
+        kind.textContent = t("layers.line.tram");
+        content.append(kind);
+    }
+    if (refs.length > 1) {
+        const next = document.createElement("div");
+        next.className = "mt-1 text-xs";
+        next.textContent = t("layers.line.next", {
+            n: refs.indexOf(line.ref) + 1,
+            total: refs.length,
+        });
+        content.append(next);
+    }
+
+    const popup = L.popup({
+        offset: [0, -4],
+        closeButton: false,
+        autoPan: false,
+    })
+        .setLatLng(at)
+        .setContent(content);
+    popup.on("remove", () => {
+        if (linePopup !== popup) return;
+        linePopup = null;
+        selectedTransitLine.set(null);
+    });
+    linePopup = popup;
+    popup.openOn(map);
+};
+
+const clearSelectedLine = () => {
+    lastLineTap = null;
+    linePopup?.remove();
+    linePopup = null;
+    selectedTransitLine.set(null);
+};
+
+/**
+ * A tap on the map near a line that is shown: highlights the line and names
+ * it. Each further tap on the same spot picks the next line there (the
+ * S-Bahn lines share their tracks). False away from the lines: then the tap
+ * is for the zones.
+ */
+export const tapLineAt = (map: L.Map, at: L.LatLng) => {
+    const lines = allDrawnLines();
+    const refs = linesAt(lines, [at.lng, at.lat], ([lng, lat]) =>
+        map.latLngToContainerPoint([lat, lng]),
+    );
+    if (refs.length === 0) {
+        clearSelectedLine();
+        return false;
+    }
+
+    const last = lastLineTap;
+    const again =
+        last !== null &&
+        refs.includes(last.ref) &&
+        map
+            .latLngToContainerPoint(last.at)
+            .distanceTo(map.latLngToContainerPoint(at)) <= SAME_SPOT_PX;
+    const shared = again ? last.refs : refs;
+    const ref = again
+        ? shared[(shared.indexOf(last.ref) + 1) % shared.length]
+        : refs[0];
+    lastLineTap = { at, refs: shared, ref };
+    showLine(map, lines.find((line) => line.ref === ref)!, at, shared);
+    return true;
+};
+
+/**
+ * Lines in their colours, each with its name: the U-Bahn and S-Bahn ("rail")
+ * or the trams. A tapped line is drawn wider on top, the others paler.
+ */
+const TransitLayer = ({
+    id,
+    load,
+    routes,
+    pane,
+    weight,
+}: {
+    id: "rail" | "tram";
+    load: () => Promise<TransitLine[]>;
+    routes: string;
+    pane: typeof LINES | typeof TRAMS;
+    weight: number;
+}) => {
+    const map = useMap();
+    const lines = useLayerData(id, load);
+    const $selected = useStore(selectedTransitLine);
+    const shown = useMemo(
+        () =>
+            lines?.filter((line) => routes.split(",").includes(line.route)) ??
+            null,
+        [lines, routes],
+    );
+    const colored = useRef<{ path: L.GeoJSON; color: string }[]>([]);
+
+    useEffect(() => {
+        if (!shown) return;
+        const group = L.layerGroup().addTo(map);
+        // A white edge sets the lines apart from the map below
+        for (const line of shown) {
+            L.geoJSON(turf.featureCollection(line.lines), {
+                ...pane,
+                style: { color: "#ffffff", weight: weight + 2.5, opacity: 0.9 },
+            }).addTo(group);
+        }
+        for (const line of [...shown].reverse()) {
+            const color = colorOf(line);
+            const path = L.geoJSON(turf.featureCollection(line.lines), {
+                ...pane,
+                style: { color, weight, opacity: 1 },
+            }).addTo(group);
+            colored.current.push({ path, color });
+        }
+        const area = mapGeoJSON.get();
+        const inArea = (at: Position) =>
+            !area ||
+            area.features.some((feature) =>
+                turf.booleanPointInPolygon(at, feature),
+            );
+        for (const { ref, at } of lineLabelPositions(shown, inArea)) {
+            const line = shown.find((line) => line.ref === ref)!;
+            L.marker([at[1], at[0]], {
+                icon: lineLabelIcon(ref, colorOf(line)),
+                keyboard: false,
+                pane: NAMES_PANE,
+            })
+                .on("click", (event) => {
+                    // "Pick on map": a tap on a name sets the point too
+                    if (placePickedPoint(event.latlng)) return;
+                    lastLineTap = { at: event.latlng, refs: [ref], ref };
+                    showLine(map, line, event.latlng, [ref]);
+                })
+                .addTo(group);
+        }
+        drawnLines.set(id, shown);
+
+        return () => {
+            group.remove();
+            colored.current = [];
+            drawnLines.delete(id);
+            if (shown.some((line) => line.ref === selectedTransitLine.get())) {
+                clearSelectedLine();
+            }
+        };
+    }, [map, shown, id, pane, weight]);
+
+    useEffect(() => {
+        if (!$selected || !shown) return;
+        // Paler colours rather than see-through: the pieces of a line would
+        // overlap in darker dots
+        for (const { path, color } of colored.current) {
+            path.setStyle({ color: paler(color) });
+        }
+        const line = shown.find((line) => line.ref === $selected);
+        // On top of all lines, trams too
+        const highlight =
+            line &&
+            L.layerGroup([
+                L.geoJSON(turf.featureCollection(line.lines), {
+                    ...LINES,
+                    style: { color: "#ffffff", weight: 10, opacity: 1 },
+                }),
+                L.geoJSON(turf.featureCollection(line.lines), {
+                    ...LINES,
+                    style: { color: colorOf(line), weight: 6, opacity: 1 },
+                }),
+            ]).addTo(map);
+        return () => {
+            highlight?.remove();
+            for (const { path } of colored.current) path.resetStyle();
+        };
+    }, [map, shown, $selected]);
 
     return null;
 };
@@ -308,21 +503,49 @@ const WaterLayer = () => {
 /** What is shown, inside the map. */
 export const MapLayersOverlay = () => {
     const $shown = useStore(shownMapLayers);
-    const routes = MAP_LAYERS.filter(
-        (layer) => layer.route && $shown.includes(layer.id),
-    )
-        .map((layer) => layer.route)
-        .join(",");
+    const shownRoutes = (routes: string[]) =>
+        MAP_LAYERS.filter(
+            (layer) =>
+                layer.route &&
+                routes.includes(layer.route) &&
+                $shown.includes(layer.id),
+        )
+            .map((layer) => layer.route)
+            .join(",");
+    const rail = shownRoutes(["subway", "train"]);
+    const trams = shownRoutes(["tram"]);
 
     return (
         <>
             {/* Below the grey areas: what is ruled out looks greyed out */}
             <Pane
+                name="mapLayerTrams"
+                style={{ zIndex: 339, pointerEvents: "none" }}
+            >
+                {trams && (
+                    <TransitLayer
+                        id="tram"
+                        load={findTramLines}
+                        routes={trams}
+                        pane={TRAMS}
+                        weight={2.5}
+                    />
+                )}
+            </Pane>
+            <Pane
                 name="mapLayerLines"
                 style={{ zIndex: 340, pointerEvents: "none" }}
             >
                 {$shown.includes("water") && <WaterLayer />}
-                {routes && <TransitLayer routes={routes} />}
+                {rail && (
+                    <TransitLayer
+                        id="rail"
+                        load={findTransitLines}
+                        routes={rail}
+                        pane={LINES}
+                        weight={3.5}
+                    />
+                )}
             </Pane>
             {/* Above the grey areas and the nearest places, below the blue dot */}
             <Pane name="mapLayerPlaces" style={{ zIndex: 430 }}>

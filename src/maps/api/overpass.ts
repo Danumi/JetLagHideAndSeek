@@ -441,13 +441,21 @@ const gameAreaBbox = (margin = 0.02) => {
 
 const STATION_FILTER = '["railway"~"^(station|halt)$"]';
 const LINE_ROUTE_FILTER =
-    '["type"="route"]["route"~"^(subway|train|light_rail|tram|monorail)$"]';
-const LINE_ORDER = ["subway", "light_rail", "train", "monorail", "tram"];
+    '["type"="route"]["route"~"^(subway|train|light_rail|tram|monorail|bus|trolleybus)$"]';
+const LINE_ORDER = [
+    "subway",
+    "light_rail",
+    "train",
+    "monorail",
+    "tram",
+    "trolleybus",
+    "bus",
+];
 
 export interface StationLine {
     /** Stable identifier, e.g. "subway:U4". */
     key: string;
-    /** What players see, e.g. "U4". */
+    /** What players see, e.g. "U4"; "D" for tram D, "13A" for bus 13A. */
     label: string;
     route: string;
     /** OSM node ids of the stations this line stops at (inside the game area). */
@@ -455,17 +463,12 @@ export interface StationLine {
 }
 
 /**
- * All lines that stop at a station, each with the stations it stops at.
- *
- * A line counts as stopping at a station when the station is in the line's
- * route relation, shares a stop area with one of its stops or platforms, or
- * lies within 150 m of one (stations that are not linked in OSM, and
- * interchanges like U-Bahn and S-Bahn Praterstern).
+ * Each line of the route set `.routes` with the stations it stops at: those
+ * in its route relation, sharing a stop area with one of its stops or
+ * platforms, or within 150 m of one (stations that are not linked in OSM,
+ * and interchanges like U-Bahn and S-Bahn Praterstern).
  */
-export const findStationLines = async (
-    node: string,
-): Promise<StationLine[]> => {
-    const nodeId = node.split("/")[1];
+const routeStationsQuery = () => {
     const bboxValue = gameAreaBbox();
     const bbox = bboxValue ? `(${bboxValue})` : "";
     const roles = [
@@ -481,28 +484,17 @@ export const findStationLines = async (
         ...roles.slice(3).map((role) => `way(r.rt:"${role}")${bbox};`),
         `node(r.rt:"")${STATION_FILTER}${bbox};`,
     ].join("");
-
-    const query = `
-[out:json][timeout:60];
-node(${nodeId})->.s;
-rel(bn.s)["public_transport"="stop_area"]->.sa;
-(node(r.sa);way(r.sa);)->.sam;
-(node(around.s:150)["public_transport"~"^(stop_position|platform)$"];way(around.s:150)["public_transport"="platform"];)->.near;
-(rel(bn.s)${LINE_ROUTE_FILTER};rel(bn.sam)${LINE_ROUTE_FILTER};rel(bw.sam)${LINE_ROUTE_FILTER};rel(bn.near)${LINE_ROUTE_FILTER};rel(bw.near)${LINE_ROUTE_FILTER};)->.routes;
-foreach.routes->.rt(
+    return `foreach.routes->.rt(
 .rt out tags;
 (${members})->.rm;
 (rel(bn.rm)["public_transport"="stop_area"];rel(bw.rm)["public_transport"="stop_area"];)->.rsa;
 (node(r.rsa)${STATION_FILTER};node.rm${STATION_FILTER};node(around.rm:150)${STATION_FILTER};);
 out ids;
 );`;
+};
 
-    const data = await getOverpassData(
-        query,
-        t("loading.lines"),
-        CacheType.ZONE_CACHE,
-    );
-
+/** The answer to a query with `routeStationsQuery`, by line. */
+const parseStationLines = (data: any): StationLine[] => {
     const lines = new Map<string, StationLine>();
     let current: StationLine | null = null;
     for (const element of data.elements ?? []) {
@@ -521,30 +513,108 @@ out ids;
             current.stationIds.push(element.id);
         }
     }
-
-    return [...lines.values()]
-        .map((line) => ({ ...line, stationIds: _.uniq(line.stationIds) }))
-        .sort(
-            (a, b) =>
-                LINE_ORDER.indexOf(a.route) - LINE_ORDER.indexOf(b.route) ||
-                a.label.localeCompare(b.label, undefined, { numeric: true }),
-        );
+    return [...lines.values()];
 };
+
+/** Lines found twice as one, with the stations of both; in a fixed order. */
+const mergeStationLines = (...found: StationLine[][]) => {
+    const lines = new Map<string, StationLine>();
+    for (const line of found.flat()) {
+        const known = lines.get(line.key);
+        lines.set(line.key, {
+            ...line,
+            stationIds: _.uniq([
+                ...(known?.stationIds ?? []),
+                ...line.stationIds,
+            ]),
+        });
+    }
+    return [...lines.values()].sort(
+        (a, b) =>
+            LINE_ORDER.indexOf(a.route) - LINE_ORDER.indexOf(b.route) ||
+            a.label.localeCompare(b.label, undefined, { numeric: true }),
+    );
+};
+
+/**
+ * All lines that stop at a station (trains, trams and buses), each with the
+ * stations it stops at.
+ */
+export const findStationLines = async (
+    node: string,
+): Promise<StationLine[]> => {
+    const nodeId = node.split("/")[1];
+    const query = `
+[out:json][timeout:60];
+node(${nodeId})->.s;
+rel(bn.s)["public_transport"="stop_area"]->.sa;
+(node(r.sa);way(r.sa);)->.sam;
+(node(around.s:150)["public_transport"~"^(stop_position|platform)$"];way(around.s:150)["public_transport"="platform"];)->.near;
+(rel(bn.s)${LINE_ROUTE_FILTER};rel(bn.sam)${LINE_ROUTE_FILTER};rel(bw.sam)${LINE_ROUTE_FILTER};rel(bn.near)${LINE_ROUTE_FILTER};rel(bw.near)${LINE_ROUTE_FILTER};)->.routes;
+${routeStationsQuery()}`;
+
+    const data = await getOverpassData(
+        query,
+        t("loading.lines"),
+        CacheType.ZONE_CACHE,
+    );
+    return mergeStationLines(parseStationLines(data));
+};
+
+/** A line runs this close to the seekers when they are riding it. */
+const RIDING_METERS = 100;
+
+/**
+ * The lines the seekers may be riding: those whose tracks or roads run
+ * close to them, or with a stop close by. Buses mostly don't pass the
+ * nearest station.
+ */
+export const findLinesNear = async (
+    lat: number,
+    lng: number,
+): Promise<StationLine[]> => {
+    const at = `${RIDING_METERS},${lat.toFixed(5)},${lng.toFixed(5)}`;
+    const query = `
+[out:json][timeout:60];
+(way(around:${at})["highway"];way(around:${at})["railway"];node(around:${at})["public_transport"~"^(stop_position|platform)$"];)->.near;
+(rel(bw.near)${LINE_ROUTE_FILTER};rel(bn.near)${LINE_ROUTE_FILTER};)->.routes;
+${routeStationsQuery()}`;
+
+    const data = await getOverpassData(query, t("loading.lines"));
+    return mergeStationLines(parseStationLines(data));
+};
+
+/**
+ * The lines to choose from for "Transit Line": those at the seekers' nearest
+ * station and those running where the seekers are.
+ */
+export const findSeekerLines = async (
+    node: string,
+    at?: { lat: number; lng: number },
+) =>
+    mergeStationLines(
+        ...(await Promise.all([
+            findStationLines(node),
+            at ? findLinesNear(at.lat, at.lng) : [],
+        ])),
+    );
 
 /**
  * Station node ids that count as being on the seekers' line.
  *
- * Per the rules the seekers name the one line they are riding (`lineKey`).
+ * Per the rules the seekers name the one line they are riding (`lineKey`),
+ * one of the lines at their nearest station or where they are (`at`).
  * Without a chosen line only certain eliminations are made: "same" keeps
- * every station on any line through the seekers' station, "different" only
- * removes stations served by all of those lines.
+ * every station on any of those lines, "different" only removes stations
+ * served by all of them.
  */
 export const trainLineNodeFinder = async (
     node: string,
     lineKey?: string,
     same = true,
+    at?: { lat: number; lng: number },
 ): Promise<number[]> => {
-    const lines = await findStationLines(node);
+    const lines = await findSeekerLines(node, at);
     if (lines.length === 0) return [];
 
     const chosen = lines.find((line) => line.key === lineKey);
@@ -683,26 +753,20 @@ export interface TransitLine {
     route: string;
     /** The line's colour from OSM, e.g. "#319F49". */
     colour?: string;
+    /** Where it runs, e.g. "Hütteldorf" and "Heiligenstadt" (OSM names). */
+    from?: string;
+    to?: string;
     /** Its tracks in the game area, each once (both directions share them). */
     lines: Feature<LineString, { name?: string }>[];
 }
 
-/**
- * The U-Bahn and S-Bahn lines of the game area with their colours, clipped
- * to it. Regional and long-distance trains (REX, Railjet) are left out.
- */
-export const findTransitLines = async (): Promise<TransitLine[]> => {
-    const bboxValue = gameAreaBbox();
-    // Without a game area this would ask for every line in the world
-    if (!bboxValue) return [];
-    const data = await getOverpassData(
-        `[out:json][timeout:60];rel["type"="route"]["route"~"^(subway|train)$"]["ref"~"^[US][0-9]+$"](${bboxValue});out geom(${bboxValue});`,
-        t("loading.transitLines"),
-        CacheType.ZONE_CACHE,
-    );
-
+/** Route relations with their tracks as lines, by line. */
+const transitLinesFrom = (data: any): TransitLine[] => {
     const lines = new Map<string, TransitLine>();
     const wayIds = new Set<string>();
+    // The ends of the longest route of each line, not of a short run (U2
+    // Karlsplatz to Aspernstraße)
+    const longest = new Map<string, number>();
     for (const element of data.elements ?? []) {
         if (element.type !== "relation") continue;
         const tags = element.tags ?? {};
@@ -713,6 +777,12 @@ export const findTransitLines = async (): Promise<TransitLine[]> => {
             lines: [],
         };
         line.colour ??= tags.colour;
+        const size = element.members?.length ?? 0;
+        if (tags.from && tags.to && size > (longest.get(tags.ref) ?? -1)) {
+            longest.set(tags.ref, size);
+            line.from = tags.from;
+            line.to = tags.to;
+        }
         lines.set(tags.ref, line);
         // The tracks, not the platforms; ways outside the area have no geometry
         const tracks = (element.members ?? []).filter(
@@ -733,6 +803,41 @@ export const findTransitLines = async (): Promise<TransitLine[]> => {
                 LINE_ORDER.indexOf(a.route) - LINE_ORDER.indexOf(b.route) ||
                 a.ref.localeCompare(b.ref, undefined, { numeric: true }),
         );
+};
+
+/**
+ * The U-Bahn and S-Bahn lines of the game area with their colours, clipped
+ * to it. Regional and long-distance trains (REX, Railjet) are left out.
+ */
+export const findTransitLines = async (): Promise<TransitLine[]> => {
+    const bboxValue = gameAreaBbox();
+    // Without a game area this would ask for every line in the world
+    if (!bboxValue) return [];
+    const data = await getOverpassData(
+        `[out:json][timeout:60];rel["type"="route"]["route"~"^(subway|train)$"]["ref"~"^[US][0-9]+$"](${bboxValue});out geom(${bboxValue});`,
+        t("loading.transitLines"),
+        CacheType.ZONE_CACHE,
+    );
+    return transitLinesFrom(data);
+};
+
+/**
+ * The tram lines of the game area ("1" to "71", "D", "O"), clipped to it.
+ * Sightseeing trams have other names. All in one colour: the U-Bahn has the
+ * colours.
+ */
+export const findTramLines = async (): Promise<TransitLine[]> => {
+    const bboxValue = gameAreaBbox();
+    if (!bboxValue) return [];
+    const data = await getOverpassData(
+        `[out:json][timeout:60];rel["type"="route"]["route"="tram"]["ref"~"^([0-9]+|[A-Z])$"](${bboxValue});out geom(${bboxValue});`,
+        t("loading.tramLines"),
+        CacheType.ZONE_CACHE,
+    );
+    return transitLinesFrom(data).map((line) => ({
+        ...line,
+        colour: undefined,
+    }));
 };
 
 /**

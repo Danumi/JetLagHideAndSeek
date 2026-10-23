@@ -22,7 +22,7 @@ import {
 } from "@/lib/context";
 import { labelOf, t, tr, useLanguage } from "@/lib/i18n";
 import { retryTrigger } from "@/lib/loading";
-import { findStationLines, type StationLine } from "@/maps/api";
+import { findSeekerLines, type StationLine } from "@/maps/api";
 import {
     type AdminLevel,
     adminLevelOptions,
@@ -65,6 +65,18 @@ const applyMatchingCard = (data: MatchingQuestion, card: DeckCard) => {
     questionModified();
 };
 
+const LINE_KINDS = {
+    tram: "matching.line.tram",
+    bus: "matching.line.bus",
+    trolleybus: "matching.line.trolleybus",
+} as const;
+
+/** "U4", "S45", "Tram D", "Bus 13A". */
+const lineName = (line: StationLine) => {
+    const kind = LINE_KINDS[line.route as keyof typeof LINE_KINDS];
+    return kind ? t(kind, { ref: line.label }) : line.label;
+};
+
 /** Lets the seekers pick the one line they are riding (rules: "Transit Line"). */
 const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
     useLanguage();
@@ -89,13 +101,13 @@ const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
         let cancelled = false;
         setLines(null);
         if (!stationId || !stationId.includes("/")) return;
-        findStationLines(stationId)
+        findSeekerLines(stationId, data)
             .then((result) => !cancelled && setLines(result))
             .catch(() => !cancelled && setLines("failed"));
         return () => {
             cancelled = true;
         };
-    }, [stationId, $retryTrigger]);
+    }, [stationId, data.lat, data.lng, $retryTrigger]);
 
     if (!stationId) {
         return <CardNote warning>{t("matching.line.noZones")}</CardNote>;
@@ -127,7 +139,7 @@ const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
                     options={{
                         any: t("matching.line.any"),
                         ...Object.fromEntries(
-                            lines.map((line) => [line.key, line.label]),
+                            lines.map((line) => [line.key, lineName(line)]),
                         ),
                     }}
                     value={chosen}

@@ -15,6 +15,7 @@ vi.mock("@/maps/api", async (importOriginal) => ({
     findLandmassIslands: vi.fn(async () => ({})),
     findNamedWaterLines: vi.fn(async () => ({})),
     findTransitLines: vi.fn(async () => []),
+    findTramLines: vi.fn(async () => []),
     preloadElevation: vi.fn(async () => true),
     findStationLines: vi.fn(async () => []),
 }));

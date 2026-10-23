@@ -13,6 +13,7 @@ import {
     findNamedWaterLines,
     findPlacesOfKind,
     findStationLines,
+    findTramLines,
     findTransitLines,
     preloadElevation,
     type StationPlace,
@@ -150,8 +151,9 @@ export const preloadGameData = async ({
         // Bundesland, Gemeindebezirke, Katastralgemeinden
         ...DECK_ADMIN_LEVELS.map((level) => () => findAdminAreas(level)),
         findNamedWaterLines,
-        // For the U-Bahn and S-Bahn lines on the map
+        // For the U-Bahn, S-Bahn and tram lines on the map
         findTransitLines,
+        findTramLines,
         () =>
             preloadElevation(
                 turf.bbox(mapGeoJSON.get()!) as [
