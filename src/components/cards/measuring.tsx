@@ -21,9 +21,6 @@ import { labelOf, t, tr, useLanguage } from "@/lib/i18n";
 import {
     type AdminLevel,
     adminLevelOptions,
-    type DeckCard,
-    deckSelectGroups,
-    MEASURING_DECK,
     measuringCardFor,
 } from "@/maps/deck";
 import { determineMeasuringBoundary } from "@/maps/questions/measuring";
@@ -35,20 +32,6 @@ import {
 } from "@/maps/schema";
 
 import { CardNote, QuestionCard } from "./base";
-
-const MEASURING_TYPE_LABELS: Record<string, string> = Object.fromEntries(
-    measuringQuestionSchema.options
-        .flatMap((x) => determineUnionizedStrings(x.shape.type))
-        .map((x) => [(x._def as any).value, x.description]),
-);
-
-const applyMeasuringCard = (data: MeasuringQuestion, card: DeckCard) => {
-    if (card.adminLevel !== undefined) {
-        (data as any).cat = { adminLevel: card.adminLevel };
-    }
-    data.type = card.type as MeasuringQuestion["type"];
-    questionModified();
-};
 
 export const MeasuringQuestionComponent = ({
     data,
@@ -196,32 +179,6 @@ export const MeasuringQuestionComponent = ({
                     setCustomDialogOpen(false);
                 }}
             />
-            {!$showAllQuestionTypes && (
-                <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
-                    <Select
-                        trigger={t("card.question")}
-                        options={
-                            card
-                                ? undefined
-                                : {
-                                      [`other:${data.type}`]: labelOf(
-                                          MEASURING_TYPE_LABELS[data.type] ??
-                                              data.type,
-                                      ),
-                                  }
-                        }
-                        groups={deckSelectGroups(MEASURING_DECK)}
-                        value={card ? card.id : `other:${data.type}`}
-                        onValueChange={(id) => {
-                            const next = MEASURING_DECK.find(
-                                (c) => c.id === id,
-                            );
-                            if (next) applyMeasuringCard(data, next);
-                        }}
-                        disabled={!data.drag || $isLoading}
-                    />
-                </SidebarMenuItem>
-            )}
             {card?.needsHidingZones && !$displayHidingZones && (
                 <CardNote warning>{t("card.needsZones")}</CardNote>
             )}

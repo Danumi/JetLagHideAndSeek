@@ -1,5 +1,6 @@
 import * as turf from "@turf/turf";
 import type { Feature, FeatureCollection } from "geojson";
+import { atom } from "nanostores";
 
 import { type HiderLocation, hiderMode } from "@/lib/context";
 
@@ -96,11 +97,11 @@ export const determinePlanningPolygon = async (
  * Questions whose map data didn't load because the servers didn't answer
  * (questions that depend on the location, like the nearest street): the map
  * leaves them out until "Retry", instead of waiting up to a minute for the
- * servers again after every answer.
+ * servers again after every answer. Their line in the log says so.
  */
-const notLoaded = new Set<string>();
+export const questionsNotLoaded = atom<string[]>([]);
 
-const notLoadedKey = (question: any) =>
+export const notLoadedKey = (question: { key: number; data: any }) =>
     JSON.stringify([
         question.key,
         question.data.lat,
@@ -109,13 +110,16 @@ const notLoadedKey = (question: any) =>
     ]);
 
 /** "Retry": the map asks the servers again for the questions left out. */
-export const retryQuestionsNotLoaded = () => notLoaded.clear();
+export const retryQuestionsNotLoaded = () => questionsNotLoaded.set([]);
 
 export async function adjustMapGeoDataForQuestion(
     question: any,
     mapGeoData: any,
 ) {
-    if (question.data.hidden || notLoaded.has(notLoadedKey(question))) {
+    if (
+        question.data.hidden ||
+        questionsNotLoaded.get().includes(notLoadedKey(question))
+    ) {
         return mapGeoData;
     }
 
@@ -141,8 +145,12 @@ export async function adjustMapGeoDataForQuestion(
                 return mapGeoData;
         }
     } catch (error) {
-        if (error instanceof OverpassError)
-            notLoaded.add(notLoadedKey(question));
+        if (error instanceof OverpassError) {
+            questionsNotLoaded.set([
+                ...questionsNotLoaded.get(),
+                notLoadedKey(question),
+            ]);
+        }
         return mapGeoData;
     }
 }

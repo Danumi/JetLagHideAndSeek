@@ -77,7 +77,7 @@ import { Label } from "./ui/label";
 import { Select } from "./ui/select";
 import { Separator } from "./ui/separator";
 import { deleteAllQuestionsWithUndo } from "./UndoToast";
-import { ZoneExpertSettings } from "./ZoneSheet";
+import { ZoneExpertSettings, ZoneSettings } from "./ZoneSheet";
 
 const HIDING_ZONE_URL_PARAM = "hz";
 const HIDING_ZONE_COMPRESSED_URL_PARAM = "hzc";
@@ -695,6 +695,8 @@ export const OptionDrawers = () => {
                                     <AdvancedSection
                                         title={t("settings.hidingZones")}
                                     >
+                                        <Hint>{t("zones.onlyThisPhone")}</Hint>
+                                        <ZoneSettings />
                                         <ZoneExpertSettings />
                                     </AdvancedSection>
                                 </div>

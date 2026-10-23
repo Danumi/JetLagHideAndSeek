@@ -1,12 +1,7 @@
 import { useStore } from "@nanostores/react";
 import _ from "lodash";
-import {
-    ChevronLeftIcon,
-    RotateCcwIcon,
-    SettingsIcon,
-    XIcon,
-} from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { RotateCcwIcon, XIcon } from "lucide-react";
+import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 import {
@@ -52,7 +47,7 @@ import { Checkbox } from "./ui/checkbox";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { MultiSelect } from "./ui/multi-select";
-import { keepOnlyZonesWithUndo } from "./UndoToast";
+import { keepOnlyZonesWithUndo, showUndoToast } from "./UndoToast";
 import { UnitSelect } from "./UnitSelect";
 
 /** A sideways swipe this far rules a zone out (or back in). */
@@ -65,6 +60,39 @@ const STYLES = {
     "no-display": "zones.style.hidden",
 } as const satisfies Record<string, MessageKey>;
 
+type ZoneStyle = keyof typeof STYLES;
+
+/** The views in the zone list; the others are under "Advanced". */
+const GAME_STYLES: ZoneStyle[] = ["zones", "no-display"];
+
+/** Buttons for how the zones look on the map. */
+const StyleButtons = ({ styles }: { styles: ZoneStyle[] }) => {
+    const $displayHidingZonesStyle = useStore(displayHidingZonesStyle);
+    return (
+        <div
+            className={cn(
+                "grid gap-1",
+                styles.length > 2 ? "grid-cols-4" : "grid-cols-2",
+            )}
+        >
+            {styles.map((style) => (
+                <Button
+                    key={style}
+                    size="sm"
+                    variant={
+                        $displayHidingZonesStyle === style
+                            ? "default"
+                            : "outline"
+                    }
+                    onClick={() => displayHidingZonesStyle.set(style)}
+                >
+                    {t(STYLES[style])}
+                </Button>
+            ))}
+        </div>
+    );
+};
+
 /** The list of hiding zones, from the "Zones" button at the bottom. */
 export const ZoneSheet = () => {
     useLanguage();
@@ -73,12 +101,6 @@ export const ZoneSheet = () => {
     const $disabledStations = useStore(disabledStations);
     const $allTrainStations = useStore(allTrainStations);
     const $displayHidingZones = useStore(displayHidingZones);
-    const [settings, setSettings] = useState(false);
-
-    // "Zones" always opens the list, not the settings shown last time
-    useEffect(() => {
-        if ($open) setSettings(false);
-    }, [$open]);
 
     const left = zonesLeft($stations, $disabledStations).length;
 
@@ -87,49 +109,20 @@ export const ZoneSheet = () => {
             <DrawerContent className="max-h-[85svh]">
                 <div className="mx-auto flex min-h-0 w-full max-w-lg flex-col overflow-hidden">
                     <DrawerHeader className="text-left">
-                        <div className="flex items-center gap-2">
-                            {settings && (
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    onClick={() => setSettings(false)}
-                                    title={t("common.back")}
-                                >
-                                    <ChevronLeftIcon />
-                                </Button>
-                            )}
-                            <DrawerTitle className="flex-1 text-2xl font-semibold font-poppins">
-                                {settings
-                                    ? t("zones.settingsTitle")
-                                    : t("zones.title")}
-                            </DrawerTitle>
-                            {!settings && (
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => setSettings(true)}
-                                >
-                                    <SettingsIcon />
-                                    {t("zones.settings")}
-                                </Button>
-                            )}
-                        </div>
+                        <DrawerTitle className="text-2xl font-semibold font-poppins">
+                            {t("zones.title")}
+                        </DrawerTitle>
                         <DrawerDescription>
-                            {settings
-                                ? t("zones.settingsText")
-                                : $displayHidingZones
-                                  ? t("zones.left", {
-                                        left,
-                                        total: $allTrainStations.length,
-                                    })
-                                  : t("zones.off")}
+                            {$displayHidingZones
+                                ? t("zones.left", {
+                                      left,
+                                      total: $allTrainStations.length,
+                                  })
+                                : t("zones.off")}
                         </DrawerDescription>
                     </DrawerHeader>
-                    <div
-                        className="min-h-0 overflow-y-auto px-4 pb-6"
-                        data-vaul-no-drag={settings ? true : undefined}
-                    >
-                        {settings ? <ZoneSettings /> : <ZoneList />}
+                    <div className="min-h-0 overflow-y-auto px-4 pb-6">
+                        <ZoneList />
                     </div>
                 </div>
             </DrawerContent>
@@ -137,12 +130,23 @@ export const ZoneSheet = () => {
     );
 };
 
+/** "Restore all": every zone ruled out comes back, with "Undo". */
+const restoreAllZones = () => {
+    const disabled = disabledStations.get();
+    const kept = keptZonesRuledOut.get();
+    disabledStations.set([]);
+    keptZonesRuledOut.set([]);
+    showUndoToast(t("zones.restored"), () => {
+        disabledStations.set(disabled);
+        keptZonesRuledOut.set(kept);
+    });
+};
+
 const ZoneList = () => {
     const $stations = useStore(trainStations);
     const $disabledStations = useStore(disabledStations);
     const $keptZonesRuledOut = useStore(keptZonesRuledOut);
     const $displayHidingZones = useStore(displayHidingZones);
-    const $displayHidingZonesStyle = useStore(displayHidingZonesStyle);
     const $hiderMode = useStore(hiderMode);
     const $isLoading = useStore(isLoading);
     const [search, setSearch] = useState("");
@@ -194,26 +198,7 @@ const ZoneList = () => {
                 <p className="text-sm">{t("zones.keepHelp")}</p>
             ) : (
                 <>
-                    <div className="grid grid-cols-4 gap-1">
-                        {(Object.keys(STYLES) as (keyof typeof STYLES)[]).map(
-                            (style) => (
-                                <Button
-                                    key={style}
-                                    size="sm"
-                                    variant={
-                                        $displayHidingZonesStyle === style
-                                            ? "default"
-                                            : "outline"
-                                    }
-                                    onClick={() =>
-                                        displayHidingZonesStyle.set(style)
-                                    }
-                                >
-                                    {t(STYLES[style])}
-                                </Button>
-                            ),
-                        )}
-                    </div>
+                    <StyleButtons styles={GAME_STYLES} />
                     <p className="text-xs text-muted-foreground">
                         {t("zones.listHelp")}
                     </p>
@@ -312,30 +297,11 @@ const ZoneList = () => {
                             <Button
                                 variant="outline"
                                 className="flex-1"
-                                onClick={() => {
-                                    disabledStations.set([]);
-                                    keptZonesRuledOut.set([]);
-                                }}
+                                onClick={restoreAllZones}
                             >
                                 {t("zones.restoreAll")}
                             </Button>
                         )
-                    )}
-                    {$stations.length > 0 && (
-                        <Button
-                            variant="outline"
-                            className="flex-1"
-                            onClick={() =>
-                                disabledStations.set(
-                                    _.uniq([
-                                        ...$disabledStations,
-                                        ...$stations.map(stationId),
-                                    ]),
-                                )
-                            }
-                        >
-                            {t("zones.ruleOutAll")}
-                        </Button>
                     )}
                 </div>
             )}
@@ -473,7 +439,11 @@ const STATION_TYPES: { label: MessageKey; value: string }[] = [
     },
 ];
 
-const ZoneSettings = () => {
+/**
+ * The zones of this phone, under "Advanced" in the settings: changed in a
+ * game, they no longer match the other phones.
+ */
+export const ZoneSettings = () => {
     const $displayHidingZones = useStore(displayHidingZones);
     const $displayHidingZonesOptions = useStore(displayHidingZonesOptions);
     const $hidingRadius = useStore(hidingRadius);
@@ -495,7 +465,13 @@ const ZoneSettings = () => {
                     disabled={$isLoading}
                 />
             </div>
-            <p className="text-xs text-orange-500">{t("zones.slow")}</p>
+            <p className="text-xs text-muted-foreground">{t("zones.slow")}</p>
+            <div className="flex flex-col gap-2">
+                <Label className="font-semibold font-poppins">
+                    {t("zones.view")}
+                </Label>
+                <StyleButtons styles={Object.keys(STYLES) as ZoneStyle[]} />
+            </div>
             <div className="flex flex-col gap-2">
                 <Label className="font-semibold font-poppins">
                     {t("zones.stations")}

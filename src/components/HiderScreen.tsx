@@ -1,6 +1,7 @@
 import { useStore } from "@nanostores/react";
 import {
     CameraIcon,
+    ChevronDownIcon,
     ClipboardPasteIcon,
     LayersIcon,
     LoaderCircleIcon,
@@ -64,7 +65,7 @@ import { hiderZoneCheck, zoneCheckText } from "@/maps/hidingZoneCheck";
 import { hiderEntryRuleId } from "@/maps/rules";
 
 import { AnswerClock } from "./AnswerClock";
-import { GameClockCard } from "./GameClock";
+import { GameClockCard, GameClockChip } from "./GameClock";
 import { RuleButton } from "./HelpDialog";
 import { MoveButton } from "./MoveCard";
 import { showActionToast, showUndoToast } from "./UndoToast";
@@ -104,14 +105,46 @@ const POOR_GPS_METERS = 50;
 
 /**
  * Whether the hider is in their hiding zone, live from the blue dot. Until
- * they chose one: the zone they are in, to choose it.
+ * they chose one: the zone they are in, to choose it. While a question is
+ * open, one line (`compact`) that opens the card when tapped.
  */
-const ZoneCheckCard = () => {
+const ZoneCheckCard = ({ compact = false }: { compact?: boolean }) => {
     const $zoneCheck = useStore(hiderZoneCheck);
+    const [expanded, setExpanded] = useState(false);
     if (!$zoneCheck) return null;
 
     const { title, detail } = zoneCheckText($zoneCheck);
     const { chosen, inside } = $zoneCheck;
+    const colors = !chosen
+        ? "border-violet-600 bg-violet-600/10"
+        : inside
+          ? "border-green-600 bg-green-600/10"
+          : "border-orange-500 bg-orange-500/10";
+    const icon = !chosen ? (
+        <MapPinIcon className="size-6 shrink-0 text-violet-500" />
+    ) : inside ? (
+        <MapPinIcon className="size-6 shrink-0 text-green-500" />
+    ) : (
+        <TriangleAlertIcon className="size-6 shrink-0 text-orange-500" />
+    );
+
+    if (compact && !expanded) {
+        return (
+            <button
+                className={cn(
+                    "flex items-center gap-2 rounded-lg border-2 px-3 py-1.5 text-left text-sm",
+                    colors,
+                )}
+                onClick={() => setExpanded(true)}
+            >
+                {icon}
+                <span className="min-w-0 flex-1 truncate font-semibold">
+                    {title}
+                </span>
+                <ChevronDownIcon className="size-4 shrink-0 text-muted-foreground" />
+            </button>
+        );
+    }
     const showMap = () => {
         hiderScreenOpen.set(false);
         toast.info(t("hider.chooseHint"), {
@@ -124,21 +157,11 @@ const ZoneCheckCard = () => {
         <div
             className={cn(
                 "flex flex-col gap-3 rounded-lg border-2 p-3",
-                !chosen
-                    ? "border-violet-600 bg-violet-600/10"
-                    : inside
-                      ? "border-green-600 bg-green-600/10"
-                      : "border-orange-500 bg-orange-500/10",
+                colors,
             )}
         >
             <div className="flex items-center gap-3">
-                {!chosen ? (
-                    <MapPinIcon className="size-6 shrink-0 text-violet-500" />
-                ) : inside ? (
-                    <MapPinIcon className="size-6 shrink-0 text-green-500" />
-                ) : (
-                    <TriangleAlertIcon className="size-6 shrink-0 text-orange-500" />
-                )}
+                {icon}
                 <div className="min-w-0 flex-1">
                     <div className="font-semibold">{title}</div>
                     <div className="text-sm text-muted-foreground">
@@ -689,6 +712,10 @@ export const HiderScreen = () => {
     const current = result && workingOut && result.key === workingOut.key;
     const otherOpen = openEntries.filter((x) => x !== entry);
     const answered = $inbox.filter((x) => !isOpen(x) && x !== entry).reverse();
+    // How "Send answer" works is said once a game, before the first answer
+    const firstAnswer = !$inbox.some((x) => x.answeredAt !== undefined);
+    // An open question goes first; the game timer and the zone shrink
+    const questionFirst = !!entry && isOpen(entry);
 
     /** Answers, keeping the question on screen to show it went out. */
     const answer = async (
@@ -793,9 +820,11 @@ export const HiderScreen = () => {
                         >
                             {t("hider.alreadyAnswered")}
                         </Button>
-                        <p className="text-sm text-muted-foreground">
-                            {t("hider.sendHint")}
-                        </p>
+                        {firstAnswer && (
+                            <p className="text-sm text-muted-foreground">
+                                {t("hider.sendHint")}
+                            </p>
+                        )}
                     </div>
                 )}
             {entry.photo && (
@@ -889,6 +918,59 @@ export const HiderScreen = () => {
         </div>
     );
 
+    const entryCard = entry ? (
+        <div
+            className={cn(
+                "flex flex-col gap-3 rounded-lg border-2 p-4",
+                isOpen(entry) ? "border-violet-500" : "border-border",
+            )}
+        >
+            <div>
+                <div className="text-sm text-muted-foreground">
+                    {t(
+                        entry.byHand ? "hider.addedAt" : "hider.questionFromAt",
+                        { time: clockTime(entry.askedAt) },
+                    )}
+                </div>
+                <div className="flex items-start gap-1">
+                    <div className="flex-1 text-xl font-semibold font-poppins">
+                        {entryTitle(entry)}
+                    </div>
+                    <RuleButton ruleId={hiderEntryRuleId(entry)} />
+                </div>
+                {photoCard && (
+                    <p className="text-sm text-muted-foreground">
+                        {tr(photoCard.hint)}
+                    </p>
+                )}
+            </div>
+            {isOpen(entry) && (
+                <AnswerClock
+                    start={entry.askedAt}
+                    minutes={answerMinutes(entry)}
+                    className="text-base"
+                />
+            )}
+            {openBody}
+            {answeredBody}
+            <Button
+                variant="ghost"
+                size="sm"
+                className="self-end text-muted-foreground"
+                onClick={() => {
+                    setSelectedKey(null);
+                    deleteEntryWithUndo(entry.key);
+                }}
+            >
+                {t("common.delete")}
+            </Button>
+        </div>
+    ) : (
+        <p className="text-muted-foreground">
+            {$inbox.length === 0 ? t("hider.noQuestion") : t("hider.noOpen")}
+        </p>
+    );
+
     const body = (
         <div className="flex flex-col gap-4">
             {inBrowser && (
@@ -909,8 +991,13 @@ export const HiderScreen = () => {
                     </Button>
                 </div>
             )}
-            <GameClockCard />
-            <ZoneCheckCard />
+            {!questionFirst && (
+                <>
+                    <GameClockCard />
+                    <ZoneCheckCard />
+                </>
+            )}
+            {questionFirst && entryCard}
             <div className="flex items-center gap-3 rounded-lg border p-3">
                 <LocateFixedIcon className="size-5 shrink-0" />
                 <div className="min-w-0 flex-1 text-sm">
@@ -984,62 +1071,13 @@ export const HiderScreen = () => {
                     </Button>
                 </div>
             )}
-
-            {entry ? (
-                <div
-                    className={cn(
-                        "flex flex-col gap-3 rounded-lg border-2 p-4",
-                        isOpen(entry) ? "border-violet-500" : "border-border",
-                    )}
-                >
-                    <div>
-                        <div className="text-sm text-muted-foreground">
-                            {t(
-                                entry.byHand
-                                    ? "hider.addedAt"
-                                    : "hider.questionFromAt",
-                                { time: clockTime(entry.askedAt) },
-                            )}
-                        </div>
-                        <div className="flex items-start gap-1">
-                            <div className="flex-1 text-xl font-semibold font-poppins">
-                                {entryTitle(entry)}
-                            </div>
-                            <RuleButton ruleId={hiderEntryRuleId(entry)} />
-                        </div>
-                        {photoCard && (
-                            <p className="text-sm text-muted-foreground">
-                                {tr(photoCard.hint)}
-                            </p>
-                        )}
-                    </div>
-                    {isOpen(entry) && (
-                        <AnswerClock
-                            start={entry.askedAt}
-                            minutes={answerMinutes(entry)}
-                            className="text-base"
-                        />
-                    )}
-                    {openBody}
-                    {answeredBody}
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        className="self-end text-muted-foreground"
-                        onClick={() => {
-                            setSelectedKey(null);
-                            deleteEntryWithUndo(entry.key);
-                        }}
-                    >
-                        {t("common.delete")}
-                    </Button>
+            {questionFirst ? (
+                <div className="flex flex-col gap-2">
+                    <GameClockChip />
+                    <ZoneCheckCard compact />
                 </div>
             ) : (
-                <p className="text-muted-foreground">
-                    {$inbox.length === 0
-                        ? t("hider.noQuestion")
-                        : t("hider.noOpen")}
-                </p>
+                entryCard
             )}
 
             {otherOpen.length > 0 && (

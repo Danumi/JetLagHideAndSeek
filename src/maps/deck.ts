@@ -418,19 +418,6 @@ export const deckGroups = <C extends { group: Text }>(deck: C[]) =>
         return groups;
     }, []);
 
-/** Options for a question card's select: every card that has an answer. */
-export const deckSelectGroups = (deck: DeckCard[]) =>
-    Object.fromEntries(
-        deckGroups(deck).map(({ group, cards }) => [
-            tr(group),
-            Object.fromEntries(
-                cards
-                    .filter((card) => !card.noAnswer)
-                    .map((card) => [card.id, tr(card.label)]),
-            ),
-        ]),
-    );
-
 const adminLevelOf = (question: { type: string; cat?: unknown }) => {
     const level = (question.cat as { adminLevel?: AdminLevel } | undefined)
         ?.adminLevel;

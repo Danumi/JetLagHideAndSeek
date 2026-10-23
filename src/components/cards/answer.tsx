@@ -3,15 +3,16 @@ import { SendIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
-import { AnswerClock, ClockNotStarted } from "@/components/AnswerClock";
 import { QUESTION_ICONS } from "@/components/questionIcons";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { allTrainStations, questionModified } from "@/lib/context";
 import { scrollToQuestion } from "@/lib/gps";
 import { t, useLanguage } from "@/lib/i18n";
+import { retryLoading } from "@/lib/loading";
 import { questionLink } from "@/lib/questionLink";
 import { cn, shareMessage } from "@/lib/utils";
+import { notLoadedKey, questionsNotLoaded } from "@/maps";
 import {
     answerOptions,
     answerText,
@@ -25,7 +26,6 @@ import {
     setNoAnswer,
 } from "@/maps/answers";
 import { ICON_COLORS } from "@/maps/api";
-import { ANSWER_MINUTES, clockStart } from "@/maps/deadline";
 import type { Question } from "@/maps/schema";
 
 import { placeText } from "./location";
@@ -56,9 +56,16 @@ export const QuestionBadge = ({ question }: { question: Question }) => {
 
 /**
  * Big buttons for the hider's answer. Tapping one locks the question, and
- * only then does it change the map.
+ * only then does it change the map. Pale before the question is sent: the
+ * answer comes after that.
  */
-export const AnswerButtons = ({ question }: { question: Question }) => {
+export const AnswerButtons = ({
+    question,
+    pale = false,
+}: {
+    question: Question;
+    pale?: boolean;
+}) => {
     useLanguage();
     const pending = question.data.status === "pending";
     const options = answerOptions(question);
@@ -72,24 +79,15 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
         setAnswer(question, value);
         questionModified();
     };
-    const asked = clockStart(question.data);
 
     return (
-        <div className="flex flex-col gap-2">
-            <span
-                className={cn(
-                    "text-sm font-semibold",
-                    pending ? "text-orange-400" : "text-muted-foreground",
-                )}
-            >
-                {pending ? t("answer.waitingForHider") : t("answer.tapToSave")}
-            </span>
-            {pending &&
-                (asked !== undefined ? (
-                    <AnswerClock start={asked} minutes={ANSWER_MINUTES} />
-                ) : (
-                    <ClockNotStarted minutes={ANSWER_MINUTES} />
-                ))}
+        <div className={cn("flex flex-col gap-2", pale && "opacity-50")}>
+            {/* Once sent, the line with the time says it all */}
+            {!isSentLocked(question) && (
+                <span className="text-sm font-semibold text-muted-foreground">
+                    {pending ? t("answer.onceItComes") : t("answer.tapToSave")}
+                </span>
+            )}
             {options.length > 0 ? (
                 <div className="grid grid-cols-2 gap-2">
                     {options.map((option) => (
@@ -137,8 +135,15 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
  * their phone works out the answer from their location. The time to answer
  * starts when the seekers first send it.
  */
-export const SendToHider = ({ question }: { question: Question }) => (
+export const SendToHider = ({
+    question,
+    small,
+}: {
+    question: Question;
+    small?: boolean;
+}) => (
     <SendLinkButton
+        small={small}
         makeLink={() => {
             if (!isSentLocked(question)) {
                 markSent(question);
@@ -158,11 +163,14 @@ export const SendLinkButton = ({
     makeLink,
     message,
     label,
+    small = false,
 }: {
     makeLink: () => Promise<string>;
     message: (link: string) => string;
     /** Instead of "Send to hider". */
     label?: string;
+    /** "Send again" at the end of the line with the time. */
+    small?: boolean;
 }) => {
     useLanguage();
     const [busy, setBusy] = useState(false);
@@ -186,6 +194,20 @@ export const SendLinkButton = ({
         }
     };
 
+    if (small) {
+        return (
+            <Button
+                variant="link"
+                className="h-8 shrink-0 gap-1 px-1 font-semibold text-violet-400"
+                disabled={busy}
+                onClick={send}
+            >
+                <SendIcon className="!size-4" />
+                {label ?? t("send.button")}
+            </Button>
+        );
+    }
+
     return (
         <Button
             className="h-10 bg-violet-600 font-semibold text-white hover:bg-violet-700"
@@ -195,6 +217,23 @@ export const SendLinkButton = ({
             <SendIcon />
             {label ?? t("send.button")}
         </Button>
+    );
+};
+
+/** In the log: the map left the question out, no server sent its data. */
+const NotLoadedNote = ({ question }: { question: Question }) => {
+    const $questionsNotLoaded = useStore(questionsNotLoaded);
+    if (!$questionsNotLoaded.includes(notLoadedKey(question))) return null;
+    return (
+        <span className="block text-red-400">
+            {t("answer.notLoaded")}{" "}
+            <button
+                className="font-semibold underline underline-offset-2"
+                onClick={retryLoading}
+            >
+                {t("loading.retry")}
+            </button>
+        </span>
     );
 };
 
@@ -249,6 +288,7 @@ export const QuestionLogRow = ({ question }: { question: Question }) => {
                         </span>
                     )}
                     <NearestNote question={question} />
+                    <NotLoadedNote question={question} />
                 </div>
                 <Button
                     variant="outline"

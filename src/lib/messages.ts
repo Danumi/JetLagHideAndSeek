@@ -167,8 +167,8 @@ export const messages = {
         de: "In Wien immer Gleich. {reason}",
     },
     "ask.needsZones": {
-        en: "Turn on hiding zones first (Zones → Settings).",
-        de: "Schalte zuerst die Zonen ein (Zonen → Einstellungen).",
+        en: "Turn on hiding zones first (Zones).",
+        de: "Schalte zuerst die Zonen ein (Zonen).",
     },
     "ask.radar.choose": { en: "Choose:", de: "Andere:" },
     "ask.radar.ask": { en: "Ask", de: "Fragen" },
@@ -253,10 +253,9 @@ export const messages = {
         en: "The question disappears from the map. You can undo this right afterwards.",
         de: "Die Frage verschwindet von der Karte. Du kannst das gleich danach rückgängig machen.",
     },
-    "card.question": { en: "Question", de: "Frage" },
     "card.needsZones": {
-        en: "This question needs the hiding zones. Turn them on under Zones → Settings.",
-        de: "Diese Frage braucht die Zonen. Schalte sie unter Zonen → Einstellungen ein.",
+        en: "This question needs the hiding zones. Turn them on under Zones.",
+        de: "Diese Frage braucht die Zonen. Schalte sie unter Zonen ein.",
     },
     "card.adminLevel": { en: "Administrative level", de: "Verwaltungsebene" },
     "card.unit": { en: "Unit", de: "Einheit" },
@@ -404,9 +403,13 @@ export const messages = {
     "answer.none": { en: "No answer", de: "Keine Antwort" },
     "answer.place": { en: "Place", de: "Ort" },
     "answer.notWithin": { en: "Not within", de: "Nicht im Umkreis" },
-    "answer.waitingForHider": {
-        en: "Waiting for the hider's answer",
-        de: "Wartet auf die Antwort des Hiders",
+    "answer.onceItComes": {
+        en: "The hider's answer, once it comes",
+        de: "Antwort des Hiders, sobald sie kommt",
+    },
+    "answer.notLoaded": {
+        en: "Not on the map: no server sent the map data.",
+        de: "Nicht auf der Karte: Kein Server hat die Kartendaten geliefert.",
     },
     "answer.tapToSave": {
         en: "Hider's answer (tap one to save)",
@@ -827,12 +830,11 @@ export const messages = {
 
     // The zone list
     "zones.title": { en: "Hiding zones", de: "Zonen" },
-    "zones.settings": { en: "Settings", de: "Einstellungen" },
-    "zones.settingsTitle": { en: "Zone settings", de: "Zonen-Einstellungen" },
-    "zones.settingsText": {
-        en: "Which stations count as hiding zones, and how big they are.",
-        de: "Welche Stationen als Zonen zählen und wie groß die Zonen sind.",
+    "zones.onlyThisPhone": {
+        en: "Which stations count as hiding zones and how big they are, on this phone only. Changed during a game, the zones no longer match the other phones.",
+        de: "Welche Stationen als Zonen zählen und wie groß die Zonen sind, nur auf diesem Handy. Mitten im Spiel geändert, passen die Zonen nicht mehr zu denen der anderen Handys.",
     },
+    "zones.view": { en: "Zones on the map", de: "Zonen auf der Karte" },
     "zones.off": {
         en: "Hiding zones are turned off.",
         de: "Die Zonen sind ausgeschaltet.",
@@ -870,7 +872,10 @@ export const messages = {
         de: "Diese {count} behalten",
     },
     "zones.restoreAll": { en: "Restore all", de: "Alle zurückholen" },
-    "zones.ruleOutAll": { en: "Rule out all", de: "Alle streichen" },
+    "zones.restored": {
+        en: "All zones are back.",
+        de: "Alle Zonen sind zurück.",
+    },
     "zones.display": { en: "Display hiding zones?", de: "Zonen anzeigen?" },
     "zones.slow": {
         en: "Hiding zones can slow down your phone.",
@@ -1148,6 +1153,18 @@ export const messages = {
         en: "Answer was due {time}",
         de: "Antwort war bis {time} fällig",
     },
+    "clock.sent": {
+        en: "Sent {sent} · {left} left",
+        de: "Gesendet {sent} · noch {left}",
+    },
+    "clock.sentLate": {
+        en: "Sent {sent} · {late} late",
+        de: "Gesendet {sent} · {late} zu spät",
+    },
+    "clock.sentLateLong": {
+        en: "Sent {sent} · answer was due {time}",
+        de: "Gesendet {sent} · Antwort war bis {time} fällig",
+    },
     "clock.notSent": {
         en: "The hider's {minutes} minutes start when you send the question.",
         de: "Die {minutes} Minuten des Hiders laufen ab dem Senden der Frage.",
@@ -1197,6 +1214,14 @@ export const messages = {
         en: "Stopped: answer late",
         de: "Steht: Antwort zu spät",
     },
+    "gameClock.seekersHint": {
+        en: "The hider's clock counts: it stops by itself for late answers. Pause here for the Move card.",
+        de: "Es zählt die Uhr des Hiders: Sie hält bei zu späten Antworten von selbst an. Pause hier bei der Karte Move.",
+    },
+    "gameClock.hiderCounts": {
+        en: "The hider's clock counts.",
+        de: "Es zählt die Uhr des Hiders.",
+    },
     "gameClock.pauseHintMove": {
         en: "Late answers stop the hiding time by themselves, until the answer is sent. Pause for the Move card.",
         de: "Zu späte Antworten halten die Versteckzeit von selbst an, bis die Antwort gesendet ist. Pause bei der Karte Move.",
@@ -1239,8 +1264,8 @@ export const messages = {
         de: "Hat der Hider Move gespielt?",
     },
     "move.text": {
-        en: "The answers so far were about the old zone: they stop counting on the map (they stay in the list), and all zones come back. The new zone is at another station, so rule out the old one: tap its zone on the map, then “{ruleOut}”. Your game timer pauses; tap “{resume}” when the move time is over.",
-        de: "Die bisherigen Antworten galten für die alte Zone: Sie zählen auf der Karte nicht mehr (bleiben aber in der Liste), und alle Zonen sind wieder da. Die neue Zone liegt an einer anderen Station, also streicht die alte: auf der Karte antippen, dann „{ruleOut}“. Eure Spielzeit pausiert; tippt „{resume}“, wenn die Zeit für den Umzug um ist.",
+        en: "All zones come back, the answers so far stop counting. Then rule out the old zone. The game timer pauses until “{resume}”.",
+        de: "Alle Zonen kommen zurück, die bisherigen Antworten zählen nicht mehr. Streicht danach die alte Zone. Die Spielzeit pausiert bis „{resume}“.",
     },
     "move.confirm": { en: "Hider moved", de: "Umgezogen" },
     "move.done": {
@@ -1301,9 +1326,9 @@ export const messages = {
     "photo.title": { en: "Photo: {photo}", de: "Foto: {photo}" },
     "photo.sent": { en: "Photo sent", de: "Foto geschickt" },
     "photo.received": { en: "Photo received", de: "Foto erhalten" },
-    "photo.waiting": {
-        en: "Waiting for the hider's photo",
-        de: "Wartet auf das Foto des Hiders",
+    "photo.onceItComes": {
+        en: "The hider's photo, once it comes",
+        de: "Foto des Hiders, sobald es kommt",
     },
     "photo.notOnMap": {
         en: "Photos don't change the map: rule out zones yourself (Zones).",

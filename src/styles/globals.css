@@ -21,9 +21,12 @@ body {
     cursor: crosshair;
 }
 
-/* Scale and drawing tools sit below the zone count and the game timer */
+/*
+ * Scale and drawing tools sit below the zone count, the game timer and a
+ * tapped zone (their height comes from a script in index.astro)
+ */
 .leaflet-top.leaflet-left {
-    top: 88px;
+    top: calc(var(--top-left-controls, 76px) + 12px);
 }
 
 /* The drawing toolbar only shows when it is needed (see PolygonDraw) */

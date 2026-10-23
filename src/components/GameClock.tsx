@@ -1,7 +1,7 @@
 import { useStore } from "@nanostores/react";
 import { FlagIcon, PauseIcon, PlayIcon, TimerIcon } from "lucide-react";
 
-import { hiderInbox } from "@/lib/context";
+import { hiderInbox, hiderMode } from "@/lib/context";
 import { t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { clockTime } from "@/maps/deadline";
@@ -113,6 +113,8 @@ export const GameClockCard = ({ className }: { className?: string }) => {
     useLanguage();
     const $clock = useStore(gameClock);
     const $pauseForLateAnswers = useStore(pauseForLateAnswers);
+    // Only the hider's phone knows when answers came late: theirs counts
+    const seeker = useStore(hiderMode) === false;
     const now = useNow();
     const late = useLateAnswers(now);
 
@@ -240,9 +242,11 @@ export const GameClockCard = ({ className }: { className?: string }) => {
                         </Button>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                        {$pauseForLateAnswers
-                            ? t("gameClock.pauseHintMove")
-                            : t("gameClock.pauseHint")}
+                        {seeker
+                            ? t("gameClock.seekersHint")
+                            : $pauseForLateAnswers
+                              ? t("gameClock.pauseHintMove")
+                              : t("gameClock.pauseHint")}
                     </p>
                 </>
             )}
@@ -255,6 +259,7 @@ export const GameClockCard = ({ className }: { className?: string }) => {
                     </div>
                     <p className="text-sm text-muted-foreground">
                         {t("gameClock.bonusHint")}
+                        {seeker && ` ${t("gameClock.hiderCounts")}`}
                     </p>
                     <Button
                         variant="outline"
