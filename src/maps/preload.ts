@@ -8,7 +8,6 @@ import {
     type APILocations,
     CacheType,
     clearCache,
-    findHighSpeedLines,
     findLandmassIslands,
     findNamedWaterLines,
     findPlacesOfKind,
@@ -134,7 +133,6 @@ export const preloadGameData = async ({
             found.stations = await findHidingZoneStations();
         },
         ...DECK_PLACE_KINDS.map((kind) => () => findPlacesOfKind(kind)),
-        findHighSpeedLines,
         findLandmassIslands,
     ];
     // These are clipped to the outline of the game area

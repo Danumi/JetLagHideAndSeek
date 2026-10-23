@@ -103,8 +103,8 @@ const MOUNTAIN: Omit<DeckCard, "group"> = {
     id: "mountain",
     label: { en: "Mountain", de: "Berg" },
     hint: {
-        en: "Every hilltop on the map, like Kahlenberg",
-        de: "Jeder Gipfel auf der Karte, etwa der Kahlenberg",
+        en: "Named peaks of at least 400 m, like Kahlenberg",
+        de: "Benannte Gipfel ab 400 m, etwa der Kahlenberg",
     },
     type: "peak-full",
 };
@@ -112,7 +112,10 @@ const MOUNTAIN: Omit<DeckCard, "group"> = {
 const PARK: Omit<DeckCard, "group"> = {
     id: "park",
     label: { en: "Park", de: "Park" },
-    hint: { en: "Every park, even small ones", de: "Jeder Park, auch kleine" },
+    hint: {
+        en: "Every park with a name, even small ones",
+        de: "Jeder Park mit Namen, auch kleine",
+    },
     type: "park-full",
 };
 
@@ -305,18 +308,8 @@ export const MEASURING_DECK: DeckCard[] = flatten([
                 type: "airport",
                 noAnswer: NO_AIRPORT,
             },
-            {
-                id: "high-speed",
-                label: {
-                    en: "High-Speed Train Line",
-                    de: "Schnellfahrstrecke",
-                },
-                hint: {
-                    en: "Railway lines built for high-speed trains",
-                    de: "Bahnstrecken, die für Hochgeschwindigkeitszüge gebaut sind",
-                },
-                type: "highspeed-measure-shinkansen",
-            },
+            // No "High-Speed Train Line": Vienna has no line worth asking
+            // about (only the Neue Westbahn at the edge of the city)
             {
                 id: "rail-station",
                 label: { en: "Rail Station", de: "Bahnhof" },

@@ -21,9 +21,9 @@ body {
     cursor: crosshair;
 }
 
-/* Scale and drawing tools sit below the zone count at the top left */
+/* Scale and drawing tools sit below the zone count and the game timer */
 .leaflet-top.leaflet-left {
-    top: 44px;
+    top: 88px;
 }
 
 /* The drawing toolbar only shows when it is needed (see PolygonDraw) */

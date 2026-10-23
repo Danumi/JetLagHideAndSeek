@@ -1,12 +1,12 @@
 import { TimerIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { useLanguage } from "@/lib/i18n";
+import { t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { countdown, countdownText } from "@/maps/deadline";
 
 /** Now, once a second. */
-const useNow = () => {
+export const useNow = () => {
     const [now, setNow] = useState(Date.now);
     useEffect(() => {
         const timer = setInterval(() => setNow(Date.now()), 1000);
@@ -45,6 +45,17 @@ export const AnswerClock = ({
         >
             <TimerIcon className="size-4 shrink-0" />
             {countdownText(clock)}
+        </div>
+    );
+};
+
+/** Before the question is sent: the clock starts with "Send to hider". */
+export const ClockNotStarted = ({ minutes }: { minutes: number }) => {
+    useLanguage();
+    return (
+        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <TimerIcon className="size-4 shrink-0" />
+            {t("clock.notSent", { minutes })}
         </div>
     );
 };

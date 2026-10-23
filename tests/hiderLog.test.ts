@@ -58,10 +58,8 @@ describe("the time the hider has to answer", () => {
     });
 
     it("starts when the seekers first sent the question", () => {
-        expect(clockStart({ askedAt: T0 })).toBe(T0);
-        expect(clockStart({ askedAt: T0, sentAt: T0 + 20_000 })).toBe(
-            T0 + 20_000,
-        );
+        expect(clockStart({ sentAt: T0 + 20_000 })).toBe(T0 + 20_000);
+        // Not sent yet: the clock doesn't run
         expect(clockStart({})).toBeUndefined();
     });
 
