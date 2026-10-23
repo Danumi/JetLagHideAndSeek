@@ -18,11 +18,13 @@ import {
 import { t } from "@/lib/i18n";
 import { showLoadError, trackLoading } from "@/lib/loading";
 import { overpassHosts, refuseOverpassHost } from "@/lib/overpassAccess";
+import { memoizeAsync } from "@/lib/utils";
 import { safeUnion } from "@/maps/geo-utils";
 
 import { cacheFetch, determineCache } from "./cache";
 import { LOCATION_FIRST_TAG, placeCounts } from "./constants";
 import { prettifyLocation } from "./geo";
+import { packagedResponse } from "./mapDataPackage";
 import type {
     APILocations,
     EncompassingTentacleQuestionSchema,
@@ -178,6 +180,33 @@ const firstOkResponse = (
     });
 
 /**
+ * The answer to a query from the map data package, kept in the cache like an
+ * answer from a server; null if the package doesn't have it.
+ */
+const fromPackage = async (
+    query: string,
+    url: string,
+    cacheType: CacheType,
+    loadingText?: string,
+) => {
+    const response = await trackLoading(loadingText, packagedResponse(query));
+    if (!response) return null;
+    try {
+        const data = await response.clone().json();
+        if (isRuntimeError(data)) return null;
+        try {
+            const cache = await determineCache(cacheType);
+            await cache.put(url, response);
+        } catch {
+            // Caching is best-effort.
+        }
+        return data;
+    } catch {
+        return null;
+    }
+};
+
+/**
  * Runs an Overpass query, from the cache if possible. If no server delivers,
  * the player sees one error message with "Retry" and this throws an
  * OverpassError, so nothing is computed from missing data.
@@ -200,6 +229,9 @@ export const getOverpassData = async (
         }
         await forgetCached(cached.url, cacheType);
     }
+
+    const packaged = await fromPackage(query, urls[0], cacheType, loadingText);
+    if (packaged) return packaged;
 
     const { response, url, timedOut } = await trackLoading(
         loadingText,
@@ -318,11 +350,64 @@ out center;
     return response;
 };
 
+type AdminLevel = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+
+/**
+ * The outlines of all administrative areas of a level that lie in the game
+ * area (with its margin), e.g. the 23 Gemeindebezirke of Vienna. Two queries
+ * that don't depend on where a question is asked, so they can be preloaded
+ * and come with the map data package: the areas around the game area with
+ * their bounds, then the outlines of those inside it (not Lower Austria's).
+ */
+export const findAdminAreas = memoizeAsync(
+    async (
+        adminLevel: AdminLevel,
+    ): Promise<Feature<Polygon | MultiPolygon>[]> => {
+        const bboxValue = gameAreaBbox();
+        if (!bboxValue) return [];
+        const [s, w, n, e] = bboxValue.split(",").map(Number);
+        const around = await getOverpassData(
+            `[out:json][timeout:60];rel(${bboxValue})["boundary"="administrative"]["admin_level"="${adminLevel}"];out tags bb;`,
+            t("loading.zone"),
+        );
+        const ids = (around.elements ?? [])
+            .filter(
+                ({ bounds }: { bounds?: Record<string, number> }) =>
+                    bounds &&
+                    bounds.minlat >= s &&
+                    bounds.minlon >= w &&
+                    bounds.maxlat <= n &&
+                    bounds.maxlon <= e,
+            )
+            .map(({ id }: { id: number }) => id)
+            .sort((a: number, b: number) => a - b);
+        if (ids.length === 0) return [];
+        const data = await getOverpassData(
+            `[out:json][timeout:180];rel(id:${ids.join(",")});out geom;`,
+            t("loading.zone"),
+        );
+        return osmtogeojson(data).features.filter(
+            (feature): feature is Feature<Polygon | MultiPolygon> =>
+                feature.geometry?.type === "Polygon" ||
+                feature.geometry?.type === "MultiPolygon",
+        );
+    },
+    (adminLevel) => `${adminLevel}:${gameAreaBbox()}`,
+);
+
+/** The administrative area of a level that a point lies in. */
 export const findAdminBoundary = async (
     latitude: number,
     longitude: number,
-    adminLevel: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
+    adminLevel: AdminLevel,
 ) => {
+    const point = turf.point([longitude, latitude]);
+    const area = (await findAdminAreas(adminLevel)).find((feature) =>
+        turf.booleanPointInPolygon(point, feature),
+    );
+    if (area) return area;
+
+    // Outside the game area: the server knows which area the point is in
     const query = `
 [out:json];
 is_in(${latitude}, ${longitude})->.a;

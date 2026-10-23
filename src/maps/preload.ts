@@ -8,6 +8,7 @@ import {
     type APILocations,
     CacheType,
     clearCache,
+    findAdminAreas,
     findLandmassIslands,
     findNamedWaterLines,
     findPlacesOfKind,
@@ -16,7 +17,7 @@ import {
     preloadElevation,
     type StationPlace,
 } from "@/maps/api";
-import { MATCHING_DECK, MEASURING_DECK } from "@/maps/deck";
+import { type AdminLevel, MATCHING_DECK, MEASURING_DECK } from "@/maps/deck";
 import { findHidingZoneStations } from "@/maps/stations";
 
 /*
@@ -53,6 +54,15 @@ export const DECK_PLACE_KINDS = [
             .map((type) => type.replace(/-full$/, "")),
     ),
 ] as APILocations[];
+
+/** Every administrative level a card of the Small deck asks about. */
+export const DECK_ADMIN_LEVELS = [
+    ...new Set(
+        [...MATCHING_DECK, ...MEASURING_DECK]
+            .map((card) => card.adminLevel)
+            .filter((level): level is AdminLevel => level !== undefined),
+    ),
+];
 
 let currentRun = 0;
 let lastRunFailed = false;
@@ -137,6 +147,8 @@ export const preloadGameData = async ({
     ];
     // These are clipped to the outline of the game area
     const outlineJobs = [
+        // Bundesland, Gemeindebezirke, Katastralgemeinden
+        ...DECK_ADMIN_LEVELS.map((level) => () => findAdminAreas(level)),
         findNamedWaterLines,
         // For the U-Bahn and S-Bahn lines on the map
         findTransitLines,

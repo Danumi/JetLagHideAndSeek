@@ -14,6 +14,11 @@ import {
 } from "@/maps/mapLayers";
 import { DECK_PLACE_KINDS } from "@/maps/preload";
 
+// These tests are about the servers: no map data package
+vi.mock("@/maps/api/mapDataPackage", () => ({
+    packagedResponse: async () => null,
+}));
+
 // A minimal Cache API, as in the browser
 const cacheStorage = {
     open: async () => {

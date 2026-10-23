@@ -22,3 +22,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# map data package, built by scripts/map-data.mjs and kept on the branch map-data
+/map-data/
+/previous/
+/public/map-data/

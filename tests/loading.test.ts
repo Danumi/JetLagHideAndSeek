@@ -6,6 +6,11 @@ import { getOverpassData, OverpassError } from "@/maps/api";
 import { MATCHING_DECK, MEASURING_DECK } from "@/maps/deck";
 import { DECK_PLACE_KINDS } from "@/maps/preload";
 
+// These tests are about the servers: no map data package
+vi.mock("@/maps/api/mapDataPackage", () => ({
+    packagedResponse: async () => null,
+}));
+
 describe("memoizeAsync", () => {
     it("keeps results but forgets failures", async () => {
         let calls = 0;
