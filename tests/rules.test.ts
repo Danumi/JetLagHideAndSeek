@@ -70,6 +70,8 @@ const BUTTONS = [
     "found",
     "tellHider",
     "pasteLink",
+    "hiderMoved",
+    "moving",
 ];
 
 const PUBLIC = new URL("../public/", import.meta.url).pathname;
