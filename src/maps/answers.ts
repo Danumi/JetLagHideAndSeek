@@ -50,15 +50,10 @@ export const answerOptions = (question: Question): AnswerOption[] => {
             return [option("warmer"), option("colder")];
         case "measuring":
             return [option("closer"), option("further")];
+        // The station name length too: only the same length or not, as in
+        // the rule book (old questions may still say shorter or longer)
         case "matching":
-            return question.data.type === "same-length-station"
-                ? [
-                      option("same"),
-                      option("different"),
-                      option("shorter"),
-                      option("longer"),
-                  ]
-                : [option("same"), option("different")];
+            return [option("same"), option("different")];
         default:
             return [];
     }

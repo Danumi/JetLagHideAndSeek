@@ -44,8 +44,10 @@ describe("the hider's station", () => {
             question("same-length-station"),
             HIDER,
         );
-        // Stephansplatz has 13 characters, Schottentor 11
-        expect(answered.lengthComparison).toBe("longer");
+        // Stephansplatz has 13 characters, Schottentor 11: only "different",
+        // not "longer"
+        expect(answered.lengthComparison).toBe("different");
+        expect(answered.same).toBe(false);
     });
 
     it("is the nearest station until the hider chose a zone", async () => {
@@ -55,6 +57,7 @@ describe("the hider's station", () => {
         );
         // Herrengasse and Schottentor have 11 characters each
         expect(answered.lengthComparison).toBe("same");
+        expect(answered.same).toBe(true);
     });
 
     it("is on a line that stops at any of its OSM stations", async () => {

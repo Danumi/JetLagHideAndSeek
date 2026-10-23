@@ -83,8 +83,6 @@ describe("answers", () => {
         expect(answerOptions(question).map((option) => option.value)).toEqual([
             "same",
             "different",
-            "shorter",
-            "longer",
         ]);
 
         setAnswer(question, "different");
