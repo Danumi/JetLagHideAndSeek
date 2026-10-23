@@ -273,6 +273,7 @@ const main = async () => {
     const out = path.resolve(options.out);
     const server = await serveApp(dist);
     const appUrl = `http://127.0.0.1:${server.address().port}${BASE}`;
+    log("asking:", SERVERS.map(serverName).join(", "));
 
     const browser = await chromium.launch({
         executablePath: options.browser,
