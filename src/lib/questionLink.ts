@@ -92,3 +92,21 @@ export const readQuestionLink = async (value: string): Promise<LinkContent> => {
         number: typeof payload.n === "number" ? payload.n : undefined,
     };
 };
+
+/**
+ * The question of a link pasted from the chat: the link alone or the whole
+ * message with it. Null when there is no question link in it.
+ */
+export const questionInText = (text: string): string | null => {
+    for (const candidate of text.match(/https?:\/\/\S+/g) ?? []) {
+        try {
+            const value = new URL(candidate).searchParams.get(
+                QUESTION_URL_PARAM,
+            );
+            if (value) return value;
+        } catch {
+            // Not a link after all
+        }
+    }
+    return null;
+};

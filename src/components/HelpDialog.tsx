@@ -41,6 +41,7 @@ const buttonNames = () => ({
     resume: t("gameClock.resume"),
     found: t("gameClock.found"),
     tellHider: t("thermometer.tellHider"),
+    pasteLink: t("hider.paste"),
 });
 
 /** A text of the help with **bold** words and the app's buttons in it. */

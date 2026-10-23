@@ -1,6 +1,7 @@
 import { useStore } from "@nanostores/react";
 import {
     CameraIcon,
+    ClipboardPasteIcon,
     LoaderCircleIcon,
     LocateFixedIcon,
     MapIcon,
@@ -15,6 +16,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 import { Button } from "@/components/ui/button";
+import { RawInput } from "@/components/ui/input";
 import {
     type ChatQuestionKind,
     hiderInbox,
@@ -29,7 +31,11 @@ import {
 import { findPrecisePosition } from "@/lib/gps";
 import { t, tr, useLanguage } from "@/lib/i18n";
 import { loadingTasks, retryTrigger } from "@/lib/loading";
-import { QUESTION_URL_PARAM, readQuestionLink } from "@/lib/questionLink";
+import {
+    QUESTION_URL_PARAM,
+    questionInText,
+    readQuestionLink,
+} from "@/lib/questionLink";
 import { questionLinkRole, setRole } from "@/lib/role";
 import { cn, shareMessage } from "@/lib/utils";
 import { clockTime } from "@/maps/deadline";
@@ -194,6 +200,134 @@ const receiveQuestionLink = (entry: HiderInboxEntry) => {
     );
 };
 
+/**
+ * Puts the question of a link on this phone, from the address or pasted.
+ * The question's key, unless the link is broken or the phone's own question.
+ */
+const takeQuestionLink = async (value: string) => {
+    try {
+        const { question, number, photo } = await readQuestionLink(value);
+
+        const key = question?.key ?? photo!.key;
+        const inInbox = hiderInbox.get().some((x) => x.key === key);
+        const own = question
+            ? questions.get().some((q) => q.key === key)
+            : photoQuestions.get().some((p) => p.key === key);
+        if (own && !inInbox) {
+            toast.info(t("hider.ownQuestion"), { autoClose: 8000 });
+            return undefined;
+        }
+
+        const receivedAt = Date.now();
+        receiveQuestionLink(
+            question
+                ? {
+                      key,
+                      question,
+                      number,
+                      askedAt:
+                          question.data.sentAt ??
+                          question.data.askedAt ??
+                          receivedAt,
+                      receivedAt,
+                  }
+                : {
+                      key,
+                      photo: photo!.photo,
+                      askedAt: photo!.sentAt ?? photo!.askedAt,
+                      receivedAt,
+                  },
+        );
+        return key;
+    } catch (error) {
+        console.log(error);
+        toast.error(t("hider.brokenLink"));
+        return undefined;
+    }
+};
+
+/** An iPhone's browser, not the app on its home screen: each keeps its own data. */
+const inIphoneBrowser = () =>
+    (/iPhone|iPad|iPod/.test(navigator.userAgent) ||
+        // iPads say they are Macs
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) &&
+    !(navigator as { standalone?: boolean }).standalone;
+
+/**
+ * For the app on an iPhone's home screen: links from the chat open in
+ * Safari, so the hider copies them and pastes them here.
+ */
+const PasteLink = ({ onPasted }: { onPasted: (key: number) => void }) => {
+    useLanguage();
+    const [open, setOpen] = useState(false);
+    const [text, setText] = useState("");
+
+    /** Whether the text had a question link in it. */
+    const take = async (pasted: string) => {
+        const value = questionInText(pasted);
+        if (!value) return false;
+        const key = await takeQuestionLink(value);
+        if (key !== undefined) onPasted(key);
+        setOpen(false);
+        setText("");
+        return true;
+    };
+
+    const paste = async () => {
+        try {
+            if (await take(await navigator.clipboard.readText())) return;
+        } catch {
+            // No access to the clipboard: the hider pastes into the field
+        }
+        setOpen(true);
+    };
+
+    if (!open) {
+        return (
+            <Button variant="outline" onClick={paste}>
+                <ClipboardPasteIcon />
+                {t("hider.paste")}
+            </Button>
+        );
+    }
+
+    return (
+        <div className="flex flex-col gap-3 rounded-lg border p-3">
+            <div className="flex items-center justify-between gap-2">
+                <span className="font-semibold">{t("hider.paste")}</span>
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                        setOpen(false);
+                        setText("");
+                    }}
+                >
+                    {t("common.cancel")}
+                </Button>
+            </div>
+            <p className="text-sm text-muted-foreground">
+                {t("hider.pasteHelp")}
+            </p>
+            <RawInput
+                autoFocus
+                inputMode="url"
+                placeholder={t("hider.pastePlaceholder")}
+                value={text}
+                onChange={(e) => {
+                    setText(e.target.value);
+                    take(e.target.value);
+                }}
+            />
+            {text.trim() !== "" && !questionInText(text) && (
+                <p className="text-sm text-orange-400">
+                    {t("hider.pasteNoLink")}
+                </p>
+            )}
+        </div>
+    );
+};
+
 /** Shares the answer (WhatsApp and co.) and marks the question as answered. */
 const sendAnswer = async (entry: HiderInboxEntry, answer: SentAnswer) => {
     const message = answerMessage(entry, answer);
@@ -349,6 +483,7 @@ export const HiderScreen = () => {
     const [result, setResult] = useState<Result | null>(null);
     const [attempt, setAttempt] = useState(0);
     const [sending, setSending] = useState(false);
+    const [inBrowser, setInBrowser] = useState(false);
 
     const stopWaiting = useRef(() => {});
 
@@ -383,48 +518,16 @@ export const HiderScreen = () => {
         );
         if (value === null) return;
 
-        readQuestionLink(value)
-            .then(({ question, number, photo }) => {
-                // The link is kept until it is in the inbox, in case the page reloads
-                removeUrlParam(QUESTION_URL_PARAM);
-
-                const key = question?.key ?? photo!.key;
-                const inInbox = hiderInbox.get().some((x) => x.key === key);
-                const own = question
-                    ? questions.get().some((q) => q.key === key)
-                    : photoQuestions.get().some((p) => p.key === key);
-                if (own && !inInbox) {
-                    toast.info(t("hider.ownQuestion"), { autoClose: 8000 });
-                    return;
-                }
-
-                setSelectedKey(key);
-                const receivedAt = Date.now();
-                receiveQuestionLink(
-                    question
-                        ? {
-                              key,
-                              question,
-                              number,
-                              askedAt:
-                                  question.data.sentAt ??
-                                  question.data.askedAt ??
-                                  receivedAt,
-                              receivedAt,
-                          }
-                        : {
-                              key,
-                              photo: photo!.photo,
-                              askedAt: photo!.sentAt ?? photo!.askedAt,
-                              receivedAt,
-                          },
-                );
-            })
-            .catch((error) => {
-                removeUrlParam(QUESTION_URL_PARAM);
-                console.log(error);
-                toast.error(t("hider.brokenLink"));
-            });
+        // A phone that knew nothing of the game: on an iPhone maybe Safari,
+        // while the hider has the app on the home screen
+        if (questionLinkRole() === "becomes-hider" && inIphoneBrowser()) {
+            setInBrowser(true);
+        }
+        takeQuestionLink(value).then((key) => {
+            // The link is kept until it is in the inbox, in case the page reloads
+            removeUrlParam(QUESTION_URL_PARAM);
+            if (key !== undefined) setSelectedKey(key);
+        });
     }, []);
 
     // Find the hider whenever the screen opens: they may have moved
@@ -711,6 +814,24 @@ export const HiderScreen = () => {
 
     const body = (
         <div className="flex flex-col gap-4">
+            {inBrowser && (
+                <div className="flex flex-col gap-2 rounded-lg border-2 border-orange-500 bg-orange-500/10 p-3">
+                    <div className="font-semibold">
+                        {t("hider.inBrowserTitle")}
+                    </div>
+                    <p className="text-sm">
+                        {t("hider.inBrowser", { paste: t("hider.paste") })}
+                    </p>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        className="self-end"
+                        onClick={() => setInBrowser(false)}
+                    >
+                        {t("common.close")}
+                    </Button>
+                </div>
+            )}
             <GameClockCard />
             <ZoneCheckCard />
             <div className="flex items-center gap-3 rounded-lg border p-3">
@@ -836,6 +957,7 @@ export const HiderScreen = () => {
                 </div>
             )}
 
+            <PasteLink onPasted={setSelectedKey} />
             <AddByHand onAdded={setSelectedKey} />
 
             {answered.length > 0 && (

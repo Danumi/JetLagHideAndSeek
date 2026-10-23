@@ -653,6 +653,10 @@ export const RULE_SECTIONS: RuleSection[] = [
                 en: "**In the app:** gear at the top right → {newGame}. Seekers choose {seeking}, the hider {hiding}. The app then loads the map data for the game, which takes a few minutes the first time.",
             },
             {
+                de: "**iPhone:** Habt ihr die App auf dem Home-Bildschirm, öffnen sich Links aus dem Chat trotzdem in Safari, und Safari hat seinen eigenen Speicher, ohne Zone, Uhr und frühere Antworten. Als Hider drückst du deshalb lange auf den Frage-Link, kopierst ihn und tippst in der App auf dem Hider-Bildschirm auf {pasteLink}.",
+                en: "**iPhone:** if you have the app on your home screen, links from the chat still open in Safari, and Safari keeps its own data, without your zone, timer and earlier answers. So as the hider, press and hold the question link, copy it, and tap {pasteLink} on the hider screen in the app.",
+            },
+            {
                 de: "Die Reihenfolge der Hider lost ihr vor dem Spiel aus.",
                 en: "Draw lots for the order of the hiders before the game.",
             },
