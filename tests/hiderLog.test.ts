@@ -13,10 +13,13 @@ import {
 import { PHOTO_DECK } from "@/maps/deck";
 import {
     addEntryByHand,
+    answeredLate,
     answerMessage,
     answerMinutes,
+    cardDraw,
     entryTitle,
     isOpen,
+    lateIntervals,
     markAnswered,
     receiveEntry,
     removeEntry,
@@ -186,6 +189,69 @@ describe("the hider's question log", () => {
             "tallest-in-sight",
             "selfie",
             "sky",
+        ]);
+    });
+
+    it("tells the hider which cards to draw", () => {
+        const first: HiderInboxEntry = {
+            key: 1,
+            question: radar(1),
+            askedAt: T0,
+            receivedAt: T0,
+            answeredAt: T0 + 2 * 60_000,
+        };
+        const again: HiderInboxEntry = {
+            ...first,
+            key: 2,
+            question: radar(2),
+            askedAt: T0 + 30 * 60_000,
+            answeredAt: T0 + 31 * 60_000,
+        };
+        const photo: HiderInboxEntry = {
+            key: 3,
+            photo: PHOTO_DECK[0].id,
+            askedAt: T0,
+            receivedAt: T0,
+            answeredAt: T0 + 9 * 60_000,
+        };
+        const inbox = [first, again, photo];
+
+        // Radar: draw 2, keep 1; the second time twice
+        expect(cardDraw(first, inbox)).toEqual({ draw: 2, keep: 1, times: 1 });
+        expect(cardDraw(again, inbox)).toEqual({ draw: 2, keep: 1, times: 2 });
+        expect(cardDraw(photo, inbox)).toEqual({ draw: 1, keep: 1, times: 1 });
+
+        // Late: no cards
+        const late = { ...first, answeredAt: T0 + 6 * 60_000 };
+        expect(answeredLate(late)).toBe(true);
+        expect(cardDraw(late, [late])).toBeUndefined();
+    });
+
+    it("knows when late answers stopped the hiding time", () => {
+        const sentLate: HiderInboxEntry = {
+            key: 1,
+            question: radar(1),
+            askedAt: T0,
+            receivedAt: T0,
+            answeredAt: T0 + 8 * 60_000,
+        };
+        const inTime: HiderInboxEntry = {
+            ...sentLate,
+            key: 2,
+            answeredAt: T0 + 4 * 60_000,
+        };
+        const stillOpen: HiderInboxEntry = {
+            key: 3,
+            photo: PHOTO_DECK[0].id,
+            askedAt: T0 + 20 * 60_000,
+            receivedAt: T0 + 20 * 60_000,
+        };
+
+        expect(
+            lateIntervals([sentLate, inTime, stillOpen], T0 + 35 * 60_000),
+        ).toEqual([
+            { from: T0 + 5 * 60_000, to: T0 + 8 * 60_000 },
+            { from: T0 + 30 * 60_000, to: T0 + 35 * 60_000 },
         ]);
     });
 });

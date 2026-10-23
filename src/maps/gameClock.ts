@@ -20,6 +20,44 @@ export type GameClock = {
     foundAt?: number;
 };
 
+/**
+ * Late answers stop the hiding time by themselves, from when the answer was
+ * due until the hider sent it. Off, the hider pauses by hand.
+ */
+export const pauseForLateAnswers = persistentAtom<boolean>(
+    "pauseForLateAnswers",
+    true,
+    { encode: JSON.stringify, decode: JSON.parse },
+);
+
+/** A stretch of time, in milliseconds since 1970. */
+export type Interval = { from: number; to: number };
+
+/** How much of `start` to `end` the intervals cover, overlaps once. */
+export const coveredMs = (
+    intervals: Interval[],
+    start: number,
+    end: number,
+) => {
+    const clipped = intervals
+        .map(({ from, to }) => ({
+            from: Math.max(from, start),
+            to: Math.min(to, end),
+        }))
+        .filter(({ from, to }) => to > from)
+        .sort((a, b) => a.from - b.from);
+    let total = 0;
+    let reached = -Infinity;
+    for (const { from, to } of clipped) {
+        const begin = Math.max(from, reached);
+        if (to > begin) {
+            total += to - begin;
+            reached = to;
+        }
+    }
+    return total;
+};
+
 /** This phone's clock; none until someone starts it. "New Game" resets it. */
 export const gameClock = persistentAtom<GameClock | null>("gameClock", null, {
     encode: JSON.stringify,
@@ -29,29 +67,44 @@ export const gameClock = persistentAtom<GameClock | null>("gameClock", null, {
 export type GameClockState =
     /** `left`: until the seekers start, at `endsAt`. */
     | { phase: "hiding"; left: number; endsAt: number }
-    /** `hidingTime`: since the hiding period ended, without pauses. */
+    /**
+     * `hidingTime`: since the hiding period ended, without pauses.
+     * `late`: stopped for now because an answer is late.
+     */
     | {
           phase: "seeking";
           hidingTime: number;
           since: number;
           paused: boolean;
+          late: boolean;
       }
     | { phase: "found"; hidingTime: number };
 
+/**
+ * What the clock shows. `late`: when answers were late (see
+ * `lateIntervals`), the hiding time stands still.
+ */
 export const gameClockState = (
     clock: GameClock,
     now = Date.now(),
+    late: Interval[] = [],
 ): GameClockState => {
     const endsAt = clock.startedAt + HIDING_PERIOD_MINUTES * 60_000;
     const stop = clock.foundAt ?? clock.pausedAt ?? now;
-    const hidingTime = Math.max(0, stop - endsAt - clock.pausedMs);
+    // Up to `stop`: the pause going on now counts only once
+    const hidingTime = Math.max(
+        0,
+        stop - endsAt - clock.pausedMs - coveredMs(late, endsAt, stop),
+    );
     if (clock.foundAt !== undefined) return { phase: "found", hidingTime };
     if (now < endsAt) return { phase: "hiding", left: endsAt - now, endsAt };
+    const paused = clock.pausedAt !== undefined;
     return {
         phase: "seeking",
         hidingTime,
         since: endsAt,
-        paused: clock.pausedAt !== undefined,
+        paused,
+        late: !paused && late.some(({ from, to }) => from <= now && now <= to),
     };
 };
 

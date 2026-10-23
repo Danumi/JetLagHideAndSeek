@@ -1144,6 +1144,43 @@ export const messages = {
         en: "Pause while the hiding time doesn't count: a late answer, the Move card.",
         de: "Pause, solange die Versteckzeit nicht zählt: bei einer zu späten Antwort oder der Karte Move.",
     },
+    "gameClock.late": {
+        en: "Stopped: answer late",
+        de: "Steht: Antwort zu spät",
+    },
+    "gameClock.pauseHintMove": {
+        en: "Late answers stop the hiding time by themselves, until the answer is sent. Pause for the Move card.",
+        de: "Zu späte Antworten halten die Versteckzeit von selbst an, bis die Antwort gesendet ist. Pause bei der Karte Move.",
+    },
+    "settings.gameClock": { en: "Game timer", de: "Spielzeit" },
+    "settings.lateAnswers": {
+        en: "Late answers stop the hiding time",
+        de: "Zu späte Antworten halten die Versteckzeit an",
+    },
+    "settings.lateAnswersHint": {
+        en: "On the hider's phone: from when the answer was due until it was sent. Off: tap Pause and Resume on the timer yourself.",
+        de: "Auf dem Handy des Hiders: von der Frist, bis die Antwort gesendet ist. Aus: Pause und Weiter auf der Uhr selbst tippen.",
+    },
+    "hider.draw": {
+        en: "Now draw {draw} cards and keep {keep}.",
+        de: "Jetzt {draw} Karten ziehen und {keep} behalten.",
+    },
+    "hider.drawOne": {
+        en: "Now draw 1 card and keep it.",
+        de: "Jetzt 1 Karte ziehen und behalten.",
+    },
+    "hider.drawRepeat": {
+        en: "Asked before, so draw {times} times: {draw} cards each time, keep {keep} each time.",
+        de: "Schon einmal gefragt, also {times}-mal ziehen: je {draw} Karten, je {keep} behalten.",
+    },
+    "hider.drawOneRepeat": {
+        en: "Asked before, so draw {times} times: 1 card each time, and keep it.",
+        de: "Schon einmal gefragt, also {times}-mal ziehen: je 1 Karte, und behalten.",
+    },
+    "hider.drawLate": {
+        en: "Answered late: no cards for this question.",
+        de: "Zu spät geantwortet: Für diese Frage gibt es keine Karten.",
+    },
     "gameClock.found": { en: "Found", de: "Gefunden" },
     "gameClock.foundAfter": {
         en: "Found after {time}",

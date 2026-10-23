@@ -45,6 +45,7 @@ import {
     fetchFromPastebin,
     shareOrFallback,
 } from "@/lib/utils";
+import { pauseForLateAnswers } from "@/maps/gameClock";
 import { preloadGameData, preloadProgress } from "@/maps/preload";
 import {
     KILOMETERS_PER_MILE,
@@ -155,6 +156,7 @@ export const OptionDrawers = () => {
     const $baseTileLayer = useStore(baseTileLayer);
     const $showDrawingTools = useStore(showDrawingTools);
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
+    const $pauseForLateAnswers = useStore(pauseForLateAnswers);
     const $preloadProgress = useStore(preloadProgress);
     const $questions = useStore(questions);
     const $photoQuestions = useStore(photoQuestions);
@@ -642,6 +644,18 @@ export const OptionDrawers = () => {
                                         />
                                         <Hint>
                                             {t("settings.allTypesHint")}
+                                        </Hint>
+                                    </AdvancedSection>
+                                    <AdvancedSection
+                                        title={t("settings.gameClock")}
+                                    >
+                                        <CheckboxRow
+                                            label={t("settings.lateAnswers")}
+                                            checked={$pauseForLateAnswers}
+                                            onChange={pauseForLateAnswers.set}
+                                        />
+                                        <Hint>
+                                            {t("settings.lateAnswersHint")}
                                         </Hint>
                                     </AdvancedSection>
                                     <AdvancedSection

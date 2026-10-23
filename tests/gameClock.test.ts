@@ -36,6 +36,7 @@ describe("the game timer", () => {
             hidingTime: 42 * MIN,
             since: SEEKING,
             paused: false,
+            late: false,
         });
         foundHider(SEEKING + 50 * MIN);
         expect(gameClockState(gameClock.get()!, SEEKING + 99 * MIN)).toEqual({
@@ -70,6 +71,33 @@ describe("the game timer", () => {
         expect(
             gameClockState(gameClock.get()!, SEEKING + 8 * MIN),
         ).toMatchObject({ phase: "seeking", hidingTime: 8 * MIN });
+    });
+
+    it("stands still while answers are late", () => {
+        startGameClock(T0);
+        // Due 10 minutes in, sent 4 minutes late; another one late from
+        // 12 minutes in, overlapping, still open
+        const late = [
+            { from: SEEKING + 10 * MIN, to: SEEKING + 14 * MIN },
+            { from: SEEKING + 12 * MIN, to: SEEKING + 20 * MIN },
+        ];
+        expect(
+            gameClockState(gameClock.get()!, SEEKING + 20 * MIN, late),
+        ).toMatchObject({ hidingTime: 10 * MIN, late: true });
+        expect(
+            gameClockState(gameClock.get()!, SEEKING + 30 * MIN, late),
+        ).toMatchObject({ hidingTime: 20 * MIN, late: false });
+        // Late before the hiding period ended: doesn't count
+        expect(
+            gameClockState(gameClock.get()!, SEEKING + 5 * MIN, [
+                { from: SEEKING - 10 * MIN, to: SEEKING + 2 * MIN },
+            ]),
+        ).toMatchObject({ hidingTime: 3 * MIN });
+        // Paused by hand meanwhile: that time counts only once
+        pauseGameClock(SEEKING + 11 * MIN);
+        expect(
+            gameClockState(gameClock.get()!, SEEKING + 30 * MIN, late),
+        ).toMatchObject({ hidingTime: 10 * MIN, paused: true, late: false });
     });
 
     it("writes hours, minutes and seconds", () => {

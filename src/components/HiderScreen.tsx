@@ -2,6 +2,7 @@ import { useStore } from "@nanostores/react";
 import {
     CameraIcon,
     ClipboardPasteIcon,
+    LayersIcon,
     LoaderCircleIcon,
     LocateFixedIcon,
     MapIcon,
@@ -46,6 +47,7 @@ import {
     answerLabel,
     answerMessage,
     answerMinutes,
+    cardDraw,
     CHAT_KIND_NAMES,
     entryTitle,
     isOpen,
@@ -325,6 +327,37 @@ const PasteLink = ({ onPasted }: { onPasted: (key: number) => void }) => {
                 </p>
             )}
         </div>
+    );
+};
+
+/** After answering: the cards the hider draws now, or none when late. */
+const CardDraw = ({
+    entry,
+    inbox,
+}: {
+    entry: HiderInboxEntry;
+    inbox: HiderInboxEntry[];
+}) => {
+    const draw = cardDraw(entry, inbox);
+    if (!draw) {
+        return (
+            <p className="text-sm font-semibold text-orange-400">
+                {t("hider.drawLate")}
+            </p>
+        );
+    }
+    const { times, ...cards } = draw;
+    return (
+        <p className="flex items-center gap-2 text-base font-semibold">
+            <LayersIcon className="size-5 shrink-0 text-violet-300" />
+            {times > 1
+                ? cards.draw === 1
+                    ? t("hider.drawOneRepeat", { times })
+                    : t("hider.drawRepeat", { times, ...cards })
+                : cards.draw === 1
+                  ? t("hider.drawOne")
+                  : t("hider.draw", cards)}
+        </p>
     );
 };
 
@@ -769,6 +802,7 @@ export const HiderScreen = () => {
                     <div className="text-3xl font-bold font-poppins text-violet-300">
                         {answerLabel(entry, entry.sent)}
                     </div>
+                    <CardDraw entry={entry} inbox={$inbox} />
                     {entry.question && (
                         <p className="text-sm text-muted-foreground">
                             {t("hider.onMap")}

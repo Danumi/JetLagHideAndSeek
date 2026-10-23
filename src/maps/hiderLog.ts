@@ -13,6 +13,8 @@ import {
 } from "@/maps/answers";
 import { ANSWER_MINUTES, PHOTO_ANSWER_MINUTES } from "@/maps/deadline";
 import { photoCardFor } from "@/maps/deck";
+import type { Interval } from "@/maps/gameClock";
+import { photoCardId, questionCardId } from "@/maps/repeats";
 import type { Question } from "@/maps/schema";
 
 /*
@@ -30,6 +32,72 @@ export const isOpen = (entry: HiderInboxEntry) =>
 /** Minutes the hider has to answer this question. */
 export const answerMinutes = (entry: { photo?: string }) =>
     entry.photo ? PHOTO_ANSWER_MINUTES : ANSWER_MINUTES;
+
+/** When the answer to this question is due. */
+export const answerDue = (entry: HiderInboxEntry) =>
+    entry.askedAt + answerMinutes(entry) * 60_000;
+
+/** Answered after it was due: no cards, and the hiding time stood still. */
+export const answeredLate = (entry: HiderInboxEntry) =>
+    entry.answeredAt !== undefined && entry.answeredAt > answerDue(entry);
+
+/**
+ * When the hiding time stands still for late answers: from when each
+ * answer was due until the hider sent it, or until now while it's open.
+ */
+export const lateIntervals = (
+    inbox: HiderInboxEntry[],
+    now = Date.now(),
+): Interval[] =>
+    inbox.flatMap((entry) => {
+        const from = answerDue(entry);
+        const to = entry.answeredAt ?? now;
+        return to > from ? [{ from, to }] : [];
+    });
+
+/** Cards the hider draws after answering, by the rule book. */
+const DRAWS = {
+    matching: { draw: 3, keep: 1 },
+    measuring: { draw: 3, keep: 1 },
+    radius: { draw: 2, keep: 1 },
+    thermometer: { draw: 2, keep: 1 },
+    tentacles: { draw: 4, keep: 2 },
+    photo: { draw: 1, keep: 1 },
+};
+
+/** The card a question in the log was asked with, where the app knows it. */
+const entryCardId = (entry: HiderInboxEntry) =>
+    entry.question
+        ? questionCardId(entry.question)
+        : entry.photo
+          ? photoCardId(entry.photo)
+          : undefined;
+
+/**
+ * What the hider draws after answering: like "draw 3, keep 1", `times`
+ * over for a card asked before (twice the second time). None when the
+ * answer was late.
+ */
+export const cardDraw = (entry: HiderInboxEntry, inbox: HiderInboxEntry[]) => {
+    if (answeredLate(entry)) return undefined;
+    const kind = entry.question
+        ? entry.question.id
+        : entry.photo
+          ? "photo"
+          : entry.kind === "radar"
+            ? "radius"
+            : (entry.kind ?? "matching");
+    const id = entryCardId(entry);
+    const before = id
+        ? inbox.filter(
+              (other) =>
+                  other.key !== entry.key &&
+                  other.askedAt <= entry.askedAt &&
+                  entryCardId(other) === id,
+          ).length
+        : 0;
+    return { ...DRAWS[kind], times: before + 1 };
+};
 
 /** "Photo: Tree". */
 export const photoTitle = (photo: string) => {
