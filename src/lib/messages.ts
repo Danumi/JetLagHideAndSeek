@@ -84,8 +84,8 @@ export const messages = {
     },
     "layers.title": { en: "Show on the map", de: "Auf der Karte zeigen" },
     "layers.hint": {
-        en: "What the question cards ask about. Tap a symbol to see its name.",
-        de: "Wonach die Fragekarten fragen. Tippe auf ein Symbol, um den Namen zu sehen.",
+        en: "What the question cards ask about. Tap a symbol or a line to see its name.",
+        de: "Wonach die Fragekarten fragen. Tippe auf ein Symbol oder eine Linie, um den Namen zu sehen.",
     },
     "layers.hideAll": { en: "Hide all", de: "Alle ausblenden" },
     "layers.zoomIn": {
@@ -94,6 +94,12 @@ export const messages = {
     },
     "layers.uBahn": { en: "U-Bahn lines", de: "U-Bahn-Linien" },
     "layers.sBahn": { en: "S-Bahn lines", de: "S-Bahn-Linien" },
+    "layers.tram": { en: "Tram lines", de: "Straßenbahnlinien" },
+    "layers.line.tram": { en: "Tram", de: "Straßenbahn" },
+    "layers.line.next": {
+        en: "Line {n} of {total} here. Tap again for the next.",
+        de: "Linie {n} von {total} hier. Nochmal tippen für die nächste.",
+    },
 
     // The kinds of questions
     "kind.matching.question": {
@@ -256,18 +262,24 @@ export const messages = {
         de: "Schalte die Zonen ein, um die Linie der Seeker zu wählen.",
     },
     "matching.line.loading": {
-        en: "Loading lines at {station}...",
-        de: "Lade die Linien bei {station} …",
+        en: "Loading lines at {station} and where you are...",
+        de: "Lade die Linien bei {station} und dort, wo ihr seid …",
     },
     "matching.line.failed": {
-        en: "The lines at {station} didn't load.",
-        de: "Die Linien bei {station} haben nicht geladen.",
+        en: "The lines at {station} and where you are didn't load.",
+        de: "Die Linien bei {station} und dort, wo ihr seid, haben nicht geladen.",
     },
     "matching.line.none": {
-        en: "No lines found at {station}.",
-        de: "Bei {station} wurden keine Linien gefunden.",
+        en: "No lines found at {station} or where you are.",
+        de: "Weder bei {station} noch dort, wo ihr seid, wurden Linien gefunden.",
     },
     "matching.line.select": { en: "Seekers' line", de: "Linie der Seeker" },
+    "matching.line.tram": { en: "Tram {ref}", de: "Straßenbahn {ref}" },
+    "matching.line.bus": { en: "Bus {ref}", de: "Bus {ref}" },
+    "matching.line.trolleybus": {
+        en: "Trolleybus {ref}",
+        de: "Oberleitungsbus {ref}",
+    },
     "matching.line.any": {
         en: "Line not chosen (safe eliminations only)",
         de: "Keine Linie gewählt (nur sichere Ausschlüsse)",
@@ -1197,6 +1209,10 @@ export const messages = {
     "loading.transitLines": {
         en: "Finding U-Bahn and S-Bahn lines...",
         de: "Suche U-Bahn- und S-Bahn-Linien …",
+    },
+    "loading.tramLines": {
+        en: "Finding tram lines...",
+        de: "Suche Straßenbahnlinien …",
     },
     "loading.street": {
         en: "Finding nearest street...",

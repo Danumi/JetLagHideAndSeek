@@ -84,8 +84,8 @@ const CARD_RULES: Record<string, CardRule> = {
             en: "Only while the seekers are riding transit. Yes means their train, tram or bus stops at the hider's station. If it passes through without stopping, the answer is no. Best practice: the seekers send a screenshot of all the stops of their ride.",
         },
         note: {
-            de: "**In der App:** Tippt ihr eine Zone an, zeigt die App die Linien ihrer Station.",
-            en: "**In the app:** tap a zone and the app shows its station's lines.",
+            de: "**In der App:** Wählt auf der Fragekarte die Linie, in der ihr sitzt (U-Bahn, S-Bahn, Straßenbahn oder Bus). Tippt ihr eine Zone an, zeigt die App die Linien ihrer Station.",
+            en: "**In the app:** on the question card, choose the line you're riding (U-Bahn, S-Bahn, tram or bus). Tap a zone and the app shows its station's lines.",
         },
     },
     "station-name-length": {

@@ -35,7 +35,7 @@ import { determineMapBoundaries } from "@/maps/api";
 import { tapZoneAt } from "@/maps/zones";
 
 import { DraggableMarkers } from "./DraggableMarkers";
-import { MapLayersOverlay } from "./MapLayers";
+import { MapLayersOverlay, tapLineAt } from "./MapLayers";
 import { NearestMarks } from "./NearestMarks";
 import { PolygonDraw } from "./PolygonDraw";
 
@@ -452,11 +452,13 @@ export const Map = ({ className }: { className?: string }) => {
         if (!map) return;
 
         // "Pick on map": the next tap on the map sets the point. Otherwise a
-        // tap picks the hiding zone there, or closes the one shown
+        // tap on a line shown highlights it; elsewhere it picks the hiding
+        // zone there, or closes the one shown
         const onClick = (event: L.LeafletMouseEvent) => {
             if (placePickedPoint(event.latlng)) return;
             // Drawing a custom question: taps add corners
             if (drawingQuestionKey.get() !== -1) return;
+            if (tapLineAt(map, event.latlng)) return;
             tapZoneAt(event.latlng);
         };
         map.on("click", onClick);

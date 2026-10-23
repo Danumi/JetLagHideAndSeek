@@ -5,6 +5,7 @@ import { mapGeoJSON, overpassCustomHost } from "@/lib/context";
 import { findTransitLines, placeCounts } from "@/maps/api";
 import {
     lineLabelPositions,
+    linesAt,
     MAP_LAYERS,
     placesInView,
     shownMapLayers,
@@ -108,6 +109,8 @@ describe("places and lines on the map", () => {
                                     ref: "U4",
                                     route: "subway",
                                     colour: "#319F49",
+                                    from: "Hütteldorf",
+                                    to: "Heiligenstadt",
                                 },
                                 members: [
                                     track(20, [16.37, 48.2], [16.36, 48.21]),
@@ -125,10 +128,15 @@ describe("places and lines on the map", () => {
                                 ],
                             },
                             {
-                                // The other direction shares the tracks
+                                // A short run back shares the tracks
                                 type: "relation",
                                 id: 3,
-                                tags: { ref: "U4", route: "subway" },
+                                tags: {
+                                    ref: "U4",
+                                    route: "subway",
+                                    from: "Heiligenstadt",
+                                    to: "Karlsplatz",
+                                },
                                 members: [
                                     track(20, [16.37, 48.2], [16.36, 48.21]),
                                     track(23, [16.36, 48.21], [16.35, 48.22]),
@@ -145,6 +153,11 @@ describe("places and lines on the map", () => {
         expect(lines[0].colour).toBe("#319F49");
         expect(lines[0].lines).toHaveLength(2);
         expect(lines[1].lines).toHaveLength(1);
+        // Its ends from its longest route
+        expect([lines[0].from, lines[0].to]).toEqual([
+            "Hütteldorf",
+            "Heiligenstadt",
+        ]);
 
         // Only within the game area
         const query = decodeURIComponent(
@@ -180,6 +193,51 @@ describe("places and lines on the map", () => {
             ([lng]) => lng < 16.32,
         );
         expect(inCity.at[0]).toBeLessThan(16.32);
+    });
+});
+
+describe("tapping a line", () => {
+    // One kilometer east is 100 pixels, as at a city-wide zoom
+    const toPixel = ([lng, lat]: number[]) => ({
+        x: (lng - 16.3) * 7400,
+        y: (48.3 - lat) * 11100,
+    });
+    const tracks = turf.lineString([
+        [16.3, 48.2],
+        [16.4, 48.2],
+    ]);
+    const lines = [
+        {
+            ref: "U4",
+            lines: [
+                turf.lineString([
+                    [16.35, 48.1],
+                    [16.35, 48.3],
+                ]),
+            ],
+        },
+        { ref: "S1", lines: [tracks] },
+        { ref: "S2", lines: [tracks] },
+    ];
+
+    it("finds the lines within a finger's width", () => {
+        // On the S-Bahn tracks: both lines there
+        expect(linesAt(lines, [16.32, 48.2005], toPixel)).toEqual(["S1", "S2"]);
+        // Next to the U4, about 7 pixels
+        expect(linesAt(lines, [16.351, 48.25], toPixel)).toEqual(["U4"]);
+        // Too far from any line
+        expect(linesAt(lines, [16.37, 48.25], toPixel)).toEqual([]);
+        // Beyond the end of the tracks
+        expect(linesAt(lines, [16.45, 48.2], toPixel)).toEqual([]);
+    });
+
+    it("puts the nearest line first", () => {
+        // Where the U4 crosses the S-Bahn, a little closer to the U4
+        expect(linesAt(lines, [16.3503, 48.2008], toPixel)).toEqual([
+            "U4",
+            "S1",
+            "S2",
+        ]);
     });
 });
 
