@@ -21,6 +21,7 @@ import { cancelPickOnMap } from "@/lib/gps";
 import { t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { isPending } from "@/maps/answers";
+import { choosingHiderZone, stopChoosingHiderZone } from "@/maps/zones";
 
 import {
     AskQuestionDrawer,
@@ -88,6 +89,22 @@ const PickOnMapHint = ({ target }: { target: PickTarget }) => (
     </div>
 );
 
+/** The hider chooses another zone ("Change"): what to tap, and "Cancel". */
+const ChooseZoneHint = () => (
+    <div className="flex max-w-[92vw] items-center gap-2 rounded-2xl bg-violet-700 py-1 pl-4 pr-1 text-sm font-semibold leading-tight text-white shadow-lg">
+        <MousePointerClickIcon className="h-4 w-4 shrink-0" />
+        <span className="min-w-0">{t("hider.chooseHint")}</span>
+        <Button
+            size="sm"
+            variant="secondary"
+            className="h-8 shrink-0 rounded-full"
+            onClick={stopChoosingHiderZone}
+        >
+            {t("common.cancel")}
+        </Button>
+    </div>
+);
+
 /**
  * The three big buttons below the map: the questions asked so far, a new
  * question, the hiding zones (the hider: back to the hider screen, the
@@ -101,6 +118,7 @@ export const BottomBar = () => {
     const $thermometerRun = useStore(thermometerRun);
     const $hiderMode = useStore(hiderMode);
     const $pickingLocation = useStore(pickingLocation);
+    const $choosingHiderZone = useStore(choosingHiderZone);
     // Only open questions: a number on the button means something waits
     const openCount =
         $questions.filter(isPending).length +
@@ -115,6 +133,9 @@ export const BottomBar = () => {
             )}
             {!$pickingLocation && (
                 <div className="pointer-events-none absolute bottom-full left-0 right-0 mb-3 flex flex-col items-center gap-2 px-2 [&>*]:pointer-events-auto">
+                    {$hiderMode !== false && $choosingHiderZone && (
+                        <ChooseZoneHint />
+                    )}
                     {$hiderMode === false && <WaitingForAnswer />}
                     {$hiderMode === false && $thermometerRun && (
                         <ThermometerTracker run={$thermometerRun} />

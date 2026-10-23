@@ -37,6 +37,7 @@ import {
     canShowAllZones,
     nextTappedZone,
     showAllZones,
+    stopChoosingHiderZone,
     tappedZones,
     toggleZone,
     zonesLeft,
@@ -178,6 +179,8 @@ const ChooseZoneButton = ({ id, name }: { id: string; name: string }) => {
     const choose = () => {
         hiderZoneId.set(id);
         selectedZoneId.set("");
+        // After "Change" on the hider screen: back there
+        stopChoosingHiderZone();
     };
 
     return (

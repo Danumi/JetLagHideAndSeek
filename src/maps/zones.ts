@@ -15,6 +15,7 @@ import {
     displayHidingZonesStyle,
     followMyPosition,
     hiderMode,
+    hiderScreenOpen,
     hiderZoneId,
     hidingRadius,
     hidingRadiusUnits,
@@ -34,16 +35,46 @@ export const zonesLeft = (stations: StationCircle[], disabled: string[]) =>
     stations.filter((station) => !disabled.includes(stationId(station)));
 
 /**
- * The zone the hider chose, once the stations are there: their map then
- * shows only this zone. Empty on seekers' phones and before choosing.
+ * The zone the hider chose, once the stations are there (violet on their
+ * map). Empty on seekers' phones and before choosing.
  */
-export const hiderOwnZone = computed(
+export const hiderChosenZone = computed(
     [hiderMode, hiderZoneId, allTrainStations],
     (hider, id, stations) =>
         hider !== false && stations.some((x) => x.properties.id === id)
             ? id
             : "",
 );
+
+/**
+ * "Change" on the hider screen: the hider's map shows all zones again, so
+ * they can tap another one (e.g. after choosing the wrong one).
+ */
+export const choosingHiderZone = atom(false);
+
+/**
+ * The zone the hider's map shows on its own: their chosen zone, except
+ * while they choose another one.
+ */
+export const hiderOwnZone = computed(
+    [hiderChosenZone, choosingHiderZone],
+    (id, choosing) => (choosing ? "" : id),
+);
+
+/** "Change" on the hider screen: back to the map with all zones on it. */
+export const chooseHiderZoneOnMap = () => {
+    choosingHiderZone.set(true);
+    selectedZoneId.set("");
+    hiderScreenOpen.set(false);
+};
+
+/** Chosen or cancelled: the map shows only the hider's zone again. */
+export const stopChoosingHiderZone = () => {
+    if (!choosingHiderZone.get()) return;
+    choosingHiderZone.set(false);
+    selectedZoneId.set("");
+    hiderScreenOpen.set(true);
+};
 
 /**
  * Where the hider can't be because it is outside every zone left, without

@@ -48,6 +48,7 @@ import {
 import { findHidingZoneStations, stationOsmIds } from "@/maps/stations";
 import { steadyRenderer } from "@/maps/steadyRenderer";
 import {
+    hiderChosenZone,
     hiderOwnZone,
     outsideZones,
     stationId,
@@ -125,6 +126,7 @@ export const HidingZones = () => {
     const $allTrainStations = useStore(allTrainStations);
     const $selectedZoneId = useStore(selectedZoneId);
     const $hiderOwnZone = useStore(hiderOwnZone);
+    const $hiderChosenZone = useStore(hiderChosenZone);
     const setStations = trainStations.set;
 
     const removeHidingZones = () => {
@@ -601,11 +603,12 @@ export const HidingZones = () => {
 
         const layers: (L.GeoJSON | null)[] = [];
         if ($displayHidingZones) {
-            if ($hiderOwnZone) {
-                layers.push(zoneOutline($hiderOwnZone, HIDER_ZONE_STYLE));
+            // Violet also while the hider chooses another zone
+            if ($hiderChosenZone) {
+                layers.push(zoneOutline($hiderChosenZone, HIDER_ZONE_STYLE));
             }
             // The hider's own zone stays violet when tapped
-            if ($selectedZoneId && $selectedZoneId !== $hiderOwnZone) {
+            if ($selectedZoneId && $selectedZoneId !== $hiderChosenZone) {
                 layers.push(zoneOutline($selectedZoneId, SELECTED_STYLE));
             }
         }
@@ -615,7 +618,7 @@ export const HidingZones = () => {
         map,
         $allTrainStations,
         $displayHidingZones,
-        $hiderOwnZone,
+        $hiderChosenZone,
         $hidingRadius,
         $hidingRadiusUnits,
         $selectedZoneId,

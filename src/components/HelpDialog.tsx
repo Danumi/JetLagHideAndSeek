@@ -36,6 +36,7 @@ const buttonNames = () => ({
     sendToHider: t("send.button"),
     sendAnswer: t("hider.send"),
     chooseZone: t("zones.choose"),
+    changeZone: t("hider.change"),
     startTimer: t("gameClock.start"),
     startSeeking: t("gameClock.endHiding"),
     pause: t("gameClock.pause"),

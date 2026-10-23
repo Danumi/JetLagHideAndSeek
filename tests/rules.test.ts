@@ -64,6 +64,7 @@ const BUTTONS = [
     "sendToHider",
     "sendAnswer",
     "chooseZone",
+    "changeZone",
     "startTimer",
     "startSeeking",
     "pause",
