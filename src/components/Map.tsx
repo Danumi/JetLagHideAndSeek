@@ -31,7 +31,7 @@ import { language, t } from "@/lib/i18n";
 import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
 import { applyQuestionsToMapGeoData, holedMask } from "@/maps";
-import { determineMapBoundaries } from "@/maps/api";
+import { BLANK_GEOJSON, determineMapBoundaries } from "@/maps/api";
 import { steadyRenderer } from "@/maps/steadyRenderer";
 import { tapZoneAt } from "@/maps/zones";
 
@@ -39,6 +39,9 @@ import { DraggableMarkers } from "./DraggableMarkers";
 import { MapLayersOverlay, tapLineAt } from "./MapLayers";
 import { NearestMarks } from "./NearestMarks";
 import { PolygonDraw } from "./PolygonDraw";
+
+/** The message that the answers leave nothing. */
+const NOTHING_LEFT_TOAST = "nothing-left";
 
 /** The map is computed once questions stop changing for this long. */
 const MAP_REFRESH_DELAY_MS = 400;
@@ -348,9 +351,24 @@ export const Map = ({ className }: { className?: string }) => {
             );
             radarOutlinesRef.current = radarOutlines;
 
+            // The answers contradict each other: everything is grey
+            const nothingLeft = mapGeoData!.features.length === 0;
+            if (nothingLeft) {
+                toast.warning(t("question.nothingLeft"), {
+                    toastId: NOTHING_LEFT_TOAST,
+                    autoClose: false,
+                });
+            } else {
+                toast.dismiss(NOTHING_LEFT_TOAST);
+            }
+
             mapGeoData = {
                 type: "FeatureCollection",
-                features: [holedMask(mapGeoData!)!],
+                features: [
+                    nothingLeft
+                        ? BLANK_GEOJSON.features[0]
+                        : holedMask(mapGeoData!)!,
+                ],
             };
 
             map.eachLayer((layer: any) => {
@@ -379,7 +397,12 @@ export const Map = ({ className }: { className?: string }) => {
 
             if (newRadarOutline && !movedWhileLoading) {
                 showRadarOutline(map, newRadarOutline);
-            } else if (focus && !movedWhileLoading && !following) {
+            } else if (
+                focus &&
+                !movedWhileLoading &&
+                !following &&
+                !nothingLeft
+            ) {
                 const bbox = turf.bbox(holedMask(mapGeoData) as any);
                 map.fitBounds([
                     [bbox[1], bbox[0]],
