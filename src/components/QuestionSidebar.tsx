@@ -56,7 +56,7 @@ export const QuestionSidebar = () => {
     const openPhotos = $photoQuestions.filter(
         (photo) => photo.status === "pending",
     );
-    // Photos go into the log at the time they were asked
+    // Newest first; photos go into the log at the time they were asked
     const answered = [
         ...$questions.filter(isLogged).map((question) => ({
             at: question.data.askedAt ?? 0,
@@ -68,7 +68,7 @@ export const QuestionSidebar = () => {
                 at: photo.askedAt,
                 row: <PhotoLogRow key={photo.key} photo={photo} />,
             })),
-    ].sort((a, b) => a.at - b.at);
+    ].sort((a, b) => b.at - a.at);
     const anyOpen = open.length + openPhotos.length > 0;
 
     return (

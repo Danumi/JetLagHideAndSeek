@@ -26,9 +26,6 @@ import { findSeekerLines, type StationLine } from "@/maps/api";
 import {
     type AdminLevel,
     adminLevelOptions,
-    type DeckCard,
-    deckSelectGroups,
-    MATCHING_DECK,
     matchingCardFor,
 } from "@/maps/deck";
 import { extractStationName } from "@/maps/geo-utils";
@@ -44,26 +41,6 @@ import {
 } from "@/maps/schema";
 
 import { CardNote, QuestionCard } from "./base";
-
-const MATCHING_TYPE_LABELS: Record<string, string> = Object.fromEntries(
-    matchingQuestionSchema.options
-        .flatMap((x) => determineUnionizedStrings(x.shape.type))
-        .map((x) => [(x._def as any).value, x.description]),
-);
-
-const applyMatchingCard = (data: MatchingQuestion, card: DeckCard) => {
-    if (card.type === "same-length-station") {
-        data.lengthComparison = "same";
-        data.same = true;
-    }
-    // Zone questions need a category, so every question keeps one
-    (data as any).cat =
-        card.adminLevel !== undefined
-            ? { adminLevel: card.adminLevel }
-            : ((data as any).cat ?? { adminLevel: 3 });
-    data.type = card.type as MatchingQuestion["type"];
-    questionModified();
-};
 
 const LINE_KINDS = {
     tram: "matching.line.tram",
@@ -330,30 +307,6 @@ export const MatchingQuestionComponent = ({
                     setCustomDialogOpen(false);
                 }}
             />
-            {!$showAllQuestionTypes && (
-                <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
-                    <Select
-                        trigger={t("card.question")}
-                        options={
-                            card
-                                ? undefined
-                                : {
-                                      [`other:${data.type}`]: labelOf(
-                                          MATCHING_TYPE_LABELS[data.type] ??
-                                              data.type,
-                                      ),
-                                  }
-                        }
-                        groups={deckSelectGroups(MATCHING_DECK)}
-                        value={card ? card.id : `other:${data.type}`}
-                        onValueChange={(id) => {
-                            const next = MATCHING_DECK.find((c) => c.id === id);
-                            if (next) applyMatchingCard(data, next);
-                        }}
-                        disabled={!data.drag || $isLoading}
-                    />
-                </SidebarMenuItem>
-            )}
             {card?.needsHidingZones && !$displayHidingZones && (
                 <CardNote warning>{t("card.needsZones")}</CardNote>
             )}

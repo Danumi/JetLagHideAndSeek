@@ -65,3 +65,15 @@ export const countdownText = ({ due, left }: Countdown) => {
     }
     return t("clock.lateLong", { time });
 };
+
+/** After sending: "Sent 14:32 · 3:07 left", or how late the answer is. */
+export const sentText = (sentAt: number, { due, left }: Countdown) => {
+    const sent = clockTime(sentAt);
+    if (left > 0) {
+        return t("clock.sent", { sent, left: formatMinutes(left + 999) });
+    }
+    if (-left < LONG_LATE_MS) {
+        return t("clock.sentLate", { sent, late: formatMinutes(-left) });
+    }
+    return t("clock.sentLateLong", { sent, time: clockTime(due) });
+};

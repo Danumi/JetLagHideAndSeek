@@ -9,6 +9,7 @@ import {
     countdownText,
     formatMinutes,
     PHOTO_ANSWER_MINUTES,
+    sentText,
 } from "@/maps/deadline";
 import { PHOTO_DECK } from "@/maps/deck";
 import {
@@ -95,6 +96,18 @@ describe("the time the hider has to answer", () => {
         );
         expect(countdownText(countdown(T0, 5, T0 + 3 * 60 * 60_000))).toBe(
             "Antwort war bis 20:35 fällig",
+        );
+    });
+
+    it("says when the seekers sent the question, on their card", () => {
+        const later = countdown(T0, 5, T0 + 3 * 60_000 + 12_500);
+        expect(sentText(T0, later)).toBe("Sent 20:30 · 1:48 left");
+
+        const late = countdown(T0, 5, T0 + 5 * 60_000 + 45_000);
+        language.set("de");
+        expect(sentText(T0, late)).toBe("Gesendet 20:30 · 0:45 zu spät");
+        expect(sentText(T0, countdown(T0, 5, T0 + 3 * 60 * 60_000))).toBe(
+            "Gesendet 20:30 · Antwort war bis 20:35 fällig",
         );
     });
 

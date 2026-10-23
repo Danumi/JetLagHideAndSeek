@@ -1,6 +1,7 @@
 import { useStore } from "@nanostores/react";
 import { EyeIcon, EyeOffIcon, PencilIcon, Trash2Icon } from "lucide-react";
 
+import { ClockNotStarted, SentLine } from "@/components/AnswerClock";
 import { RuleButton } from "@/components/HelpDialog";
 import {
     AlertDialog,
@@ -17,7 +18,11 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SidebarGroup, SidebarMenu } from "@/components/ui/sidebar-l";
 import { deleteQuestionWithUndo } from "@/components/UndoToast";
-import { isLoading, questionModified } from "@/lib/context";
+import {
+    isLoading,
+    questionModified,
+    showAllQuestionTypes,
+} from "@/lib/context";
 import { type MessageKey, t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import {
@@ -26,6 +31,7 @@ import {
     isSentLocked,
     questionTitle,
 } from "@/maps/answers";
+import { ANSWER_MINUTES } from "@/maps/deadline";
 import { ruleIdFor } from "@/maps/rules";
 import type { Question } from "@/maps/schema";
 
@@ -55,14 +61,8 @@ export const CardNote = ({
  * A sent question stays as the hider has it. To change it, open it here;
  * then it needs sending again.
  */
-export const ChangeSent = ({ question }: { question: Question }) => {
+const ChangeSent = ({ question }: { question: Question }) => {
     useLanguage();
-    if (!isPending(question) || question.data.sentAt === undefined) {
-        return null;
-    }
-    if (!isSentLocked(question)) {
-        return <CardNote>{t("send.changing")}</CardNote>;
-    }
     return (
         <Button
             variant="outline"
@@ -126,9 +126,11 @@ const KIND_EXPLANATIONS: Partial<Record<Question["id"], MessageKey>> = {
 };
 
 /**
- * Every open question looks the same: symbol and name, the settings of its
- * card (`children`), where it was asked and what's nearest, the answer
- * buttons, then "Send to hider", "Hide on map" and "Delete".
+ * Every open question looks the same, in the order of the game: symbol and
+ * name, the settings of its card (`children`), where it was asked and
+ * what's nearest, "Send to hider", the answer buttons (pale until sent) and
+ * "Delete". Once sent, a line with the time and the answer buttons come
+ * first, then the place and "Change and send again".
  */
 export const QuestionCard = ({
     question,
@@ -148,6 +150,10 @@ export const QuestionCard = ({
     const $language = useLanguage();
     const pending = isPending(question);
     const explanation = KIND_EXPLANATIONS[question.id];
+    const sent = isSentLocked(question);
+    const $showAllQuestionTypes = useStore(showAllQuestionTypes);
+    // An open question's pin only: for experts (and to show it again)
+    const canHide = !pending || $showAllQuestionTypes || !!question.data.hidden;
 
     return (
         <>
@@ -180,33 +186,67 @@ export const QuestionCard = ({
                     <RuleButton ruleId={ruleIdFor(question)} />
                 </div>
                 {children && <SidebarMenu>{children}</SidebarMenu>}
+                {/* Sent: the time and the answer come first */}
+                {sent && (
+                    <>
+                        <SentLine
+                            sentAt={question.data.sentAt!}
+                            minutes={ANSWER_MINUTES}
+                            send={<SendToHider question={question} small />}
+                        />
+                        {beforeAnswer}
+                        <AnswerButtons question={question} />
+                    </>
+                )}
                 <QuestionLocation question={question} />
                 <NearestInfo question={question} />
-                {beforeAnswer}
-                <AnswerButtons question={question} />
+                {/* Not sent yet (or being changed): send first */}
+                {pending && !sent && (
+                    <div className="flex flex-col gap-2">
+                        {question.data.sentAt !== undefined && (
+                            <CardNote>{t("send.changing")}</CardNote>
+                        )}
+                        <SendToHider question={question} />
+                        {question.data.sentAt === undefined && (
+                            <ClockNotStarted minutes={ANSWER_MINUTES} />
+                        )}
+                    </div>
+                )}
+                {!sent && (
+                    <>
+                        {beforeAnswer}
+                        <AnswerButtons question={question} pale={pending} />
+                    </>
+                )}
                 <div className="flex flex-col gap-2">
-                    {pending && <SendToHider question={question} />}
-                    <ChangeSent question={question} />
-                    <div className="grid grid-cols-2 gap-2">
-                        <Button
-                            variant="outline"
-                            className="h-10"
-                            onClick={() =>
-                                questionModified(
-                                    (question.data.hidden =
-                                        !question.data.hidden),
-                                )
-                            }
-                        >
-                            {question.data.hidden ? (
-                                <EyeIcon />
-                            ) : (
-                                <EyeOffIcon />
-                            )}
-                            {question.data.hidden
-                                ? t("card.showOnMap")
-                                : t("card.hideOnMap")}
-                        </Button>
+                    {sent && <ChangeSent question={question} />}
+                    <div
+                        className={cn(
+                            "grid gap-2",
+                            canHide ? "grid-cols-2" : "grid-cols-1",
+                        )}
+                    >
+                        {canHide && (
+                            <Button
+                                variant="outline"
+                                className="h-10"
+                                onClick={() =>
+                                    questionModified(
+                                        (question.data.hidden =
+                                            !question.data.hidden),
+                                    )
+                                }
+                            >
+                                {question.data.hidden ? (
+                                    <EyeIcon />
+                                ) : (
+                                    <EyeOffIcon />
+                                )}
+                                {question.data.hidden
+                                    ? t("card.showOnMap")
+                                    : t("card.hideOnMap")}
+                            </Button>
+                        )}
                         <DeleteButton
                             onDelete={() =>
                                 deleteQuestionWithUndo(question.key)

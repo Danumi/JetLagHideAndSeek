@@ -660,8 +660,8 @@ export const RULE_SECTIONS: RuleSection[] = [
                 en: "Everyone needs this app: the seekers to ask, the hider to answer. Add the hider deck for the hider (printed or online), the seekers' live location, and 4 dice, 2 for the hider and 2 for the seekers; some curses need them.",
             },
             {
-                de: "**In der App:** Zahnrad oben rechts → {newGame}. Wer sucht, wählt {seeking}, wer sich versteckt, {hiding}. Dabei lädt die App die Kartendaten für das Spiel; das dauert beim ersten Mal ein paar Minuten.",
-                en: "**In the app:** gear at the top right → {newGame}. Seekers choose {seeking}, the hider {hiding}. The app then loads the map data for the game, which takes a few minutes the first time.",
+                de: "**In der App:** Zahnrad oben rechts → {newGame}. Wer sucht, wählt {seeking}, wer sich versteckt, {hiding}. Dabei lädt die App die Kartendaten für das Spiel; das dauert beim ersten Mal einen Moment.",
+                en: "**In the app:** gear at the top right → {newGame}. Seekers choose {seeking}, the hider {hiding}. The app then loads the map data for the game, which takes a moment the first time.",
             },
             {
                 de: "**iPhone:** Habt ihr die App auf dem Home-Bildschirm, öffnen sich Links aus dem Chat trotzdem in Safari, und Safari hat seinen eigenen Speicher, ohne Zone, Uhr und frühere Antworten. Als Hider drückst du deshalb lange auf den Frage-Link, kopierst ihn und tippst in der App auf dem Hider-Bildschirm auf {pasteLink}.",
@@ -722,8 +722,8 @@ export const RULE_SECTIONS: RuleSection[] = [
                         en: "After each answer, the hider draws cards from the hider deck; how many is given for each category. The hider screen says so after answering.",
                     },
                     {
-                        de: "Antwortet er zu spät, bleibt seine Versteckzeit stehen, bis er antwortet, und er bekommt für diese Frage keine Karten. Er muss sich aber ernsthaft bemühen, rechtzeitig zu antworten. In der App hält die Spielzeit-Uhr des Hiders dafür von selbst an, von der Frist bis zum Senden der Antwort. Wer das in den Einstellungen unter „Erweitert“ abschaltet, tippt {pause} und danach {resume}.",
-                        en: "If they answer late, their hiding time stops until they answer, and they get no cards for that question. They must make a real effort to answer in time, though. In the app, the hider's game timer stops by itself, from when the answer was due until it's sent. If you turn that off in the settings under “Advanced”, tap {pause}, then {resume}.",
+                        de: "Antwortet er zu spät, bleibt seine Versteckzeit stehen, bis er antwortet, und er bekommt für diese Frage keine Karten. Er muss sich aber ernsthaft bemühen, rechtzeitig zu antworten. In der App hält die Spielzeit-Uhr des Hiders dafür von selbst an, von der Frist bis zum Senden der Antwort. Wer das in den Einstellungen unter „Erweitert“ abschaltet, tippt {pause} und danach {resume}. Die Uhr der Seeker weiß nichts von zu späten Antworten: Am Ende zählt die Uhr des Hiders.",
+                        en: "If they answer late, their hiding time stops until they answer, and they get no cards for that question. They must make a real effort to answer in time, though. In the app, the hider's game timer stops by itself, from when the answer was due until it's sent. If you turn that off in the settings under “Advanced”, tap {pause}, then {resume}. The seekers' clock doesn't know about late answers: in the end, the hider's clock counts.",
                     },
                     {
                         de: "Jede Frage gibt es nur einmal. Ein zweites Mal geht nur zum doppelten Preis: Der Hider zieht dann zweimal, also etwa zweimal 3 Karten und behält je 1, nicht 6 und behält 2. Beim dritten Mal dreimal, und so weiter.",
@@ -1501,8 +1501,8 @@ export const RULE_SECTIONS: RuleSection[] = [
                 en: "The next hider gets 10 minutes to get ready: they take over the hider deck and turn off their live location. The new round starts where the previous hider was found.",
             },
             {
-                de: "**In der App:** {found} auf der Spielzeit-Uhr stoppt die Versteckzeit; die Zeitbonus-Karten auf der Hand rechnet ihr von Hand dazu. Danach Zahnrad → {newGame}, jeder mit seiner neuen Rolle.",
-                en: "**In the app:** {found} on the game timer stops the hiding time; add the time bonus cards in hand yourselves. Then gear → {newGame}, everyone with their new role.",
+                de: "**In der App:** {found} auf der Spielzeit-Uhr stoppt die Versteckzeit; es zählt die Uhr des Hiders. Die Zeitbonus-Karten auf der Hand rechnet ihr von Hand dazu. Danach Zahnrad → {newGame}, jeder mit seiner neuen Rolle.",
+                en: "**In the app:** {found} on the game timer stops the hiding time; the hider's clock counts. Add the time bonus cards in hand yourselves. Then gear → {newGame}, everyone with their new role.",
             },
         ],
     },
@@ -1650,8 +1650,8 @@ export const GUIDE_SLIDES: { id: string; title: Text; text: Text }[] = [
         id: "new-game",
         title: { de: "Neues Spiel", en: "New game" },
         text: {
-            de: "Tippe oben rechts auf das Zahnrad und dann auf {newGame}. Wähle {seeking} oder {hiding}. Die App lädt die Karte von Wien mit allen Zonen; beim ersten Mal dauert das ein paar Minuten.",
-            en: "Tap the gear at the top right, then {newGame}. Choose {seeking} or {hiding}. The app loads the map of Vienna with all zones; the first time, that takes a few minutes.",
+            de: "Tippe oben rechts auf das Zahnrad und dann auf {newGame}. Wähle {seeking} oder {hiding}. Die App lädt die Karte von Wien mit allen Zonen; beim ersten Mal dauert das einen Moment.",
+            en: "Tap the gear at the top right, then {newGame}. Choose {seeking} or {hiding}. The app loads the map of Vienna with all zones; the first time, that takes a moment.",
         },
     },
     {

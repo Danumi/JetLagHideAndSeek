@@ -38,6 +38,19 @@ import { GameClockChip } from "@/components/GameClock";
     <script is:inline>
         setTimeout(() => document.getElementById("splash")?.remove(), 15000);
     </script>
+    <script>
+        // The scale sits below the zone count, the game timer and a tapped
+        // zone, however tall they are (see globals.css)
+        const controls = document.getElementById("top-left-controls");
+        if (controls) {
+            new ResizeObserver(() =>
+                document.documentElement.style.setProperty(
+                    "--top-left-controls",
+                    `${controls.offsetHeight}px`,
+                ),
+            ).observe(controls);
+        }
+    </script>
     <SidebarProviderL client:load>
         <QuestionSidebar client:only />
         <main class="flex h-[100svh] min-w-0 flex-grow flex-col">
@@ -47,6 +60,7 @@ import { GameClockChip } from "@/components/GameClock";
             >
                 <div class="relative min-h-0 flex-1">
                     <div
+                        id="top-left-controls"
                         class="absolute left-3 top-3 z-[1030] flex flex-col items-start gap-2"
                     >
                         <ZoneCounter client:only />

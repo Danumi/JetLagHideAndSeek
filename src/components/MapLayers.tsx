@@ -645,10 +645,14 @@ export const MapLayersButton = () => {
     const $tooMany = useStore(tooManyPlacesInView);
 
     const tooMany = MAP_LAYERS.filter((layer) => $tooMany.includes(layer.id));
+    // The list starts level with the gear at the top, so that all of it
+    // fits above the buttons at the bottom
+    const [open, setOpen] = useState(false);
+    const button = useRef<HTMLDivElement>(null);
 
     return (
-        <div className="relative">
-            <Popover modal>
+        <div className="relative" ref={button}>
+            <Popover modal open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
                     <Button
                         size="icon"
@@ -666,7 +670,8 @@ export const MapLayersButton = () => {
                 <PopoverContent
                     side="left"
                     align="start"
-                    className="max-h-[70svh] w-64 overflow-y-auto p-3"
+                    alignOffset={-(button.current?.offsetTop ?? 0)}
+                    className="max-h-[calc(100svh-6rem)] w-64 overflow-y-auto p-3"
                 >
                     <h2 className="font-poppins text-base font-semibold">
                         {t("layers.title")}

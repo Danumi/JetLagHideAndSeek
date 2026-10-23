@@ -101,9 +101,10 @@ export const BottomBar = () => {
     const $thermometerRun = useStore(thermometerRun);
     const $hiderMode = useStore(hiderMode);
     const $pickingLocation = useStore(pickingLocation);
-    const anyPending =
-        $questions.some(isPending) ||
-        $photoQuestions.some((photo) => photo.status === "pending");
+    // Only open questions: a number on the button means something waits
+    const openCount =
+        $questions.filter(isPending).length +
+        $photoQuestions.filter((photo) => photo.status === "pending").length;
 
     return (
         <div className="relative z-[1030] shrink-0">
@@ -129,8 +130,8 @@ export const BottomBar = () => {
                         <SideButton
                             icon={<ListIcon />}
                             label={t("bar.questions")}
-                            badge={$questions.length + $photoQuestions.length}
-                            alert={anyPending}
+                            badge={openCount}
+                            alert={openCount > 0}
                             onClick={() => SidebarContext.get().toggleSidebar()}
                         />
                     )}

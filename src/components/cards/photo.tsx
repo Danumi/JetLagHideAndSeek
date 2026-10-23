@@ -1,6 +1,6 @@
 import { CameraIcon } from "lucide-react";
 
-import { AnswerClock, ClockNotStarted } from "@/components/AnswerClock";
+import { ClockNotStarted, SentLine } from "@/components/AnswerClock";
 import { RuleButton } from "@/components/HelpDialog";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -43,6 +43,25 @@ export const PhotoQuestionCard = ({ photo }: { photo: PhotoQuestion }) => {
     useLanguage();
     const card = photoCardFor(photo.photo);
     const asked = clockStart(photo);
+    const send = (small: boolean) => (
+        <SendLinkButton
+            small={small}
+            makeLink={() => {
+                const sentAt = photo.sentAt ?? Date.now();
+                if (photo.sentAt === undefined) {
+                    updatePhotoQuestion(photo.key, { sentAt });
+                }
+                return photoLink({ ...photo, sentAt });
+            }}
+            message={(link) =>
+                t("photo.sendMessage", {
+                    title: photoTitle(photo.photo),
+                    link,
+                })
+            }
+            label={small ? t("send.again") : undefined}
+        />
+    );
 
     return (
         <>
@@ -59,17 +78,29 @@ export const PhotoQuestionCard = ({ photo }: { photo: PhotoQuestion }) => {
                 </div>
                 {card && <CardNote>{tr(card.hint)}</CardNote>}
                 <CardNote>{t("photo.notOnMap")}</CardNote>
-                <div className="flex flex-col gap-2">
-                    <span className="text-sm font-semibold text-orange-400">
-                        {t("photo.waiting")}
-                    </span>
-                    {asked !== undefined ? (
-                        <AnswerClock
-                            start={asked}
-                            minutes={PHOTO_ANSWER_MINUTES}
-                        />
-                    ) : (
+                {asked !== undefined && (
+                    <SentLine
+                        sentAt={asked}
+                        minutes={PHOTO_ANSWER_MINUTES}
+                        send={send(true)}
+                    />
+                )}
+                {asked === undefined && (
+                    <div className="flex flex-col gap-2">
+                        {send(false)}
                         <ClockNotStarted minutes={PHOTO_ANSWER_MINUTES} />
+                    </div>
+                )}
+                <div
+                    className={cn(
+                        "flex flex-col gap-2",
+                        asked === undefined && "opacity-50",
+                    )}
+                >
+                    {asked === undefined && (
+                        <span className="text-sm font-semibold text-muted-foreground">
+                            {t("photo.onceItComes")}
+                        </span>
                     )}
                     <Button
                         variant="outline"
@@ -94,26 +125,7 @@ export const PhotoQuestionCard = ({ photo }: { photo: PhotoQuestion }) => {
                         {t("answer.none")}
                     </Button>
                 </div>
-                <div className="flex flex-col gap-2">
-                    <SendLinkButton
-                        makeLink={() => {
-                            const sentAt = photo.sentAt ?? Date.now();
-                            if (photo.sentAt === undefined) {
-                                updatePhotoQuestion(photo.key, { sentAt });
-                            }
-                            return photoLink({ ...photo, sentAt });
-                        }}
-                        message={(link) =>
-                            t("photo.sendMessage", {
-                                title: photoTitle(photo.photo),
-                                link,
-                            })
-                        }
-                    />
-                    <DeleteButton
-                        onDelete={() => deletePhotoWithUndo(photo.key)}
-                    />
-                </div>
+                <DeleteButton onDelete={() => deletePhotoWithUndo(photo.key)} />
             </SidebarGroup>
             <Separator className="h-1" />
         </>
