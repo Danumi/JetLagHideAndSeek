@@ -53,6 +53,7 @@ import { hiderZoneCheck, zoneCheckText } from "@/maps/hidingZoneCheck";
 import { hiderEntryRuleId } from "@/maps/rules";
 
 import { AnswerClock } from "./AnswerClock";
+import { GameClockCard } from "./GameClock";
 import { RuleButton } from "./HelpDialog";
 import { showActionToast, showUndoToast } from "./UndoToast";
 
@@ -698,6 +699,7 @@ export const HiderScreen = () => {
 
     const body = (
         <div className="flex flex-col gap-4">
+            <GameClockCard />
             <ZoneCheckCard />
             <div className="flex items-center gap-3 rounded-lg border p-3">
                 <LocateFixedIcon className="size-5 shrink-0" />

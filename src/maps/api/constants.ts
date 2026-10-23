@@ -11,7 +11,7 @@ export const OVERPASS_HOSTS = {
 
 /**
  * Questions about the nearest place of a kind give up above this many places.
- * Vienna has about 1,150 parks.
+ * Vienna has about 565 named parks.
  */
 export const MAX_PLACES_IN_ZONE = 2000;
 
@@ -50,6 +50,27 @@ export const LOCATION_FIRST_TAG: {
     golf_course: "leisure",
     consulate: "diplomatic",
     park: "leisure",
+};
+
+/** Lower peaks are hills, not mountains (Vienna: the 25 highest of the Wienerwald). */
+export const MIN_MOUNTAIN_METERS = 400;
+
+/**
+ * Whether a place from OSM counts in the game. Places without a name don't:
+ * nobody can look them up (half of what OSM calls a park in Vienna is an
+ * unnamed bit of green). Mountains are the named peaks of at least 400 m.
+ */
+export const placeCounts = (
+    location: APILocations,
+    tags: Record<string, string> | undefined,
+) => {
+    if (!tags?.name) return false;
+    if (location === "peak") {
+        // "544", "381.9", sometimes "425 m"
+        const meters = parseFloat((tags.ele ?? "").replace(",", "."));
+        return Number.isFinite(meters) && meters >= MIN_MOUNTAIN_METERS;
+    }
+    return true;
 };
 
 export const BLANK_GEOJSON = {

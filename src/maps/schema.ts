@@ -128,6 +128,8 @@ const thermometerQuestionSchema = z.object({
     accuracyA: z.number().optional(),
     /** How precise the GPS position of the end was, in meters; none when set by hand. */
     accuracyB: z.number().optional(),
+    /** The card's distance in kilometers (1 or 5); none for older questions. */
+    distance: z.number().positive().optional(),
     warmer: z.boolean().default(true),
     colorA: iconColorSchema.default(randomQuestionColor),
     colorB: iconColorSchema.default(randomQuestionColor),

@@ -157,6 +157,17 @@ const formatRadius = (radius: number, unit: Units) =>
         ? formatKilometers(turf.convertLength(radius, unit, "kilometers"))
         : "?";
 
+/** How far apart the start and end of a thermometer are, as the crow flies. */
+export const thermometerTraveled = (data: {
+    latA: number;
+    lngA: number;
+    latB: number;
+    lngB: number;
+}) =>
+    turf.distance([data.lngA, data.latA], [data.lngB, data.latB], {
+        units: "kilometers",
+    });
+
 /** Short name of the question, like "Radar 2 km" or "Matching: Museum". */
 export const questionTitle = (question: Question) => {
     switch (question.id) {
@@ -167,11 +178,7 @@ export const questionTitle = (question: Question) => {
             }`;
         case "thermometer":
             return `Thermometer ${formatKilometers(
-                turf.distance(
-                    [question.data.lngA, question.data.latA],
-                    [question.data.lngB, question.data.latB],
-                    { units: "kilometers" },
-                ),
+                question.data.distance ?? thermometerTraveled(question.data),
             )}`;
         case "tentacles":
             return `${t("kind.tentacles")} ${formatRadius(

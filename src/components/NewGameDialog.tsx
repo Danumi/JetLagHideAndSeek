@@ -29,6 +29,7 @@ import {
 import { t, useLanguage } from "@/lib/i18n";
 import { type Role, setRole } from "@/lib/role";
 import { cn } from "@/lib/utils";
+import { gameClock } from "@/maps/gameClock";
 import { preloadGameData } from "@/maps/preload";
 
 import {
@@ -67,6 +68,8 @@ export const startNewGame = (role: Role) => {
     displayHidingZones.set(true);
 
     hiderInbox.set([]);
+    // The hider starts it when the hiding period begins
+    gameClock.set(null);
     setRole(role);
 
     // Clearing the questions also reloads the map

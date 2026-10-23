@@ -10,9 +10,9 @@ import { GROUPS, MATCHING_DECK, MEASURING_DECK } from "@/maps/deck";
 
 /*
  * What players can show on the map besides the zones: the places of the
- * question cards (every museum, hospital, park, ...), bodies of water, the
- * high-speed line and the U-Bahn and S-Bahn lines. The places come from the
- * same queries as the questions, so "New Game" has already loaded them.
+ * question cards (every museum, hospital, park, ...), bodies of water and the
+ * U-Bahn and S-Bahn lines. The places come from the same queries as the
+ * questions, so "New Game" has already loaded them.
  */
 
 export type MapLayer = {
@@ -91,7 +91,6 @@ export const MAP_LAYERS: MapLayer[] = [
         icon: ICONS.train,
         route: "train",
     },
-    cardLayer("high-speed", "#334155", ICONS.train),
     cardLayer("mountain", "#92400e", ICONS.mountain, "peak"),
     cardLayer("park", "#15803d", ICONS.trees, "park"),
     cardLayer("water", "#0369a1", ICONS.waves),
@@ -193,4 +192,130 @@ export const lineLabelPositions = (
         placed.push({ ref: line.ref, at: free ?? candidates[0] });
     }
     return placed;
+};
+
+/** A body of water's name and where it can go on the map. */
+export type WaterLabel = {
+    name: string;
+    /** Across all its parts, in kilometers (the Danube: about 20). */
+    size: number;
+    /** Points along it, about one per kilometer. */
+    candidates: Position[];
+};
+
+/** Pieces of the same water close to each other (within about 500 m). */
+const clusters = (pieces: Feature<LineString>[]) => {
+    const near = 0.005;
+    const boxes = pieces.map((piece) => turf.bbox(piece));
+    const parent = pieces.map((_, i) => i);
+    const root = (i: number): number =>
+        parent[i] === i ? i : (parent[i] = root(parent[i]));
+    for (let i = 0; i < pieces.length; i++) {
+        for (let j = i + 1; j < pieces.length; j++) {
+            const [w1, s1, e1, n1] = boxes[i];
+            const [w2, s2, e2, n2] = boxes[j];
+            if (
+                w1 - near <= e2 &&
+                w2 - near <= e1 &&
+                s1 - near <= n2 &&
+                s2 - near <= n1
+            ) {
+                parent[root(i)] = root(j);
+            }
+        }
+    }
+    const groups = new Map<number, Feature<LineString>[]>();
+    pieces.forEach((piece, i) =>
+        groups.set(root(i), [...(groups.get(root(i)) ?? []), piece]),
+    );
+    return [...groups.values()];
+};
+
+/**
+ * Where to write the name of each body of water, the largest first. Ponds
+ * of the same name in different places ("Seerosenteich") each get their own.
+ */
+export const waterLabels = (
+    lines: Feature<LineString, { name?: string }>[],
+): WaterLabel[] => {
+    const byName = new Map<string, Feature<LineString>[]>();
+    for (const line of lines) {
+        const name = line.properties?.name;
+        if (!name) continue;
+        byName.set(name, [...(byName.get(name) ?? []), line]);
+    }
+    return [...byName]
+        .flatMap(([name, pieces]) =>
+            clusters(pieces).map((cluster) => ({ name, cluster })),
+        )
+        .map(({ name, cluster }) => {
+            const [west, south, east, north] = turf.bbox(
+                turf.featureCollection(cluster),
+            );
+            const candidates = cluster.flatMap((piece) => {
+                const length = turf.length(piece);
+                const steps = Math.max(1, Math.floor(length));
+                return Array.from(
+                    { length: steps },
+                    (_, i) =>
+                        turf.along(piece, (length * (i + 0.5)) / steps).geometry
+                            .coordinates,
+                );
+            });
+            return {
+                name,
+                size: turf.distance([west, south], [east, north]),
+                candidates,
+            };
+        })
+        .sort((a, b) => b.size - a.size);
+};
+
+/**
+ * The names to write in view: only bodies of water big enough to see at this
+ * zoom, each once, near the middle of the view and not on top of another.
+ */
+export const waterLabelsInView = (
+    labels: WaterLabel[],
+    view: Bounds,
+    /** Where a point is on the screen, in pixels. */
+    toPixel: (at: Position) => { x: number; y: number },
+    pixelsPerKm: number,
+    { minPixels = 40, max = 30 } = {},
+) => {
+    const middle = toPixel([
+        (view.west + view.east) / 2,
+        (view.south + view.north) / 2,
+    ]);
+    const placed: { name: string; at: Position; x: number; y: number }[] = [];
+    for (const label of labels) {
+        if (placed.length >= max) break;
+        // Only water bigger on the screen than its name
+        const width = label.name.length * 7;
+        if (label.size * pixelsPerKm < Math.max(minPixels, width)) continue;
+        const spot = label.candidates
+            .filter(
+                ([lng, lat]) =>
+                    lat >= view.south &&
+                    lat <= view.north &&
+                    lng >= view.west &&
+                    lng <= view.east,
+            )
+            .map((at) => ({ at, ...toPixel(at) }))
+            .sort(
+                (a, b) =>
+                    Math.hypot(a.x - middle.x, a.y - middle.y) -
+                    Math.hypot(b.x - middle.x, b.y - middle.y),
+            )
+            .find((spot) =>
+                placed.every(
+                    (other) =>
+                        Math.abs(other.x - spot.x) >
+                            (width + other.name.length * 7) / 2 ||
+                        Math.abs(other.y - spot.y) > 24,
+                ),
+            );
+        if (spot) placed.push({ name: label.name, ...spot });
+    }
+    return placed.map(({ name, at }) => ({ name, at }));
 };

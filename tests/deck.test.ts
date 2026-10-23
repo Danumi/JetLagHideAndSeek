@@ -51,7 +51,6 @@ const EXPECTED_MATCHING: Record<string, Record<string, string | null>> = {
 const EXPECTED_MEASURING: Record<string, Record<string, string | null>> = {
     Transit: {
         "Commercial Airport": null,
-        "High-Speed Train Line": "highspeed-measure-shinkansen",
         "Rail Station": "rail-measure",
     },
     Borders: {
@@ -91,8 +90,9 @@ describe.each([
     ["matching", MATCHING_DECK, EXPECTED_MATCHING, matchingCardFor],
     ["measuring", MEASURING_DECK, EXPECTED_MEASURING, measuringCardFor],
 ] as const)("Small deck: %s", (id, deck, expected, cardFor) => {
-    it("has the 20 cards of the rule book, in its groups and order", () => {
-        expect(deck).toHaveLength(20);
+    it("has the cards of the rule book, in its groups and order", () => {
+        // Measuring without the high-speed train line: none in Vienna
+        expect(deck).toHaveLength(id === "matching" ? 20 : 19);
         expect(asTable(deck)).toEqual(expected);
         expect(Object.keys(asTable(deck))).toEqual(Object.keys(expected));
     });
@@ -119,6 +119,14 @@ describe.each([
         for (const card of deck.filter((c) => !c.type)) {
             expect(card.noAnswer).toBeTruthy();
         }
+    });
+});
+
+describe("the Vienna game", () => {
+    it("leaves out the high-speed train line", () => {
+        expect(MEASURING_DECK.some((card) => card.id === "high-speed")).toBe(
+            false,
+        );
     });
 });
 
