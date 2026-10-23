@@ -32,6 +32,7 @@ import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
 import { applyQuestionsToMapGeoData, holedMask } from "@/maps";
 import { determineMapBoundaries } from "@/maps/api";
+import { steadyRenderer } from "@/maps/steadyRenderer";
 import { tapZoneAt } from "@/maps/zones";
 
 import { DraggableMarkers } from "./DraggableMarkers";
@@ -50,6 +51,12 @@ export const ELIMINATED_STYLE: L.PathOptions = {
     fillOpacity: 0.3,
 };
 
+/**
+ * Tiles load while the map is dragged, not only once it stops (Leaflet's
+ * default on phones): the edge of the map stayed empty until then.
+ */
+const LOAD_WHILE_DRAGGING = { updateWhenIdle: false } as const;
+
 const getTileLayer = (tileLayer: string) => {
     switch (tileLayer) {
         case "light":
@@ -60,6 +67,7 @@ const getTileLayer = (tileLayer: string) => {
                     maxZoom={20} // This technically should be 6, but once the ratelimiting starts this can take over
                     minZoom={2}
                     noWrap
+                    {...LOAD_WHILE_DRAGGING}
                 />
             );
 
@@ -71,6 +79,7 @@ const getTileLayer = (tileLayer: string) => {
                     maxZoom={20} // This technically should be 6, but once the ratelimiting starts this can take over
                     minZoom={2}
                     noWrap
+                    {...LOAD_WHILE_DRAGGING}
                 />
             );
 
@@ -81,6 +90,7 @@ const getTileLayer = (tileLayer: string) => {
                     maxZoom={19}
                     minZoom={2}
                     noWrap
+                    {...LOAD_WHILE_DRAGGING}
                 />
             );
     }
@@ -92,6 +102,7 @@ const getTileLayer = (tileLayer: string) => {
             maxZoom={20} // This technically should be 6, but once the ratelimiting starts this can take over
             minZoom={2}
             noWrap
+            {...LOAD_WHILE_DRAGGING}
         />
     );
 };
@@ -395,6 +406,8 @@ export const Map = ({ className }: { className?: string }) => {
                 zoomControl={false}
                 // The credits for the map data are in Settings → About
                 attributionControl={false}
+                // The grey areas stay drawn while the map is dragged
+                renderer={steadyRenderer()}
                 className={cn("w-[500px] h-[500px]", className)}
                 ref={leafletMapContext.set}
                 // @ts-expect-error Typing doesn't update from react-contextmenu
