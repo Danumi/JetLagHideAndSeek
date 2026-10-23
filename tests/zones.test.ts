@@ -20,7 +20,6 @@ import {
     chooseHiderZoneOnMap,
     choosingHiderZone,
     hiderChosenZone,
-    hiderOwnZone,
     nextTappedZone,
     outsideZones,
     showZone,
@@ -162,67 +161,46 @@ describe("the hider's own zone", () => {
     it("is the zone the hider chose", () => {
         hiding();
         hiderZoneId.set("node/A");
-        expect(hiderOwnZone.get()).toBe("node/A");
+        expect(hiderChosenZone.get()).toBe("node/A");
     });
 
     it("is empty before choosing, on seekers' phones and for unknown zones", () => {
         hiding();
-        expect(hiderOwnZone.get()).toBe("");
+        expect(hiderChosenZone.get()).toBe("");
         hiderZoneId.set("node/Elsewhere");
-        expect(hiderOwnZone.get()).toBe("");
+        expect(hiderChosenZone.get()).toBe("");
         hiderZoneId.set("node/A");
         hiderMode.set(false);
-        expect(hiderOwnZone.get()).toBe("");
+        expect(hiderChosenZone.get()).toBe("");
     });
 
-    it("is the only zone a tap on the hider's map picks", () => {
-        hiding();
-        hiderZoneId.set("node/A");
-        expect(zonesAt(SPOT)).toEqual(["node/A"]);
-
-        tapZoneAt(SPOT);
-        expect(selectedZoneId.get()).toBe("node/A");
-        expect(tappedZones.get()).toEqual([]);
-
-        // C is there, but not shown
-        tapZoneAt(east(700));
-        expect(selectedZoneId.get()).toBe("");
-    });
-
-    it("counts even when the answers ruled it out", () => {
-        hiding();
-        hiderZoneId.set("node/A");
-        disabledStations.set(["node/A"]);
-        expect(zonesAt(SPOT)).toEqual(["node/A"]);
-    });
-
-    it("leaves the hider all zones before choosing", () => {
+    it("leaves the hider all zones, before and after choosing", () => {
         hiding();
         expect(zonesAt(SPOT)).toEqual(["node/B", "node/A", "node/C"]);
+        hiderZoneId.set("node/A");
+        expect(zonesAt(SPOT)).toEqual(["node/B", "node/A", "node/C"]);
+        tapZoneAt(east(700));
+        expect(selectedZoneId.get()).toBe("node/C");
     });
 
-    it("shows all zones again while the hider chooses another one", () => {
+    it("can be changed from the hider screen", () => {
         hiding();
         hiderZoneId.set("node/A");
         hiderScreenOpen.set(true);
 
         chooseHiderZoneOnMap();
+        expect(choosingHiderZone.get()).toBe(true);
         expect(hiderScreenOpen.get()).toBe(false);
-        expect(hiderOwnZone.get()).toBe("");
-        // Still violet on the map
-        expect(hiderChosenZone.get()).toBe("node/A");
-        expect(zonesAt(SPOT)).toEqual(["node/B", "node/A", "node/C"]);
         tapZoneAt(SPOT);
         expect(selectedZoneId.get()).toBe("node/B");
 
-        // Chosen (or cancelled): only the hider's zone, back on their screen
+        // Chosen (or cancelled): back on the hider screen
         hiderZoneId.set("node/B");
         stopChoosingHiderZone();
         expect(choosingHiderZone.get()).toBe(false);
         expect(selectedZoneId.get()).toBe("");
         expect(hiderScreenOpen.get()).toBe(true);
-        expect(hiderOwnZone.get()).toBe("node/B");
-        expect(zonesAt(SPOT)).toEqual(["node/B"]);
+        expect(hiderChosenZone.get()).toBe("node/B");
     });
 
     it("stays on the map after choosing from the zone list", () => {
