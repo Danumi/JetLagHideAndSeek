@@ -6,13 +6,16 @@ import type {
     Polygon,
 } from "geojson";
 import _ from "lodash";
-import { atom } from "nanostores";
+import { atom, computed } from "nanostores";
 
 import {
+    allTrainStations,
     disabledStations,
     displayHidingZones,
     displayHidingZonesStyle,
     followMyPosition,
+    hiderMode,
+    hiderZoneId,
     hidingRadius,
     hidingRadiusUnits,
     keptZonesRuledOut,
@@ -29,6 +32,18 @@ export const stationId = (station: StationCircle) =>
 /** Hiding zones not ruled out by the questions or by hand. */
 export const zonesLeft = (stations: StationCircle[], disabled: string[]) =>
     stations.filter((station) => !disabled.includes(stationId(station)));
+
+/**
+ * The zone the hider chose, once the stations are there: their map then
+ * shows only this zone. Empty on seekers' phones and before choosing.
+ */
+export const hiderOwnZone = computed(
+    [hiderMode, hiderZoneId, allTrainStations],
+    (hider, id, stations) =>
+        hider !== false && stations.some((x) => x.properties.id === id)
+            ? id
+            : "",
+);
 
 /**
  * Where the hider can't be because it is outside every zone left, without
@@ -67,7 +82,8 @@ export const toggleZone = (id: string) => {
 
 /**
  * The hiding zones left at a point on the map, the one whose station is
- * nearest first.
+ * nearest first. On the hider's map with a chosen zone only that zone, the
+ * others aren't shown.
  */
 export const zonesAt = (at: { lat: number; lng: number }) => {
     const radiusMeters = turf.convertLength(
@@ -75,13 +91,19 @@ export const zonesAt = (at: { lat: number; lng: number }) => {
         hidingRadiusUnits.get(),
         "meters",
     );
+    const own = hiderOwnZone.get();
+    const stations = own
+        ? allTrainStations.get().filter((x) => x.properties.id === own)
+        : zonesLeft(trainStations.get(), disabledStations.get()).map(
+              (station) => station.properties,
+          );
     return _.sortBy(
-        zonesLeft(trainStations.get(), disabledStations.get())
+        stations
             .map((station) => ({
-                id: stationId(station),
+                id: station.properties.id as string,
                 meters: turf.distance(
                     [at.lng, at.lat],
-                    station.properties.geometry.coordinates,
+                    station.geometry.coordinates,
                     { units: "meters" },
                 ),
             }))

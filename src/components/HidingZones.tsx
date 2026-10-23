@@ -14,8 +14,6 @@ import {
     displayHidingZonesOptions,
     displayHidingZonesStyle,
     followMyPosition,
-    hiderMode,
-    hiderZoneId,
     hidingRadius,
     hidingRadiusUnits,
     includeDefaultStations as includeDefaultStationsAtom,
@@ -49,7 +47,7 @@ import {
 } from "@/maps/geo-utils";
 import { findHidingZoneStations, stationOsmIds } from "@/maps/stations";
 import { steadyRenderer } from "@/maps/steadyRenderer";
-import { outsideZones, stationId, zonesLeft } from "@/maps/zones";
+import { hiderOwnZone, outsideZones, stationId, zonesLeft } from "@/maps/zones";
 
 import { ELIMINATED_STYLE } from "./Map";
 
@@ -120,8 +118,7 @@ export const HidingZones = () => {
     const $customStations = useStore(customStationsAtom);
     const $allTrainStations = useStore(allTrainStations);
     const $selectedZoneId = useStore(selectedZoneId);
-    const $hiderZoneId = useStore(hiderZoneId);
-    const $hiderMode = useStore(hiderMode);
+    const $hiderOwnZone = useStore(hiderOwnZone);
     const setStations = trainStations.set;
 
     const removeHidingZones = () => {
@@ -466,9 +463,13 @@ export const HidingZones = () => {
             });
         }
 
-        if (!$displayHidingZones) {
+        // The hider with a chosen zone sees only that zone (the violet
+        // outline below): no other zones and no grey around them. The grey
+        // left is what the seekers' questions rule out.
+        if (!$displayHidingZones || $hiderOwnZone) {
             removeHidingZones();
             showOutside(null);
+            onlyZoneRef.current = "";
             return;
         }
 
@@ -514,6 +515,7 @@ export const HidingZones = () => {
         $disabledStations,
         $displayHidingZones,
         $displayHidingZonesStyle,
+        $hiderOwnZone,
         $hidingRadius,
         $hidingRadiusUnits,
         $questionFinishedMapData,
@@ -604,10 +606,11 @@ export const HidingZones = () => {
 
         const layers: (L.GeoJSON | null)[] = [];
         if ($displayHidingZones) {
-            if ($hiderMode !== false && $hiderZoneId) {
-                layers.push(zoneOutline($hiderZoneId, HIDER_ZONE_STYLE));
+            if ($hiderOwnZone) {
+                layers.push(zoneOutline($hiderOwnZone, HIDER_ZONE_STYLE));
             }
-            if ($selectedZoneId) {
+            // The hider's own zone stays violet when tapped
+            if ($selectedZoneId && $selectedZoneId !== $hiderOwnZone) {
                 layers.push(zoneOutline($selectedZoneId, SELECTED_STYLE));
             }
         }
@@ -617,8 +620,7 @@ export const HidingZones = () => {
         map,
         $allTrainStations,
         $displayHidingZones,
-        $hiderMode,
-        $hiderZoneId,
+        $hiderOwnZone,
         $hidingRadius,
         $hidingRadiusUnits,
         $selectedZoneId,

@@ -3,9 +3,12 @@ import type { Feature, Polygon } from "geojson";
 import { beforeEach, describe, expect, it } from "vitest";
 
 import {
+    allTrainStations,
     disabledStations,
     displayHidingZones,
     displayHidingZonesStyle,
+    hiderMode,
+    hiderZoneId,
     hidingRadius,
     hidingRadiusUnits,
     selectedZoneId,
@@ -13,6 +16,7 @@ import {
 } from "@/lib/context";
 import type { StationCircle, StationPlace } from "@/maps/api";
 import {
+    hiderOwnZone,
     nextTappedZone,
     outsideZones,
     showZone,
@@ -55,8 +59,11 @@ beforeEach(() => {
     displayHidingZones.set(true);
     displayHidingZonesStyle.set("zones");
     trainStations.set([...ZONES]);
+    allTrainStations.set(ZONES.map((station) => station.properties));
     disabledStations.set([]);
     selectedZoneId.set("");
+    hiderMode.set(false);
+    hiderZoneId.set("");
     // Forgets the last tap
     showZone("");
 });
@@ -139,6 +146,52 @@ describe("tapping where zones overlap", () => {
         // A new tap on the old spot starts from the nearest again
         tapZoneAt(SPOT);
         expect(selectedZoneId.get()).toBe("node/B");
+    });
+});
+
+describe("the hider's own zone", () => {
+    const hiding = () => hiderMode.set({ latitude: 48.2, longitude: 16.37 });
+
+    it("is the zone the hider chose", () => {
+        hiding();
+        hiderZoneId.set("node/A");
+        expect(hiderOwnZone.get()).toBe("node/A");
+    });
+
+    it("is empty before choosing, on seekers' phones and for unknown zones", () => {
+        hiding();
+        expect(hiderOwnZone.get()).toBe("");
+        hiderZoneId.set("node/Elsewhere");
+        expect(hiderOwnZone.get()).toBe("");
+        hiderZoneId.set("node/A");
+        hiderMode.set(false);
+        expect(hiderOwnZone.get()).toBe("");
+    });
+
+    it("is the only zone a tap on the hider's map picks", () => {
+        hiding();
+        hiderZoneId.set("node/A");
+        expect(zonesAt(SPOT)).toEqual(["node/A"]);
+
+        tapZoneAt(SPOT);
+        expect(selectedZoneId.get()).toBe("node/A");
+        expect(tappedZones.get()).toEqual([]);
+
+        // C is there, but not shown
+        tapZoneAt(east(700));
+        expect(selectedZoneId.get()).toBe("");
+    });
+
+    it("counts even when the answers ruled it out", () => {
+        hiding();
+        hiderZoneId.set("node/A");
+        disabledStations.set(["node/A"]);
+        expect(zonesAt(SPOT)).toEqual(["node/A"]);
+    });
+
+    it("leaves the hider all zones before choosing", () => {
+        hiding();
+        expect(zonesAt(SPOT)).toEqual(["node/B", "node/A", "node/C"]);
     });
 });
 
