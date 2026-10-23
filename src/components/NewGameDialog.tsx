@@ -33,6 +33,7 @@ import { cn } from "@/lib/utils";
 import { endRound, pauseForLateAnswers } from "@/maps/gameClock";
 import { lateIntervals } from "@/maps/hiderLog";
 import { preloadGameData } from "@/maps/preload";
+import { choosingHiderZone } from "@/maps/zones";
 
 import {
     AlertDialog,
@@ -59,6 +60,7 @@ export const startNewGame = (role: Role) => {
     keptZonesRuledOut.set([]);
     selectedZoneId.set("");
     hiderZoneId.set("");
+    choosingHiderZone.set(false);
     displayHidingZonesOptions.set([SUBWAY_STATIONS]);
     hidingRadius.set(SMALL_HIDING_RADIUS_METERS);
     hidingRadiusUnits.set("meters");

@@ -8,6 +8,7 @@ import {
     displayHidingZones,
     displayHidingZonesStyle,
     hiderMode,
+    hiderScreenOpen,
     hiderZoneId,
     hidingRadius,
     hidingRadiusUnits,
@@ -16,10 +17,14 @@ import {
 } from "@/lib/context";
 import type { StationCircle, StationPlace } from "@/maps/api";
 import {
+    chooseHiderZoneOnMap,
+    choosingHiderZone,
+    hiderChosenZone,
     hiderOwnZone,
     nextTappedZone,
     outsideZones,
     showZone,
+    stopChoosingHiderZone,
     tappedZones,
     tapZoneAt,
     zonesAt,
@@ -65,6 +70,7 @@ beforeEach(() => {
     selectedZoneId.set("");
     hiderMode.set(false);
     hiderZoneId.set("");
+    choosingHiderZone.set(false);
     // Forgets the last tap
     showZone("");
 });
@@ -193,6 +199,37 @@ describe("the hider's own zone", () => {
     it("leaves the hider all zones before choosing", () => {
         hiding();
         expect(zonesAt(SPOT)).toEqual(["node/B", "node/A", "node/C"]);
+    });
+
+    it("shows all zones again while the hider chooses another one", () => {
+        hiding();
+        hiderZoneId.set("node/A");
+        hiderScreenOpen.set(true);
+
+        chooseHiderZoneOnMap();
+        expect(hiderScreenOpen.get()).toBe(false);
+        expect(hiderOwnZone.get()).toBe("");
+        // Still violet on the map
+        expect(hiderChosenZone.get()).toBe("node/A");
+        expect(zonesAt(SPOT)).toEqual(["node/B", "node/A", "node/C"]);
+        tapZoneAt(SPOT);
+        expect(selectedZoneId.get()).toBe("node/B");
+
+        // Chosen (or cancelled): only the hider's zone, back on their screen
+        hiderZoneId.set("node/B");
+        stopChoosingHiderZone();
+        expect(choosingHiderZone.get()).toBe(false);
+        expect(selectedZoneId.get()).toBe("");
+        expect(hiderScreenOpen.get()).toBe(true);
+        expect(hiderOwnZone.get()).toBe("node/B");
+        expect(zonesAt(SPOT)).toEqual(["node/B"]);
+    });
+
+    it("stays on the map after choosing from the zone list", () => {
+        hiding();
+        hiderScreenOpen.set(false);
+        stopChoosingHiderZone();
+        expect(hiderScreenOpen.get()).toBe(false);
     });
 });
 

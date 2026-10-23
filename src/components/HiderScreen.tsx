@@ -63,6 +63,7 @@ import {
 } from "@/maps/hiderLog";
 import { hiderZoneCheck, zoneCheckText } from "@/maps/hidingZoneCheck";
 import { hiderEntryRuleId } from "@/maps/rules";
+import { chooseHiderZoneOnMap, choosingHiderZone } from "@/maps/zones";
 
 import { AnswerClock } from "./AnswerClock";
 import { GameClockCard, GameClockChip } from "./GameClock";
@@ -145,14 +146,6 @@ const ZoneCheckCard = ({ compact = false }: { compact?: boolean }) => {
             </button>
         );
     }
-    const showMap = () => {
-        hiderScreenOpen.set(false);
-        toast.info(t("hider.chooseHint"), {
-            autoClose: 4000,
-            toastId: "choose-zone-hint",
-        });
-    };
-
     return (
         <div
             className={cn(
@@ -176,7 +169,11 @@ const ZoneCheckCard = ({ compact = false }: { compact?: boolean }) => {
                     )}
                 </div>
                 {chosen && (
-                    <Button variant="outline" size="sm" onClick={showMap}>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={chooseHiderZoneOnMap}
+                    >
                         {t("hider.change")}
                     </Button>
                 )}
@@ -193,7 +190,7 @@ const ZoneCheckCard = ({ compact = false }: { compact?: boolean }) => {
                             })}
                         </Button>
                     )}
-                    <Button variant="outline" onClick={showMap}>
+                    <Button variant="outline" onClick={chooseHiderZoneOnMap}>
                         {inside
                             ? t("hider.chooseAnother")
                             : t("hider.chooseOnMap")}
@@ -611,6 +608,11 @@ export const HiderScreen = () => {
             locate();
         }
     }, [$open, $hiderMode === false]);
+
+    // Back on this screen (e.g. a question link): done choosing a zone
+    useEffect(() => {
+        if ($open) choosingHiderZone.set(false);
+    }, [$open]);
 
     // Back from "Pick on map", tapped or cancelled
     useEffect(
