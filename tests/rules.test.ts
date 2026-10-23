@@ -64,6 +64,11 @@ const BUTTONS = [
     "sendToHider",
     "sendAnswer",
     "chooseZone",
+    "startTimer",
+    "pause",
+    "resume",
+    "found",
+    "tellHider",
 ];
 
 const PUBLIC = new URL("../public/", import.meta.url).pathname;

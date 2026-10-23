@@ -54,8 +54,8 @@ type CardRule = {
 };
 
 const placeCounts = (de: string, en: string): Text => ({
-    de: `Alles, was in OpenStreetMap als ${de} eingetragen ist, so wie es die App zeigt. Gemessen wird zum Punkt des Orts, nicht zu seinem Rand.`,
-    en: `Anything mapped as ${en} in OpenStreetMap, as the app shows it. Distances go to the place's point, not to its edge.`,
+    de: `Alles mit Namen, was in OpenStreetMap als ${de} eingetragen ist, so wie es die App zeigt. Gemessen wird zum Punkt des Orts, nicht zu seinem Rand.`,
+    en: `Anything with a name mapped as ${en} in OpenStreetMap, as the app shows it. Distances go to the place's point, not to its edge.`,
 });
 
 /** Keyed by the card's id in deck.ts; cards in both decks share one entry. */
@@ -162,8 +162,8 @@ const CARD_RULES: Record<string, CardRule> = {
             en: "Compared to me, are you closer to or further from a mountain?",
         },
         counts: {
-            de: "Jeder Gipfel, der in OpenStreetMap als Gipfel eingetragen ist. Gemessen wird zum Gipfelpunkt.",
-            en: "Any summit mapped as a peak in OpenStreetMap. Distances go to the summit's point.",
+            de: "Das Rulebook nimmt, was die Karten-App als Berg zeigt. Bei uns zählen Gipfel mit Namen ab 400 m Seehöhe, niedrigere Hügel nicht. Gemessen wird zum Gipfelpunkt.",
+            en: "The rule book takes whatever the map app shows as a mountain. For us, named peaks of at least 400 m count, lower hills don't. Distances go to the summit's point.",
         },
     },
     landmass: {
@@ -190,8 +190,8 @@ const CARD_RULES: Record<string, CardRule> = {
             en: "Compared to me, are you closer to or further from a park?",
         },
         counts: {
-            de: "Jeder Park, der in OpenStreetMap als Park eingetragen ist, so wie es die App zeigt. Gemessen wird zum Punkt des Parks, nicht zu seinem Rand. Das wirkt manchmal seltsam: Wer am Rand eines großen Parks steht, ist vielleicht näher am Punkt eines kleinen Parks daneben. Das Rulebook bleibt trotzdem bei dieser Regel, weil sie eindeutig ist.",
-            en: "Any park mapped as a park in OpenStreetMap, as the app shows it. Distances go to the park's point, not to its edge. That can feel odd: at the edge of a big park, the point of a small park nearby may be closer. The rule book sticks with this rule anyway, because it's clear-cut.",
+            de: "Jeder Park mit Namen, der in OpenStreetMap als Park eingetragen ist, so wie es die App zeigt; Grünflächen ohne Namen zählen nicht. Gemessen wird zum Punkt des Parks, nicht zu seinem Rand. Das wirkt manchmal seltsam: Wer am Rand eines großen Parks steht, ist vielleicht näher am Punkt eines kleinen Parks daneben. Das Rulebook bleibt trotzdem bei dieser Regel, weil sie eindeutig ist.",
+            en: "Any park with a name mapped as a park in OpenStreetMap, as the app shows it; green spaces without a name don't count. Distances go to the park's point, not to its edge. That can feel odd: at the edge of a big park, the point of a small park nearby may be closer. The rule book sticks with this rule anyway, because it's clear-cut.",
         },
     },
     "amusement-park": {
@@ -295,18 +295,8 @@ const CARD_RULES: Record<string, CardRule> = {
             en: "Compared to me, are you closer to or further from a foreign consulate?",
         },
         counts: {
-            de: "Alles, was in OpenStreetMap als Konsulat eingetragen ist; Botschaften zählen nicht. Laut Rulebook zählen auch Honorarkonsulate nicht. Die App unterscheidet sie nicht, im Zweifel klären das die Seeker beim Fragen.",
-            en: "Anything mapped as a consulate in OpenStreetMap; embassies don't count. By the rule book, honorary consulates don't count either. The app doesn't tell them apart, so when in doubt the seekers clarify when asking.",
-        },
-    },
-    "high-speed": {
-        measuring: {
-            de: "Im Vergleich zu mir: Bist du näher an einer Schnellfahrstrecke oder weiter weg?",
-            en: "Compared to me, are you closer to or further from a high-speed train line?",
-        },
-        counts: {
-            de: "Es gilt die Definition vor Ort, sonst die der EU: neu gebaute Strecken für mindestens 250 km/h und ausgebaute für etwa 200 km/h. Die App nimmt die Strecken, die in OpenStreetMap als Schnellfahrstrecke markiert sind.",
-            en: "Use the local definition, otherwise the EU's: newly built lines for at least 250 km/h and upgraded lines for about 200 km/h. The app takes the lines marked as high-speed in OpenStreetMap.",
+            de: "Alles mit Namen, was in OpenStreetMap als Konsulat eingetragen ist; Botschaften zählen nicht. Laut Rulebook zählen auch Honorarkonsulate nicht. Die App unterscheidet sie nicht, im Zweifel klären das die Seeker beim Fragen.",
+            en: "Anything with a name mapped as a consulate in OpenStreetMap; embassies don't count. By the rule book, honorary consulates don't count either. The app doesn't tell them apart, so when in doubt the seekers clarify when asking.",
         },
     },
     "rail-station": {
@@ -486,16 +476,16 @@ export const RULE_SECTIONS: RuleSection[] = [
                         en: "**Hiding zones:** U-Bahn stations only, 500 m radius (rule book: 400 m). The app shows all 99 zones.",
                     },
                     {
-                        de: "**Versteckphase:** 30 Minuten.",
-                        en: "**Hiding period:** 30 minutes.",
+                        de: "**Versteckphase:** 30 Minuten. Danach zählt die Versteckzeit, bis der Hider gefunden ist; die App misst beides mit {startTimer}.",
+                        en: "**Hiding period:** 30 minutes. After that, the hiding time runs until the hider is found; the app times both with {startTimer}.",
                     },
                     {
-                        de: "**Antwortzeit:** 5 Minuten, bei Fotos 10 Minuten, ab dem Moment, in dem die Seeker fragen.",
-                        en: "**Time to answer:** 5 minutes, 10 for photos, from the moment the seekers ask.",
+                        de: "**Antwortzeit:** 5 Minuten, bei Fotos 10 Minuten, ab dem Moment, in dem die Seeker die Frage mit {sendToHider} schicken.",
+                        en: "**Time to answer:** 5 minutes, 10 for photos, from the moment the seekers send the question with {sendToHider}.",
                     },
                     {
-                        de: "**Fragen:** alle 20 Matching- und 20 Measuring-Fragen, alle Radar-Fragen, die Thermometer 1 km und 5 km und die 6 Foto-Fragen für Small. Keine Tentakel.",
-                        en: "**Questions:** all 20 matching and 20 measuring questions, every radar, the 1 km and 5 km thermometers and the 6 photo questions for Small. No tentacles.",
+                        de: "**Fragen:** alle 20 Matching- und 19 Measuring-Fragen (ohne Schnellfahrstrecke), alle Radar-Fragen, die Thermometer 1 km und 5 km und die 6 Foto-Fragen für Small. Keine Tentakel.",
+                        en: "**Questions:** all 20 matching and 19 measuring questions (no high-speed train line), every radar, the 1 km and 5 km thermometers and the 6 photo questions for Small. No tentacles.",
                     },
                     {
                         de: "**Alles metrisch:** Radar 500 m, 1, 2, 5, 10, 15, 40, 80 und 160 km, dazu eine frei gewählte Distanz.",
@@ -504,6 +494,10 @@ export const RULE_SECTIONS: RuleSection[] = [
                     {
                         de: "**Eine Karte für alle:** Das Rulebook verlangt, dass alle dieselbe Karten-App verwenden. Bei uns ist das diese App mit den Daten von OpenStreetMap. Was als Museum, Park oder Gewässer zählt, zeigt der Ebenen-Knopf auf der Karte.",
                         en: "**One map for everyone:** the rule book wants all players to use the same map app. For us, that's this app with OpenStreetMap data. What counts as a museum, park or body of water, the layers button on the map shows.",
+                    },
+                    {
+                        de: "**Nur Orte mit Namen:** Parks, Museen, Zoos und alle anderen Orte zählen nur, wenn sie einen Namen haben; eine namenlose Grünfläche ist kein Park. Ein Berg ist ein Gipfel mit Namen ab 400 m Seehöhe.",
+                        en: "**Named places only:** parks, museums, zoos and every other place count only if they have a name; an unnamed patch of green is no park. A mountain is a named peak of at least 400 m.",
                     },
                     {
                         de: "**Stationsnamen:** der deutsche Name, wie er auf dem Schild steht.",
@@ -541,6 +535,10 @@ export const RULE_SECTIONS: RuleSection[] = [
                     {
                         de: "**Bundesland:** Im Spielgebiet ist alles Wien, die Matching-Frage ist also immer Ja. Die Measuring-Frage misst zur Stadtgrenze.",
                         en: "**Bundesland:** everything in the game area is Vienna, so the matching question is always yes. The measuring question measures to the city limits.",
+                    },
+                    {
+                        de: "**Schnellfahrstrecke:** Wien hat nur die Neue Westbahn am Stadtrand, deshalb ist die Karte bei uns nicht im Spiel.",
+                        en: "**High-speed train line:** Vienna only has the Neue Westbahn at the edge of the city, so this card isn't in our game.",
                     },
                     {
                         de: "**Gemeindebezirk oder Katastralgemeinde?** Wien hat 23 Gemeindebezirke und 89 Katastralgemeinden. In den inneren Bezirken ist der Bezirk meist genau eine Katastralgemeinde, weiter draußen besteht er aus mehreren; dort grenzt die Katastralgemeinde stärker ein.",
@@ -677,8 +675,8 @@ export const RULE_SECTIONS: RuleSection[] = [
                 en: "Until the endgame, the hider can move freely within the zone: shop, eat, go for a walk. They mustn't leave it until the round is over.",
             },
             {
-                de: "**In der App:** Der Hider wählt seine Zone auf dem Hider-Bildschirm oder tippt sie auf der Karte an und wählt {chooseZone}. Verlässt er sie, warnt ihn die App.",
-                en: "**In the app:** the hider chooses their zone on the hider screen, or taps it on the map and chooses {chooseZone}. If they leave it, the app warns them.",
+                de: "**In der App:** Zu Beginn der Versteckphase tippt ihr {startTimer}. Die Uhr steht oben auf dem Hider-Bildschirm und oben links auf der Karte; sie zählt die 30 Minuten herunter und danach die Versteckzeit hoch. Der Hider wählt seine Zone auf dem Hider-Bildschirm oder tippt sie auf der Karte an und wählt {chooseZone}. Verlässt er sie, warnt ihn die App.",
+                en: "**In the app:** when the hiding period begins, tap {startTimer}. The clock sits at the top of the hider screen and at the top left of the map; it counts down the 30 minutes, then counts up the hiding time. The hider chooses their zone on the hider screen, or taps it on the map and chooses {chooseZone}. If they leave it, the app warns them.",
             },
             {
                 de: "**Tipps für den Hider:** Die Wahl der Zone ist die wichtigste Entscheidung der Runde. Abgelegene Zonen sind schwerer zu erraten, aber haben die Seeker sie einmal eingegrenzt, gibt es dort wenige Stationen. In dichten Gegenden wird es kompliziert, dafür kommen die Seeker schnell überall hin. Manche Foto-Fragen verlangen, schnell an eine bestimmte Stelle der Zone zu kommen; solche Fotos kannst du vorher machen. Und such dir rechtzeitig einen guten Platz für das Endgame.",
@@ -697,8 +695,8 @@ export const RULE_SECTIONS: RuleSection[] = [
             {
                 list: [
                     {
-                        de: "Der Hider antwortet ehrlich, innerhalb von **5 Minuten**, bei Fotos **10 Minuten** (Large 20).",
-                        en: "The hider answers truthfully, within **5 minutes**, **10 minutes** for photos (Large 20).",
+                        de: "Der Hider antwortet ehrlich, innerhalb von **5 Minuten**, bei Fotos **10 Minuten** (Large 20). Die Zeit läuft, sobald die Frage gestellt ist, bei uns ab {sendToHider}.",
+                        en: "The hider answers truthfully, within **5 minutes**, **10 minutes** for photos (Large 20). The time runs from when the question is asked, for us from {sendToHider}.",
                     },
                     {
                         de: "Zum Antworten darf er das Internet benutzen, aber kein Google Street View oder Ähnliches.",
@@ -709,8 +707,8 @@ export const RULE_SECTIONS: RuleSection[] = [
                         en: "After each answer, the hider draws cards from the hider deck; how many is given for each category.",
                     },
                     {
-                        de: "Antwortet er zu spät, bleibt seine Versteckzeit stehen, bis er antwortet, und er bekommt für diese Frage keine Karten. Er muss sich aber ernsthaft bemühen, rechtzeitig zu antworten.",
-                        en: "If they answer late, their hiding time stops until they answer, and they get no cards for that question. They must make a real effort to answer in time, though.",
+                        de: "Antwortet er zu spät, bleibt seine Versteckzeit stehen, bis er antwortet, und er bekommt für diese Frage keine Karten. Er muss sich aber ernsthaft bemühen, rechtzeitig zu antworten. In der App tippt er dafür {pause} auf der Spielzeit-Uhr und danach {resume}.",
+                        en: "If they answer late, their hiding time stops until they answer, and they get no cards for that question. They must make a real effort to answer in time, though. In the app, they tap {pause} on the game timer, then {resume}.",
                     },
                     {
                         de: "Jede Frage gibt es nur einmal. Ein zweites Mal geht nur zum doppelten Preis: Der Hider zieht dann zweimal, also etwa zweimal 3 Karten und behält je 1, nicht 6 und behält 2. Beim dritten Mal dreimal, und so weiter.",
@@ -727,12 +725,12 @@ export const RULE_SECTIONS: RuleSection[] = [
                 ],
             },
             {
-                de: "**Was als Ort zählt:** Das Rulebook rechnet mit den Symbolen in Google Maps. Bei uns zählt, was in OpenStreetMap eingetragen ist, so wie es die App zeigt; so schauen Hider und Seeker in dieselbe Karte. Gemessen wird zum Punkt des Orts, nicht zu seinem Rand.",
-                en: "**What counts as a place:** the rule book goes by the icons in Google Maps. For us, what's in OpenStreetMap counts, as the app shows it, so hider and seekers look at the same map. Distances go to the place's point, not to its edge.",
+                de: "**Was als Ort zählt:** Das Rulebook rechnet mit den Symbolen in Google Maps. Bei uns zählt, was in OpenStreetMap eingetragen ist und einen Namen hat, so wie es die App zeigt; so schauen Hider und Seeker in dieselbe Karte. Gemessen wird zum Punkt des Orts, nicht zu seinem Rand.",
+                en: "**What counts as a place:** the rule book goes by the icons in Google Maps. For us, what's in OpenStreetMap and has a name counts, as the app shows it, so hider and seekers look at the same map. Distances go to the place's point, not to its edge.",
             },
             {
-                de: "**In der App:** {ask} → Karte wählen. Die Frage nimmt deinen Standort und zeigt das Nächste, etwa das nächste Museum. Mit {sendToHider} geht sie als Link in den Chat. Kommt die Antwort, tippst du sie auf der Frage ein; erst dann ändert sich die Karte.",
-                en: "**In the app:** {ask} → pick a card. The question takes your location and shows what's nearest, like the nearest museum. {sendToHider} sends it to the chat as a link. When the answer comes, enter it on the question; only then does the map change.",
+                de: "**In der App:** {ask} → Karte wählen. Die Frage nimmt deinen Standort und zeigt das Nächste, etwa das nächste Museum. Mit {sendToHider} geht sie als Link in den Chat, ab dann läuft die Uhr des Hiders. Kommt die Antwort, tippst du sie auf der Frage ein; erst dann ändert sich die Karte.",
+                en: "**In the app:** {ask} → pick a card. The question takes your location and shows what's nearest, like the nearest museum. {sendToHider} sends it to the chat as a link, and the hider's clock starts. When the answer comes, enter it on the question; only then does the map change.",
             },
         ],
     },
@@ -797,16 +795,16 @@ export const RULE_SECTIONS: RuleSection[] = [
                 en: "“After traveling ___, am I hotter or colder?” Hotter means closer to the hider than at the start. The hider answers **hotter** or **colder**, within 5 minutes. Then they **draw 2 cards and keep 1**.",
             },
             {
-                de: "Am Start sagen die Seeker dem Hider, dass sie ein Thermometer beginnen, und schicken ihren Standort. Nach der Strecke (Luftlinie, bei uns **1 km** oder **5 km**) schicken sie den neuen Standort. Verglichen wird mit dem Ort, an dem der Hider beim Antworten ist.",
-                en: "At the start, the seekers tell the hider they're starting a thermometer and send their location. After the distance (as the crow flies, **1 km** or **5 km** for us), they send their new location. Both are compared with where the hider is when answering.",
+                de: "Am Start sagen die Seeker dem Hider, dass sie ein Thermometer beginnen, und schicken ihren Standort. Dann fahren sie mindestens die Strecke der Karte, gemessen in Luftlinie (bei uns **1 km** oder **5 km**); weiter ist erlaubt, kürzer nicht. Am Ende schicken sie den neuen Standort. Verglichen wird mit dem Ort, an dem der Hider beim Antworten ist.",
+                en: "At the start, the seekers tell the hider they're starting a thermometer and send their location. Then they travel at least the card's distance, measured in a straight line (**1 km** or **5 km** for us); further is fine, shorter isn't. At the end, they send their new location. Both are compared with where the hider is when answering.",
             },
             {
                 de: "**Strecken je nach Spielgröße:** Small 800 m und 5 km, Medium zusätzlich 16 km, Large zusätzlich 80 km. Bei uns 1 km und 5 km.",
                 en: "**Distances by game size:** Small 800 m and 5 km, Medium adds 16 km, Large adds 80 km. 1 km and 5 km for us.",
             },
             {
-                de: "**In der App:** {ask} → Thermometer → Start. Die App misst mit und meldet sich, wenn die Strecke geschafft ist.",
-                en: "**In the app:** {ask} → thermometer → start. The app keeps track and tells you when you've covered the distance.",
+                de: "**In der App:** {ask} → Thermometer → Start. {tellHider} schickt dem Hider Startzeit und Standort als Kartenlink. Die App misst mit und meldet sich, wenn die Strecke geschafft ist; die Frage zeigt die gefahrene Luftlinie und warnt rot, wenn sie zu kurz ist.",
+                en: "**In the app:** {ask} → thermometer → start. {tellHider} sends the hider your start time and location as a map link. The app keeps track and tells you when you've covered the distance; the question shows the straight-line distance traveled and warns in red if it's too short.",
             },
             {
                 de: "Gut, um zu sehen, ob ihr in die richtige Richtung fahrt.",
@@ -1009,8 +1007,8 @@ export const RULE_SECTIONS: RuleSection[] = [
                         },
                     ),
                     powerup("move", "Move", "Umziehen", 1, {
-                        de: "Der Hider bekommt Zeit, wie viel steht je nach Spielgröße auf der Karte, um eine neue Zone an einer anderen Station zu beziehen, nur mit erlaubten Öffis. So lange stehen die Seeker still und fragen nicht, und seine Versteckzeit läuft nicht weiter. Beim Spielen legt er sofort alle Karten auf der Hand ab und verrät den Seekern seine bisherige Station. Nicht im Endgame.",
-                        en: "The hider gets time, as much as the card gives for the game size, to set up a new zone at another station, using only allowed transit. Meanwhile the seekers stay put and don't ask, and the hiding time doesn't run. When playing it, the hider discards their whole hand right away and tells the seekers their old station. Not during the endgame.",
+                        de: "Der Hider bekommt Zeit, wie viel steht je nach Spielgröße auf der Karte, um eine neue Zone an einer anderen Station zu beziehen, nur mit erlaubten Öffis. So lange stehen die Seeker still und fragen nicht, und seine Versteckzeit läuft nicht weiter (in der App: {pause} auf der Spielzeit-Uhr). Beim Spielen legt er sofort alle Karten auf der Hand ab und verrät den Seekern seine bisherige Station. Nicht im Endgame.",
+                        en: "The hider gets time, as much as the card gives for the game size, to set up a new zone at another station, using only allowed transit. Meanwhile the seekers stay put and don't ask, and the hiding time doesn't run (in the app: {pause} on the game timer). When playing it, the hider discards their whole hand right away and tells the seekers their old station. Not during the endgame.",
                     }),
                 ],
             },
@@ -1488,8 +1486,8 @@ export const RULE_SECTIONS: RuleSection[] = [
                 en: "The next hider gets 10 minutes to get ready: they take over the hider deck and turn off their live location. The new round starts where the previous hider was found.",
             },
             {
-                de: "**In der App:** Zahnrad → {newGame}, jeder mit seiner neuen Rolle.",
-                en: "**In the app:** gear → {newGame}, everyone with their new role.",
+                de: "**In der App:** {found} auf der Spielzeit-Uhr stoppt die Versteckzeit; die Zeitbonus-Karten auf der Hand rechnet ihr von Hand dazu. Danach Zahnrad → {newGame}, jeder mit seiner neuen Rolle.",
+                en: "**In the app:** {found} on the game timer stops the hiding time; add the time bonus cards in hand yourselves. Then gear → {newGame}, everyone with their new role.",
             },
         ],
     },
@@ -1665,8 +1663,8 @@ export const GUIDE_SLIDES: { id: string; title: Text; text: Text }[] = [
         id: "hider",
         title: { de: "Als Hider", en: "As the hider" },
         text: {
-            de: "Wähle zuerst auf dem Hider-Bildschirm deine Zone, oder tippe sie auf der Karte an und wähle {chooseZone}. Fragen kommen als Link: Die App rechnet die Antwort an deinem Standort aus, und du schickst sie mit {sendAnswer} in den Chat. Die Uhr zeigt, wie viel Zeit dir bleibt.",
-            en: "First choose your zone on the hider screen, or tap it on the map and choose {chooseZone}. Questions arrive as links: the app works out the answer at your location, and {sendAnswer} sends it to the chat. The clock shows how much time you have left.",
+            de: "Tippe zu Beginn auf {startTimer} und wähle deine Zone auf dem Hider-Bildschirm, oder tippe sie auf der Karte an und wähle {chooseZone}. Fragen kommen als Link: Die App rechnet die Antwort an deinem Standort aus, und du schickst sie mit {sendAnswer} in den Chat.",
+            en: "At the start, tap {startTimer} and choose your zone on the hider screen, or tap it on the map and choose {chooseZone}. Questions arrive as links: the app works out the answer at your location, and {sendAnswer} sends it to the chat.",
         },
     },
 ];

@@ -36,6 +36,11 @@ const buttonNames = () => ({
     sendToHider: t("send.button"),
     sendAnswer: t("hider.send"),
     chooseZone: t("zones.choose"),
+    startTimer: t("gameClock.start"),
+    pause: t("gameClock.pause"),
+    resume: t("gameClock.resume"),
+    found: t("gameClock.found"),
+    tellHider: t("thermometer.tellHider"),
 });
 
 /** A text of the help with **bold** words and the app's buttons in it. */
