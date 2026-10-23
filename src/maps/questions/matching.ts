@@ -22,7 +22,6 @@ import { t } from "@/lib/i18n";
 import { memoizeAsync } from "@/lib/utils";
 import {
     findAdminBoundary,
-    findLandmassIslands,
     findNearestStreet,
     findPlacesInZone,
     findPlacesOfKind,
@@ -39,6 +38,7 @@ import {
     nearestVoronoiCell,
     safeUnion,
 } from "@/maps/geo-utils";
+import { findLandmasses, landmassArea, landmassOf } from "@/maps/landmass";
 import type {
     APILocations,
     HomeGameMatchingQuestions,
@@ -245,33 +245,44 @@ export const determineMatchingBoundary = memoizeAsync(
                 break;
             }
             case "landmass": {
-                const islands = await findLandmassIslands();
-                if (islands.length === 0) {
+                const all = await findLandmasses();
+                if (!all) {
                     toast.info(t("question.noLandmass"), {
                         toastId: "no-landmass",
                     });
                     return false;
                 }
-                const point = turf.point([question.lng, question.lat]);
-                const island = islands.find((feature) =>
-                    turf.booleanPointInPolygon(point, feature),
+                const everything = turf.bboxPolygon(
+                    turf.bbox(
+                        mapGeoJSON.get() ??
+                            turf.featureCollection(
+                                all.landmasses.flatMap((landmass) =>
+                                    landmass.area ? [landmass.area] : [],
+                                ),
+                            ),
+                    ),
                 );
-                if (island) {
-                    boundary = island;
-                } else {
-                    // Seekers are on the mainland: everything except the islands.
-                    const everything = turf.bboxPolygon(
-                        turf.bbox(
-                            mapGeoJSON.get() ?? turf.featureCollection(islands),
-                        ),
-                    );
-                    boundary = turf.difference(
-                        turf.featureCollection([
-                            everything,
-                            safeUnion(turf.featureCollection(islands)),
-                        ]),
-                    );
+                const area = landmassArea(
+                    all,
+                    landmassOf(all, question),
+                    everything,
+                );
+                if (!area) return false;
+                if (all.waterways.length === 0) {
+                    boundary = area;
+                    break;
                 }
+                // The waterways between the landmasses stay possible either
+                // way: on a bridge or a boat, the nearer shore counts
+                const waterways = safeUnion(
+                    turf.featureCollection(all.waterways),
+                );
+                boundary = question.same
+                    ? turf.union(turf.featureCollection([area, waterways]))
+                    : turf.difference(
+                          turf.featureCollection([area, waterways]),
+                      );
+                if (!boundary) return false;
                 break;
             }
             case "airport":
@@ -322,7 +333,10 @@ export const determineMatchingBoundary = memoizeAsync(
             lng: question.lng,
             cat: question.cat,
             geo: question.geo,
-            same: question.type === "street" ? question.same : undefined,
+            same:
+                question.type === "street" || question.type === "landmass"
+                    ? question.same
+                    : undefined,
             entirety: polyGeoJSON.get()
                 ? polyGeoJSON.get()
                 : mapGeoLocation.get(),
@@ -465,6 +479,20 @@ export const hiderifyMatching = async (
             question.lengthComparison = question.same ? "same" : "different";
         }
 
+        return question;
+    }
+
+    if (question.type === "landmass") {
+        // Point by point: on a bridge, the nearer shore counts
+        const all = await findLandmasses();
+        if (all) {
+            question.same =
+                landmassOf(all, question).id ===
+                landmassOf(all, {
+                    lat: $hiderMode.latitude,
+                    lng: $hiderMode.longitude,
+                }).id;
+        }
         return question;
     }
 

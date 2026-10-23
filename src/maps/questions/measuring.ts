@@ -19,6 +19,7 @@ import {
     findAdminAreas,
     findAdminBoundary,
     findHighSpeedLines,
+    findNamedWaterAreas,
     findNamedWaterLines,
     findPlacesInZone,
     findPlacesOfKind,
@@ -36,6 +37,7 @@ import {
     groupObjects,
     holedMask,
     modifyMapData,
+    safeUnion,
 } from "@/maps/geo-utils";
 import type {
     APILocations,
@@ -366,9 +368,42 @@ const seaLevelRegion = async (question: MeasuringQuestion) => {
     return region;
 };
 
+/**
+ * Within the seekers' distance of a named body of water. Whoever is on the
+ * water (a bridge, a pier) is 0 m away from it, also in the middle of a lake.
+ */
+const waterRegion = async (question: MeasuringQuestion) => {
+    const lines = await determineMeasuringBoundary(question);
+    if (lines === false || lines === undefined) return false;
+    const areas = await findNamedWaterAreas();
+    const seekers = turf.point([question.lng, question.lat]);
+    if (areas.some((area) => turf.booleanPointInPolygon(seekers, area))) {
+        // Nobody is nearer than 0 m: only the water itself
+        return safeUnion(turf.featureCollection(areas));
+    }
+
+    const buffer = await arcBufferToPoint(
+        turf.featureCollection(lines as any),
+        question.lat,
+        question.lng,
+    );
+    // The buffer around the shores misses only the middle of water wider
+    // than twice the seekers' distance
+    const meters = turf.nearestPointOnLine(lines[0] as any, seekers, {
+        units: "meters",
+    }).properties.dist;
+    const wide = areas.filter(
+        (area) => turf.area(area) >= 0.8 * Math.PI * meters ** 2,
+    );
+    return wide.length === 0
+        ? buffer
+        : safeUnion(turf.featureCollection([buffer, ...wide] as any));
+};
+
 const bufferedDeterminer = memoizeAsync(
     async (question: MeasuringQuestion) => {
         if (question.type === "sea-level") return seaLevelRegion(question);
+        if (question.type === "water") return waterRegion(question);
 
         const placeData = await determineMeasuringBoundary(question);
 

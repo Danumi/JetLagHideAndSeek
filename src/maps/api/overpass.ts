@@ -719,10 +719,10 @@ export const findStreetLines = async (name: string) => {
 };
 
 /**
- * Named bodies of water in the game area (lakes, ponds, rivers, canals) as
- * shore/center lines. Pools, fountains and underground rivers are excluded.
+ * Named bodies of water in the game area (lakes, ponds, rivers, canals), as
+ * OSM elements. Pools, fountains and underground rivers are excluded.
  */
-export const findNamedWaterLines = async () => {
+const findNamedWaterElements = async (): Promise<any[]> => {
     const bboxValue = gameAreaBbox();
     const data = await findPlacesInZone(
         '["natural"="water"]["name"]["water"!~"^(pool|swimming_pool|wastewater|basin|fountain|reflecting_pool)$"]["amenity"!="fountain"]',
@@ -745,8 +745,31 @@ export const findNamedWaterLines = async () => {
                     element.tags.covered === "yes")
             ),
     );
-    return toLineStrings(elements);
+    return elements;
 };
+
+/** Named bodies of water as shore and centre lines. */
+export const findNamedWaterLines = async () =>
+    toLineStrings(await findNamedWaterElements());
+
+/**
+ * Named lakes, ponds, rivers and canals as areas (rivers where OSM has
+ * their banks): whoever is on them is 0 m away from them.
+ */
+export const findNamedWaterAreas = memoizeAsync(
+    async (): Promise<Feature<Polygon | MultiPolygon>[]> =>
+        osmtogeojson({
+            elements: (await findNamedWaterElements()).filter(
+                (element: any) => element.tags?.natural === "water",
+            ),
+        }).features.filter(
+            (feature): feature is Feature<Polygon | MultiPolygon> =>
+                (feature.geometry?.type === "Polygon" ||
+                    feature.geometry?.type === "MultiPolygon") &&
+                turf.area(feature) > 0,
+        ),
+    () => JSON.stringify([gameAreaBbox(), polyGeoJSON.get() !== null]),
+);
 
 export interface TransitLine {
     /** What players see, e.g. "U4" or "S45". */

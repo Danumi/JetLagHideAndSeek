@@ -22,7 +22,7 @@ import {
     type APILocations,
     elevationAt,
     findHighSpeedLines,
-    findLandmassIslands,
+    findNamedWaterAreas,
     findNamedWaterLines,
     findNearestStreet,
     findPlacesOfKind,
@@ -35,6 +35,7 @@ import {
     MEASURING_DECK,
 } from "@/maps/deck";
 import { extractStationName } from "@/maps/geo-utils";
+import { findLandmasses, landmassOf } from "@/maps/landmass";
 import { findAdminZoneInfo } from "@/maps/questions/measuring";
 import type {
     MatchingQuestion,
@@ -88,8 +89,11 @@ export type Nearest = {
     adminLevel?: AdminLevel;
     /** Station name length: show how many characters the name has. */
     countCharacters?: boolean;
-    /** Landmass: on the mainland, not on an island. */
-    mainland?: boolean;
+    /**
+     * Landmass: "leopoldstadt", "transdanubia", "rest" (Vienna), "mainland",
+     * or an island's OSM id (then `name` is its name).
+     */
+    landmass?: string;
     kilometers?: number;
     meters?: number;
     mark?: NearestMark;
@@ -133,9 +137,9 @@ export const nearestName = (nearest: Nearest) => {
  */
 export const nearestWhere = (nearest: Nearest) => {
     if (nearest.kind === "on") {
-        return nearest.name
-            ? t("nearest.onIsland", { name: nearest.name })
-            : t(nearest.mainland ? "nearest.mainland" : "nearest.island");
+        if (nearest.name) return t("nearest.onIsland", { name: nearest.name });
+        const key = `nearest.landmass.${nearest.landmass}`;
+        return t(hasMessage(key) ? key : "nearest.island");
     }
     const key = `nearest.in.${nearest.adminLevel}`;
     return t(hasMessage(key) ? key : "nearest.in", {
@@ -372,36 +376,45 @@ const nearestZone = async (
 };
 
 const nearestLandmass = async (at: LatLng): Promise<Nearest | null> => {
-    const islands = await findLandmassIslands();
-    const island = islands.find((feature) =>
-        turf.booleanPointInPolygon(toPoint(at), feature),
-    );
-    if (island) {
-        const name: string | undefined = island.properties?.name;
+    const all = await findLandmasses();
+    if (!all) return null;
+    const landmass = landmassOf(all, at);
+    if (landmass.name && landmass.area) {
         return {
             kind: "on",
             what: "landmass",
-            name,
+            name: landmass.name,
+            landmass: landmass.id,
             mark: {
-                name,
-                at: turf.pointOnFeature(island).geometry.coordinates,
-                lines: outlineOf(island),
+                name: landmass.name,
+                at: turf.pointOnFeature(landmass.area).geometry.coordinates,
+                lines: outlineOf(landmass.area),
             },
         };
     }
 
-    // On the mainland: show where the separate landmasses are
-    const outlines = islands.flatMap(outlineOf);
+    // Elsewhere: where the nearest other landmass begins. In Vienna, the
+    // rivers between them.
+    const outlines = (
+        all.waterways.length > 0
+            ? all.waterways
+            : all.landmasses.flatMap((other) =>
+                  other.area ? [other.area] : [],
+              )
+    ).flatMap(outlineOf);
     const best = nearestLine(outlines, at);
+    const name: string | undefined = best?.line.properties?.name;
     return {
         kind: "on",
         what: "landmass",
-        mainland: true,
+        landmass: landmass.id,
         mark: best
             ? {
-                  name: best.line.properties?.name,
+                  name,
                   at: best.at,
-                  lines: outlines,
+                  lines: outlines.filter(
+                      (line) => line.properties?.name === name,
+                  ),
               }
             : undefined,
     };
@@ -488,8 +501,23 @@ const nearestForMeasuring = async (
                 ),
                 at,
             );
-        case "water":
+        case "water": {
+            // On the water (a bridge, a pier): 0 m
+            const on = (await findNamedWaterAreas()).find((area) =>
+                turf.booleanPointInPolygon(toPoint(at), area),
+            );
+            if (on) {
+                const name: string | undefined = on.properties?.name;
+                return {
+                    kind: "distance",
+                    what: "water",
+                    name,
+                    kilometers: 0,
+                    mark: { name, at: [at.lng, at.lat], lines: outlineOf(on) },
+                };
+            }
             return nearestOfLines("water", await findNamedWaterLines(), at);
+        }
         case "admin-measure":
             return nearestZone(question, at);
         case "sea-level": {
