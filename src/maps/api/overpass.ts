@@ -367,7 +367,7 @@ export const findAdminAreas = memoizeAsync(
         if (!bboxValue) return [];
         const [s, w, n, e] = bboxValue.split(",").map(Number);
         const around = await getOverpassData(
-            `[out:json][timeout:60];rel(${bboxValue})["boundary"="administrative"]["admin_level"="${adminLevel}"];out tags bb;`,
+            `[out:json][timeout:60];rel(${bboxValue})["admin_level"="${adminLevel}"];out tags bb;`,
             t("loading.zone"),
         );
         const ids = (around.elements ?? [])
