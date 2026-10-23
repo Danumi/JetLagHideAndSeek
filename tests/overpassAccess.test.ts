@@ -6,8 +6,10 @@ import {
     overpassHosts,
     overpassSetupLink,
     readOverpassSetup,
+    refuseOverpassHost,
     saveOverpassSetup,
 } from "@/lib/overpassAccess";
+import { PUBLIC_OVERPASS_HOSTS } from "@/maps/api/constants";
 
 const APP = "https://danumi.github.io/JetLagHideAndSeek/";
 const ACCESS = "https://overpass.example/v1/key_one/interpreter";
@@ -32,11 +34,19 @@ describe("Overpass access", () => {
         expect(interpreterUrl("")).toBe("");
     });
 
-    it("has no public servers to fall back on", () => {
+    it("asks its own access first, then the public servers", () => {
         saveOverpassSetup("");
-        expect(overpassHosts()).toEqual([]);
+        expect(overpassHosts()).toEqual(PUBLIC_OVERPASS_HOSTS);
         saveOverpassSetup(ACCESS);
-        expect(overpassHosts()).toEqual([ACCESS]);
+        expect(overpassHosts()).toEqual([ACCESS, ...PUBLIC_OVERPASS_HOSTS]);
+    });
+
+    it("skips an own access that refused, but never a public server", () => {
+        const refusing = "https://refusing.example/x/interpreter";
+        saveOverpassSetup(refusing);
+        refuseOverpassHost(`${refusing}?data=node`);
+        refuseOverpassHost(`${PUBLIC_OVERPASS_HOSTS[0]}?data=node`);
+        expect(overpassHosts()).toEqual(PUBLIC_OVERPASS_HOSTS);
     });
 });
 

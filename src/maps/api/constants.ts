@@ -1,6 +1,16 @@
 import type { APILocations } from "@/maps/schema";
 
 /**
+ * Public Overpass servers, asked after the phone's own access (if any). Free,
+ * but often slow; maps.mail.ru first, it answered fastest (2026-10-23).
+ */
+export const PUBLIC_OVERPASS_HOSTS = [
+    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
+];
+
+/**
  * Questions about the nearest place of a kind give up above this many places.
  * Vienna has about 565 named parks.
  */

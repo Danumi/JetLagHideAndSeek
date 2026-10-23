@@ -550,16 +550,12 @@ export const messages = {
     "settings.advanced": { en: "Advanced", de: "Erweitert" },
     "settings.mapData": { en: "Map data", de: "Kartendaten" },
     "settings.overpassAccess": {
-        en: "Overpass access",
-        de: "Overpass-Zugang",
+        en: "Own Overpass access (optional)",
+        de: "Eigener Overpass-Zugang (optional)",
     },
     "settings.overpassHint": {
-        en: "The map data comes from this server, with your key in the address. You can also paste a setup link here.",
-        de: "Von diesem Server kommen die Kartendaten, dein Key steht in der Adresse. Hier kannst du auch einen Einrichtungs-Link einfügen.",
-    },
-    "settings.overpassMissing": {
-        en: "No access set up: the map can't load any data.",
-        de: "Kein Zugang eingerichtet: Die Karte kann keine Daten laden.",
+        en: "Optional: your own server for map data, with your key in the address (e.g. overpass.ch). The app asks it first, then the public servers. You can also paste a setup link here.",
+        de: "Optional: dein eigener Server für Kartendaten, mit deinem Key in der Adresse (z. B. overpass.ch). Die App fragt ihn zuerst, danach die öffentlichen Server. Hier kannst du auch einen Einrichtungs-Link einfügen.",
     },
     "settings.setupOthers": {
         en: "Set up other phones",
@@ -1146,10 +1142,6 @@ export const messages = {
     "loading.gaveUp": {
         en: "The map server gave up on the request.",
         de: "Der Kartenserver hat die Anfrage abgebrochen.",
-    },
-    "loading.noAccess": {
-        en: "This phone has no Overpass access yet. Open the setup link, or enter it under Settings → Advanced.",
-        de: "Auf diesem Handy fehlt noch der Overpass-Zugang. Öffne den Einrichtungs-Link oder trag ihn unter Einstellungen → Erweitert ein.",
     },
     "loading.tentacles": {
         en: "Finding tentacle locations...",

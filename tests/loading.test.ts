@@ -132,14 +132,40 @@ describe("getOverpassData", () => {
         );
     });
 
-    it("asks no public server without an access", async () => {
+    it("asks the public servers without an own access", async () => {
         overpassCustomHost.set("");
-        const fetch = vi.fn(async () => json({ elements: [] }));
+        const fetch = vi.fn(async () => json({ elements: [{ id: 8 }] }));
         vi.stubGlobal("fetch", fetch);
-        await expect(
-            getOverpassData("[out:json];node(8);out;"),
-        ).rejects.toBeInstanceOf(OverpassError);
-        expect(fetch).not.toHaveBeenCalled();
+        expect(await getOverpassData("[out:json];node(8);out;")).toEqual({
+            elements: [{ id: 8 }],
+        });
+        expect(String((fetch.mock.calls[0] as unknown[])[0])).toMatch(
+            /^https:\/\/maps\.mail\.ru\//,
+        );
+    });
+
+    it("falls back on the public servers when the own access is refused", async () => {
+        const refusing = "https://refusing.example/api/interpreter";
+        overpassCustomHost.set(refusing);
+        const fetch = vi.fn(async (url: string) =>
+            url.startsWith(refusing)
+                ? json({ error: "account_suspended" }, 403)
+                : json({ elements: [{ id: 9 }] }),
+        );
+        vi.stubGlobal("fetch", fetch);
+        expect(await getOverpassData("[out:json];node(9);out;")).toEqual({
+            elements: [{ id: 9 }],
+        });
+        expect(fetch).toHaveBeenCalledTimes(2);
+
+        // Not asked again until the app is opened again
+        expect(await getOverpassData("[out:json];node(10);out;")).toEqual({
+            elements: [{ id: 9 }],
+        });
+        expect(fetch).toHaveBeenCalledTimes(3);
+        expect(String(fetch.mock.calls[2][0])).toMatch(
+            /^https:\/\/maps\.mail\.ru\//,
+        );
     });
 
     it("gives up on servers that never answer", async () => {
