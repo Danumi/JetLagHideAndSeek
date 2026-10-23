@@ -97,6 +97,7 @@ export const messages = {
     "layers.tram": { en: "Tram lines", de: "Straßenbahnlinien" },
     "layers.line.tram": { en: "Tram", de: "Straßenbahn" },
     "layers.line.count": { en: "{n} of {total}", de: "{n} von {total}" },
+    "layers.line.towards": { en: "towards {name}", de: "Richtung {name}" },
     "layers.line.nextTitle": {
         en: "Next line here",
         de: "Nächste Linie hier",

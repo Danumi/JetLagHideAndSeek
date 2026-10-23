@@ -148,6 +148,22 @@ describe("tram lines on the map", () => {
                                 },
                                 members: [
                                     {
+                                        type: "node",
+                                        ref: 1,
+                                        role: "stop",
+                                        lat: 48.2,
+                                        lon: 16.37,
+                                    },
+                                    {
+                                        type: "node",
+                                        ref: 2,
+                                        role: "stop",
+                                        lat: 48.21,
+                                        lon: 16.36,
+                                    },
+                                    // Outside the game area: no geometry
+                                    { type: "node", ref: 3, role: "stop" },
+                                    {
                                         type: "way",
                                         ref: 10,
                                         role: "",
@@ -166,6 +182,11 @@ describe("tram lines on the map", () => {
 
         const [tram] = await findTramLines();
         expect(tram.ref).toBe("D");
+        // Nußdorf is on the map, Absberggasse beyond it
+        expect(tram.ends).toEqual([
+            { name: "Nußdorf", at: [16.37, 48.2], beyond: false },
+            { name: "Absberggasse", at: [16.36, 48.21], beyond: true },
+        ]);
         expect(tram.colour).toBeUndefined();
         expect([tram.from, tram.to]).toEqual(["Nußdorf", "Absberggasse"]);
         const query = queryOf(fetch.mock.calls[0] as unknown[]);
