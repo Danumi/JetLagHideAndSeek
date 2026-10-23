@@ -2,7 +2,7 @@ import { useStore } from "@nanostores/react";
 import * as turf from "@turf/turf";
 import type { Position } from "geojson";
 import * as L from "leaflet";
-import { LayersIcon } from "lucide-react";
+import { ChevronRightIcon, LayersIcon, XIcon } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Pane, useMap } from "react-leaflet";
 
@@ -19,16 +19,19 @@ import {
 } from "@/maps/api";
 import { deckGroups } from "@/maps/deck";
 import {
+    highlightedLine,
     lineLabelPositions,
     linesAt,
     MAP_LAYERS,
     type MapLayer,
     mapLayer,
     markTooManyPlaces,
+    nextTappedLine,
     placesInView,
     placeSymbolHtml,
-    selectedTransitLine,
     shownMapLayers,
+    type TappedLine,
+    tappedLines,
     toggleMapLayer,
     tooManyPlacesInView,
     waterLabels,
@@ -228,80 +231,30 @@ const colorOf = (line: TransitLine) =>
 const drawnLines = new Map<string, TransitLine[]>();
 const allDrawnLines = () =>
     ["rail", "tram"].flatMap((id) => drawnLines.get(id) ?? []);
-/** The last tap on a line, to go through the lines there one by one. */
-let lastLineTap: { at: L.LatLng; refs: string[]; ref: string } | null = null;
-let linePopup: L.Popup | null = null;
+/** Where the last tap on a line was, to go through the lines there. */
+let lastLineTap: L.LatLng | null = null;
 
 /** Taps this close together (on screen) are on the same spot. */
 const SAME_SPOT_PX = 30;
 
-/** "U4 · Hütteldorf – Heiligenstadt" where a line was tapped. */
-const showLine = (
-    map: L.Map,
-    line: TransitLine,
-    at: L.LatLng,
-    refs: string[],
-) => {
-    selectedTransitLine.set(line.ref);
+const tappedLine = (line: TransitLine): TappedLine => ({
+    ref: line.ref,
+    route: line.route,
+    color: colorOf(line),
+    from: line.from,
+    to: line.to,
+});
 
-    const content = document.createElement("div");
-    const title = document.createElement("div");
-    title.className = "flex items-center gap-2";
-    const badge = document.createElement("span");
-    badge.innerHTML = lineBadgeHtml(line.ref, colorOf(line));
-    title.append(badge);
-    if (line.from && line.to) {
-        const ends = document.createElement("span");
-        ends.className = "font-semibold";
-        ends.textContent = `${line.from} – ${line.to}`;
-        title.append(ends);
-    }
-    content.append(title);
-    // "D" alone could be anything
-    if (line.route === "tram") {
-        const kind = document.createElement("div");
-        kind.className = "mt-1 text-xs";
-        kind.textContent = t("layers.line.tram");
-        content.append(kind);
-    }
-    if (refs.length > 1) {
-        const next = document.createElement("div");
-        next.className = "mt-1 text-xs";
-        next.textContent = t("layers.line.next", {
-            n: refs.indexOf(line.ref) + 1,
-            total: refs.length,
-        });
-        content.append(next);
-    }
-
-    const popup = L.popup({
-        offset: [0, -4],
-        closeButton: false,
-        autoPan: false,
-    })
-        .setLatLng(at)
-        .setContent(content);
-    popup.on("remove", () => {
-        if (linePopup !== popup) return;
-        linePopup = null;
-        selectedTransitLine.set(null);
-    });
-    linePopup = popup;
-    popup.openOn(map);
-};
-
-const clearSelectedLine = () => {
+const clearTappedLines = () => {
     lastLineTap = null;
-    linePopup?.remove();
-    linePopup = null;
-    selectedTransitLine.set(null);
+    tappedLines.set(null);
 };
 
 /**
- * A tap on the map near a line that is shown: highlights the line and names
- * it. Each further tap on the same spot picks the next line there (the
- * S-Bahn lines share their tracks). False away from the lines: then the tap
- * is for the zones.
+ * A tap on the map near a line that is shown: highlights the line, and the
+ * strip above the buttons names it. Each further tap on the same spot picks
+ * the next line there (the S-Bahn lines share their tracks). False away from
+ * the lines: then the tap is for the zones.
  */
 export const tapLineAt = (map: L.Map, at: L.LatLng) => {
     const lines = allDrawnLines();
@@ -309,24 +262,85 @@ export const tapLineAt = (map: L.Map, at: L.LatLng) => {
         map.latLngToContainerPoint([lat, lng]),
     );
     if (refs.length === 0) {
-        clearSelectedLine();
+        clearTappedLines();
         return false;
     }
 
     const last = lastLineTap;
-    const again =
-        last !== null &&
-        refs.includes(last.ref) &&
+    const shown = highlightedLine();
+    lastLineTap = at;
+    if (
+        last &&
+        shown &&
+        refs.includes(shown.ref) &&
         map
-            .latLngToContainerPoint(last.at)
-            .distanceTo(map.latLngToContainerPoint(at)) <= SAME_SPOT_PX;
-    const shared = again ? last.refs : refs;
-    const ref = again
-        ? shared[(shared.indexOf(last.ref) + 1) % shared.length]
-        : refs[0];
-    lastLineTap = { at, refs: shared, ref };
-    showLine(map, lines.find((line) => line.ref === ref)!, at, shared);
+            .latLngToContainerPoint(last)
+            .distanceTo(map.latLngToContainerPoint(at)) <= SAME_SPOT_PX
+    ) {
+        nextTappedLine();
+        return true;
+    }
+    tappedLines.set({
+        lines: refs.map((ref) =>
+            tappedLine(lines.find((line) => line.ref === ref)!),
+        ),
+        shown: 0,
+    });
     return true;
+};
+
+/**
+ * The line tapped on the map, in a strip above the buttons below it rather
+ * than on the map: "U4 Heiligenstadt – Hütteldorf", the next line at the
+ * same spot and close.
+ */
+export const TappedLineBar = () => {
+    useLanguage();
+    const $tapped = useStore(tappedLines);
+    const line = highlightedLine($tapped);
+    if (!$tapped || !line) return null;
+
+    return (
+        <div className="flex max-w-[92vw] items-center gap-2 rounded-2xl bg-background/95 py-1 pl-3 pr-1 text-sm shadow-lg">
+            <span
+                className="shrink-0"
+                dangerouslySetInnerHTML={{
+                    __html: lineBadgeHtml(line.ref, line.color),
+                }}
+            />
+            <span className="min-w-0 truncate font-semibold">
+                {line.from && line.to
+                    ? `${line.from} – ${line.to}`
+                    : line.route === "tram"
+                      ? t("layers.line.tram")
+                      : ""}
+            </span>
+            {$tapped.lines.length > 1 && (
+                <Button
+                    size="sm"
+                    variant="secondary"
+                    className="h-8 shrink-0 gap-0.5 rounded-full px-2"
+                    title={t("layers.line.nextTitle")}
+                    onClick={nextTappedLine}
+                >
+                    {t("layers.line.count", {
+                        n: $tapped.shown + 1,
+                        total: $tapped.lines.length,
+                    })}
+                    <ChevronRightIcon className="!size-4" />
+                </Button>
+            )}
+            <Button
+                size="icon"
+                variant="ghost"
+                className="h-8 w-8 shrink-0 rounded-full"
+                title={t("common.close")}
+                onClick={clearTappedLines}
+            >
+                <XIcon className="!size-4" />
+            </Button>
+        </div>
+    );
 };
 
 /**
@@ -348,7 +362,7 @@ const TransitLayer = ({
 }) => {
     const map = useMap();
     const lines = useLayerData(id, load);
-    const $selected = useStore(selectedTransitLine);
+    const $selected = highlightedLine(useStore(tappedLines))?.ref;
     const shown = useMemo(
         () =>
             lines?.filter((line) => routes.split(",").includes(line.route)) ??
@@ -391,8 +405,8 @@ const TransitLayer = ({
                 .on("click", (event) => {
                     // "Pick on map": a tap on a name sets the point too
                     if (placePickedPoint(event.latlng)) return;
-                    lastLineTap = { at: event.latlng, refs: [ref], ref };
-                    showLine(map, line, event.latlng, [ref]);
+                    lastLineTap = null;
+                    tappedLines.set({ lines: [tappedLine(line)], shown: 0 });
                 })
                 .addTo(group);
         }
@@ -402,8 +416,9 @@ const TransitLayer = ({
             group.remove();
             colored.current = [];
             drawnLines.delete(id);
-            if (shown.some((line) => line.ref === selectedTransitLine.get())) {
-                clearSelectedLine();
+            const tapped = highlightedLine();
+            if (shown.some((line) => line.ref === tapped?.ref)) {
+                clearTappedLines();
             }
         };
     }, [map, shown, id, pane, weight]);

@@ -27,6 +27,7 @@ import {
     ThermometerTracker,
     WaitingForAnswer,
 } from "./AskQuestion";
+import { TappedLineBar } from "./MapLayers";
 import { Button } from "./ui/button";
 
 const SideButton = ({
@@ -90,8 +91,8 @@ const PickOnMapHint = ({ target }: { target: PickTarget }) => (
 /**
  * The three big buttons below the map: the questions asked so far, a new
  * question, the hiding zones (the hider: back to the hider screen, the
- * hiding zones). Above them, the running thermometer and the reminder of
- * questions waiting for an answer.
+ * hiding zones). Above them, the running thermometer, the reminder of
+ * questions waiting for an answer and the name of a line tapped on the map.
  */
 export const BottomBar = () => {
     useLanguage();
@@ -111,12 +112,14 @@ export const BottomBar = () => {
                     <PickOnMapHint target={$pickingLocation} />
                 </div>
             )}
-            {$hiderMode === false && !$pickingLocation && (
+            {!$pickingLocation && (
                 <div className="pointer-events-none absolute bottom-full left-0 right-0 mb-3 flex flex-col items-center gap-2 px-2 [&>*]:pointer-events-auto">
-                    <WaitingForAnswer />
-                    {$thermometerRun && (
+                    {$hiderMode === false && <WaitingForAnswer />}
+                    {$hiderMode === false && $thermometerRun && (
                         <ThermometerTracker run={$thermometerRun} />
                     )}
+                    {/* A line tapped on the map, named here to keep the map clear */}
+                    <TappedLineBar />
                 </div>
             )}
             <nav className="flex justify-center border-t bg-background px-2 py-2">
