@@ -110,6 +110,20 @@ export const elevationAt = async (lat: number, lng: number) => {
  * The part of the bbox that lies lower than `elevation`, i.e. closer to sea
  * level. Returns null if elevation data is unavailable.
  */
+/**
+ * The map reads the ground on a grid (100 m or coarser), the hider's answer
+ * at the exact spot. So the map greys only what is surely higher or lower
+ * than the seekers, by this much (like the rivers left light on landmass).
+ */
+export const SEA_LEVEL_MARGIN_METERS = 3;
+
+/**
+ * The elevation the map splits the game area at: below it the hider can be
+ * when lower than the seekers, above it when higher.
+ */
+export const seaLevelLimit = (seekers: number, hiderLower: boolean) =>
+    seekers + (hiderLower ? SEA_LEVEL_MARGIN_METERS : -SEA_LEVEL_MARGIN_METERS);
+
 export const regionLowerThan = async (
     bbox: [number, number, number, number],
     elevation: number,

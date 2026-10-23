@@ -4,6 +4,7 @@ import type { Feature, FeatureCollection } from "geojson";
 import { type HiderLocation, hiderMode } from "@/lib/context";
 
 import { isPending, questionApplies } from "./answers";
+import { OverpassError } from "./api/overpass";
 import {
     adjustPerMatching,
     hiderifyMatching,
@@ -91,11 +92,30 @@ export const determinePlanningPolygon = async (
     }
 };
 
+/**
+ * Questions whose map data didn't load because the servers didn't answer
+ * (questions that depend on the location, like the nearest street): the map
+ * leaves them out until "Retry", instead of waiting up to a minute for the
+ * servers again after every answer.
+ */
+const notLoaded = new Set<string>();
+
+const notLoadedKey = (question: any) =>
+    JSON.stringify([
+        question.key,
+        question.data.lat,
+        question.data.lng,
+        question.data.type,
+    ]);
+
+/** "Retry": the map asks the servers again for the questions left out. */
+export const retryQuestionsNotLoaded = () => notLoaded.clear();
+
 export async function adjustMapGeoDataForQuestion(
     question: any,
     mapGeoData: any,
 ) {
-    if (question.data.hidden) {
+    if (question.data.hidden || notLoaded.has(notLoadedKey(question))) {
         return mapGeoData;
     }
 
@@ -120,7 +140,9 @@ export async function adjustMapGeoDataForQuestion(
             default:
                 return mapGeoData;
         }
-    } catch {
+    } catch (error) {
+        if (error instanceof OverpassError)
+            notLoaded.add(notLoadedKey(question));
         return mapGeoData;
     }
 }

@@ -162,6 +162,10 @@ export const messages = {
         en: "No answer in Vienna. {reason}",
         de: "Keine Antwort in Wien. {reason}",
     },
+    "ask.alwaysSame": {
+        en: "Always Same in Vienna. {reason}",
+        de: "In Wien immer Gleich. {reason}",
+    },
     "ask.needsZones": {
         en: "Turn on hiding zones first (Zones → Settings).",
         de: "Schalte zuerst die Zonen ein (Zonen → Einstellungen).",
@@ -417,6 +421,15 @@ export const messages = {
 
     // "Send to hider"
     "send.button": { en: "Send to hider", de: "An Hider senden" },
+    "send.again": { en: "Send again", de: "Nochmal senden" },
+    "send.change": {
+        en: "Change and send again",
+        de: "Ändern und neu senden",
+    },
+    "send.changing": {
+        en: "The hider has the question as it was sent. Send it again once changed: their time starts again then.",
+        de: "Der Hider hat die Frage so, wie sie gesendet wurde. Nach dem Ändern nochmal senden, dann beginnt seine Zeit neu.",
+    },
     "send.message": {
         en: "Question for the hider: {title}\nOpen this link to see your answer: {link}",
         de: "Frage an den Hider: {title}\nÖffne diesen Link, um deine Antwort zu sehen: {link}",

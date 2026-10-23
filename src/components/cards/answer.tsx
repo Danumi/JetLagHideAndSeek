@@ -18,6 +18,8 @@ import {
     askedAtText,
     currentAnswer,
     isPending,
+    isSentLocked,
+    markSent,
     questionTitle,
     setAnswer,
     setNoAnswer,
@@ -138,8 +140,8 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
 export const SendToHider = ({ question }: { question: Question }) => (
     <SendLinkButton
         makeLink={() => {
-            if (question.data.sentAt === undefined) {
-                question.data.sentAt = Date.now();
+            if (!isSentLocked(question)) {
+                markSent(question);
                 questionModified();
             }
             return questionLink(question);
@@ -147,6 +149,7 @@ export const SendToHider = ({ question }: { question: Question }) => (
         message={(link) =>
             t("send.message", { title: questionTitle(question), link })
         }
+        label={question.data.sentAt !== undefined ? t("send.again") : undefined}
     />
 );
 

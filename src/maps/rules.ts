@@ -117,10 +117,6 @@ const CARD_RULES: Record<string, CardRule> = {
             de: "Die 1. Verwaltungsebene, die größte Einteilung eines Landes (in den USA die Bundesstaaten). In Österreich sind das die Bundesländer.",
             en: "The 1st administrative division, the largest division of a country (states in the US). In Austria, the Bundesländer.",
         },
-        note: {
-            de: "**In Wien:** Das ganze Spielgebiet ist Wien. Die Antwort ist also immer Ja, die Frage bringt nichts.",
-            en: "**In Vienna:** The whole game area is Vienna. The answer is always yes, so the question tells you nothing.",
-        },
     },
     "admin-2": {
         matching: {
@@ -409,9 +405,16 @@ const cardEntry = (
                           en: `**In Vienna:** ${card.noAnswer.en} ${NO_ANSWER_THEN.en}`,
                       },
                   ]
-                : rule.note
-                  ? [rule.note]
-                  : []),
+                : card.alwaysSame
+                  ? [
+                        {
+                            de: `**In Wien:** ${card.alwaysSame.de} Die Antwort ist also immer „Gleich“, die Karte lohnt sich nicht; die App bietet sie nicht an.`,
+                            en: `**In Vienna:** ${card.alwaysSame.en} So the answer is always “Same” and the card isn't worth asking; the app doesn't offer it.`,
+                        },
+                    ]
+                  : rule.note
+                    ? [rule.note]
+                    : []),
         ],
     };
 };

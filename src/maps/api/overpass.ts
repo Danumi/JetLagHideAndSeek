@@ -23,7 +23,11 @@ import { memoizeAsync } from "@/lib/utils";
 import { safeUnion } from "@/maps/geo-utils";
 
 import { cacheFetch, determineCache } from "./cache";
-import { LOCATION_FIRST_TAG, placeCounts } from "./constants";
+import {
+    LOCATION_FIRST_TAG,
+    placeCounts,
+    withoutDuplicatePlaces,
+} from "./constants";
 import { prettifyLocation } from "./geo";
 import { packagedResponse } from "./mapDataPackage";
 import type {
@@ -1070,8 +1074,10 @@ export const findPlacesOfKind = async (location: APILocations) => {
     );
     return {
         ...data,
-        elements: (data.elements ?? []).filter((element: any) =>
-            placeCounts(location, element.tags),
+        elements: withoutDuplicatePlaces(
+            (data.elements ?? []).filter((element: any) =>
+                placeCounts(location, element.tags),
+            ),
         ),
     };
 };

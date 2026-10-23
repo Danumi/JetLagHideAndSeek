@@ -4,8 +4,11 @@ import { language } from "@/lib/i18n";
 import {
     answerOptions,
     answerText,
+    changeSent,
     isLogged,
     isPending,
+    isSentLocked,
+    markSent,
     questionApplies,
     questionTitle,
     setAnswer,
@@ -49,6 +52,40 @@ describe("answers", () => {
         expect(question.data.drag).toBe(false);
         expect(isLogged(question)).toBe(true);
         expect(questionApplies(question, false)).toBe(true);
+    });
+
+    it("locks a question once sent to the hider", () => {
+        const question = radar({ status: "pending" });
+        expect(isSentLocked(question)).toBe(false);
+
+        markSent(question);
+        const sentAt = question.data.sentAt;
+        expect(sentAt).toBeTypeOf("number");
+        expect(question.data.drag).toBe(false);
+        expect(isSentLocked(question)).toBe(true);
+        // Still waiting: not in the log, the answer buttons stay
+        expect(isLogged(question)).toBe(false);
+
+        // Sending the same link again keeps the hider's time
+        markSent(question);
+        expect(question.data.sentAt).toBe(sentAt);
+    });
+
+    it("starts the hider's time again for a changed question", () => {
+        const question = radar({ status: "pending", sentAt: 1000 });
+        markSent(question);
+        expect(question.data.sentAt).not.toBe(1000);
+
+        question.data.sentAt = 1000;
+        changeSent(question);
+        expect(isSentLocked(question)).toBe(false);
+        expect(question.data.drag).toBe(true);
+        // The old time runs until the changed question is sent
+        expect(question.data.sentAt).toBe(1000);
+
+        markSent(question);
+        expect(question.data.sentAt).toBeGreaterThan(1000);
+        expect(isSentLocked(question)).toBe(true);
     });
 
     it("doesn't change the map for questions without an answer", () => {

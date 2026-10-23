@@ -2,7 +2,11 @@ import * as turf from "@turf/turf";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { mapGeoJSON, overpassCustomHost } from "@/lib/context";
-import { findTransitLines, placeCounts } from "@/maps/api";
+import {
+    findTransitLines,
+    placeCounts,
+    withoutDuplicatePlaces,
+} from "@/maps/api";
 import {
     asOnePath,
     highlightedLine,
@@ -354,5 +358,64 @@ describe("places that count", () => {
         );
         expect(placeCounts("peak", { name: "Hügel" })).toBe(false);
         expect(placeCounts("peak", { ele: "494" })).toBe(false);
+    });
+
+    it("counts real zoos only, not petting zoos, farms or plant houses", () => {
+        const zoo = (tags: Record<string, string>) =>
+            placeCounts("zoo", { tourism: "zoo", ...tags });
+        expect(zoo({ name: "Tiergarten Schönbrunn" })).toBe(true);
+        expect(zoo({ name: "Zoo Hirschstetten" })).toBe(true);
+        expect(zoo({ name: "Schmetterlinghaus", zoo: "butterfly" })).toBe(
+            false,
+        );
+        expect(zoo({ name: "Tiergehege", zoo: "petting_zoo" })).toBe(false);
+        expect(zoo({ name: "Streichelzoo Pötzleinsdorfer Schlosspark" })).toBe(
+            false,
+        );
+        expect(zoo({ name: "Vienna Kids Farm", landuse: "farmyard" })).toBe(
+            false,
+        );
+        expect(zoo({ name: "Palmenhaus", building: "greenhouse" })).toBe(false);
+        expect(zoo({ name: "Wüstenhaus", attraction: "botanical" })).toBe(
+            false,
+        );
+    });
+
+    it("leaves out practices tagged as hospitals", () => {
+        expect(placeCounts("hospital", { name: "AKH Wien" })).toBe(true);
+        expect(placeCounts("hospital", { name: "Kinderwunschzentrum" })).toBe(
+            false,
+        );
+        expect(placeCounts("hospital", { name: "Wiener Radiologie" })).toBe(
+            false,
+        );
+    });
+});
+
+describe("places in OSM twice", () => {
+    const place = (name: string, lon: number, lat: number, center = false) =>
+        center
+            ? { tags: { name }, center: { lon, lat } }
+            : { tags: { name }, lon, lat };
+
+    it("keeps one of two places of the same name a few metres apart", () => {
+        const places = withoutDuplicatePlaces([
+            place("Jüdisches Museum Judenplatz", 16.3693, 48.2115),
+            place("Jüdisches Museum Judenplatz", 16.3695, 48.2116, true),
+            place("Albertina", 16.3683, 48.2046),
+        ]);
+        expect(places.map((x) => x.tags.name)).toEqual([
+            "Jüdisches Museum Judenplatz",
+            "Albertina",
+        ]);
+        expect(places[0]).not.toHaveProperty("center");
+    });
+
+    it("keeps places of the same name far apart", () => {
+        const places = withoutDuplicatePlaces([
+            place("Hauptbibliothek", 16.34, 48.2),
+            place("Hauptbibliothek", 16.44, 48.25),
+        ]);
+        expect(places).toHaveLength(2);
     });
 });
