@@ -339,8 +339,8 @@ const CARD_RULES: Record<string, CardRule> = {
             en: "Compared to me, are you closer to or further from a Gemeindebezirk border?",
         },
         counts: {
-            de: "Die Grenze der 2. Verwaltungsebene, in Wien zwischen zwei Gemeindebezirken. Achtung: Die App misst zur Grenze des Bezirks, in dem die Seeker gerade sind. Ist der Hider in einem anderen Bezirk, kann ihre Rechnung von den Regeln abweichen; der Hider misst dann selbst nach.",
-            en: "The border of the 2nd administrative division, in Vienna between two districts. Watch out: the app measures to the border of the district the seekers are in. If the hider is in another district, its result can differ from the rules; the hider then checks for themselves.",
+            de: "Die Grenze der 2. Verwaltungsebene, in Wien die Grenze eines Gemeindebezirks, auch dort, wo sie die Stadtgrenze ist. Es zählt die nächste Bezirksgrenze, egal von welchem Bezirk, für Seeker und Hider.",
+            en: "The border of the 2nd administrative division, in Vienna the border of a district, also where it is the city limit. The nearest district border counts, whichever district it belongs to, for seekers and hider alike.",
         },
     },
     "sea-level": {

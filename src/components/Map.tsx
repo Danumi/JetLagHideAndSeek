@@ -4,6 +4,7 @@ import "leaflet-contextmenu";
 
 import { useStore } from "@nanostores/react";
 import * as turf from "@turf/turf";
+import type { Feature, Polygon } from "geojson";
 import * as L from "leaflet";
 import { useEffect, useMemo } from "react";
 import { MapContainer, ScaleControl, TileLayer } from "react-leaflet";
@@ -366,7 +367,7 @@ export const Map = ({ className }: { className?: string }) => {
                 type: "FeatureCollection",
                 features: [
                     nothingLeft
-                        ? BLANK_GEOJSON.features[0]
+                        ? (BLANK_GEOJSON.features[0] as Feature<Polygon>)
                         : holedMask(mapGeoData!)!,
                 ],
             };

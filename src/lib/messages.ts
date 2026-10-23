@@ -535,6 +535,10 @@ export const messages = {
         en: "{nearest} to you: {you}, {youDistance} away. To the seekers: {them}, {themDistance}.",
         de: "{nearest} bei dir: {you}, {youDistance} entfernt. Bei den Seekern: {them}, {themDistance}.",
     },
+    "reason.border": {
+        en: "Nearest {border}: {you} from you, {them} from the seekers.",
+        de: "Nächste {border}: {you} von dir, {them} von den Seekern.",
+    },
     "reason.station": {
         en: "Your station is the one of your zone: {you}. The seekers' nearest station: {them}, {themDistance} away.",
         de: "Deine Station ist die deiner Zone: {you}. Nächste Station der Seeker: {them}, {themDistance} entfernt.",
