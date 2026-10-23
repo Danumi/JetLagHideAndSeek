@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { overpassCustomHost, overpassFallbackHost } from "@/lib/context";
+import { overpassCustomHost } from "@/lib/context";
 import {
-    overpassBaseUrls,
+    interpreterUrl,
     overpassHosts,
     overpassSetupLink,
     readOverpassSetup,
@@ -10,77 +10,73 @@ import {
 } from "@/lib/overpassAccess";
 
 const APP = "https://danumi.github.io/JetLagHideAndSeek/";
-const MAIN = "https://overpass.example/v1/key_one/interpreter";
-const FALLBACK = "https://overpass.example/v1/key_two/interpreter";
+const ACCESS = "https://overpass.example/v1/key_one/interpreter";
+const OTHER = "https://overpass.example/v1/key_two/interpreter";
+
+const linkWith = (list: unknown[]) =>
+    `${APP}#overpass=${btoa(JSON.stringify(list))
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/, "")}`;
 
 describe("Overpass access", () => {
-    it("asks the access first, then the fallback", () => {
-        expect(overpassBaseUrls(MAIN, FALLBACK)).toEqual([MAIN, FALLBACK]);
-        expect(overpassBaseUrls(` ${MAIN} `, "")).toEqual([MAIN]);
-        expect(overpassBaseUrls("", FALLBACK)).toEqual([FALLBACK]);
-        expect(overpassBaseUrls(MAIN, MAIN)).toEqual([MAIN]);
-        expect(overpassBaseUrls("", "")).toEqual([]);
+    it("asks the server at /interpreter", () => {
+        expect(interpreterUrl(ACCESS)).toBe(ACCESS);
+        expect(interpreterUrl(` ${ACCESS} `)).toBe(ACCESS);
+        expect(interpreterUrl("https://overpass.example/v1/key_one/")).toBe(
+            ACCESS,
+        );
+        expect(interpreterUrl("https://overpass.example/v1/key_one")).toBe(
+            ACCESS,
+        );
+        expect(interpreterUrl("")).toBe("");
     });
 
     it("has no public servers to fall back on", () => {
-        saveOverpassSetup([]);
+        saveOverpassSetup("");
         expect(overpassHosts()).toEqual([]);
+        saveOverpassSetup(ACCESS);
+        expect(overpassHosts()).toEqual([ACCESS]);
     });
 });
 
 describe("setup link", () => {
-    it("carries both accesses after the #, not in the visible address", () => {
-        const link = overpassSetupLink([MAIN, FALLBACK], `${APP}?ask=abc`);
+    it("carries the access after the #, not in the visible address", () => {
+        const link = overpassSetupLink(ACCESS, `${APP}?ask=abc`);
         const url = new URL(link);
         expect(url.origin + url.pathname).toBe(APP);
         expect(url.search).toBe("");
         expect(url.hash).toMatch(/^#overpass=[A-Za-z0-9_-]+$/);
         expect(link).not.toContain("key_one");
-        expect(readOverpassSetup(link)).toEqual([MAIN, FALLBACK]);
+        expect(readOverpassSetup(link)).toBe(ACCESS);
     });
 
-    it("keeps the order, so half the players can start with the fallback", () => {
-        const link = overpassSetupLink([FALLBACK, MAIN], APP);
-        expect(readOverpassSetup(link)).toEqual([FALLBACK, MAIN]);
-    });
-
-    it("works with one access", () => {
-        expect(readOverpassSetup(overpassSetupLink([MAIN], APP))).toEqual([
-            MAIN,
-        ]);
+    it("still reads the first links, which also carried a fallback", () => {
+        expect(readOverpassSetup(linkWith([ACCESS, OTHER]))).toBe(ACCESS);
     });
 
     it("is found in pasted text and in the address bar", () => {
-        const link = overpassSetupLink([MAIN, FALLBACK], APP);
-        expect(readOverpassSetup(`Here you go: ${link} have fun`)).toEqual([
-            MAIN,
-            FALLBACK,
-        ]);
-        expect(readOverpassSetup(new URL(link).hash)).toEqual([MAIN, FALLBACK]);
+        const link = overpassSetupLink(ACCESS, APP);
+        expect(readOverpassSetup(`Here you go: ${link} have fun`)).toBe(ACCESS);
+        expect(readOverpassSetup(new URL(link).hash)).toBe(ACCESS);
     });
 
     it("ignores anything that is not a setup link", () => {
-        expect(readOverpassSetup(MAIN)).toBeNull();
+        expect(readOverpassSetup(ACCESS)).toBeNull();
         expect(readOverpassSetup(`${APP}#overpass=`)).toBeNull();
         expect(readOverpassSetup(`${APP}#overpass=bm9wZQ`)).toBeNull();
         expect(readOverpassSetup(`${APP}#overpass=%%%`)).toBeNull();
     });
 
     it("only takes web addresses", () => {
-        const code = btoa(JSON.stringify(["javascript:alert(1)", 42, MAIN]))
-            .replace(/\+/g, "-")
-            .replace(/\//g, "_")
-            .replace(/=+$/, "");
-        expect(readOverpassSetup(`${APP}#overpass=${code}`)).toEqual([MAIN]);
+        expect(
+            readOverpassSetup(linkWith(["javascript:alert(1)", 42, ACCESS])),
+        ).toBe(ACCESS);
+        expect(readOverpassSetup(linkWith(["javascript:alert(1)"]))).toBeNull();
     });
 
-    it("saves the accesses on this phone", () => {
-        saveOverpassSetup([MAIN, FALLBACK]);
-        expect(overpassCustomHost.get()).toBe(MAIN);
-        expect(overpassFallbackHost.get()).toBe(FALLBACK);
-        expect(overpassHosts()).toEqual([MAIN, FALLBACK]);
-
-        saveOverpassSetup([MAIN]);
-        expect(overpassFallbackHost.get()).toBe("");
+    it("saves the access on this phone", () => {
+        saveOverpassSetup(ACCESS);
+        expect(overpassCustomHost.get()).toBe(ACCESS);
     });
 });

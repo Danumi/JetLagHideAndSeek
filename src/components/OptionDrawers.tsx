@@ -164,8 +164,7 @@ export const OptionDrawers = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        const accessesFromLink = takeSetupFromAddress();
-        if (accessesFromLink > 0) toastOverpassSaved(accessesFromLink);
+        if (takeSetupFromAddress()) toastOverpassSaved();
 
         const params = new URL(window.location.toString()).searchParams;
         const hidingZoneOld = params.get(HIDING_ZONE_URL_PARAM);

@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { overpassCustomHost, overpassFallbackHost } from "@/lib/context";
+import { overpassCustomHost } from "@/lib/context";
 import { memoizeAsync } from "@/lib/utils";
 import { getOverpassData, OverpassError } from "@/maps/api";
 import { MATCHING_DECK, MEASURING_DECK } from "@/maps/deck";
@@ -46,12 +46,10 @@ const cacheStorage = {
 vi.stubGlobal("caches", cacheStorage);
 
 const MAIN = "https://main.example/api/interpreter";
-const FALLBACK = "https://fallback.example/api/interpreter";
 
 describe("getOverpassData", () => {
     beforeEach(() => {
         overpassCustomHost.set(MAIN);
-        overpassFallbackHost.set("");
     });
 
     afterEach(() => {
@@ -122,47 +120,16 @@ describe("getOverpassData", () => {
         expect(fetch.mock.calls[1][0]).toBe(fetch.mock.calls[0][0]);
     });
 
-    it("asks the fallback access right away when the first one is busy", async () => {
-        overpassFallbackHost.set(FALLBACK);
-        const fetch = vi.fn(async (url: string) =>
-            url.startsWith(MAIN)
-                ? json({ error: "concurrency_limit" }, 429)
-                : json({ elements: [{ id: 6 }] }),
-        );
+    it("asks the server at /interpreter, also when the address lacks it", async () => {
+        overpassCustomHost.set("https://overpass.example/v1/key_one/");
+        const fetch = vi.fn(async () => json({ elements: [{ id: 6 }] }));
         vi.stubGlobal("fetch", fetch);
-
         expect(await getOverpassData("[out:json];node(6);out;")).toEqual({
             elements: [{ id: 6 }],
         });
-        expect(fetch.mock.calls.map(([url]) => url.split("?")[0])).toEqual([
-            MAIN,
-            FALLBACK,
-        ]);
-
-        // Kept for the first access too: the next time comes from the cache
-        overpassFallbackHost.set("");
-        vi.stubGlobal(
-            "fetch",
-            vi.fn(async () => new Response("down", { status: 500 })),
+        expect(String((fetch.mock.calls[0] as unknown[])[0])).toMatch(
+            /^https:\/\/overpass\.example\/v1\/key_one\/interpreter\?data=/,
         );
-        expect(await getOverpassData("[out:json];node(6);out;")).toEqual({
-            elements: [{ id: 6 }],
-        });
-    });
-
-    it("asks the fallback access when the first one fails", async () => {
-        overpassFallbackHost.set(FALLBACK);
-        vi.stubGlobal(
-            "fetch",
-            vi.fn(async (url: string) =>
-                url.startsWith(MAIN)
-                    ? new Response("forbidden", { status: 403 })
-                    : json({ elements: [{ id: 7 }] }),
-            ),
-        );
-        expect(await getOverpassData("[out:json];node(7);out;")).toEqual({
-            elements: [{ id: 7 }],
-        });
     });
 
     it("asks no public server without an access", async () => {

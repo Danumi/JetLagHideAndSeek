@@ -576,8 +576,3 @@ export const overpassCustomHost = persistentAtom<string>(
     "overpassCustomHost",
     "",
 );
-/** A second access, asked when the first fails or is busy. */
-export const overpassFallbackHost = persistentAtom<string>(
-    "overpassFallbackHost",
-    "",
-);
