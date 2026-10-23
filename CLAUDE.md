@@ -28,6 +28,7 @@ pnpm vitest run       # Tests einmalig
 ## Deployment
 
 - Jeder Push auf `master` startet die GitHub Action „Deploy to GitHub Pages" (`.github/workflows/deploy.yml`). Etwa 2 Minuten später ist die Änderung live, wenn GitHub gleich einen Runner frei hat (manchmal steht der Lauf länger in der Warteschlange).
+- Zwei Merges kurz hintereinander: Der zweite Deploy wartet, bis der erste fertig ist (`concurrency: pages` in `deploy.yml`, seit 2026-10-23). Vorher scheiterte er mit „Deployment request failed … due to in progress deployment“, und die Änderung kam erst mit dem nächsten Merge oder einem neu gestarteten Lauf online.
 - Die App ist eine PWA mit `registerType: "autoUpdate"`: Handys holen die neue Version beim nächsten Öffnen und laden die Seite einmal neu.
 - Arbeit auf Feature-Branches mit Pull Request. Erst nach dem Merge in `master` wird veröffentlicht. Nichts auf `master` bringen, das nicht baut.
 - Beide Teams spielen mit derselben Version. Änderungen an der Logik einer Frage im PR-Text klar benennen, damit die Spieler wissen, was sich geändert hat.

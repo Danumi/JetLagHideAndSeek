@@ -11,6 +11,12 @@ permissions:
     pages: write
     id-token: write
 
+# Two merges close together: the second deploy waits for the first instead of
+# failing with "in progress deployment"
+concurrency:
+    group: pages
+    cancel-in-progress: false
+
 jobs:
     build:
         runs-on: ubuntu-latest
