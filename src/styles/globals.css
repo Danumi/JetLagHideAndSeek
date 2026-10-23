@@ -129,9 +129,9 @@ div.leaflet-control-attribution.leaflet-control {
     }
 }
 
-/* Status messages can be swiped away sideways, also while an open sidebar or
-   dialog blocks pointer events on the rest of the page. The space around
-   them never blocks the map. */
+/* Status messages can be swiped away (`toastSwipe.ts`), also while an open
+   sidebar or dialog blocks pointer events on the rest of the page. The space
+   around them never blocks the map. */
 .Toastify__toast-container {
     pointer-events: none;
 }
