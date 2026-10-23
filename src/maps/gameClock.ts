@@ -18,6 +18,11 @@ export type GameClock = {
     pausedAt?: number;
     /** When the seekers found the hider: the clock stops. */
     foundAt?: number;
+    /**
+     * When the hiding period was ended by hand, before its 30 minutes: the
+     * official time was up, or everyone agreed to start.
+     */
+    hidingEndedAt?: number;
 };
 
 /**
@@ -64,6 +69,10 @@ export const gameClock = persistentAtom<GameClock | null>("gameClock", null, {
     decode: JSON.parse,
 });
 
+/** When the hiding period ends (or ended): after 30 minutes, or by hand. */
+const hidingPeriodEnd = (clock: GameClock) =>
+    clock.hidingEndedAt ?? clock.startedAt + HIDING_PERIOD_MINUTES * 60_000;
+
 export type GameClockState =
     /** `left`: until the seekers start, at `endsAt`. */
     | { phase: "hiding"; left: number; endsAt: number }
@@ -89,7 +98,7 @@ export const gameClockState = (
     now = Date.now(),
     late: Interval[] = [],
 ): GameClockState => {
-    const endsAt = clock.startedAt + HIDING_PERIOD_MINUTES * 60_000;
+    const endsAt = hidingPeriodEnd(clock);
     const stop = clock.foundAt ?? clock.pausedAt ?? now;
     // Up to `stop`: the pause going on now counts only once
     const hidingTime = Math.max(
@@ -168,6 +177,18 @@ const change = (update: (clock: GameClock) => GameClock) => {
     const clock = gameClock.get();
     if (clock) gameClock.set(update(clock));
 };
+
+/** "Start seeking now": the hiding period is over, the hiding time counts. */
+export const endHidingPeriod = (now = Date.now()) =>
+    change((clock) =>
+        now < hidingPeriodEnd(clock)
+            ? { ...clock, hidingEndedAt: Math.max(now, clock.startedAt) }
+            : clock,
+    );
+
+/** Ended the hiding period by mistake: the 30 minutes count again. */
+export const undoEndHidingPeriod = () =>
+    change((clock) => ({ ...clock, hidingEndedAt: undefined }));
 
 export const pauseGameClock = (now = Date.now()) =>
     change((clock) =>
