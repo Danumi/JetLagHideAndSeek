@@ -34,7 +34,7 @@ import { questionLinkRole, setRole } from "@/lib/role";
 import { cn, shareMessage } from "@/lib/utils";
 import { clockTime } from "@/maps/deadline";
 import { PHOTO_DECK, photoCardFor } from "@/maps/deck";
-import { type HiderAnswer, workOutAnswer } from "@/maps/hider";
+import { type HiderAnswer, STATION_TYPES, workOutAnswer } from "@/maps/hider";
 import {
     addEntryByHand,
     answerLabel,
@@ -341,6 +341,7 @@ export const HiderScreen = () => {
     const $open = useStore(hiderScreenOpen);
     const $hiderMode = useStore(hiderMode);
     const $inbox = useStore(hiderInbox);
+    const $hiderZoneId = useStore(hiderZoneId);
     const $retryTrigger = useStore(retryTrigger);
     const $loadingTasks = useStore(loadingTasks);
     const [fix, setFix] = useState<Fix>({ state: "locating" });
@@ -490,6 +491,8 @@ export const HiderScreen = () => {
         location?.longitude,
         attempt,
         $retryTrigger,
+        // Station questions are about the station of the chosen zone
+        $hiderZoneId,
         // The reason is written in the phone's language
         $language,
     ]);
@@ -529,8 +532,17 @@ export const HiderScreen = () => {
 
     const photoCard = entry?.photo ? photoCardFor(entry.photo) : undefined;
 
+    const aboutStation =
+        entry?.question?.id === "matching" &&
+        STATION_TYPES.includes(entry.question.data.type);
+
     const openBody = entry && isOpen(entry) && (
         <>
+            {aboutStation && !$hiderZoneId && (
+                <p className="text-sm text-orange-400">
+                    {t("hider.chooseZoneFirst")}
+                </p>
+            )}
             {entry.question && !location && (
                 <p className="text-sm text-muted-foreground">
                     {t("hider.waitingForLocation")}

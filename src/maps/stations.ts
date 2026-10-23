@@ -3,6 +3,7 @@ import osmtogeojson from "osmtogeojson";
 import {
     customStations,
     displayHidingZonesOptions,
+    hiderZoneId,
     hidingRadius,
     hidingRadiusUnits,
     includeDefaultStations,
@@ -107,3 +108,15 @@ export const hidingZoneStationsKey = () =>
 /** The OSM ids of a station, more than one for a merged station. */
 export const stationOsmIds = (place: StationPlace): string[] =>
     place.properties.ids ?? [place.properties.id];
+
+/**
+ * The station of the hiding zone the hider chose, or null before they chose
+ * one. By the rules, station questions are about this station, even where
+ * the hider is nearer to another one.
+ */
+export const chosenHiderStation = async (): Promise<StationPlace | null> => {
+    const id = hiderZoneId.get();
+    if (!id) return null;
+    const stations = await findHidingZoneStations();
+    return stations?.find((station) => station.properties.id === id) ?? null;
+};
