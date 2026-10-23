@@ -26,8 +26,6 @@ import {
     keptZonesRuledOut,
     mapGeoJSON,
     mapGeoLocation,
-    overpassCustomHost,
-    overpassHost,
     photoQuestions,
     polyGeoJSON,
     questions,
@@ -38,6 +36,7 @@ import {
     useCustomStations,
 } from "@/lib/context";
 import { type Language, language, t, useLanguage } from "@/lib/i18n";
+import { takeSetupFromAddress } from "@/lib/overpassAccess";
 import { setRole } from "@/lib/role";
 import {
     cn,
@@ -46,7 +45,6 @@ import {
     fetchFromPastebin,
     shareOrFallback,
 } from "@/lib/utils";
-import { OVERPASS_HOSTS } from "@/maps/api/constants";
 import { preloadGameData, preloadProgress } from "@/maps/preload";
 import {
     KILOMETERS_PER_MILE,
@@ -55,6 +53,10 @@ import {
 } from "@/maps/schema";
 
 import { NewGameDialog } from "./NewGameDialog";
+import {
+    OverpassAccessSettings,
+    toastOverpassSaved,
+} from "./OverpassAccessSettings";
 import { PlacePicker } from "./PlacePicker";
 import {
     AlertDialog,
@@ -69,7 +71,6 @@ import {
 } from "./ui/alert-dialog";
 import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
-import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Select } from "./ui/select";
 import { Separator } from "./ui/separator";
@@ -153,9 +154,7 @@ export const OptionDrawers = () => {
     const $baseTileLayer = useStore(baseTileLayer);
     const $showDrawingTools = useStore(showDrawingTools);
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
-    const $overpassHost = useStore(overpassHost);
     const $preloadProgress = useStore(preloadProgress);
-    const $overpassCustomHost = useStore(overpassCustomHost);
     const $questions = useStore(questions);
     const $photoQuestions = useStore(photoQuestions);
     const questionCount = $questions.length + $photoQuestions.length;
@@ -165,6 +164,9 @@ export const OptionDrawers = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
+        const accessesFromLink = takeSetupFromAddress();
+        if (accessesFromLink > 0) toastOverpassSaved(accessesFromLink);
+
         const params = new URL(window.location.toString()).searchParams;
         const hidingZoneOld = params.get(HIDING_ZONE_URL_PARAM);
         const hidingZoneCompressed = params.get(
@@ -598,44 +600,7 @@ export const OptionDrawers = () => {
                                     <AdvancedSection
                                         title={t("settings.mapData")}
                                     >
-                                        <Label>
-                                            {t("settings.overpassHost")}
-                                        </Label>
-                                        <Select
-                                            trigger={t("settings.overpassHost")}
-                                            options={{
-                                                ...Object.fromEntries(
-                                                    Object.entries(
-                                                        OVERPASS_HOSTS,
-                                                    ).map(([label, url]) => [
-                                                        url,
-                                                        label,
-                                                    ]),
-                                                ),
-                                                custom: t("settings.customUrl"),
-                                            }}
-                                            value={$overpassHost}
-                                            onValueChange={(v) =>
-                                                overpassHost.set(v as any)
-                                            }
-                                        />
-                                        {$overpassHost === "custom" && (
-                                            <Input
-                                                type="text"
-                                                value={$overpassCustomHost}
-                                                onChange={(e) =>
-                                                    overpassCustomHost.set(
-                                                        e.target.value,
-                                                    )
-                                                }
-                                                placeholder="https://your-overpass-instance/api/interpreter"
-                                            />
-                                        )}
-                                        <Hint>
-                                            {$overpassHost === "custom"
-                                                ? t("settings.customFallback")
-                                                : t("settings.fallback")}
-                                        </Hint>
+                                        <OverpassAccessSettings />
                                         <Button
                                             variant="outline"
                                             disabled={$preloadProgress !== null}
