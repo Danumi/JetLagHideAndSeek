@@ -47,28 +47,19 @@ export const hiderChosenZone = computed(
 );
 
 /**
- * "Change" on the hider screen: the hider's map shows all zones again, so
- * they can tap another one (e.g. after choosing the wrong one).
+ * "Change" on the hider screen: the hider taps another zone on the map
+ * (e.g. after choosing the wrong one), a bar says so.
  */
 export const choosingHiderZone = atom(false);
 
-/**
- * The zone the hider's map shows on its own: their chosen zone, except
- * while they choose another one.
- */
-export const hiderOwnZone = computed(
-    [hiderChosenZone, choosingHiderZone],
-    (id, choosing) => (choosing ? "" : id),
-);
-
-/** "Change" on the hider screen: back to the map with all zones on it. */
+/** "Change" on the hider screen: to the map, to tap another zone. */
 export const chooseHiderZoneOnMap = () => {
     choosingHiderZone.set(true);
     selectedZoneId.set("");
     hiderScreenOpen.set(false);
 };
 
-/** Chosen or cancelled: the map shows only the hider's zone again. */
+/** Chosen or cancelled: back to the hider screen. */
 export const stopChoosingHiderZone = () => {
     if (!choosingHiderZone.get()) return;
     choosingHiderZone.set(false);
@@ -140,8 +131,7 @@ export const toggleZone = (id: string) => {
 
 /**
  * The hiding zones left at a point on the map, the one whose station is
- * nearest first. On the hider's map with a chosen zone only that zone, the
- * others aren't shown.
+ * nearest first.
  */
 export const zonesAt = (at: { lat: number; lng: number }) => {
     const radiusMeters = turf.convertLength(
@@ -149,19 +139,13 @@ export const zonesAt = (at: { lat: number; lng: number }) => {
         hidingRadiusUnits.get(),
         "meters",
     );
-    const own = hiderOwnZone.get();
-    const stations = own
-        ? allTrainStations.get().filter((x) => x.properties.id === own)
-        : zonesLeft(trainStations.get(), disabledStations.get()).map(
-              (station) => station.properties,
-          );
     return _.sortBy(
-        stations
+        zonesLeft(trainStations.get(), disabledStations.get())
             .map((station) => ({
-                id: station.properties.id as string,
+                id: stationId(station),
                 meters: turf.distance(
                     [at.lng, at.lat],
-                    station.geometry.coordinates,
+                    station.properties.geometry.coordinates,
                     { units: "meters" },
                 ),
             }))

@@ -49,7 +49,6 @@ import { findHidingZoneStations, stationOsmIds } from "@/maps/stations";
 import { steadyRenderer } from "@/maps/steadyRenderer";
 import {
     hiderChosenZone,
-    hiderOwnZone,
     outsideZones,
     stationId,
     zonesLeft,
@@ -125,7 +124,6 @@ export const HidingZones = () => {
     const $customStations = useStore(customStationsAtom);
     const $allTrainStations = useStore(allTrainStations);
     const $selectedZoneId = useStore(selectedZoneId);
-    const $hiderOwnZone = useStore(hiderOwnZone);
     const $hiderChosenZone = useStore(hiderChosenZone);
     const setStations = trainStations.set;
 
@@ -460,10 +458,9 @@ export const HidingZones = () => {
             });
         }
 
-        // The hider with a chosen zone sees only that zone (the violet
-        // outline below): no other zones and no grey around them. The grey
-        // left is what the seekers' questions rule out.
-        if (!$displayHidingZones || $hiderOwnZone) {
+        // The hider sees all zones too: what the seekers still consider
+        // (their own zone is the violet outline below)
+        if (!$displayHidingZones) {
             removeHidingZones();
             showOutside(null);
             onlyZoneRef.current = "";
@@ -512,7 +509,6 @@ export const HidingZones = () => {
         $disabledStations,
         $displayHidingZones,
         $displayHidingZonesStyle,
-        $hiderOwnZone,
         $hidingRadius,
         $hidingRadiusUnits,
         $questionFinishedMapData,
@@ -603,7 +599,6 @@ export const HidingZones = () => {
 
         const layers: (L.GeoJSON | null)[] = [];
         if ($displayHidingZones) {
-            // Violet also while the hider chooses another zone
             if ($hiderChosenZone) {
                 layers.push(zoneOutline($hiderChosenZone, HIDER_ZONE_STYLE));
             }
