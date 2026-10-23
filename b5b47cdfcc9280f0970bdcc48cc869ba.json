@@ -1,0 +1,1295 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T10:00:11Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 207109,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Westbahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3506:",
+    "name": "Nachtbus N6: Westbahnhof => Enkplatz, Grillgasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Mo-Su 00:30-04:50",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N6",
+    "route": "bus",
+    "to": "Enkplatz, Grillgasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3329291522
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "relation",
+  "id": 1996537,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Kaiserebersdorf, Zinnergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3111:",
+    "gtfs:shape_id": "22-11-j26-2.9.R",
+    "gtfs:trip_id:like": "%22-11-j26-2.9.R",
+    "gtfs:trip_id:sample": "185.T9.22-11-j26-2.9.R",
+    "name": "Tram 11: Kaiserebersdorf, Zinnergasse => Otto-Probst-Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11",
+    "route": "tram",
+    "to": "Otto-Probst-Platz",
+    "type": "route",
+    "wikidata": "Q70516548"
+  }
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329291522
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 1996538,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Otto-Probst-Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3111:",
+    "gtfs:shape_id": "22-11-j26-2.2.H",
+    "gtfs:trip_id:like": "%22-11-j26-2.2.H",
+    "gtfs:trip_id:sample": "1.T8.22-11-j26-2.2.H",
+    "name": "Tram 11: Otto-Probst-Platz => Kaiserebersdorf, Zinnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11",
+    "route": "tram",
+    "to": "Kaiserebersdorf, Zinnergasse",
+    "type": "route",
+    "wikidata": "Q70516548"
+  }
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329291522
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 5275276,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Enkplatz, Grillgasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3506:",
+    "name": "Nachtbus N6: Enkplatz, Grillgasse => Westbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Mo-Su 00:30-04:50",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N6",
+    "route": "bus",
+    "to": "Westbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3329291522
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "relation",
+  "id": 10922354,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Quellenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3565:",
+    "name": "Nachtbus N65: Quellenplatz => Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N65",
+    "route": "bus",
+    "to": "Liesing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3998633996
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 5324716,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Quellenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3567:",
+    "name": "Nachtbus N67: Quellenplatz => Inzersdorf Großmarkt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:15-05:11",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N67",
+    "route": "bus",
+    "to": "Inzersdorf Großmarkt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 85547,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Neubaugasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3414:",
+    "name": "Bus 14A: Neubaugasse => Reumannplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "14A",
+    "route": "bus",
+    "to": "Reumannplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "relation",
+  "id": 1676827,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Reumannplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3414:",
+    "name": "Bus 14A: Reumannplatz => Neubaugasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "14A",
+    "route": "bus",
+    "to": "Neubaugasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "relation",
+  "id": 1990860,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Burggasse-Stadthalle",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3106:",
+    "gtfs:shape_id": "22-6-j26-3.3.H",
+    "gtfs:trip_id:like": "%22-6-j26-3.3.H",
+    "gtfs:trip_id:sample": "4.T3.22-6-j26-3.3.H",
+    "name": "Tram 6: Burggasse-Stadthalle => Geiereckstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "6",
+    "route": "tram",
+    "to": "Geiereckstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "relation",
+  "id": 1990861,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Geiereckstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3106:",
+    "gtfs:shape_id": "22-6-j26-3.12.R",
+    "gtfs:trip_id:like": "%22-6-j26-3.12.R",
+    "gtfs:trip_id:sample": "207.T9.22-6-j26-3.12.R",
+    "name": "Tram 6: Geiereckstraße => Burggasse-Stadthalle",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "6",
+    "route": "tram",
+    "to": "Burggasse-Stadthalle",
+    "type": "route",
+    "wikidata": "Q47545889"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "relation",
+  "id": 22494,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.7.H",
+    "gtfs:trip_id:like": "%21-U1-j26-6.7.H",
+    "gtfs:trip_id:sample": "1.T2.21-U1-j26-6.7.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U1: Oberlaa => Leopoldau",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Leopoldau",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 2928586,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Leopoldau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.12.R",
+    "gtfs:trip_id:like": "%21-U1-j26-6.12.R",
+    "gtfs:trip_id:sample": "214.T3.21-U1-j26-6.12.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U1: Leopoldau => Oberlaa",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Oberlaa",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 20288740,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Leopoldau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.13.R",
+    "gtfs:trip_id:like": "%21-U1-j26-6.13.R",
+    "gtfs:trip_id:sample": "233.T3.21-U1-j26-6.13.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U1: Leopoldau => Alaudagasse",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Alaudagasse",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 20288741,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.11.H",
+    "gtfs:trip_id:like": "%21-U1-j26-6.11.H",
+    "gtfs:trip_id:sample": "24.T2.21-U1-j26-6.11.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U1: Alaudagasse => Leopoldau",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Leopoldau",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 3547731,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3268:",
+    "name": "Bus 68B: Oberlaa => Reumannplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "68B",
+    "route": "bus",
+    "to": "Reumannplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 3547732,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Reumannplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3268:",
+    "name": "Bus 68B: Reumannplatz => Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "68B",
+    "route": "bus",
+    "to": "Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 12314309,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "duration": "9",
+    "from": "Quellenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3968:",
+    "interval": "30",
+    "name": "Nachtrufbus N68: Quellenplatz => Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942468",
+    "public_transport:version": "2",
+    "ref": "N68",
+    "route": "bus",
+    "to": "Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 148746,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Reumannplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3468:",
+    "name": "Bus 68A: Reumannplatz => Laaer Berg Kurpark Nordosteingang",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "68A",
+    "route": "bus",
+    "to": "Laaer Berg Kurpark Nordosteingang",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 3547628,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Laaer Berg Kurpark Nordosteingang",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3468:",
+    "name": "Bus 68A: Laaer Berg Kurpark Nordosteingang => Reumannplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "68A",
+    "route": "bus",
+    "to": "Reumannplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 10922353,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Quellenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3565:",
+    "name": "Nachtbus N65: Quellenplatz => Raxstraße/Rudolfshügelgasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N65",
+    "route": "bus",
+    "to": "Raxstraße/Rudolfshügelgasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 12114353,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Leebgasse/Siccardsburggasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3106:",
+    "gtfs:shape_id": "22-6-j26-3.2.H",
+    "gtfs:trip_id:like": "%22-6-j26-3.2.H",
+    "gtfs:trip_id:sample": "2.T3.22-6-j26-3.2.H",
+    "name": "Tram 6: Leebgasse/Siccardsburggasse => Geiereckstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "6",
+    "route": "tram",
+    "to": "Geiereckstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 12114354,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Geiereckstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3106:",
+    "gtfs:shape_id": "22-6-j26-3.14.R",
+    "gtfs:trip_id:like": "%22-6-j26-3.14.R",
+    "gtfs:trip_id:sample": "304.T8.22-6-j26-3.14.R",
+    "name": "Tram 6: Geiereckstraße => Quellenplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "6",
+    "route": "tram",
+    "to": "Quellenplatz",
+    "type": "route",
+    "wikidata": "Q47545889"
+  }
+},
+{
+  "type": "node",
+  "id": 4167184437
+}
+
+  ]
+}

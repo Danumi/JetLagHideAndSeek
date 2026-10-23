@@ -1,0 +1,40 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:50:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 75,
+  "members": [
+    {
+      "type": "way",
+      "ref": 174269668,
+      "role": "inner"
+    },
+    {
+      "type": "way",
+      "ref": 27057698,
+      "role": "inner"
+    },
+    {
+      "type": "way",
+      "ref": 8129965,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "intermittent": "no",
+    "name": "Untere Alte Donau",
+    "natural": "water",
+    "type": "multipolygon",
+    "water": "oxbow"
+  }
+}
+
+  ]
+}

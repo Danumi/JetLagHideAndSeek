@@ -1,0 +1,551 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:50:02Z",
+    "timestamp_areas_base": "2026-10-22T12:03:29Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 457648592,
+  "lat": 48.2131806,
+  "lon": 16.3620013,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:country": "AT",
+    "addr:housenumber": "12",
+    "addr:postcode": "1010",
+    "addr:street": "Universitätsring",
+    "check_date": "2022-09-10",
+    "country": "MC",
+    "diplomatic": "consulate",
+    "name": "Konsulat von Monaco",
+    "office": "diplomatic"
+  }
+},
+{
+  "type": "node",
+  "id": 497126306,
+  "lat": 48.2129074,
+  "lon": 16.3685023,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:country": "AT",
+    "addr:housenumber": "24-26",
+    "addr:postcode": "1010",
+    "addr:street": "Wipplingerstraße",
+    "check_date:opening_hours": "2024-07-08",
+    "consulate": "consulate_general",
+    "country": "FR",
+    "diplomatic": "consulate",
+    "name": "Generalkonsulat der Republik Frankreich",
+    "name:en": "General consulate of the French Republic",
+    "name:fr": "Consulat général de France",
+    "office": "diplomatic",
+    "opening_hours:signed": "no",
+    "target": "AT",
+    "website": "http://www.ambafrance-at.org/-Consulat-"
+  }
+},
+{
+  "type": "node",
+  "id": 539649022,
+  "lat": 48.2117558,
+  "lon": 16.3615304,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:housenumber": "6",
+    "addr:postcode": "1010",
+    "addr:street": "Universitätsring",
+    "consulate": "consulate_general",
+    "country": "DK",
+    "diplomatic": "consulate",
+    "name": "Kongelig Dansk Generalkonsulat",
+    "name:da": "Kongelig Dansk Generalkonsulat",
+    "name:de": "Königlich Dänisches Generalkonsulat",
+    "name:en": "Royal Danish Consulate General",
+    "name:fr": "Consulat Général Royal du Danemark",
+    "office": "diplomatic",
+    "opening_hours": "Mo-Th 09:00-16:00; Fr 09:00-14:00",
+    "target": "AT"
+  }
+},
+{
+  "type": "node",
+  "id": 1732434784,
+  "lat": 48.1984617,
+  "lon": 16.3726955,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:country": "AT",
+    "addr:housenumber": "4",
+    "addr:postcode": "1040",
+    "addr:street": "Mattiellistraße",
+    "country": "GR",
+    "diplomatic": "consulate",
+    "name": "Griechisches Konsulat",
+    "office": "diplomatic",
+    "target": "AT"
+  }
+},
+{
+  "type": "node",
+  "id": 2336576523,
+  "lat": 48.1989945,
+  "lon": 16.3662840,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:country": "AT",
+    "addr:housenumber": "20b",
+    "addr:postcode": "1040",
+    "addr:street": "Operngasse",
+    "check_date": "2026-08-09",
+    "consulate": "yes",
+    "country": "HR",
+    "diplomatic": "consulate",
+    "name": "Konsularabteilung der Botschaft der Republik Kroatien",
+    "name:fr": "Consulat de Croatie",
+    "office": "diplomatic",
+    "opening_hours": "Mo,Tu,Th,Fr 08:00-12:00, Th 14:00-16:00",
+    "target": "AT"
+  }
+},
+{
+  "type": "node",
+  "id": 2456046941,
+  "lat": 48.2050846,
+  "lon": 16.3772704,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:country": "AT",
+    "addr:housenumber": "12a",
+    "addr:postcode": "1010",
+    "addr:street": "Parkring",
+    "contact:email": "ConsulateVienna@state.gov",
+    "contact:fax": "+43 1 5125835",
+    "contact:website": "http://german.austria.usembassy.gov/",
+    "country": "US",
+    "diplomatic": "consulate",
+    "name": "Botschaft der Vereinigten Staaten (Konsularabteilung)",
+    "office": "diplomatic"
+  }
+},
+{
+  "type": "node",
+  "id": 3445544116,
+  "lat": 48.2177195,
+  "lon": 16.3696743,
+  "tags": {
+    "country": "MZ",
+    "diplomatic": "consulate",
+    "name": "Konsulat der Republik Mosambik",
+    "office": "diplomatic"
+  }
+},
+{
+  "type": "node",
+  "id": 5575388140,
+  "lat": 48.2339588,
+  "lon": 16.3118367,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:country": "AT",
+    "addr:housenumber": "23",
+    "addr:postcode": "1180",
+    "addr:street": "Naaffgasse",
+    "contact:email": "konsulat@ukremb.at",
+    "contact:fax": "+43 1 479717248",
+    "contact:phone": "+43 1 479717222;+43 1 479717240",
+    "contact:website": "http://austria.mfa.gov.ua/ua/consular-affairs/contacts",
+    "country": "UA",
+    "diplomatic": "consulate",
+    "name": "Konsularabteilung der Botschaft der Ukraine",
+    "name:de": "Konsularabteilung der Botschaft der Ukraine",
+    "name:uk": "Консульський Відділ Посольства України в Республіці Австрія",
+    "office": "diplomatic",
+    "opening_hours": "Mo,Fr 09:00-12:30; Tu 14:00-17:30; Th 09:00-12:30",
+    "source": "survey 04.2018",
+    "target": "AT"
+  }
+},
+{
+  "type": "node",
+  "id": 6549287710,
+  "lat": 48.1998276,
+  "lon": 16.3877878,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:country": "AT",
+    "addr:housenumber": "43",
+    "addr:postcode": "1030",
+    "addr:street": "Ungargasse",
+    "consulate": "yes",
+    "country": "IT",
+    "diplomatic": "consulate",
+    "name": "Konsularabteilung der Italienischen Botschaft in Wien",
+    "name:it": "Cancelleria Consolare dell'Ambasciata d'Italia a Vienna",
+    "office": "diplomatic",
+    "opening_hours": "Mo,Tu,Th,Fr 10:00-12:00; We 14:00-16:00; Sa,Su,PH off",
+    "short_name": "Italienisches Konsulat",
+    "source": "ViennaGIS",
+    "website": "https://ambvienna.esteri.it/ambasciata_vienna/it/informazioni_e_servizi/servizi_consolari"
+  }
+},
+{
+  "type": "node",
+  "id": 7578859445,
+  "lat": 48.1895262,
+  "lon": 16.3127362,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:housenumber": "11",
+    "addr:postcode": "1140",
+    "addr:street": "Penzinger Straße",
+    "check_date": "2026-03-11",
+    "country": "CZ",
+    "diplomatic": "consulate",
+    "diplomatic:services:citizen_services": "yes",
+    "diplomatic:services:immigrant_visas": "yes",
+    "diplomatic:services:non-immigrant_visas": "yes",
+    "diplomatic:services:passeport": "yes",
+    "name": "Konsularabteilung der Tschechischen Botschaft",
+    "office": "diplomatic",
+    "target": "AT",
+    "website": "https://www.mzv.cz/vienna/de/visa_und_konsularauskunft/index.html"
+  }
+},
+{
+  "type": "node",
+  "id": 8390044813,
+  "lat": 48.1939133,
+  "lon": 16.3113977,
+  "tags": {
+    "consulate": "honorary_consul",
+    "country": "DJ",
+    "diplomatic": "consulate",
+    "name": "Honorary Consulate of Djibouti",
+    "name:fr": "Consulat honoraire de Djibouti",
+    "office": "diplomatic",
+    "target": "AT"
+  }
+},
+{
+  "type": "node",
+  "id": 8807040762,
+  "lat": 48.1953286,
+  "lon": 16.3695108,
+  "tags": {
+    "consulate": "consular_office",
+    "country": "GR",
+    "diplomatic": "consulate",
+    "image": "https://commons.wikimedia.org/wiki/File:Consular_section,_Greek_Embassy_of_Vienna.jpeg",
+    "name": "Konsularabteilung der griechischen Botschaft",
+    "name:de": "Konsularabteilung der griechischen Botschaft",
+    "name:el": "Πρεσβεία της Ελλάδος, Προξενικό Γραφείο",
+    "name:en": "Consular section of the Greek Embassy",
+    "name:es": "Sección consular de la embajada de Grecia",
+    "office": "diplomatic",
+    "opening_hours": "Mo-Fr 10:00-13:00",
+    "target": "AT"
+  }
+},
+{
+  "type": "node",
+  "id": 8824059847,
+  "lat": 48.1802485,
+  "lon": 16.3351076,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:housenumber": "16",
+    "addr:postcode": "1120",
+    "addr:street": "Bendlgasse",
+    "consulate": "honorary_consul",
+    "country": "FI",
+    "diplomatic": "consulate",
+    "diplomatic:services:consulate": "yes",
+    "email": "finnisches.konsulat@auersperg.eu",
+    "name": "Honorarkonsulat von Finnland",
+    "office": "diplomatic",
+    "opening_hours:signed": "no",
+    "phone": "+43 152 335 0021",
+    "target": "AT",
+    "website": "https://finlandabroad.fi/web/aut/honorarkonsulate"
+  }
+},
+{
+  "type": "node",
+  "id": 9243511506,
+  "lat": 48.1937737,
+  "lon": 16.3499243,
+  "tags": {
+    "check_date": "2025-12-11",
+    "check_date:opening_hours": "2024-08-16",
+    "contact:phone": "+43 1 544 75 85",
+    "country": "RC",
+    "diplomatic": "consulate",
+    "name": "Konsulat der Republik Serbien",
+    "office": "diplomatic",
+    "opening_hours": "Mo,Tu,Th,Fr 08:30-13:00; We 08:30-13:00,15:00-17:30",
+    "website": "https://vienna.mfa.gov.rs/cir/contact.php"
+  }
+},
+{
+  "type": "node",
+  "id": 11355893236,
+  "lat": 48.1865056,
+  "lon": 16.2965558,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:housenumber": "29",
+    "addr:postcode": "1130",
+    "addr:street": "Hietzinger Hauptstraße",
+    "consulate": "consulate_general",
+    "contact:email": "konsulat.wien@mfa.gov.tr",
+    "contact:fax": "+43 1 8777179",
+    "contact:phone": "+43 1 87771810",
+    "contact:website": "https://viyana-bk.mfa.gov.tr",
+    "country": "TR",
+    "diplomatic": "consulate",
+    "name": "Türkisches Generalkonsulat",
+    "name:en": "Turkish Consulate",
+    "name:tr": "Türkiye Başkonsolosluğu",
+    "office": "diplomatic",
+    "official_name:tr": "Türkiye Cumhuriyeti Viyana Başkonsolosluğu",
+    "opening_hours": "Mo-Fr 09:00-17:00",
+    "target": "AT"
+  }
+},
+{
+  "type": "node",
+  "id": 11781355113,
+  "lat": 48.2508147,
+  "lon": 16.3553094,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:housenumber": "52-54",
+    "addr:postcode": "1190",
+    "addr:street": "Hohe Warte",
+    "check_date": "2024-04-02",
+    "consulate": "consular_office",
+    "country": "EG",
+    "diplomatic": "consulate",
+    "name": "Botschaft der Arabischen Republik Ägypten - Konsularabteilung",
+    "office": "diplomatic",
+    "target": "AT"
+  }
+},
+{
+  "type": "node",
+  "id": 12583111798,
+  "lat": 48.1898473,
+  "lon": 16.3770015,
+  "tags": {
+    "addr:housenumber": "16",
+    "addr:street": "Goldeggasse",
+    "check_date": "2025-02-12",
+    "country": "EE",
+    "diplomatic": "consulate",
+    "name": "Honorarkonsulat Der Republik Estland",
+    "name:de": "Honorarkonsulat Der Republik Estland",
+    "name:et": "Eesti Vabariigi Aukonsulaat",
+    "office": "diplomatic",
+    "target": "AT"
+  }
+},
+{
+  "type": "node",
+  "id": 13026274157,
+  "lat": 48.1991065,
+  "lon": 16.3620684,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:housenumber": "6",
+    "addr:postcode": "1060",
+    "addr:street": "Girardigasse",
+    "consulate": "honorary_consul",
+    "country": "SN",
+    "diplomatic": "consulate",
+    "name": "Senegalese Honorary Consulate in Vienna",
+    "office": "diplomatic",
+    "target": "AT"
+  }
+},
+{
+  "type": "node",
+  "id": 13482568344,
+  "lat": 48.1553095,
+  "lon": 16.2713693,
+  "tags": {
+    "addr:city": "Wien",
+    "addr:country": "AT",
+    "addr:housenumber": "4",
+    "addr:postcode": "1230",
+    "addr:street": "Leitengasse",
+    "addr:unit": "1",
+    "consulate": "honorary_consul",
+    "country": "LT",
+    "diplomatic": "consulate",
+    "email": "hc@kaeuffler.cc",
+    "fax": "+43 1 6031950",
+    "name": "Honorarkonsulat der Republik Litauen",
+    "office": "diplomatic",
+    "opening_hours": "Tu, Fr 10:00-12:00",
+    "phone": "+43 1 6042542",
+    "website": "https://www.bmeia.gv.at/reise-services/reiseinformation/land/litauen"
+  }
+},
+{
+  "type": "way",
+  "id": 100956672,
+  "center": {
+    "lat": 48.2552227,
+    "lon": 16.3393051
+  },
+  "nodes": [
+    1166254201,
+    1166254304,
+    1166254265,
+    2010561604,
+    2010561603,
+    2010561597,
+    2010561605,
+    2010561598,
+    1166254313,
+    2010561594,
+    2010561586,
+    1166254182,
+    2010561583,
+    2010561582,
+    2010561584,
+    2010561585,
+    2010561588,
+    1166254201
+  ],
+  "tags": {
+    "addr:city": "Wien",
+    "addr:country": "AT",
+    "addr:housenumber": "25",
+    "addr:postcode": "1190",
+    "addr:street": "Straßergasse",
+    "building": "yes",
+    "country": "BI",
+    "diplomatic": "consulate",
+    "name": "Konsulat Republik Burundi",
+    "office": "diplomatic"
+  }
+},
+{
+  "type": "way",
+  "id": 191291172,
+  "center": {
+    "lat": 48.2613611,
+    "lon": 16.3624857
+  },
+  "nodes": [
+    2018768689,
+    2018768578,
+    2018768597,
+    2018768595,
+    2018768615,
+    2018768664,
+    2018768663,
+    2018768682,
+    2018768660,
+    2018768691,
+    2018768689
+  ],
+  "tags": {
+    "building": "yes",
+    "consulate": "honorary_consul",
+    "country": "KH",
+    "diplomatic": "consulate",
+    "office": "diplomatic",
+    "target": "KH"
+  }
+},
+{
+  "type": "way",
+  "id": 218624874,
+  "center": {
+    "lat": 48.1883101,
+    "lon": 16.2899418
+  },
+  "nodes": [
+    2278543293,
+    2278543308,
+    2278543305,
+    2278543304,
+    9019309059,
+    2278543302,
+    2278543296,
+    2278543297,
+    2278543289,
+    2278543291,
+    2278543288,
+    2278543293
+  ],
+  "tags": {
+    "building": "yes",
+    "country": "PL",
+    "diplomatic": "consulate",
+    "name": "Konsularabteilung der polnischen Botschaft",
+    "name:fr": "Section consulaire de l'ambassade de Pologne",
+    "office": "diplomatic",
+    "target": "AT",
+    "wikidata": "Q123578100"
+  }
+},
+{
+  "type": "way",
+  "id": 311238372,
+  "center": {
+    "lat": 48.2063143,
+    "lon": 16.2557804
+  },
+  "nodes": [
+    3168297482,
+    3168297462,
+    3168297478,
+    3168297484,
+    3168297464,
+    9628365790,
+    3168297477,
+    3168297472,
+    3168297475,
+    3168297466,
+    9628365792,
+    3168297474,
+    3168297469,
+    3168297470,
+    9628365791,
+    3168297481,
+    3168297468,
+    3168297471,
+    3168297487,
+    3168297483,
+    3168297465,
+    3168297476,
+    3168297482
+  ],
+  "tags": {
+    "addr:city": "Wien",
+    "addr:country": "AT",
+    "addr:housenumber": "23A",
+    "addr:postcode": "1140",
+    "addr:street": "Hüttelbergstraße",
+    "building": "residential",
+    "consulate": "yes",
+    "country": "CM",
+    "diplomatic": "consulate",
+    "name": "Consulate of Cameroon",
+    "name:fr": "Consulat du Cameroun",
+    "office": "diplomatic",
+    "target": "AT"
+  }
+}
+
+  ]
+}

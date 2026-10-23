@@ -1,0 +1,759 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:55:05Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 2852864,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.1.H",
+    "gtfs:trip_id:like": "%21-U4-j26-1.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U4-j26-1.1.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Hütteldorf => Heiligenstadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Heiligenstadt",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5329166,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Oper, Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3560:",
+    "name": "Nachtbus N60: Oper, Karlsplatz => Maurer Hauptplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 01:00 - 05:10",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N60",
+    "route": "bus",
+    "to": "Maurer Hauptplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5329246,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "destination": "Ring, Kai",
+    "from": "Maurer Hauptplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3560:",
+    "name": "Nachtbus N60: Maurer Hauptplatz => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:00-05:10",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N60",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 5342700,
+  "tags": {
+    "by_night:weekend": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Kaiserebersdorf, Zinnergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3571:",
+    "name": "Nachtbus N71: Kaiserebersdorf, Zinnergasse => Alser Straße, Skodagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N71",
+    "route": "bus",
+    "to": "Alser Straße, Skodagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 5342805,
+  "tags": {
+    "by_night:weekend": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Alser Straße, Skodagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3571:",
+    "name": "Nachtbus N71: Alser Straße, Skodagasse => Kaiserebersdorf, Zinnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N71",
+    "route": "bus",
+    "to": "Kaiserebersdorf, Zinnergasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "relation",
+  "id": 5954448,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.2.R",
+    "gtfs:trip_id:like": "%21-U4-j26-1.2.R",
+    "gtfs:trip_id:sample": "354.T2.21-U4-j26-1.2.R",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Heiligenstadt => Hütteldorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Hütteldorf",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 85547,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Neubaugasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3414:",
+    "name": "Bus 14A: Neubaugasse => Reumannplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "14A",
+    "route": "bus",
+    "to": "Reumannplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "relation",
+  "id": 1675428,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hauptbahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3413:",
+    "name": "Bus 13A: Hauptbahnhof => Alser Straße, Skodagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "13A",
+    "route": "bus",
+    "to": "Alser Straße, Skodagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "relation",
+  "id": 1676827,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Reumannplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3414:",
+    "name": "Bus 14A: Reumannplatz => Neubaugasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "14A",
+    "route": "bus",
+    "to": "Neubaugasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "relation",
+  "id": 1811645,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Eichenstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3412:",
+    "name": "Bus 12A: Eichenstraße => Schmelz, Gablenzgasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "12A",
+    "route": "bus",
+    "to": "Schmelz, Gablenzgasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "relation",
+  "id": 2185948,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alser Straße, Skodagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3413:",
+    "interval": "4",
+    "name": "Bus 13A: Alser Straße, Skodagasse => Hauptbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "13A",
+    "route": "bus",
+    "to": "Hauptbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4348437215
+}
+
+  ]
+}

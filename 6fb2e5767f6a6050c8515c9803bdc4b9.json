@@ -1,0 +1,706 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:54:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 27114,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.10.R",
+    "gtfs:trip_id:like": "%21-U2-j26-8.10.R",
+    "gtfs:trip_id:sample": "217.T3.21-U2-j26-8.10.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Karlsplatz => Seestadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Seestadt",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 3598326412
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 2919734,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Seestadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.4.H",
+    "gtfs:trip_id:like": "%21-U2-j26-8.4.H",
+    "gtfs:trip_id:sample": "2.T2.21-U2-j26-8.4.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Seestadt => Karlsplatz",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Karlsplatz",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 3598326412
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 2005856,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Hausfeldstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3126:",
+    "gtfs:shape_id": "22-26-j26-2.89.H",
+    "gtfs:trip_id:like": "%22-26-j26-2.89.H",
+    "gtfs:trip_id:sample": "40.T8.22-26-j26-2.89.H",
+    "name": "Tram 26: Hausfeldstraße => Strebersdorf, Meriangasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "26",
+    "route": "tram",
+    "to": "Strebersdorf, Meriangasse",
+    "type": "route",
+    "wikidata": "Q47564171"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 2005857,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Strebersdorf, Meriangasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3126:",
+    "gtfs:shape_id": "22-26-j26-2.54.R",
+    "gtfs:trip_id:like": "%22-26-j26-2.54.R",
+    "gtfs:trip_id:sample": "192.T8.22-26-j26-2.54.R",
+    "name": "Tram 26: Strebersdorf, Meriangasse => Hausfeldstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "26",
+    "route": "tram",
+    "to": "Hausfeldstraße",
+    "type": "route",
+    "wikidata": "Q47564171"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 5288694,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Hausfeldstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3523:",
+    "name": "Nachtbus N23: Hausfeldstraße => Kagraner Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr off; Sa,Su,PH 01:41-04:53",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N23",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 5288695,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Kagraner Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3523:",
+    "name": "Nachtbus N23: Kagraner Platz => Hausfeldstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr off; Sa,Su,PH 01:29-04:41",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N23",
+    "route": "bus",
+    "to": "Hausfeldstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 3250292,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hausfeldstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3295:",
+    "name": "Bus 95B: Hausfeldstraße => Contiweg",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "95B",
+    "route": "bus",
+    "to": "Contiweg",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 5709119713
+},
+{
+  "type": "relation",
+  "id": 3250293,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Contiweg",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3295:",
+    "name": "Bus 95B: Contiweg => Hausfeldstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "95B",
+    "route": "bus",
+    "to": "Hausfeldstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 5709119713
+},
+{
+  "type": "relation",
+  "id": 3250294,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3497:",
+    "name": "Bus 97A: Aspernstraße => Breitenlee Schule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "97A",
+    "route": "bus",
+    "to": "Breitenlee Schule",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 3250295,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Breitenlee Schule",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3497:",
+    "name": "Bus 97A: Breitenlee Schule => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "97A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 3252398,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hausfeldstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3485:",
+    "name": "Bus 85A: Hausfeldstraße => Breitenlee, Rautenweg",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "85A",
+    "route": "bus",
+    "to": "Breitenlee, Rautenweg",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "relation",
+  "id": 6192372,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3497:",
+    "name": "Bus 97A: Aspernstraße => Aspernstraße/Oberdorfstraße => Breitenlee Schule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "97A",
+    "route": "bus",
+    "to": "Breitenlee Schule",
+    "type": "route",
+    "via": "Aspernstraße/Oberdorfstraße"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 6192373,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Breitenlee Schule",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3497:",
+    "name": "Bus 97A: Breitenlee Schule => Schukowitzgasse => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "97A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route",
+    "via": "Schukowitzgasse"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 6799719,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Breitenlee, Rautenweg",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3485:",
+    "name": "Bus 85A: Breitenlee, Rautenweg => Hausfeldstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "85A",
+    "route": "bus",
+    "to": "Hausfeldstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "relation",
+  "id": 6799720,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Breitenlee Schule",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3485:",
+    "name": "Bus 85A: Breitenlee, Schule => Kalmusweg => Hausfeldstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "85A",
+    "route": "bus",
+    "to": "Hausfeldstraße",
+    "type": "route",
+    "via": "Kalmusweg"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "relation",
+  "id": 17990242,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Süßenbrunn",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3485:",
+    "name": "Bus 85A: Bahnhof Süßenbrunn => Breitenlee, Schule => Breitenlee Friedhof => Hausfeldstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "85A",
+    "route": "bus",
+    "to": "Hausfeldstraße",
+    "type": "route",
+    "via": "Breitenlee, Schule;Breitenlee Friedhof"
+  }
+},
+{
+  "type": "node",
+  "id": 3313275953
+},
+{
+  "type": "node",
+  "id": 3598290671
+}
+
+  ]
+}

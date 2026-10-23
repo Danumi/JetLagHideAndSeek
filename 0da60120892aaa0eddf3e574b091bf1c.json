@@ -1,0 +1,799 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:58:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 22494,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.7.H",
+    "gtfs:trip_id:like": "%21-U1-j26-6.7.H",
+    "gtfs:trip_id:sample": "1.T2.21-U1-j26-6.7.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U1: Oberlaa => Leopoldau",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Leopoldau",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 2928586,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Leopoldau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.12.R",
+    "gtfs:trip_id:like": "%21-U1-j26-6.12.R",
+    "gtfs:trip_id:sample": "214.T3.21-U1-j26-6.12.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U1: Leopoldau => Oberlaa",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Oberlaa",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 20288740,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Leopoldau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.13.R",
+    "gtfs:trip_id:like": "%21-U1-j26-6.13.R",
+    "gtfs:trip_id:sample": "233.T3.21-U1-j26-6.13.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U1: Leopoldau => Alaudagasse",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Alaudagasse",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 20288741,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.11.H",
+    "gtfs:trip_id:like": "%21-U1-j26-6.11.H",
+    "gtfs:trip_id:sample": "24.T2.21-U1-j26-6.11.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U1: Alaudagasse => Leopoldau",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Leopoldau",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 11956008,
+  "tags": {
+    "from": "Kollnbrunn Brünner Straße",
+    "name": "Bus 520: Kollnbrunn Brünner Straße => Wien Aderklaaer Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard NÖ",
+    "public_transport:version": "2",
+    "ref": "520",
+    "route": "bus",
+    "to": "Wien Aderklaaer Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3313275910
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "relation",
+  "id": 12519953,
+  "tags": {
+    "from": "Wien Aderklaaer Straße",
+    "name": "Bus 520: Wien Aderklaaer Straße => Bad Pirawarth Kurzentrum",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard NÖ",
+    "public_transport:version": "2",
+    "ref": "520",
+    "route": "bus",
+    "to": "Bad Pirawarth Kurzentrum",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3313275910
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "relation",
+  "id": 12519954,
+  "tags": {
+    "from": "Wien Aderklaaer Straße",
+    "name": "Bus 520: Wien Aderklaaer Straße => Kollnbrunn Brünner Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard NÖ",
+    "public_transport:version": "2",
+    "ref": "520",
+    "route": "bus",
+    "to": "Kollnbrunn Brünner Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3313275910
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "relation",
+  "id": 12519955,
+  "tags": {
+    "from": "Bad Pirawarth Kurzentrum",
+    "name": "Bus 520: Bad Pirawarth Kurzentrum => Wien Aderklaaer Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard NÖ",
+    "public_transport:version": "2",
+    "ref": "520",
+    "route": "bus",
+    "to": "Wien Aderklaaer Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3313275910
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "relation",
+  "id": 12532531,
+  "tags": {
+    "from": "Wien Aderklaaer Straße",
+    "name": "Bus 520: Wien Aderklaaer Straße => Raggendorf Busbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard NÖ",
+    "public_transport:version": "2",
+    "ref": "520",
+    "route": "bus",
+    "to": "Raggendorf Busbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3313275910
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "relation",
+  "id": 12532532,
+  "tags": {
+    "from": "Raggendorf Busbahnhof",
+    "name": "Bus 520: Raggendorf Busbahnhof => Wien Aderklaaer Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard NÖ",
+    "public_transport:version": "2",
+    "ref": "520",
+    "route": "bus",
+    "to": "Wien Aderklaaer Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3313275910
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "relation",
+  "id": 17990216,
+  "tags": {
+    "colour": "#0A295C",
+    "colour:text": "white",
+    "from": "Breitenlee Schule",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3428:",
+    "name": "Bus 28A: Breitenlee Schule => Leopoldauer Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "28A",
+    "route": "bus",
+    "to": "Leopoldauer Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "relation",
+  "id": 17990217,
+  "tags": {
+    "colour": "#0A295C",
+    "colour:text": "white",
+    "from": "Leopoldauer Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3428:",
+    "name": "Bus 28A: Leopoldauer Platz => Breitenlee Schule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "28A",
+    "route": "bus",
+    "to": "Breitenlee Schule",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4155298891
+}
+
+  ]
+}

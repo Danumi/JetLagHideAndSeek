@@ -1,0 +1,623 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:50:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 1990590,
+  "bounds": {
+    "minlat": 48.2138140,
+    "minlon": 16.3408703,
+    "maxlat": 48.2363090,
+    "maxlon": 16.3701490
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Alsergrund",
+    "name:de": "Alsergrund",
+    "name:ru": "Альзергрунд",
+    "name:uk": "Альзерґрунд",
+    "population": "39322",
+    "ref": "9",
+    "ref:at:gkz": "90901",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Alsergrund",
+    "type": "boundary",
+    "wikidata": "Q257780",
+    "wikipedia": "de:Alsergrund"
+  }
+},
+{
+  "type": "relation",
+  "id": 1990591,
+  "bounds": {
+    "minlat": 48.1494639,
+    "minlon": 16.1818310,
+    "maxlat": 48.2070470,
+    "maxlon": 16.3201313
+  },
+  "tags": {
+    "admin_level": "9",
+    "admin_title": "Bezirk",
+    "boundary": "administrative",
+    "designation": "Bezirk",
+    "name": "Hietzing",
+    "name:ru": "Хитцинг",
+    "name:uk": "Гітцинґ",
+    "official_status": "Bezirk",
+    "ref": "13",
+    "ref:at:gkz": "91301",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Hietzing",
+    "type": "boundary",
+    "wikidata": "Q636910",
+    "wikipedia": "de:Hietzing"
+  }
+},
+{
+  "type": "relation",
+  "id": 1990592,
+  "bounds": {
+    "minlat": 48.1995268,
+    "minlon": 16.3552089,
+    "maxlat": 48.2184891,
+    "maxlon": 16.3848946
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Innere Stadt",
+    "name:uk": "Внутрішнє місто",
+    "population": "17135",
+    "ref": "1",
+    "ref:at:gkz": "90101",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Innere Stadt",
+    "type": "boundary",
+    "wikidata": "Q267329",
+    "wikipedia": "de:Innere Stadt (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 1990593,
+  "bounds": {
+    "minlat": 48.2063184,
+    "minlon": 16.3384515,
+    "maxlat": 48.2153636,
+    "maxlon": 16.3565102
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Josefstadt",
+    "name:de": "Josefstadt",
+    "name:ru": "Йозефштадт",
+    "name:uk": "Йозефштадт",
+    "old_name": "Josephstadt",
+    "population": "23389",
+    "ref": "8",
+    "ref:at:gkz": "90801",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Josefstadt",
+    "type": "boundary",
+    "wikidata": "Q256778",
+    "wikipedia": "de:Josefstadt (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 1990594,
+  "bounds": {
+    "minlat": 48.1650897,
+    "minlon": 16.3674575,
+    "maxlat": 48.2363479,
+    "maxlon": 16.4984617
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Leopoldstadt",
+    "name:ru": "Леопольдштадт",
+    "name:uk": "Леопольдштадт",
+    "ref": "2",
+    "ref:at:gkz": "90201",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Leopoldstadt",
+    "type": "boundary",
+    "wikidata": "Q259120",
+    "wikipedia": "de:Leopoldstadt"
+  }
+},
+{
+  "type": "relation",
+  "id": 1990595,
+  "bounds": {
+    "minlat": 48.1883152,
+    "minlon": 16.3373282,
+    "maxlat": 48.2026474,
+    "maxlon": 16.3660060
+  },
+  "tags": {
+    "admin_level": "9",
+    "admin_title": "Bezirk",
+    "boundary": "administrative",
+    "coat_of_arms": "File:Wien - Bezirk Mariahilf, Wappen.svg",
+    "designation": "Bezirk",
+    "name": "Mariahilf",
+    "name:de": "Mariahilf",
+    "name:etymology:wikidata": "Q1533009",
+    "name:ru": "Мариахильф",
+    "name:uk": "Маріагільф",
+    "official_status": "Bezirk",
+    "population": "28747",
+    "ref": "6",
+    "ref:at:gkz": "90601",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Mariahilf",
+    "type": "boundary",
+    "wikidata": "Q654812",
+    "wikipedia": "de:Mariahilf"
+  }
+},
+{
+  "type": "relation",
+  "id": 1990596,
+  "bounds": {
+    "minlat": 48.1554092,
+    "minlon": 16.2918322,
+    "maxlat": 48.1884673,
+    "maxlon": 16.3497250
+  },
+  "tags": {
+    "admin_level": "9",
+    "admin_title": "Bezirk",
+    "boundary": "administrative",
+    "designation": "Bezirk",
+    "name": "Meidling",
+    "name:ru": "Майдлинг",
+    "name:uk": "Майдлінг",
+    "official_status": "Bezirk",
+    "ref": "12",
+    "ref:at:gkz": "91201",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Meidling",
+    "type": "boundary",
+    "wikidata": "Q697557",
+    "wikipedia": "de:Meidling"
+  }
+},
+{
+  "type": "relation",
+  "id": 1990597,
+  "bounds": {
+    "minlat": 48.1958746,
+    "minlon": 16.3368956,
+    "maxlat": 48.2085779,
+    "maxlon": 16.3615382
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Neubau",
+    "name:de": "Neubau",
+    "name:ru": "Нойбау",
+    "name:uk": "Нойбау",
+    "population": "28823",
+    "ref": "7",
+    "ref:at:gkz": "90701",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Neubau",
+    "type": "boundary",
+    "wikidata": "Q664835",
+    "wikipedia": "de:Neubau (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 1990598,
+  "bounds": {
+    "minlat": 48.1871851,
+    "minlon": 16.1851719,
+    "maxlat": 48.2642093,
+    "maxlon": 16.3205438
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Penzing",
+    "name:ru": "Пенцинг",
+    "name:uk": "Пенцінг",
+    "population": "89184",
+    "ref": "14",
+    "ref:at:gkz": "91401",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Penzing",
+    "type": "boundary",
+    "wikidata": "Q690335",
+    "wikipedia": "de:Penzing (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 1990599,
+  "bounds": {
+    "minlat": 48.1837288,
+    "minlon": 16.3106961,
+    "maxlat": 48.2072338,
+    "maxlon": 16.3394005
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Rudolfsheim-Fünfhaus",
+    "name:ru": "Рудольфсхайм-Фюнфхаус",
+    "name:uk": "Рудольфсгайм-Фюнфгаус",
+    "population": "69078",
+    "ref": "15",
+    "ref:at:gkz": "91501",
+    "ref:at:okz": "17237",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Rudolfsheim-Fünfhaus",
+    "type": "boundary",
+    "wikidata": "Q653289",
+    "wikipedia": "de:Rudolfsheim-Fünfhaus"
+  }
+},
+{
+  "type": "relation",
+  "id": 1990600,
+  "bounds": {
+    "minlat": 48.2172473,
+    "minlon": 16.2823692,
+    "maxlat": 48.2509814,
+    "maxlon": 16.3537656
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Währing",
+    "name:en": "Währing",
+    "name:ru": "Вэринг",
+    "name:uk": "Верінґ",
+    "population": "46622",
+    "ref": "18",
+    "ref:at:gkz": "91801",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Währing",
+    "type": "boundary",
+    "wikidata": "Q690417",
+    "wikipedia": "de:Währing"
+  }
+},
+{
+  "type": "relation",
+  "id": 1991416,
+  "bounds": {
+    "minlat": 48.1753757,
+    "minlon": 16.3750528,
+    "maxlat": 48.2131825,
+    "maxlon": 16.4310992
+  },
+  "tags": {
+    "admin_level": "9",
+    "admin_title": "Bezirk",
+    "boundary": "administrative",
+    "designation": "Bezirk",
+    "name": "Landstraße",
+    "name:ru": "Ландштрассе",
+    "name:uk": "Ландштрассе",
+    "official_status": "Bezirk",
+    "population": "87953",
+    "ref": "3",
+    "ref:at:gkz": "90301",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Landstraße",
+    "type": "boundary",
+    "wikidata": "Q519552",
+    "wikipedia": "de:Landstraße (Wien)",
+    "wikipedia:ru": "Ландштрассе"
+  }
+},
+{
+  "type": "relation",
+  "id": 1991433,
+  "bounds": {
+    "minlat": 48.2251075,
+    "minlon": 16.3611187,
+    "maxlat": 48.2627227,
+    "maxlon": 16.3981340
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Brigittenau",
+    "name:ru": "Бригиттенау",
+    "name:uk": "Бріґіттенау",
+    "population": "85380",
+    "ref": "20",
+    "ref:at:gkz": "92001",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Brigittenau",
+    "type": "boundary",
+    "wikidata": "Q265655",
+    "wikipedia": "de:Brigittenau"
+  }
+},
+{
+  "type": "relation",
+  "id": 1991434,
+  "bounds": {
+    "minlat": 48.1352198,
+    "minlon": 16.3981340,
+    "maxlat": 48.2935322,
+    "maxlon": 16.5775132
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Donaustadt",
+    "name:ru": "Донауштадт",
+    "population": "144289",
+    "ref": "22",
+    "ref:at:gkz": "92201",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Donaustadt",
+    "type": "boundary",
+    "wikidata": "Q258333",
+    "wikipedia": "de:Donaustadt"
+  }
+},
+{
+  "type": "relation",
+  "id": 1991435,
+  "bounds": {
+    "minlat": 48.2319070,
+    "minlon": 16.2850732,
+    "maxlat": 48.2904811,
+    "maxlon": 16.3724028
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Döbling",
+    "name:ru": "Дёблинг",
+    "name:uk": "Дьоблінґ",
+    "population": "66487",
+    "ref": "19",
+    "ref:at:gkz": "91901",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Döbling",
+    "type": "boundary",
+    "wikidata": "Q267360",
+    "wikipedia": "de:Döbling"
+  }
+},
+{
+  "type": "relation",
+  "id": 1991436,
+  "bounds": {
+    "minlat": 48.1179069,
+    "minlon": 16.3319178,
+    "maxlat": 48.1881307,
+    "maxlon": 16.4370202
+  },
+  "tags": {
+    "admin_level": "9",
+    "admin_title": "Bezirk",
+    "boundary": "administrative",
+    "designation": "Bezirk",
+    "name": "Favoriten",
+    "name:ru": "Фаворитен",
+    "name:uk": "Фаворітен",
+    "official_status": "Bezirk",
+    "population": "189543",
+    "ref": "10",
+    "ref:at:gkz": "91001",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Favoriten",
+    "type": "boundary",
+    "wikidata": "Q697548",
+    "wikipedia": "de:Favoriten"
+  }
+},
+{
+  "type": "relation",
+  "id": 1991437,
+  "bounds": {
+    "minlat": 48.2363479,
+    "minlon": 16.3559554,
+    "maxlat": 48.3226679,
+    "maxlon": 16.4747412
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Floridsdorf",
+    "name:ru": "Флоридсдорф",
+    "population": "151740",
+    "ref": "21",
+    "ref:at:gkz": "92101",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Floridsdorf",
+    "type": "boundary",
+    "wikidata": "Q264645",
+    "wikipedia": "de:Floridsdorf"
+  }
+},
+{
+  "type": "relation",
+  "id": 1991438,
+  "bounds": {
+    "minlat": 48.2121448,
+    "minlon": 16.2493844,
+    "maxlat": 48.2583230,
+    "maxlon": 16.3419883
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Hernals",
+    "name:en": "Hernals",
+    "name:ru": "Хернальс",
+    "name:uk": "Гернальс",
+    "population": "50866",
+    "ref": "17",
+    "ref:at:gkz": "91701",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Hernals",
+    "type": "boundary",
+    "wikidata": "Q262808",
+    "wikipedia": "de:Hernals"
+  }
+},
+{
+  "type": "relation",
+  "id": 1991439,
+  "bounds": {
+    "minlat": 48.1194453,
+    "minlon": 16.2098585,
+    "maxlat": 48.1627061,
+    "maxlon": 16.3771178
+  },
+  "tags": {
+    "admin_level": "9",
+    "admin_title": "Bezirk",
+    "boundary": "administrative",
+    "designation": "Bezirk",
+    "name": "Liesing",
+    "name:ru": "Лизинг",
+    "name:uk": "Лізінґ",
+    "official_status": "Bezirk",
+    "population": "96728",
+    "ref": "23",
+    "ref:at:gkz": "92301",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Liesing",
+    "type": "boundary",
+    "wikidata": "Q278900",
+    "wikipedia": "de:Liesing (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 1991440,
+  "bounds": {
+    "minlat": 48.1792208,
+    "minlon": 16.3417518,
+    "maxlat": 48.1969247,
+    "maxlon": 16.3688339
+  },
+  "tags": {
+    "admin_level": "9",
+    "admin_title": "Bezirk",
+    "boundary": "administrative",
+    "designation": "Bezirk",
+    "name": "Margareten",
+    "name:de": "Margareten",
+    "name:ru": "Маргаретен",
+    "name:uk": "Марґаретен",
+    "official_status": "Bezirk",
+    "population": "51434",
+    "ref": "5",
+    "ref:at:gkz": "90501",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Margareten",
+    "type": "boundary",
+    "wikidata": "Q252731",
+    "wikipedia": "de:Margareten"
+  }
+},
+{
+  "type": "relation",
+  "id": 1991441,
+  "bounds": {
+    "minlat": 48.2028681,
+    "minlon": 16.2536239,
+    "maxlat": 48.2270362,
+    "maxlon": 16.3392509
+  },
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Ottakring",
+    "name:ru": "Оттакринг",
+    "name:uk": "Оттакрінг",
+    "population": "100520",
+    "ref": "16",
+    "ref:at:gkz": "91601",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Ottakring",
+    "type": "boundary",
+    "wikidata": "Q265945",
+    "wikipedia": "de:Ottakring"
+  }
+},
+{
+  "type": "relation",
+  "id": 1991442,
+  "bounds": {
+    "minlat": 48.1379787,
+    "minlon": 16.3953028,
+    "maxlat": 48.1872713,
+    "maxlon": 16.5137911
+  },
+  "tags": {
+    "admin_level": "9",
+    "admin_title": "Bezirk",
+    "boundary": "administrative",
+    "designation": "Bezirk",
+    "name": "Simmering",
+    "name:ru": "Зиммеринг",
+    "official_status": "Bezirk",
+    "population": "95162",
+    "ref": "11",
+    "ref:at:gkz": "91101",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Simmering",
+    "type": "boundary",
+    "wikidata": "Q279028",
+    "wikipedia": "de:Simmering"
+  }
+},
+{
+  "type": "relation",
+  "id": 1991443,
+  "bounds": {
+    "minlat": 48.1838352,
+    "minlon": 16.3593710,
+    "maxlat": 48.2007199,
+    "maxlon": 16.3811296
+  },
+  "tags": {
+    "admin_level": "9",
+    "admin_title": "Bezirk",
+    "boundary": "administrative",
+    "designation": "Bezirk",
+    "name": "Wieden",
+    "name:de": "Wieden",
+    "name:ru": "Виден",
+    "name:uk": "Віден",
+    "official_status": "Bezirk",
+    "population": "29356",
+    "ref": "4",
+    "ref:at:gkz": "90401",
+    "street_names:wikipedia": "de:Liste der Straßennamen von Wien/Wieden",
+    "type": "boundary",
+    "wikidata": "Q268001",
+    "wikipedia": "de:Wieden (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 3980995,
+  "bounds": {
+    "minlat": 48.2090250,
+    "minlon": 16.3268507,
+    "maxlat": 48.2094454,
+    "maxlon": 16.3276721
+  },
+  "tags": {
+    "addr:city": "Wien",
+    "addr:country": "AT",
+    "addr:housenumber": "19",
+    "addr:postcode": "1160",
+    "addr:street": "Richard-Wagner-Platz",
+    "admin_level": "9",
+    "amenity": "townhall",
+    "building": "public",
+    "building:levels": "3",
+    "name": "Amtshaus für den 16. Bezirk",
+    "note": "auch: Bezirksmuseum",
+    "office": "government",
+    "roof:levels": "1",
+    "type": "multipolygon"
+  }
+}
+
+  ]
+}

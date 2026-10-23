@@ -1,0 +1,1227 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:52:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 3772639,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 266: Wien Siebenhirten => Schwechat Bahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "266",
+    "route": "bus",
+    "to": "Schwechat Bahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 5685948,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3417:",
+    "name": "Bus 17A: Oberlaa => Inzersdorf, Biróstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "17A",
+    "route": "bus",
+    "to": "Inzersdorf, Biróstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7531436,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3417:",
+    "name": "Bus 17A: Oberlaa => Frödenplatz => Inzersdorf, Biróstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "17A",
+    "route": "bus",
+    "to": "Inzersdorf, Biróstraße",
+    "type": "route",
+    "via": "Frödenplatz"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7543362,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 266: Wien Oberlaa => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "266",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 7543363,
+  "tags": {
+    "from": "Schwechat Bahnhof",
+    "name": "Bus 266: Schwechat Bahnhof => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "266",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 7543364,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 266: Wien Siebenhirten => Wien Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "266",
+    "route": "bus",
+    "to": "Wien Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 9453579,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Inzersdorf, Biróstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3417:",
+    "name": "Bus 17A: Inzersdorf, Biróstraße => Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "17A",
+    "route": "bus",
+    "to": "Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 6340444,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 226: Wien Oberlaa => Gramatneusiedl Bahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "226",
+    "route": "bus",
+    "to": "Gramatneusiedl Bahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7541654,
+  "tags": {
+    "from": "Moosbrunn Parlamentgasse",
+    "name": "Bus 226: Moosbrunn Parlamentgasse => Wien Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "226",
+    "route": "bus",
+    "to": "Wien Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7541655,
+  "tags": {
+    "from": "Ebreichsdorf Georg-Drasche-Siedlung",
+    "name": "Bus 226: Ebreichsdorf Georg-Drasche-Siedlung => Moosbrunn Glasfabrikstraße => Unterwaltersdorf Mühlgasse => Wien Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "226",
+    "route": "bus",
+    "to": "Wien Oberlaa",
+    "type": "route",
+    "via": "Moosbrunn Glasfabrikstraße;Unterwaltersdorf Mühlgasse"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7541658,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 226: Wien Oberlaa => Unterwaltersdorf Don Bosco-Gymnasium",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "226",
+    "route": "bus",
+    "to": "Unterwaltersdorf Don Bosco-Gymnasium",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7541660,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 226: Wien Oberlaa => Moosbrunn Glasfabrikstraße => Unterwaltersdorf Mühlgasse => Ebreichsdorf Georg-Drasche-Siedlung",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "226",
+    "route": "bus",
+    "to": "Ebreichsdorf Georg-Drasche-Siedlung",
+    "type": "route",
+    "via": "Moosbrunn Glasfabrikstraße;Unterwaltersdorf Mühlgasse"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7541663,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 226: Wien Oberlaa => Moosbrunn Parlamentgasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "226",
+    "route": "bus",
+    "to": "Moosbrunn Parlamentgasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7543177,
+  "tags": {
+    "from": "Reisenberg Hauptplatz",
+    "name": "Bus 227: Reisenberg Hauptplatz => Wien Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "227",
+    "route": "bus",
+    "to": "Wien Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7543178,
+  "tags": {
+    "description": "Bei manchen Fahrten bis zu 7 Minuten Ausgleichszeit in Himberg Hauptplatz (nach Fahrplan 02.09.2017)",
+    "from": "Ebreichsdorf Georg-Drasche-Siedlung",
+    "name": "Bus 227: Ebreichsdorf Georg-Drasche-Siedlung => Wien Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "227",
+    "route": "bus",
+    "to": "Wien Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7543180,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 227: Wien Oberlaa => Ebreichsdorf Georg-Drasche-Siedlung",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "227",
+    "route": "bus",
+    "to": "Ebreichsdorf Georg-Drasche-Siedlung",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7543181,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 227: Wien Oberlaa => Seibersdorf Unterzeile => Ebreichsdorf Georg-Drasche-Siedlung",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "227",
+    "route": "bus",
+    "to": "Ebreichsdorf Georg-Drasche-Siedlung",
+    "type": "route",
+    "via": "Seibersdorf Unterzeile"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 10983130,
+  "tags": {
+    "from": "Moosbrunn Parlamentgasse",
+    "name": "Bus 226: Moosbrunn Parlamentgasse => Velm Schlosspark => Wien Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "226",
+    "route": "bus",
+    "to": "Wien Oberlaa",
+    "type": "route",
+    "via": "Velm Schlosspark"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 22494,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.7.H",
+    "gtfs:trip_id:like": "%21-U1-j26-6.7.H",
+    "gtfs:trip_id:sample": "1.T2.21-U1-j26-6.7.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U1: Oberlaa => Leopoldau",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Leopoldau",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 2928586,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Leopoldau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.12.R",
+    "gtfs:trip_id:like": "%21-U1-j26-6.12.R",
+    "gtfs:trip_id:sample": "214.T3.21-U1-j26-6.12.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U1: Leopoldau => Oberlaa",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Oberlaa",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 6337360,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 227: Wien Oberlaa => Wienerherberg Kleinfeldgasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "227",
+    "route": "bus",
+    "to": "Wienerherberg Kleinfeldgasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7541646,
+  "tags": {
+    "from": "Himberg Hauptplatz",
+    "name": "Bus 226: Himberg Hauptplatz => Wien Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "226",
+    "route": "bus",
+    "to": "Wien Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7541647,
+  "tags": {
+    "from": "Himberg Hintere Ortsstraße",
+    "name": "Bus 226: Himberg Hintere Ortsstraße => Wien Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "226",
+    "route": "bus",
+    "to": "Wien Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7541661,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 226: Wien Oberlaa => Himberg Hintere Ortsstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "226",
+    "route": "bus",
+    "to": "Himberg Hintere Ortsstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7541662,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 226: Wien Oberlaa => Himberg Hauptplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "226",
+    "route": "bus",
+    "to": "Himberg Hauptplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7543172,
+  "tags": {
+    "description": "5 Minuten Ausgleichszeit in Himberg Hauptplatz (nach Fahrplan 02.09.2017)",
+    "from": "Himberg Hauptplatz",
+    "name": "Bus 227: Himberg Hauptplatz => Wien Hauptbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "227",
+    "route": "bus",
+    "to": "Wien Hauptbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "relation",
+  "id": 7543175,
+  "tags": {
+    "from": "Himberg Hauptplatz",
+    "name": "Bus 227: Himberg Hauptplatz => Wien Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "227",
+    "route": "bus",
+    "to": "Wien Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7543176,
+  "tags": {
+    "from": "Ebergassing Götzendorfer Straße",
+    "name": "Bus 227: Ebergassing Götzendorfer Straße => Wien Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "227",
+    "route": "bus",
+    "to": "Wien Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7543179,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 227: Wien Oberlaa => Himberg Hintere Ortsstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "227",
+    "route": "bus",
+    "to": "Himberg Hintere Ortsstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7543182,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 227: Wien Oberlaa => Himberg Hauptplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "227",
+    "route": "bus",
+    "to": "Himberg Hauptplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7543183,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 227: Wien Oberlaa => Ebergassing Schulen",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "227",
+    "route": "bus",
+    "to": "Ebergassing Schulen",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 3547731,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3268:",
+    "name": "Bus 68B: Oberlaa => Reumannplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "68B",
+    "route": "bus",
+    "to": "Reumannplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 3547732,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Reumannplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3268:",
+    "name": "Bus 68B: Reumannplatz => Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "68B",
+    "route": "bus",
+    "to": "Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 5254275,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3470:",
+    "name": "Bus 70A: Oberlaa => Kledering Bahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "70A",
+    "route": "bus",
+    "to": "Kledering Bahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 3111811989
+},
+{
+  "type": "relation",
+  "id": 7531424,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kledering Bahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3470:",
+    "name": "Bus 70A: Kledering Bahnhof => Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "70A",
+    "route": "bus",
+    "to": "Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 3111811989
+},
+{
+  "type": "relation",
+  "id": 7531431,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3417:",
+    "name": "Bus 17A: Alaudagasse => Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "17A",
+    "route": "bus",
+    "to": "Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 12314309,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "duration": "9",
+    "from": "Quellenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3968:",
+    "interval": "30",
+    "name": "Nachtrufbus N68: Quellenplatz => Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942468",
+    "public_transport:version": "2",
+    "ref": "N68",
+    "route": "bus",
+    "to": "Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 12314326,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "duration": "13",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3968:",
+    "interval": "30",
+    "name": "Nachtrufbus N68: Oberlaa => Quellenplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942468",
+    "public_transport:version": "2",
+    "ref": "N68",
+    "route": "bus",
+    "to": "Quellenplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+}
+
+  ]
+}

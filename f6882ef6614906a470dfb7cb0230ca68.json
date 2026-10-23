@@ -1,0 +1,2622 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:54:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 7576704,
+  "tags": {
+    "colour": "#BECF07",
+    "from": "Salzburg Hbf",
+    "name": "WESTbahn Salzburg – Wien Westbf",
+    "network": "WESTbahn",
+    "operator": "WESTbahn",
+    "public_transport:version": "2",
+    "ref": "WESTbahn",
+    "route": "train",
+    "service": "long_distance",
+    "to": "Wien Westbahnhof",
+    "type": "route",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 7577250,
+  "tags": {
+    "colour": "#BECF07",
+    "from": "Wien Westbf",
+    "name": "WESTbahn Wien Westbf – Salzburg",
+    "network": "WESTbahn",
+    "operator": "WESTbahn",
+    "public_transport:version": "2",
+    "ref": "WESTbahn",
+    "route": "train",
+    "service": "long_distance",
+    "to": "Salzburg Hauptbahnhof",
+    "type": "route",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 18627504,
+  "tags": {
+    "colour": "#BECF07",
+    "from": "München Hauptbahnhof",
+    "name": "WESTbahn München Hbf – Wien Westbf",
+    "network": "WESTbahn",
+    "operator": "WESTbahn",
+    "public_transport:version": "2",
+    "ref": "WESTbahn",
+    "route": "train",
+    "service": "long_distance",
+    "to": "Wien Westbahnhof",
+    "type": "route",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 18627505,
+  "tags": {
+    "colour": "#BECF07",
+    "from": "Wien Westbf",
+    "name": "WESTbahn Wien Westbf – München Hbf",
+    "network": "WESTbahn",
+    "operator": "WESTbahn",
+    "public_transport:version": "2",
+    "ref": "WESTbahn",
+    "route": "train",
+    "service": "long_distance",
+    "to": "München Hauptbahnhof",
+    "type": "route",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 3773481,
+  "tags": {
+    "from": "Wien Westbahnhof",
+    "name": "CJX5: Wien => Amstetten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "CJX5",
+    "route": "train",
+    "service": "regional",
+    "to": "Amstetten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 8487618,
+  "tags": {
+    "from": "Amstetten",
+    "name": "CJX5: Amstetten => Wien",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "CJX5",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Westbf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 7138214,
+  "tags": {
+    "alternate": "yes",
+    "from": "Hainfeld Bahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:145:",
+    "gtfs:shape_id": "62-145-j26-1.1.R",
+    "gtfs:trip_id:like": "%62-145-j26-1.1.R",
+    "gtfs:trip_id:sample": "8.T0.62-145-j26-1.1.R",
+    "name": "Bus 145: Hainfeld Bahnhof => Wien Hütteldorf",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:short": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "N-Bus GmbH",
+    "public_transport:version": "2",
+    "ref": "145",
+    "ref_trips": "8.T0.62-145-j26-1.1.R",
+    "route": "bus",
+    "to": "Wien Hütteldorf",
+    "type": "route",
+    "website": "https://www.n-bus.at"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 7138215,
+  "tags": {
+    "alternate": "yes",
+    "from": "Wien Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:145:",
+    "gtfs:shape_id": "62-145-j26-1.2.H",
+    "gtfs:trip_id:like": "%62-145-j26-1.2.H",
+    "gtfs:trip_id:sample": "24.T0.62-145-j26-1.2.H",
+    "name": "Bus 145: Wien Hütteldorf => Hainfeld Bahnhof",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:short": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "N-Bus GmbH",
+    "public_transport:version": "2",
+    "ref": "145",
+    "ref_trips": "24.T0.62-145-j26-1.2.H",
+    "route": "bus",
+    "to": "Hainfeld Bahnhof",
+    "type": "route",
+    "website": "https://www.n-bus.at"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 8487616,
+  "tags": {
+    "from": "Wien Westbahnhof",
+    "name": "REX51: Wien Westbahnhof => St. Pölten Hbf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX51",
+    "route": "train",
+    "service": "regional",
+    "to": "St. Pölten Hbf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3105405930
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 8487617,
+  "tags": {
+    "from": "St. Pölten Hbf",
+    "name": "REX51: St. Pölten Hbf => Wien Westbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX51",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Westbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3105405930
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 18452138,
+  "tags": {
+    "from": "Wien Westbahnhof",
+    "gtfs:feed": "AT-Eisenbahn",
+    "gtfs:route_id": "2-R50-W-j26-1",
+    "name": "REX50: Wien Westbahnhof => St. Pölten Hauptbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX50",
+    "route": "train",
+    "service": "regional",
+    "to": "St. Pölten Hauptbahnhof",
+    "type": "route",
+    "website": "https://www.oebb.at"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 18452139,
+  "tags": {
+    "from": "St. Pölten Hauptbahnhof",
+    "gtfs:feed": "AT-Eisenbahn",
+    "gtfs:route_id": "2-R50-W-j26-1",
+    "name": "REX50: St. Pölten Hauptbahnhof => Wien Westbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX50",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Westbahnhof",
+    "type": "route",
+    "website": "https://www.oebb.at"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "relation",
+  "id": 3773484,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Eichgraben-Altlengbach",
+    "name": "S50: Eichgraben-Altlengbach => Wien Westbf",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S50",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Westbf",
+    "type": "route",
+    "wikidata": "Q96483895",
+    "wikimedia_commons": "Category:S50 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1775537146
+},
+{
+  "type": "node",
+  "id": 3105405930
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3637342042
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889014657
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "relation",
+  "id": 5736714,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Wien Westbahnhof",
+    "name": "S50: Wien Westbahnhof => Eichgraben-Altlengbach",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S50",
+    "route": "train",
+    "service": "commuter",
+    "to": "Eichgraben-Altlengbach",
+    "type": "route",
+    "wikidata": "Q96483895",
+    "wikimedia_commons": "Category:S50 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1775537146
+},
+{
+  "type": "node",
+  "id": 3105405930
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3637342042
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889014657
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "relation",
+  "id": 7133508,
+  "tags": {
+    "description": "Wochenend-Nachtbus von Hütteldorf nach Wolfsgraben um 02:00 und 03:30.",
+    "from": "Hütteldorf",
+    "name": "Bus 453: Hütteldorf => Wolfsgraben Kirche",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Sa-Su 02:00-02:33, 03:30-04:03",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "453",
+    "route": "bus",
+    "to": "Wolfsgraben Kirche",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135485,
+  "tags": {
+    "from": "Sieghartskirchen Volksschule",
+    "name": "Bus 451: Sieghartskirchen Volksschule => Ollern Hauptplatz => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route",
+    "via": "Ollern Hauptplatz"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135487,
+  "tags": {
+    "from": "Allhang Sportplatzstraße",
+    "name": "Bus 451: Allhang Sportplatzstraße => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135488,
+  "tags": {
+    "from": "Sieghartskirchen Rathaus",
+    "name": "Bus 451: Sieghartskirchen Rathaus => Purkersdorf Bachgasse => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route",
+    "via": "Purkersdorf Bachgasse"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135489,
+  "tags": {
+    "from": "Sieghartskirchen Rathaus",
+    "name": "Bus 451: Sieghartskirchen Rathaus => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135490,
+  "tags": {
+    "from": "Sieghartskirchen Volksschule",
+    "name": "Bus 451: Sieghartskirchen Volksschule => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135492,
+  "tags": {
+    "alternate": "yes",
+    "description": "Eilkurs",
+    "from": "Hütteldorf",
+    "name": "Bus 451: Hütteldorf => Purkersdorf Bachgasse => Sieghartskirchen Karl-Berger-Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Sieghartskirchen Karl-Berger-Platz",
+    "type": "route",
+    "via": "Purkersdorf Rathaus"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135493,
+  "tags": {
+    "from": "Hütteldorf",
+    "name": "Bus 451: Hütteldorf => Gablitz Eitlergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Gablitz Eitlergasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3105405930
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135497,
+  "tags": {
+    "from": "Hütteldorf",
+    "name": "Bus 451: Hütteldorf => Allhang Sportplatzstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Allhang Sportplatzstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3105405930
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135498,
+  "tags": {
+    "from": "Hütteldorf",
+    "name": "Bus 451: Hütteldorf => Sieghartskirchen Volksschule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Sieghartskirchen Volksschule",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3105405930
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135499,
+  "tags": {
+    "from": "Hütteldorf",
+    "name": "Bus 451: Hütteldorf => Sieghartskirchen Karl-Berger-Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Sieghartskirchen Karl-Berger-Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3105405930
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 79466,
+  "tags": {
+    "by_night": "only",
+    "by_night:weekend": "no",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Oper, Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3549:",
+    "name": "Nachtbus N49: Oper, Karlsplatz => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "werktags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N49",
+    "route": "bus",
+    "to": "Hütteldorf, Bujattigasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 151854,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3243:",
+    "name": "Bus 43B: Hütteldorf => Neustift, Agnesgasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "43B",
+    "route": "bus",
+    "to": "Neustift, Agnesgasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 169974,
+  "tags": {
+    "by_night": "only",
+    "by_night:weekend": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Hütteldorfer Straße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3549:",
+    "name": "Nachtbus N49: Hütteldorfer Straße => Weidlingau, Herzmanskystraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours:description": "Wochenende",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N49",
+    "route": "bus",
+    "to": "Weidlingau, Herzmanskystraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "relation",
+  "id": 1306478,
+  "tags": {
+    "by_night": "only",
+    "by_night:weekend": "no",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Hütteldorf, Bujattigasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3549:",
+    "name": "Nachtbus N49: Hütteldorf Bujattigasse => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "werktags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N49",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 1306479,
+  "tags": {
+    "by_night": "only",
+    "by_night:weekend": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Weidlingau, Herzmanskystraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3549:",
+    "name": "Nachtbus N49: Weidlingau, Herzmanskystraße => Hütteldorfer Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours:description": "Wochenende",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N49",
+    "route": "bus",
+    "to": "Hütteldorfer Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "relation",
+  "id": 2852864,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.1.H",
+    "gtfs:trip_id:like": "%21-U4-j26-1.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U4-j26-1.1.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Hütteldorf => Heiligenstadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Heiligenstadt",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 3770662,
+  "tags": {
+    "colour": "#BDD542",
+    "from": "Wien Hütteldorf",
+    "name": "S45: Wien Hütteldorf => Wien Handelskai",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S45",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Handelskai",
+    "type": "route",
+    "wikidata": "Q17101545",
+    "wikimedia_commons": "Category:S45 line (Vienna S-Bahn)",
+    "wikipedia": "en:S45 (Vienna)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 1418408040
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 1740850471
+},
+{
+  "type": "node",
+  "id": 1775537146
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "relation",
+  "id": 3770663,
+  "tags": {
+    "colour": "#BDD542",
+    "from": "Wien Handelskai",
+    "name": "S45: Wien Handelskai => Wien Hütteldorf",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S45",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Hütteldorf",
+    "type": "route",
+    "wikidata": "Q17101545",
+    "wikimedia_commons": "Category:S45 line (Vienna S-Bahn)",
+    "wikipedia": "en:S45 (Vienna)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 1418408040
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 1740850471
+},
+{
+  "type": "node",
+  "id": 1775537146
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "relation",
+  "id": 5257678,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Neustift, Agnesgasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3243:",
+    "name": "Bus 43B: Neustift, Agnesgasse => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "43B",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 5954448,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.2.R",
+    "gtfs:trip_id:like": "%21-U4-j26-1.2.R",
+    "gtfs:trip_id:sample": "354.T2.21-U4-j26-1.2.R",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Heiligenstadt => Hütteldorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Hütteldorf",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 7132744,
+  "tags": {
+    "from": "Mauerbach Busbahnhof",
+    "name": "Bus 450: Mauerbach Busbahnhof => Hüttergasse => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "450",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route",
+    "via": "Hüttergasse"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 7132745,
+  "tags": {
+    "from": "Mauerbach Volksschule",
+    "name": "Bus 450: Mauerbach Volksschule => Steinbach Laudongasse => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "450",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route",
+    "via": "Steinbach Laudongasse"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7132746,
+  "tags": {
+    "from": "Mauerbach Busbahnhof",
+    "name": "Bus 450: Mauerbach Busbahnhof => Steinbach Laudongasse => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "450",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route",
+    "via": "Steinbach Laudongasse"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7132747,
+  "tags": {
+    "from": "Mauerbach Busbahnhof",
+    "name": "Bus 450: Mauerbach Busbahnhof => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "450",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7132748,
+  "tags": {
+    "from": "Mauerbach Volksschule",
+    "name": "Bus 450: Mauerbach Volksschule => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "450",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7132751,
+  "tags": {
+    "from": "Hütteldorf",
+    "name": "Bus 450: Hütteldorf => Mauerbach Busbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "450",
+    "route": "bus",
+    "to": "Mauerbach Busbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7132752,
+  "tags": {
+    "from": "Hütteldorf",
+    "name": "Bus 450: Hütteldorf => Steinbach Laudongasse => Mauerbach Busbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "450",
+    "route": "bus",
+    "to": "Mauerbach Busbahnhof",
+    "type": "route",
+    "via": "Steinbach Laudongasse"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7132753,
+  "tags": {
+    "from": "Hütteldorf",
+    "name": "Bus 450: Hütteldorf => Mauerbach Volksschule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "450",
+    "route": "bus",
+    "to": "Mauerbach Volksschule",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7132754,
+  "tags": {
+    "from": "Hütteldorf",
+    "name": "Bus 450: Hütteldorf => Steinbach Laudongasse => Mauerbach Volksschule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "450",
+    "route": "bus",
+    "to": "Mauerbach Volksschule",
+    "type": "route",
+    "via": "Steinbach Laudongasse"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135486,
+  "tags": {
+    "from": "Gablitz Gemeindeamt",
+    "name": "Bus 451: Gablitz Gemeindeamt => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135495,
+  "tags": {
+    "description": "Durchbindung der Linien 451 und 448 in Gablitz Wagnergasse (laut Fahrplan Gemeindeamt, aber der Bus fährt ja nur bis Wagnergasse)",
+    "from": "Hütteldorf",
+    "name": "Bus 451: Hütteldorf => Gablitz Wagnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Gablitz Wagnergasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3105405930
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 7135496,
+  "tags": {
+    "description": "Durchbindung der Linien 447 und 451 in Gablitz Gemeindeamt",
+    "from": "Hütteldorf",
+    "name": "Bus 451: Hütteldorf => Gablitz Gemeindeamt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "451",
+    "route": "bus",
+    "to": "Gablitz Gemeindeamt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3105405930
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 912496,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3452:",
+    "name": "Bus 52A: Hütteldorf => Jägerwaldsiedlung",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "52A",
+    "route": "bus",
+    "to": "Jägerwaldsiedlung",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 912497,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Jägerwaldsiedlung",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3452:",
+    "name": "Bus 52A: Jägerwaldsiedlung => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "52A",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 1861816,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Feuerwache Am Steinhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3252:",
+    "name": "Bus 52B: Feuerwache Am Steinhof => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "52B",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 1861817,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3252:",
+    "name": "Bus 52B: Hütteldorf => Feuerwache Am Steinhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "52B",
+    "route": "bus",
+    "to": "Feuerwache Am Steinhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 1991171,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Wolfersberg, Schöffelplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3449:",
+    "name": "Bus 49A: Wolfersberg, Schöffelplatz => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "public_transport:version": "2",
+    "ref": "49A",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 1991172,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3449:",
+    "name": "Bus 49A: Hütteldorf => Wolfersberg, Schöffelplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "public_transport:version": "2",
+    "ref": "49A",
+    "route": "bus",
+    "to": "Wolfersberg, Schöffelplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 1991174,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3250:",
+    "name": "Bus 50B: Hütteldorf => Auhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "public_transport:version": "2",
+    "ref": "50B",
+    "route": "bus",
+    "to": "Auhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "relation",
+  "id": 1991238,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Auhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3450:",
+    "name": "Bus 50A: Auhof => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "public_transport:version": "2",
+    "ref": "50A",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 1991239,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3450:",
+    "name": "Bus 50A: Hütteldorf => Auhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "public_transport:version": "2",
+    "ref": "50A",
+    "route": "bus",
+    "to": "Auhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "relation",
+  "id": 1991240,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Auhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3250:",
+    "name": "Bus 50B: Auhof => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "public_transport:version": "2",
+    "ref": "50B",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 5265663,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3252:",
+    "name": "Bus 52B: Hütteldorf => Siedlung Kordon",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "52B",
+    "route": "bus",
+    "to": "Siedlung Kordon",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 5265664,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Siedlung Kordon",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3252:",
+    "name": "Bus 52B: Siedlung Kordon => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "52B",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 418865,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3453:",
+    "name": "Bus 53A: Hütteldorf => Ober St. Veit => Unter St. Veit, Verbindungsbahn => Stock im Weg",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "53A",
+    "route": "bus",
+    "to": "Stock im Weg",
+    "type": "route",
+    "via": "Ober St. Veit;Unter St. Veit, Verbindungsbahn"
+  }
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "relation",
+  "id": 1903326,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hüttelberg",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3247:",
+    "name": "Bus 47B: Hüttelberg => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "47B",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 1903327,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3247:",
+    "name": "Bus 47B: Hütteldorf => Hüttelberg",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "47B",
+    "route": "bus",
+    "to": "Hüttelberg",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "relation",
+  "id": 5265716,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Stock im Weg",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3453:",
+    "name": "Bus 53A: Stock im Weg => Unter St. Veit, Verbindungsbahn => Ober St. Veit => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "53A",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route",
+    "via": "Unter St. Veit, Verbindungsbahn;Ober St. Veit"
+  }
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "relation",
+  "id": 19521441,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Ober St. Veit",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3453:",
+    "name": "Bus 53A: Ober St. Veit => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "53A",
+    "route": "bus",
+    "to": "Hütteldorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "relation",
+  "id": 19521442,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3453:",
+    "name": "Bus 53A: Hütteldorf => Ober St. Veit",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "53A",
+    "route": "bus",
+    "to": "Ober St. Veit",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274360
+}
+
+  ]
+}

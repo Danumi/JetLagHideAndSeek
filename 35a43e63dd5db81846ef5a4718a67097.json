@@ -1,0 +1,944 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:52:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 20309,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#EF7C00",
+    "from": "Ottakring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3303:",
+    "gtfs:shape_id": "21-U3-j26-8.1.H",
+    "gtfs:trip_id:like": "%21-U3-j26-8.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U3-j26-8.1.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U3: Ottakring => Simmering",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U3",
+    "route": "subway",
+    "to": "Simmering",
+    "type": "route",
+    "wikidata": "Q876472",
+    "wikipedia": "en:U3 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336039
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4348437231
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 2852864,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.1.H",
+    "gtfs:trip_id:like": "%21-U4-j26-1.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U4-j26-1.1.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Hütteldorf => Heiligenstadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Heiligenstadt",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 2928575,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#EF7C00",
+    "from": "Simmering",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3303:",
+    "gtfs:shape_id": "21-U3-j26-8.6.R",
+    "gtfs:trip_id:like": "%21-U3-j26-8.6.R",
+    "gtfs:trip_id:sample": "214.T3.21-U3-j26-8.6.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U3: Simmering => Ottakring",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U3",
+    "route": "subway",
+    "to": "Ottakring",
+    "type": "route",
+    "wikidata": "Q876472",
+    "wikipedia": "en:U3 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336039
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4348437231
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 5954448,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.2.R",
+    "gtfs:trip_id:like": "%21-U4-j26-1.2.R",
+    "gtfs:trip_id:sample": "354.T2.21-U4-j26-1.2.R",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Heiligenstadt => Hütteldorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Hütteldorf",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 72502,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Oper, Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3575:",
+    "name": "Nachtbus N75: Oper, Karlsplatz => Gasometer",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 00:50 - 05:10",
+    "opening_hours:description": "werktags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N75",
+    "route": "bus",
+    "to": "Gasometer",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 180910,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "St. Marx, Leberstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3474:",
+    "name": "Bus 74A: St. Marx => Stubentor",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "74A",
+    "route": "bus",
+    "to": "Stubentor",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "relation",
+  "id": 1996539,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Bruno-Marek-Allee",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3170:",
+    "gtfs:shape_id": "22-O-j26-4.5.R",
+    "gtfs:trip_id:like": "%22-O-j26-4.5.R",
+    "gtfs:trip_id:sample": "103.T3.22-O-j26-4.5.R",
+    "interval": "6",
+    "name": "Tram O: Bruno-Marek-Allee => Raxstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-24:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "O",
+    "route": "tram",
+    "to": "Raxstraße",
+    "type": "route",
+    "wikidata": "Q20439830"
+  }
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 6844683501
+},
+{
+  "type": "relation",
+  "id": 1996540,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Raxstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3170:",
+    "gtfs:shape_id": "22-O-j26-4.2.H",
+    "gtfs:trip_id:like": "%22-O-j26-4.2.H",
+    "gtfs:trip_id:sample": "2.T8.22-O-j26-4.2.H",
+    "interval": "6",
+    "name": "Tram O: Raxstraße => Bruno-Marek-Allee",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-24:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "O",
+    "route": "tram",
+    "to": "Bruno-Marek-Allee",
+    "type": "route",
+    "wikidata": "Q20439830"
+  }
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 6844683501
+},
+{
+  "type": "relation",
+  "id": 3562218,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Stubentor",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3474:",
+    "name": "Bus 74A: Stubentor => St. Marx",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "74A",
+    "route": "bus",
+    "to": "St. Marx, Leberstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "relation",
+  "id": 4293717,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Gasometer",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3575:",
+    "name": "Nachtbus N75: Gasometer => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 00:50 - 05:10",
+    "opening_hours:description": "werktags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N75",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+}
+
+  ]
+}

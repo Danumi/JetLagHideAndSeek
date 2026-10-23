@@ -1,0 +1,406 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:55:05Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 2852864,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.1.H",
+    "gtfs:trip_id:like": "%21-U4-j26-1.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U4-j26-1.1.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Hütteldorf => Heiligenstadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Heiligenstadt",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5954448,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.2.R",
+    "gtfs:trip_id:like": "%21-U4-j26-1.2.R",
+    "gtfs:trip_id:sample": "354.T2.21-U4-j26-1.2.R",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Heiligenstadt => Hütteldorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Hütteldorf",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 2301278,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Klinik Penzing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3447:",
+    "name": "Bus 47A: Klinik Penzing => Unter St. Veit",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "public_transport:version": "2",
+    "ref": "47A",
+    "route": "bus",
+    "to": "Unter St. Veit",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "relation",
+  "id": 2301279,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Unter St. Veit",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3447:",
+    "name": "Bus 47A: Unter St. Veit => Klinik Penzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "public_transport:version": "2",
+    "ref": "47A",
+    "route": "bus",
+    "to": "Klinik Penzing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "relation",
+  "id": 12311066,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "duration": "14",
+    "from": "Ober St. Veit",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3954:",
+    "interval": "30",
+    "name": "Nachtrufbus N54: Ober St. Veit => Westbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "00:50-05:05",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942454",
+    "public_transport:version": "2",
+    "ref": "N54",
+    "route": "bus",
+    "to": "Westbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 4281897753
+}
+
+  ]
+}

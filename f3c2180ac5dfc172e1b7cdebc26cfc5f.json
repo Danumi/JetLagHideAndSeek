@@ -1,0 +1,678 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:58:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 27114,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.10.R",
+    "gtfs:trip_id:like": "%21-U2-j26-8.10.R",
+    "gtfs:trip_id:sample": "217.T3.21-U2-j26-8.10.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Karlsplatz => Seestadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Seestadt",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 3598326412
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 2919734,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Seestadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.4.H",
+    "gtfs:trip_id:like": "%21-U2-j26-8.4.H",
+    "gtfs:trip_id:sample": "2.T2.21-U2-j26-8.4.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Seestadt => Karlsplatz",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Karlsplatz",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 3598326412
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 14543015,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.11.R",
+    "gtfs:trip_id:like": "%21-U2-j26-8.11.R",
+    "gtfs:trip_id:sample": "237.T3.21-U2-j26-8.11.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Karlsplatz => Aspernstraße",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Aspernstraße",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 14543016,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.3.H",
+    "gtfs:trip_id:like": "%21-U2-j26-8.3.H",
+    "gtfs:trip_id:sample": "1.T2.21-U2-j26-8.3.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Aspernstraße => Karlsplatz",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Karlsplatz",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 1729994,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Friedrich-Engels-Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3102:",
+    "gtfs:shape_id": "22-2-j26-14.8.R",
+    "gtfs:trip_id:like": "%22-2-j26-14.8.R",
+    "gtfs:trip_id:sample": "154.T9.22-2-j26-14.8.R",
+    "name": "Tram 2: Friedrich-Engels-Platz => Dornbach",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "2",
+    "route": "tram",
+    "to": "Dornbach",
+    "type": "route",
+    "wikidata": "Q47545833"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 1729995,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Dornbach",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3102:",
+    "gtfs:shape_id": "22-2-j26-14.5.H",
+    "gtfs:trip_id:like": "%22-2-j26-14.5.H",
+    "gtfs:trip_id:sample": "13.T8.22-2-j26-14.5.H",
+    "name": "Tram 2: Dornbach => Friedrich-Engels-Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "2",
+    "route": "tram",
+    "to": "Friedrich-Engels-Platz",
+    "type": "route",
+    "wikidata": "Q47545833"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+}
+
+  ]
+}

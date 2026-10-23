@@ -1,0 +1,1603 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:56:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 2853012,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#9D6830",
+    "from": "Siebenhirten",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3306:",
+    "gtfs:shape_id": "21-U6-j26-10.1.H",
+    "gtfs:trip_id:like": "%21-U6-j26-10.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U6-j26-10.1.H",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U6: Siebenhirten => Floridsdorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U6",
+    "route": "subway",
+    "to": "Floridsdorf",
+    "type": "route",
+    "wikidata": "Q281409",
+    "wikipedia": "en:U6 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4008355781
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "node",
+  "id": 4008355785
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "node",
+  "id": 4281927209
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 3772639,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 266: Wien Siebenhirten => Schwechat Bahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "266",
+    "route": "bus",
+    "to": "Schwechat Bahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 5954449,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#9D6830",
+    "from": "Floridsdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3306:",
+    "gtfs:shape_id": "21-U6-j26-10.3.R",
+    "gtfs:trip_id:like": "%21-U6-j26-10.3.R",
+    "gtfs:trip_id:sample": "220.T3.21-U6-j26-10.3.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U6: Floridsdorf => Siebenhirten",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U6",
+    "route": "subway",
+    "to": "Siebenhirten",
+    "type": "route",
+    "wikidata": "Q281409",
+    "wikipedia": "en:U6 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4008355781
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "node",
+  "id": 4008355785
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "node",
+  "id": 4281927209
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 6237239,
+  "tags": {
+    "from": "Hinterbrühl Wendestelle",
+    "name": "Bus 260: Hinterbrühl Wendestelle => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "260",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4345375447
+},
+{
+  "type": "relation",
+  "id": 6237241,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 260: Wien Siebenhirten => Hinterbrühl Wendestelle",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "260",
+    "route": "bus",
+    "to": "Hinterbrühl Wendestelle",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4345375447
+},
+{
+  "type": "relation",
+  "id": 7543362,
+  "tags": {
+    "from": "Wien Oberlaa",
+    "name": "Bus 266: Wien Oberlaa => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "266",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 7543363,
+  "tags": {
+    "from": "Schwechat Bahnhof",
+    "name": "Bus 266: Schwechat Bahnhof => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "266",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 7543364,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 266: Wien Siebenhirten => Wien Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "266",
+    "route": "bus",
+    "to": "Wien Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 7543397,
+  "tags": {
+    "from": "Vösendorf Anton-Benya-Straße 7",
+    "name": "Bus 268: Vösendorf Anton-Benya-Straße 7 => Vösendorf Haidfeldsiedlung => Biedermannsdorf HLW",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "268",
+    "route": "bus",
+    "to": "Biedermannsdorf HLW",
+    "type": "route",
+    "via": "Vösendorf Haidfeldsiedlung"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320126
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 7543400,
+  "tags": {
+    "from": "Mödling Bahnhof",
+    "name": "Bus 268: Mödling Bahnhof => Vösendorf Haidfeldsiedlung => Hennersdorf Gemeindeamt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "268",
+    "route": "bus",
+    "to": "Hennersdorf Gemeindeamt",
+    "type": "route",
+    "via": "Vösendorf Haidfeldsiedlung"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320126
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 7543401,
+  "tags": {
+    "from": "Vösendorf Fischerstraße",
+    "name": "Bus 268: Vösendorf Fischerstraße => Vösendorf Haidfeldsiedlung => Mödling HTL",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "268",
+    "route": "bus",
+    "to": "Mödling HTL",
+    "type": "route",
+    "via": "Vösendorf Haidfeldsiedlung"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320126
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 7543405,
+  "tags": {
+    "from": "Biedermannsdorf HLW",
+    "name": "Bus 268: Biedermannsdorf HLW => Vösendorf Haidfeldsiedlung => Vösendorf Anton-Benya-Straße 1",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "268",
+    "route": "bus",
+    "to": "Vösendorf Anton-Benya-Straße 1",
+    "type": "route",
+    "via": "Vösendorf Haidfeldsiedlung"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320126
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 7543407,
+  "tags": {
+    "from": "Vösendorf Spitz",
+    "name": "Bus 268: Vösendorf Spitz => Vösendorf Haidfeldsiedlung => Mödling Bahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "268",
+    "route": "bus",
+    "to": "Mödling Bahnhof",
+    "type": "route",
+    "via": "Vösendorf Haidfeldsiedlung"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320126
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 14456001,
+  "tags": {
+    "from": "Hennersdorf Zehentnergasse",
+    "name": "Bus 268: Hennersdorf Zehentnergasse => Vösendorf Fischerstraße => Vösendorf Haidfeldsiedlung => Vösendorf Anton-Benya-Straße 1",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "268",
+    "route": "bus",
+    "to": "Vösendorf Anton-Benya-Straße 1",
+    "type": "route",
+    "via": "Vösendorf Fischerstraße;Vösendorf Haidfeldsiedlung"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320126
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 14456004,
+  "tags": {
+    "from": "Brunn am Gebirge Am Frachtenbahnhof",
+    "name": "Bus 268: Brunn am Gebirge Am Frachtenbahnhof => Vösendorf Haidfeldsiedlung => Hennersdorf Gemeindeamt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "268",
+    "route": "bus",
+    "to": "Hennersdorf Gemeindeamt",
+    "type": "route",
+    "via": "Vösendorf Haidfeldsiedlung"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320126
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 14456005,
+  "tags": {
+    "from": "Vösendorf Anton-Benya-Straße 7",
+    "name": "Bus 268: Vösendorf Anton-Benya-Straße 7 => Vösendorf Haidfeldsiedlung => Vösendorf Spitz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "268",
+    "route": "bus",
+    "to": "Vösendorf Spitz",
+    "type": "route",
+    "via": "Vösendorf Haidfeldsiedlung"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320126
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 3736241,
+  "tags": {
+    "from": "Wien Liesing",
+    "name": "Bus 207: Wien Liesing => Vösendorf SCS Ostring => Vösendorf SCS Park/Europaring => Mödling Bahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "207",
+    "route": "bus",
+    "to": "Mödling Bahnhof",
+    "type": "route",
+    "via": "Vösendorf SCS Ostring;Vösendorf SCS Park/Europaring"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4260094028
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 3741173,
+  "tags": {
+    "from": "Mödling Bahnhof",
+    "name": "Bus 207: Mödling Bahnhof => Vösendorf SCS Ostring => Vösendorf SCS Park/Europaring => Wien Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "207",
+    "route": "bus",
+    "to": "Wien Liesing",
+    "type": "route",
+    "via": "Vösendorf SCS Ostring;Vösendorf SCS Park/Europaring"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4260094028
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 6236988,
+  "tags": {
+    "from": "Wien Liesing",
+    "name": "Bus 207: Wien Liesing => Mödling Bahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "not_via": "Vösendorf SCS Ostring",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "207",
+    "route": "bus",
+    "to": "Mödling Bahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4260094028
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 6236989,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 207: Wien Siebenhirten => Mödling HTL",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "not_via": "Vösendorf SCS B17;Vösendorf SCS Ostring",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "207",
+    "route": "bus",
+    "to": "Mödling HTL",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 6237134,
+  "tags": {
+    "from": "Mödling Bahnhof",
+    "name": "Bus 207: Mödling Bahnhof => Wien Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "not_via": "Vösendorf SCS Ostring",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "207",
+    "route": "bus",
+    "to": "Wien Liesing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4260094028
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 6333450,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 269: Wien Siebenhirten => Maria Enzersdorf Südstadt BSFZ",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "269",
+    "route": "bus",
+    "to": "Maria Enzersdorf Südstadt BSFZ",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 14455665,
+  "tags": {
+    "from": "Mödling Bahnhof",
+    "name": "Bus 269: Mödling Bahnhof => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "269",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 14455666,
+  "tags": {
+    "from": "Maria Enzersdorf Südstadt Zentrum",
+    "name": "Bus 269: Maria Enzersdorf Südstadt Zentrum => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "269",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 14455667,
+  "tags": {
+    "from": "Maria Enzersdorf Südstadt BSFZ",
+    "name": "Bus 269: Maria Enzersdorf Südstadt BSFZ => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "269",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 14455669,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 269: Wien Siebenhirten => Mödling Bahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "269",
+    "route": "bus",
+    "to": "Mödling Bahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 14455670,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 269: Wien Siebenhirten => Maria Enzersdorf Südstadt Zentrum",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "269",
+    "route": "bus",
+    "to": "Maria Enzersdorf Südstadt Zentrum",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 14455724,
+  "tags": {
+    "from": "Mödling Bahnhof",
+    "name": "Bus 270: Mödling Bahnhof => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "270",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 14455725,
+  "tags": {
+    "from": "Mödling HTL",
+    "name": "Bus 270: Mödling HTL => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "270",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 14455726,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 270: Wien Siebenhirten => Mödling Bahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "270",
+    "route": "bus",
+    "to": "Mödling Bahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 14455727,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 270: Wien Siebenhirten => Brunn am Gebirge Franz-Schubert-Straße => Mödling HTL",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "270",
+    "route": "bus",
+    "to": "Mödling HTL",
+    "type": "route",
+    "via": "Brunn am Gebirge Franz-Schubert-Straße"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 14455728,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 270: Wien Siebenhirten => Mödling HTL",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "270",
+    "route": "bus",
+    "to": "Mödling HTL",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 19918926,
+  "tags": {
+    "from": "Mödling Bahnhof",
+    "name": "Bus 207: Mödling Bahnhof => Vösendorf SCS Ostring => Wien Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "207",
+    "route": "bus",
+    "to": "Wien Liesing",
+    "type": "route",
+    "via": "Vösendorf SCS Ostring"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4260094028
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 19918927,
+  "tags": {
+    "from": "Wien Liesing",
+    "name": "Bus 207: Wien Liesing => Vösendorf SCS Ostring => Mödling Bahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "207",
+    "route": "bus",
+    "to": "Mödling Bahnhof",
+    "type": "route",
+    "via": "Vösendorf SCS Ostring"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4260094028
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 6236987,
+  "tags": {
+    "from": "Wien Liesing",
+    "name": "Bus 207: Wien Liesing => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "207",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 6237135,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 207: Wien Siebenhirten => Wien Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Oberger",
+    "public_transport:version": "2",
+    "ref": "207",
+    "route": "bus",
+    "to": "Wien Liesing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "relation",
+  "id": 14456583,
+  "tags": {
+    "from": "Maria Enzersdorf Kloster",
+    "name": "Bus 260: Maria Enzersdorf Kloster => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "260",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4345375447
+},
+{
+  "type": "relation",
+  "id": 14456585,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 260: Wien Siebenhirten => Maria Enzersdorf Kloster",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "260",
+    "route": "bus",
+    "to": "Maria Enzersdorf Kloster",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4345375447
+},
+{
+  "type": "relation",
+  "id": 14456637,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 260: Wien Siebenhirten => Maria Enzersdorf Franziskanerplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "260",
+    "route": "bus",
+    "to": "Maria Enzersdorf Franziskanerplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4345375447
+},
+{
+  "type": "relation",
+  "id": 14542826,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Liesing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3261:",
+    "name": "Bus 61B: Liesing => Vösendorf-Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ZuklinBus",
+    "public_transport:version": "2",
+    "ref": "61B",
+    "route": "bus",
+    "to": "Vösendorf-Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 14542827,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Vösendorf-Siebenhirten",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3261:",
+    "name": "Bus 61B: Vösendorf-Siebenhirten => Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "61B",
+    "route": "bus",
+    "to": "Liesing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 7543403,
+  "tags": {
+    "from": "Vösendorf Fischerstraße",
+    "name": "Bus 268: Vösendorf Fischerstraße => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "not_via": "Vösendorf Haidfeldsiedlung",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "268",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "relation",
+  "id": 12312407,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "duration": "9",
+    "from": "Siebenhirten",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3964:",
+    "interval": "30",
+    "name": "Nachtrufbus N64: Siebenhirten => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Su 01:00-05:00",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942464",
+    "public_transport:version": "2",
+    "ref": "N64",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "relation",
+  "id": 12312526,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "duration": "8",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3964:",
+    "interval": "30",
+    "name": "Nachtrufbus N64: Alterlaa => Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Su 01:00-05:00",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942464",
+    "public_transport:version": "2",
+    "ref": "N64",
+    "route": "bus",
+    "to": "Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "relation",
+  "id": 14455843,
+  "tags": {
+    "from": "Hennersdorf Zehentnergasse",
+    "name": "Bus 266: Hennersdorf Zehentnergasse => Wien Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "266",
+    "route": "bus",
+    "to": "Wien Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 14455844,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 266: Wien Siebenhirten => Hennersdorf Gemeindeamt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "266",
+    "route": "bus",
+    "to": "Hennersdorf Gemeindeamt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 14456002,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 268: Wien Siebenhirten => Hennersdorf Gemeindeamt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "268",
+    "route": "bus",
+    "to": "Hennersdorf Gemeindeamt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+},
+{
+  "type": "relation",
+  "id": 14456003,
+  "tags": {
+    "from": "Wien Siebenhirten",
+    "name": "Bus 268: Wien Siebenhirten => Vösendorf Haidfeldsiedlung => Hennersdorf Gemeindeamt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "268",
+    "route": "bus",
+    "to": "Hennersdorf Gemeindeamt",
+    "type": "route",
+    "via": "Vösendorf Haidfeldsiedlung"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4347320126
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 5085385669
+}
+
+  ]
+}

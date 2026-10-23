@@ -1,0 +1,532 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:55:05Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 2005424,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Hillerstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3112:",
+    "gtfs:shape_id": "22-12-j26-1.3.H",
+    "gtfs:trip_id:like": "%22-12-j26-1.3.H",
+    "gtfs:trip_id:sample": "1.T8.22-12-j26-1.3.H",
+    "name": "Tram 12: Hillerstraße => Josefstädter Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "12",
+    "route": "tram",
+    "to": "Josefstädter Straße",
+    "type": "route",
+    "wikidata": "Q136039113"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "relation",
+  "id": 2005425,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Josefstädter Straße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3112:",
+    "gtfs:shape_id": "22-12-j26-1.7.R",
+    "gtfs:trip_id:like": "%22-12-j26-1.7.R",
+    "gtfs:trip_id:sample": "126.T9.22-12-j26-1.7.R",
+    "name": "Tram 12: Josefstädter Straße => Hillerstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "12",
+    "route": "tram",
+    "to": "Hillerstraße",
+    "type": "route",
+    "wikidata": "Q136039113"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "relation",
+  "id": 2852864,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.1.H",
+    "gtfs:trip_id:like": "%21-U4-j26-1.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U4-j26-1.1.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Hütteldorf => Heiligenstadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Heiligenstadt",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5954448,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.2.R",
+    "gtfs:trip_id:like": "%21-U4-j26-1.2.R",
+    "gtfs:trip_id:sample": "354.T2.21-U4-j26-1.2.R",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Heiligenstadt => Hütteldorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Hütteldorf",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 2005432,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Praterstern",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3105:",
+    "gtfs:shape_id": "22-5-j26-2.7.H",
+    "gtfs:trip_id:like": "%22-5-j26-2.7.H",
+    "gtfs:trip_id:sample": "4.T9.22-5-j26-2.7.H",
+    "interval": "7",
+    "name": "Tram 5: Praterstern => Westbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "5",
+    "route": "tram",
+    "to": "Westbahnhof",
+    "type": "route",
+    "wikidata": "Q20439827"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "relation",
+  "id": 2005433,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Westbahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3105:",
+    "gtfs:shape_id": "22-5-j26-2.13.R",
+    "gtfs:trip_id:like": "%22-5-j26-2.13.R",
+    "gtfs:trip_id:sample": "162.T9.22-5-j26-2.13.R",
+    "interval": "7",
+    "name": "Tram 5: Westbahnhof => Praterstern",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "5",
+    "route": "tram",
+    "to": "Praterstern",
+    "type": "route",
+    "wikidata": "Q20439827"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722993
+}
+
+  ]
+}

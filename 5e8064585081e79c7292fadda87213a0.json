@@ -1,0 +1,709 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T10:00:11Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 20309,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#EF7C00",
+    "from": "Ottakring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3303:",
+    "gtfs:shape_id": "21-U3-j26-8.1.H",
+    "gtfs:trip_id:like": "%21-U3-j26-8.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U3-j26-8.1.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U3: Ottakring => Simmering",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U3",
+    "route": "subway",
+    "to": "Simmering",
+    "type": "route",
+    "wikidata": "Q876472",
+    "wikipedia": "en:U3 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336039
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4348437231
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 79466,
+  "tags": {
+    "by_night": "only",
+    "by_night:weekend": "no",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Oper, Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3549:",
+    "name": "Nachtbus N49: Oper, Karlsplatz => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "werktags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N49",
+    "route": "bus",
+    "to": "Hütteldorf, Bujattigasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 169974,
+  "tags": {
+    "by_night": "only",
+    "by_night:weekend": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Hütteldorfer Straße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3549:",
+    "name": "Nachtbus N49: Hütteldorfer Straße => Weidlingau, Herzmanskystraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours:description": "Wochenende",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N49",
+    "route": "bus",
+    "to": "Weidlingau, Herzmanskystraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "relation",
+  "id": 910885,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Parlament, Volkstheater",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3149:",
+    "gtfs:shape_id": "22-49-j26-7.9.H",
+    "gtfs:trip_id:like": "%22-49-j26-7.9.H",
+    "gtfs:trip_id:sample": "3.T2.22-49-j26-7.9.H",
+    "name": "Tram 49: Parlament, Volkstheater => Hütteldorf, Bujattigasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "49",
+    "route": "tram",
+    "to": "Hütteldorf, Bujattigasse",
+    "type": "route",
+    "wikidata": "Q47545799"
+  }
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 910886,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Hütteldorf, Bujattigasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3149:",
+    "gtfs:shape_id": "22-49-j26-7.14.R",
+    "gtfs:trip_id:like": "%22-49-j26-7.14.R",
+    "gtfs:trip_id:sample": "204.T8.22-49-j26-7.14.R",
+    "name": "Tram 49: Hütteldorf, Bujattigasse => Parlament, Volkstheater",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "49",
+    "route": "tram",
+    "to": "Parlament, Volkstheater",
+    "type": "route",
+    "wikidata": "Q47545799"
+  }
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 1306478,
+  "tags": {
+    "by_night": "only",
+    "by_night:weekend": "no",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Hütteldorf, Bujattigasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3549:",
+    "name": "Nachtbus N49: Hütteldorf Bujattigasse => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "werktags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N49",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 1306479,
+  "tags": {
+    "by_night": "only",
+    "by_night:weekend": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Weidlingau, Herzmanskystraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3549:",
+    "name": "Nachtbus N49: Weidlingau, Herzmanskystraße => Hütteldorfer Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours:description": "Wochenende",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N49",
+    "route": "bus",
+    "to": "Hütteldorfer Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "relation",
+  "id": 2928575,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#EF7C00",
+    "from": "Simmering",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3303:",
+    "gtfs:shape_id": "21-U3-j26-8.6.R",
+    "gtfs:trip_id:like": "%21-U3-j26-8.6.R",
+    "gtfs:trip_id:sample": "214.T3.21-U3-j26-8.6.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U3: Simmering => Ottakring",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U3",
+    "route": "subway",
+    "to": "Ottakring",
+    "type": "route",
+    "wikidata": "Q876472",
+    "wikipedia": "en:U3 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336039
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4348437231
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 1306559,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Dornbach",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3110:",
+    "gtfs:shape_id": "22-10-j26-90.2.H",
+    "gtfs:trip_id:like": "%22-10-j26-90.2.H",
+    "gtfs:trip_id:sample": "3.T8.22-10-j26-90.2.H",
+    "name": "Tram 10: Dornbach => Unter St. Veit, Hummelgasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10",
+    "route": "tram",
+    "to": "Unter St. Veit, Hummelgasse",
+    "type": "route",
+    "wikidata": "Q47563295"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "relation",
+  "id": 1306560,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Unter St. Veit, Hummelgasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3110:",
+    "gtfs:shape_id": "22-10-j26-90.8.R",
+    "gtfs:trip_id:like": "%22-10-j26-90.8.R",
+    "gtfs:trip_id:sample": "124.T9.22-10-j26-90.8.R",
+    "name": "Tram 10: Unter St. Veit, Hummelgasse => Dornbach",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10",
+    "route": "tram",
+    "to": "Dornbach, Güpferlingstraße",
+    "type": "route",
+    "wikidata": "Q47563295"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+}
+
+  ]
+}

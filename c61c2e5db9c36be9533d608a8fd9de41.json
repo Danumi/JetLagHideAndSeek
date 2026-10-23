@@ -1,0 +1,2220 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:55:05Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 27114,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.10.R",
+    "gtfs:trip_id:like": "%21-U2-j26-8.10.R",
+    "gtfs:trip_id:sample": "217.T3.21-U2-j26-8.10.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Karlsplatz => Seestadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Seestadt",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 3598326412
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 1991685,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Prater Hauptallee",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3101:",
+    "gtfs:shape_id": "22-1-j26-14.3.H",
+    "gtfs:trip_id:like": "%22-1-j26-14.3.H",
+    "gtfs:trip_id:sample": "5.T8.22-1-j26-14.3.H",
+    "name": "Tram 1: Prater Hauptallee => Stefan-Fadinger-Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "1",
+    "route": "tram",
+    "to": "Stefan-Fadinger-Platz",
+    "type": "route",
+    "wikidata": "Q17348925"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 1991686,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Stefan-Fadinger-Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3101:",
+    "gtfs:shape_id": "22-1-j26-14.9.R",
+    "gtfs:trip_id:like": "%22-1-j26-14.9.R",
+    "gtfs:trip_id:sample": "158.T9.22-1-j26-14.9.R",
+    "name": "Tram 1: Stefan-Fadinger-Platz => Prater Hauptallee",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "1",
+    "route": "tram",
+    "to": "Prater Hauptallee",
+    "type": "route",
+    "wikidata": "Q17348925"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3538366198
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 2852864,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.1.H",
+    "gtfs:trip_id:like": "%21-U4-j26-1.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U4-j26-1.1.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Hütteldorf => Heiligenstadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Heiligenstadt",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 2919734,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Seestadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.4.H",
+    "gtfs:trip_id:like": "%21-U2-j26-8.4.H",
+    "gtfs:trip_id:sample": "2.T2.21-U2-j26-8.4.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Seestadt => Karlsplatz",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Karlsplatz",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 3598326412
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 5329166,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Oper, Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3560:",
+    "name": "Nachtbus N60: Oper, Karlsplatz => Maurer Hauptplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 01:00 - 05:10",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N60",
+    "route": "bus",
+    "to": "Maurer Hauptplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5337485,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Burgring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3566:",
+    "name": "Nachtbus N66: Burgring => Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N66",
+    "route": "bus",
+    "to": "Liesing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5954448,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.2.R",
+    "gtfs:trip_id:like": "%21-U4-j26-1.2.R",
+    "gtfs:trip_id:sample": "354.T2.21-U4-j26-1.2.R",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Heiligenstadt => Hütteldorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Hütteldorf",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 14543015,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.11.R",
+    "gtfs:trip_id:like": "%21-U2-j26-8.11.R",
+    "gtfs:trip_id:sample": "237.T3.21-U2-j26-8.11.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Karlsplatz => Aspernstraße",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Aspernstraße",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 14543016,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.3.H",
+    "gtfs:trip_id:like": "%21-U2-j26-8.3.H",
+    "gtfs:trip_id:sample": "1.T2.21-U2-j26-8.3.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Aspernstraße => Karlsplatz",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Karlsplatz",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 2512585,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Schottentor",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3538:",
+    "name": "Nachtbus N38: Schottentor => Schottenring => Grinzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 01:00 - 05:00",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N38",
+    "route": "bus",
+    "to": "Grinzing",
+    "type": "route",
+    "via": "Schottenring"
+  }
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 2005489,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schottenring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3131:",
+    "gtfs:shape_id": "22-31-j26-3.3.H",
+    "gtfs:trip_id:like": "%22-31-j26-3.3.H",
+    "gtfs:trip_id:sample": "4.T2.22-31-j26-3.3.H",
+    "name": "Tram 31: Schottenring => Stammersdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "31",
+    "route": "tram",
+    "to": "Stammersdorf",
+    "type": "route",
+    "wikidata": "Q47565641"
+  }
+},
+{
+  "type": "node",
+  "id": 3310997802
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "relation",
+  "id": 2005490,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Stammersdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3131:",
+    "gtfs:shape_id": "22-31-j26-3.16.R",
+    "gtfs:trip_id:like": "%22-31-j26-3.16.R",
+    "gtfs:trip_id:sample": "115.T3.22-31-j26-3.16.R",
+    "name": "Tram 31: Stammersdorf => Schottenring",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "31",
+    "route": "tram",
+    "to": "Schottenring",
+    "type": "route",
+    "wikidata": "Q47565641"
+  }
+},
+{
+  "type": "node",
+  "id": 3310997802
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "relation",
+  "id": 2024796,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Kaiserebersdorf, Zinnergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.10.R",
+    "gtfs:trip_id:like": "%22-71-j26-21.10.R",
+    "gtfs:trip_id:sample": "167.T9.22-71-j26-21.10.R",
+    "name": "Tram 71: Kaiserebersdorf, Zinnergasse => Schottenring",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-01:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Schottenring",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 2024797,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schottenring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.3.H",
+    "gtfs:trip_id:like": "%22-71-j26-21.3.H",
+    "gtfs:trip_id:sample": "20.T9.22-71-j26-21.3.H",
+    "name": "Tram 71: Schottenring=> Kaiserebersdorf, Zinnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-01:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Kaiserebersdorf, Zinnergasse",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 5289244,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Schwedenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3525:",
+    "name": "Nachtbus N25: Schwedenplatz => Großfeldsiedlung",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Mo-Fr 00:54-04:54; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N25",
+    "route": "bus",
+    "to": "Großfeldsiedlung",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5313085,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Stammersdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3531:",
+    "name": "Nachtbus N31: Stammersdorf => Schwedenplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:31-05:05; Sa,Su,PH 01:34-05:05",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N31",
+    "route": "bus",
+    "to": "Schwedenplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3310997802
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5313107,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Schwedenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3531:",
+    "name": "Nachtbus N31: Schwedenplatz => Stammersdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:26-04:59; Sa,Su,PH 01:21-04:57",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N31",
+    "route": "bus",
+    "to": "Stammersdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3310997802
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 12478525,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Hauptwerkstätte",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.33.R",
+    "gtfs:trip_id:like": "%22-71-j26-21.33.R",
+    "gtfs:trip_id:sample": "284.T8.22-71-j26-21.33.R",
+    "name": "Tram 71: Hauptwerkstätte => Schottenring",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-01:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Schottenring",
+    "type": "route",
+    "wikidata": "Q18183305"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 12478529,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schottenring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.13.H",
+    "gtfs:trip_id:like": "%22-71-j26-21.13.H",
+    "gtfs:trip_id:sample": "16.T9.22-71-j26-21.13.H",
+    "name": "Tram 71: Schottenring => Hauptwerkstätte",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-01:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Hauptwerkstätte",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 19398484,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Schwedenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3525:",
+    "name": "Nachtbus N25: Schwedenplatz => Dopschstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Mo-Fr 04:24-05:14; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N25",
+    "route": "bus",
+    "to": "Dopschstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5337484,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Burgring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3566:",
+    "name": "Nachtbus N66: Burgring => Laxenburger Straße/Raxstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N66",
+    "route": "bus",
+    "to": "Laxenburger Straße/Raxstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 317336,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Schottenring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3403:",
+    "name": "Bus 3A: Schottenring => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "3A",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route",
+    "website": "https://www.wienerlinien.at"
+  }
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 317339,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Oper, Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3403:",
+    "name": "Bus 3A: Oper, Karlsplatz => Schottenring",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "3A",
+    "route": "bus",
+    "to": "Schottenring",
+    "type": "route",
+    "website": "https://www.wienerlinien.at"
+  }
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 19398485,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Schwedenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3525:",
+    "name": "Nachtbus N25: Schwedenplatz => Schwedenplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Mo-Fr 04:54-5:09; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N25",
+    "roundtrip": "yes",
+    "route": "bus",
+    "to": "Schwedenplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 19567271,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Floridsdorfer Markt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3531:",
+    "name": "Nachtbus N31: Floridsdorfer Markt => Schwedenplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 00:41-01:35; Sa,Su,PH 00:48-01:39",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N31",
+    "route": "bus",
+    "to": "Schwedenplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 19841924,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Schwedenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3531:",
+    "name": "Nachtbus N31: Schwedenplatz => Floridsdorfer Markt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 04:56-05:27; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N31",
+    "route": "bus",
+    "to": "Floridsdorfer Markt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 19841925,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Schwedenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3531:",
+    "name": "Nachtbus N31: Schwedenplatz => Floridsdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr off; Sa,Su,PH 04:51-05:24",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N31",
+    "route": "bus",
+    "to": "Floridsdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+}
+
+  ]
+}

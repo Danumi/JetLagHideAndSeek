@@ -1,0 +1,2170 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:59:10Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 22494,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.7.H",
+    "gtfs:trip_id:like": "%21-U1-j26-6.7.H",
+    "gtfs:trip_id:sample": "1.T2.21-U1-j26-6.7.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U1: Oberlaa => Leopoldau",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Leopoldau",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 2005856,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Hausfeldstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3126:",
+    "gtfs:shape_id": "22-26-j26-2.89.H",
+    "gtfs:trip_id:like": "%22-26-j26-2.89.H",
+    "gtfs:trip_id:sample": "40.T8.22-26-j26-2.89.H",
+    "name": "Tram 26: Hausfeldstraße => Strebersdorf, Meriangasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "26",
+    "route": "tram",
+    "to": "Strebersdorf, Meriangasse",
+    "type": "route",
+    "wikidata": "Q47564171"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 2005857,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Strebersdorf, Meriangasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3126:",
+    "gtfs:shape_id": "22-26-j26-2.54.R",
+    "gtfs:trip_id:like": "%22-26-j26-2.54.R",
+    "gtfs:trip_id:sample": "192.T8.22-26-j26-2.54.R",
+    "name": "Tram 26: Strebersdorf, Meriangasse => Hausfeldstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "26",
+    "route": "tram",
+    "to": "Hausfeldstraße",
+    "type": "route",
+    "wikidata": "Q47564171"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 2928586,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Leopoldau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.12.R",
+    "gtfs:trip_id:like": "%21-U1-j26-6.12.R",
+    "gtfs:trip_id:sample": "214.T3.21-U1-j26-6.12.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U1: Leopoldau => Oberlaa",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Oberlaa",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 3265988,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kagraner Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3424:",
+    "name": "Bus 24A: Kagraner Platz => Breitenlee, Schule => Neueßling",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "24A",
+    "route": "bus",
+    "to": "Neueßling",
+    "type": "route",
+    "via": "Breitenlee, Schule"
+  }
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 3265991,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Neueßling",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3424:",
+    "name": "Bus 24A: Neueßling => Breitenlee, Schule => Kagraner Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "24A",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route",
+    "via": "Breitenlee, Schule"
+  }
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 5275462,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Eßling, Stadtgrenze",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3521:",
+    "name": "Nachtbus N20: Eßling, Stadtgrenze => Strebersdorf, Meriangasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr off; Sa,Su,PH 01:25-04:53",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N20",
+    "route": "bus",
+    "to": "Strebersdorf, Meriangasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 5275856,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Strebersdorf, Meriangasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3521:",
+    "name": "Nachtbus N20: Strebersdorf, Meriangasse => Eßling, Stadtgrenze",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr off; Sa,Su,PH 01:31-04:23",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N20",
+    "route": "bus",
+    "to": "Eßling, Stadtgrenze",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 5288696,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Großfeldsiedlung",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3525:",
+    "name": "Nachtbus N25: Großfeldsiedlung => Schwedenplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Mo-Fr 00:40-04:44; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N25",
+    "route": "bus",
+    "to": "Schwedenplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5289244,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Schwedenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3525:",
+    "name": "Nachtbus N25: Schwedenplatz => Großfeldsiedlung",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Mo-Fr 00:54-04:54; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N25",
+    "route": "bus",
+    "to": "Großfeldsiedlung",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 12882201,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus: Einstiegs- und Aussiegshaltestelle und gewünschte Fahrplanzeit bekanntgeben. Anschließend kommt der Rufbus zur angegebenen Fahrplanzeit zur Haltestelle. Spätestens 15 Minuten vor gewünschter Abfahrt bestellen: (01) 7909424-24",
+    "from": "Neueßling",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3924:",
+    "gtfs:shape_id": "25-N24-F-j26-1.2.R",
+    "gtfs:trip_id:like": "%25-N24-F-j26-1.2.R",
+    "gtfs:trip_id:sample": "2740.T2.25-N24-F-j26-1.2.R",
+    "name": "Nachtrufbus N24: Neueßling => Kagraner Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr off; Sa,Su,PH 01:17-04:30",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942424",
+    "public_transport:version": "2",
+    "ref": "N24",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 12882202,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus: Einstiegs- und Aussiegshaltestelle und gewünschte Fahrplanzeit bekanntgeben. Anschließend kommt der Rufbus zur angegebenen Fahrplanzeit zur Haltestelle. Spätestens 15 Minuten vor gewünschter Abfahrt bestellen: (01) 7909424-24",
+    "from": "Kagraner Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3924:",
+    "gtfs:shape_id": "25-N24-F-j26-1.1.H",
+    "gtfs:trip_id:like": "%25-N24-F-j26-1.1.H",
+    "gtfs:trip_id:sample": "2732.T2.25-N24-F-j26-1.1.H",
+    "name": "Nachtrufbus N24: Kagraner Platz => Neueßling",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr off; Sa,Su,PH 01:00-04:44",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942424",
+    "public_transport:version": "2",
+    "ref": "N24",
+    "route": "bus",
+    "to": "Neueßling",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 19371352,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Strebersdorf, Meriangasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3127:",
+    "gtfs:shape_id": "22-27-j26-2.20.R",
+    "gtfs:trip_id:like": "%22-27-j26-2.20.R",
+    "gtfs:trip_id:sample": "119.T3.22-27-j26-2.20.R",
+    "name": "Tram 27: Strebersdorf, Meriangasse => Aspern Nord",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_date": "2025-10-06",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "27",
+    "route": "tram",
+    "to": "Aspern Nord",
+    "type": "route",
+    "wikidata": "Q136447851"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 19371353,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Aspern Nord",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3127:",
+    "gtfs:shape_id": "22-27-j26-2.37.H",
+    "gtfs:trip_id:like": "%22-27-j26-2.37.H",
+    "gtfs:trip_id:sample": "42.T8.22-27-j26-2.37.H",
+    "name": "Tram 27: Aspern Nord => Strebersdorf, Meriangasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_date": "2025-10-06",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "27",
+    "route": "tram",
+    "to": "Strebersdorf, Meriangasse",
+    "type": "route",
+    "wikidata": "Q136447851"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 19398484,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Schwedenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3525:",
+    "name": "Nachtbus N25: Schwedenplatz => Dopschstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Mo-Fr 04:24-05:14; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N25",
+    "route": "bus",
+    "to": "Dopschstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 19541505,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Floridsdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3521:",
+    "name": "Nachtbus N20: Floridsdorf => Eßling, Stadtgrenze",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr off; Sa,Su,PH 01:12-01:53",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N20",
+    "route": "bus",
+    "to": "Eßling, Stadtgrenze",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 19541506,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Floridsdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3521:",
+    "name": "Nachtbus N20: Floridsdorf => Eßling Schule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:16-01:53; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N20",
+    "route": "bus",
+    "to": "Eßling Schule",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 19541513,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Eßling Schule",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3521:",
+    "name": "Nachtbus N20: Eßling Schule => Strebersdorf, Meriangasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:35-04:57; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N20",
+    "route": "bus",
+    "to": "Strebersdorf, Meriangasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 19541514,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Strebersdorf, Meriangasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3521:",
+    "name": "Nachtbus N20: Strebersdorf, Meriangasse => Eßling Schule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:31-04:23; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N20",
+    "route": "bus",
+    "to": "Eßling Schule",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 20288740,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Leopoldau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.13.R",
+    "gtfs:trip_id:like": "%21-U1-j26-6.13.R",
+    "gtfs:trip_id:sample": "233.T3.21-U1-j26-6.13.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U1: Leopoldau => Alaudagasse",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Alaudagasse",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 20288741,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.11.H",
+    "gtfs:trip_id:like": "%21-U1-j26-6.11.H",
+    "gtfs:trip_id:sample": "24.T2.21-U1-j26-6.11.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U1: Alaudagasse => Leopoldau",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Leopoldau",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 60917,
+  "tags": {
+    "alternate": "no",
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kagraner Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3431:",
+    "name": "Bus 31A: Kagraner Platz => Großjedlersdorf, Jochbergengasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "31A",
+    "route": "bus",
+    "to": "Großjedlersdorf, Jochbergengasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 5251603,
+  "tags": {
+    "alternate": "no",
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Großjedlersdorf, Jochbergengasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3431:",
+    "name": "Bus 31A: Großjedlersdorf, Jochbergengasse => Kagraner Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "31A",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 6306408,
+  "tags": {
+    "alternate": "yes",
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Großjedlersdorf, Jochbergengasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3431:",
+    "name": "Bus 31A: Großjedlersdorf, Jochbergengasse => Doningasse => Kagraner Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 07:21-07:42; SH, PH, Sa, Su off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "31A",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route",
+    "via": "Doningasse"
+  }
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 19398486,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Kagraner Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3525:",
+    "name": "Nachtbus N25: Kagraner Platz => Schwedenplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Mo-Fr 00:26-00:44; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N25",
+    "route": "bus",
+    "to": "Schwedenplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 19541509,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Strebersdorf, Meriangasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3521:",
+    "name": "Nachtbus N20: Strebersdorf, Meriangasse => Kagran",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Su 04:01-04:26",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N20",
+    "route": "bus",
+    "to": "Kagran",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 19541512,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Kagran",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3521:",
+    "name": "Nachtbus N20: Kagran => Strebersdorf, Meriangasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Su 01:28-01:57",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N20",
+    "route": "bus",
+    "to": "Strebersdorf, Meriangasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 3252309,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3422:",
+    "name": "Bus 22A: Aspernstraße => Kagran",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "22A",
+    "route": "bus",
+    "to": "Kagran",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 3252310,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kagran",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3422:",
+    "name": "Bus 22A: Kagran => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "22A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 3265987,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Breitenlee Schule",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3424:",
+    "name": "Bus 24A: Breitenlee, Schule => Kagraner Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "24A",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 3265989,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kagraner Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3424:",
+    "name": "Bus 24A: Kagraner Platz => Breitenlee, Schule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "24A",
+    "route": "bus",
+    "to": "Breitenlee Schule",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 5288694,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Hausfeldstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3523:",
+    "name": "Nachtbus N23: Hausfeldstraße => Kagraner Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr off; Sa,Su,PH 01:41-04:53",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N23",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 5288695,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Kagraner Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3523:",
+    "name": "Nachtbus N23: Kagraner Platz => Hausfeldstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr off; Sa,Su,PH 01:29-04:41",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N23",
+    "route": "bus",
+    "to": "Hausfeldstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 6799684,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3422:",
+    "name": "Bus 22A: Aspernstraße => Kagraner Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "22A",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 9453460,
+  "tags": {
+    "alternate": "yes",
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kagraner Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3431:",
+    "name": "Bus 31A: Kagraner Platz => Sorgenthalgasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "31A",
+    "route": "bus",
+    "to": "Sorgenthalgasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 9453476,
+  "tags": {
+    "alternate": "yes",
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Sorgenthalgasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3431:",
+    "name": "Bus 31A: Sorgenthalgasse => Kagraner Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "31A",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 9453477,
+  "tags": {
+    "alternate": "yes",
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Siemensstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3431:",
+    "name": "Bus 31A: Siemensstraße => Kagraner Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "31A",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 12318059,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "duration": "12",
+    "from": "Kagraner Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3923:",
+    "gtfs:shape_id": "25-N24-W-j26-2.1.H",
+    "gtfs:trip_id:like": "%25-N24-W-j26-2.1.H",
+    "gtfs:trip_id:sample": "2361.T0.25-N24-W-j26-2.1.H",
+    "interval": "30",
+    "name": "Nachtrufbus N24: Kagraner Platz => Am Heidjöchl",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:short": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:00-04:42; Sa,Su,PH off",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942424",
+    "public_transport:version": "2",
+    "ref": "N24",
+    "route": "bus",
+    "to": "Am Heidjöchl",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 19352710,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kagraner Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3422:",
+    "name": "Bus 22A: Kagraner Platz => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "22A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 19398483,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Kagran",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3525:",
+    "name": "Nachtbus N25: Kagran => Großfeldsiedlung",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Mo-Fr 01:01-01:27; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N25",
+    "route": "bus",
+    "to": "Großfeldsiedlung",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 19398487,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Großfeldsiedlung",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3525:",
+    "name": "Nachtbus N25: Großfeldsiedlung => Kagran",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Mo-Fr 04:28-04:48; Sa,Su,PH off",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N25",
+    "route": "bus",
+    "to": "Kagran",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 19825759,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "duration": "13",
+    "from": "Am Heidjöchl",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3923:",
+    "gtfs:shape_id": "25-N24-W-j26-2.2.R",
+    "gtfs:trip_id:like": "%25-N24-W-j26-2.2.R",
+    "gtfs:trip_id:sample": "2353.T0.25-N24-W-j26-2.2.R",
+    "interval": "30",
+    "name": "Nachtrufbus N24: Am Heidjöchl => Kagraner Platz",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:short": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:00-04:42; Sa,Su,PH off",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942424",
+    "public_transport:version": "2",
+    "ref": "N24",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 6620791,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kagraner Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3425:",
+    "name": "Bus 25A: Kagraner Platz => Lichtblaustraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "25A",
+    "route": "bus",
+    "to": "Lichtblaustraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 6620792,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Süßenbrunn, Sportpark",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3425:",
+    "name": "Bus 25A: Süßenbrunn, Sportpark => Süßenbrunner Platz => Stallarngasse => Kagraner Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "25A",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route",
+    "via": "Süßenbrunner Platz;Stallarngasse"
+  }
+},
+{
+  "type": "node",
+  "id": 3313275953
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+}
+
+  ]
+}

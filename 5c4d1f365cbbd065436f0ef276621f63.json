@@ -1,0 +1,1689 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:59:10Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 18452139,
+  "tags": {
+    "from": "St. Pölten Hauptbahnhof",
+    "gtfs:feed": "AT-Eisenbahn",
+    "gtfs:route_id": "2-R50-W-j26-1",
+    "name": "REX50: St. Pölten Hauptbahnhof => Wien Westbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX50",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Westbahnhof",
+    "type": "route",
+    "website": "https://www.oebb.at"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "relation",
+  "id": 12638336,
+  "tags": {
+    "brand": "Vienna Airport Bus",
+    "colour": "#57C4BF",
+    "colour:text": "#FFFFFF",
+    "from": "Flughafen Wien Busterminal",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:1187:",
+    "name": "Bus VAB1: Flughafen Wien => Westbahnhof",
+    "network": "VAB",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "VAB1",
+    "route": "bus",
+    "to": "Westbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "relation",
+  "id": 12638337,
+  "tags": {
+    "brand": "Vienna Airport Bus",
+    "colour": "#57C4BF",
+    "colour:text": "#FFFFFF",
+    "from": "Westbahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:1187:",
+    "name": "Bus VAB1: Westbahnhof => Flughafen Wien",
+    "network": "VAB",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "VAB1",
+    "route": "bus",
+    "to": "Flughafen Wien Busterminal",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "relation",
+  "id": 3773484,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Eichgraben-Altlengbach",
+    "name": "S50: Eichgraben-Altlengbach => Wien Westbf",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S50",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Westbf",
+    "type": "route",
+    "wikidata": "Q96483895",
+    "wikimedia_commons": "Category:S50 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1775537146
+},
+{
+  "type": "node",
+  "id": 3105405930
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3637342042
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889014657
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "relation",
+  "id": 5736714,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Wien Westbahnhof",
+    "name": "S50: Wien Westbahnhof => Eichgraben-Altlengbach",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S50",
+    "route": "train",
+    "service": "commuter",
+    "to": "Eichgraben-Altlengbach",
+    "type": "route",
+    "wikidata": "Q96483895",
+    "wikimedia_commons": "Category:S50 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 60093107
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1775537146
+},
+{
+  "type": "node",
+  "id": 3105405930
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3637342042
+},
+{
+  "type": "node",
+  "id": 3889010534
+},
+{
+  "type": "node",
+  "id": 3889014657
+},
+{
+  "type": "node",
+  "id": 3889021221
+},
+{
+  "type": "node",
+  "id": 3889026587
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "relation",
+  "id": 20309,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#EF7C00",
+    "from": "Ottakring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3303:",
+    "gtfs:shape_id": "21-U3-j26-8.1.H",
+    "gtfs:trip_id:like": "%21-U3-j26-8.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U3-j26-8.1.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U3: Ottakring => Simmering",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U3",
+    "route": "subway",
+    "to": "Simmering",
+    "type": "route",
+    "wikidata": "Q876472",
+    "wikipedia": "en:U3 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336039
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4348437231
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 79466,
+  "tags": {
+    "by_night": "only",
+    "by_night:weekend": "no",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Oper, Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3549:",
+    "name": "Nachtbus N49: Oper, Karlsplatz => Hütteldorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "werktags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N49",
+    "route": "bus",
+    "to": "Hütteldorf, Bujattigasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 207110,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Alterlaa => Handelskai",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 00:30 - 05:20",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Handelskai",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 1780743,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Rodaun",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3160:",
+    "gtfs:shape_id": "22-60-j26-2.6.R",
+    "gtfs:trip_id:like": "%22-60-j26-2.6.R",
+    "gtfs:trip_id:sample": "144.T9.22-60-j26-2.6.R",
+    "name": "Tram 60: Rodaun => Westbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "60",
+    "route": "tram",
+    "to": "Westbahnhof",
+    "type": "route",
+    "wikidata": "Q47657489"
+  }
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "relation",
+  "id": 1780808,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Westbahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3160:",
+    "gtfs:shape_id": "22-60-j26-2.7.H",
+    "gtfs:trip_id:like": "%22-60-j26-2.7.H",
+    "gtfs:trip_id:sample": "3.T2.22-60-j26-2.7.H",
+    "name": "Tram 60: Westbahnhof => Rodaun",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "60",
+    "route": "tram",
+    "to": "Rodaun",
+    "type": "route",
+    "wikidata": "Q47657489"
+  }
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "relation",
+  "id": 1809912,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Burggasse-Stadthalle",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3118:",
+    "gtfs:shape_id": "22-18-j26-9.4.H",
+    "gtfs:trip_id:like": "%22-18-j26-9.4.H",
+    "gtfs:trip_id:sample": "4.T3.22-18-j26-9.4.H",
+    "name": "Tram 18: Burggasse-Stadthalle => Stadion",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "18",
+    "route": "tram",
+    "to": "Stadion",
+    "type": "route",
+    "wikidata": "Q47563623"
+  }
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "relation",
+  "id": 1809913,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Stadion",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3118:",
+    "gtfs:shape_id": "22-18-j26-9.13.R",
+    "gtfs:trip_id:like": "%22-18-j26-9.13.R",
+    "gtfs:trip_id:sample": "123.T2.22-18-j26-9.13.R",
+    "name": "Tram 18: Stadion => Burggasse-Stadthalle",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "18",
+    "route": "tram",
+    "to": "Burggasse-Stadthalle",
+    "type": "route",
+    "wikidata": "Q47563623"
+  }
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "relation",
+  "id": 2853012,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#9D6830",
+    "from": "Siebenhirten",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3306:",
+    "gtfs:shape_id": "21-U6-j26-10.1.H",
+    "gtfs:trip_id:like": "%21-U6-j26-10.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U6-j26-10.1.H",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U6: Siebenhirten => Floridsdorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U6",
+    "route": "subway",
+    "to": "Floridsdorf",
+    "type": "route",
+    "wikidata": "Q281409",
+    "wikipedia": "en:U6 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4008355781
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "node",
+  "id": 4008355785
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "node",
+  "id": 4281927209
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 2928575,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#EF7C00",
+    "from": "Simmering",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3303:",
+    "gtfs:shape_id": "21-U3-j26-8.6.R",
+    "gtfs:trip_id:like": "%21-U3-j26-8.6.R",
+    "gtfs:trip_id:sample": "214.T3.21-U3-j26-8.6.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U3: Simmering => Ottakring",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U3",
+    "route": "subway",
+    "to": "Ottakring",
+    "type": "route",
+    "wikidata": "Q876472",
+    "wikipedia": "en:U3 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336039
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4348437231
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 5275276,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Enkplatz, Grillgasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3506:",
+    "name": "Nachtbus N6: Enkplatz, Grillgasse => Westbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "Mo-Su 00:30-04:50",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N6",
+    "route": "bus",
+    "to": "Westbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3329291522
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "relation",
+  "id": 5954449,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#9D6830",
+    "from": "Floridsdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3306:",
+    "gtfs:shape_id": "21-U6-j26-10.3.R",
+    "gtfs:trip_id:like": "%21-U6-j26-10.3.R",
+    "gtfs:trip_id:sample": "220.T3.21-U6-j26-10.3.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U6: Floridsdorf => Siebenhirten",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U6",
+    "route": "subway",
+    "to": "Siebenhirten",
+    "type": "route",
+    "wikidata": "Q281409",
+    "wikipedia": "en:U6 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4008355781
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "node",
+  "id": 4008355785
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "node",
+  "id": 4281927209
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 10922106,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Westbahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Westbahnhof => Handelskai",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Handelskai",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 1800603,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Baumgarten",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3152:",
+    "gtfs:shape_id": "22-52-j26-2.7.R",
+    "gtfs:trip_id:like": "%22-52-j26-2.7.R",
+    "gtfs:trip_id:sample": "103.T3.22-52-j26-2.7.R",
+    "name": "Tram 52: Baumgarten => Westbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "52",
+    "route": "tram",
+    "to": "Westbahnhof",
+    "type": "route",
+    "wikidata": "Q47545789"
+  }
+},
+{
+  "type": "node",
+  "id": 1775537146
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "relation",
+  "id": 1800604,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Westbahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3152:",
+    "gtfs:shape_id": "22-52-j26-2.4.H",
+    "gtfs:trip_id:like": "%22-52-j26-2.4.H",
+    "gtfs:trip_id:sample": "3.T8.22-52-j26-2.4.H",
+    "name": "Tram 52: Westbahnhof => Baumgarten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "52",
+    "route": "tram",
+    "to": "Baumgarten",
+    "type": "route",
+    "wikidata": "Q47545789"
+  }
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "relation",
+  "id": 1990860,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Burggasse-Stadthalle",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3106:",
+    "gtfs:shape_id": "22-6-j26-3.3.H",
+    "gtfs:trip_id:like": "%22-6-j26-3.3.H",
+    "gtfs:trip_id:sample": "4.T3.22-6-j26-3.3.H",
+    "name": "Tram 6: Burggasse-Stadthalle => Geiereckstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "6",
+    "route": "tram",
+    "to": "Geiereckstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "relation",
+  "id": 1990861,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Geiereckstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3106:",
+    "gtfs:shape_id": "22-6-j26-3.12.R",
+    "gtfs:trip_id:like": "%22-6-j26-3.12.R",
+    "gtfs:trip_id:sample": "207.T9.22-6-j26-3.12.R",
+    "name": "Tram 6: Geiereckstraße => Burggasse-Stadthalle",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "6",
+    "route": "tram",
+    "to": "Burggasse-Stadthalle",
+    "type": "route",
+    "wikidata": "Q47545889"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "relation",
+  "id": 2005432,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Praterstern",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3105:",
+    "gtfs:shape_id": "22-5-j26-2.7.H",
+    "gtfs:trip_id:like": "%22-5-j26-2.7.H",
+    "gtfs:trip_id:sample": "4.T9.22-5-j26-2.7.H",
+    "interval": "7",
+    "name": "Tram 5: Praterstern => Westbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "5",
+    "route": "tram",
+    "to": "Westbahnhof",
+    "type": "route",
+    "wikidata": "Q20439827"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "relation",
+  "id": 2005433,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Westbahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3105:",
+    "gtfs:shape_id": "22-5-j26-2.13.R",
+    "gtfs:trip_id:like": "%22-5-j26-2.13.R",
+    "gtfs:trip_id:sample": "162.T9.22-5-j26-2.13.R",
+    "interval": "7",
+    "name": "Tram 5: Westbahnhof => Praterstern",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "5",
+    "route": "tram",
+    "to": "Praterstern",
+    "type": "route",
+    "wikidata": "Q20439827"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "relation",
+  "id": 10922104,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Alterlaa => Thaliastraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Thaliastraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722993
+}
+
+  ]
+}

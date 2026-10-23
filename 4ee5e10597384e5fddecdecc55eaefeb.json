@@ -1,0 +1,1528 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:53:03Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 7948587,
+  "tags": {
+    "from": "Wien FJBf",
+    "name": "REX41: Wien => České Velenice",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX41",
+    "route": "train",
+    "service": "regional",
+    "to": "České Velenice",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 7948588,
+  "tags": {
+    "from": "České Velenice",
+    "name": "REX41: České Velenice => Wien",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX41",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien FJBf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 135541,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "St. Pölten Hauptbahnhof",
+    "interval": "60",
+    "name": "S40: St. Pölten => Wien",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S40",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien FJBf",
+    "type": "route",
+    "wikidata": "Q96483953",
+    "wikimedia_commons": "Category:S40 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3486449460
+},
+{
+  "type": "node",
+  "id": 3486449461
+},
+{
+  "type": "node",
+  "id": 3488292944
+},
+{
+  "type": "node",
+  "id": 3488292949
+},
+{
+  "type": "node",
+  "id": 3488292950
+},
+{
+  "type": "node",
+  "id": 3488292955
+},
+{
+  "type": "node",
+  "id": 3488369063
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 4850563,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Wien Franz-Josefs-Bahnhof",
+    "interval": "60",
+    "name": "S40: Wien => St. Pölten",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S40",
+    "route": "train",
+    "service": "commuter",
+    "to": "St. Pölten Hauptbahnhof",
+    "type": "route",
+    "wikidata": "Q96483953",
+    "wikimedia_commons": "Category:S40 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3486449460
+},
+{
+  "type": "node",
+  "id": 3486449461
+},
+{
+  "type": "node",
+  "id": 3488292944
+},
+{
+  "type": "node",
+  "id": 3488292949
+},
+{
+  "type": "node",
+  "id": 3488292950
+},
+{
+  "type": "node",
+  "id": 3488292955
+},
+{
+  "type": "node",
+  "id": 3488369063
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 4850645,
+  "tags": {
+    "from": "Wien Franz-Josefs-Bahnhof",
+    "name": "REX4: Wien => Krems",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX4",
+    "route": "train",
+    "service": "regional",
+    "to": "Krems an der Donau",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 4850646,
+  "tags": {
+    "from": "Krems an der Donau",
+    "name": "REX4: Krems => Wien",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX4",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien FJBf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 8056979,
+  "tags": {
+    "from": "Wien FJBf",
+    "name": "REX41: Wien => Sigmundsherberg",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX41",
+    "route": "train",
+    "service": "regional",
+    "to": "Sigmundsherberg",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 8056980,
+  "tags": {
+    "from": "Sigmundsherberg",
+    "name": "REX41: Sigmundsherberg => Wien",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX41",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien FJBf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 1918956,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Nußdorf Beethovengang",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3136:",
+    "gtfs:shape_id": "22-D-j26-11.10.R",
+    "gtfs:trip_id:like": "%22-D-j26-11.10.R",
+    "gtfs:trip_id:sample": "243.T8.22-D-j26-11.10.R",
+    "name": "Tram D: Nußdorf => Absberggasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "D",
+    "route": "tram",
+    "to": "Absberggasse",
+    "type": "route",
+    "wikidata": "Q901027"
+  }
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3488369063
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 1918957,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Absberggasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3136:",
+    "gtfs:shape_id": "22-D-j26-11.1.H",
+    "gtfs:trip_id:like": "%22-D-j26-11.1.H",
+    "gtfs:trip_id:sample": "1.T8.22-D-j26-11.1.H",
+    "name": "Tram D: Absberggasse => Nußdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "D",
+    "route": "tram",
+    "to": "Nußdorf Beethovengang",
+    "type": "route",
+    "wikidata": "Q901027"
+  }
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3488369063
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 2852864,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.1.H",
+    "gtfs:trip_id:like": "%21-U4-j26-1.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U4-j26-1.1.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Hütteldorf => Heiligenstadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Heiligenstadt",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 2853012,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#9D6830",
+    "from": "Siebenhirten",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3306:",
+    "gtfs:shape_id": "21-U6-j26-10.1.H",
+    "gtfs:trip_id:like": "%21-U6-j26-10.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U6-j26-10.1.H",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U6: Siebenhirten => Floridsdorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U6",
+    "route": "subway",
+    "to": "Floridsdorf",
+    "type": "route",
+    "wikidata": "Q281409",
+    "wikipedia": "en:U6 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4008355781
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "node",
+  "id": 4008355785
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "node",
+  "id": 4281927209
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 5333483,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Handelskai",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Handelskai => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 00:30-05:20",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 5954448,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.2.R",
+    "gtfs:trip_id:like": "%21-U4-j26-1.2.R",
+    "gtfs:trip_id:sample": "354.T2.21-U4-j26-1.2.R",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Heiligenstadt => Hütteldorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Hütteldorf",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5954449,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#9D6830",
+    "from": "Floridsdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3306:",
+    "gtfs:shape_id": "21-U6-j26-10.3.R",
+    "gtfs:trip_id:like": "%21-U6-j26-10.3.R",
+    "gtfs:trip_id:sample": "220.T3.21-U6-j26-10.3.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U6: Floridsdorf => Siebenhirten",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U6",
+    "route": "subway",
+    "to": "Siebenhirten",
+    "type": "route",
+    "wikidata": "Q281409",
+    "wikipedia": "en:U6 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4008355781
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "node",
+  "id": 4008355785
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "node",
+  "id": 4281927209
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 14008624,
+  "tags": {
+    "from": "Wien Franz-Josefs-Bahnhof",
+    "name": "R40: Wien => St. Andrä-Wördern",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "R40",
+    "route": "train",
+    "service": "regional",
+    "subject:wikidata": "Q695595",
+    "to": "St. Andrä-Wördern",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3486449461
+},
+{
+  "type": "node",
+  "id": 3488292944
+},
+{
+  "type": "node",
+  "id": 3488292950
+},
+{
+  "type": "node",
+  "id": 3488292955
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 14008625,
+  "tags": {
+    "from": "St. Andrä-Wördern",
+    "name": "R40: St. Andrä-Wördern => Wien",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "R40",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Franz-Josefs-Bahnhof",
+    "type": "route",
+    "wikidata": "Q96483953"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3486449461
+},
+{
+  "type": "node",
+  "id": 3488292944
+},
+{
+  "type": "node",
+  "id": 3488292950
+},
+{
+  "type": "node",
+  "id": 3488292955
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 2135780,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Brigittenauer Brücke",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3437:",
+    "name": "Bus 37A: Brigittenauer Brücke => Dänenstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "37A",
+    "route": "bus",
+    "to": "Dänenstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 5256586,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Brigittenauer Brücke",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3437:",
+    "name": "Bus 37A: Brigittenauer Brücke => Nußdorfer Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "37A",
+    "route": "bus",
+    "to": "Nußdorfer Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 10922103,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Handelskai",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Handelskai => Thaliastraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Thaliastraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 11006597,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Nußdorfer Straße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3936:",
+    "name": "Nachtrufbus N36: Nußdorfer Straße => Nußdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942436",
+    "public_transport:version": "2",
+    "ref": "N36",
+    "route": "bus",
+    "to": "Nußdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488369063
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 11006598,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Nußdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3936:",
+    "name": "Nachtrufbus N36: Nußdorf => Nußdorfer Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942436",
+    "public_transport:version": "2",
+    "ref": "N36",
+    "route": "bus",
+    "to": "Nußdorfer Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488369063
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 4283722992
+}
+
+  ]
+}

@@ -1,0 +1,2508 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:51:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 3749681,
+  "tags": {
+    "from": "Wien Hbf",
+    "name": "REX8: Wien => Bratislava hl.st",
+    "name:de": "REX8: Wien => Bratislava Hbf",
+    "name:pl": "REX8: Wiedeń => Bratysława",
+    "name:sk": "REX8: Viedeň => Bratislava hl.st",
+    "network": "VOR",
+    "operator": "ÖBB;ZSSK",
+    "public_transport:version": "2",
+    "ref": "REX8",
+    "route": "train",
+    "service": "regional",
+    "to": "Bratislava hl.st.",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3327518464
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 3749683,
+  "tags": {
+    "from": "Bratislava hl.st.",
+    "name": "REX8: Bratislava hl.st. => Wien",
+    "name:de": "REX8: Bratislava Hbf => Wien",
+    "name:pl": "REX8: Bratysława => Wiedeń",
+    "name:sk": "REX8: Bratislava hl.st => Viedeň",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB;ZSSK",
+    "public_transport:version": "2",
+    "ref": "REX8",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Hbf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3327518464
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 4572972,
+  "tags": {
+    "from": "Wien Hbf",
+    "name": "R81: Wien => Marchegg",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "R81",
+    "route": "train",
+    "service": "regional",
+    "to": "Marchegg",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3326393877
+},
+{
+  "type": "node",
+  "id": 3327470949
+},
+{
+  "type": "node",
+  "id": 3327470950
+},
+{
+  "type": "node",
+  "id": 3327518464
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 5709119713
+},
+{
+  "type": "relation",
+  "id": 4572974,
+  "tags": {
+    "from": "Marchegg",
+    "name": "R81: Marchegg => Wien",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "R81",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Hbf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3326393877
+},
+{
+  "type": "node",
+  "id": 3327470949
+},
+{
+  "type": "node",
+  "id": 3327470950
+},
+{
+  "type": "node",
+  "id": 3327518464
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 5709119713
+},
+{
+  "type": "relation",
+  "id": 6703657,
+  "tags": {
+    "from": "Wien Simmering",
+    "name": "Bus 272: Wien Simmering => Schwechat Am Concorde-Business-Park => Bruck an der Leitha Neue Mittelschule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG;Blaguss",
+    "public_transport:version": "2",
+    "ref": "272",
+    "route": "bus",
+    "to": "Bruck an der Leitha Neue Mittelschule",
+    "type": "route",
+    "via": "Schwechat Am Concorde-Business-Park"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 6703844,
+  "tags": {
+    "from": "Bruck an der Leitha Gymnasium/HAK",
+    "name": "Bus 272: Bruck an der Leitha Gymnasium/HAK => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG;Blaguss",
+    "public_transport:version": "2",
+    "ref": "272",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 16376309,
+  "tags": {
+    "from": "Bruck an der Leitha Neue Mittelschule",
+    "name": "Bus 272: Bruck an der Leitha Neue Mittelschule => Schwechat Bahnhof => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "not_via": "Schwechat Am Concorde-Business-Park",
+    "operator": "Österreichische Postbus AG;Blaguss",
+    "public_transport:version": "2",
+    "ref": "272",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route",
+    "via": "Schwechat Bahnhof"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 16376310,
+  "tags": {
+    "from": "Bruck an der Leitha Neue Mittelschule",
+    "name": "Bus 272: Bruck an der Leitha Neue Mittelschule => Schwadorf Schiefer Weg => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG;Blaguss",
+    "public_transport:version": "2",
+    "ref": "272",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route",
+    "via": "Schwadorf Schiefer Weg"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 16376314,
+  "tags": {
+    "from": "Bruck an der Leitha Neue Mittelschule",
+    "name": "Bus 272: Bruck an der Leitha Neue Mittelschule => Wienerherberg Fabriksgasse => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG;Blaguss",
+    "public_transport:version": "2",
+    "ref": "272",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route",
+    "via": "Wienerherberg Fabriksgasse"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "relation",
+  "id": 16376315,
+  "tags": {
+    "from": "Bruck an der Leitha Neue Mittelschule",
+    "name": "Bus 272: Bruck an der Leitha Neue Mittelschule => Wienerherberg Fabriksgasse => Schwechat Bahnhof => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG;Blaguss",
+    "public_transport:version": "2",
+    "ref": "272",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route",
+    "via": "Wienerherberg Fabriksgasse;Schwechat Bahnhof"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 16376320,
+  "tags": {
+    "from": "Wien Simmering",
+    "name": "Bus 272: Wien Simmering => Schwadorf Schiefer Weg => Bruck an der Leitha Neue Mittelschule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG;Blaguss",
+    "public_transport:version": "2",
+    "ref": "272",
+    "route": "bus",
+    "to": "Bruck an der Leitha Neue Mittelschule",
+    "type": "route",
+    "via": "Schwadorf Schiefer Weg"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 16376321,
+  "tags": {
+    "from": "Wien Simmering",
+    "name": "Bus 272: Wien Simmering => Schwechat Am Concorde-Business-Park => Schwadorf Schiefer Weg => Bruck an der Leitha Gymnasium/HAK",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG;Blaguss",
+    "public_transport:version": "2",
+    "ref": "272",
+    "route": "bus",
+    "to": "Bruck an der Leitha Gymnasium/HAK",
+    "type": "route",
+    "via": "Schwechat Am Concorde-Business-Park;Schwadorf Schiefer Weg"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 16376322,
+  "tags": {
+    "from": "Wien Simmering",
+    "name": "Bus 272: Wien Simmering => Schwechat Am Concorde-Business-Park => Schwadorf Schiefer Weg => Bruck an der Leitha Neue Mittelschule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG;Blaguss",
+    "public_transport:version": "2",
+    "ref": "272",
+    "route": "bus",
+    "to": "Bruck an der Leitha Neue Mittelschule",
+    "type": "route",
+    "via": "Schwechat Am Concorde-Business-Park;Schwadorf Schiefer Weg"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 20309,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#EF7C00",
+    "from": "Ottakring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3303:",
+    "gtfs:shape_id": "21-U3-j26-8.1.H",
+    "gtfs:trip_id:like": "%21-U3-j26-8.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U3-j26-8.1.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U3: Ottakring => Simmering",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U3",
+    "route": "subway",
+    "to": "Simmering",
+    "type": "route",
+    "wikidata": "Q876472",
+    "wikipedia": "en:U3 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336039
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4348437231
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 1996537,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Kaiserebersdorf, Zinnergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3111:",
+    "gtfs:shape_id": "22-11-j26-2.9.R",
+    "gtfs:trip_id:like": "%22-11-j26-2.9.R",
+    "gtfs:trip_id:sample": "185.T9.22-11-j26-2.9.R",
+    "name": "Tram 11: Kaiserebersdorf, Zinnergasse => Otto-Probst-Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11",
+    "route": "tram",
+    "to": "Otto-Probst-Platz",
+    "type": "route",
+    "wikidata": "Q70516548"
+  }
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329291522
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 1996538,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Otto-Probst-Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3111:",
+    "gtfs:shape_id": "22-11-j26-2.2.H",
+    "gtfs:trip_id:like": "%22-11-j26-2.2.H",
+    "gtfs:trip_id:sample": "1.T8.22-11-j26-2.2.H",
+    "name": "Tram 11: Otto-Probst-Platz => Kaiserebersdorf, Zinnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11",
+    "route": "tram",
+    "to": "Kaiserebersdorf, Zinnergasse",
+    "type": "route",
+    "wikidata": "Q70516548"
+  }
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329291522
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 2928575,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#EF7C00",
+    "from": "Simmering",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3303:",
+    "gtfs:shape_id": "21-U3-j26-8.6.R",
+    "gtfs:trip_id:like": "%21-U3-j26-8.6.R",
+    "gtfs:trip_id:sample": "214.T3.21-U3-j26-8.6.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U3: Simmering => Ottakring",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U3",
+    "route": "subway",
+    "to": "Ottakring",
+    "type": "route",
+    "wikidata": "Q876472",
+    "wikipedia": "en:U3 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336039
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4348437231
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 5342700,
+  "tags": {
+    "by_night:weekend": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Kaiserebersdorf, Zinnergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3571:",
+    "name": "Nachtbus N71: Kaiserebersdorf, Zinnergasse => Alser Straße, Skodagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N71",
+    "route": "bus",
+    "to": "Alser Straße, Skodagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 5342805,
+  "tags": {
+    "by_night:weekend": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Alser Straße, Skodagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3571:",
+    "name": "Nachtbus N71: Alser Straße, Skodagasse => Kaiserebersdorf, Zinnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N71",
+    "route": "bus",
+    "to": "Kaiserebersdorf, Zinnergasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "relation",
+  "id": 6336876,
+  "tags": {
+    "from": "Mödling HTL",
+    "name": "Bus 217: Mödling HTL => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard;Blaguss",
+    "public_transport:version": "2",
+    "ref": "217",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 4367442874
+},
+{
+  "type": "relation",
+  "id": 16393561,
+  "tags": {
+    "from": "Wien Simmering",
+    "name": "Bus 217: Wien Simmering => Mödling HTL",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard;Blaguss",
+    "public_transport:version": "2",
+    "ref": "217",
+    "route": "bus",
+    "to": "Mödling HTL",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 4367442874
+},
+{
+  "type": "relation",
+  "id": 2024796,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Kaiserebersdorf, Zinnergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.10.R",
+    "gtfs:trip_id:like": "%22-71-j26-21.10.R",
+    "gtfs:trip_id:sample": "167.T9.22-71-j26-21.10.R",
+    "name": "Tram 71: Kaiserebersdorf, Zinnergasse => Schottenring",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-01:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Schottenring",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 2024797,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schottenring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.3.H",
+    "gtfs:trip_id:like": "%22-71-j26-21.3.H",
+    "gtfs:trip_id:sample": "20.T9.22-71-j26-21.3.H",
+    "name": "Tram 71: Schottenring=> Kaiserebersdorf, Zinnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-01:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Kaiserebersdorf, Zinnergasse",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 5342701,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Kaiserebersdorf, Zinnergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3571:",
+    "name": "Nachtbus N71: Kaiserebersdorf, Zinnergasse => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Su 01:00-05:00",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N71",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 5342806,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Oper, Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3571:",
+    "name": "Nachtbus N71: Oper, Karlsplatz => Kaiserebersdorf, Zinnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Su 01:00-05:00",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N71",
+    "route": "bus",
+    "to": "Kaiserebersdorf, Zinnergasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 5736553,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Wien Hbf",
+    "name": "S80: Wien Hbf => Wien Aspern Nord",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S80",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Aspern Nord",
+    "type": "route",
+    "wikidata": "Q96483911",
+    "wikimedia_commons": "Category:S80 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3327470949
+},
+{
+  "type": "node",
+  "id": 3327470950
+},
+{
+  "type": "node",
+  "id": 3327518464
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 5709119713
+},
+{
+  "type": "relation",
+  "id": 5736565,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Wien Aspern Nord",
+    "name": "S80: Wien Aspern Nord => Wien Hbf",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S80",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Hbf",
+    "type": "route",
+    "wikidata": "Q96483911",
+    "wikimedia_commons": "Category:S80 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3327470949
+},
+{
+  "type": "node",
+  "id": 3327470950
+},
+{
+  "type": "node",
+  "id": 3327518464
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 5709119713
+},
+{
+  "type": "relation",
+  "id": 6701986,
+  "tags": {
+    "from": "Wien Simmering",
+    "name": "Bus 218: Wien Simmering => Himberg Hintere Ortsstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "218",
+    "route": "bus",
+    "to": "Himberg Hintere Ortsstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 6702061,
+  "tags": {
+    "from": "Himberg Hintere Ortsstraße",
+    "name": "Bus 218: Himberg Hintere Ortsstraße => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "218",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 12114218,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schwarzenbergplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.2.H",
+    "gtfs:trip_id:like": "%22-71-j26-21.2.H",
+    "gtfs:trip_id:sample": "4.T2.22-71-j26-21.2.H",
+    "name": "Tram 71: Schwarzenbergplatz => Kaiserebersdorf, Zinnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Kaiserebersdorf, Zinnergasse",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "relation",
+  "id": 12114219,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Kaiserebersdorf, Zinnergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.9.R",
+    "gtfs:trip_id:like": "%22-71-j26-21.9.R",
+    "gtfs:trip_id:sample": "113.T3.22-71-j26-21.9.R",
+    "name": "Tram 71: Kaiserebersdorf, Zinnergasse => Schwarzenbergplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Schwarzenbergplatz",
+    "type": "route",
+    "wikidata": "Q18183305"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "relation",
+  "id": 12478525,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Hauptwerkstätte",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.33.R",
+    "gtfs:trip_id:like": "%22-71-j26-21.33.R",
+    "gtfs:trip_id:sample": "284.T8.22-71-j26-21.33.R",
+    "name": "Tram 71: Hauptwerkstätte => Schottenring",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-01:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Schottenring",
+    "type": "route",
+    "wikidata": "Q18183305"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 12478528,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schwarzenbergplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.14.H",
+    "gtfs:trip_id:like": "%22-71-j26-21.14.H",
+    "gtfs:trip_id:sample": "17.T9.22-71-j26-21.14.H",
+    "name": "Tram 71: Schwarzenbergplatz => Hauptwerkstätte",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Hauptwerkstätte",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "relation",
+  "id": 12478529,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schottenring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.13.H",
+    "gtfs:trip_id:like": "%22-71-j26-21.13.H",
+    "gtfs:trip_id:sample": "16.T9.22-71-j26-21.13.H",
+    "name": "Tram 71: Schottenring => Hauptwerkstätte",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-01:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Hauptwerkstätte",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 16376308,
+  "tags": {
+    "from": "Kleinneusiedl Fischamender Straße",
+    "name": "Bus 272: Kleinneusiedl Fischamender Straße => Schwadorf Schiefer Weg => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Österreichische Postbus AG;Blaguss",
+    "public_transport:version": "2",
+    "ref": "272",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route",
+    "via": "Schwadorf Schiefer Weg"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 16393557,
+  "tags": {
+    "from": "Wien Simmering",
+    "name": "Bus 217: Wien Simmering => Himberg Hauptplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard;Blaguss",
+    "public_transport:version": "2",
+    "ref": "217",
+    "route": "bus",
+    "to": "Himberg Hauptplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 4367442874
+},
+{
+  "type": "relation",
+  "id": 16393655,
+  "tags": {
+    "from": "Himberg Hauptplatz",
+    "name": "Bus 217: Himberg Hauptplatz => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard;Blaguss",
+    "public_transport:version": "2",
+    "ref": "217",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 4367442874
+},
+{
+  "type": "relation",
+  "id": 11339196,
+  "tags": {
+    "fixme": "route durch scherrgasse, krausegasse",
+    "from": "Schwechat Hauptplatz",
+    "name": "Gratis Direkt-Bus huma eleven: Schwechat => Simmering",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "9118",
+    "route": "bus",
+    "to": "Simmering",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "relation",
+  "id": 11339197,
+  "tags": {
+    "from": "Simmering",
+    "name": "Gratis Direkt-Bus huma eleven: Simmering => Schwechat",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "9118",
+    "route": "bus",
+    "to": "Schwechat Rathausplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "relation",
+  "id": 16393552,
+  "tags": {
+    "description": "Durchbindung der Linien 217 und 218 in Rannersdorf Industriezentrum",
+    "from": "Wien Simmering",
+    "name": "Bus 217: Wien Simmering => Rannersdorf Industriezentrum",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard;Blaguss",
+    "public_transport:version": "2",
+    "ref": "217",
+    "route": "bus",
+    "to": "Rannersdorf Industriezentrum",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "relation",
+  "id": 16393559,
+  "tags": {
+    "from": "Wien Simmering",
+    "name": "Bus 217: Wien Simmering => Rannersdorf Industriezentrum => Maria Lanzendorf Hauptstraße/Wiener Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard;Blaguss",
+    "public_transport:version": "2",
+    "ref": "217",
+    "route": "bus",
+    "to": "Maria Lanzendorf Hauptstraße/Wiener Straße",
+    "type": "route",
+    "via": "Rannersdorf Industriezentrum"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 4367442874
+},
+{
+  "type": "relation",
+  "id": 16393560,
+  "tags": {
+    "from": "Wien Simmering",
+    "name": "Bus 217: Wien Simmering => Maria Lanzendorf Hauptstraße/Wiener Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard;Blaguss",
+    "public_transport:version": "2",
+    "ref": "217",
+    "route": "bus",
+    "to": "Maria Lanzendorf Hauptstraße/Wiener Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 4367442874
+},
+{
+  "type": "relation",
+  "id": 16393653,
+  "tags": {
+    "from": "Rannersdorf Industriezentrum",
+    "name": "Bus 217: Rannersdorf Industriezentrum => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard;Blaguss",
+    "public_transport:version": "2",
+    "ref": "217",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "relation",
+  "id": 16393656,
+  "tags": {
+    "from": "Maria Lanzendorf Hauptstraße/Wiener Straße",
+    "name": "Bus 217: Maria Lanzendorf Hauptstraße/Wiener Straße => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard;Blaguss",
+    "public_transport:version": "2",
+    "ref": "217",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 4367442874
+},
+{
+  "type": "relation",
+  "id": 16393660,
+  "tags": {
+    "from": "Maria Lanzendorf Hauptstraße/Wiener Straße",
+    "name": "Bus 217: Maria Lanzendorf Hauptstraße/Wiener Straße => Rannersdorf Industriezentrum => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard;Blaguss",
+    "public_transport:version": "2",
+    "ref": "217",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route",
+    "via": "Rannersdorf Industriezentrum"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 4367442874
+},
+{
+  "type": "relation",
+  "id": 16400389,
+  "tags": {
+    "description": "Großteil dieser Kurse: Durchbindung der Linien 217 und 218 in Rannersdorf Industriezentrum",
+    "from": "Rannersdorf Industriezentrum",
+    "name": "Bus 218: Rannersdorf Industriezentrum => Wien Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "218",
+    "route": "bus",
+    "to": "Wien Simmering",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 16400397,
+  "tags": {
+    "description": "Großteil dieser Kurse: Durchbindung der Linien 217 und 218 in Rannersdorf Industriezentrum",
+    "from": "Wien Simmering",
+    "name": "Bus 218: Wien Simmering => Rannersdorf Industriezentrum",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "218",
+    "route": "bus",
+    "to": "Rannersdorf Industriezentrum",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "relation",
+  "id": 1460350,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Simmering",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3469:",
+    "name": "Bus 69A: Simmering => Hauptbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "69A",
+    "route": "bus",
+    "to": "Hauptbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 2919957304
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3329291522
+},
+{
+  "type": "relation",
+  "id": 1460410,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hauptbahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3469:",
+    "name": "Bus 69A: Hauptbahnhof => Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "69A",
+    "route": "bus",
+    "to": "Simmering",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3329291522
+},
+{
+  "type": "relation",
+  "id": 147541,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Landwehrstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3473:",
+    "name": "Bus 73A: Landwehrstraße => Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "73A",
+    "route": "bus",
+    "to": "Simmering",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "relation",
+  "id": 5254462,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Pantucekgasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3473:",
+    "name": "Bus 73A: Pantucekgasse => Simmering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "73A",
+    "route": "bus",
+    "to": "Simmering",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "relation",
+  "id": 5254463,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Simmering",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3473:",
+    "name": "Bus 73A: Simmering => Landwehrstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "73A",
+    "route": "bus",
+    "to": "Landwehrstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "relation",
+  "id": 5254464,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Simmering",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3473:",
+    "name": "Bus 73A: Simmering => Pantucekgasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "73A",
+    "route": "bus",
+    "to": "Pantucekgasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "relation",
+  "id": 6249864,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Gasometer",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3472:",
+    "name": "Bus 72A: Gasometer => Schemmerlstraße/Hasenleitengasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "72A",
+    "route": "bus",
+    "to": "Schemmerlstraße/Hasenleitengasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3327470950
+},
+{
+  "type": "relation",
+  "id": 6249865,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Gasometer",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3472:",
+    "name": "Bus 72A: Gasometer => Hasenleiten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "72A",
+    "route": "bus",
+    "to": "Hasenleiten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3327470950
+},
+{
+  "type": "relation",
+  "id": 6249868,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hasenleiten",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3472:",
+    "name": "Bus 72A: Hasenleiten => Gasometer",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "72A",
+    "route": "bus",
+    "to": "Gasometer",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3327470950
+},
+{
+  "type": "relation",
+  "id": 6249870,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Schemmerlstraße/Hasenleitengasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3472:",
+    "name": "Bus 72A: Schemmerlstraße/Hasenleitengasse => Gasometer",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "72A",
+    "route": "bus",
+    "to": "Gasometer",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3327470950
+},
+{
+  "type": "relation",
+  "id": 6249867,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Simmering",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3472:",
+    "name": "Bus 72A: Simmering => Hasenleiten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "72A",
+    "route": "bus",
+    "to": "Hasenleiten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "relation",
+  "id": 6249869,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Simmering",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3472:",
+    "name": "Bus 72A: Simmering => Schemmerlstraße/Hasenleitengasse => Hasenleiten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "72A",
+    "route": "bus",
+    "to": "Hasenleiten",
+    "type": "route",
+    "via": "Schemmerlstraße/Hasenleitengasse"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+}
+
+  ]
+}

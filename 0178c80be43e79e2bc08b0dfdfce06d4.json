@@ -1,0 +1,2680 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:53:03Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 16837387,
+  "tags": {
+    "from": "Payerbach-Reichenau",
+    "name": "CJX9: Payerbach => Floridsdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "CJX9",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Floridsdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 16837388,
+  "tags": {
+    "from": "Wien Floridsdorf",
+    "name": "CJX9: Floridsdorf => Payerbach",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "CJX9",
+    "route": "train",
+    "service": "regional",
+    "to": "Payerbach-Reichenau",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 8526,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Mödling",
+    "interval": "20",
+    "name": "S2: Mödling => Laa",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S2",
+    "route": "train",
+    "service": "commuter",
+    "to": "Laa an der Thaya",
+    "type": "route",
+    "wikidata": "Q96484152",
+    "wikimedia_commons": "Category:S2 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 2691315726
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 3975440034
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4140102487
+},
+{
+  "type": "node",
+  "id": 4140102488
+},
+{
+  "type": "node",
+  "id": 4140103590
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4345375447
+},
+{
+  "type": "relation",
+  "id": 63301,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Laa an der Thaya",
+    "interval": "20",
+    "name": "S2: Laa => Mödling",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S2",
+    "route": "train",
+    "service": "commuter",
+    "to": "Mödling",
+    "type": "route",
+    "wikidata": "Q96484152",
+    "wikimedia_commons": "Category:S2 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 2691315726
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 3975440034
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4140102487
+},
+{
+  "type": "node",
+  "id": 4140102488
+},
+{
+  "type": "node",
+  "id": 4140103590
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4345375447
+},
+{
+  "type": "relation",
+  "id": 63302,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Marchegg",
+    "interval": "30",
+    "name": "S1: Marchegg => Wien Meidling",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S1",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Meidling",
+    "type": "route",
+    "wikidata": "Q17101540",
+    "wikimedia_commons": "Category:S1 line (Vienna S-Bahn)",
+    "wikipedia": "en:S1 (Vienna)"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3313275910
+},
+{
+  "type": "node",
+  "id": 3313275912
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 3313275953
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 63304,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Wiener Neustadt Hbf",
+    "interval": "60",
+    "name": "S4: Wiener Neustadt => Absdorf-Hippersdorf",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S4",
+    "route": "train",
+    "service": "commuter",
+    "to": "Absdorf-Hippersdorf",
+    "type": "route",
+    "wikidata": "Q96484000",
+    "wikimedia_commons": "Category:S4 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 2691315726
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310963985
+},
+{
+  "type": "node",
+  "id": 3310963986
+},
+{
+  "type": "node",
+  "id": 3310997802
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3397575004
+},
+{
+  "type": "node",
+  "id": 3397575014
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 3975440034
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4345375447
+},
+{
+  "type": "relation",
+  "id": 63305,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Hollabrunn",
+    "interval": "60",
+    "name": "S3: Hollabrunn => Wiener Neustadt",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S3",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wiener Neustadt Hauptbahnhof",
+    "type": "route",
+    "wikidata": "Q96484012",
+    "wikimedia_commons": "Category:S3 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 2691315726
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310963985
+},
+{
+  "type": "node",
+  "id": 3310963986
+},
+{
+  "type": "node",
+  "id": 3310997802
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3397575004
+},
+{
+  "type": "node",
+  "id": 3397575014
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3975440034
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4345375447
+},
+{
+  "type": "relation",
+  "id": 63311,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Mistelbach",
+    "interval": "30",
+    "name": "S7: Mistelbach => Wolfsthal",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S7",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wolfsthal",
+    "type": "route",
+    "wikidata": "Q17101554",
+    "wikimedia_commons": "Category:S7 line (Vienna S-Bahn)",
+    "wikipedia": "en:S7 (Vienna)"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3329291522
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 3329319162
+},
+{
+  "type": "node",
+  "id": 3329326134
+},
+{
+  "type": "node",
+  "id": 3329357416
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4140102487
+},
+{
+  "type": "node",
+  "id": 4140102488
+},
+{
+  "type": "node",
+  "id": 4140103590
+},
+{
+  "type": "relation",
+  "id": 105397,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Wien Meidling",
+    "interval": "30",
+    "name": "S1: Wien Meidling => Marchegg",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S1",
+    "route": "train",
+    "service": "commuter",
+    "to": "Marchegg",
+    "type": "route",
+    "wikidata": "Q17101540",
+    "wikimedia_commons": "Category:S1 line (Vienna S-Bahn)",
+    "wikipedia": "en:S1 (Vienna)"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3313275910
+},
+{
+  "type": "node",
+  "id": 3313275912
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 3313275953
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 1641881,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Wiener Neustadt Hbf",
+    "interval": "60",
+    "name": "S3: Wiener Neustadt => Hollabrunn",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S3",
+    "route": "train",
+    "service": "commuter",
+    "to": "Hollabrunn",
+    "type": "route",
+    "wikidata": "Q96484012",
+    "wikimedia_commons": "Category:S3 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 2691315726
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310963985
+},
+{
+  "type": "node",
+  "id": 3310963986
+},
+{
+  "type": "node",
+  "id": 3310997802
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3397575004
+},
+{
+  "type": "node",
+  "id": 3397575014
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 3975440034
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4345375447
+},
+{
+  "type": "relation",
+  "id": 3775246,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Wolfsthal",
+    "interval": "30",
+    "name": "S7: Wolfsthal => Mistelbach",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S7",
+    "route": "train",
+    "service": "commuter",
+    "to": "Mistelbach",
+    "type": "route",
+    "wikidata": "Q17101554",
+    "wikimedia_commons": "Category:S7 line (Vienna S-Bahn)",
+    "wikipedia": "en:S7 (Vienna)"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3329291522
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 3329319162
+},
+{
+  "type": "node",
+  "id": 3329326134
+},
+{
+  "type": "node",
+  "id": 3329357416
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4140102487
+},
+{
+  "type": "node",
+  "id": 4140102488
+},
+{
+  "type": "node",
+  "id": 4140103590
+},
+{
+  "type": "relation",
+  "id": 4522472,
+  "tags": {
+    "from": "Wiener Neustadt Hbf",
+    "name": "REX1: Wiener Neustadt => Břeclav",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "operator:wikidata": "Q108273560",
+    "public_transport:version": "2",
+    "ref": "REX1",
+    "route": "train",
+    "service": "regional",
+    "to": "Břeclav",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3313275910
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 4572941,
+  "tags": {
+    "from": "Břeclav",
+    "name": "REX1: Břeclav => Wiener Neustadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "operator:wikidata": "Q108273560",
+    "public_transport:version": "2",
+    "ref": "REX1",
+    "route": "train",
+    "service": "regional",
+    "to": "Wiener Neustadt Hbf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3313275910
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 4683240,
+  "tags": {
+    "from": "Wiener Neustadt Hbf",
+    "name": "REX3: Wiener Neustadt Hbf => Znojmo",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX3",
+    "route": "train",
+    "service": "regional",
+    "to": "Znojmo",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 4683241,
+  "tags": {
+    "from": "Znojmo",
+    "name": "REX3: Znojmo => Wiener Neustadt Hbf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX3",
+    "route": "train",
+    "service": "regional",
+    "to": "Wiener Neustadt Hbf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 7220313,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Absdorf-Hippersdorf",
+    "interval": "60",
+    "name": "S4: Absdorf-Hippersdorf => Wiener Neustadt",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S4",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wiener Neustadt Hauptbahnhof",
+    "type": "route",
+    "wikidata": "Q96484000",
+    "wikimedia_commons": "Category:S4 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 2691315726
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3308392301
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310963985
+},
+{
+  "type": "node",
+  "id": 3310963986
+},
+{
+  "type": "node",
+  "id": 3310997802
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3397575004
+},
+{
+  "type": "node",
+  "id": 3397575014
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 3975440034
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4345375447
+},
+{
+  "type": "relation",
+  "id": 10867767,
+  "tags": {
+    "from": "Wolfsthal",
+    "name": "REX7: Wolfsthal => Wien Floridsdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX7",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Floridsdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3329326134
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 10867768,
+  "tags": {
+    "from": "Wien Floridsdorf",
+    "name": "REX7: Wien Floridsdorf => Wolfsthal",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX7",
+    "route": "train",
+    "service": "regional",
+    "to": "Wolfsthal",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3329326134
+},
+{
+  "type": "node",
+  "id": 3329357422
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 11975148,
+  "tags": {
+    "from": "Laa an der Thaya",
+    "name": "REX2: Laa => Wien Rennweg",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX2",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Rennweg",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 11975149,
+  "tags": {
+    "from": "Wien Rennweg",
+    "name": "REX2: Wien Rennweg => Laa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX2",
+    "route": "train",
+    "service": "regional",
+    "to": "Laa an der Thaya",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3313275951
+},
+{
+  "type": "node",
+  "id": 3313275952
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 2853012,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#9D6830",
+    "from": "Siebenhirten",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3306:",
+    "gtfs:shape_id": "21-U6-j26-10.1.H",
+    "gtfs:trip_id:like": "%21-U6-j26-10.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U6-j26-10.1.H",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U6: Siebenhirten => Floridsdorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U6",
+    "route": "subway",
+    "to": "Floridsdorf",
+    "type": "route",
+    "wikidata": "Q281409",
+    "wikipedia": "en:U6 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4008355781
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "node",
+  "id": 4008355785
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "node",
+  "id": 4281927209
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 3770662,
+  "tags": {
+    "colour": "#BDD542",
+    "from": "Wien Hütteldorf",
+    "name": "S45: Wien Hütteldorf => Wien Handelskai",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S45",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Handelskai",
+    "type": "route",
+    "wikidata": "Q17101545",
+    "wikimedia_commons": "Category:S45 line (Vienna S-Bahn)",
+    "wikipedia": "en:S45 (Vienna)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 1418408040
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 1740850471
+},
+{
+  "type": "node",
+  "id": 1775537146
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "relation",
+  "id": 3770663,
+  "tags": {
+    "colour": "#BDD542",
+    "from": "Wien Handelskai",
+    "name": "S45: Wien Handelskai => Wien Hütteldorf",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S45",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Hütteldorf",
+    "type": "route",
+    "wikidata": "Q17101545",
+    "wikimedia_commons": "Category:S45 line (Vienna S-Bahn)",
+    "wikipedia": "en:S45 (Vienna)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 1418408040
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 1740850471
+},
+{
+  "type": "node",
+  "id": 1775537146
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "relation",
+  "id": 5954449,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#9D6830",
+    "from": "Floridsdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3306:",
+    "gtfs:shape_id": "21-U6-j26-10.3.R",
+    "gtfs:trip_id:like": "%21-U6-j26-10.3.R",
+    "gtfs:trip_id:sample": "220.T3.21-U6-j26-10.3.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U6: Floridsdorf => Siebenhirten",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U6",
+    "route": "subway",
+    "to": "Siebenhirten",
+    "type": "route",
+    "wikidata": "Q281409",
+    "wikipedia": "en:U6 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4008355781
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "node",
+  "id": 4008355785
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "node",
+  "id": 4281927209
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 7424194,
+  "tags": {
+    "colour": "#FD8FB4",
+    "from": "Wien Floridsdorf",
+    "name": "Stammstrecke: Floridsdorf => Meidling",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "not:wikidata": "Q2329867",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Meidling",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 7424195,
+  "tags": {
+    "colour": "#FD8FB4",
+    "from": "Wien Meidling",
+    "name": "Stammstrecke: Meidling => Floridsdorf",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "not:wikidata": "Q2329867",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Floridsdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "relation",
+  "id": 5238615,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Nestroyplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3405:",
+    "name": "Bus 5A: Nestroyplatz => Griegstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "5A",
+    "route": "bus",
+    "to": "Griegstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "relation",
+  "id": 5240272,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Gaußplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3405:",
+    "name": "Bus 5A: Gaußplatz => Griegstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "5A",
+    "route": "bus",
+    "to": "Griegstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "relation",
+  "id": 5245277,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Stadion",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3411:",
+    "name": "Bus 11A: Stadion => Bahnhof Heiligenstadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11A",
+    "route": "bus",
+    "to": "Bahnhof Heiligenstadt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "relation",
+  "id": 5994351,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Traisengasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3405:",
+    "name": "Bus 5A: Traisengasse => Griegstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "5A",
+    "route": "bus",
+    "to": "Griegstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "relation",
+  "id": 6280265,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hillerstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3411:",
+    "name": "Bus 11A: Hillerstraße => Bahnhof Heiligenstadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11A",
+    "route": "bus",
+    "to": "Bahnhof Heiligenstadt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "relation",
+  "id": 6280266,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Stadion",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3411:",
+    "name": "Bus 11A: Stadion => Friedrich-Engels-Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11A",
+    "route": "bus",
+    "to": "Friedrich-Engels-Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "relation",
+  "id": 6280267,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Walcherstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3411:",
+    "name": "Bus 11A: Walcherstraße => Bahnhof Heiligenstadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11A",
+    "route": "bus",
+    "to": "Bahnhof Heiligenstadt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "relation",
+  "id": 19541591,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Elderschplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3411:",
+    "name": "Bus 11A: Elderschplatz => Friedrich-Engels-Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11A",
+    "route": "bus",
+    "to": "Friedrich-Engels-Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 4169757308
+}
+
+  ]
+}

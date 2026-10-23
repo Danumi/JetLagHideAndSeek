@@ -1,0 +1,1615 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:56:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 207110,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Alterlaa => Handelskai",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 00:30 - 05:20",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Handelskai",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 1305899,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Liesing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3566:",
+    "name": "Nachtbus N66: Liesing => Burgring",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N66",
+    "route": "bus",
+    "to": "Burgring",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 2853012,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#9D6830",
+    "from": "Siebenhirten",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3306:",
+    "gtfs:shape_id": "21-U6-j26-10.1.H",
+    "gtfs:trip_id:like": "%21-U6-j26-10.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U6-j26-10.1.H",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U6: Siebenhirten => Floridsdorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U6",
+    "route": "subway",
+    "to": "Floridsdorf",
+    "type": "route",
+    "wikidata": "Q281409",
+    "wikipedia": "en:U6 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4008355781
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "node",
+  "id": 4008355785
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "node",
+  "id": 4281927209
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 5253984,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Liesing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3466:",
+    "name": "Bus 66A: Liesing => Raxstraße, Betriebsgarage",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "66A",
+    "route": "bus",
+    "to": "Raxstraße, Betriebsgarage",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 5253985,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Liesing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3466:",
+    "name": "Bus 66A: Liesing => Reumannplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "66A",
+    "route": "bus",
+    "to": "Reumannplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 5253993,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Raxstraße, Betriebsgarage",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3466:",
+    "name": "Bus 66A: Raxstraße, Betriebsgarage => Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "66A",
+    "route": "bus",
+    "to": "Liesing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 5254030,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Reumannplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3466:",
+    "name": "Bus 66A: Reumannplatz => Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "66A",
+    "route": "bus",
+    "to": "Liesing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 5333483,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Handelskai",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Handelskai => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 00:30-05:20",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 5335567,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Liesing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3566:",
+    "name": "Nachtbus N66: Liesing => Reumannplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N66",
+    "route": "bus",
+    "to": "Reumannplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 5337485,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Burgring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3566:",
+    "name": "Nachtbus N66: Burgring => Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N66",
+    "route": "bus",
+    "to": "Liesing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3124681423
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5337486,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Reumannplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3566:",
+    "name": "Nachtbus N66: Reumannplatz => Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N66",
+    "route": "bus",
+    "to": "Liesing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 5954449,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#9D6830",
+    "from": "Floridsdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3306:",
+    "gtfs:shape_id": "21-U6-j26-10.3.R",
+    "gtfs:trip_id:like": "%21-U6-j26-10.3.R",
+    "gtfs:trip_id:sample": "220.T3.21-U6-j26-10.3.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U6: Floridsdorf => Siebenhirten",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U6",
+    "route": "subway",
+    "to": "Siebenhirten",
+    "type": "route",
+    "wikidata": "Q281409",
+    "wikipedia": "en:U6 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4008355781
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "node",
+  "id": 4008355785
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "node",
+  "id": 4281927209
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 7531399,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Liesing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3566:",
+    "name": "Nachtbus N66: Liesing => Raxstraße, Betriebsgarage",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N66",
+    "route": "bus",
+    "to": "Raxstraße, Betriebsgarage",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 7531401,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Liesing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3466:",
+    "name": "Bus 66A: Liesing => Laxenburger Straße/Troststraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "66A",
+    "route": "bus",
+    "to": "Laxenburger Straße/Troststraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 7531407,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kolbegasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3466:",
+    "name": "Bus 66A: Kolbegasse => Inzersdorf, Biróstraße => Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "66A",
+    "route": "bus",
+    "to": "Liesing",
+    "type": "route",
+    "via": "Inzersdorf, Biróstraße"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 9454555,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Brunner Straße/Erlaaer Straße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3466:",
+    "name": "Bus 66A: Brunner Straße/Erlaaer Straße => Reumannplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "66A",
+    "route": "bus",
+    "to": "Reumannplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 113406,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3460:",
+    "name": "Bus 60A: Alterlaa => Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "public_transport:version": "2",
+    "ref": "60A",
+    "route": "bus",
+    "to": "Liesing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "relation",
+  "id": 5260032,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Liesing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3460:",
+    "name": "Bus 60A: Liesing => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "public_transport:version": "2",
+    "ref": "60A",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "relation",
+  "id": 5260262,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Atzgersdorf, Ziedlergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3464:",
+    "name": "Bus 64A: Atzgersdorf, Ziedlergasse => Liesing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "64A",
+    "route": "bus",
+    "to": "Liesing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "relation",
+  "id": 5260263,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Atzgersdorf, Ziedlergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3464:",
+    "name": "Bus 64A: Atzgersdorf, Ziedlergasse => Perfektastraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "64A",
+    "route": "bus",
+    "to": "Perfektastraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "relation",
+  "id": 5260264,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Liesing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3464:",
+    "name": "Bus 64A: Liesing => Atzgersdorf, Ziedlergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "64A",
+    "route": "bus",
+    "to": "Atzgersdorf, Ziedlergasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324394753
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "relation",
+  "id": 5260265,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Perfektastraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3464:",
+    "name": "Bus 64A: Perfektastraße => Atzgersdorf, Ziedlergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "64A",
+    "route": "bus",
+    "to": "Atzgersdorf, Ziedlergasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "relation",
+  "id": 9454484,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Atzgersdorf, Knotzenbachgasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3460:",
+    "name": "Bus 60A: Atzgersdorf, Knotzenbachgasse => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "public_transport:version": "2",
+    "ref": "60A",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "relation",
+  "id": 9454485,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Leopoldigasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3460:",
+    "name": "Bus 60A: Leopoldigasse => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "public_transport:version": "2",
+    "ref": "60A",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "relation",
+  "id": 5253987,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Raxstraße, Betriebsgarage",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3466:",
+    "name": "Bus 66A: Raxstraße, Betriebsgarage => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "66A",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 5254024,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3466:",
+    "name": "Bus 66A: Alterlaa => Reumannplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "66A",
+    "route": "bus",
+    "to": "Reumannplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 7531400,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Reumannplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3566:",
+    "name": "Nachtbus N66: Reumannplatz => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N66",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 7531415,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3267:",
+    "name": "Bus 67B: Alterlaa => Inzersdorf, Kolpingstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67B",
+    "route": "bus",
+    "to": "Inzersdorf, Kolpingstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 7531417,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3267:",
+    "name": "Bus 67B: Alterlaa => Alaudagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67B",
+    "route": "bus",
+    "to": "Alaudagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 7531418,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Inzersdorf, Kolpingstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3267:",
+    "name": "Bus 67B: Inzersdorf, Kolpingstraße => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67B",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 7531421,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3267:",
+    "name": "Bus 67B: Alaudagasse => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67B",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 12312407,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "duration": "9",
+    "from": "Siebenhirten",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3964:",
+    "interval": "30",
+    "name": "Nachtrufbus N64: Siebenhirten => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Su 01:00-05:00",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942464",
+    "public_transport:version": "2",
+    "ref": "N64",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "relation",
+  "id": 12312526,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "duration": "8",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3964:",
+    "interval": "30",
+    "name": "Nachtrufbus N64: Alterlaa => Siebenhirten",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Su 01:00-05:00",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942464",
+    "public_transport:version": "2",
+    "ref": "N64",
+    "route": "bus",
+    "to": "Siebenhirten",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "relation",
+  "id": 10922104,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Alterlaa => Thaliastraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Thaliastraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "relation",
+  "id": 14542854,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hetzendorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3264:",
+    "name": "Bus 64B: Hetzendorf => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "64B",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2691315726
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "relation",
+  "id": 14542855,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3264:",
+    "name": "Bus 64B: Alterlaa => Hetzendorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "64B",
+    "route": "bus",
+    "to": "Hetzendorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2691315726
+},
+{
+  "type": "node",
+  "id": 4008355779
+}
+
+  ]
+}

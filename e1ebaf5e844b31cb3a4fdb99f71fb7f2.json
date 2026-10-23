@@ -1,0 +1,1092 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:54:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 1780743,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Rodaun",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3160:",
+    "gtfs:shape_id": "22-60-j26-2.6.R",
+    "gtfs:trip_id:like": "%22-60-j26-2.6.R",
+    "gtfs:trip_id:sample": "144.T9.22-60-j26-2.6.R",
+    "name": "Tram 60: Rodaun => Westbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "60",
+    "route": "tram",
+    "to": "Westbahnhof",
+    "type": "route",
+    "wikidata": "Q47657489"
+  }
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "relation",
+  "id": 1780808,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Westbahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3160:",
+    "gtfs:shape_id": "22-60-j26-2.7.H",
+    "gtfs:trip_id:like": "%22-60-j26-2.7.H",
+    "gtfs:trip_id:sample": "3.T2.22-60-j26-2.7.H",
+    "name": "Tram 60: Westbahnhof => Rodaun",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "60",
+    "route": "tram",
+    "to": "Rodaun",
+    "type": "route",
+    "wikidata": "Q47657489"
+  }
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "relation",
+  "id": 2852864,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.1.H",
+    "gtfs:trip_id:like": "%21-U4-j26-1.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U4-j26-1.1.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Hütteldorf => Heiligenstadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Heiligenstadt",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5329166,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Oper, Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3560:",
+    "name": "Nachtbus N60: Oper, Karlsplatz => Maurer Hauptplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 01:00 - 05:10",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N60",
+    "route": "bus",
+    "to": "Maurer Hauptplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5329244,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Hietzing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3560:",
+    "name": "Nachtbus N60: Hietzing => Rodaun",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Sa - Su 01:07 - 05:15",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N60",
+    "route": "bus",
+    "to": "Rodaun",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "relation",
+  "id": 5329245,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Rodaun",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3560:",
+    "name": "Nachtbus N60: Rodaun => Hietzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Sa - Su 01:07 - 05:01",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N60",
+    "route": "bus",
+    "to": "Hietzing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "relation",
+  "id": 5329246,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "destination": "Ring, Kai",
+    "from": "Maurer Hauptplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3560:",
+    "name": "Nachtbus N60: Maurer Hauptplatz => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:00-05:10",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N60",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 5954448,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.2.R",
+    "gtfs:trip_id:like": "%21-U4-j26-1.2.R",
+    "gtfs:trip_id:sample": "354.T2.21-U4-j26-1.2.R",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Heiligenstadt => Hütteldorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Hütteldorf",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 156363,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hietzing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3256:",
+    "name": "Bus 56B: Hietzing => Lainzer Tor",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Zuklinbus",
+    "public_transport:version": "2",
+    "ref": "56B",
+    "route": "bus",
+    "to": "Lainzer Tor",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "relation",
+  "id": 1306240,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hanusch-Krankenhaus",
+    "name": "Bus 51B: Hanusch-Krankenhaus => Hietzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "51B",
+    "route": "bus",
+    "to": "Hietzing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "relation",
+  "id": 1306241,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hietzing",
+    "name": "Bus 51B: Hietzing => Hanusch-Krankenhaus",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "51B",
+    "route": "bus",
+    "to": "Hanusch-Krankenhaus",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "relation",
+  "id": 1306559,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Dornbach",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3110:",
+    "gtfs:shape_id": "22-10-j26-90.2.H",
+    "gtfs:trip_id:like": "%22-10-j26-90.2.H",
+    "gtfs:trip_id:sample": "3.T8.22-10-j26-90.2.H",
+    "name": "Tram 10: Dornbach => Unter St. Veit, Hummelgasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10",
+    "route": "tram",
+    "to": "Unter St. Veit, Hummelgasse",
+    "type": "route",
+    "wikidata": "Q47563295"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "relation",
+  "id": 1306560,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Unter St. Veit, Hummelgasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3110:",
+    "gtfs:shape_id": "22-10-j26-90.8.R",
+    "gtfs:trip_id:like": "%22-10-j26-90.8.R",
+    "gtfs:trip_id:sample": "124.T9.22-10-j26-90.8.R",
+    "name": "Tram 10: Unter St. Veit, Hummelgasse => Dornbach",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10",
+    "route": "tram",
+    "to": "Dornbach, Güpferlingstraße",
+    "type": "route",
+    "wikidata": "Q47563295"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "relation",
+  "id": 1307145,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hietzing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3458:",
+    "name": "Bus 58A: Hietzing => Atzgersdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Zuklinbus",
+    "public_transport:version": "2",
+    "ref": "58A",
+    "route": "bus",
+    "to": "Bahnhof Atzgersdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "relation",
+  "id": 1307147,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Atzgersdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3458:",
+    "name": "Bus 58A: Atzgersdorf => Hietzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Zuklinbus",
+    "public_transport:version": "2",
+    "ref": "58A",
+    "route": "bus",
+    "to": "Hietzing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "relation",
+  "id": 1307150,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Atzgersdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3456:",
+    "name": "Bus 56A: Atzgersdorf => Hietzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Zuklinbus",
+    "public_transport:version": "2",
+    "ref": "56A",
+    "route": "bus",
+    "to": "Hietzing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "relation",
+  "id": 4560953,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Lainzer Tor",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3256:",
+    "name": "Bus 56B: Lainzer Tor => Hietzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Zuklinbus",
+    "public_transport:version": "2",
+    "ref": "56B",
+    "route": "bus",
+    "to": "Hietzing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "relation",
+  "id": 5259761,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hietzing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3451:",
+    "name": "Bus 51A: Hietzing => Ottakringer Bad",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "51A",
+    "route": "bus",
+    "to": "Ottakringer Bad",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "relation",
+  "id": 5259762,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Ottakringer Bad",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3451:",
+    "name": "Bus 51A: Ottakringer Bad => Hietzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "51A",
+    "route": "bus",
+    "to": "Hietzing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "relation",
+  "id": 9736596,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hietzing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3456:",
+    "name": "Bus 56A: Hietzing => Atzgersdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Zuklinbus",
+    "public_transport:version": "2",
+    "ref": "56A",
+    "route": "bus",
+    "to": "Bahnhof Atzgersdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "relation",
+  "id": 9736617,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Am Rosenhügel",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3258:",
+    "name": "Bus 58B: Am Rosenhügel => Hietzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Zuklinbus",
+    "public_transport:version": "2",
+    "ref": "58B",
+    "route": "bus",
+    "to": "Hietzing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "relation",
+  "id": 9736618,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Atzgersdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3258:",
+    "name": "Bus 58B: Atzgersdorf => Hietzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Zuklinbus",
+    "public_transport:version": "2",
+    "ref": "58B",
+    "route": "bus",
+    "to": "Hietzing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "relation",
+  "id": 9736619,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hietzing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3258:",
+    "name": "Bus 58B: Hietzing => Hödlgasse => Atzgersdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Zuklinbus",
+    "public_transport:version": "2",
+    "ref": "58B",
+    "route": "bus",
+    "to": "Bahnhof Atzgersdorf",
+    "type": "route",
+    "via": "Hödlgasse"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 4314093360
+},
+{
+  "type": "relation",
+  "id": 12310847,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "duration": "16",
+    "from": "Westbahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3954:",
+    "interval": "30",
+    "name": "Nachtrufbus N54: Westbahnhof => Ober St. Veit",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "00:50-05:05",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942454",
+    "public_transport:version": "2",
+    "ref": "N54",
+    "route": "bus",
+    "to": "Ober St. Veit",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "relation",
+  "id": 12311066,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "duration": "14",
+    "from": "Ober St. Veit",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3954:",
+    "interval": "30",
+    "name": "Nachtrufbus N54: Ober St. Veit => Westbahnhof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "opening_hours": "00:50-05:05",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942454",
+    "public_transport:version": "2",
+    "ref": "N54",
+    "route": "bus",
+    "to": "Westbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 4281897753
+}
+
+  ]
+}

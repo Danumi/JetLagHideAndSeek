@@ -1,0 +1,2994 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T10:02:18Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 9673460,
+  "tags": {
+    "from": "Пловдив, автогара юг",
+    "name": "Flixbus N982: Пловдив, автогара юг => Wien Erdberg, Busterminal VIB",
+    "name:bg": "Flixbus N982: Пловдив, Автогара Юг => Виена Ердберг, Автогара VIB",
+    "name:de": "Flixbus N982: Plovdiv, Busbahnhof Süd => Wien Erdberg, Busterminal VIB",
+    "name:hu": "Flixbus N982: Plovdiv, autóbusz-állomás Dél => Bécs Erdberg, VIB buszpályaudvar",
+    "name:sr": "Фликбус Н982: Пловдив, Аутобусни колодвор Соутх => Беч Ердберг, Аутобусни колодвор ВИБ",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Florentia Bus Sofia OOD",
+    "public_transport:version": "2",
+    "ref": "N982",
+    "route": "bus",
+    "to": "Vienna International Busterminal",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9673461,
+  "tags": {
+    "from": "Vienna International Busterminal",
+    "name": "Flixbus N982: Wien Erdberg, Busterminal VIB => Пловдив, автогара юг",
+    "name:bg": "Flixbus N982: Виена Erdberg, автогара VIB => Пловдив, автогара юг",
+    "name:de": "Flixbus N982: Wien Erdberg, Busterminal VIB => Plovdiv, Busbahnhof Süd",
+    "name:hu": "Flixbus N982: Bécs Erdberg, VIB buszpályaudvar => Plovdiv, autóbusz-állomás délre",
+    "name:sr": "Фликбус Н982: Беч Ердберг, аутобусни терминал ВИБ => Пловдив, аутобуска станица јужно",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "operator": "Florentia Bus Sofia OOD",
+    "public_transport:version": "2",
+    "ref": "N982",
+    "route": "bus",
+    "to": "Пловдив, автогара юг",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9191779,
+  "tags": {
+    "fee": "yes",
+    "from": "Budapest, Népliget",
+    "name": "Flixbus N391: Budapest, Népliget => Freiburg im Breisgau, Hbf./ZOB",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Umbrella Coach & Buses",
+    "public_transport:version": "2",
+    "ref": "N391",
+    "route": "bus",
+    "to": "Freiburg im Breisgau, Hbf./ZOB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9208722,
+  "tags": {
+    "fee": "yes",
+    "from": "Freiburg im Breisgau, Hbf./ZOB",
+    "name": "Flixbus N391: Freiburg im Breisgau, Hbf./ZOB => Budapest, Népliget",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Umbrella Coach & Buses",
+    "public_transport:version": "2",
+    "ref": "N391",
+    "route": "bus",
+    "to": "Budapest, Népliget",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9227796,
+  "tags": {
+    "brand": "Flixbus",
+    "brand:wikidata": "Q15712258",
+    "description": "The start, end, and stop locations have not been verified. This route may be out of service for an extended period and may not match the actual route (2026)",
+    "from": "Wien, Flughafen Schwechat",
+    "name": "Flixbus N66: Wien, Flughafen Schwechat => Hamburg ZOB",
+    "name:cs": "Flixbus N66: Vídeň, letiště Schwechat => Hamburk centrální autobusové nádraží",
+    "name:de": "Flixbus N66: Wien, Flughafen Schwechat => Hamburg ZOB",
+    "network": "Flixbus",
+    "network:website": "https://www.flixbus.de/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Fuhrmann Reisedienst",
+    "public_transport:version": "2",
+    "ref": "N66",
+    "route": "bus",
+    "service": "long_distance",
+    "to": "Hamburg ZOB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9351570,
+  "tags": {
+    "from": "Bratislava, centrálna autobusová stanica",
+    "name": "Flixbus N468: Bratislava, centrálna autobusová stanica => Milano, Lampugnano",
+    "name:de": "Flixbus N468: Bratislava, ZOB => Mailand, Lampugnano",
+    "name:it": "Flixbus N468: Bratislava, stazione centrale degli autobus => Milano, Lampugnano =>",
+    "name:sk": "Flixbus N468: Bratislava, centrálna autobusová stanica => Miláno, Lampugnano =>",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N468",
+    "route": "bus",
+    "to": "Milano, Lampugnano",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9351571,
+  "tags": {
+    "from": "Milano, Lampugnano",
+    "name": "Flixbus N468: Milano, Lampugnano => Bratislava, centrálna autobusová stanica",
+    "name:de": "Flixbus N468: Mailand, Lampugnano => Bratislava, ZOB",
+    "name:it": "Flixbus N468: Milano, Lampugnano => Bratislava, stazione centrale degli autobus",
+    "name:sk": "Flixbus N468: Miláno, Lampugnano => Bratislava, centrálna autobusová stanica",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N468",
+    "route": "bus",
+    "to": "Bratislava, centrálna autobusová stanica",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9445741,
+  "tags": {
+    "from": "Hamburg ZOB",
+    "name": "Flixbus N66: Hamburg ZOB => Wien, Flughafen Schwechat",
+    "name:cs": "Flixbus N66: Hamburk centrální autobusové nádraží => Vídeň, letiště Schwechat",
+    "name:de": "Flixbus N66: Hamburg ZOB => Wien, Flughafen Schwechat",
+    "network": "Flixbus",
+    "network:website": "https://www.flixbus.de/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Fuhrmann Reisedienst",
+    "public_transport:version": "2",
+    "ref": "N66",
+    "route": "bus",
+    "to": "Wien, Flughafen Schwechat",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9620286,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus N236: Wien Erdberg, Busterminal VIB => Paris, Bercy Seine",
+    "name:de": "Flixbus N236: Wien Erdberg, Busterminal VIB => Paris, Bercy Seine",
+    "name:fr": "Flixbus N236: Vienne Erdberg, gare routière VIB => Paris, Bercy Seine",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "note": "Stop 'Braunau am Inn' (Austria) is missing.",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N236",
+    "route": "bus",
+    "to": "Paris, Bercy Seine",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9624555,
+  "tags": {
+    "from": "Paris, Bercy Seine",
+    "name": "Flixbus N236: Paris, Bercy Seine => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus N236: Paris, Bercy Seine => Wien Erdberg, Busterminal VIB",
+    "name:fr": "Flixbus N236: Paris, Bercy Seine => Vienne Erdberg, gare routière VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "note": "Stop 'Braunau am Inn' (Austria) is missing.",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N236",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9626331,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 036: Wien Erdberg, Busterminal VIB => Saarbrücken, Fernbusbahnhof",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o;AutoBus Oberbayern",
+    "public_transport:version": "2",
+    "ref": "036",
+    "route": "bus",
+    "to": "Saarbrücken, Fernbusbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9626332,
+  "tags": {
+    "from": "Saarbrücken, Fernbusbahnhof",
+    "name": "Flixbus 036: Saarbrücken, Fernbusbahnhof => Wien Erdberg, Busterminal VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o;AutoBus Oberbayern",
+    "public_transport:version": "2",
+    "ref": "036",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9626334,
+  "tags": {
+    "from": "Strasbourg, Place de l'Étoile",
+    "name": "Flixbus 036: Strasbourg, Place de l'Étoile => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 036: Straßburg, Place de l'Étoile => Wien Erdberg, Busterminal VIB",
+    "name:fr": "Flixbus 036: Strasbourg, Place de l'Étoile => Vienne Erdberg, gare routiÃ¨re VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o;AutoBus Oberbayern",
+    "public_transport:version": "2",
+    "ref": "036",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9626337,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 036: Wien Erdberg, Busterminal VIB => Strasbourg, Place de l'Étoile",
+    "name:de": "Flixbus 036: Wien Erdberg, Busterminal VIB => Straßburg, Place de l'Étoile",
+    "name:fr": "Flixbus 036: Vienne Erdberg, gare routière VIB => Strasbourg, Place de l'Etoile",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o;AutoBus Oberbayern",
+    "public_transport:version": "2",
+    "ref": "036",
+    "route": "bus",
+    "to": "Strasbourg, Place de l'Étoile",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9627824,
+  "tags": {
+    "from": "Paris, Bercy Seine",
+    "name": "Flixbus N91: Paris, Bercy Seine => Budapest, Népliget",
+    "name:de": "Flixbus N91: Paris, Bercy Seine => Budapest, Népliget",
+    "name:fr": "Flixbus N91: Paris, Bercy Seine => Budapest, Népliget",
+    "name:hu": "Flixbus N91: Párizs, Bercy Seine => Budapest, Népliget",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Schröder Reisen",
+    "public_transport:version": "2",
+    "ref": "N91",
+    "route": "bus",
+    "to": "Budapest, Népliget",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9627825,
+  "tags": {
+    "from": "Budapest, Népliget",
+    "name": "Flixbus N91: Budapest, Népliget => Paris, Bercy Seine",
+    "name:de": "Flixbus N91: Budapest, Népliget => Paris, Bercy Seine",
+    "name:fr": "Flixbus N91: Budapest, Népliget => Paris, Bercy Seine",
+    "name:hu": "Flixbus N91: Budapest, Népliget => Párizs, Bercy Seine",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Schröder Reisen",
+    "public_transport:version": "2",
+    "ref": "N91",
+    "route": "bus",
+    "to": "Paris, Bercy Seine",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9639285,
+  "tags": {
+    "from": "Antwerpen, Konigin Astridplein",
+    "name": "Flixbus N136: Antwerpen, Konigin Astridplein => Bratislava, ZOB",
+    "name:de": "Flixbus N136: Antwerpen, Konigin Astridplein => Bratislava, ZOB",
+    "name:fr": "Flixbus N136: Anvers, Konigin Astridplein => Bratislava, gare routière centrale",
+    "name:nl": "Flixbus N136: Antwerpen, Konigin Astridplein => Bratislava, centraal busstation =>",
+    "name:sk": "Flixbus N136: Antverpy, Konigin Astridplein => Bratislava, centrálna autobusová stanica",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N136",
+    "route": "bus",
+    "to": "Bratislava, ZOB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9639286,
+  "tags": {
+    "from": "Bratislava, ZOB",
+    "name": "Flixbus N136: Bratislava, ZOB => Antwerpen, Konigin Astridplein",
+    "name:de": "Flixbus N136: Bratislava, ZOB => Antwerpen, Konigin Astridplein",
+    "name:fr": "Flixbus N136: Bratislava, gare routière centrale => Anvers, Konigin Astridplein",
+    "name:nl": "Flixbus N136: Bratislava, centraal busstation => Antwerpen, Konigin Astridplein",
+    "name:sk": "Flixbus N136: Bratislava, centrálna autobusová stanica => Antverpy, Konigin Astridplein",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N136",
+    "route": "bus",
+    "to": "Antwerpen, Konigin Astridplein",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9644847,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Antwerpen, Konigin Astridplein",
+    "name": "Flixbus N36: Antwerpen, Konigin Astridplein => Bratislava, ZOB",
+    "name:de": "Flixbus N36: Antwerpen, Konigin Astridplein => Bratislava, ZOB",
+    "name:fr": "Flixbus N36: Anvers, Konigin Astridplein => Bratislava, gare routière centrale",
+    "name:nl": "Flixbus N36: Antwerpen, Konigin Astridplein => Bratislava, centraal busstation =>",
+    "name:sk": "Flixbus N36: Antverpy, Konigin Astridplein => Bratislava, centrálna autobusová stanica",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N36",
+    "route": "bus",
+    "to": "Bratislava, ZOB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9644848,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Bratislava, centrálna autobusová stanica",
+    "name": "Flixbus N36: Bratislava, centrálna autobusová stanica => Antwerpen, Konigin Astridplein",
+    "name:de": "Flixbus N36: Bratislava, ZOB => Antwerpen, Konigin Astridplein",
+    "name:fr": "Flixbus N36: Bratislava, gare routière centrale => Anvers, Konigin Astridplein",
+    "name:nl": "Flixbus N36: Bratislava, centraal busstation => Antwerpen, Konigin Astridplein",
+    "name:sk": "Flixbus N36: Bratislava, centrálna autobusová stanica => Antverpy, Konigin Astridplein",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N36",
+    "route": "bus",
+    "to": "Antwerpen, Konigin Astridplein",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9646743,
+  "tags": {
+    "from": "Karlsruhe, Hbf. Südseite",
+    "name": "Flixbus N336: Karlsruhe, Hbf. Südseite => Wien Erdberg, Busterminal VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "N336",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9646744,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus N336: Wien Erdberg, Busterminal VIB => Karlsruhe, Hbf. Südseite",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "N336",
+    "route": "bus",
+    "to": "Karlsruhe, Hbf. Südseite",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9647129,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 161: Wien Erdberg, Busterminal VIB => Darmstadt, Hbf.",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "note": "Bussteig in Frankfurt (Hbf.) fehlt, nur improvisiert getaggt",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "161",
+    "route": "bus",
+    "to": "Darmstadt, Hbf.",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9648988,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Darmstadt, Hbf.",
+    "name": "Flixbus 161: Darmstadt, Hbf. => Wien Erdberg, Busterminal VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "note": "Bussteig in Frankfurt (Hbf.) fehlt, nur improvisiert getaggt",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "161",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9649660,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Budapest, Népliget",
+    "name": "Flixbus N161: Budapest, Népliget => Essen, Hbf.",
+    "name:de": "Flixbus N161: Budapest, Népliget => Essen, Hbf.",
+    "name:hu": "Flixbus N161: Budapest, Népliget => Essen, központi állomás.",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "note": "Bussteig in Frankfurt (Hbf.) fehlt, nur improvisiert getaggt",
+    "operator": "Bamberger Busreisen Krapp GmbH",
+    "public_transport:version": "2",
+    "ref": "N161",
+    "route": "bus",
+    "to": "Essen, Hbf.",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9649661,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Essen, Hbf.",
+    "name": "Flixbus N161: Essen, Hbf. => Budapest, Népliget",
+    "name:de": "Flixbus N161: Essen, Hbf. => Budapest, Népliget",
+    "name:hu": "Flixbus N161: Essen, központi pályaudvar => Budapest, Népliget",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "note": "Bussteig in Frankfurt (Hbf.) fehlt, nur improvisiert getaggt",
+    "operator": "Bamberger Busreisen Krapp GmbH",
+    "public_transport:version": "2",
+    "ref": "N161",
+    "route": "bus",
+    "to": "Budapest, Népliget",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9649932,
+  "tags": {
+    "from": "Amsterdam Sloterdijk",
+    "name": "Flixbus N61: Amsterdam Sloterdijk => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus N61: Amsterdam Sloterdijk => Wien Erdberg, Busterminal VIB",
+    "name:nl": "Flixbus N61: Amsterdam Sloterdijk => Wenen Erdberg, busstation VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "note": "Bussteig in Frankfurt (Hbf.) fehlt, nur improvisiert getaggt",
+    "operator": "Fermo Connection C/O; Eichberger Reisen; Pfeffer Reisen",
+    "public_transport:version": "2",
+    "ref": "N61",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9649933,
+  "tags": {
+    "description": "The start, end, and stop locations have not been verified. This route may be out of service for an extended period and may not match the actual route (2026)",
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus N61: Wien Erdberg, Busterminal VIB => Amsterdam Sloterdijk",
+    "name:de": "Flixbus N61: Wien Erdberg, Busterminal VIB => Amsterdam Sloterdijk",
+    "name:nl": "Flixbus N61: Wenen Erdberg, busstation VIB => Amsterdam Sloterdijk",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "note": "Bussteig in Frankfurt (Hbf.) fehlt, nur improvisiert getaggt",
+    "operator": "Fermo Connection C/O;Eichberger Reisen;Pfeffer Reisen",
+    "public_transport:version": "2",
+    "ref": "N61",
+    "route": "bus",
+    "to": "Amsterdam Sloterdijk",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9661617,
+  "tags": {
+    "from": "Berlin ZOB",
+    "name": "Flixbus N958: Berlin ZOB => Rijeka, autobusna stanica",
+    "name:cs": "Flixbus N958: Berlínské centrální autobusové nádraží => Rijeka, autobusové nádraží",
+    "name:de": "Flixbus N958: Berlin ZOB => Rijeka, Busbahnhof",
+    "name:hr": "Flixbus N958: Berlinski autobusni kolodvor => Rijeka, autobusna stanica",
+    "name:sl": "Flixbus N958: Berlinska avtobusna postaja => Reka, avtobusna postaja",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Velebit Tours; Slavonja Bus",
+    "public_transport:version": "2",
+    "ref": "N958",
+    "route": "bus",
+    "to": "Rijeka, autobusna stanica",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9661618,
+  "tags": {
+    "description": "The start, end, and stop locations have not been verified. This route may be out of service for an extended period and may not match the actual route (2026)",
+    "from": "Rijeka, autobusna stanica",
+    "name": "Flixbus N958: Rijeka, autobusna stanica => Berlin ZOB",
+    "name:cs": "Flixbus N958: Rijeka, autobusové nádraží => Centrální autobusové nádraží v Berlíně",
+    "name:de": "Flixbus N958: Rijeka, Busbahnhof => Berlin ZOB",
+    "name:hr": "Flixbus N958: Rijeka, autobusna stanica => Berlinski autobusni kolodvor",
+    "name:sl": "Flixbus N958: Reka, avtobusna postaja => Berlinska avtobusna postaja",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Velebit Tours; Slavonja Bus",
+    "public_transport:version": "2",
+    "ref": "N958",
+    "route": "bus",
+    "to": "Berlin ZOB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9663867,
+  "tags": {
+    "from": "Berlin ZOB",
+    "name": "Flixbus N60: Berlin ZOB => Zagreb, autobusna stanica",
+    "name:cs": "Flixbus N60: Berlín ZOB => Záhřeb, autobusové nádraží",
+    "name:de": "Flixbus N60: Berlin ZOB => Zagreb, Busbahnhof",
+    "name:hr": "Flixbus N60: Berlin ZOB => Zagreb, autobusna stanica",
+    "name:sl": "Flixbus N60: Berlin ZOB => Zagreb, avtobusna postaja",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N60",
+    "route": "bus",
+    "to": "Zagreb, autobusna stanica",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9663868,
+  "tags": {
+    "description": "The start, end, and stop locations have not been verified. This route may be out of service for an extended period and may not match the actual route (2026)",
+    "from": "Zagreb, autobusna stanica",
+    "name": "Flixbus N60: Zagreb, autobusna stanica => Berlin ZOB",
+    "name:cs": "Flixbus N60: Záhřeb, autobusové nádraží => Berlín ZOB",
+    "name:de": "Flixbus N60: Zagreb, Busbahnhof => Berlin ZOB",
+    "name:hr": "Flixbus N60: Zagreb, autobusna stanica => Berlinski ZOB",
+    "name:sl": "Flixbus N60: Zagreb, avtobusna postaja => Berlinska ZOB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N60",
+    "route": "bus",
+    "to": "Berlin ZOB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9667932,
+  "tags": {
+    "from": "Firenze, Villa Costanza",
+    "name": "Flixbus N545: Firenze, Villa Costanza => Bratislava centrálna autobusová stanica",
+    "name:de": "Flixbus N545: Florenz, Villa Costanza => Bratislava ZOB",
+    "name:it": "Flixbus N545: Firenze, Villa Costanza => stazione centrale di Bratislava =>",
+    "name:sk": "Flixbus N545: Florencia, Villa Costanza => Bratislava centrálna autobusová stanica",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N545",
+    "route": "bus",
+    "to": "Bratislava centrálna autobusová stanica",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9667933,
+  "tags": {
+    "from": "Bratislava centrálna autobusová stanica",
+    "name": "Flixbus N545: Bratislava centrálna autobusová stanica => Firenze, Villa Costanza",
+    "name:de": "Flixbus N545: Bratislava ZOB => Florenz, Villa Costanza",
+    "name:it": "Flixbus N545: stazione centrale di Bratislava => Firenze, Villa Costanza",
+    "name:sk": "Flixbus N545: Bratislava centrálna autobusová stanica => Florencia, Villa Costanza",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N545",
+    "route": "bus",
+    "to": "Firenze, Villa Costanza",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9921003,
+  "tags": {
+    "description": "The start, end, and stop locations have not been verified. This route may be out of service for an extended period and may not match the actual route (2026)",
+    "from": "Savona, Piazza Aldo Moro",
+    "name": "Flixbus N404: Savona, Piazza Aldo Moro => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus N404: Savona, Piazza Aldo Moro => Wien Erdberg, Busterminal VIB",
+    "name:it": "Flixbus N404: Savona, Piazza Aldo Moro => Vienna Erdberg, Bus Terminal VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "N404",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9921004,
+  "tags": {
+    "description": "The start, end, and stop locations have not been verified. This route may be out of service for an extended period and may not match the actual route (2026)",
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus N404: Wien Erdberg, Busterminal VIB => Savona, Piazza Aldo Moro",
+    "name:de": "Flixbus N404: Wien Erdberg, Busterminal VIB => Savona, Piazza Aldo Moro",
+    "name:it": "Flixbus N404: Vienna Erdberg, Bus Terminal VIB => Savona, Piazza Aldo Moro",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "N404",
+    "route": "bus",
+    "to": "Savona, Piazza Aldo Moro",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 11817492,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Autogara Militari",
+    "name": "Flixbus 1929: Bukarest, Militari => Bruxelles, Gare du Nord",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Europabus Romania",
+    "public_transport:version": "2",
+    "ref": "1929",
+    "route": "bus",
+    "to": "Bruxelles - Brussel - Brussels",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9430348,
+  "tags": {
+    "from": "Venezia, Tronchetto",
+    "name": "Flixbus N907: Venezia, Tronchetto => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus N907: Venedig, Tronchetto => Wien Erdberg, Busterminal VIB",
+    "name:it": "Flixbus N907: Venezia, Tronchetto => Vienna Erdberg, Bus Terminal VIB",
+    "name:sl": "Flixbus N907: Benetke, Tronchetto => Dunaj Erdberg, Avtobusni terminal VIB",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N907",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9430349,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus N907: Wien Erdberg, Busterminal VIB => Venezia, Tronchetto",
+    "name:de": "Flixbus N907: Wien Erdberg, Busterminal VIB => Venedig, Tronchetto",
+    "name:it": "Flixbus N907: Vienna Erdberg, terminal degli autobus VIB => Venezia, Tronchetto",
+    "name:sl": "Flixbus N907: Dunaj Erdberg, avtobusna postaja VIB => Benetke, Tronchetto",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "N907",
+    "route": "bus",
+    "to": "Venezia, Tronchetto",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9444689,
+  "tags": {
+    "from": "Venezia, Tronchetto",
+    "name": "Flixbus 907: Venezia, Tronchetto => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 907: Venedig, Tronchetto => Wien Erdberg, Busterminal VIB",
+    "name:it": "Flixbus 907: Venezia, Tronchetto => Vienna Erdberg, Bus Terminal VIB",
+    "name:sl": "Flixbus 907: Benetke, Tronchetto => Dunaj Erdberg, Avtobusni terminal VIB",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "907",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9444690,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 907: Wien Erdberg, Busterminal VIB => Venezia, Tronchetto",
+    "name:de": "Flixbus 907: Wien Erdberg, Busterminal VIB => Venedig, Tronchetto",
+    "name:it": "Flixbus 907: Vienna Erdberg, terminal degli autobus VIB => Venezia, Tronchetto",
+    "name:sl": "Flixbus 907: Dunaj Erdberg, avtobusna postaja VIB => Benetke, Tronchetto",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "907",
+    "route": "bus",
+    "to": "Venezia, Tronchetto",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9790950,
+  "tags": {
+    "description": "Sommerfahrplan(Jun - Sep)",
+    "description:it": "Orario estivo (giugno - settembre)",
+    "from": "Bologna, Autostazione",
+    "name": "Flixbus 545: Bologna, Autostazione => Gardasee/Lago di Garda => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 545: Bologna, Autostazione => Gardasee => Wien Erdberg, Busterminal VIB",
+    "name:it": "Flixbus 545: Bologna, Autostazione => Vienna Erdberg, Bus Terminal VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "545",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route",
+    "via": "Gardasee/Lago di Garda"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9790951,
+  "tags": {
+    "description": "Sommerfahrplan (Jun - Sep)",
+    "description:it": "Orario estivo (giugno - settembre)",
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 545: Wien Erdberg, Busterminal VIB => Gardasee/Lago di Garda => Bologna, Autostazione",
+    "name:de": "Flixbus 545: Wien Erdberg, Busterminal VIB => Gardasee => Bologna, Autostazione",
+    "name:it": "Flixbus 545: Vienna Erdberg, Bus Terminal VIB => Lago di Garda => Bologna, Autostazione",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "545",
+    "route": "bus",
+    "to": "Bologna, Autostazione",
+    "type": "route",
+    "via": "Gardasee/Lago di Garda"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 10092674,
+  "tags": {
+    "description": "Winterfahrplan",
+    "description:it": "Orario invernale",
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 545: Wien Erdberg, Busterminal VIB => Bologna, Autostazione",
+    "name:de": "Flixbus 545: Wien Erdberg, Busterminal VIB => Bologna, Autostazione",
+    "name:it": "Flixbus 545: Vienna Erdberg, Bus Terminal VIB => Bologna, Autostazione",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "545",
+    "route": "bus",
+    "to": "Bologna, Autostazione",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 10092675,
+  "tags": {
+    "description": "Winterfahrplan",
+    "description:it": "Orario invernale",
+    "from": "Bologna, Autostazione",
+    "name": "Flixbus 545: Bologna, Autostazione => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 545: Bologna, Autostazione => Wien Erdberg, Busterminal VIB",
+    "name:it": "Flixbus 545: Bologna, Autostazione => Vienna Erdberg, Bus Terminal VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "545",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9446978,
+  "tags": {
+    "brand": "Flixbus",
+    "brand:wikidata": "Q15712258",
+    "description": "The start, end, and stop locations have not been verified. This route may be out of service for an extended period and may not match the actual route (2026)",
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 167: Wien Erdberg, Busterminal VIB => Halle(Saale) ZOB",
+    "name:cs": "Flixbus 167: Vídeň Erdberg, autobusové nádraží VIB => Halle (Saale) centrální autobusové nádraží",
+    "name:de": "Flixbus 167: Wien Erdberg, Busterminal VIB => Halle(Saale) ZOB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Gradliner",
+    "public_transport:version": "2",
+    "ref": "167",
+    "route": "bus",
+    "service": "long_distance",
+    "to": "Halle(Saale) ZOB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9450732,
+  "tags": {
+    "description": "The start, end, and stop locations have not been verified. This route may be out of service for an extended period and may not match the actual route (2026)",
+    "from": "Halle(Saale) ZOB",
+    "name": "Flixbus 167: Halle(Saale) ZOB => Wien Erdberg, Busterminal VIB",
+    "name:cs": "Flixbus 167: Centrální autobusové nádraží Halle (Saale) => Vídeň Erdberg, autobusový terminál VIB",
+    "name:de": "Flixbus 167: Halle(Saale) ZOB => Wien Erdberg, Busterminal VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Gradliner",
+    "public_transport:version": "2",
+    "ref": "167",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9663561,
+  "tags": {
+    "description": "The start, end, and stop locations have not been verified. This route may be out of service for an extended period and may not match the actual route (2026)",
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 060: Wien Erdberg, Busterminal VIB => Berlin ZOB",
+    "name:cs": "Flixbus 060: Vídeň Erdberg, autobusové nádraží VIB => Centrální autobusové nádraží v Berlíně",
+    "name:de": "Flixbus 060: Wien Erdberg, Busterminal VIB => Berlin ZOB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o; UBS Univers Busreisen GmbH; Bus Art Prima Klima",
+    "public_transport:version": "2",
+    "ref": "060",
+    "route": "bus",
+    "to": "Berlin ZOB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9663562,
+  "tags": {
+    "from": "Berlin ZOB",
+    "name": "Flixbus 060: Berlin ZOB => Wien Erdberg, Busterminal VIB",
+    "name:cs": "Flixbus 060: Centrální autobusové nádraží v Berlíně => Vídeň Erdberg, autobusové nádraží VIB",
+    "name:de": "Flixbus 060: Berlin ZOB => Wien Erdberg, Busterminal VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o; UBS Univers Busreisen GmbH; Bus Art Prima Klima",
+    "public_transport:version": "2",
+    "ref": "060",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9341509,
+  "tags": {
+    "from": "Zagreb, Auobusni kolodvor",
+    "name": "Flixbus 905: Zagreb, Auobusni kolodvor => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 905: Zagreb, Busbahnhof => Wien Erdberg, Busterminal VIB",
+    "name:hr": "Flixbus 905: Zagreb, Autobusni kolodvor => Beč Erdberg, Kolodvor VIB",
+    "name:sl": "Flixbus 905: Zagreb, Avtobusna postaja => Dunaj Erdberg, Avtobusni terminal VIB",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "905",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9341510,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 905: Wien Erdberg, Busterminal VIB => Zagreb, Auobusni kolodvor",
+    "name:de": "Flixbus 905: Wien Erdberg, Busterminal VIB => Zagreb, Busbahnhof",
+    "name:hr": "Flixbus 905: Beč Erdberg, autobusni kolodvor VIB => Zagreb, autobusna stanica",
+    "name:sl": "Flixbus 905: Dunaj Erdberg, avtobusna postaja VIB => Zagreb, avtobusna postaja",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "905",
+    "route": "bus",
+    "to": "Zagreb, Auobusni kolodvor",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9550930,
+  "tags": {
+    "from": "Brno, autobusové nádraží Hotel Grand",
+    "name": "Flixbus 895: Brno, autobusové nádraží Hotel Grand => Zagreb, autobusni kolodvor",
+    "name:cs": "Flixbus 895: Brno, autobusové nádraží Hotel Grand => Záhřeb, autobusové nádraží",
+    "name:de": "Flixbus 895: Brünn, Busbahnhof Hotel Grand => Zagreb, Busbahnhof",
+    "name:hr": "Flixbus 895: Brno, autobusni kolodvor Hotel Grand => Zagreb, autobusni kolodvor",
+    "name:sl": "Flixbus 895: Brno, avtobusna postaja Hotel Grand => Zagreb, avtobusna postaja",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Hiems",
+    "public_transport:version": "2",
+    "ref": "895",
+    "route": "bus",
+    "to": "Zagreb, autobusni kolodvor",
+    "type": "route",
+    "website": "https://www.muenchen-zob.de/de/carriers/1/connections/895"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9550931,
+  "tags": {
+    "from": "Zagreb, autobusna stanica",
+    "name": "Flixbus 895: Zagreb, autobusna stanica => Brno, autobusové nádraží Hotel Grand",
+    "name:cs": "Flixbus 895: Záhřeb, autobusové nádraží => Brno, autobusové nádraží Hotel Grand",
+    "name:de": "Flixbus 895: Zagreb, Busbahnhof => Brünn, Busbahnhof Hotel Grand",
+    "name:hr": "Flixbus 895: Zagreb, autobusna stanica => Brno, autobusna stanica Hotel Grand",
+    "name:sl": "Flixbus 895: Zagreb, avtobusna postaja => Brno, avtobusna postaja Hotel Grand",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Hiems",
+    "public_transport:version": "2",
+    "ref": "895",
+    "route": "bus",
+    "to": "Brno, autobusové nádraží Hotel Grand",
+    "type": "route",
+    "website": "https://www.muenchen-zob.de/de/carriers/1/connections/895"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9559955,
+  "tags": {
+    "from": "Split, autobusna stanica",
+    "name": "Flixbus 906: Split, autobusna stanica => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 906: Split, Busbahnhof => Wien Erdberg, Busterminal VIB",
+    "name:hr": "Flixbus 906: Split, Autobusni kolodvor => Beč Erdberg, Kolodvor VIB",
+    "name:sl": "Flixbus 906: Split, Avtobusna postaja => Dunaj Erdberg, Avtobusni terminal VIB",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "906",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9559956,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 906: Wien Erdberg, Busterminal VIB => Split, autobusna stanica",
+    "name:de": "Flixbus 906: Wien Erdberg, Busterminal VIB => Split, Busbahnhof",
+    "name:hr": "Flixbus 906: Beč Erdberg, autobusni kolodvor VIB => Split, autobusna stanica",
+    "name:sl": "Flixbus 906: Dunaj Erdberg, avtobusna postaja VIB => Split, avtobusna postaja",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "906",
+    "route": "bus",
+    "to": "Split, autobusna stanica",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9660421,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 908: Wien Erdberg, Busterminal VIB => Crikvenica, autobusni kolodvor",
+    "name:de": "Flixbus 908: Wien Erdberg, Busterminal VIB => Crikvenica, Busbahnhof",
+    "name:hr": "Flixbus 908: Beč Erdberg, autobusni kolodvor VIB => Crikvenica, autobusni kolodvor",
+    "name:sl": "Flixbus 908: Dunaj Erdberg, avtobusna postaja VIB => Crikvenica, avtobusna postaja",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "908",
+    "route": "bus",
+    "to": "Crikvenica, autobusni kolodvor",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9660422,
+  "tags": {
+    "description": "Saisonbus von Mai bis September",
+    "description:hr": "Sezona autobusom od svibnja do rujna",
+    "description:sl": "Avtobus avtobusov od maja do septembra",
+    "from": "Crikvenica, autobusni kolodvor",
+    "name": "Flixbus 908: Crikvenica, autobusni kolodvor => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 908: Crikvenica, Busbahnhof => Wien Erdberg, Busterminal VIB",
+    "name:hr": "Flixbus 908: Crikvenica, autobusni kolodvor => Beč Erdberg, autobusni kolodvor VIB",
+    "name:sl": "Flixbus 908: Crikvenica, avtobusna postaja => Dunaj Erdberg, avtobusna postaja VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "908",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9741450,
+  "tags": {
+    "description": "Saisonbus von juni bis September?",
+    "description:hr": "Sezona autobusom od lipnja do rujna?",
+    "description:sl": "Avtobusni prevoz od junija do septembra?",
+    "from": "Pula, autobusni kolodvor",
+    "name": "Flixbus N909: Pula, autobusni kolodvor => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus N909: Pula, Busbahnhof => Wien Erdberg, Busterminal VIB",
+    "name:hr": "Flixbus N909: Pula, autobusni kolodvor => Beč Erdberg, autobusni kolodvor VIB",
+    "name:sl": "Flixbus N909: Pula, avtobusna postaja => Dunaj Erdberg, avtobusna postaja VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Brioni",
+    "public_transport:version": "2",
+    "ref": "N909",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9741451,
+  "tags": {
+    "description": "Saisonbus ab Juni bis September?",
+    "description:hr": "Autobus od lipnja do rujna?",
+    "description:sl": "Avtobusni prevoz od junija do septembra?",
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus N909: Wien Erdberg, Busterminal VIB => Pula, autobusna stanica",
+    "name:de": "Flixbus N909: Wien Erdberg, Busterminal VIB => Pula, Busbahnhof",
+    "name:hr": "Flixbus N909: Beč Erdberg, autobusni kolodvor VIB => Pula, autobusni kolodvor",
+    "name:sl": "Flixbus N909: Dunaj Erdberg, avtobusna postaja VIB => Pula, avtobusna postaja",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Brioni",
+    "public_transport:version": "2",
+    "ref": "N909",
+    "route": "bus",
+    "to": "Pula, autobusna stanica",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9741581,
+  "tags": {
+    "description": "Saisonbus von juni bis September?",
+    "description:hr": "Sezona autobusom od lipnja do rujna?",
+    "description:sl": "Avtobusni prevoz od junija do septembra?",
+    "from": "Pula, autobusni kolodvor",
+    "name": "Flixbus 909: Pula, autobusni kolodvor => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 909: Pula, Busbahnhof => Wien Erdberg, Busterminal VIB",
+    "name:hr": "Flixbus 909: Pula, autobusni kolodvor => Beč Erdberg, autobusni kolodvor VIB",
+    "name:sl": "Flixbus 909: Pula, avtobusna postaja => Dunaj Erdberg, avtobusna postaja VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "909",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9741582,
+  "tags": {
+    "description": "Saisonbus ab Juni bis September?",
+    "description:hr": "Autobus od lipnja do rujna?",
+    "description:sl": "Avtobusni prevoz od junija do septembra?",
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 909: Wien Erdberg, Busterminal VIB => Pula, autobusni kolodvor",
+    "name:de": "Flixbus 909: Wien Erdberg, Busterminal VIB => Pula, Busbahnhof",
+    "name:hr": "Flixbus 909: Beč Erdberg, autobusni kolodvor VIB => Pula, autobusni kolodvor",
+    "name:sl": "Flixbus 909: Dunaj Erdberg, avtobusna postaja VIB => Pula, avtobusna postaja",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "909",
+    "route": "bus",
+    "to": "Pula, autobusni kolodvor",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 10751523,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Wien, Hbf. (International Busterminal)",
+    "name": "Flixbus 966: Wien, Hbf. (International Busterminal) => Županja, Busbahnhof",
+    "name:de": "Flixbus 966: Wien, Hbf. (International Busterminal) => Županja, Busbahnhof",
+    "name:hr": "Flixbus 966: Beč, središnja stanica (Međunarodni autobusni kolodvor) => Županja, autobusni kolodvor",
+    "name:hu": "Flixbus 966: Bécs, központi állomás (Nemzetközi buszpályaudvar) => Županja, buszmegálló =>",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "966",
+    "route": "bus",
+    "to": "Županja, Busbahnhof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 10751524,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Županja, autobusni kolodvor",
+    "name": "Flixbus 966: Županja, autobusni kolodvor => Wien, Hbf. (International Busterminal)",
+    "name:de": "Flixbus 966: Županja, Busbahnhof => Wien, Hbf. (International Busterminal)",
+    "name:hr": "Flixbus 966: Županja, autobusni kolodvor => Beč, središnja stanica (Međunarodni autobusni kolodvor)",
+    "name:hu": "Flixbus 966: Županja, buszmegálló => Bécs, központi állomás (Nemzetközi buszpályaudvar)",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "966",
+    "route": "bus",
+    "to": "Wien, Hbf. (International Busterminal)",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9313746,
+  "tags": {
+    "from": "Dworzec autobusowy Warszawa Zachodnia",
+    "legacy": "1",
+    "name": "Flixbus 918: Dworzec autobusowy Warszawa Zachodnia => Wien, Hbf. (International Busterminal)",
+    "name:cs": "Flixbus 918: Autobusové nádraží Varšava Západ => Vídeň, hlavní vlakové nádraží (International Busterminal)",
+    "name:de": "Flixbus 918: Busbahnhof Warschau West => Wien, Hbf. (International Busterminal)",
+    "name:pl": "Flixbus 918: Dworzec autobusowy Warszawa Zachodnia => Wiedeń, główny dworzec kolejowy (International Busterminal)",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "PKS Szceszinek",
+    "public_transport:version": "2",
+    "ref": "918",
+    "route": "bus",
+    "to": "Wien, Hbf. (International Busterminal)",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9331954,
+  "tags": {
+    "description": "The start, end, and stop locations have not been verified. This route may be out of service for an extended period and may not match the actual route (2026)",
+    "from": "Wien, Hbf. (International Busterminal)",
+    "legacy": "1",
+    "name": "Flixbus 918: Wien, Hbf. (International Busterminal) => Dworzec autobusowy Warszawa Zachodnia",
+    "name:cs": "Flixbus 918: Vídeň, hlavní vlakové nádraží (International Busterminal) => Varšavské západní autobusové nádraží",
+    "name:de": "Flixbus 918: Wien, Hbf. (International Busterminal) => Busbahnhof Warschau West",
+    "name:pl": "Flixbus 918: Wiedeń, główny dworzec kolejowy (International Busterminal) => Dworzec autobusowy Warszawa Zachodnia",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "PKS Szceszinek",
+    "public_transport:version": "2",
+    "ref": "918",
+    "route": "bus",
+    "to": "Dworzec autobusowy Warszawa Zachodnia",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9331994,
+  "tags": {
+    "description": "The start, end, and stop locations have not been verified. This route may be out of service for an extended period and may not match the actual route (2026)",
+    "from": "Wien, Hbf. (International Busterminal)",
+    "legacy": "1",
+    "name": "Flixbus N918: Wien, Hbf. (International Busterminal) => Dworzec autobusowy Warszawa Zachodnia",
+    "name:cs": "Flixbus N918: Vídeň, hlavní nádraží (International Busterminal) => Varšavské západní autobusové nádraží",
+    "name:de": "Flixbus N918: Wien, Hbf. (International Busterminal) => Busbahnhof Warschau West",
+    "name:pl": "Flixbus N918: Wiedeń, dworzec główny (International Busterminal) => Dworzec autobusowy Warszawa Zachodnia",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "N918",
+    "route": "bus",
+    "to": "Dworzec autobusowy Warszawa Zachodnia",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9331995,
+  "tags": {
+    "from": "Dworzec autobusowy Warszawa Zachodnia",
+    "legacy": "1",
+    "name": "Flixbus N918: Dworzec autobusowy Warszawa Zachodnia => Wien, Hbf. (International Busterminal)",
+    "name:cs": "Flixbus N918: Autobusové nádraží Varšava Západ => Vídeň, hlavní vlakové nádraží (International Busterminal)",
+    "name:de": "Flixbus N918: Busbahnhof Warschau West => Wien, Hbf. (International Busterminal)",
+    "name:pl": "Flixbus N918: Dworzec autobusowy Warszawa Zachodnia => Wiedeń, główny dworzec kolejowy (International Busterminal)",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "N918",
+    "route": "bus",
+    "to": "Wien, Hbf. (International Busterminal)",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9333653,
+  "tags": {
+    "from": "Kraków, dworzec autobusowy MDA",
+    "name": "Flixbus 917: Kraków, dworzec autobusowy MDA => Ljubljana, avtobusna postaja",
+    "name:de": "Flixbus 917: Krakau, Busbahnhof MDA => Ljubljana, Busbahnhof",
+    "name:pl": "Flixbus 917: Kraków, dworzec autobusowy MDA => Ljubljana, dworzec autobusowy",
+    "name:sk": "Flixbus 917: Krakov, autobusová stanica MDA => Ľubľana, autobusová stanica",
+    "name:sl": "Flixbus 917: Krakov, avtobusna postaja MDA => Ljubljana, avtobusna postaja",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Vincek",
+    "public_transport:version": "2",
+    "ref": "917",
+    "route": "bus",
+    "to": "Ljubljana, avtobusna postaja",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9333762,
+  "tags": {
+    "from": "Ljubljana, avtobusna postaja",
+    "name": "Flixbus 917: Ljubljana, avtobusna postaja => Kraków, dworzec autobusowy MDA",
+    "name:de": "Flixbus 917: Ljubljana, Busbahnhof => Krakau, Busbahnhof MDA",
+    "name:pl": "Flixbus 917: Ljubljana, dworzec autobusowy => Kraków, dworzec autobusowy MDA",
+    "name:sk": "Flixbus 917: Ľubľana, autobusová stanica => Krakov, autobusová stanica MDA",
+    "name:sl": "Flixbus 917: => Krakov, avtobusna postaja MDA",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "note": "detour Žilina Kysucká",
+    "operator": "Vincek",
+    "public_transport:version": "2",
+    "ref": "917",
+    "route": "bus",
+    "to": "Kraków, dworzec autobusowy MDA",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9341697,
+  "tags": {
+    "from": "Zagreb, autobusna stanica",
+    "name": "Flixbus 903: Zagreb, autobusna stanica => Praha, ÚAN Florenc",
+    "name:cs": "Flixbus 903: Záhřeb, autobusová zastávka => Praha, ÚAN Florenc",
+    "name:de": "Flixbus 903: Zagreb, Busbahnhof => Prag, ÚAN Florenc",
+    "name:hr": "Flixbus 903: Zagreb, autobusna stanica => Prag, FloAN Florenc",
+    "name:sl": "Flixbus 903: Zagreb, avtobusna postaja => Praga, FloAN Florenc",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Slavonija Bus Novi Grad",
+    "public_transport:version": "2",
+    "ref": "903",
+    "route": "bus",
+    "to": "Praha, ÚAN Florenc",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9344027,
+  "tags": {
+    "from": "Praha, ÚAN Florenc",
+    "name": "Flixbus 903: Praha, ÚAN Florenc => Zagreb, autobusna stanica",
+    "name:cs": "Flixbus 903: Praha, ÚAN Florenc => Záhřeb, autobusová zastávka",
+    "name:de": "Flixbus 903: Prag, ÚAN Florenc => Zagreb, Busbahnhof",
+    "name:hr": "Flixbus 903: Prag, FloAN Florenc => Zagreb, autobusna stanica",
+    "name:sl": "Flixbus 903: Praga, FloAN Florenc => Zagreb, avtobusna postaja",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Slavonija Bus Novi Grad",
+    "public_transport:version": "2",
+    "ref": "903",
+    "route": "bus",
+    "to": "Zagreb, autobusna stanica",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9348897,
+  "tags": {
+    "from": "Zagreb, autobusna stanica",
+    "name": "Flixbus N903: Zagreb, autobusna stanica => Praha, ÚAN Florenc",
+    "name:cs": "Flixbus N903: Záhřeb, autobusová zastávka => Praha, ÚAN Florenc",
+    "name:de": "Flixbus N903: Zagreb, Busbahnhof => Prag, ÚAN Florenc",
+    "name:hr": "Flixbus N903: Zagreb, autobusna stanica => Prag, FloAN Florenc",
+    "name:sl": "Flixbus N903: Zagreb, avtobusna postaja => Praga, FloAN Florenc",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "N903",
+    "route": "bus",
+    "to": "Praha, ÚAN Florenc",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9348899,
+  "tags": {
+    "from": "Praha, ÚAN Florenc",
+    "name": "Flixbus N903: Praha, ÚAN Florenc => Zagreb, autobusna stanica",
+    "name:cs": "Flixbus N903: Praha, ÚAN Florenc => Záhřeb, autobusové nádraží",
+    "name:de": "Flixbus N903: Prag, ÚAN Florenc => Zagreb, Busbahnhof",
+    "name:hr": "Flixbus N903: Prag, FloAN Florenc => Zagreb, autobusna stanica",
+    "name:sl": "Flixbus N903: Praga, FloAN Florenc => Zagreb, avtobusna postaja",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "N903",
+    "route": "bus",
+    "to": "Zagreb, autobusna stanica",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9386914,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Medyka Granica",
+    "legacy": "1",
+    "name": "Flixbus N1291: Medyka Granica => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus N1291: Medyka Granica => Wien Erdberg, Busterminal VIB",
+    "name:pl": "Flixbus N1291: Medyka Granica => Wiedeń Erdberg, dworzec autobusowy VIB",
+    "name:sk": "Flixbus N1291: Medyka Granica => Viedeň Erdberg, autobusový terminál VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "note": "detour Žilina Kysucká",
+    "operator": "TPO Pasztuscak;Polskibus",
+    "public_transport:version": "2",
+    "ref": "N1291",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route",
+    "website": "https://www.flixbus.at"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9386915,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "legacy": "1",
+    "name": "Flixbus N1291: Wien Erdberg, dworzec autobusowy VIB => Medyka Granica",
+    "name:de": "Flixbus N1291: Wien Erdberg, Busterminal VIB => Medyka Granica",
+    "name:pl": "Flixbus N1291: Wiedeń Erdberg, dworzec autobusowy VIB => Medyka Granica",
+    "name:sk": "Flixbus N1291: Viedeň Erdberg, autobusová stanica VIB => Medyka Granica",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "TPO Pasztuscak;Polskibus",
+    "public_transport:version": "2",
+    "ref": "N1291",
+    "route": "bus",
+    "to": "Medyka Granica",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9463140,
+  "tags": {
+    "contact:website": "https://meinfernbus.de/unser-angebot/linien/990.html;https://www.fudeks.rs/portfolio/Budimpesta-Bec?timetable-id=budapest&lang=en",
+    "from": "Vienna International Busterminal",
+    "name": "Flixbus N990: Wien Erdberg, Busterminal VIB => Панчево, аутобуска станица",
+    "name:de": "Flixbus N990: Wien Erdberg, Busterminal VIB => Pančevo, Busbahnhof",
+    "name:hu": "Flixbus N990: Bécs Erdberg, VIB buszpályaudvar => Pančevo, buszmegálló",
+    "name:sr": "Фликбус Н990: Беч Ердберг, аутобусни терминал ВИБ => Панчево, аутобуска станица",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Fudeks",
+    "public_transport:version": "2",
+    "ref": "N990",
+    "route": "bus",
+    "to": "Панчево, аутобуска станица",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9463142,
+  "tags": {
+    "contact:website": "https://meinfernbus.de/unser-angebot/linien/n990.html;https://www.fudeks.rs/portfolio/Budimpesta-Bec?timetable-id=budapest&lang=en",
+    "from": "Панчево, аутобуска станица",
+    "name": "Flixbus N990:Панчево, аутобуска станица => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus N990: Pančevo, Busbahnhof => Wien Erdberg, Busterminal VIB",
+    "name:hu": "Flixbus N990: Pančevo, buszmegálló => Bécs Erdberg, VIB buszpályaudvar",
+    "name:sr": "Фликбус H990: Панчево, аутобуска станица => Беч Ердберг, аутобуска станица ВИБ",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Fudeks",
+    "public_transport:version": "2",
+    "ref": "N990",
+    "route": "bus",
+    "to": "Vienna International Busterminal",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9463143,
+  "tags": {
+    "contact:website": "https://meinfernbus.de/unser-angebot/linien/990.html;https://www.fudeks.rs/portfolio/Budimpesta-Bec?timetable-id=budapest&lang=en",
+    "from": "Vienna International Busterminal",
+    "name": "Flixbus 990: Wien Erdberg, Busterminal VIB => Аутобуска станица Панчево",
+    "name:de": "Flixbus 990: Wien Erdberg, Busterminal VIB => Pančevo, Busbahnhof",
+    "name:hu": "Flixbus 990: Bécs Erdberg, VIB buszpályaudvar => Pančevo, buszmegálló",
+    "name:sr": "Фликбус 990: Беч Ердберг, аутобусни терминал ВИБ => Панчево, аутобуска станица",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Fudeks",
+    "public_transport:version": "2",
+    "ref": "990",
+    "route": "bus",
+    "to": "Аутобуска станица Панчево",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9463144,
+  "tags": {
+    "contact:website": "https://meinfernbus.de/unser-angebot/linien/990.html;https://www.fudeks.rs/portfolio/Budimpesta-Bec?timetable-id=budapest&lang=en",
+    "from": "Аутобуска станица Панчево",
+    "name": "Flixbus 990: Аутобуска станица Панчево => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 990: Pančevo, Busbahnhof => Wien Erdberg, Busterminal VIB",
+    "name:hu": "Flixbus 990: Pančevo, buszmegálló => Bécs Erdberg, VIB buszpályaudvar",
+    "name:sr": "Фликбус 990: Панчево, аутобуска станица => Беч Ердберг, аутобуска станица ВИБ",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Fudeks",
+    "public_transport:version": "2",
+    "ref": "990",
+    "route": "bus",
+    "to": "Vienna International Busterminal",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9656983,
+  "tags": {
+    "from": "Split, autobusna stanica",
+    "name": "Flixbus N906: Split, autobusna stanica => Praha, ÚAN Florenc",
+    "name:cs": "Flixbus N906: Split, autobusové nádraží => Praha, ÚAN Florenc",
+    "name:de": "Flixbus N906: Split, Busbahnhof => Prag, ÙAN Florenc",
+    "name:hr": "Flixbus N906: Split, autobusna stanica => Prag, FloAN Florenc",
+    "name:sl": "Flixbus N906: Split, avtobusna postaja => Praga, FloAN Florenc",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o.",
+    "public_transport:version": "2",
+    "ref": "N906",
+    "route": "bus",
+    "to": "Praha, ÚAN Florenc",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9660041,
+  "tags": {
+    "description": "Start, end, and stop locations have not been verified. This route may be out of service long-term and may not match the actual route (2026)",
+    "from": "Praha, ÚAN Florenc",
+    "name": "Flixbus N906: Praha, ÚAN Florenc => Split, autobusna stanica",
+    "name:cs": "Flixbus N906: Praha, ÚAN Florenc => Split, autobusová zastávka",
+    "name:de": "Flixbus N906: Prag, ÚAN Florenc => Split, Busbahnhof",
+    "name:hr": "Flixbus N906: Prag, FloAN Florenc => Split, autobusna stanica",
+    "name:sl": "Flixbus N906: Praga, FloAN Florenc => Split, avtobusna postaja",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o.",
+    "public_transport:version": "2",
+    "ref": "N906",
+    "route": "bus",
+    "to": "Split, autobusna stanica",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9660388,
+  "tags": {
+    "from": "Crikvenica, autobusna stanica",
+    "name": "Flixbus 958: Crikvenica, autobusna stanica => Praha, ÚAN Florenc",
+    "name:cs": "Flixbus 958: Crikvenica, autobusové nádraží => Praha, ÚAN Florenc",
+    "name:de": "Flixbus 958: Crikvenica, Busbahnhof => Prag, ÚAN Florenc",
+    "name:hr": "Flixbus 958: Crikvenica, autobusna stanica => Prag, FloAN Florenc",
+    "name:sl": "Flixbus 958: Crikvenica, avtobusna postaja => Praga, FloAN Florenc",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Velebit Tours",
+    "public_transport:version": "2",
+    "ref": "958",
+    "route": "bus",
+    "to": "Praha, ÚAN Florenc",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9660389,
+  "tags": {
+    "from": "Praha, ÚAN Florenc",
+    "name": "Flixbus 958: Praha, ÚAN Florenc => Crikvenica, autobusna stanica",
+    "name:cs": "Flixbus 958: Praha, ÚAN Florenc => Crikvenica, autobusové nádraží",
+    "name:de": "Flixbus 958: Prag, ÚAN Florenc => Crikvenica, Busbahnhof",
+    "name:hr": "Flixbus 958: Prag, FloAN Florenc => Crikvenica, autobusna stanica",
+    "name:sl": "Flixbus 958: Praga, FloAN Florenc => Crikvenica, avtobusna postaja",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Velebit Tours",
+    "public_transport:version": "2",
+    "ref": "958",
+    "route": "bus",
+    "to": "Crikvenica, autobusna stanica",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 10715333,
+  "tags": {
+    "from": "Gdynia, dworzec autobusowy",
+    "name": "Flixbus N1395: Gdynia, dworzec autobusowy => Wien Erdberg, Busterminal VIB",
+    "name:cs": "Flixbus N1395: Gdynia, autobusové nádraží => Vídeň Erdberg, autobusový terminál VIB",
+    "name:de": "Flixbus N1395: Gdingen, Busbahnhof => Wien Erdberg, Busterminal VIB",
+    "name:pl": "Flixbus N1395: Gdynia, dworzec autobusowy => Wiedeń Erdberg, dworzec autobusowy VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "N1395",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 10715334,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus N1395: Wien Erdberg, Busterminal VIB => Gdynia, dworzec autobusowy",
+    "name:cs": "Flixbus N1395: Vídeň Erdberg, autobusový terminál VIB => Gdynia, autobusové nádraží",
+    "name:de": "Flixbus N1395: Wien Erdberg, Busterminal VIB => Gdingen, Busbahnhof",
+    "name:pl": "Flixbus N1395: Wiedeń Erdberg, dworzec autobusowy VIB => Gdynia, dworzec autobusowy",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "N1395",
+    "route": "bus",
+    "to": "Gdynia, dworzec autobusowy",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9263504,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 366: Wien Erdberg, Busterminal VIB => Praha, ÚAN Florenc",
+    "name:cs": "Flixbus 366: Vídeň Erdberg, Busterminal VIB => Praha, ÚAN Florenc",
+    "name:de": "Flixbus 366: Wien Erdberg, Busterminal VIB => Prag, ÚAN Florenc",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "366",
+    "route": "bus",
+    "to": "Praha, ÚAN Florenc",
+    "type": "route",
+    "website": "https://florenc.cz/pdfshow.php?src=4720"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9263505,
+  "tags": {
+    "from": "Praha, ÚAN Florenc",
+    "name": "Flixbus 366: Praha, ÚAN Florenc => Wien Erdberg, Busterminal VIB",
+    "name:cs": "Flixbus 366: Praha, ÚAN Florenc => Vídeň Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 366: Prag, ÚAN Florenc => Wien Erdberg, Busterminal VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "366",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route",
+    "website": "https://florenc.cz/pdfshow.php?src=4720"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9313676,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 916: Wien Erdberg, Busterminal VIB => Kraków, przystanek autobusowy MDA",
+    "name:cs": "Flixbus 916: Vídeň Erdberg, autobusová zastávka VIB => Krakov, autobusová zastávka MDA",
+    "name:de": "Flixbus 916: Wien Erdberg, Busterminal VIB => Krakau, Busbahnhof MDA",
+    "name:pl": "Flixbus 916: Wiedeń Erdberg, dworzec autobusowy VIB => Kraków, przystanek autobusowy MDA",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "JORDAN Group",
+    "public_transport:version": "2",
+    "ref": "916",
+    "route": "bus",
+    "to": "Kraków, przystanek autobusowy MDA",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9331466,
+  "tags": {
+    "from": "Wrocław, dworzec autobusowy",
+    "name": "Flixbus 919: Wrocław, dworzec autobusowy => Wien, Flughafen Schwechat",
+    "name:cs": "Flixbus 919: Vratislav, autobusové nádraží => Vídeň, letiště Schwechat",
+    "name:de": "Flixbus 919: Breslau, Busbahnhof => Wien, Flughafen Schwechat",
+    "name:pl": "Flixbus 919: Wrocław, dworzec autobusowy => Wiedeń, lotnisko Schwechat",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Gumdrop",
+    "public_transport:version": "2",
+    "ref": "919",
+    "route": "bus",
+    "to": "Wien, Flughafen Schwechat",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9331467,
+  "tags": {
+    "from": "Wien, Flughafen Schwechat",
+    "name": "Flixbus 919: Wien, Flughafen Schwechat => Wrocław, dworzec autobusowy",
+    "name:cs": "Flixbus 919: Vídeň, letiště Schwechat => Wroclaw, autobusové nádraží",
+    "name:de": "Flixbus 919: Wien, Flughafen Schwechat => Breslau, Busbahnhof",
+    "name:pl": "Flixbus 919: Wiedeń, lotnisko Schwechat => Wrocław, dworzec autobusowy",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Gumdrop",
+    "public_transport:version": "2",
+    "ref": "919",
+    "route": "bus",
+    "to": "Wrocław, dworzec autobusowy",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9331953,
+  "tags": {
+    "from": "Kraków, przystanek autobusowy MDA",
+    "name": "Flixbus 916: Kraków, przystanek autobusowy MDA => Wien Erdberg, Busterminal VIB",
+    "name:cs": "Flixbus 916: Krakov, autobusová zastávka MDA => Vídeň Erdberg, autobusová zastávka VIB",
+    "name:de": "Flixbus 916: Krakau, Busbahnhof MDA => Wien Erdberg, Busterminal VIB",
+    "name:pl": "Flixbus 916: Kraków, przystanek autobusowy MDA => Wiedeń Erdberg, dworzec autobusowy VIB",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "JORDAN Group",
+    "public_transport:version": "2",
+    "ref": "916",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9334322,
+  "tags": {
+    "description": "Parndorf Outlet Center wird nur einmal am Tag bedient, der Wiener Hauptbahnhof nur morgens und abends",
+    "description:hu": "A Parndorf Outlet Center-et naponta egyszer, a bécsi központi pályaudvar csak reggel és este szolgálják fel",
+    "from": "Wien, Hbf. (International Busterminal)",
+    "name": "Flixbus 902: Wien, Hbf. (International Busterminal) => Budapest, Repülőtér",
+    "name:de": "Flixbus 902: Wien, Hbf. (International Busterminal) => Budapest, Flughafen",
+    "name:hu": "Flixbus 902: Bécs, főpályaudvar (International Busterminal) => Budapest, Repülőtér",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss/Volanbusz Zrt. Hungary; Blaguss Agora",
+    "public_transport:version": "2",
+    "ref": "902",
+    "route": "bus",
+    "to": "Budapest, Repülőtér",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9334324,
+  "tags": {
+    "description": "Parndorf Outlet Center wird nur einmal am Tag bedient, der Wiener Hauptbahnho nur zwischen 16:20 und 00:55 Uhr.f",
+    "description:hu": "A Parndorf Outlet Center-et naponta egyszer, a bécsi főpályaudvar csak 16:20 és 00:55 között szolgálják fel.",
+    "from": "Budapest, Repülőtér",
+    "name": "Flixbus 902: Budapest, Repülőtér => Wien, Hbf. (International Busterminal)",
+    "name:de": "Flixbus 902: Budapest, Flughafen => Wien, Hbf. (International Busterminal)",
+    "name:hu": "Flixbus 902: Budapest, Airport => Bécs, főpályaudvar (nemzetközi busterminál)",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss/Volanbusz Zrt. Hungary; Blaguss Agora",
+    "public_transport:version": "2",
+    "ref": "902",
+    "route": "bus",
+    "to": "Wien, Hbf. (International Busterminal)",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9352323,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 978: Wien Erdberg, Busterminal VIB => Budapest, Népliget",
+    "name:de": "Flixbus 978: Wien Erdberg, Busterminal VIB => Budapest, Népliget",
+    "name:hu": "Flixbus 978: Bécs Erdberg, VIB buszpályaudvar => Budapest, Népliget",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Five Stars Tours",
+    "public_transport:version": "2",
+    "ref": "978",
+    "route": "bus",
+    "to": "Budapest, Népliget",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9352324,
+  "tags": {
+    "from": "Budapest, Népliget",
+    "name": "Flixbus 978: Budapest, Népliget => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 978: Budapest, Népliget => Wien Erdberg, Busterminal VIB",
+    "name:hu": "Flixbus 978: Budapest, Népliget => Bécs Erdberg, VIB buszpályaudvar",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Five Stars Tours",
+    "public_transport:version": "2",
+    "ref": "978",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9660076,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 1291: Wien Erdberg, Busterminal VIB => Kraków, dworzec autobusowy MDA",
+    "name:de": "Flixbus 1291: Wien Erdberg, Busterminal VIB => Krakau, Busbahnhof MDA",
+    "name:pl": "Flixbus 1291: Wiedeń Erdberg, dworzec autobusowy VIB => Kraków, dworzec autobusowy MDA",
+    "name:sk": "Flixbus 1291: Viedeň Erdberg, autobusová stanica VIB => Krakov, autobusová stanica MDA",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "1291",
+    "route": "bus",
+    "to": "Kraków, dworzec autobusowy MDA",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9660077,
+  "tags": {
+    "from": "Kraków, dworzec autobusowy MDA",
+    "name": "Flixbus 1291: Kraków, dworzec autobusowy MDA => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 1291: Krakau, Busbahnhof MDA => Wien Erdberg, Busterminal VIB",
+    "name:pl": "Flixbus 1291: Kraków, dworzec autobusowy MDA => Wiedeń Erdberg, dworzec autobusowy VIB",
+    "name:sk": "Flixbus 1291: Krakov, autobusová stanica MDA => Viedeň Erdberg, autobusový terminál VIB",
+    "network": "Flixbus",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Flixbus",
+    "public_transport:version": "2",
+    "ref": "1291",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9337248,
+  "tags": {
+    "from": "Bratislava, Flughafen",
+    "name": "Flixbus 901: Bratislava, Flughafen => Wien Erdberg, Busterminal VIB",
+    "name:de": "Flixbus 901: Bratislava, Flughafen => Wien Erdberg, Busterminal VIB",
+    "name:sk": "Flixbus 901: Bratislava, letisko => Viedeň Erdberg, autobusový terminál VIB",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "901",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9337249,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus 901: Wien Erdberg, Busterminal VIB => Bratislava, Flughafen",
+    "name:de": "Flixbus 901: Wien Erdberg, Busterminal VIB => Bratislava, Flughafen",
+    "name:sk": "Flixbus 901: Viedeň Erdberg, autobusový terminál VIB => Bratislava, letisko",
+    "network": "Flixbus",
+    "network:website": "https://global.flixbus.com/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss Slovakia s.r.o",
+    "public_transport:version": "2",
+    "ref": "901",
+    "route": "bus",
+    "to": "Bratislava, Flughafen",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 20309,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#EF7C00",
+    "from": "Ottakring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3303:",
+    "gtfs:shape_id": "21-U3-j26-8.1.H",
+    "gtfs:trip_id:like": "%21-U3-j26-8.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U3-j26-8.1.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U3: Ottakring => Simmering",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U3",
+    "route": "subway",
+    "to": "Simmering",
+    "type": "route",
+    "wikidata": "Q876472",
+    "wikipedia": "en:U3 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336039
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4348437231
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 2928575,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#EF7C00",
+    "from": "Simmering",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3303:",
+    "gtfs:shape_id": "21-U3-j26-8.6.R",
+    "gtfs:trip_id:like": "%21-U3-j26-8.6.R",
+    "gtfs:trip_id:sample": "214.T3.21-U3-j26-8.6.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U3: Simmering => Ottakring",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U3",
+    "route": "subway",
+    "to": "Ottakring",
+    "type": "route",
+    "wikidata": "Q876472",
+    "wikipedia": "en:U3 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336039
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4348437231
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 9337355,
+  "tags": {
+    "from": "Flughafen Wien, Schwechat",
+    "name": "Flixbus K472 (Blaguss Air Liner): Flughafen Wien, Schwechat => Wien Erdberg, Busterminal VIB",
+    "network": "Flixbus",
+    "network:website": "https://www.flixbus.at/",
+    "network:wikidata": "Q15712258",
+    "network:wikipedia": "en:Flixbus",
+    "operator": "Blaguss GmbH",
+    "public_transport:version": "2",
+    "ref": "K472",
+    "route": "bus",
+    "to": "Wien Erdberg, Busterminal VIB",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 9337356,
+  "tags": {
+    "from": "Wien Erdberg, Busterminal VIB",
+    "name": "Flixbus K472 (Blaguss Air Liner): Wien Erdberg, Busterminal VIB => Flughafen Wien, Schwechat",
+    "network": "Flixbus",
+    "network:website": "https://www.flixbus.at/",
+    "network:wikidata": "Q15712258",
+    "operator": "Blaguss GmbH",
+    "public_transport:version": "2",
+    "ref": "K472",
+    "route": "bus",
+    "to": "Flughafen Wien, Schwechat",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "relation",
+  "id": 72502,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Oper, Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3575:",
+    "name": "Nachtbus N75: Oper, Karlsplatz => Gasometer",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 00:50 - 05:10",
+    "opening_hours:description": "werktags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N75",
+    "route": "bus",
+    "to": "Gasometer",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 4293717,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Gasometer",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3575:",
+    "name": "Nachtbus N75: Gasometer => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 00:50 - 05:10",
+    "opening_hours:description": "werktags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N75",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+}
+
+  ]
+}

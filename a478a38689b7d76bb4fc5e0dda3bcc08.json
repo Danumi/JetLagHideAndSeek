@@ -1,0 +1,3977 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:50:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 1627885,
+  "bounds": {
+    "minlat": 48.3425175,
+    "minlon": 16.4820345,
+    "maxlat": 48.3715973,
+    "maxlon": 16.5113822
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Eibesbrunn",
+    "official_name": "Eibesbrunn",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31614",
+    "ref:at:kgnr": "15203",
+    "type": "boundary",
+    "wikidata": "Q136799586"
+  }
+},
+{
+  "type": "relation",
+  "id": 1641716,
+  "bounds": {
+    "minlat": 48.3363021,
+    "minlon": 16.3657345,
+    "maxlat": 48.3567475,
+    "maxlon": 16.3983384
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Flandorf",
+    "official_name": "Flandorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31206",
+    "ref:at:kgnr": "11025",
+    "type": "boundary",
+    "wikidata": "Q136814299"
+  }
+},
+{
+  "type": "relation",
+  "id": 1641752,
+  "bounds": {
+    "minlat": 48.3231290,
+    "minlon": 16.3593430,
+    "maxlat": 48.3552663,
+    "maxlon": 16.3970391
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kleinengersdorf",
+    "note": "Name der Katastralgemeinde weicht geringfügig von dem der Ortschaft ab",
+    "official_name": "Kleinengersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31201",
+    "ref:at:kgnr": "11027",
+    "type": "boundary",
+    "wikidata": "Q136915075"
+  }
+},
+{
+  "type": "relation",
+  "id": 1641772,
+  "bounds": {
+    "minlat": 48.3388231,
+    "minlon": 16.3910581,
+    "maxlat": 48.3577717,
+    "maxlon": 16.4303786
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Königsbrunn",
+    "official_name": "Königsbrunn",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31202",
+    "ref:at:kgnr": "11028",
+    "type": "boundary",
+    "wikidata": "Q111015873"
+  }
+},
+{
+  "type": "relation",
+  "id": 1643642,
+  "bounds": {
+    "minlat": 48.2734350,
+    "minlon": 16.4122475,
+    "maxlat": 48.3344069,
+    "maxlon": 16.4910205
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Gerasdorf",
+    "official_name": "Gerasdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31235",
+    "ref:at:kgnr": "01708",
+    "type": "boundary",
+    "wikidata": "Q114050492"
+  }
+},
+{
+  "type": "relation",
+  "id": 1744661,
+  "bounds": {
+    "minlat": 48.1384643,
+    "minlon": 16.2271695,
+    "maxlat": 48.1627061,
+    "maxlon": 16.2917570
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Mauer",
+    "official_name": "Mauer",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1806",
+    "type": "boundary",
+    "wikidata": "Q1910986",
+    "wikipedia": "de:Mauer (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 2382900,
+  "bounds": {
+    "minlat": 48.3345142,
+    "minlon": 16.4966617,
+    "maxlat": 48.3867519,
+    "maxlon": 16.5553284
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Obersdorf",
+    "official_name": "Obersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31655",
+    "ref:at:kgnr": "15211",
+    "ref:at:okz": "05092",
+    "type": "boundary",
+    "wikidata": "Q136934185"
+  }
+},
+{
+  "type": "relation",
+  "id": 5234381,
+  "bounds": {
+    "minlat": 48.1462483,
+    "minlon": 16.3299056,
+    "maxlat": 48.1773865,
+    "maxlon": 16.3837929
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Inzersdorf Stadt",
+    "official_name": "Inzersdorf Stadt",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1102",
+    "type": "boundary",
+    "wikidata": "Q1671846",
+    "wikipedia": "de:Inzersdorf Stadt"
+  }
+},
+{
+  "type": "relation",
+  "id": 5241410,
+  "bounds": {
+    "minlat": 48.1608793,
+    "minlon": 16.3416042,
+    "maxlat": 48.1879268,
+    "maxlon": 16.3979016
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Favoriten",
+    "official_name": "Favoriten",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1101",
+    "type": "boundary",
+    "wikidata": "Q1398933",
+    "wikipedia": "de:Favoriten (Wiener Bezirksteil)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5241797,
+  "bounds": {
+    "minlat": 48.1373986,
+    "minlon": 16.3821136,
+    "maxlat": 48.1693397,
+    "maxlon": 16.4332651
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Oberlaa Stadt",
+    "official_name": "Oberlaa Stadt",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1105",
+    "related:wikipedia": "de:Oberlaa",
+    "type": "boundary",
+    "wikidata": "Q27832649"
+  }
+},
+{
+  "type": "relation",
+  "id": 5241911,
+  "bounds": {
+    "minlat": 48.1263617,
+    "minlon": 16.3656377,
+    "maxlat": 48.1431010,
+    "maxlon": 16.3871932
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Rothneusiedl",
+    "official_name": "Rothneusiedl",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1106",
+    "type": "boundary",
+    "wikidata": "Q1586529",
+    "wikipedia": "de:Rothneusiedl"
+  }
+},
+{
+  "type": "relation",
+  "id": 5241912,
+  "bounds": {
+    "minlat": 48.1223583,
+    "minlon": 16.3742450,
+    "maxlat": 48.1479138,
+    "maxlon": 16.4275539
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Oberlaa Land",
+    "official_name": "Oberlaa Land",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1104",
+    "related:wikipedia": "de:Oberlaa",
+    "type": "boundary",
+    "wikidata": "Q27832622"
+  }
+},
+{
+  "type": "relation",
+  "id": 5241913,
+  "bounds": {
+    "minlat": 48.1179069,
+    "minlon": 16.4028004,
+    "maxlat": 48.1378785,
+    "maxlon": 16.4370202
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Unterlaa",
+    "official_name": "Unterlaa",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1108",
+    "type": "boundary",
+    "wikidata": "Q2497878",
+    "wikipedia": "de:Unterlaa"
+  }
+},
+{
+  "type": "relation",
+  "id": 5243103,
+  "bounds": {
+    "minlat": 48.1286732,
+    "minlon": 16.3132349,
+    "maxlat": 48.1592699,
+    "maxlon": 16.3770042
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Inzersdorf",
+    "official_name": "Inzersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1803",
+    "type": "boundary",
+    "wikidata": "Q1671849",
+    "wikipedia": "de:Inzersdorf (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5247528,
+  "bounds": {
+    "minlat": 48.1194453,
+    "minlon": 16.2980525,
+    "maxlat": 48.1380038,
+    "maxlon": 16.3250323
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Siebenhirten",
+    "official_name": "Siebenhirten",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1808",
+    "type": "boundary",
+    "wikidata": "Q2282351",
+    "wikipedia": "de:Siebenhirten (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5247701,
+  "bounds": {
+    "minlat": 48.1365752,
+    "minlon": 16.2988965,
+    "maxlat": 48.1535845,
+    "maxlon": 16.3301342
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Erlaa",
+    "official_name": "Erlaa",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1802",
+    "type": "boundary",
+    "wikidata": "Q1355197",
+    "wikipedia": "de:Erlaa"
+  }
+},
+{
+  "type": "relation",
+  "id": 5247849,
+  "bounds": {
+    "minlat": 48.1377878,
+    "minlon": 16.2803849,
+    "maxlat": 48.1623584,
+    "maxlon": 16.3150595
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Atzgersdorf",
+    "official_name": "Atzgersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1801",
+    "type": "boundary",
+    "wikidata": "Q758336",
+    "wikipedia": "de:Atzgersdorf"
+  }
+},
+{
+  "type": "relation",
+  "id": 5248033,
+  "bounds": {
+    "minlat": 48.1838352,
+    "minlon": 16.3593710,
+    "maxlat": 48.2007199,
+    "maxlon": 16.3811296
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "long_name": "Katastralgemeinde Wieden",
+    "name": "Wieden",
+    "official_name": "Wieden",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01011",
+    "type": "boundary",
+    "wikidata": "Q27833480"
+  }
+},
+{
+  "type": "relation",
+  "id": 5248034,
+  "bounds": {
+    "minlat": 48.1792208,
+    "minlon": 16.3417518,
+    "maxlat": 48.1969247,
+    "maxlon": 16.3688339
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Margarethen",
+    "official_name": "Margarethen",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01008",
+    "type": "boundary",
+    "wikidata": "Q27833470"
+  }
+},
+{
+  "type": "relation",
+  "id": 5248153,
+  "bounds": {
+    "minlat": 48.1237615,
+    "minlon": 16.2146658,
+    "maxlat": 48.1397743,
+    "maxlon": 16.2735756
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Rodaun",
+    "official_name": "Rodaun",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1807",
+    "type": "boundary",
+    "wikidata": "Q2160909",
+    "wikipedia": "de:Rodaun"
+  }
+},
+{
+  "type": "relation",
+  "id": 5248175,
+  "bounds": {
+    "minlat": 48.1289527,
+    "minlon": 16.2482729,
+    "maxlat": 48.1442272,
+    "maxlon": 16.3041149
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Liesing",
+    "official_name": "Liesing",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1805",
+    "type": "boundary",
+    "wikidata": "Q1824343",
+    "wikipedia": "de:Liesing (Wiener Bezirksteil)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5248176,
+  "bounds": {
+    "minlat": 48.1320488,
+    "minlon": 16.2098585,
+    "maxlat": 48.1533420,
+    "maxlon": 16.2578889
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kalksburg",
+    "official_name": "Kalksburg",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1804",
+    "type": "boundary",
+    "wikidata": "Q1678869",
+    "wikipedia": "de:Kalksburg"
+  }
+},
+{
+  "type": "relation",
+  "id": 5264565,
+  "bounds": {
+    "minlat": 48.1554092,
+    "minlon": 16.3083407,
+    "maxlat": 48.1723567,
+    "maxlon": 16.3372646
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Altmannsdorf",
+    "official_name": "Altmannsdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1301",
+    "type": "boundary",
+    "wikidata": "Q442551",
+    "wikipedia": "de:Altmannsdorf (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5264583,
+  "bounds": {
+    "minlat": 48.1995268,
+    "minlon": 16.3552089,
+    "maxlat": 48.2184891,
+    "maxlon": 16.3848946
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Innere Stadt",
+    "official_name": "Innere Stadt",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01004",
+    "type": "boundary",
+    "wikidata": "Q27834577"
+  }
+},
+{
+  "type": "relation",
+  "id": 5264614,
+  "bounds": {
+    "minlat": 48.1563474,
+    "minlon": 16.2790937,
+    "maxlat": 48.1633073,
+    "maxlon": 16.2915246
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Rosenberg",
+    "official_name": "Rosenberg",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1211",
+    "type": "boundary",
+    "wikidata": "Q1503013",
+    "wikipedia": "de:Rosenberg (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5280044,
+  "bounds": {
+    "minlat": 48.1551777,
+    "minlon": 16.4759480,
+    "maxlat": 48.1706977,
+    "maxlon": 16.5137911
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Albern",
+    "official_name": "Albern",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1109",
+    "type": "boundary",
+    "wikidata": "Q2637387",
+    "wikipedia": "de:Albern"
+  }
+},
+{
+  "type": "relation",
+  "id": 5301360,
+  "bounds": {
+    "minlat": 48.1563389,
+    "minlon": 16.2918322,
+    "maxlat": 48.1745458,
+    "maxlon": 16.3226183
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Hetzendorf",
+    "official_name": "Hetzendorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1304",
+    "type": "boundary",
+    "wikidata": "Q1616329",
+    "wikipedia": "de:Hetzendorf (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5301402,
+  "bounds": {
+    "minlat": 48.1704863,
+    "minlon": 16.2986853,
+    "maxlat": 48.1878760,
+    "maxlon": 16.3201313
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Schönbrunn",
+    "official_name": "Schönbrunn",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01212",
+    "type": "boundary",
+    "wikidata": "Q27837208",
+    "wikipedia": "de:Schönbrunn (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5301600,
+  "bounds": {
+    "minlat": 48.1698965,
+    "minlon": 16.3121150,
+    "maxlat": 48.1858213,
+    "maxlon": 16.3497250
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Meidling",
+    "official_name": "Meidling",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1305",
+    "type": "boundary",
+    "wikidata": "Q1917668",
+    "wikipedia": "de:Meidling (Wiener Bezirksteil)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5301617,
+  "bounds": {
+    "minlat": 48.1821359,
+    "minlon": 16.3308412,
+    "maxlat": 48.1884673,
+    "maxlon": 16.3442529
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Gaudenzdorf",
+    "official_name": "Gaudenzdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1303",
+    "type": "boundary",
+    "wikidata": "Q1495934",
+    "wikipedia": "de:Gaudenzdorf"
+  }
+},
+{
+  "type": "relation",
+  "id": 5832478,
+  "bounds": {
+    "minlat": 48.1494639,
+    "minlon": 16.1818310,
+    "maxlat": 48.2096641,
+    "maxlon": 16.2792466
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Auhof",
+    "official_name": "Auhof",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01201",
+    "type": "boundary",
+    "wikidata": "Q771042",
+    "wikipedia": "de:Auhof (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5832617,
+  "bounds": {
+    "minlat": 48.2023398,
+    "minlon": 16.1975830,
+    "maxlat": 48.2147937,
+    "maxlon": 16.2281898
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Weidlingau",
+    "official_name": "Weidlingau",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01216",
+    "type": "boundary",
+    "wikidata": "Q27835519"
+  }
+},
+{
+  "type": "relation",
+  "id": 5832830,
+  "bounds": {
+    "minlat": 48.1621765,
+    "minlon": 16.2724778,
+    "maxlat": 48.1748381,
+    "maxlon": 16.3010191
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Speising",
+    "official_name": "Speising",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1213",
+    "type": "boundary",
+    "wikidata": "Q1718608",
+    "wikipedia": "de:Speising"
+  }
+},
+{
+  "type": "relation",
+  "id": 5832897,
+  "bounds": {
+    "minlat": 48.1698610,
+    "minlon": 16.2674986,
+    "maxlat": 48.1837288,
+    "maxlon": 16.2990442
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Lainz",
+    "official_name": "Lainz",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1207",
+    "type": "boundary",
+    "wikidata": "Q1261352",
+    "wikipedia": "de:Lainz"
+  }
+},
+{
+  "type": "relation",
+  "id": 5833856,
+  "bounds": {
+    "minlat": 48.1733717,
+    "minlon": 16.2857262,
+    "maxlat": 48.1905328,
+    "maxlon": 16.3034966
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Hietzing",
+    "official_name": "Hietzing",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1205",
+    "type": "boundary",
+    "wikidata": "Q1228247",
+    "wikipedia": "de:Hietzing (Wiener Bezirksteil)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5833857,
+  "bounds": {
+    "minlat": 48.1829312,
+    "minlon": 16.2791940,
+    "maxlat": 48.1917535,
+    "maxlon": 16.2934416
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "alt_name": "KG Unter Sankt Veit;Unter Sankt Veit",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Unter St. Veit",
+    "official_name": "Unter-St.-Veit",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1215",
+    "type": "boundary",
+    "wikidata": "Q2497052",
+    "wikipedia": "de:Unter Sankt Veit"
+  }
+},
+{
+  "type": "relation",
+  "id": 5834242,
+  "bounds": {
+    "minlat": 48.1724642,
+    "minlon": 16.2503164,
+    "maxlat": 48.1946862,
+    "maxlon": 16.2858731
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "alt_name": "KG Ober Sankt Veit;Ober Sankt Veit",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Ober St. Veit",
+    "official_name": "Ober-St.-Veit",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1209",
+    "type": "boundary",
+    "wikidata": "Q1667009",
+    "wikipedia": "de:Ober-Sankt-Veit"
+  }
+},
+{
+  "type": "relation",
+  "id": 5834243,
+  "bounds": {
+    "minlat": 48.1917671,
+    "minlon": 16.2482675,
+    "maxlat": 48.2013740,
+    "maxlon": 16.2683960
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Hacking",
+    "official_name": "Hacking",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1203",
+    "type": "boundary",
+    "wikidata": "Q1526933",
+    "wikipedia": "de:Hacking (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5836516,
+  "bounds": {
+    "minlat": 48.1883152,
+    "minlon": 16.3373282,
+    "maxlat": 48.2026474,
+    "maxlon": 16.3660060
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Mariahilf",
+    "official_name": "Mariahilf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01009",
+    "type": "boundary",
+    "wikidata": "Q27833462"
+  }
+},
+{
+  "type": "relation",
+  "id": 5837159,
+  "bounds": {
+    "minlat": 48.1958012,
+    "minlon": 16.3368956,
+    "maxlat": 48.2085779,
+    "maxlon": 16.3615382
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Neubau",
+    "official_name": "Neubau",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01010",
+    "type": "boundary",
+    "wikidata": "Q27833394"
+  }
+},
+{
+  "type": "relation",
+  "id": 5837395,
+  "bounds": {
+    "minlat": 48.2063184,
+    "minlon": 16.3384515,
+    "maxlat": 48.2153636,
+    "maxlon": 16.3565102
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Josefstadt",
+    "official_name": "Josefstadt",
+    "official_status": "Katastralgemeinde",
+    "old_name": "Josephstadt",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01005",
+    "type": "boundary",
+    "wikidata": "Q27832781"
+  }
+},
+{
+  "type": "relation",
+  "id": 5845944,
+  "bounds": {
+    "minlat": 48.2138140,
+    "minlon": 16.3408703,
+    "maxlat": 48.2363201,
+    "maxlon": 16.3701490
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Alsergrund",
+    "official_name": "Alsergrund",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01002",
+    "type": "boundary",
+    "wikidata": "Q27832742"
+  }
+},
+{
+  "type": "relation",
+  "id": 5846945,
+  "bounds": {
+    "minlat": 48.1378785,
+    "minlon": 16.4245868,
+    "maxlat": 48.1777857,
+    "maxlon": 16.4797577
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kaiserebersdorf",
+    "official_name": "Kaiserebersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1103",
+    "type": "boundary",
+    "wikidata": "Q873849",
+    "wikipedia": "de:Kaiserebersdorf"
+  }
+},
+{
+  "type": "relation",
+  "id": 5847058,
+  "bounds": {
+    "minlat": 48.1516009,
+    "minlon": 16.3953028,
+    "maxlat": 48.1879320,
+    "maxlon": 16.4605003
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Simmering",
+    "official_name": "Simmering",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1107",
+    "type": "boundary",
+    "wikidata": "Q2287228",
+    "wikipedia": "de:Simmering (Wiener Bezirksteil)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5847065,
+  "bounds": {
+    "minlat": 48.1753757,
+    "minlon": 16.3750528,
+    "maxlat": 48.2131825,
+    "maxlon": 16.4301686
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Landstraße",
+    "official_name": "Landstraße",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01006",
+    "type": "boundary",
+    "wikidata": "Q27834566",
+    "wikipedia": "de:Landstraße (Wiener Bezirksteil)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5847288,
+  "bounds": {
+    "minlat": 48.1652865,
+    "minlon": 16.3674575,
+    "maxlat": 48.2363732,
+    "maxlon": 16.4951480
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Leopoldstadt",
+    "official_name": "Leopoldstadt",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01657",
+    "type": "boundary",
+    "wikidata": "Q27834572",
+    "wikipedia": "de:Leopoldstadt (Wiener Bezirksteil)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5847386,
+  "bounds": {
+    "minlat": 48.2251075,
+    "minlon": 16.3611187,
+    "maxlat": 48.2614857,
+    "maxlon": 16.3952832
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Brigittenau",
+    "official_name": "Brigittenau",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01620",
+    "type": "boundary",
+    "wikidata": "Q27832264"
+  }
+},
+{
+  "type": "relation",
+  "id": 5847649,
+  "bounds": {
+    "minlat": 48.1352198,
+    "minlon": 16.4722314,
+    "maxlat": 48.2022057,
+    "maxlon": 16.5775132
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kaiserebersdorf Herrschaft",
+    "official_name": "Kaiserebersdorf Herrschaft",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1661",
+    "type": "boundary",
+    "wikidata": "Q27832183"
+  }
+},
+{
+  "type": "relation",
+  "id": 5847669,
+  "bounds": {
+    "minlat": 48.1796820,
+    "minlon": 16.4633877,
+    "maxlat": 48.1964709,
+    "maxlon": 16.5001273
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Landjägermeisteramt",
+    "official_name": "Landjägermeisteramt",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1662",
+    "type": "boundary",
+    "wikidata": "Q27832179"
+  }
+},
+{
+  "type": "relation",
+  "id": 5847697,
+  "bounds": {
+    "minlat": 48.1965106,
+    "minlon": 16.5091024,
+    "maxlat": 48.2643744,
+    "maxlon": 16.5527397
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "alt_name": "Katastralgemeinde Essling",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Eßling",
+    "official_name": "Eßling",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1654",
+    "type": "boundary",
+    "wikidata": "Q80340",
+    "wikipedia": "de:Essling"
+  }
+},
+{
+  "type": "relation",
+  "id": 5847775,
+  "bounds": {
+    "minlat": 48.2682652,
+    "minlon": 16.4809207,
+    "maxlat": 48.2935322,
+    "maxlon": 16.5149068
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Süssenbrunn",
+    "note": "Name der Katastralgemeinde weicht geringfügig von dem der Ortschaft ab",
+    "official_name": "Süssenbrunn",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1668",
+    "type": "boundary",
+    "wikidata": "Q2382310",
+    "wikipedia": "de:Süßenbrunn"
+  }
+},
+{
+  "type": "relation",
+  "id": 5848072,
+  "bounds": {
+    "minlat": 48.2321126,
+    "minlon": 16.4745681,
+    "maxlat": 48.2736016,
+    "maxlon": 16.5222883
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Breitenlee",
+    "official_name": "Breitenlee",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1652",
+    "type": "boundary",
+    "wikidata": "Q906382",
+    "wikipedia": "de:Breitenlee"
+  }
+},
+{
+  "type": "relation",
+  "id": 5848110,
+  "bounds": {
+    "minlat": 48.1850441,
+    "minlon": 16.4449168,
+    "maxlat": 48.2386391,
+    "maxlon": 16.5179839
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Aspern",
+    "official_name": "Aspern",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1651",
+    "type": "boundary",
+    "wikidata": "Q93854",
+    "wikipedia": "de:Aspern"
+  }
+},
+{
+  "type": "relation",
+  "id": 5848459,
+  "bounds": {
+    "minlat": 48.2204641,
+    "minlon": 16.4514414,
+    "maxlat": 48.2677904,
+    "maxlon": 16.4908907
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Hirschstetten",
+    "official_name": "Hirschstetten",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1658",
+    "type": "boundary",
+    "wikidata": "Q1446558",
+    "wikipedia": "de:Hirschstetten"
+  }
+},
+{
+  "type": "relation",
+  "id": 5848644,
+  "bounds": {
+    "minlat": 48.2010125,
+    "minlon": 16.4322987,
+    "maxlat": 48.2344315,
+    "maxlon": 16.4597508
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Stadlau",
+    "official_name": "Stadlau",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1665",
+    "type": "boundary",
+    "wikidata": "Q1777167",
+    "wikipedia": "de:Stadlau"
+  }
+},
+{
+  "type": "relation",
+  "id": 5849654,
+  "bounds": {
+    "minlat": 48.2098792,
+    "minlon": 16.3981818,
+    "maxlat": 48.2454776,
+    "maxlon": 16.4352047
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kaisermühlen",
+    "official_name": "Kaisermühlen",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1669",
+    "type": "boundary",
+    "wikidata": "Q1277513",
+    "wikipedia": "de:Kaisermühlen"
+  }
+},
+{
+  "type": "relation",
+  "id": 5850337,
+  "bounds": {
+    "minlat": 48.2297857,
+    "minlon": 16.4147614,
+    "maxlat": 48.2753078,
+    "maxlon": 16.4842563
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kagran",
+    "official_name": "Kagran",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1660",
+    "type": "boundary",
+    "wikidata": "Q1721129",
+    "wikipedia": "de:Kagran"
+  }
+},
+{
+  "type": "relation",
+  "id": 5851175,
+  "bounds": {
+    "minlat": 48.2426450,
+    "minlon": 16.3761012,
+    "maxlat": 48.2612372,
+    "maxlon": 16.4084565
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Floridsdorf",
+    "official_name": "Floridsdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1605",
+    "type": "boundary",
+    "wikidata": "Q1430105",
+    "wikipedia": "de:Floridsdorf (Wiener Bezirksteil)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5852439,
+  "bounds": {
+    "minlat": 48.2348255,
+    "minlon": 16.3866050,
+    "maxlat": 48.2667595,
+    "maxlon": 16.4235908
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Donaufeld",
+    "official_name": "Donaufeld",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1603",
+    "type": "boundary",
+    "wikidata": "Q1240897",
+    "wikipedia": "de:Donaufeld"
+  }
+},
+{
+  "type": "relation",
+  "id": 5853599,
+  "bounds": {
+    "minlat": 48.2459077,
+    "minlon": 16.4120901,
+    "maxlat": 48.2919218,
+    "maxlon": 16.4747412
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Leopoldau",
+    "official_name": "Leopoldau",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1613",
+    "type": "boundary",
+    "wikidata": "Q1493177",
+    "wikipedia": "de:Leopoldau"
+  }
+},
+{
+  "type": "relation",
+  "id": 5853700,
+  "bounds": {
+    "minlat": 48.2869655,
+    "minlon": 16.3804289,
+    "maxlat": 48.3226679,
+    "maxlon": 16.4404077
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Stammersdorf",
+    "official_name": "Stammersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1616",
+    "type": "boundary",
+    "wikidata": "Q2329581",
+    "wikipedia": "de:Stammersdorf"
+  }
+},
+{
+  "type": "relation",
+  "id": 5853712,
+  "bounds": {
+    "minlat": 48.2710928,
+    "minlon": 16.3964453,
+    "maxlat": 48.2909369,
+    "maxlon": 16.4312338
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Großjedlersdorf I",
+    "official_name": "Großjedlersdorf I",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1606",
+    "type": "boundary",
+    "wikidata": "Q27832251",
+    "wikipedia": "de:Großjedlersdorf"
+  }
+},
+{
+  "type": "relation",
+  "id": 5855712,
+  "bounds": {
+    "minlat": 48.2578761,
+    "minlon": 16.3845477,
+    "maxlat": 48.2743106,
+    "maxlon": 16.4173257
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "alt_name": "Neujedlersdorf",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Großjedlersdorf II",
+    "official_name": "Großjedlersdorf II",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1607",
+    "type": "boundary",
+    "wikidata": "Q27832255",
+    "wikipedia": "de:Großjedlersdorf"
+  }
+},
+{
+  "type": "relation",
+  "id": 5855762,
+  "bounds": {
+    "minlat": 48.2740226,
+    "minlon": 16.3667608,
+    "maxlat": 48.3020076,
+    "maxlon": 16.4053727
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "alt_name": "Neujedlersdorf",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Strebersdorf",
+    "official_name": "Strebersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1617",
+    "type": "boundary",
+    "wikidata": "Q375043",
+    "wikipedia": "de:Strebersdorf (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5855902,
+  "bounds": {
+    "minlat": 48.2585935,
+    "minlon": 16.3768470,
+    "maxlat": 48.2790412,
+    "maxlon": 16.3951437
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Jedlesee",
+    "official_name": "Jedlesee",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1609",
+    "type": "boundary",
+    "wikidata": "Q1686163"
+  }
+},
+{
+  "type": "relation",
+  "id": 5855938,
+  "bounds": {
+    "minlat": 48.2534311,
+    "minlon": 16.3513383,
+    "maxlat": 48.2839933,
+    "maxlon": 16.3853993
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Schwarze Lackenau",
+    "official_name": "Schwarze Lackenau",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1614",
+    "type": "boundary",
+    "wikidata": "Q27832231"
+  }
+},
+{
+  "type": "relation",
+  "id": 5857528,
+  "bounds": {
+    "minlat": 48.2695117,
+    "minlon": 16.3343904,
+    "maxlat": 48.2904811,
+    "maxlon": 16.3618629
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kahlenbergerdorf",
+    "official_name": "Kahlenbergerdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1505",
+    "type": "boundary",
+    "wikidata": "Q1721184",
+    "wikipedia": "de:Kahlenbergerdorf"
+  }
+},
+{
+  "type": "relation",
+  "id": 5858661,
+  "bounds": {
+    "minlat": 48.2711352,
+    "minlon": 16.3270982,
+    "maxlat": 48.2811633,
+    "maxlon": 16.3426347
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Josefsdorf",
+    "official_name": "Josefsdorf",
+    "official_status": "Katastralgemeinde",
+    "old_name": "Josephsdorf",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1504",
+    "type": "boundary",
+    "wikidata": "Q1340582",
+    "wikipedia": "de:Josefsdorf (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5860722,
+  "bounds": {
+    "minlat": 48.2446931,
+    "minlon": 16.3401546,
+    "maxlat": 48.2725452,
+    "maxlon": 16.3718897
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "alt_name": "KG Nussdorf",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Nußdorf",
+    "official_name": "Nußdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1507",
+    "type": "boundary",
+    "wikidata": "Q1395576",
+    "wikipedia": "de:Nussdorf (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5863030,
+  "bounds": {
+    "minlat": 48.2362460,
+    "minlon": 16.3315068,
+    "maxlat": 48.2738356,
+    "maxlon": 16.3698311
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Heiligenstadt",
+    "official_name": "Heiligenstadt",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1503",
+    "type": "boundary",
+    "wikidata": "Q379531",
+    "wikipedia": "de:Heiligenstadt (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5865931,
+  "bounds": {
+    "minlat": 48.2430082,
+    "minlon": 16.3419166,
+    "maxlat": 48.2528740,
+    "maxlon": 16.3560126
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Unterdöbling",
+    "official_name": "Unterdöbling",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1512",
+    "type": "boundary",
+    "wikidata": "Q2497358",
+    "wikipedia": "de:Unterdöbling"
+  }
+},
+{
+  "type": "relation",
+  "id": 5867937,
+  "bounds": {
+    "minlat": 48.2487395,
+    "minlon": 16.2857573,
+    "maxlat": 48.2781880,
+    "maxlon": 16.3523325
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Grinzing",
+    "official_name": "Grinzing",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1502",
+    "type": "boundary",
+    "wikidata": "Q253741",
+    "wikipedia": "de:Grinzing"
+  }
+},
+{
+  "type": "relation",
+  "id": 5869195,
+  "bounds": {
+    "minlat": 48.2319070,
+    "minlon": 16.3253880,
+    "maxlat": 48.2467275,
+    "maxlon": 16.3614653
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Oberdöbling",
+    "official_name": "Oberdöbling",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1508",
+    "type": "boundary",
+    "wikidata": "Q2009330",
+    "wikipedia": "de:Oberdöbling"
+  }
+},
+{
+  "type": "relation",
+  "id": 5873877,
+  "bounds": {
+    "minlat": 48.2413242,
+    "minlon": 16.3140321,
+    "maxlat": 48.2623466,
+    "maxlon": 16.3424929
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Untersievering",
+    "official_name": "Untersievering",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1513",
+    "type": "boundary",
+    "wikidata": "Q27832268"
+  }
+},
+{
+  "type": "relation",
+  "id": 5875136,
+  "bounds": {
+    "minlat": 48.2432972,
+    "minlon": 16.2860136,
+    "maxlat": 48.2660457,
+    "maxlon": 16.3231944
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Obersievering",
+    "official_name": "Obersievering",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1509",
+    "type": "boundary",
+    "wikidata": "Q27832277"
+  }
+},
+{
+  "type": "relation",
+  "id": 5875884,
+  "bounds": {
+    "minlat": 48.2507120,
+    "minlon": 16.2850732,
+    "maxlat": 48.2585159,
+    "maxlon": 16.2980710
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Salmannsdorf",
+    "official_name": "Salmannsdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01511",
+    "type": "boundary",
+    "wikidata": "Q1255079",
+    "wikipedia": "de:Salmannsdorf (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5878141,
+  "bounds": {
+    "minlat": 48.2447073,
+    "minlon": 16.2823692,
+    "maxlat": 48.2577830,
+    "maxlon": 16.3110739
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Neustift am Walde",
+    "official_name": "Neustift am Walde",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1506",
+    "type": "boundary",
+    "wikidata": "Q1771264",
+    "wikipedia": "de:Neustift am Walde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5879424,
+  "bounds": {
+    "minlat": 48.2321605,
+    "minlon": 16.2838038,
+    "maxlat": 48.2482102,
+    "maxlon": 16.3226999
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Pötzleinsdorf",
+    "official_name": "Pötzleinsdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1510",
+    "type": "boundary",
+    "wikidata": "Q2120861",
+    "wikipedia": "de:Pötzleinsdorf"
+  }
+},
+{
+  "type": "relation",
+  "id": 5879961,
+  "bounds": {
+    "minlat": 48.2265022,
+    "minlon": 16.3155973,
+    "maxlat": 48.2395388,
+    "maxlon": 16.3294030
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Gersthof",
+    "official_name": "Gersthof",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1501",
+    "type": "boundary",
+    "wikidata": "Q1515094",
+    "wikipedia": "de:Gersthof"
+  }
+},
+{
+  "type": "relation",
+  "id": 5881429,
+  "bounds": {
+    "minlat": 48.2266018,
+    "minlon": 16.3287594,
+    "maxlat": 48.2321346,
+    "maxlon": 16.3358364
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Weinhaus",
+    "official_name": "Weinhaus",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1515",
+    "type": "boundary",
+    "wikidata": "Q2556149",
+    "wikipedia": "de:Weinhaus (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5881930,
+  "bounds": {
+    "minlat": 48.2172473,
+    "minlon": 16.3190614,
+    "maxlat": 48.2428212,
+    "maxlon": 16.3537656
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Währing",
+    "official_name": "Währing",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1514",
+    "type": "boundary",
+    "wikidata": "Q1749983",
+    "wikipedia": "de:Währing (Wiener Bezirksteil)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5886110,
+  "bounds": {
+    "minlat": 48.2341607,
+    "minlon": 16.2564795,
+    "maxlat": 48.2583230,
+    "maxlon": 16.2943111
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Neuwaldegg",
+    "official_name": "Neuwaldegg",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01404",
+    "type": "boundary",
+    "wikidata": "Q1981987",
+    "wikipedia": "de:Neuwaldegg"
+  }
+},
+{
+  "type": "relation",
+  "id": 5891253,
+  "bounds": {
+    "minlat": 48.2190467,
+    "minlon": 16.2493844,
+    "maxlat": 48.2393976,
+    "maxlon": 16.3187854
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Dornbach",
+    "official_name": "Dornbach",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1401",
+    "type": "boundary",
+    "wikidata": "Q13400194",
+    "wikipedia": "de:Dornbach (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5891265,
+  "bounds": {
+    "minlat": 48.2121760,
+    "minlon": 16.3157028,
+    "maxlat": 48.2297047,
+    "maxlon": 16.3419883
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Hernals",
+    "official_name": "Hernals",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1402",
+    "type": "boundary",
+    "wikidata": "Q1613671",
+    "wikipedia": "de:Hernals (Wiener Bezirksteil)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5892045,
+  "bounds": {
+    "minlat": 48.2062302,
+    "minlon": 16.1851719,
+    "maxlat": 48.2642093,
+    "maxlon": 16.2692167
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Hadersdorf",
+    "official_name": "Hadersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01204",
+    "type": "boundary",
+    "wikidata": "Q27835330"
+  }
+},
+{
+  "type": "relation",
+  "id": 5897544,
+  "bounds": {
+    "minlat": 48.2028681,
+    "minlon": 16.2536239,
+    "maxlat": 48.2270362,
+    "maxlon": 16.3385927
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Ottakring",
+    "official_name": "Ottakring",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1405",
+    "type": "boundary",
+    "wikidata": "Q1496772",
+    "wikipedia": "de:Ottakring (Wiener Bezirksteil)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5897594,
+  "bounds": {
+    "minlat": 48.2040593,
+    "minlon": 16.3273311,
+    "maxlat": 48.2124029,
+    "maxlon": 16.3392972
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Neulerchenfeld",
+    "official_name": "Neulerchenfeld",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1403",
+    "type": "boundary",
+    "wikidata": "Q1980858",
+    "wikipedia": "de:Neulerchenfeld"
+  }
+},
+{
+  "type": "relation",
+  "id": 5899601,
+  "bounds": {
+    "minlat": 48.1837288,
+    "minlon": 16.3245785,
+    "maxlat": 48.1904053,
+    "maxlon": 16.3390566
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Sechshaus",
+    "official_name": "Sechshaus",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1307",
+    "type": "boundary",
+    "wikidata": "Q2263631",
+    "wikipedia": "de:Sechshaus"
+  }
+},
+{
+  "type": "relation",
+  "id": 5899641,
+  "bounds": {
+    "minlat": 48.1841470,
+    "minlon": 16.3127818,
+    "maxlat": 48.1999229,
+    "maxlon": 16.3333804
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Rudolfsheim",
+    "official_name": "Rudolfsheim",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1306",
+    "type": "boundary",
+    "wikidata": "Q2174345",
+    "wikipedia": "de:Rudolfsheim"
+  }
+},
+{
+  "type": "relation",
+  "id": 5899642,
+  "bounds": {
+    "minlat": 48.1880873,
+    "minlon": 16.3106961,
+    "maxlat": 48.2072338,
+    "maxlon": 16.3394005
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Fünfhaus",
+    "official_name": "Fünfhaus",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1302",
+    "type": "boundary",
+    "wikidata": "Q1481965",
+    "wikipedia": "de:Fünfhaus"
+  }
+},
+{
+  "type": "relation",
+  "id": 5899920,
+  "bounds": {
+    "minlat": 48.1871851,
+    "minlon": 16.2905503,
+    "maxlat": 48.1991198,
+    "maxlon": 16.3205438
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Penzing",
+    "official_name": "Penzing",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1210",
+    "type": "boundary",
+    "wikidata": "Q2069566",
+    "wikipedia": "de:Penzing (Wiener Bezirksteil)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5900008,
+  "bounds": {
+    "minlat": 48.1968184,
+    "minlon": 16.2824819,
+    "maxlat": 48.2073486,
+    "maxlon": 16.3186108
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Breitensee",
+    "official_name": "Breitensee",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1202",
+    "type": "boundary",
+    "wikidata": "Q906418",
+    "wikipedia": "de:Breitensee (Wien)"
+  }
+},
+{
+  "type": "relation",
+  "id": 5900027,
+  "bounds": {
+    "minlat": 48.1901862,
+    "minlon": 16.2757604,
+    "maxlat": 48.2047604,
+    "maxlon": 16.2923508
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Unterbaumgarten",
+    "official_name": "Unterbaumgarten",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01214",
+    "type": "boundary",
+    "wikidata": "Q27835286"
+  }
+},
+{
+  "type": "relation",
+  "id": 5900074,
+  "bounds": {
+    "minlat": 48.1919748,
+    "minlon": 16.2663294,
+    "maxlat": 48.2034344,
+    "maxlon": 16.2818044
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Oberbaumgarten",
+    "official_name": "Oberbaumgarten",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "1208",
+    "type": "boundary",
+    "wikidata": "Q27835307"
+  }
+},
+{
+  "type": "relation",
+  "id": 5900077,
+  "bounds": {
+    "minlat": 48.1955001,
+    "minlon": 16.2340292,
+    "maxlat": 48.2214518,
+    "maxlon": 16.2891719
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Hütteldorf",
+    "official_name": "Hütteldorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "90001",
+    "ref:at:kgnr": "01206",
+    "type": "boundary",
+    "wikidata": "Q1423660",
+    "wikipedia": "de:Hütteldorf"
+  }
+},
+{
+  "type": "relation",
+  "id": 8749117,
+  "bounds": {
+    "minlat": 48.0407579,
+    "minlon": 16.3996775,
+    "maxlat": 48.0998012,
+    "maxlon": 16.4943450
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Himberg",
+    "official_name": "Himberg",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30732",
+    "ref:at:kgnr": "05207",
+    "ref:at:okz": "06700",
+    "short_name": "KG Himberg",
+    "type": "boundary",
+    "wikidata": "Q136929729",
+    "wikipedia": "de:Himberg"
+  }
+},
+{
+  "type": "relation",
+  "id": 8749118,
+  "bounds": {
+    "minlat": 48.0802214,
+    "minlon": 16.4231967,
+    "maxlat": 48.1089938,
+    "maxlon": 16.4962267
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Pellendorf",
+    "official_name": "Pellendorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30732",
+    "ref:at:kgnr": "05216",
+    "ref:at:okz": "06717",
+    "short_name": "KG Pellendorf",
+    "type": "boundary",
+    "wikidata": "Q136929727",
+    "wikipedia": "de:Pellendorf (Gemeinde Himberg)"
+  }
+},
+{
+  "type": "relation",
+  "id": 8843266,
+  "bounds": {
+    "minlat": 48.0689087,
+    "minlon": 16.1820700,
+    "maxlat": 48.1065054,
+    "maxlon": 16.2336302
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Weißenbach bei Mödling",
+    "note": "Name der Katastralgemeinde weicht geringfügig von dem der Ortschaft ab",
+    "official_name": "Weißenbach bei Mödling",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31712",
+    "ref:at:kgnr": "16127",
+    "ref:at:okz": "05167",
+    "short_name": "KG Weißenbach",
+    "type": "boundary",
+    "wikidata": "Q113995718",
+    "wikipedia": "de:Weissenbach bei Mödling"
+  }
+},
+{
+  "type": "relation",
+  "id": 8894795,
+  "bounds": {
+    "minlat": 48.1171340,
+    "minlon": 16.1147951,
+    "maxlat": 48.1555065,
+    "maxlon": 16.2386971
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Breitenfurt",
+    "official_name": "Breitenfurt",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31703",
+    "ref:at:kgnr": "16104",
+    "ref:at:okz": "05142",
+    "short_name": "KG Breitenfurt",
+    "type": "boundary",
+    "wikidata": "Q113995391",
+    "wikipedia": "de:Breitenfurt bei Wien"
+  }
+},
+{
+  "type": "relation",
+  "id": 14625252,
+  "bounds": {
+    "minlat": 48.3176172,
+    "minlon": 16.3403794,
+    "maxlat": 48.3552508,
+    "maxlon": 16.3856623
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Bisamberg",
+    "official_name": "Bisamberg",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31201",
+    "ref:at:kgnr": "11023",
+    "type": "boundary",
+    "wikidata": "Q136933948"
+  }
+},
+{
+  "type": "relation",
+  "id": 14625253,
+  "bounds": {
+    "minlat": 48.3167623,
+    "minlon": 16.3892770,
+    "maxlat": 48.3551914,
+    "maxlon": 16.4638375
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Hagenbrunn",
+    "official_name": "Hagenbrunn",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31206",
+    "ref:at:kgnr": "11026",
+    "type": "boundary",
+    "wikidata": "Q136933947"
+  }
+},
+{
+  "type": "relation",
+  "id": 19194391,
+  "bounds": {
+    "minlat": 48.1490565,
+    "minlon": 16.5827559,
+    "maxlat": 48.2229081,
+    "maxlon": 16.6153673
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Wittau",
+    "official_name": "Wittau",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30821",
+    "ref:at:kgnr": "06228",
+    "type": "boundary",
+    "wikidata": "Q136914447"
+  }
+},
+{
+  "type": "relation",
+  "id": 19194392,
+  "bounds": {
+    "minlat": 48.1310807,
+    "minlon": 16.5739185,
+    "maxlat": 48.1600040,
+    "maxlon": 16.6439479
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Schönau an der Donau",
+    "official_name": "Schönau an der Donau",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30821",
+    "ref:at:kgnr": "06225",
+    "type": "boundary",
+    "wikidata": "Q137217729"
+  }
+},
+{
+  "type": "relation",
+  "id": 19194395,
+  "bounds": {
+    "minlat": 48.1630733,
+    "minlon": 16.5654460,
+    "maxlat": 48.2366538,
+    "maxlon": 16.6146683
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Oberhausen",
+    "official_name": "Oberhausen",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30821",
+    "ref:at:kgnr": "06216",
+    "type": "boundary",
+    "wikidata": "Q136914443"
+  }
+},
+{
+  "type": "relation",
+  "id": 19194398,
+  "bounds": {
+    "minlat": 48.1542392,
+    "minlon": 16.5586883,
+    "maxlat": 48.1813935,
+    "maxlon": 16.5903216
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Mühlleiten",
+    "official_name": "Mühlleiten",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30821",
+    "ref:at:kgnr": "06215",
+    "type": "boundary",
+    "wikidata": "Q136929787"
+  }
+},
+{
+  "type": "relation",
+  "id": 19194399,
+  "bounds": {
+    "minlat": 48.1617103,
+    "minlon": 16.5362709,
+    "maxlat": 48.2390011,
+    "maxlon": 16.5921372
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Großenzersdorf",
+    "note": "Name weicht geringfügig vom Namen der Ortschaft ab",
+    "official_name": "Großenzersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30821",
+    "ref:at:kgnr": "06207",
+    "type": "boundary",
+    "wikidata": "Q136651358"
+  }
+},
+{
+  "type": "relation",
+  "id": 19194470,
+  "bounds": {
+    "minlat": 48.2666650,
+    "minlon": 16.5250410,
+    "maxlat": 48.3285313,
+    "maxlon": 16.6144794
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Deutsch Wagram",
+    "note": "Name weicht geringfügig vom Namen der Ortschaft ab",
+    "official_name": "Deutsch Wagram",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30808",
+    "ref:at:kgnr": "06031",
+    "type": "boundary",
+    "wikidata": "Q134445955"
+  }
+},
+{
+  "type": "relation",
+  "id": 19194471,
+  "bounds": {
+    "minlat": 48.3067088,
+    "minlon": 16.5436042,
+    "maxlat": 48.3319982,
+    "maxlon": 16.6029547
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Helmahof",
+    "official_name": "Helmahof",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30808",
+    "ref:at:kgnr": "06032",
+    "type": "boundary",
+    "wikidata": "Q134445937"
+  }
+},
+{
+  "type": "relation",
+  "id": 19194472,
+  "bounds": {
+    "minlat": 48.2850665,
+    "minlon": 16.5022558,
+    "maxlat": 48.3267065,
+    "maxlon": 16.5467458
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Stallingerfeld",
+    "official_name": "Stallingerfeld",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30808",
+    "ref:at:kgnr": "06033",
+    "type": "boundary",
+    "wikidata": "Q27869442"
+  }
+},
+{
+  "type": "relation",
+  "id": 19194476,
+  "bounds": {
+    "minlat": 48.2326652,
+    "minlon": 16.5394106,
+    "maxlat": 48.2688591,
+    "maxlon": 16.5960865
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Raasdorf",
+    "official_name": "Raasdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30849",
+    "ref:at:kgnr": "06223",
+    "type": "boundary",
+    "wikidata": "Q136929785"
+  }
+},
+{
+  "type": "relation",
+  "id": 19194477,
+  "bounds": {
+    "minlat": 48.2175331,
+    "minlon": 16.5767379,
+    "maxlat": 48.2459918,
+    "maxlon": 16.6012575
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Pysdorf",
+    "official_name": "Pysdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30849",
+    "ref:at:kgnr": "06222",
+    "type": "boundary",
+    "wikidata": "Q136653872"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204983,
+  "bounds": {
+    "minlat": 48.0943092,
+    "minlon": 16.3753476,
+    "maxlat": 48.1253693,
+    "maxlon": 16.4175428
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Leopoldsdorf",
+    "official_name": "Leopoldsdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30735",
+    "ref:at:kgnr": "05210",
+    "type": "boundary",
+    "wikidata": "Q136652351"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204984,
+  "bounds": {
+    "minlat": 48.1157633,
+    "minlon": 16.3881374,
+    "maxlat": 48.1244957,
+    "maxlon": 16.4133760
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Rustenfeld",
+    "official_name": "Rustenfeld",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30735",
+    "ref:at:kgnr": "05225",
+    "type": "boundary",
+    "wikidata": "Q27868489"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204985,
+  "bounds": {
+    "minlat": 48.1009143,
+    "minlon": 16.4117018,
+    "maxlat": 48.1225594,
+    "maxlon": 16.4435911
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Oberlanzendorf",
+    "official_name": "Oberlanzendorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30734",
+    "ref:at:kgnr": "05215",
+    "type": "boundary",
+    "wikidata": "Q1779908"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204986,
+  "bounds": {
+    "minlat": 48.1067214,
+    "minlon": 16.4225504,
+    "maxlat": 48.1230645,
+    "maxlon": 16.4563459
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Unterlanzendorf",
+    "official_name": "Unterlanzendorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30734",
+    "ref:at:kgnr": "05221",
+    "type": "boundary",
+    "wikidata": "Q27862918"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204987,
+  "bounds": {
+    "minlat": 48.0893045,
+    "minlon": 16.4017935,
+    "maxlat": 48.1115787,
+    "maxlon": 16.4289896
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Maria Lanzendorf",
+    "official_name": "Maria Lanzendorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30736",
+    "ref:at:kgnr": "05212",
+    "type": "boundary",
+    "wikidata": "Q134380231"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204988,
+  "bounds": {
+    "minlat": 48.1301344,
+    "minlon": 16.4327484,
+    "maxlat": 48.1385237,
+    "maxlon": 16.4496290
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kledering",
+    "official_name": "Kledering",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30740",
+    "ref:at:kgnr": "05208",
+    "type": "boundary",
+    "wikidata": "Q136929733"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204989,
+  "bounds": {
+    "minlat": 48.1133583,
+    "minlon": 16.4332619,
+    "maxlat": 48.1364366,
+    "maxlon": 16.4740703
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Rannersdorf",
+    "official_name": "Rannersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30740",
+    "ref:at:kgnr": "05217",
+    "type": "boundary",
+    "wikidata": "Q136929734"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204990,
+  "bounds": {
+    "minlat": 48.0898918,
+    "minlon": 16.4454719,
+    "maxlat": 48.1574410,
+    "maxlon": 16.5525774
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Schwechat",
+    "official_name": "Schwechat",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30740",
+    "ref:at:kgnr": "05220",
+    "type": "boundary",
+    "wikidata": "Q136929735"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204991,
+  "bounds": {
+    "minlat": 48.0889840,
+    "minlon": 16.4871620,
+    "maxlat": 48.1589276,
+    "maxlon": 16.5766282
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Mannswörth",
+    "official_name": "Mannswörth",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30740",
+    "ref:at:kgnr": "05211",
+    "type": "boundary",
+    "wikidata": "Q136929732"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204992,
+  "bounds": {
+    "minlat": 48.0915121,
+    "minlon": 16.4458736,
+    "maxlat": 48.1225612,
+    "maxlon": 16.5035097
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Zwölfaxing",
+    "official_name": "Zwölfaxing",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30741",
+    "ref:at:kgnr": "05224",
+    "type": "boundary",
+    "wikidata": "Q133886425"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204997,
+  "bounds": {
+    "minlat": 48.0667430,
+    "minlon": 16.4890745,
+    "maxlat": 48.1074521,
+    "maxlon": 16.5530225
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Rauchenwarth",
+    "official_name": "Rauchenwarth",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30738",
+    "ref:at:kgnr": "05218",
+    "type": "boundary",
+    "wikidata": "Q134380233"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204998,
+  "bounds": {
+    "minlat": 48.0575405,
+    "minlon": 16.5386019,
+    "maxlat": 48.0998997,
+    "maxlon": 16.6023214
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Schwadorf",
+    "official_name": "Schwadorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30739",
+    "ref:at:kgnr": "05219",
+    "type": "boundary",
+    "wikidata": "Q134380234"
+  }
+},
+{
+  "type": "relation",
+  "id": 19204999,
+  "bounds": {
+    "minlat": 48.0836781,
+    "minlon": 16.5604723,
+    "maxlat": 48.1086922,
+    "maxlon": 16.6146105
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kleinneusiedl",
+    "official_name": "Kleinneusiedl",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30733",
+    "ref:at:kgnr": "05209",
+    "type": "boundary",
+    "wikidata": "Q134380230"
+  }
+},
+{
+  "type": "relation",
+  "id": 19205005,
+  "bounds": {
+    "minlat": 48.1029850,
+    "minlon": 16.5648436,
+    "maxlat": 48.1447105,
+    "maxlon": 16.6485234
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Fischamend Dorf",
+    "official_name": "Fischamend Dorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30730",
+    "ref:at:kgnr": "05203",
+    "type": "boundary",
+    "wikidata": "Q21874140"
+  }
+},
+{
+  "type": "relation",
+  "id": 19255329,
+  "bounds": {
+    "minlat": 48.2810354,
+    "minlon": 16.3343173,
+    "maxlat": 48.3358869,
+    "maxlon": 16.3952315
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Langenzersdorf",
+    "official_name": "Langenzersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31214",
+    "ref:at:kgnr": "11029",
+    "type": "boundary",
+    "wikidata": "Q134380253"
+  }
+},
+{
+  "type": "relation",
+  "id": 19255330,
+  "bounds": {
+    "minlat": 48.3265767,
+    "minlon": 16.2879926,
+    "maxlat": 48.3641025,
+    "maxlon": 16.3496969
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Korneuburg",
+    "official_name": "Korneuburg",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31213",
+    "ref:at:kgnr": "11006",
+    "type": "boundary",
+    "wikidata": "Q134380252"
+  }
+},
+{
+  "type": "relation",
+  "id": 19255482,
+  "bounds": {
+    "minlat": 48.3159727,
+    "minlon": 16.4479975,
+    "maxlat": 48.3521535,
+    "maxlon": 16.5064632
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Seyring",
+    "official_name": "Seyring",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31235",
+    "ref:at:kgnr": "01710",
+    "type": "boundary",
+    "wikidata": "Q136933951"
+  }
+},
+{
+  "type": "relation",
+  "id": 19255483,
+  "bounds": {
+    "minlat": 48.2903522,
+    "minlon": 16.4812062,
+    "maxlat": 48.3377962,
+    "maxlon": 16.5256971
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kapellerfeld",
+    "official_name": "Kapellerfeld",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31235",
+    "ref:at:kgnr": "01709",
+    "type": "boundary",
+    "wikidata": "Q27869436"
+  }
+},
+{
+  "type": "relation",
+  "id": 19284180,
+  "bounds": {
+    "minlat": 48.3144208,
+    "minlon": 16.5711196,
+    "maxlat": 48.3392224,
+    "maxlon": 16.6202128
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Wendlingerhof",
+    "official_name": "Wendlingerhof",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31605",
+    "ref:at:kgnr": "15222",
+    "type": "boundary",
+    "wikidata": "Q66504138"
+  }
+},
+{
+  "type": "relation",
+  "id": 19290949,
+  "bounds": {
+    "minlat": 48.3252790,
+    "minlon": 16.5121587,
+    "maxlat": 48.3488046,
+    "maxlon": 16.5557808
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Reuhof",
+    "official_name": "Reuhof",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31642",
+    "ref:at:kgnr": "15215",
+    "type": "boundary",
+    "wikidata": "Q110667496"
+  }
+},
+{
+  "type": "relation",
+  "id": 19442152,
+  "bounds": {
+    "minlat": 48.2383172,
+    "minlon": 16.2014817,
+    "maxlat": 48.2933479,
+    "maxlon": 16.2939662
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Weidlingbach",
+    "official_name": "Weidlingbach",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32144",
+    "ref:at:kgnr": "01707",
+    "type": "boundary",
+    "wikidata": "Q136936928"
+  }
+},
+{
+  "type": "relation",
+  "id": 19442153,
+  "bounds": {
+    "minlat": 48.2624925,
+    "minlon": 16.2447888,
+    "maxlat": 48.2991369,
+    "maxlon": 16.3346918
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Weidling",
+    "official_name": "Weidling",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32144",
+    "ref:at:kgnr": "01706",
+    "type": "boundary",
+    "wikidata": "Q136936940"
+  }
+},
+{
+  "type": "relation",
+  "id": 19442154,
+  "bounds": {
+    "minlat": 48.3129418,
+    "minlon": 16.2681479,
+    "maxlat": 48.3491563,
+    "maxlon": 16.3464078
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kritzendorf",
+    "official_name": "Kritzendorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32144",
+    "ref:at:kgnr": "01705",
+    "type": "boundary",
+    "wikidata": "Q137217887"
+  }
+},
+{
+  "type": "relation",
+  "id": 19442155,
+  "bounds": {
+    "minlat": 48.2805768,
+    "minlon": 16.2818124,
+    "maxlat": 48.3267301,
+    "maxlon": 16.3631817
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Klosterneuburg",
+    "official_name": "Klosterneuburg",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32144",
+    "ref:at:kgnr": "01704",
+    "type": "boundary",
+    "wikidata": "Q136936936"
+  }
+},
+{
+  "type": "relation",
+  "id": 19442156,
+  "bounds": {
+    "minlat": 48.2843593,
+    "minlon": 16.2239921,
+    "maxlat": 48.3268832,
+    "maxlon": 16.3047794
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kierling",
+    "official_name": "Kierling",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32144",
+    "ref:at:kgnr": "01703",
+    "type": "boundary",
+    "wikidata": "Q136936956"
+  }
+},
+{
+  "type": "relation",
+  "id": 19442157,
+  "bounds": {
+    "minlat": 48.3374731,
+    "minlon": 16.2592011,
+    "maxlat": 48.3595434,
+    "maxlon": 16.2938005
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Höflein an der Donau",
+    "official_name": "Höflein an der Donau",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32144",
+    "ref:at:kgnr": "01702",
+    "type": "boundary",
+    "wikidata": "Q136936939"
+  }
+},
+{
+  "type": "relation",
+  "id": 19442158,
+  "bounds": {
+    "minlat": 48.3040874,
+    "minlon": 16.2252521,
+    "maxlat": 48.3277597,
+    "maxlon": 16.2630253
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Gugging",
+    "official_name": "Gugging",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32144",
+    "ref:at:kgnr": "01701",
+    "type": "boundary",
+    "wikidata": "Q136936929"
+  }
+},
+{
+  "type": "relation",
+  "id": 19445642,
+  "bounds": {
+    "minlat": 48.3148846,
+    "minlon": 16.1397277,
+    "maxlat": 48.3533229,
+    "maxlon": 16.1692122
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Muckendorf",
+    "note": "ohne Namenszusatz (im Unterschied zur Ortschaft)",
+    "official_name": "Muckendorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32143",
+    "ref:at:kgnr": "20156",
+    "type": "boundary",
+    "wikidata": "Q136936919"
+  }
+},
+{
+  "type": "relation",
+  "id": 19446007,
+  "bounds": {
+    "minlat": 48.3206550,
+    "minlon": 16.1655134,
+    "maxlat": 48.3669409,
+    "maxlon": 16.2376198
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Wördern",
+    "official_name": "Wördern",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32142",
+    "ref:at:kgnr": "20197",
+    "type": "boundary",
+    "wikidata": "Q136936935"
+  }
+},
+{
+  "type": "relation",
+  "id": 19446008,
+  "bounds": {
+    "minlat": 48.2678160,
+    "minlon": 16.1776418,
+    "maxlat": 48.3006336,
+    "maxlon": 16.2206086
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kirchbach",
+    "official_name": "Kirchbach",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32142",
+    "ref:at:kgnr": "20140",
+    "type": "boundary",
+    "wikidata": "Q136936903"
+  }
+},
+{
+  "type": "relation",
+  "id": 19446009,
+  "bounds": {
+    "minlat": 48.2824788,
+    "minlon": 16.1970741,
+    "maxlat": 48.3114159,
+    "maxlon": 16.2412829
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Hintersdorf",
+    "official_name": "Hintersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32142",
+    "ref:at:kgnr": "20132",
+    "type": "boundary",
+    "wikidata": "Q136936904"
+  }
+},
+{
+  "type": "relation",
+  "id": 19446010,
+  "bounds": {
+    "minlat": 48.3188172,
+    "minlon": 16.2364648,
+    "maxlat": 48.3424259,
+    "maxlon": 16.2704587
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Hadersfeld",
+    "official_name": "Hadersfeld",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32142",
+    "ref:at:kgnr": "20129",
+    "type": "boundary",
+    "wikidata": "Q136945494"
+  }
+},
+{
+  "type": "relation",
+  "id": 19446011,
+  "bounds": {
+    "minlat": 48.3377621,
+    "minlon": 16.2205988,
+    "maxlat": 48.3647928,
+    "maxlon": 16.2625084
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Greifenstein",
+    "official_name": "Greifenstein",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32142",
+    "ref:at:kgnr": "20127",
+    "type": "boundary",
+    "wikidata": "Q137220079"
+  }
+},
+{
+  "type": "relation",
+  "id": 19446012,
+  "bounds": {
+    "minlat": 48.3077513,
+    "minlon": 16.1905374,
+    "maxlat": 48.3323917,
+    "maxlon": 16.2364310
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde St. Andrä",
+    "note": "ohne Namenszusatz (im Unterschied zur Ortschaft)",
+    "official_name": "St. Andrä",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32142",
+    "ref:at:kgnr": "20104",
+    "type": "boundary",
+    "wikidata": "Q136914337"
+  }
+},
+{
+  "type": "relation",
+  "id": 19446013,
+  "bounds": {
+    "minlat": 48.3305768,
+    "minlon": 16.2153727,
+    "maxlat": 48.3526231,
+    "maxlon": 16.2487517
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Altenberg",
+    "official_name": "Altenberg",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32142",
+    "ref:at:kgnr": "20103",
+    "type": "boundary",
+    "wikidata": "Q136704502"
+  }
+},
+{
+  "type": "relation",
+  "id": 19446061,
+  "bounds": {
+    "minlat": 48.2596091,
+    "minlon": 16.1047876,
+    "maxlat": 48.3084301,
+    "maxlon": 16.1657096
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Tulbing",
+    "official_name": "Tulbing",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32134",
+    "ref:at:kgnr": "20188",
+    "type": "boundary",
+    "wikidata": "Q136936920"
+  }
+},
+{
+  "type": "relation",
+  "id": 19465778,
+  "bounds": {
+    "minlat": 48.3003676,
+    "minlon": 16.1460513,
+    "maxlat": 48.3581751,
+    "maxlon": 16.2092888
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Zeiselmauer",
+    "official_name": "Zeiselmauer",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32140",
+    "ref:at:kgnr": "20199",
+    "type": "boundary",
+    "wikidata": "Q137294375"
+  }
+},
+{
+  "type": "relation",
+  "id": 19465779,
+  "bounds": {
+    "minlat": 48.2927912,
+    "minlon": 16.1711077,
+    "maxlat": 48.3211543,
+    "maxlon": 16.1993734
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Wolfpassing",
+    "official_name": "Wolfpassing",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32140",
+    "ref:at:kgnr": "20196",
+    "type": "boundary",
+    "wikidata": "Q136936909"
+  }
+},
+{
+  "type": "relation",
+  "id": 20979786,
+  "bounds": {
+    "minlat": 48.2621015,
+    "minlon": 16.5066712,
+    "maxlat": 48.2951788,
+    "maxlon": 16.5521627
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Aderklaa",
+    "official_name": "Aderklaa",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30801",
+    "ref:at:kgnr": "06030",
+    "type": "boundary",
+    "wikidata": "Q134380242"
+  }
+},
+{
+  "type": "relation",
+  "id": 20979789,
+  "bounds": {
+    "minlat": 48.2563805,
+    "minlon": 16.5662982,
+    "maxlat": 48.2925847,
+    "maxlon": 16.6168084
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Parbasdorf",
+    "official_name": "Parbasdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30846",
+    "ref:at:kgnr": "06219",
+    "type": "boundary",
+    "wikidata": "Q134380251"
+  }
+},
+{
+  "type": "relation",
+  "id": 20984503,
+  "bounds": {
+    "minlat": 48.2792128,
+    "minlon": 16.1234743,
+    "maxlat": 48.3188948,
+    "maxlon": 16.1880921
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Königstetten",
+    "official_name": "Königstetten",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "32116",
+    "ref:at:kgnr": "20142",
+    "type": "boundary",
+    "wikidata": "Q134380294"
+  }
+},
+{
+  "type": "relation",
+  "id": 20984605,
+  "bounds": {
+    "minlat": 48.2230565,
+    "minlon": 16.1266660,
+    "maxlat": 48.2836993,
+    "maxlon": 16.2080718
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Mauerbach",
+    "official_name": "Mauerbach",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31950",
+    "ref:at:kgnr": "01903",
+    "type": "boundary",
+    "wikidata": "Q134380206"
+  }
+},
+{
+  "type": "relation",
+  "id": 20986518,
+  "bounds": {
+    "minlat": 48.1456736,
+    "minlon": 16.1487548,
+    "maxlat": 48.1710313,
+    "maxlon": 16.1979751
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Laab im Walde",
+    "official_name": "Laab im Walde",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31714",
+    "ref:at:kgnr": "16116",
+    "type": "boundary",
+    "wikidata": "Q134380276"
+  }
+},
+{
+  "type": "relation",
+  "id": 20986519,
+  "bounds": {
+    "minlat": 48.2103674,
+    "minlon": 16.0910018,
+    "maxlat": 48.2600060,
+    "maxlon": 16.1851719
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Gablitz",
+    "official_name": "Gablitz",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31949",
+    "ref:at:kgnr": "01902",
+    "type": "boundary",
+    "wikidata": "Q134380205"
+  }
+},
+{
+  "type": "relation",
+  "id": 20986528,
+  "bounds": {
+    "minlat": 48.1688632,
+    "minlon": 16.1094228,
+    "maxlat": 48.2235007,
+    "maxlon": 16.2096215
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Purkersdorf",
+    "official_name": "Purkersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31952",
+    "ref:at:kgnr": "01906",
+    "type": "boundary",
+    "wikidata": "Q134380207"
+  }
+},
+{
+  "type": "relation",
+  "id": 20990609,
+  "bounds": {
+    "minlat": 48.0865731,
+    "minlon": 16.1320621,
+    "maxlat": 48.1288753,
+    "maxlon": 16.2399788
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Kaltenleutgeben",
+    "official_name": "Kaltenleutgeben",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31713",
+    "ref:at:kgnr": "16115",
+    "type": "boundary",
+    "wikidata": "Q134380275"
+  }
+},
+{
+  "type": "relation",
+  "id": 20990623,
+  "bounds": {
+    "minlat": 48.0841271,
+    "minlon": 16.2120861,
+    "maxlat": 48.1039312,
+    "maxlon": 16.2605573
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Gießhübl",
+    "official_name": "Gießhübl",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31707",
+    "ref:at:kgnr": "16108",
+    "type": "boundary",
+    "wikidata": "Q134380271"
+  }
+},
+{
+  "type": "relation",
+  "id": 20990633,
+  "bounds": {
+    "minlat": 48.1001059,
+    "minlon": 16.2181849,
+    "maxlat": 48.1338515,
+    "maxlon": 16.2990474
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Perchtoldsdorf",
+    "official_name": "Perchtoldsdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31719",
+    "ref:at:kgnr": "16121",
+    "type": "boundary",
+    "wikidata": "Q134380282",
+    "wikipedia": "de:Perchtoldsdorf"
+  }
+},
+{
+  "type": "relation",
+  "id": 20990782,
+  "bounds": {
+    "minlat": 48.1011065,
+    "minlon": 16.3103594,
+    "maxlat": 48.1377929,
+    "maxlon": 16.3659854
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Vösendorf",
+    "official_name": "Vösendorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31723",
+    "ref:at:kgnr": "16126",
+    "type": "boundary",
+    "wikidata": "Q134379752"
+  }
+},
+{
+  "type": "relation",
+  "id": 20990851,
+  "bounds": {
+    "minlat": 48.0993614,
+    "minlon": 16.3504228,
+    "maxlat": 48.1283994,
+    "maxlon": 16.3883438
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Hennersdorf",
+    "official_name": "Hennersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31711",
+    "ref:at:kgnr": "16112",
+    "type": "boundary",
+    "wikidata": "Q134380274"
+  }
+},
+{
+  "type": "relation",
+  "id": 20991020,
+  "bounds": {
+    "minlat": 48.0991706,
+    "minlon": 16.2492059,
+    "maxlat": 48.1254149,
+    "maxlon": 16.3152460
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Brunn am Gebirge",
+    "official_name": "Brunn am Gebirge",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31704",
+    "ref:at:kgnr": "16105",
+    "type": "boundary",
+    "wikidata": "Q134380270"
+  }
+},
+{
+  "type": "relation",
+  "id": 20991074,
+  "bounds": {
+    "minlat": 48.0523132,
+    "minlon": 16.3610243,
+    "maxlat": 48.1009592,
+    "maxlon": 16.4154094
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Achau",
+    "official_name": "Achau",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31701",
+    "ref:at:kgnr": "16101",
+    "type": "boundary",
+    "wikidata": "Q134380268"
+  }
+},
+{
+  "type": "relation",
+  "id": 20991477,
+  "bounds": {
+    "minlat": 48.0689510,
+    "minlon": 16.3051575,
+    "maxlat": 48.1077794,
+    "maxlon": 16.3338439
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Wiener Neudorf",
+    "official_name": "Wiener Neudorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31725",
+    "ref:at:kgnr": "16128",
+    "type": "boundary",
+    "wikidata": "Q134379673"
+  }
+},
+{
+  "type": "relation",
+  "id": 20991805,
+  "bounds": {
+    "minlat": 48.0819916,
+    "minlon": 16.2558405,
+    "maxlat": 48.1046753,
+    "maxlon": 16.3146832
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Maria Enzersdorf",
+    "official_name": "Maria Enzersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31716",
+    "ref:at:kgnr": "16118",
+    "type": "boundary",
+    "wikidata": "Q134380278"
+  }
+},
+{
+  "type": "relation",
+  "id": 20992065,
+  "bounds": {
+    "minlat": 48.0638496,
+    "minlon": 16.3294351,
+    "maxlat": 48.1078430,
+    "maxlon": 16.3750254
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Biedermannsdorf",
+    "official_name": "Biedermannsdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31702",
+    "ref:at:kgnr": "16103",
+    "type": "boundary",
+    "wikidata": "Q134380269"
+  }
+},
+{
+  "type": "relation",
+  "id": 20992337,
+  "bounds": {
+    "minlat": 48.3263611,
+    "minlon": 16.5490136,
+    "maxlat": 48.3814282,
+    "maxlon": 16.6223588
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Großengersdorf",
+    "official_name": "Großengersdorf",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "31615",
+    "ref:at:kgnr": "15205",
+    "type": "boundary",
+    "wikidata": "Q134380267"
+  }
+},
+{
+  "type": "relation",
+  "id": 20992953,
+  "bounds": {
+    "minlat": 48.2332781,
+    "minlon": 16.5864112,
+    "maxlat": 48.2686858,
+    "maxlon": 16.6324714
+  },
+  "tags": {
+    "admin_level": "10",
+    "admin_title": "Katastralgemeinde",
+    "boundary": "administrative",
+    "designation": "Katastralgemeinde",
+    "name": "Katastralgemeinde Großhofen",
+    "official_name": "Großhofen",
+    "official_status": "Katastralgemeinde",
+    "ref:at:gkz": "30822",
+    "ref:at:kgnr": "06208",
+    "type": "boundary",
+    "wikidata": "Q134380246"
+  }
+}
+
+  ]
+}

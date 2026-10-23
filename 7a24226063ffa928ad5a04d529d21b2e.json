@@ -1,0 +1,2702 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:53:03Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 4744758,
+  "tags": {
+    "colour": "#ffffff",
+    "from": "Gleisdorf Bahnhof",
+    "name": "Bus 311: Gleisdorf Bahnhof => Wien Karlsplatz",
+    "network": "Verkehrsverbund Steiermark",
+    "network:guid": "AT-VVSt",
+    "network:short": "VVSt",
+    "network:wikidata": "Q2341954",
+    "operator": "RegioBus Steiermark",
+    "public_transport:version": "2",
+    "ref": "311",
+    "route": "bus",
+    "to": "Wien Karlsplatz",
+    "type": "route",
+    "website": "https://verbundlinie.at/"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 4744764,
+  "tags": {
+    "colour": "#ffffff",
+    "from": "Wien Karlsplatz",
+    "name": "Bus 311: Wien Karlsplatz => Gleisdorf Busbahnhof",
+    "network": "Verkehrsverbund Steiermark",
+    "network:guid": "AT-VVSt",
+    "network:short": "VVSt",
+    "network:wikidata": "Q2341954",
+    "network:wikipedia": "de:Steirischer Verkehrsverbund",
+    "operator": "RegioBus Steiermark",
+    "public_transport:version": "2",
+    "ref": "311",
+    "route": "bus",
+    "to": "Gleisdorf Busbahnhof",
+    "type": "route",
+    "website": "https://verbundlinie.at/"
+  }
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 16460654,
+  "tags": {
+    "colour": "#ffffff",
+    "from": "Wien Karlsplatz",
+    "name": "Bus 311: Wien Karlsplatz => Kaindorf P+R",
+    "network": "Verkehrsverbund Steiermark",
+    "network:guid": "AT-VVSt",
+    "network:short": "VVSt",
+    "network:wikidata": "Q2341954",
+    "network:wikipedia": "de:Steirischer Verkehrsverbund",
+    "operator": "RegioBus Steiermark",
+    "public_transport:version": "2",
+    "ref": "311",
+    "route": "bus",
+    "to": "Kaindorf P+R",
+    "type": "route",
+    "website": "https://verbundlinie.at/"
+  }
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 15569182,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Wien Karlsplatz",
+    "name": "Bus B01: Wien Karlsplatz => Stegersbach => Tobaj => Güssing Hauptplatz",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Güssing Hauptplatz",
+    "type": "route",
+    "via": "Stegersbach P+R/Hauptplatz;Tobaj Gemeindeamt"
+  }
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 15569608,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Güssing Hauptplatz",
+    "name": "Bus B01: Güssing Hauptplatz => Tobaj => Wien Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Wien Karlsplatz",
+    "type": "route",
+    "via": "Tobaj Gemeindeamt"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 15569646,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Wien Karlsplatz",
+    "name": "Bus B01: Wien Karlsplatz => Kohfidisch => Sankt Michael im Burgenland Hauptplatz",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Sankt Michael im Burgenland Hauptplatz",
+    "type": "route",
+    "via": "Kohfidisch Kirche"
+  }
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 16300234,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Güssing Hauptplatz",
+    "name": "Bus B01: Güssing Hauptplatz => Wien Karlsplatz (nicht über Tobaj, Pinkafeld & Schäffern)",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "not_via": "Tobaj Gemeindeamt;Pinkafeld Marktplatz;Schäffern P+R A2",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Wien Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 16300236,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Güssing Hauptplatz",
+    "name": "Bus B01: Güssing Hauptplatz => Tobaj => IZ NÖ-Süd Straße 15/Wendestelle => Wien Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Wien Karlsplatz",
+    "type": "route",
+    "via": "Tobaj Gemeindeamt;IZ NÖ-Süd Straße 15/Wendestelle"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 16300423,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Sankt Michael im Burgenland Hauptplatz",
+    "name": "Bus B01: Sankt Michael im Burgenland Hauptplatz => Stegersbach => IZ NÖ-Süd Straße 15/Wendestelle => Wien Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Wien Karlsplatz",
+    "type": "route",
+    "via": "Stegersbach P+R/Hauptplatz;IZ NÖ-Süd Straße 15/Wendestelle"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 16300673,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Wien Karlsplatz",
+    "name": "Bus B01: Wien Karlsplatz => Stegersbach => Tobaj => Güssing Hauptplatz (nicht über Pinkafeld)",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:wikidata": "Q2516485",
+    "not_via": "Pinkafeld Marktplatz",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Güssing Hauptplatz",
+    "type": "route",
+    "via": "Stegersbach P+R/Hauptplatz;Tobaj Gemeindeamt"
+  }
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 16300676,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Wien Karlsplatz",
+    "name": "Bus B01: Wien Karlsplatz => IZ NÖ-Süd Straße 15/Wendestelle => Stegersbach => Tobaj => Güssing Hauptplatz",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Güssing Hauptplatz",
+    "type": "route",
+    "via": "IZ NÖ-Süd Straße 15/Wendestelle;Stegersbach P+R/Hauptplatz;Tobaj Gemeindeamt"
+  }
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 18727976,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Oberwart Hauptplatz",
+    "name": "Bus B01: Oberwart Hauptplatz => Schäffernsteg => Wien Karlsplatz (nicht über Pinkafeld & Schäffern)",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "not_via": "Pinkafeld Marktplatz;Schäffern P+R A2",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Wien Karlsplatz",
+    "type": "route",
+    "via": "Schäffernsteg P+R"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 18727977,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Oberwart Hauptplatz",
+    "name": "Bus B01: Oberwart Hauptplatz => Wien Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Wien Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 18727978,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Sankt Michael im Burgenland Hauptplatz",
+    "name": "Bus B01: Sankt Michael im Burgenland Hauptplatz => Stegersbach => Wien Karlsplatz (nicht über Schäffern & IZ NÖ-Süd Straße 15/Wendestelle)",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "not_via": "Schäffern P+R A2;IZ NÖ-Süd Straße 15/Wendestelle",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Wien Karlsplatz",
+    "type": "route",
+    "via": "Stegersbach P+R/Hauptplatz"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 18727980,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Güssing Hauptplatz",
+    "name": "Bus B01: Güssing Hauptplatz => Tobaj => IZ NÖ-Süd Straße 15/Wendestelle => Wien Karlsplatz (nicht über Pinkafeld & Schäffern)",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "not_via": "Pinkafeld Marktplatz;Schäffern P+R A2",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Wien Karlsplatz",
+    "type": "route",
+    "via": "Tobaj Gemeindeamt;IZ NÖ-Süd Straße 15/Wendestelle"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 18727981,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Güssing Hauptplatz",
+    "name": "Bus B01: Güssing Hauptplatz => Tobaj => Wien Karlsplatz (nicht über Pinkafeld & Schäffern)",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "not_via": "Pinkafeld Marktplatz;Schäffern P+R A2",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Wien Karlsplatz",
+    "type": "route",
+    "via": "Tobaj Gemeindeamt"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 18728229,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Wien Karlsplatz",
+    "name": "Bus B01: Wien Karlsplatz => Stegersbach HAK => Tobaj => Güssing Hauptplatz (nicht über Pinkafeld)",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:wikidata": "Q2516485",
+    "not_via": "Pinkafeld Marktplatz",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Güssing Hauptplatz",
+    "type": "route",
+    "via": "Stegersbach HAK;Tobaj Gemeindeamt"
+  }
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 18728230,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Wien Karlsplatz",
+    "name": "Bus B01: Wien Karlsplatz => Stegersbach HAK => Tobaj => Güssing Hauptplatz",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Güssing Hauptplatz",
+    "type": "route",
+    "via": "Stegersbach HAK;Tobaj Gemeindeamt"
+  }
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 18728231,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Wien Karlsplatz",
+    "name": "Bus B01: Wien Karlsplatz => Oberwart Hauptplatz",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Oberwart Hauptplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 18728232,
+  "tags": {
+    "colour": "#7a5f98",
+    "description:operator": "Linie der Verkehrsbetriebe Burgenland, einige Fahrten noch durch Dr. Richard (Südburg) betrieben",
+    "from": "Wien Karlsplatz",
+    "name": "Bus B01: Wien Karlsplatz => IZ NÖ-Süd Straße 15/Wendestelle => Stegersbach HAK => Tobaj => Güssing Hauptplatz",
+    "network": "VOR",
+    "network:guid": "AT-VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Verkehrsbetriebe Burgenland;Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "B01",
+    "route": "bus",
+    "to": "Güssing Hauptplatz",
+    "type": "route",
+    "via": "IZ NÖ-Süd Straße 15/Wendestelle;Stegersbach HAK;Tobaj Gemeindeamt"
+  }
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 2024981,
+  "tags": {
+    "colour": "#005395",
+    "from": "Baden Josefsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:1515:",
+    "gtfs:shape_id": "11-WLB-j26-1.30.R",
+    "gtfs:trip_id:like": "%11-WLB-j26-1.30.R",
+    "gtfs:trip_id:sample": "816.T2.11-WLB-j26-1.30.R",
+    "loc_name": "Badner Bahn",
+    "name": "WLB: Baden Josefsplatz => Wien Oper",
+    "network": "VOR",
+    "network:metro": "Wiener Lokalbahn",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen",
+    "operator:short": "WLB",
+    "operator:wikidata": "Q335971",
+    "public_transport:version": "2",
+    "ref": "WLB",
+    "route": "light_rail",
+    "service": "regional",
+    "to": "Wien Oper",
+    "type": "route",
+    "wikidata": "Q875199",
+    "wikipedia": "de:Lokalbahn Wien–Baden"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3998633996
+},
+{
+  "type": "node",
+  "id": 3998638545
+},
+{
+  "type": "node",
+  "id": 4260094028
+},
+{
+  "type": "node",
+  "id": 4347320126
+},
+{
+  "type": "node",
+  "id": 4347320127
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "node",
+  "id": 4347320129
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 27114,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.10.R",
+    "gtfs:trip_id:like": "%21-U2-j26-8.10.R",
+    "gtfs:trip_id:sample": "217.T3.21-U2-j26-8.10.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Karlsplatz => Seestadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Seestadt",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 3598326412
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 1306478,
+  "tags": {
+    "by_night": "only",
+    "by_night:weekend": "no",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Hütteldorf, Bujattigasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3549:",
+    "name": "Nachtbus N49: Hütteldorf Bujattigasse => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "werktags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N49",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 1991686,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Stefan-Fadinger-Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3101:",
+    "gtfs:shape_id": "22-1-j26-14.9.R",
+    "gtfs:trip_id:like": "%22-1-j26-14.9.R",
+    "gtfs:trip_id:sample": "158.T9.22-1-j26-14.9.R",
+    "name": "Tram 1: Stefan-Fadinger-Platz => Prater Hauptallee",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "1",
+    "route": "tram",
+    "to": "Prater Hauptallee",
+    "type": "route",
+    "wikidata": "Q17348925"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3538366198
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 2852864,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.1.H",
+    "gtfs:trip_id:like": "%21-U4-j26-1.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U4-j26-1.1.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Hütteldorf => Heiligenstadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Heiligenstadt",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 2919734,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Seestadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.4.H",
+    "gtfs:trip_id:like": "%21-U2-j26-8.4.H",
+    "gtfs:trip_id:sample": "2.T2.21-U2-j26-8.4.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Seestadt => Karlsplatz",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Karlsplatz",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 3598326412
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 5330295,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Speising, Hermesstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3562:",
+    "name": "Nachtbus N62: Speising, Hermesstraße => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "01:00-05:00",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N62",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 5330296,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Lainzer Tor",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3562:",
+    "name": "Nachtbus N62: Lainzer Tor => Schedifkaplatz => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "01:00-05:00",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N62",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route",
+    "via": "Schedifkaplatz"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3127678348
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 5954448,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.2.R",
+    "gtfs:trip_id:like": "%21-U4-j26-1.2.R",
+    "gtfs:trip_id:sample": "354.T2.21-U4-j26-1.2.R",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Heiligenstadt => Hütteldorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Hütteldorf",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 6250230,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Joachimsthalerplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3546:",
+    "name": "Nachtbus N46: Joachimsthalerplatz => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 00:25 - 05:05",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N46",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 6250233,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Otto Wagner Areal",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3546:",
+    "name": "Nachtbus N46: Otto Wagner Areal => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Sa - Su 01:00 - 05:00",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N46",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 14543015,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.11.R",
+    "gtfs:trip_id:like": "%21-U2-j26-8.11.R",
+    "gtfs:trip_id:sample": "237.T3.21-U2-j26-8.11.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Karlsplatz => Aspernstraße",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Aspernstraße",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 14543016,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.3.H",
+    "gtfs:trip_id:like": "%21-U2-j26-8.3.H",
+    "gtfs:trip_id:sample": "1.T2.21-U2-j26-8.3.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Aspernstraße => Karlsplatz",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Karlsplatz",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 1991659,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Meidling",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3459:",
+    "name": "Bus 59A: Bahnhof Meidling => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "59A",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 22494,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.7.H",
+    "gtfs:trip_id:like": "%21-U1-j26-6.7.H",
+    "gtfs:trip_id:sample": "1.T2.21-U1-j26-6.7.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U1: Oberlaa => Leopoldau",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Leopoldau",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 2928586,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Leopoldau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.12.R",
+    "gtfs:trip_id:like": "%21-U1-j26-6.12.R",
+    "gtfs:trip_id:sample": "214.T3.21-U1-j26-6.12.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U1: Leopoldau => Oberlaa",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Oberlaa",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 20288740,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Leopoldau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.13.R",
+    "gtfs:trip_id:like": "%21-U1-j26-6.13.R",
+    "gtfs:trip_id:sample": "233.T3.21-U1-j26-6.13.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U1: Leopoldau => Alaudagasse",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Alaudagasse",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 20288741,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.11.H",
+    "gtfs:trip_id:like": "%21-U1-j26-6.11.H",
+    "gtfs:trip_id:sample": "24.T2.21-U1-j26-6.11.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U1: Alaudagasse => Leopoldau",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Leopoldau",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 21385540,
+  "tags": {
+    "brand": "Vienna Airport Bus",
+    "colour": "#57C4BF",
+    "colour:text": "#FFFFFF",
+    "from": "Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:1184:",
+    "name": "Bus VAB4: Karlsplatz => Flughafen Wien",
+    "network": "VAB",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "VAB4",
+    "route": "bus",
+    "to": "Flughafen Wien Busterminal",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 21385541,
+  "tags": {
+    "brand": "Vienna Airport Bus",
+    "colour": "#57C4BF",
+    "colour:text": "#FFFFFF",
+    "from": "Flughafen Wien Busterminal",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:1184:",
+    "name": "Bus VAB4: Flughafen Wien => Karlsplatz",
+    "network": "VAB",
+    "operator": "Österreichische Postbus AG",
+    "public_transport:version": "2",
+    "ref": "VAB4",
+    "route": "bus",
+    "to": "Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62823673
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 367386,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3404:",
+    "name": "Bus 4A: Karlsplatz => Wittelsbachstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "4A",
+    "route": "bus",
+    "to": "Wittelsbachstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "relation",
+  "id": 367387,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Wittelsbachstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3404:",
+    "name": "Bus 4A: Wittelsbachstraße => Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "4A",
+    "route": "bus",
+    "to": "Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+}
+
+  ]
+}

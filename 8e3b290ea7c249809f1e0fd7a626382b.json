@@ -1,0 +1,1258 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:54:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 3749681,
+  "tags": {
+    "from": "Wien Hbf",
+    "name": "REX8: Wien => Bratislava hl.st",
+    "name:de": "REX8: Wien => Bratislava Hbf",
+    "name:pl": "REX8: Wiedeń => Bratysława",
+    "name:sk": "REX8: Viedeň => Bratislava hl.st",
+    "network": "VOR",
+    "operator": "ÖBB;ZSSK",
+    "public_transport:version": "2",
+    "ref": "REX8",
+    "route": "train",
+    "service": "regional",
+    "to": "Bratislava hl.st.",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3327518464
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 3749683,
+  "tags": {
+    "from": "Bratislava hl.st.",
+    "name": "REX8: Bratislava hl.st. => Wien",
+    "name:de": "REX8: Bratislava Hbf => Wien",
+    "name:pl": "REX8: Bratysława => Wiedeń",
+    "name:sk": "REX8: Bratislava hl.st => Viedeň",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB;ZSSK",
+    "public_transport:version": "2",
+    "ref": "REX8",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Hbf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3327518464
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 4572972,
+  "tags": {
+    "from": "Wien Hbf",
+    "name": "R81: Wien => Marchegg",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "R81",
+    "route": "train",
+    "service": "regional",
+    "to": "Marchegg",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3326393877
+},
+{
+  "type": "node",
+  "id": 3327470949
+},
+{
+  "type": "node",
+  "id": 3327470950
+},
+{
+  "type": "node",
+  "id": 3327518464
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 5709119713
+},
+{
+  "type": "relation",
+  "id": 4572974,
+  "tags": {
+    "from": "Marchegg",
+    "name": "R81: Marchegg => Wien",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "R81",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Hbf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3326393877
+},
+{
+  "type": "node",
+  "id": 3327470949
+},
+{
+  "type": "node",
+  "id": 3327470950
+},
+{
+  "type": "node",
+  "id": 3327518464
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 5709119713
+},
+{
+  "type": "relation",
+  "id": 27114,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.10.R",
+    "gtfs:trip_id:like": "%21-U2-j26-8.10.R",
+    "gtfs:trip_id:sample": "217.T3.21-U2-j26-8.10.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Karlsplatz => Seestadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Seestadt",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 3598326412
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 2919734,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Seestadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.4.H",
+    "gtfs:trip_id:like": "%21-U2-j26-8.4.H",
+    "gtfs:trip_id:sample": "2.T2.21-U2-j26-8.4.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Seestadt => Karlsplatz",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Karlsplatz",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 3598326412
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 3247748,
+  "tags": {
+    "alternate": "no",
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspern Nord",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3495:",
+    "name": "Bus 95A: Aspern Nord => Großer Biberhaufen",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "95A",
+    "route": "bus",
+    "to": "Großer Biberhaufen",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "relation",
+  "id": 3247749,
+  "tags": {
+    "alternate": "no",
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Großer Biberhaufen",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3495:",
+    "name": "Bus 95A: Großer Biberhaufen => Aspern Nord",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "95A",
+    "route": "bus",
+    "to": "Aspern Nord",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "relation",
+  "id": 5736553,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Wien Hbf",
+    "name": "S80: Wien Hbf => Wien Aspern Nord",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S80",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Aspern Nord",
+    "type": "route",
+    "wikidata": "Q96483911",
+    "wikimedia_commons": "Category:S80 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3327470949
+},
+{
+  "type": "node",
+  "id": 3327470950
+},
+{
+  "type": "node",
+  "id": 3327518464
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 5709119713
+},
+{
+  "type": "relation",
+  "id": 5736565,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Wien Aspern Nord",
+    "name": "S80: Wien Aspern Nord => Wien Hbf",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S80",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Hbf",
+    "type": "route",
+    "wikidata": "Q96483911",
+    "wikimedia_commons": "Category:S80 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 1839787470
+},
+{
+  "type": "node",
+  "id": 3327470949
+},
+{
+  "type": "node",
+  "id": 3327470950
+},
+{
+  "type": "node",
+  "id": 3327518464
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 5709119713
+},
+{
+  "type": "relation",
+  "id": 9454670,
+  "tags": {
+    "alternate": "yes",
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspern Nord",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3495:",
+    "name": "Bus 95A: Aspern Nord => Erzherzog-Karl-Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "95A",
+    "route": "bus",
+    "to": "Erzherzog-Karl-Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 9454672,
+  "tags": {
+    "alternate": "yes",
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Genochplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3495:",
+    "name": "Bus 95A: Genochplatz => Aspern Nord",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "95A",
+    "route": "bus",
+    "to": "Aspern Nord",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 19371352,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Strebersdorf, Meriangasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3127:",
+    "gtfs:shape_id": "22-27-j26-2.20.R",
+    "gtfs:trip_id:like": "%22-27-j26-2.20.R",
+    "gtfs:trip_id:sample": "119.T3.22-27-j26-2.20.R",
+    "name": "Tram 27: Strebersdorf, Meriangasse => Aspern Nord",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_date": "2025-10-06",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "27",
+    "route": "tram",
+    "to": "Aspern Nord",
+    "type": "route",
+    "wikidata": "Q136447851"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 19371353,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Aspern Nord",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3127:",
+    "gtfs:shape_id": "22-27-j26-2.37.H",
+    "gtfs:trip_id:like": "%22-27-j26-2.37.H",
+    "gtfs:trip_id:sample": "42.T8.22-27-j26-2.37.H",
+    "name": "Tram 27: Aspern Nord => Strebersdorf, Meriangasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_date": "2025-10-06",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "27",
+    "route": "tram",
+    "to": "Strebersdorf, Meriangasse",
+    "type": "route",
+    "wikidata": "Q136447851"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 3247385,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspern Nord",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3499:",
+    "name": "Bus 99A: Aspern Nord => Eßling Schule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "99A",
+    "route": "bus",
+    "to": "Eßling Schule",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 3247386,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Eßling Schule",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3299:",
+    "name": "Bus 99B: Eßling Schule => Teiläckergasse => Aspern Nord",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "99B",
+    "route": "bus",
+    "to": "Aspern Nord",
+    "type": "route",
+    "via": "Teiläckergasse"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 3247387,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Eßling Schule",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3299:",
+    "name": "Bus 99B: Eßling Schule => Aspern Nord",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "99B",
+    "route": "bus",
+    "to": "Aspern Nord",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 3247388,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspern Nord",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3299:",
+    "name": "Bus 99B: Aspern Nord => Teiläckergasse => Eßling Schule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "99B",
+    "route": "bus",
+    "to": "Eßling Schule",
+    "type": "route",
+    "via": "Teiläckergasse"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 3247389,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspern Nord",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3299:",
+    "name": "Bus 99B: Aspern Nord => Eßling Schule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "99B",
+    "route": "bus",
+    "to": "Eßling Schule",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 3247390,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Eßling Schule",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3499:",
+    "name": "Bus 99A: Eßling Schule => Aspern Nord",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "99A",
+    "route": "bus",
+    "to": "Aspern Nord",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 3247515,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "description": "Ab etwa 20:00 bis Betriebsschluss als Rufbus mit Kleinbus geführt. (Betriebsführung: Wiener Lokalbahnen Verkehsdienste: WLV)",
+    "from": "Aspern Nord",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3489:",
+    "name": "Bus 89A: Aspern Nord => Invalidensiedlung",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "public_transport:version": "2",
+    "ref": "89A",
+    "route": "bus",
+    "to": "Invalidensiedlung",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 3247517,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "description": "Ab etwa 20:00 bis Betriebsschluss als Rufbus mit Kleinbus geführt. (Betriebsführung: Wiener Lokalbahnen Verkehsdienste: WLV)",
+    "from": "Invalidensiedlung",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3489:",
+    "name": "Bus 89A: Invalidensiedlung => Aspern Nord",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "public_transport:version": "2",
+    "ref": "89A",
+    "route": "bus",
+    "to": "Aspern Nord",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "relation",
+  "id": 3252468,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3484:",
+    "name": "Bus 84A: Aspernstraße => Aspern Nord",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "84A",
+    "route": "bus",
+    "to": "Aspern Nord",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 3252469,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspern Nord",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3484:",
+    "name": "Bus 84A: Aspern Nord => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "84A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 9454612,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "An den alten Schanzen",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3484:",
+    "name": "Bus 84A: An den alten Schanzen => Aspern Nord",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "84A",
+    "route": "bus",
+    "to": "Aspern Nord",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "relation",
+  "id": 11340965,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "from": "Aspern Nord",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3984:",
+    "name": "Nachtrufbus N84: Aspern Nord => Siegesplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:48-04:55; Sa,Su,PH off",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942484",
+    "public_transport:version": "2",
+    "ref": "N84",
+    "route": "bus",
+    "to": "Siegesplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "relation",
+  "id": 11340966,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus",
+    "from": "Siegesplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3984:",
+    "name": "Nachtrufbus N84: Siegesplatz => Aspern Nord",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:30-04:43; Sa,Su,PH off",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942484",
+    "public_transport:version": "2",
+    "ref": "N84",
+    "route": "bus",
+    "to": "Aspern Nord",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+}
+
+  ]
+}

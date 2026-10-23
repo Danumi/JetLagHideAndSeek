@@ -1,0 +1,951 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:50:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 20309,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#EF7C00",
+    "from": "Ottakring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3303:",
+    "gtfs:shape_id": "21-U3-j26-8.1.H",
+    "gtfs:trip_id:like": "%21-U3-j26-8.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U3-j26-8.1.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U3: Ottakring => Simmering",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U3",
+    "route": "subway",
+    "to": "Simmering",
+    "type": "route",
+    "wikidata": "Q876472",
+    "wikipedia": "en:U3 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336039
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4348437231
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 2928575,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#EF7C00",
+    "from": "Simmering",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3303:",
+    "gtfs:shape_id": "21-U3-j26-8.6.R",
+    "gtfs:trip_id:like": "%21-U3-j26-8.6.R",
+    "gtfs:trip_id:sample": "214.T3.21-U3-j26-8.6.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U3: Simmering => Ottakring",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U3",
+    "route": "subway",
+    "to": "Ottakring",
+    "type": "route",
+    "wikidata": "Q876472",
+    "wikipedia": "en:U3 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 60215284
+},
+{
+  "type": "node",
+  "id": 62687115
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69468988
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 115184107
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4161769952
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "node",
+  "id": 4161779363
+},
+{
+  "type": "node",
+  "id": 4161779364
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4348320098
+},
+{
+  "type": "node",
+  "id": 4348336039
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4348437231
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 5342700,
+  "tags": {
+    "by_night:weekend": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Kaiserebersdorf, Zinnergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3571:",
+    "name": "Nachtbus N71: Kaiserebersdorf, Zinnergasse => Alser Straße, Skodagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N71",
+    "route": "bus",
+    "to": "Alser Straße, Skodagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 5342805,
+  "tags": {
+    "by_night:weekend": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Alser Straße, Skodagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3571:",
+    "name": "Nachtbus N71: Alser Straße, Skodagasse => Kaiserebersdorf, Zinnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N71",
+    "route": "bus",
+    "to": "Kaiserebersdorf, Zinnergasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4348437215
+},
+{
+  "type": "relation",
+  "id": 2024796,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Kaiserebersdorf, Zinnergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.10.R",
+    "gtfs:trip_id:like": "%22-71-j26-21.10.R",
+    "gtfs:trip_id:sample": "167.T9.22-71-j26-21.10.R",
+    "name": "Tram 71: Kaiserebersdorf, Zinnergasse => Schottenring",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-01:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Schottenring",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 2024797,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schottenring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.3.H",
+    "gtfs:trip_id:like": "%22-71-j26-21.3.H",
+    "gtfs:trip_id:sample": "20.T9.22-71-j26-21.3.H",
+    "name": "Tram 71: Schottenring=> Kaiserebersdorf, Zinnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-01:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Kaiserebersdorf, Zinnergasse",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 5342701,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Kaiserebersdorf, Zinnergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3571:",
+    "name": "Nachtbus N71: Kaiserebersdorf, Zinnergasse => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Su 01:00-05:00",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N71",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 5342806,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Oper, Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3571:",
+    "name": "Nachtbus N71: Oper, Karlsplatz => Kaiserebersdorf, Zinnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Su 01:00-05:00",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N71",
+    "route": "bus",
+    "to": "Kaiserebersdorf, Zinnergasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 12114218,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schwarzenbergplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.2.H",
+    "gtfs:trip_id:like": "%22-71-j26-21.2.H",
+    "gtfs:trip_id:sample": "4.T2.22-71-j26-21.2.H",
+    "name": "Tram 71: Schwarzenbergplatz => Kaiserebersdorf, Zinnergasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Kaiserebersdorf, Zinnergasse",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "relation",
+  "id": 12114219,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Kaiserebersdorf, Zinnergasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.9.R",
+    "gtfs:trip_id:like": "%22-71-j26-21.9.R",
+    "gtfs:trip_id:sample": "113.T3.22-71-j26-21.9.R",
+    "name": "Tram 71: Kaiserebersdorf, Zinnergasse => Schwarzenbergplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Schwarzenbergplatz",
+    "type": "route",
+    "wikidata": "Q18183305"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "relation",
+  "id": 12478525,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Hauptwerkstätte",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.33.R",
+    "gtfs:trip_id:like": "%22-71-j26-21.33.R",
+    "gtfs:trip_id:sample": "284.T8.22-71-j26-21.33.R",
+    "name": "Tram 71: Hauptwerkstätte => Schottenring",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-01:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Schottenring",
+    "type": "route",
+    "wikidata": "Q18183305"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 12478528,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schwarzenbergplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.14.H",
+    "gtfs:trip_id:like": "%22-71-j26-21.14.H",
+    "gtfs:trip_id:sample": "17.T9.22-71-j26-21.14.H",
+    "name": "Tram 71: Schwarzenbergplatz => Hauptwerkstätte",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Hauptwerkstätte",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "relation",
+  "id": 12478529,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schottenring",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3171:",
+    "gtfs:shape_id": "22-71-j26-21.13.H",
+    "gtfs:trip_id:like": "%22-71-j26-21.13.H",
+    "gtfs:trip_id:sample": "16.T9.22-71-j26-21.13.H",
+    "name": "Tram 71: Schottenring => Hauptwerkstätte",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-01:00",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "71",
+    "route": "tram",
+    "to": "Hauptwerkstätte",
+    "type": "route",
+    "wikidata": "Q42297591"
+  }
+},
+{
+  "type": "node",
+  "id": 62687123
+},
+{
+  "type": "node",
+  "id": 69484904
+},
+{
+  "type": "node",
+  "id": 117527786
+},
+{
+  "type": "node",
+  "id": 1772970220
+},
+{
+  "type": "node",
+  "id": 3309570451
+},
+{
+  "type": "node",
+  "id": 3329304534
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+}
+
+  ]
+}

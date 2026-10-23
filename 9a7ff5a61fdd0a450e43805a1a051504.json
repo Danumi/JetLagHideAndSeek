@@ -1,0 +1,950 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:52:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 2309847,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Am Rosenhügel",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3463:",
+    "name": "Bus 63A: Am Rosenhügel => Gesundheitszentrum Süd",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "63A",
+    "route": "bus",
+    "to": "Gesundheitszentrum Süd",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "relation",
+  "id": 2852864,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.1.H",
+    "gtfs:trip_id:like": "%21-U4-j26-1.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U4-j26-1.1.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Hütteldorf => Heiligenstadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Heiligenstadt",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5329166,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Oper, Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3560:",
+    "name": "Nachtbus N60: Oper, Karlsplatz => Maurer Hauptplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 01:00 - 05:10",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N60",
+    "route": "bus",
+    "to": "Maurer Hauptplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5329246,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "destination": "Ring, Kai",
+    "from": "Maurer Hauptplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3560:",
+    "name": "Nachtbus N60: Maurer Hauptplatz => Oper, Karlsplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:00-05:10",
+    "opening_hours:description": "wochentags",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N60",
+    "route": "bus",
+    "to": "Oper, Karlsplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3286379332
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "relation",
+  "id": 5954448,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.2.R",
+    "gtfs:trip_id:like": "%21-U4-j26-1.2.R",
+    "gtfs:trip_id:sample": "354.T2.21-U4-j26-1.2.R",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Heiligenstadt => Hütteldorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Hütteldorf",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 6280685,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3410:",
+    "name": "Bus 10A: Bahnhof Heiligenstadt => Niederhofstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10A",
+    "route": "bus",
+    "to": "Niederhofstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "relation",
+  "id": 6280687,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Niederhofstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3410:",
+    "name": "Bus 10A: Niederhofstraße => Bahnhof Heiligenstadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10A",
+    "route": "bus",
+    "to": "Bahnhof Heiligenstadt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "relation",
+  "id": 2309848,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Gesundheitszentrum Süd",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3463:",
+    "name": "Bus 63A: Gesundheitszentrum Süd => Am Rosenhügel",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "63A",
+    "route": "bus",
+    "to": "Am Rosenhügel",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "relation",
+  "id": 4617038,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Meidling Hauptstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3407:",
+    "name": "Bus 7A: Meidling Hauptstraße => Reumannplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "7A",
+    "route": "bus",
+    "to": "Reumannplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "relation",
+  "id": 4617039,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Reumannplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3407:",
+    "name": "Bus 7A: Reumannplatz => Meidling Hauptstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "7A",
+    "route": "bus",
+    "to": "Meidling Hauptstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "relation",
+  "id": 6280693,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Niederhofstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3410:",
+    "name": "Bus 10A: Niederhofstraße => Schmelz, Gablenzgasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10A",
+    "route": "bus",
+    "to": "Schmelz, Gablenzgasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "relation",
+  "id": 6280715,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Gersthof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3410:",
+    "name": "Bus 10A: Gersthof => Niederhofstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10A",
+    "route": "bus",
+    "to": "Niederhofstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "relation",
+  "id": 6280717,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Niederhofstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3410:",
+    "name": "Bus 10A: Niederhofstraße => Gersthof",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10A",
+    "route": "bus",
+    "to": "Gersthof",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "relation",
+  "id": 6280746,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Schmelz, Gablenzgasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3410:",
+    "name": "Bus 10A: Schmelz, Gablenzgasse => Meidling Hauptstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10A",
+    "route": "bus",
+    "to": "Meidling Hauptstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "relation",
+  "id": 9453529,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Schmelz, Gablenzgasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3410:",
+    "name": "Bus 10A: Schmelz, Gablenzgasse => Niederhofstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10A",
+    "route": "bus",
+    "to": "Niederhofstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "relation",
+  "id": 9454519,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Meidling Hauptstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3463:",
+    "name": "Bus 63A: Meidling Hauptstraße => Gesundheitszentrum Süd",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "63A",
+    "route": "bus",
+    "to": "Gesundheitszentrum Süd",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "relation",
+  "id": 1759283,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Meidling Hauptstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3409:",
+    "name": "Bus 9A: Meidling Hauptstraße => Bahnhof Meidling, Eichenstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "9A",
+    "route": "bus",
+    "to": "Bahnhof Meidling, Eichenstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "relation",
+  "id": 12319240,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Meidling, Eichenstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3409:",
+    "name": "Bus 9A: Meidling => Meidling Hauptstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "9A",
+    "route": "bus",
+    "to": "Meidling Hauptstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3071028227
+}
+
+  ]
+}

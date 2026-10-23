@@ -1,0 +1,1504 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:53:03Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 7948587,
+  "tags": {
+    "from": "Wien FJBf",
+    "name": "REX41: Wien => České Velenice",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX41",
+    "route": "train",
+    "service": "regional",
+    "to": "České Velenice",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 7948588,
+  "tags": {
+    "from": "České Velenice",
+    "name": "REX41: České Velenice => Wien",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX41",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien FJBf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 135541,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "St. Pölten Hauptbahnhof",
+    "interval": "60",
+    "name": "S40: St. Pölten => Wien",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S40",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien FJBf",
+    "type": "route",
+    "wikidata": "Q96483953",
+    "wikimedia_commons": "Category:S40 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3486449460
+},
+{
+  "type": "node",
+  "id": 3486449461
+},
+{
+  "type": "node",
+  "id": 3488292944
+},
+{
+  "type": "node",
+  "id": 3488292949
+},
+{
+  "type": "node",
+  "id": 3488292950
+},
+{
+  "type": "node",
+  "id": 3488292955
+},
+{
+  "type": "node",
+  "id": 3488369063
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 4850563,
+  "tags": {
+    "colour": "#159dd9",
+    "from": "Wien Franz-Josefs-Bahnhof",
+    "interval": "60",
+    "name": "S40: Wien => St. Pölten",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S40",
+    "route": "train",
+    "service": "commuter",
+    "to": "St. Pölten Hauptbahnhof",
+    "type": "route",
+    "wikidata": "Q96483953",
+    "wikimedia_commons": "Category:S40 line (Vienna S-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3486449460
+},
+{
+  "type": "node",
+  "id": 3486449461
+},
+{
+  "type": "node",
+  "id": 3488292944
+},
+{
+  "type": "node",
+  "id": 3488292949
+},
+{
+  "type": "node",
+  "id": 3488292950
+},
+{
+  "type": "node",
+  "id": 3488292955
+},
+{
+  "type": "node",
+  "id": 3488369063
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 4850645,
+  "tags": {
+    "from": "Wien Franz-Josefs-Bahnhof",
+    "name": "REX4: Wien => Krems",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX4",
+    "route": "train",
+    "service": "regional",
+    "to": "Krems an der Donau",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 4850646,
+  "tags": {
+    "from": "Krems an der Donau",
+    "name": "REX4: Krems => Wien",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX4",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien FJBf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 8056979,
+  "tags": {
+    "from": "Wien FJBf",
+    "name": "REX41: Wien => Sigmundsherberg",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX41",
+    "route": "train",
+    "service": "regional",
+    "to": "Sigmundsherberg",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 8056980,
+  "tags": {
+    "from": "Sigmundsherberg",
+    "name": "REX41: Sigmundsherberg => Wien",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "REX41",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien FJBf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 2852864,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Hütteldorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.1.H",
+    "gtfs:trip_id:like": "%21-U4-j26-1.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U4-j26-1.1.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Hütteldorf => Heiligenstadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Heiligenstadt",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3309570449
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 3770662,
+  "tags": {
+    "colour": "#BDD542",
+    "from": "Wien Hütteldorf",
+    "name": "S45: Wien Hütteldorf => Wien Handelskai",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S45",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Handelskai",
+    "type": "route",
+    "wikidata": "Q17101545",
+    "wikimedia_commons": "Category:S45 line (Vienna S-Bahn)",
+    "wikipedia": "en:S45 (Vienna)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 1418408040
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 1740850471
+},
+{
+  "type": "node",
+  "id": 1775537146
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "relation",
+  "id": 3770663,
+  "tags": {
+    "colour": "#BDD542",
+    "from": "Wien Handelskai",
+    "name": "S45: Wien Handelskai => Wien Hütteldorf",
+    "network": "VOR",
+    "network:metro": "S-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "S45",
+    "route": "train",
+    "service": "commuter",
+    "to": "Wien Hütteldorf",
+    "type": "route",
+    "wikidata": "Q17101545",
+    "wikimedia_commons": "Category:S45 line (Vienna S-Bahn)",
+    "wikipedia": "en:S45 (Vienna)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091317
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1204401837
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 1418408040
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 1740850471
+},
+{
+  "type": "node",
+  "id": 1775537146
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 4228503593
+},
+{
+  "type": "relation",
+  "id": 5954448,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#319F49",
+    "from": "Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3304:",
+    "gtfs:shape_id": "21-U4-j26-1.2.R",
+    "gtfs:trip_id:like": "%21-U4-j26-1.2.R",
+    "gtfs:trip_id:sample": "354.T2.21-U4-j26-1.2.R",
+    "interval": "3",
+    "language": "de",
+    "name": "U4: Heiligenstadt => Hütteldorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U4",
+    "route": "subway",
+    "to": "Hütteldorf",
+    "type": "route",
+    "wikidata": "Q877322",
+    "wikipedia": "en:U4 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 140069854
+},
+{
+  "type": "node",
+  "id": 321330275
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3535818951
+},
+{
+  "type": "node",
+  "id": 3993274357
+},
+{
+  "type": "node",
+  "id": 3993274358
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 3993274360
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 3993274362
+},
+{
+  "type": "node",
+  "id": 3993298632
+},
+{
+  "type": "node",
+  "id": 3993342689
+},
+{
+  "type": "node",
+  "id": 3993342690
+},
+{
+  "type": "node",
+  "id": 3993342691
+},
+{
+  "type": "node",
+  "id": 4003901212
+},
+{
+  "type": "node",
+  "id": 4003901213
+},
+{
+  "type": "node",
+  "id": 4003949409
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 6280685,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3410:",
+    "name": "Bus 10A: Bahnhof Heiligenstadt => Niederhofstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10A",
+    "route": "bus",
+    "to": "Niederhofstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "relation",
+  "id": 6280687,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Niederhofstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3410:",
+    "name": "Bus 10A: Niederhofstraße => Bahnhof Heiligenstadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10A",
+    "route": "bus",
+    "to": "Bahnhof Heiligenstadt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 1352828685
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3993274361
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161774320
+},
+{
+  "type": "relation",
+  "id": 14008624,
+  "tags": {
+    "from": "Wien Franz-Josefs-Bahnhof",
+    "name": "R40: Wien => St. Andrä-Wördern",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "R40",
+    "route": "train",
+    "service": "regional",
+    "subject:wikidata": "Q695595",
+    "to": "St. Andrä-Wördern",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3486449461
+},
+{
+  "type": "node",
+  "id": 3488292944
+},
+{
+  "type": "node",
+  "id": 3488292950
+},
+{
+  "type": "node",
+  "id": 3488292955
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 14008625,
+  "tags": {
+    "from": "St. Andrä-Wördern",
+    "name": "R40: St. Andrä-Wördern => Wien",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "ÖBB-Personenverkehr AG",
+    "public_transport:version": "2",
+    "ref": "R40",
+    "route": "train",
+    "service": "regional",
+    "to": "Wien Franz-Josefs-Bahnhof",
+    "type": "route",
+    "wikidata": "Q96483953"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3486449461
+},
+{
+  "type": "node",
+  "id": 3488292944
+},
+{
+  "type": "node",
+  "id": 3488292950
+},
+{
+  "type": "node",
+  "id": 3488292955
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 3488513518
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "relation",
+  "id": 65881,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3439:",
+    "name": "Bus 39A: Bahnhof Heiligenstadt => Neustift, Agnesgasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "39A",
+    "route": "bus",
+    "to": "Neustift, Agnesgasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "relation",
+  "id": 5256624,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Neustift, Agnesgasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3439:",
+    "name": "Bus 39A: Neustift, Agnesgasse => Bahnhof Heiligenstadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "39A",
+    "route": "bus",
+    "to": "Bahnhof Heiligenstadt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "relation",
+  "id": 5256625,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3439:",
+    "name": "Bus 39A: Bahnhof Heiligenstadt => Sievering",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "39A",
+    "route": "bus",
+    "to": "Sievering",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "relation",
+  "id": 5256627,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Sievering",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3439:",
+    "name": "Bus 39A: Sievering => Bahnhof Heiligenstadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "39A",
+    "route": "bus",
+    "to": "Bahnhof Heiligenstadt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "relation",
+  "id": 6280716,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3410:",
+    "name": "Bus 10A: Bahnhof Heiligenstadt => Johnstraße, Schuselkagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10A",
+    "route": "bus",
+    "to": "Johnstraße, Schuselkagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "relation",
+  "id": 6280719,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Schmelz, Gablenzgasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3410:",
+    "name": "Bus 10A: Schmelz, Gablenzgasse => Bahnhof Heiligenstadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "10A",
+    "route": "bus",
+    "to": "Bahnhof Heiligenstadt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 1418408017
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "relation",
+  "id": 66054,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3411:",
+    "name": "Bus 11A: Bahnhof Heiligenstadt => Stadion",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11A",
+    "route": "bus",
+    "to": "Stadion",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "relation",
+  "id": 5245277,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Stadion",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3411:",
+    "name": "Bus 11A: Stadion => Bahnhof Heiligenstadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11A",
+    "route": "bus",
+    "to": "Bahnhof Heiligenstadt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "relation",
+  "id": 6280264,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Bahnhof Heiligenstadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3411:",
+    "name": "Bus 11A: Bahnhof Heiligenstadt => Friedrich-Engels-Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11A",
+    "route": "bus",
+    "to": "Friedrich-Engels-Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "relation",
+  "id": 6280265,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hillerstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3411:",
+    "name": "Bus 11A: Hillerstraße => Bahnhof Heiligenstadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11A",
+    "route": "bus",
+    "to": "Bahnhof Heiligenstadt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "relation",
+  "id": 6280267,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Walcherstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3411:",
+    "name": "Bus 11A: Walcherstraße => Bahnhof Heiligenstadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11A",
+    "route": "bus",
+    "to": "Bahnhof Heiligenstadt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3488454904
+},
+{
+  "type": "relation",
+  "id": 9453552,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Friedrich-Engels-Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3411:",
+    "name": "Bus 11A: Friedrich-Engels-Platz => Bahnhof Heiligenstadt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "11A",
+    "route": "bus",
+    "to": "Bahnhof Heiligenstadt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488454904
+}
+
+  ]
+}

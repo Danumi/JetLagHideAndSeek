@@ -1,0 +1,1304 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T10:01:13Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 50332,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Spittelau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3435:",
+    "name": "Bus 35A: Spittelau => Salmannsdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "35A",
+    "route": "bus",
+    "to": "Salmannsdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1418408040
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 207110,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Alterlaa => Handelskai",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 00:30 - 05:20",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Handelskai",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 2853012,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#9D6830",
+    "from": "Siebenhirten",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3306:",
+    "gtfs:shape_id": "21-U6-j26-10.1.H",
+    "gtfs:trip_id:like": "%21-U6-j26-10.1.H",
+    "gtfs:trip_id:sample": "1.T2.21-U6-j26-10.1.H",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U6: Siebenhirten => Floridsdorf",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U6",
+    "route": "subway",
+    "to": "Floridsdorf",
+    "type": "route",
+    "wikidata": "Q281409",
+    "wikipedia": "en:U6 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4008355781
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "node",
+  "id": 4008355785
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "node",
+  "id": 4281927209
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 5253007,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "An Wochentagen (Mo-Fr) als Rufbus mit Kleinbus geführt. (Betriebsführung: Wiener Lokalbahnen Verkehsdienste: WLV). Am Wochenende als reguläre Buslinie von Wiener Linien.",
+    "from": "Salmannsdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3535:",
+    "name": "Nachtbus N35: Salmannsdorf => Spittelau",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Sa - Su 00:37 - 4:55",
+    "operator": "Wiener Linien",
+    "public_transport:version": "2",
+    "ref": "N35",
+    "route": "bus",
+    "to": "Spittelau",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1418408040
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 5314012,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "An Wochentagen (Mo-Fr) als Rufbus mit Kleinbus geführt. (Betriebsführung: Wiener Lokalbahnen Verkehsdienste: WLV). Am Wochenende als reguläre Buslinie von Wiener Linien.",
+    "from": "Spittelau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3535:",
+    "name": "Nachtbus N35: Spittelau => Salmannsdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Sa - Su 00:37 - 4:55",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N35",
+    "route": "bus",
+    "to": "Salmannsdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1418408040
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 5317113,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Salmannsdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3435:",
+    "name": "Bus 35A: Salmannsdorf => Spittelau",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "35A",
+    "route": "bus",
+    "to": "Spittelau",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1418408040
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 5333483,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Handelskai",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Handelskai => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 00:30-05:20",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 66432827
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 5954449,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#9D6830",
+    "from": "Floridsdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3306:",
+    "gtfs:shape_id": "21-U6-j26-10.3.R",
+    "gtfs:trip_id:like": "%21-U6-j26-10.3.R",
+    "gtfs:trip_id:sample": "220.T3.21-U6-j26-10.3.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U6: Floridsdorf => Siebenhirten",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U6",
+    "route": "subway",
+    "to": "Siebenhirten",
+    "type": "route",
+    "wikidata": "Q281409",
+    "wikipedia": "en:U6 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3071028227
+},
+{
+  "type": "node",
+  "id": 3310997803
+},
+{
+  "type": "node",
+  "id": 3324474915
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3324474927
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513525
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 3993274359
+},
+{
+  "type": "node",
+  "id": 4005731390
+},
+{
+  "type": "node",
+  "id": 4005736525
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "node",
+  "id": 4008355781
+},
+{
+  "type": "node",
+  "id": 4008355782
+},
+{
+  "type": "node",
+  "id": 4008355785
+},
+{
+  "type": "node",
+  "id": 4012141489
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281875074
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4281904637
+},
+{
+  "type": "node",
+  "id": 4281927209
+},
+{
+  "type": "node",
+  "id": 4281932864
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 9453701,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Salmannsdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3435:",
+    "name": "Bus 35A: Salmannsdorf => Nußdorfer Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "35A",
+    "route": "bus",
+    "to": "Nußdorfer Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1418408040
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 9453703,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Nußdorfer Straße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3435:",
+    "name": "Bus 35A: Nußdorfer Straße => Salmannsdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "35A",
+    "route": "bus",
+    "to": "Salmannsdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1418408040
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 10922106,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Westbahnhof",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Westbahnhof => Handelskai",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Handelskai",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 4161756600
+},
+{
+  "type": "node",
+  "id": 4281897753
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 2135779,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Dänenstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3437:",
+    "name": "Bus 37A: Dänenstraße => Brigittenauer Brücke",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "37A",
+    "route": "bus",
+    "to": "Brigittenauer Brücke",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 2135780,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Brigittenauer Brücke",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3437:",
+    "name": "Bus 37A: Brigittenauer Brücke => Dänenstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "37A",
+    "route": "bus",
+    "to": "Dänenstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 2294914,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Grinzing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3138:",
+    "gtfs:shape_id": "22-38-j26-1.3.R",
+    "gtfs:trip_id:like": "%22-38-j26-1.3.R",
+    "gtfs:trip_id:sample": "100.T3.22-38-j26-1.3.R",
+    "name": "Tram 38: Grinzing => Schottentor",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "38",
+    "route": "tram",
+    "to": "Schottentor",
+    "type": "route",
+    "wikidata": "Q47566941"
+  }
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "relation",
+  "id": 2294915,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schottentor",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3138:",
+    "gtfs:shape_id": "22-38-j26-1.2.H",
+    "gtfs:trip_id:like": "%22-38-j26-1.2.H",
+    "gtfs:trip_id:sample": "3.T2.22-38-j26-1.2.H",
+    "name": "Tram 38: Schottentor => Grinzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "38",
+    "route": "tram",
+    "to": "Grinzing",
+    "type": "route",
+    "wikidata": "Q47566941"
+  }
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "relation",
+  "id": 2294968,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Hohe Warte",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3137:",
+    "gtfs:shape_id": "22-37-j26-1.1.R",
+    "gtfs:trip_id:like": "%22-37-j26-1.1.R",
+    "gtfs:trip_id:sample": "113.T0.22-37-j26-1.1.R",
+    "name": "Tram 37: Hohe Warte => Schottentor",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "37",
+    "route": "tram",
+    "to": "Schottentor",
+    "type": "route",
+    "wikidata": "Q47566702"
+  }
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "relation",
+  "id": 2294969,
+  "tags": {
+    "colour": "#C00808",
+    "colour:text": "white",
+    "from": "Schottentor",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3137:",
+    "gtfs:shape_id": "22-37-j26-1.4.H",
+    "gtfs:trip_id:like": "%22-37-j26-1.4.H",
+    "gtfs:trip_id:sample": "3.T2.22-37-j26-1.4.H",
+    "name": "Tram 37: Schottentor => Hohe Warte",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "37",
+    "route": "tram",
+    "to": "Hohe Warte",
+    "type": "route",
+    "wikidata": "Q47566702"
+  }
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "relation",
+  "id": 2512584,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Grinzing",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3538:",
+    "name": "Nachtbus N38: Grinzing => Schottentor",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "01:30-05:00",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N38",
+    "route": "bus",
+    "to": "Schottentor",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "relation",
+  "id": 2512585,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Schottentor",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3538:",
+    "name": "Nachtbus N38: Schottentor => Schottenring => Grinzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo - Fr 01:00 - 05:00",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N38",
+    "route": "bus",
+    "to": "Grinzing",
+    "type": "route",
+    "via": "Schottenring"
+  }
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4348336040
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "relation",
+  "id": 5256586,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Brigittenauer Brücke",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3437:",
+    "name": "Bus 37A: Brigittenauer Brücke => Nußdorfer Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "37A",
+    "route": "bus",
+    "to": "Nußdorfer Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 5256587,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Nußdorfer Straße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3437:",
+    "name": "Bus 37A: Nußdorfer Straße => Brigittenauer Brücke",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "37A",
+    "route": "bus",
+    "to": "Brigittenauer Brücke",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570452
+},
+{
+  "type": "node",
+  "id": 4281939061
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 5316887,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Schottentor",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3538:",
+    "name": "Nachtbus N38: Schottentor => Grinzing",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Sa - Su 01:00 - 05:00",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N38",
+    "route": "bus",
+    "to": "Grinzing",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 1418408080
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "relation",
+  "id": 10922103,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Handelskai",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Handelskai => Thaliastraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Thaliastraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 10922105,
+  "tags": {
+    "by_night": "only",
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Thaliastraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3508:",
+    "name": "Nachtbus N8: Thaliastraße => Handelskai",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N8",
+    "route": "bus",
+    "to": "Handelskai",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3324474926
+},
+{
+  "type": "node",
+  "id": 4283722989
+},
+{
+  "type": "node",
+  "id": 4283722990
+},
+{
+  "type": "node",
+  "id": 4283722991
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "node",
+  "id": 4283722993
+},
+{
+  "type": "node",
+  "id": 4283722994
+},
+{
+  "type": "relation",
+  "id": 11006597,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Nußdorfer Straße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3936:",
+    "name": "Nachtrufbus N36: Nußdorfer Straße => Nußdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942436",
+    "public_transport:version": "2",
+    "ref": "N36",
+    "route": "bus",
+    "to": "Nußdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488369063
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 4283722992
+},
+{
+  "type": "relation",
+  "id": 11006598,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Nußdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3936:",
+    "name": "Nachtrufbus N36: Nußdorf => Nußdorfer Straße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942436",
+    "public_transport:version": "2",
+    "ref": "N36",
+    "route": "bus",
+    "to": "Nußdorfer Straße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 8091423
+},
+{
+  "type": "node",
+  "id": 3488369063
+},
+{
+  "type": "node",
+  "id": 3488513522
+},
+{
+  "type": "node",
+  "id": 3488513530
+},
+{
+  "type": "node",
+  "id": 4283722992
+}
+
+  ]
+}

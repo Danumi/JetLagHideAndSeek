@@ -1,0 +1,1629 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:52:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 5241996,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3416:",
+    "name": "Bus 16A: Alaudagasse => Südwestfriedhof, 2. und 8. Tor",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "\"School days\"",
+    "operator": "Wiener Lokalbahnen",
+    "public_transport:version": "2",
+    "ref": "16A",
+    "route": "bus",
+    "to": "Südwestfriedhof, 2. und 8. Tor",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2874018201
+},
+{
+  "type": "node",
+  "id": 3998633996
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "relation",
+  "id": 5241998,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Südwestfriedhof, 2. und 8. Tor",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3416:",
+    "name": "Bus 16A: Südwestfriedhof, 2. und 8. Tor => Alaudagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "\"School days\"",
+    "operator": "Wiener Lokalbahnen",
+    "public_transport:version": "2",
+    "ref": "16A",
+    "route": "bus",
+    "to": "Alaudagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2691315726
+},
+{
+  "type": "node",
+  "id": 2874018201
+},
+{
+  "type": "node",
+  "id": 3998633996
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "relation",
+  "id": 5685948,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3417:",
+    "name": "Bus 17A: Oberlaa => Inzersdorf, Biróstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "17A",
+    "route": "bus",
+    "to": "Inzersdorf, Biróstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 7531436,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3417:",
+    "name": "Bus 17A: Oberlaa => Frödenplatz => Inzersdorf, Biróstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "17A",
+    "route": "bus",
+    "to": "Inzersdorf, Biróstraße",
+    "type": "route",
+    "via": "Frödenplatz"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 9453579,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Inzersdorf, Biróstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3417:",
+    "name": "Bus 17A: Inzersdorf, Biróstraße => Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "17A",
+    "route": "bus",
+    "to": "Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 572524,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3467:",
+    "name": "Bus 67A: Alaudagasse => Richard-Strauss-Straße => Inzersdorf, Slamastraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67A",
+    "route": "bus",
+    "to": "Inzersdorf, Slamastraße",
+    "type": "route",
+    "via": "Richard-Strauss-Straße"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 5324716,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Quellenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3567:",
+    "name": "Nachtbus N67: Quellenplatz => Inzersdorf Großmarkt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:15-05:11",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N67",
+    "route": "bus",
+    "to": "Inzersdorf Großmarkt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "relation",
+  "id": 5634826,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Inzersdorf, Slamastraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3467:",
+    "name": "Bus 67A: Inzersdorf, Slamastraße => Alaudagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67A",
+    "route": "bus",
+    "to": "Alaudagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 7531395,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Inzersdorf Großmarkt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3567:",
+    "name": "Nachtbus N67: Inzersdorf, Großmarkt => Altes Landgut",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:42-04:30",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N67",
+    "route": "bus",
+    "to": "Altes Landgut",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 7531397,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Inzersdorf Großmarkt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3567:",
+    "name": "Nachtbus N67: Inzersdorf, Großmarkt => Quellenplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:42-04:30",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N67",
+    "route": "bus",
+    "to": "Quellenplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "relation",
+  "id": 7531398,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Altes Landgut",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3567:",
+    "name": "Nachtbus N67: Altes Landgut => Inzersdorf Großmarkt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Sa - Su 00:55 - 05:12",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N67",
+    "route": "bus",
+    "to": "Inzersdorf Großmarkt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 7531409,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Inzersdorf, Kolpingstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3467:",
+    "name": "Bus 67A: Inzersdorf, Kolpingstraße => Alaudagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67A",
+    "route": "bus",
+    "to": "Alaudagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 7531410,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Inzersdorf, Slamastraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3467:",
+    "name": "Bus 67A: Inzersdorf, Slamastraße => Richard-Strauss-Straße => Alaudagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67A",
+    "route": "bus",
+    "to": "Alaudagasse",
+    "type": "route",
+    "via": "Richard-Strauss-Straße"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 7531411,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3467:",
+    "name": "Bus 67A: Alaudagasse => Inzersdorf, Kolpingstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67A",
+    "route": "bus",
+    "to": "Inzersdorf, Kolpingstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 7531412,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3467:",
+    "name": "Bus 67A: Alaudagasse => Inzersdorf, Slamastraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67A",
+    "route": "bus",
+    "to": "Inzersdorf, Slamastraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 7531413,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3467:",
+    "name": "Bus 67A: Alaudagasse => Inzersdorf, Biróstraße => Richard-Strauss-Straße => Inzersdorf, Slamastraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67A",
+    "route": "bus",
+    "to": "Inzersdorf, Slamastraße",
+    "type": "route",
+    "via": "Inzersdorf, Biróstraße;Richard-Strauss-Straße"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 7531416,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Inzersdorf Großmarkt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3267:",
+    "name": "Bus 67B: Inzersdorf Großmarkt => Alaudagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67B",
+    "route": "bus",
+    "to": "Alaudagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 7531417,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3267:",
+    "name": "Bus 67B: Alterlaa => Alaudagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67B",
+    "route": "bus",
+    "to": "Alaudagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 7531419,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3267:",
+    "name": "Bus 67B: Alaudagasse => Inzersdorf Großmarkt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67B",
+    "route": "bus",
+    "to": "Inzersdorf Großmarkt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 7531420,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3267:",
+    "name": "Bus 67B: Alaudagasse => Inzersdorf, Slamastraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67B",
+    "route": "bus",
+    "to": "Inzersdorf, Slamastraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 7531421,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3267:",
+    "name": "Bus 67B: Alaudagasse => Alterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Blaguss",
+    "public_transport:version": "2",
+    "ref": "67B",
+    "route": "bus",
+    "to": "Alterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 4008355779
+},
+{
+  "type": "node",
+  "id": 4347320128
+},
+{
+  "type": "relation",
+  "id": 7531438,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3416:",
+    "name": "Bus 16A: Alaudagasse => Hetzendorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen",
+    "public_transport:version": "2",
+    "ref": "16A",
+    "route": "bus",
+    "to": "Hetzendorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2691315726
+},
+{
+  "type": "node",
+  "id": 2874018201
+},
+{
+  "type": "node",
+  "id": 3998633996
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "relation",
+  "id": 7531440,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Otto-Probst-Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3416:",
+    "name": "Bus 16A: Otto-Probst-Platz => Alaudagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen",
+    "public_transport:version": "2",
+    "ref": "16A",
+    "route": "bus",
+    "to": "Alaudagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2874018201
+},
+{
+  "type": "relation",
+  "id": 7531441,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Hetzendorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3416:",
+    "name": "Bus 16A: Hetzendorf => Alaudagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Lokalbahnen",
+    "public_transport:version": "2",
+    "ref": "16A",
+    "route": "bus",
+    "to": "Alaudagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2691315726
+},
+{
+  "type": "node",
+  "id": 2874018201
+},
+{
+  "type": "node",
+  "id": 3998633996
+},
+{
+  "type": "node",
+  "id": 4008355780
+},
+{
+  "type": "relation",
+  "id": 22494,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Oberlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.7.H",
+    "gtfs:trip_id:like": "%21-U1-j26-6.7.H",
+    "gtfs:trip_id:sample": "1.T2.21-U1-j26-6.7.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U1: Oberlaa => Leopoldau",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Leopoldau",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 2928586,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Leopoldau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.12.R",
+    "gtfs:trip_id:like": "%21-U1-j26-6.12.R",
+    "gtfs:trip_id:sample": "214.T3.21-U1-j26-6.12.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U1: Leopoldau => Oberlaa",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Oberlaa",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 20288740,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Leopoldau",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.13.R",
+    "gtfs:trip_id:like": "%21-U1-j26-6.13.R",
+    "gtfs:trip_id:sample": "233.T3.21-U1-j26-6.13.R",
+    "interval": "3",
+    "language:de": "yes",
+    "name": "U1: Leopoldau => Alaudagasse",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Alaudagasse",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 20288741,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#E3000F",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3301:",
+    "gtfs:shape_id": "21-U1-j26-6.11.H",
+    "gtfs:trip_id:like": "%21-U1-j26-6.11.H",
+    "gtfs:trip_id:sample": "24.T2.21-U1-j26-6.11.H",
+    "interval": "3",
+    "language": "de",
+    "name": "U1: Alaudagasse => Leopoldau",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U1",
+    "route": "subway",
+    "to": "Leopoldau",
+    "type": "route",
+    "wikidata": "Q663755",
+    "wikipedia": "en:U1 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 67029576
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "node",
+  "id": 3124681405
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3500528328
+},
+{
+  "type": "node",
+  "id": 3500582336
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977156
+},
+{
+  "type": "node",
+  "id": 4140677491
+},
+{
+  "type": "node",
+  "id": 4155298891
+},
+{
+  "type": "node",
+  "id": 4155452193
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "node",
+  "id": 4161088301
+},
+{
+  "type": "node",
+  "id": 4167184427
+},
+{
+  "type": "node",
+  "id": 4167184437
+},
+{
+  "type": "node",
+  "id": 4169259989
+},
+{
+  "type": "node",
+  "id": 4169472889
+},
+{
+  "type": "node",
+  "id": 4169757308
+},
+{
+  "type": "node",
+  "id": 4174037289
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560869524
+},
+{
+  "type": "node",
+  "id": 4560869722
+},
+{
+  "type": "relation",
+  "id": 106910,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "description": "Rundkurs Per-Albin-Hansson-Siedlung",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3419:",
+    "name": "Bus 19A: Alaudagasse => Wendstattgasse => Stockholmer Platz => Alaudagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Gschwindl",
+    "public_transport:version": "2",
+    "ref": "19A",
+    "roundtrip": "yes",
+    "route": "bus",
+    "to": "Alaudagasse",
+    "type": "route",
+    "via": "Wendstattgasse;Stockholmer Platz"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "relation",
+  "id": 7531396,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "from": "Oberlaaer Straße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3567:",
+    "name": "Nachtbus N67: Oberlaaer Straße => Quellenplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "Mo-Fr 01:42-04:30",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "N67",
+    "route": "bus",
+    "to": "Quellenplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072720
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072723
+},
+{
+  "type": "relation",
+  "id": 7531431,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3417:",
+    "name": "Bus 17A: Alaudagasse => Oberlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "17A",
+    "route": "bus",
+    "to": "Oberlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "node",
+  "id": 2018072722
+},
+{
+  "type": "relation",
+  "id": 12882212,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus: Einstiegs- und Aussiegshaltestelle und gewünschte Fahrplanzeit bekanntgeben. Anschließend kommt der Rufbus zur angegebenen Fahrplanzeit zur Haltestelle. Spätestens 15 Minuten vor gewünschter Abfahrt bestellen: (01) 7909424-17",
+    "duration": "8",
+    "from": "Unterlaa",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3917:",
+    "interval": "30",
+    "name": "Nachtrufbus N17: Unterlaa => Alaudagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942417",
+    "public_transport:version": "2",
+    "ref": "N17",
+    "route": "bus",
+    "to": "Alaudagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 12882213,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "#FFED00",
+    "description": "Rufbus: Einstiegs- und Aussiegshaltestelle und gewünschte Fahrplanzeit bekanntgeben. Anschließend kommt der Rufbus zur angegebenen Fahrplanzeit zur Haltestelle. Spätestens 15 Minuten vor gewünschter Abfahrt bestellen: (01) 7909424-17",
+    "duration": "7",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3917:",
+    "interval": "30",
+    "name": "Nachtrufbus N17: Alaudagasse => Unterlaa",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "opening_hours:description": "wochenends",
+    "operator": "Wiener Lokalbahnen Verkehrsdienste",
+    "phone": "+43 1 790942417",
+    "public_transport:version": "2",
+    "ref": "N17",
+    "route": "bus",
+    "to": "Unterlaa",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "node",
+  "id": 2018072721
+},
+{
+  "type": "relation",
+  "id": 7531429,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Frödenplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3417:",
+    "name": "Bus 17A: Frödenplatz => Alaudagasse",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "17A",
+    "route": "bus",
+    "to": "Alaudagasse",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+},
+{
+  "type": "relation",
+  "id": 7531434,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Alaudagasse",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3417:",
+    "name": "Bus 17A: Alaudagasse => Frödenplatz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "17A",
+    "route": "bus",
+    "to": "Frödenplatz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 2018072719
+}
+
+  ]
+}

@@ -1,0 +1,1312 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-23T09:57:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 11358325,
+  "tags": {
+    "from": "Wien Aspernstraße",
+    "name": "Bus 550: Wien Aspernstraße => Hainburg an der Donau Landesklinikum",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard NÖ;Blaguss;Busam",
+    "public_transport:version": "2",
+    "ref": "550",
+    "route": "bus",
+    "to": "Hainburg an der Donau Landesklinikum",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 12478231,
+  "tags": {
+    "from": "Hainburg an der Donau Landesklinikum",
+    "name": "Bus 550: Hainburg an der Donau Landesklinikum => Wien Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard NÖ;Blaguss;Busam",
+    "public_transport:version": "2",
+    "ref": "550",
+    "route": "bus",
+    "to": "Wien Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 12523272,
+  "tags": {
+    "from": "Engelhartstetten Kirche",
+    "name": "Bus 550: Engelhartstetten Kirche => Wien Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard NÖ;Blaguss;Busam",
+    "public_transport:version": "2",
+    "ref": "550",
+    "route": "bus",
+    "to": "Wien Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 13978253,
+  "tags": {
+    "from": "Stopfenreuth Uferstraße",
+    "name": "Bus 552: Stopfenreuth Uferstraße => Wien Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard NÖ",
+    "public_transport:version": "2",
+    "ref": "552",
+    "route": "bus",
+    "to": "Wien Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 27114,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.10.R",
+    "gtfs:trip_id:like": "%21-U2-j26-8.10.R",
+    "gtfs:trip_id:sample": "217.T3.21-U2-j26-8.10.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Karlsplatz => Seestadt",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Seestadt",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 3598326412
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 2919734,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Seestadt",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.4.H",
+    "gtfs:trip_id:like": "%21-U2-j26-8.4.H",
+    "gtfs:trip_id:sample": "2.T2.21-U2-j26-8.4.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Seestadt => Karlsplatz",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Karlsplatz",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 3598326412
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 14543015,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Karlsplatz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.11.R",
+    "gtfs:trip_id:like": "%21-U2-j26-8.11.R",
+    "gtfs:trip_id:sample": "237.T3.21-U2-j26-8.11.R",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Karlsplatz => Aspernstraße",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Aspernstraße",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 14543016,
+  "tags": {
+    "by_night": "yes",
+    "by_night:weekend": "only",
+    "colour": "#A862A4",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3302:",
+    "gtfs:shape_id": "21-U2-j26-8.3.H",
+    "gtfs:trip_id:like": "%21-U2-j26-8.3.H",
+    "gtfs:trip_id:sample": "1.T2.21-U2-j26-8.3.H",
+    "interval": "5",
+    "language": "de",
+    "name": "U2: Aspernstraße => Karlsplatz",
+    "network": "VOR",
+    "network:metro": "U-Bahn Wien",
+    "network:wikidata": "Q2516485",
+    "opening_hours": "05:00-00:30; Sa,Su,PH 00:30-00:30",
+    "operator": "Wiener Linien",
+    "operator:short": "WL",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "U2",
+    "route": "subway",
+    "to": "Karlsplatz",
+    "type": "route",
+    "wikidata": "Q873397",
+    "wikipedia": "en:U2 (Vienna U-Bahn)"
+  }
+},
+{
+  "type": "node",
+  "id": 3309570450
+},
+{
+  "type": "node",
+  "id": 3503264091
+},
+{
+  "type": "node",
+  "id": 3862884256
+},
+{
+  "type": "node",
+  "id": 3862884757
+},
+{
+  "type": "node",
+  "id": 3862884758
+},
+{
+  "type": "node",
+  "id": 4003977155
+},
+{
+  "type": "node",
+  "id": 4073027290
+},
+{
+  "type": "node",
+  "id": 4073135889
+},
+{
+  "type": "node",
+  "id": 4073146389
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4076631293
+},
+{
+  "type": "node",
+  "id": 4076716391
+},
+{
+  "type": "node",
+  "id": 4077783491
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4086541541
+},
+{
+  "type": "node",
+  "id": 4104690590
+},
+{
+  "type": "node",
+  "id": 4113713892
+},
+{
+  "type": "node",
+  "id": 4123615290
+},
+{
+  "type": "node",
+  "id": 4347738147
+},
+{
+  "type": "node",
+  "id": 4560843526
+},
+{
+  "type": "node",
+  "id": 4560843527
+},
+{
+  "type": "node",
+  "id": 4560843528
+},
+{
+  "type": "node",
+  "id": 4560869523
+},
+{
+  "type": "relation",
+  "id": 3239928,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Groß-Enzersdorf",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3426:",
+    "name": "Bus 26A: Groß-Enzersdorf => Kagran",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "26A",
+    "route": "bus",
+    "to": "Kagran",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 3239929,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kagran",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3426:",
+    "name": "Bus 26A: Kagran => Groß-Enzersdorf",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "26A",
+    "route": "bus",
+    "to": "Groß-Enzersdorf",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 6809762,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Eßling, Stadtgrenze",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3426:",
+    "name": "Bus 26A: Eßling, Stadtgrenze => Kagran",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "26A",
+    "route": "bus",
+    "to": "Kagran",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 6809763,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kagran",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3426:",
+    "name": "Bus 26A: Kagran => Eßling, Stadtgrenze",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "26A",
+    "route": "bus",
+    "to": "Eßling, Stadtgrenze",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3327739589
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 12523271,
+  "tags": {
+    "from": "Orth an der Donau Gemeindeamt",
+    "name": "Bus 550: Orth an der Donau Gemeindeamt => Wien Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard NÖ;Blaguss;Busam",
+    "public_transport:version": "2",
+    "ref": "550",
+    "route": "bus",
+    "to": "Wien Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 12523274,
+  "tags": {
+    "from": "Wien Aspernstraße",
+    "name": "Bus 550: Wien Aspernstraße => Orth an der Donau Gemeindeamt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard NÖ;Blaguss;Busam",
+    "public_transport:version": "2",
+    "ref": "550",
+    "route": "bus",
+    "to": "Orth an der Donau Gemeindeamt",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 18552212,
+  "tags": {
+    "from": "Wien Aspernstraße",
+    "name": "Bus 550: Wien Aspernstraße => Orth an der Donau Biotech Campus => Orth an der Donau Gemeindeamt",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard NÖ;Blaguss;Busam",
+    "public_transport:version": "2",
+    "ref": "550",
+    "route": "bus",
+    "to": "Orth an der Donau Gemeindeamt",
+    "type": "route",
+    "via": "Orth an der Donau Biotech Campus"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 2021721,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3493:",
+    "name": "Bus 93A: Aspernstraße => Kagran",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "93A",
+    "route": "bus",
+    "to": "Kagran",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 2021722,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kagran",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3493:",
+    "name": "Bus 93A: Kagran => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "93A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4078094389
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 3252309,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3422:",
+    "name": "Bus 22A: Aspernstraße => Kagran",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "22A",
+    "route": "bus",
+    "to": "Kagran",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 3252310,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kagran",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3422:",
+    "name": "Bus 22A: Kagran => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "22A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "node",
+  "id": 4160807391
+},
+{
+  "type": "relation",
+  "id": 6799684,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3422:",
+    "name": "Bus 22A: Aspernstraße => Kagraner Platz",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "22A",
+    "route": "bus",
+    "to": "Kagraner Platz",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 19352710,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Kagraner Platz",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3422:",
+    "name": "Bus 22A: Kagraner Platz => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "network:wikipedia": "de:Verkehrsverbund Ost-Region",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "22A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "node",
+  "id": 4155868489
+},
+{
+  "type": "relation",
+  "id": 3247383,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3498:",
+    "name": "Bus 98A: Aspernstraße => Eßling, Schippanisiedlung",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "98A",
+    "route": "bus",
+    "to": "Eßling, Schippanisiedlung",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 3247384,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Eßling, Schippanisiedlung",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3498:",
+    "name": "Bus 98A: Eßling, Schippanisiedlung => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "98A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 3250294,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3497:",
+    "name": "Bus 97A: Aspernstraße => Breitenlee Schule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "97A",
+    "route": "bus",
+    "to": "Breitenlee Schule",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 3250295,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Breitenlee Schule",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3497:",
+    "name": "Bus 97A: Breitenlee Schule => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "97A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 3252468,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3484:",
+    "name": "Bus 84A: Aspernstraße => Aspern Nord",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "84A",
+    "route": "bus",
+    "to": "Aspern Nord",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 3252469,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspern Nord",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3484:",
+    "name": "Bus 84A: Aspern Nord => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Wiener Linien",
+    "operator:wikidata": "Q668849",
+    "public_transport:version": "2",
+    "ref": "84A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290667
+},
+{
+  "type": "node",
+  "id": 3598290692
+},
+{
+  "type": "node",
+  "id": 3598308198
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 6192372,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3497:",
+    "name": "Bus 97A: Aspernstraße => Aspernstraße/Oberdorfstraße => Breitenlee Schule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "97A",
+    "route": "bus",
+    "to": "Breitenlee Schule",
+    "type": "route",
+    "via": "Aspernstraße/Oberdorfstraße"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 6192373,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Breitenlee Schule",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3497:",
+    "name": "Bus 97A: Breitenlee Schule => Schukowitzgasse => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "97A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route",
+    "via": "Schukowitzgasse"
+  }
+},
+{
+  "type": "node",
+  "id": 3598290671
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 9454664,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Naufahrtbrücke",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3493:",
+    "name": "Bus 93A: Naufahrtbrücke => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "93A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 9454697,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Eßling Schule",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3498:",
+    "name": "Bus 98A: Eßling Schule => Aspernstraße",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "98A",
+    "route": "bus",
+    "to": "Aspernstraße",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+},
+{
+  "type": "relation",
+  "id": 17406698,
+  "tags": {
+    "colour": "#0A295D",
+    "colour:text": "white",
+    "from": "Aspernstraße",
+    "gtfs:feed": "AT-VOR",
+    "gtfs:route_id": "at:vor:3498:",
+    "name": "Bus 98A: Aspernstraße => Eßling Schule",
+    "network": "VOR",
+    "network:wikidata": "Q2516485",
+    "operator": "Dr. Richard",
+    "public_transport:version": "2",
+    "ref": "98A",
+    "route": "bus",
+    "to": "Eßling Schule",
+    "type": "route"
+  }
+},
+{
+  "type": "node",
+  "id": 4076415290
+}
+
+  ]
+}
