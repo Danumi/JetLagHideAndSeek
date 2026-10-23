@@ -28,7 +28,7 @@ export interface Swipe {
     height: number;
 }
 
-const isFlick = (distance: number, speed: number) =>
+export const isFlick = (distance: number, speed: number) =>
     distance >= FLICK_MIN_PX && speed >= FLICK_SPEED;
 
 /** Where a released swipe sends the message, or null if it goes back. */
