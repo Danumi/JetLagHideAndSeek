@@ -96,6 +96,11 @@ const useDrawn = <T,>(
 };
 
 const LINES = { interactive: false, pane: "mapLayerLines" } as const;
+/**
+ * Names of lines and waters go into Leaflet's pane for names, above the
+ * question pins, so a pin never hides them (like the names of the nearest).
+ */
+const NAMES_PANE = "tooltipPane";
 
 /** "Albertina" and "Museum" when a place is tapped. */
 const showPlace = (
@@ -227,7 +232,7 @@ const TransitLayer = ({ routes }: { routes: string }) => {
                     icon: lineLabelIcon(ref, colorOf(line)),
                     interactive: false,
                     keyboard: false,
-                    pane: "mapLayerPlaces",
+                    pane: NAMES_PANE,
                 }).addTo(group);
             }
             return group;
@@ -285,7 +290,7 @@ const WaterLayer = () => {
                     icon: waterLabelIcon(name, color),
                     interactive: false,
                     keyboard: false,
-                    pane: "mapLayerPlaces",
+                    pane: NAMES_PANE,
                 }).addTo(group);
             }
         };

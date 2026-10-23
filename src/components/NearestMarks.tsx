@@ -51,7 +51,10 @@ const NearestMark = ({ question }: { question: Question }) => {
                 interactive={false}
                 pane="nearest"
             >
+                {/* The name in Leaflet's own pane for names, above the
+                    question pins: one asked at the station mustn't hide it */}
                 <Tooltip
+                    pane="tooltipPane"
                     permanent
                     direction="top"
                     offset={[0, -8]}

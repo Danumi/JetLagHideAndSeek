@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { t } from "@/lib/i18n";
+import { enableSheetSwipe } from "@/lib/sheetSwipe";
 import { cn } from "@/lib/utils";
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state";
@@ -185,6 +186,17 @@ const Sidebar = React.forwardRef<
     ) => {
         const { isMobile, state, openMobile, setOpenMobile } =
             useStore(SidebarContext);
+        // On a phone: swiped closed like the notifications (back or down)
+        const [sheet, setSheet] = React.useState<HTMLDivElement | null>(null);
+        React.useEffect(
+            () =>
+                sheet
+                    ? enableSheetSwipe(sheet, side, () =>
+                          SidebarContext.get().setOpenMobile(false),
+                      )
+                    : undefined,
+            [sheet, side],
+        );
 
         if (collapsible === "none") {
             return (
@@ -209,6 +221,7 @@ const Sidebar = React.forwardRef<
                     {...props}
                 >
                     <SheetContent
+                        ref={setSheet}
                         data-sidebar="sidebar"
                         data-mobile="true"
                         className="w-full bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden z-[1035]"
