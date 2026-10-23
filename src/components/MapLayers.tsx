@@ -221,7 +221,7 @@ const lineEndIcon = (name: string, color: string, side: "left" | "right") =>
     });
 
 /** A colour mixed with white, for the lines not tapped. */
-const paler = (color: string, white = 0.7) => {
+const paler = (color: string, white = 0.45) => {
     const hex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(color)?.[1];
     if (!hex) return "#cbd5e1";
     const full = hex.length === 3 ? [...hex].map((c) => c + c).join("") : hex;
@@ -356,6 +356,9 @@ export const TappedLineBar = () => {
     );
 };
 
+/** How much wider a tapped line is drawn than the others (px). */
+const HIGHLIGHT_EXTRA = 1.5;
+
 /**
  * Lines in their colours, each with its name: the U-Bahn and S-Bahn ("rail")
  * or the trams. A tapped line is drawn wider on top, the others paler.
@@ -450,11 +453,19 @@ const TransitLayer = ({
             L.layerGroup([
                 L.geoJSON(asOnePath(line.lines), {
                     ...LINES,
-                    style: { color: "#ffffff", weight: 10, opacity: 1 },
+                    style: {
+                        color: "#ffffff",
+                        weight: weight + HIGHLIGHT_EXTRA + 2.5,
+                        opacity: 1,
+                    },
                 }),
                 L.geoJSON(asOnePath(line.lines), {
                     ...LINES,
-                    style: { color: colorOf(line), weight: 6, opacity: 1 },
+                    style: {
+                        color: colorOf(line),
+                        weight: weight + HIGHLIGHT_EXTRA,
+                        opacity: 1,
+                    },
                 }),
                 // Its end stations, small, where they are
                 ...(line.ends ?? []).map(({ name, at, beyond }, i, ends) =>
@@ -474,7 +485,7 @@ const TransitLayer = ({
             highlight?.remove();
             for (const { path } of colored.current) path.resetStyle();
         };
-    }, [map, shown, $selected, $language]);
+    }, [map, shown, weight, $selected, $language]);
 
     return null;
 };
