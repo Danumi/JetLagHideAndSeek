@@ -6,6 +6,7 @@ import { hiderifyQuestion } from "@/maps";
 import { currentAnswer, formatKilometers } from "@/maps/answers";
 import { determineMapBoundaries } from "@/maps/api";
 import { matchingCardFor, measuringCardFor } from "@/maps/deck";
+import { extractStationName } from "@/maps/geo-utils";
 import {
     findNearest,
     nearestName,
@@ -13,6 +14,14 @@ import {
     nearestWhere,
 } from "@/maps/nearest";
 import { type Question, type TentacleQuestion } from "@/maps/schema";
+import { chosenHiderStation } from "@/maps/stations";
+
+/** Questions about the hider's station, the one of their chosen zone. */
+export const STATION_TYPES = [
+    "same-first-letter-station",
+    "same-length-station",
+    "same-train-line",
+];
 
 /*
  * The hider's side of a question: the seekers send it as a link (see
@@ -118,6 +127,27 @@ const explainNearest = async (
     // nearest border could be another one
     if (question.id === "measuring" && question.data.type === "admin-measure") {
         return undefined;
+    }
+
+    // Station questions are about the station of the hider's chosen zone
+    if (
+        question.id === "matching" &&
+        STATION_TYPES.includes(question.data.type)
+    ) {
+        const station = await chosenHiderStation();
+        const theirs = station && (await findNearest(question));
+        if (station && theirs) {
+            return t("reason.station", {
+                you: nearestName({
+                    kind: "distance",
+                    what: "station",
+                    name: extractStationName(station),
+                    countCharacters: theirs.countCharacters,
+                }),
+                them: nearestName(theirs),
+                themDistance: formatKilometers(theirs.kilometers ?? 0),
+            });
+        }
     }
 
     // One after the other: some servers take one query at a time

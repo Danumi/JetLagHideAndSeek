@@ -535,6 +535,10 @@ export const messages = {
         en: "{nearest} to you: {you}, {youDistance} away. To the seekers: {them}, {themDistance}.",
         de: "{nearest} bei dir: {you}, {youDistance} entfernt. Bei den Seekern: {them}, {themDistance}.",
     },
+    "reason.station": {
+        en: "Your station is the one of your zone: {you}. The seekers' nearest station: {them}, {themDistance} away.",
+        de: "Deine Station ist die deiner Zone: {you}. Nächste Station der Seeker: {them}, {themDistance} entfernt.",
+    },
 
     // Your role on this phone
     "role.label": {
@@ -958,6 +962,10 @@ export const messages = {
     "hider.waitingForLocation": {
         en: "Your answer appears once your location is known.",
         de: "Deine Antwort erscheint, sobald dein Standort bekannt ist.",
+    },
+    "hider.chooseZoneFirst": {
+        en: "This question is about the station of your zone. Choose your zone above; until then the app takes the station nearest to you.",
+        de: "Diese Frage gilt der Station deiner Zone. Wähle oben deine Zone; bis dahin nimmt die App die Station, die dir am nächsten ist.",
     },
     "hider.working": {
         en: "Working out your answer...",

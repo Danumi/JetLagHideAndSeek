@@ -44,6 +44,7 @@ import type {
     HomeGameMatchingQuestions,
     MatchingQuestion,
 } from "@/maps/schema";
+import { chosenHiderStation, stationOsmIds } from "@/maps/stations";
 
 export const findMatchingPlaces = async (question: MatchingQuestion) => {
     switch (question.type) {
@@ -411,7 +412,11 @@ export const hiderifyMatching = async (
             ),
         ) as FeatureCollection<Point>;
 
-        const nearestHiderTrainStation = turf.nearestPoint(hiderPoint, places);
+        // The hider's station is the one of their chosen zone, as on the
+        // seekers' map, even where another station is nearer to them
+        const chosenStation = await chosenHiderStation();
+        const hiderStation =
+            chosenStation ?? turf.nearestPoint(hiderPoint, places);
         const nearestSeekerTrainStation = turf.nearestPoint(
             seekerPoint,
             places,
@@ -425,18 +430,19 @@ export const hiderifyMatching = async (
                 question,
             );
 
-            const hiderId = parseInt(
-                nearestHiderTrainStation.properties.id.split("/")[1],
-            );
+            // A merged station is on the line if any of its OSM stations is
+            const hiderIds = (
+                chosenStation
+                    ? stationOsmIds(chosenStation)
+                    : [hiderStation.properties.id as string]
+            )
+                .filter((id) => id?.includes("/"))
+                .map((id) => parseInt(id.split("/")[1]));
 
-            if (nodes.includes(hiderId)) {
-                question.same = true;
-            } else {
-                question.same = false;
-            }
+            question.same = hiderIds.some((id) => nodes.includes(id));
         }
 
-        const hiderStationName = extractStationName(nearestHiderTrainStation);
+        const hiderStationName = extractStationName(hiderStation);
         const seekerStationName = extractStationName(nearestSeekerTrainStation);
 
         if (!hiderStationName || !seekerStationName) {
