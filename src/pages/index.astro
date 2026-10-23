@@ -12,6 +12,7 @@ import { OptionDrawers } from "@/components/OptionDrawers";
 import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { HelpDialog } from "@/components/HelpDialog";
 import { HiderScreen } from "@/components/HiderScreen";
+import { GameClockChip } from "@/components/GameClock";
 ---
 
 <Layout className="bg-jetlag">
@@ -45,8 +46,11 @@ import { HiderScreen } from "@/components/HiderScreen";
                 id="map-modal-dialog-container-leaflet"
             >
                 <div class="relative min-h-0 flex-1">
-                    <div class="absolute left-3 top-3 z-[1030]">
+                    <div
+                        class="absolute left-3 top-3 z-[1030] flex flex-col items-start gap-2"
+                    >
                         <ZoneCounter client:only />
+                        <GameClockChip client:only />
                     </div>
                     <div
                         class="absolute right-3 top-3 z-[1030] flex flex-col gap-2"

@@ -35,6 +35,7 @@ import {
 import { formatNumber, type MessageKey, t, tr, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { isPending, questionTitle } from "@/maps/answers";
+import { clockTime } from "@/maps/deadline";
 import {
     cardQuestionData,
     type DeckCard,
@@ -48,6 +49,7 @@ import {
 } from "@/maps/deck";
 import { photoTitle } from "@/maps/hiderLog";
 
+import { SendLinkButton } from "./cards/answer";
 import { QUESTION_ICONS } from "./questionIcons";
 
 /** The kinds keep their names from the game in both languages. */
@@ -212,6 +214,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                 lngA: center.lng,
                 latB: end.geometry.coordinates[1],
                 lngB: end.geometry.coordinates[0],
+                distance: kilometers,
             },
         });
         toast.warning(t("ask.thermometer.noLocation"), { autoClose: 6000 });
@@ -459,7 +462,13 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
 export const ThermometerTracker = ({
     run,
 }: {
-    run: { latA: number; lngA: number; accuracyA?: number; kilometers: number };
+    run: {
+        latA: number;
+        lngA: number;
+        accuracyA?: number;
+        kilometers: number;
+        toldAt?: number;
+    };
 }) => {
     useLanguage();
     const [position, setPosition] = useState<LatLng | null>(null);
@@ -509,6 +518,7 @@ export const ThermometerTracker = ({
                 latB: end.lat,
                 lngB: end.lng,
                 accuracyB: end.accuracy,
+                distance: run.kilometers,
             },
         });
         thermometerRun.set(null);
@@ -546,6 +556,26 @@ export const ThermometerTracker = ({
                     }}
                 />
             </div>
+            {/* By the rules, the seekers tell the hider when they start */}
+            <SendLinkButton
+                label={t("thermometer.tellHider")}
+                makeLink={async () => {
+                    thermometerRun.set({ ...run, toldAt: Date.now() });
+                    return `https://maps.google.com/?q=${run.latA.toFixed(6)},${run.lngA.toFixed(6)}`;
+                }}
+                message={(link) =>
+                    t("thermometer.tellMessage", {
+                        distance: target,
+                        time: clockTime(Date.now()),
+                        link,
+                    })
+                }
+            />
+            {run.toldAt !== undefined && (
+                <div className="text-xs text-muted-foreground">
+                    {t("thermometer.told", { time: clockTime(run.toldAt) })}
+                </div>
+            )}
             <div className="flex gap-2">
                 <Button
                     className={cn(

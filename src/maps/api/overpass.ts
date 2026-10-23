@@ -21,7 +21,7 @@ import { overpassHosts } from "@/lib/overpassAccess";
 import { safeUnion } from "@/maps/geo-utils";
 
 import { cacheFetch, determineCache } from "./cache";
-import { LOCATION_FIRST_TAG } from "./constants";
+import { LOCATION_FIRST_TAG, placeCounts } from "./constants";
 import { prettifyLocation } from "./geo";
 import type {
     APILocations,
@@ -293,7 +293,7 @@ out center;
     const elements = data.elements;
     const response = turf.points([]);
     elements.forEach((element: any) => {
-        if (!element.tags["name"] && !element.tags["name:en"]) return;
+        if (!placeCounts(question.locationType, element.tags)) return;
         if (element.lat && element.lon) {
             const name = element.tags["name:en"] ?? element.tags["name"];
             if (
@@ -817,9 +817,12 @@ out ${outType};
     return data;
 };
 
-/** Every place of a kind in the game area, e.g. all parks. */
-export const findPlacesOfKind = (location: APILocations) =>
-    findPlacesInZone(
+/**
+ * Every place of a kind in the game area that counts, e.g. all named parks.
+ * The query takes all of them, so data saved before the rule stays usable.
+ */
+export const findPlacesOfKind = async (location: APILocations) => {
+    const data = await findPlacesInZone(
         `[${LOCATION_FIRST_TAG[location]}=${location}]`,
         t("loading.places", { what: prettifyLocation(location) }),
         "nwr",
@@ -827,6 +830,13 @@ export const findPlacesOfKind = (location: APILocations) =>
         [],
         60,
     );
+    return {
+        ...data,
+        elements: (data.elements ?? []).filter((element: any) =>
+            placeCounts(location, element.tags),
+        ),
+    };
+};
 
 export const findHighSpeedLines = () =>
     findPlacesInZone("[highspeed=yes]", t("loading.highSpeed"), "nwr", "geom");

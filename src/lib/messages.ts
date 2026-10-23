@@ -131,8 +131,8 @@ export const messages = {
     "ask.radar.choose": { en: "Choose:", de: "Andere:" },
     "ask.radar.ask": { en: "Ask", de: "Fragen" },
     "ask.thermometer.help": {
-        en: 'Starts at your current location. Send it to the hider, then travel; the app shows the distance as the crow flies. Tap "Set end here" when you are far enough.',
-        de: "Startet an deinem aktuellen Standort. Schick die Frage an den Hider, dann fahr los; die App zeigt die Entfernung in Luftlinie. Tippe auf „Ende hier setzen“, wenn du weit genug bist.",
+        en: 'Starts at your current location. Tell the hider, then travel at least the distance; the app shows it as the crow flies. Tap "Set end here" when you are far enough, then send the question.',
+        de: "Startet an deinem aktuellen Standort. Gib dem Hider Bescheid, dann fahr mindestens die Strecke; die App zeigt sie in Luftlinie. Tippe auf „Ende hier setzen“, wenn du weit genug bist, dann schick die Frage.",
     },
     "ask.thermometer.start": { en: "Start {distance}", de: "Start {distance}" },
     "ask.thermometer.noLocation": {
@@ -161,6 +161,18 @@ export const messages = {
         de: "Du bist erst {traveled} gefahren, die Karte verlangt {target}. Trotzdem hier das Ende setzen?",
     },
     "thermometer.setEnd": { en: "Set end here", de: "Ende hier setzen" },
+    "thermometer.tellHider": {
+        en: "Tell the hider",
+        de: "Hider Bescheid geben",
+    },
+    "thermometer.tellMessage": {
+        en: "Thermometer {distance}: we're starting now ({time}). Our location: {link}",
+        de: "Thermometer {distance}: Wir starten jetzt ({time}). Unser Standort: {link}",
+    },
+    "thermometer.told": {
+        en: "Hider told at {time}",
+        de: "Hider um {time} Bescheid gegeben",
+    },
     "thermometer.cancel": {
         en: "Cancel this thermometer?",
         de: "Dieses Thermometer abbrechen?",
@@ -295,6 +307,18 @@ export const messages = {
     "thermometer.note": {
         en: "Warmer: the hider is closer to the end than to the start (the hollow pin).",
         de: "Wärmer: Der Hider ist näher am Ende als am Start (der hohlen Nadel).",
+    },
+    "thermometer.traveled": {
+        en: "Traveled {traveled} as the crow flies (card: {distance})",
+        de: "Gefahren: {traveled} Luftlinie (Karte: {distance})",
+    },
+    "thermometer.traveledOnly": {
+        en: "Traveled {traveled} as the crow flies",
+        de: "Gefahren: {traveled} Luftlinie",
+    },
+    "thermometer.tooShortNote": {
+        en: "Shorter than the card: the seekers must travel at least {distance}.",
+        de: "Kürzer als die Karte: Die Seeker müssen mindestens {distance} fahren.",
     },
 
     // Where a question was asked
@@ -989,6 +1013,54 @@ export const messages = {
     "clock.lateLong": {
         en: "Answer was due {time}",
         de: "Antwort war bis {time} fällig",
+    },
+    "clock.notSent": {
+        en: "The hider's {minutes} minutes start when you send the question.",
+        de: "Die {minutes} Minuten des Hiders laufen ab dem Senden der Frage.",
+    },
+
+    // The game timer
+    "gameClock.title": { en: "Game timer", de: "Spielzeit" },
+    "gameClock.start": { en: "Start timer", de: "Timer starten" },
+    "gameClock.startHint": {
+        en: "Start it when the hiding period begins: {minutes} minutes to reach the hiding zone, then the hiding time runs until the hider is found.",
+        de: "Starte ihn, wenn die Versteckphase beginnt: {minutes} Minuten, um in die Zone zu kommen, danach läuft die Versteckzeit, bis der Hider gefunden ist.",
+    },
+    "gameClock.hidingPeriod": {
+        en: "Hiding period · {left} left",
+        de: "Versteckphase · noch {left}",
+    },
+    "gameClock.chipHiding": {
+        en: "Hiding period {left}",
+        de: "Versteckphase {left}",
+    },
+    "gameClock.seekersStart": {
+        en: "The seekers start at {time}",
+        de: "Die Seeker starten um {time}",
+    },
+    "gameClock.hidingTime": { en: "Hiding time", de: "Versteckzeit" },
+    "gameClock.since": { en: "Since {time}", de: "Seit {time}" },
+    "gameClock.paused": { en: "Paused", de: "Pausiert" },
+    "gameClock.pause": { en: "Pause", de: "Pause" },
+    "gameClock.resume": { en: "Resume", de: "Weiter" },
+    "gameClock.pauseHint": {
+        en: "Pause while the hiding time doesn't count: a late answer, the Move card.",
+        de: "Pause, solange die Versteckzeit nicht zählt: bei einer zu späten Antwort oder der Karte Move.",
+    },
+    "gameClock.found": { en: "Found", de: "Gefunden" },
+    "gameClock.foundAfter": {
+        en: "Found after {time}",
+        de: "Gefunden nach {time}",
+    },
+    "gameClock.bonusHint": {
+        en: "Add the time bonus cards the hider still has in hand.",
+        de: "Dazu kommen die Zeitbonus-Karten, die der Hider noch auf der Hand hat.",
+    },
+    "gameClock.notFound": { en: "Not found yet", de: "Doch nicht gefunden" },
+    "gameClock.reset": { en: "Reset timer", de: "Timer zurücksetzen" },
+    "gameClock.resetConfirm": {
+        en: "Reset the game timer?",
+        de: "Spielzeit zurücksetzen?",
     },
 
     // Photo questions

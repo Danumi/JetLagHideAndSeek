@@ -1,6 +1,6 @@
 import { CameraIcon } from "lucide-react";
 
-import { AnswerClock } from "@/components/AnswerClock";
+import { AnswerClock, ClockNotStarted } from "@/components/AnswerClock";
 import { RuleButton } from "@/components/HelpDialog";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -63,11 +63,13 @@ export const PhotoQuestionCard = ({ photo }: { photo: PhotoQuestion }) => {
                     <span className="text-sm font-semibold text-orange-400">
                         {t("photo.waiting")}
                     </span>
-                    {asked !== undefined && (
+                    {asked !== undefined ? (
                         <AnswerClock
                             start={asked}
                             minutes={PHOTO_ANSWER_MINUTES}
                         />
+                    ) : (
+                        <ClockNotStarted minutes={PHOTO_ANSWER_MINUTES} />
                     )}
                     <Button
                         variant="outline"

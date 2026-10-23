@@ -1,10 +1,9 @@
 import { useStore } from "@nanostores/react";
 import * as turf from "@turf/turf";
-import type { Feature, LineString, MultiLineString, Position } from "geojson";
+import type { Position } from "geojson";
 import * as L from "leaflet";
 import { LayersIcon } from "lucide-react";
-import osmtogeojson from "osmtogeojson";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Pane, useMap } from "react-leaflet";
 
 import { mapGeoJSON } from "@/lib/context";
@@ -12,11 +11,7 @@ import { placePickedPoint } from "@/lib/gps";
 import { hasMessage, t, tr, useLanguage } from "@/lib/i18n";
 import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
-import {
-    findHighSpeedLines,
-    findNamedWaterLines,
-    findTransitLines,
-} from "@/maps/api";
+import { findNamedWaterLines, findTransitLines } from "@/maps/api";
 import { deckGroups } from "@/maps/deck";
 import {
     lineLabelPositions,
@@ -29,6 +24,8 @@ import {
     shownMapLayers,
     toggleMapLayer,
     tooManyPlacesInView,
+    waterLabels,
+    waterLabelsInView,
 } from "@/maps/mapLayers";
 import { placesOfKind } from "@/maps/nearest";
 
@@ -38,8 +35,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 /*
  * Places and lines on the map: every museum, park or hospital of the
- * question cards, bodies of water, the high-speed line and the U-Bahn and
- * S-Bahn lines. A button below the location button picks what to show.
+ * question cards, bodies of water and the U-Bahn and S-Bahn lines. A button
+ * below the location button picks what to show.
  */
 
 const escapeHtml = (text: string) =>
@@ -54,12 +51,6 @@ const escapeHtml = (text: string) =>
                 "'": "&#39;",
             })[char]!,
     );
-
-const isLine = (
-    feature: Feature,
-): feature is Feature<LineString | MultiLineString> =>
-    feature.geometry?.type === "LineString" ||
-    feature.geometry?.type === "MultiLineString";
 
 /**
  * A layer's data, once the game area is known. The queries are those of the
@@ -135,7 +126,7 @@ const showPlace = (
 
 /**
  * Every place of a kind as a small symbol. Only those in view are drawn,
- * and none while there are too many in view (Vienna has about 1,150 parks).
+ * and none while there are too many in view (Vienna has about 565 parks).
  */
 const PlaceLayer = ({ layer }: { layer: MapLayer }) => {
     const map = useMap();
@@ -247,32 +238,65 @@ const TransitLayer = ({ routes }: { routes: string }) => {
     return null;
 };
 
+const waterLabelIcon = (name: string, color: string) =>
+    L.divIcon({
+        className: "",
+        iconSize: [0, 0],
+        html: `<div style="transform:translate(-50%,-50%);width:max-content;color:${color};font:italic 600 12px/1.2 Poppins,sans-serif;text-shadow:0 0 2px #fff,0 0 2px #fff,0 0 3px #fff">${escapeHtml(name)}</div>`,
+    });
+
+/** Bodies of water as blue lines with their names ("Alte Donau"). */
 const WaterLayer = () => {
+    const map = useMap();
     const lines = useLayerData("water", findNamedWaterLines);
+    const color = mapLayer("water")!.color;
     useDrawn(lines, (lines) =>
         L.geoJSON(turf.featureCollection(lines), {
             ...LINES,
-            style: { color: mapLayer("water")!.color, weight: 2, opacity: 0.8 },
+            style: { color, weight: 2, opacity: 0.8 },
         }),
     );
-    return null;
-};
+    const labels = useMemo(() => lines && waterLabels(lines), [lines]);
 
-const findHighSpeedLineFeatures = async () =>
-    osmtogeojson(await findHighSpeedLines()).features.filter(isLine);
+    useEffect(() => {
+        if (!labels) return;
+        const group = L.layerGroup().addTo(map);
+        const draw = () => {
+            group.clearLayers();
+            const view = map.getBounds();
+            const size = map.getSize();
+            const widthKm = turf.distance(
+                [view.getWest(), map.getCenter().lat],
+                [view.getEast(), map.getCenter().lat],
+            );
+            const shown = waterLabelsInView(
+                labels,
+                {
+                    south: view.getSouth(),
+                    west: view.getWest(),
+                    north: view.getNorth(),
+                    east: view.getEast(),
+                },
+                ([lng, lat]) => map.latLngToContainerPoint([lat, lng]),
+                size.x / widthKm,
+            );
+            for (const { name, at } of shown) {
+                L.marker([at[1], at[0]], {
+                    icon: waterLabelIcon(name, color),
+                    interactive: false,
+                    keyboard: false,
+                    pane: "mapLayerPlaces",
+                }).addTo(group);
+            }
+        };
+        draw();
+        map.on("moveend", draw);
+        return () => {
+            map.off("moveend", draw);
+            group.remove();
+        };
+    }, [map, labels, color]);
 
-const HighSpeedLayer = () => {
-    const lines = useLayerData("high-speed", findHighSpeedLineFeatures);
-    useDrawn(lines, (lines) =>
-        L.geoJSON(turf.featureCollection(lines), {
-            ...LINES,
-            style: {
-                color: mapLayer("high-speed")!.color,
-                weight: 4,
-                dashArray: "10 6",
-            },
-        }),
-    );
     return null;
 };
 
@@ -293,7 +317,6 @@ export const MapLayersOverlay = () => {
                 style={{ zIndex: 340, pointerEvents: "none" }}
             >
                 {$shown.includes("water") && <WaterLayer />}
-                {$shown.includes("high-speed") && <HighSpeedLayer />}
                 {routes && <TransitLayer routes={routes} />}
             </Pane>
             {/* Above the grey areas and the nearest places, below the blue dot */}
@@ -337,7 +360,8 @@ const LayerSymbol = ({ layer }: { layer: MapLayer }) => {
 /** The button below the location button and its list of places and lines. */
 export const MapLayersButton = () => {
     useLanguage();
-    const $shown = useStore(shownMapLayers);
+    // Layers that are gone (the high-speed line) don't count
+    const $shown = useStore(shownMapLayers).filter((id) => mapLayer(id));
     const $tooMany = useStore(tooManyPlacesInView);
 
     const tooMany = MAP_LAYERS.filter((layer) => $tooMany.includes(layer.id));

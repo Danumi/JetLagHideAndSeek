@@ -560,6 +560,8 @@ export const thermometerRun = persistentAtom<{
     /** How precise the GPS position of the start was, in meters. */
     accuracyA?: number;
     kilometers: number;
+    /** When the seekers told the hider they are starting. */
+    toldAt?: number;
 } | null>("thermometerRun", null, {
     encode: JSON.stringify,
     decode: JSON.parse,

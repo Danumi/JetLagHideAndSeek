@@ -2,7 +2,7 @@ import { t } from "@/lib/i18n";
 
 /*
  * How long the hider has to answer, by the rule book: five minutes, photos
- * ten in a Small game. The time starts when the seekers ask.
+ * ten in a Small game. The time starts when the seekers send the question.
  */
 
 export const ANSWER_MINUTES = 5;
@@ -13,10 +13,9 @@ const LONG_LATE_MS = 60 * 60_000;
 
 /**
  * When the seekers asked: the first time they sent the question to the
- * hider, else when they made it.
+ * hider. Until then the clock doesn't run.
  */
-export const clockStart = (asked: { askedAt?: number; sentAt?: number }) =>
-    asked.sentAt ?? asked.askedAt;
+export const clockStart = (asked: { sentAt?: number }) => asked.sentAt;
 
 export type Countdown = {
     /** When the answer is due, in milliseconds since 1970. */

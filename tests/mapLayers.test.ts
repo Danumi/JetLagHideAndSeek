@@ -2,13 +2,15 @@ import * as turf from "@turf/turf";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { mapGeoJSON, overpassCustomHost } from "@/lib/context";
-import { findTransitLines } from "@/maps/api";
+import { findTransitLines, placeCounts } from "@/maps/api";
 import {
     lineLabelPositions,
     MAP_LAYERS,
     placesInView,
     shownMapLayers,
     toggleMapLayer,
+    waterLabels,
+    waterLabelsInView,
 } from "@/maps/mapLayers";
 import { DECK_PLACE_KINDS } from "@/maps/preload";
 
@@ -173,5 +175,85 @@ describe("places and lines on the map", () => {
             ([lng]) => lng < 16.32,
         );
         expect(inCity.at[0]).toBeLessThan(16.32);
+    });
+});
+
+describe("names of bodies of water", () => {
+    const danube = turf.lineString(
+        [
+            [16.3, 48.25],
+            [16.45, 48.15],
+        ],
+        { name: "Donau" },
+    );
+    const pond = turf.lineString(
+        [
+            [16.35, 48.2],
+            [16.351, 48.2],
+        ],
+        { name: "Teich" },
+    );
+    const view = { south: 48.1, west: 16.2, north: 48.3, east: 16.5 };
+    // A simple flat projection, 100 pixels per 0.01 degrees
+    const toPixel = ([lng, lat]: number[]) => ({
+        x: (lng - 16.2) * 10_000,
+        y: (48.3 - lat) * 10_000,
+    });
+
+    it("writes each name once, the larger ones first", () => {
+        const labels = waterLabels([pond, danube]);
+        expect(labels.map((label) => label.name)).toEqual(["Donau", "Teich"]);
+        expect(labels[0].candidates.length).toBeGreaterThan(10);
+        // Zoomed in: the pond (about 75 m) is 75 pixels wide
+        const shown = waterLabelsInView(labels, view, toPixel, 1000);
+        expect(shown.map((label) => label.name)).toEqual(["Donau", "Teich"]);
+    });
+
+    it("names ponds of the same name in different places each", () => {
+        const otherPond = turf.lineString(
+            [
+                [16.45, 48.12],
+                [16.451, 48.12],
+            ],
+            { name: "Teich" },
+        );
+        const labels = waterLabels([pond, otherPond]);
+        expect(labels).toHaveLength(2);
+        expect(labels.every((label) => label.size < 0.2)).toBe(true);
+    });
+
+    it("leaves out water too small to see at this zoom", () => {
+        const labels = waterLabels([pond, danube]);
+        const shown = waterLabelsInView(labels, view, toPixel, 10);
+        expect(shown.map((label) => label.name)).toEqual(["Donau"]);
+    });
+
+    it("writes nothing for water out of view", () => {
+        const labels = waterLabels([pond]);
+        const elsewhere = { south: 48.0, west: 16.0, north: 48.1, east: 16.1 };
+        expect(waterLabelsInView(labels, elsewhere, toPixel, 1000)).toEqual([]);
+    });
+});
+
+describe("places that count", () => {
+    it("leaves out places without a name", () => {
+        expect(placeCounts("park", { leisure: "park" })).toBe(false);
+        expect(placeCounts("park", { name: "Stadtpark" })).toBe(true);
+        expect(placeCounts("museum", { name: "Albertina" })).toBe(true);
+        expect(placeCounts("zoo", undefined)).toBe(false);
+    });
+
+    it("counts only named peaks of at least 400 m as mountains", () => {
+        expect(placeCounts("peak", { name: "Kahlenberg", ele: "484" })).toBe(
+            true,
+        );
+        expect(placeCounts("peak", { name: "Bisamberg", ele: "425 m" })).toBe(
+            true,
+        );
+        expect(placeCounts("peak", { name: "Laaer Berg", ele: "255" })).toBe(
+            false,
+        );
+        expect(placeCounts("peak", { name: "Hügel" })).toBe(false);
+        expect(placeCounts("peak", { ele: "494" })).toBe(false);
     });
 });

@@ -3,7 +3,7 @@ import { SendIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
-import { AnswerClock } from "@/components/AnswerClock";
+import { AnswerClock, ClockNotStarted } from "@/components/AnswerClock";
 import { QUESTION_ICONS } from "@/components/questionIcons";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -82,9 +82,12 @@ export const AnswerButtons = ({ question }: { question: Question }) => {
             >
                 {pending ? t("answer.waitingForHider") : t("answer.tapToSave")}
             </span>
-            {pending && asked !== undefined && (
-                <AnswerClock start={asked} minutes={ANSWER_MINUTES} />
-            )}
+            {pending &&
+                (asked !== undefined ? (
+                    <AnswerClock start={asked} minutes={ANSWER_MINUTES} />
+                ) : (
+                    <ClockNotStarted minutes={ANSWER_MINUTES} />
+                ))}
             {options.length > 0 ? (
                 <div className="grid grid-cols-2 gap-2">
                     {options.map((option) => (
@@ -151,9 +154,12 @@ export const SendToHider = ({ question }: { question: Question }) => (
 export const SendLinkButton = ({
     makeLink,
     message,
+    label,
 }: {
     makeLink: () => Promise<string>;
     message: (link: string) => string;
+    /** Instead of "Send to hider". */
+    label?: string;
 }) => {
     useLanguage();
     const [busy, setBusy] = useState(false);
@@ -184,7 +190,7 @@ export const SendLinkButton = ({
             onClick={send}
         >
             <SendIcon />
-            {t("send.button")}
+            {label ?? t("send.button")}
         </Button>
     );
 };
