@@ -459,13 +459,10 @@ export const hiderifyMatching = async (
                 question.same = false;
             }
         } else if (question.type === "same-length-station") {
-            if (hiderStationName.length === seekerStationName.length) {
-                question.lengthComparison = "same";
-            } else if (hiderStationName.length < seekerStationName.length) {
-                question.lengthComparison = "shorter";
-            } else {
-                question.lengthComparison = "longer";
-            }
+            // Same length or not: shorter or longer would give away more
+            question.same =
+                hiderStationName.length === seekerStationName.length;
+            question.lengthComparison = question.same ? "same" : "different";
         }
 
         return question;

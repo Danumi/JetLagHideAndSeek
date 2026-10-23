@@ -94,8 +94,8 @@ const CARD_RULES: Record<string, CardRule> = {
             en: "Is your station's name the same length as the name of my nearest station?",
         },
         counts: {
-            de: "Gezählt werden alle Zeichen des Namens, Leerzeichen und Bindestriche mit. Bei uns gilt der deutsche Name wie auf dem Schild.",
-            en: "Every character of the name counts, spaces and hyphens included. We use the German name as on the sign.",
+            de: "Gezählt werden alle Zeichen des Namens, Leerzeichen und Bindestriche mit. Bei uns gilt der deutsche Name wie auf dem Schild. Der Hider sagt nur gleich lang oder nicht gleich lang, nicht kürzer oder länger.",
+            en: "Every character of the name counts, spaces and hyphens included. We use the German name as on the sign. The hider only says same length or not, not shorter or longer.",
         },
     },
     street: {

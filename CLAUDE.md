@@ -107,6 +107,7 @@ pnpm vitest run       # Tests einmalig
 - Orte zählen nur mit Namen; Berge nur benannte Gipfel ab 400 m.
 - Versteckphase 30 Minuten, danach zählt die Versteckzeit bis zum Finden (Spielzeit-Uhr in der App).
 - Anfangsbuchstabe und Namenslänge: deutscher Stationsname wie auf dem Schild, nicht `name:en`.
+- Länge des Stationsnamens (seit 2026-10-23): nur „gleich lang“ oder „nicht gleich lang“ wie im Rulebook, nicht kürzer oder länger (Antwortknöpfe `answerOptions` in `answers.ts`, Hider in `hiderifyMatching`). Alte gespeicherte Fragen mit „Shorter“/„Longer“ wirken weiter auf die Karte.
 - Verwaltungsebenen: 1. Bundesland (OSM-Ebene 4), 2. Gemeindebezirk (9), 3. Katastralgemeinde (10), 4. gibt es nicht (keine Antwort). In der App heißen die Karten so („Gemeindebezirk", „Gemeindebezirk border"), darunter klein „2nd administrative division".
 - Alle Texte in der App auf Deutsch und Englisch, auch neue Bildschirme (Ausnahmen siehe „Zusammenarbeit“).
 - Gewässer: benannte Seen, Teiche, Flüsse und Kanäle; Flussabschnitte unter der Erde (`tunnel`, `covered`, z. B. die Wien unter dem Karlsplatz) zählen nicht, ebenso die Fluss-Relationen, die diese Abschnitte enthalten (`findNamedWaterLines`).
