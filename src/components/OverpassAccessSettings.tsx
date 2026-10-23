@@ -117,11 +117,6 @@ export const OverpassAccessSettings = () => {
                 onChange={(e) => setOrTakeSetup(e.target.value)}
                 placeholder="https://api.overpass.ch/v1/…/interpreter"
             />
-            {!host && (
-                <p className="text-xs font-semibold text-red-600">
-                    {t("settings.overpassMissing")}
-                </p>
-            )}
             <p className="text-xs text-muted-foreground">
                 {t("settings.overpassHint")}
             </p>

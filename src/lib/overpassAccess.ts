@@ -1,13 +1,13 @@
 import { overpassCustomHost } from "@/lib/context";
+import { PUBLIC_OVERPASS_HOSTS } from "@/maps/api/constants";
 
 /*
- * The map data comes from an Overpass server the players bring themselves
- * (a key for overpass.ch), never from public servers and never from the
- * repo. One account, one key: overpass.ch allows one account per person and
- * shares its limits between all keys of an account, so a second key brings
- * nothing. One phone hands its access to the others with a setup link: the
- * access sits in the part after "#", which the browser never sends to a
- * server. Anyone with the link can use the access.
+ * The map data comes from the phone's own Overpass access, if it has one (a
+ * key for overpass.ch, never in the repo), then from public servers. One
+ * account, one key: overpass.ch allows one account per person and shares its
+ * limits between all keys of an account. One phone hands its access to the
+ * others with a setup link: the access sits in the part after "#", which the
+ * browser never sends to a server. Anyone with the link can use the access.
  */
 
 /** In the address: https://…/JetLagHideAndSeek/#overpass=… */
@@ -25,11 +25,25 @@ export const interpreterUrl = (text: string) => {
         : `${url.replace(/\/+$/, "")}/interpreter`;
 };
 
-/** The servers this phone asks for map data: its access, or none. */
+/** Own accesses that refused a query (e.g. a suspended key) since the app opened. */
+const refusedHosts = new Set<string>();
+
+/**
+ * Not asking an own access again until the app is opened again, after it
+ * refused a query (401/403). The public servers are always asked.
+ */
+export const refuseOverpassHost = (url: string) => {
+    const host = url.split("?")[0];
+    if (!PUBLIC_OVERPASS_HOSTS.includes(host)) refusedHosts.add(host);
+};
+
+/** The servers this phone asks for map data: its access, then the public ones. */
 export const overpassHosts = () => {
     takeSetupFromAddress();
     const url = interpreterUrl(overpassCustomHost.get());
-    return url ? [url] : [];
+    return [...new Set([url, ...PUBLIC_OVERPASS_HOSTS])].filter(
+        (host) => host && !refusedHosts.has(host),
+    );
 };
 
 /** A web address, cleaned up, or null for anything else. */
