@@ -12,6 +12,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar-l";
 import {
+    hiderMode,
     isLoading,
     photoQuestions,
     questions,
@@ -24,6 +25,7 @@ import { isLogged } from "@/maps/answers";
 import { AddQuestionDialog } from "./AddQuestionDialog";
 import { QuestionLogRow } from "./cards/answer";
 import { PhotoLogRow, PhotoQuestionCard } from "./cards/photo";
+import { MoveButton } from "./MoveCard";
 import {
     MatchingQuestionComponent,
     MeasuringQuestionComponent,
@@ -49,6 +51,7 @@ export const QuestionSidebar = () => {
     const $photoQuestions = useStore(photoQuestions);
     const $isLoading = useStore(isLoading);
     const $showAllQuestionTypes = useStore(showAllQuestionTypes);
+    const $hiderMode = useStore(hiderMode);
     const open = $questions.filter((question) => !isLogged(question));
     const openPhotos = $photoQuestions.filter(
         (photo) => photo.status === "pending",
@@ -143,6 +146,12 @@ export const QuestionSidebar = () => {
                     <SectionHeading>{t("sidebar.answered")}</SectionHeading>
                 )}
                 {answered.map(({ row }) => row)}
+                {/* The hider has this on the hider screen */}
+                {$hiderMode === false && answered.length > 0 && (
+                    <div className="px-4 py-3">
+                        <MoveButton className="w-full" />
+                    </div>
+                )}
             </SidebarContent>
             <SidebarGroup>
                 <SidebarGroupContent>

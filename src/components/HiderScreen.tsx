@@ -63,6 +63,7 @@ import { hiderEntryRuleId } from "@/maps/rules";
 import { AnswerClock } from "./AnswerClock";
 import { GameClockCard } from "./GameClock";
 import { RuleButton } from "./HelpDialog";
+import { MoveButton } from "./MoveCard";
 import { showActionToast, showUndoToast } from "./UndoToast";
 
 /** Where the hider's location comes from. */
@@ -993,6 +994,7 @@ export const HiderScreen = () => {
 
             <PasteLink onPasted={setSelectedKey} />
             <AddByHand onAdded={setSelectedKey} />
+            {$hiderZoneId && <MoveButton hider />}
 
             {answered.length > 0 && (
                 <div className="flex flex-col gap-1">

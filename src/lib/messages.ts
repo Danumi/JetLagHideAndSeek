@@ -1181,6 +1181,37 @@ export const messages = {
         en: "Answered late: no cards for this question.",
         de: "Zu spät geantwortet: Für diese Frage gibt es keine Karten.",
     },
+    "move.button": {
+        en: "Hider moved (Move card)",
+        de: "Hider ist umgezogen (Karte Move)",
+    },
+    "move.title": {
+        en: "Did the hider play Move?",
+        de: "Hat der Hider Move gespielt?",
+    },
+    "move.text": {
+        en: "The answers so far were about the old zone: they stop counting on the map (they stay in the list), and all zones come back. The new zone is at another station, so rule out the old one: tap its zone on the map, then “{ruleOut}”. Your game timer pauses; tap “{resume}” when the move time is over.",
+        de: "Die bisherigen Antworten galten für die alte Zone: Sie zählen auf der Karte nicht mehr (bleiben aber in der Liste), und alle Zonen sind wieder da. Die neue Zone liegt an einer anderen Station, also streicht die alte: auf der Karte antippen, dann „{ruleOut}“. Eure Spielzeit pausiert; tippt „{resume}“, wenn die Zeit für den Umzug um ist.",
+    },
+    "move.confirm": { en: "Hider moved", de: "Umgezogen" },
+    "move.done": {
+        en: "Earlier answers hidden, all zones are back.",
+        de: "Frühere Antworten ausgeblendet, alle Zonen sind wieder da.",
+    },
+    "move.hiderButton": {
+        en: "I'm moving (Move card)",
+        de: "Ich ziehe um (Karte Move)",
+    },
+    "move.hiderTitle": { en: "Play Move?", de: "Move spielen?" },
+    "move.hiderText": {
+        en: "Discard your whole hand and tell the seekers your old station. Your zone is cleared: choose the new one, at another station, once you're there. The game timer pauses; tap “{resume}” when the move time on the card is over.",
+        de: "Leg alle Karten auf der Hand ab und sag den Seekern deine bisherige Station. Deine Zone ist dann frei: Wähl die neue an einer anderen Station, sobald du dort bist. Die Spielzeit pausiert; tippe „{resume}“, wenn die Zeit auf der Karte um ist.",
+    },
+    "move.hiderConfirm": { en: "Play Move", de: "Move spielen" },
+    "move.hiderDone": {
+        en: "Moving: choose your new zone once you're there.",
+        de: "Umzug: Wähl deine neue Zone, sobald du dort bist.",
+    },
     "gameClock.found": { en: "Found", de: "Gefunden" },
     "gameClock.foundAfter": {
         en: "Found after {time}",

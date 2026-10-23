@@ -67,6 +67,7 @@ const TRANSLATED_FILES = [
     "components/Map.tsx",
     "components/MapControls.tsx",
     "components/MapLayers.tsx",
+    "components/MoveCard.tsx",
     "components/NearestMarks.tsx",
     "components/NewGameDialog.tsx",
     "components/OptionDrawers.tsx",

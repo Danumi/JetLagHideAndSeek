@@ -26,12 +26,16 @@ const option = (value: string): AnswerOption => ({
     label: t(`answer.${value}` as MessageKey),
 });
 
-/** Only answered questions change the map; pending ones show an outline. */
+/**
+ * Only answered questions change the map, unless hidden on it (also the
+ * answers before the Move card); pending ones show an outline.
+ */
 export const questionApplies = (
     question: Question,
     planningModeEnabled: boolean,
 ) =>
     (question.data.status ?? "answered") === "answered" &&
+    !question.data.hidden &&
     !(planningModeEnabled && question.data.drag);
 
 export const isPending = (question: Question) =>
