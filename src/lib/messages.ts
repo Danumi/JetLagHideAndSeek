@@ -553,13 +553,9 @@ export const messages = {
         en: "Overpass access",
         de: "Overpass-Zugang",
     },
-    "settings.overpassFallback": {
-        en: "Fallback access (optional)",
-        de: "Ersatz-Zugang (optional)",
-    },
     "settings.overpassHint": {
-        en: "The map data comes from this server. If it fails or is busy, the app asks the fallback. You can also paste a setup link here.",
-        de: "Von diesem Server kommen die Kartendaten. Klappt er nicht oder ist er belegt, fragt die App den Ersatz-Zugang. Hier kannst du auch einen Einrichtungs-Link einfügen.",
+        en: "The map data comes from this server, with your key in the address. You can also paste a setup link here.",
+        de: "Von diesem Server kommen die Kartendaten, dein Key steht in der Adresse. Hier kannst du auch einen Einrichtungs-Link einfügen.",
     },
     "settings.overpassMissing": {
         en: "No access set up: the map can't load any data.",
@@ -573,21 +569,9 @@ export const messages = {
         en: "Overpass access saved on this phone.",
         de: "Overpass-Zugang auf diesem Handy gespeichert.",
     },
-    "overpass.savedWithFallback": {
-        en: "Overpass access and fallback saved on this phone.",
-        de: "Overpass-Zugang und Ersatz-Zugang auf diesem Handy gespeichert.",
-    },
     "overpass.setupText": {
         en: "Scan the code with the camera of the other phone, or send it the link. Opening it saves your Overpass access on that phone.",
         de: "Scanne den Code mit der Kamera des anderen Handys oder schick den Link hin. Beim Öffnen wird dein Overpass-Zugang dort gespeichert.",
-    },
-    "overpass.fallbackFirst": {
-        en: "Fallback access first",
-        de: "Ersatz-Zugang zuerst",
-    },
-    "overpass.fallbackFirstHint": {
-        en: "Give this version to half of the players, so not every phone uses the same access at once.",
-        de: "Diese Fassung für die Hälfte der Mitspieler, damit nicht alle Handys gleichzeitig denselben Zugang nutzen.",
     },
     "overpass.shareLink": { en: "Share link", de: "Link teilen" },
     "overpass.copyLink": { en: "Copy link", de: "Link kopieren" },

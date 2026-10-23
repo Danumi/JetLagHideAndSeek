@@ -1,9 +1,11 @@
-import { overpassCustomHost, overpassFallbackHost } from "@/lib/context";
+import { overpassCustomHost } from "@/lib/context";
 
 /*
  * The map data comes from an Overpass server the players bring themselves
- * (e.g. a key for overpass.ch), never from public servers and never from the
- * repo. One phone hands its access to the others with a setup link: the
+ * (a key for overpass.ch), never from public servers and never from the
+ * repo. One account, one key: overpass.ch allows one account per person and
+ * shares its limits between all keys of an account, so a second key brings
+ * nothing. One phone hands its access to the others with a setup link: the
  * access sits in the part after "#", which the browser never sends to a
  * server. Anyone with the link can use the access.
  */
@@ -11,20 +13,23 @@ import { overpassCustomHost, overpassFallbackHost } from "@/lib/context";
 /** In the address: https://…/JetLagHideAndSeek/#overpass=… */
 const SETUP_PARAM = "overpass";
 
-/** The main access and the fallback. */
-const MAX_HOSTS = 2;
+/**
+ * Overpass servers answer queries at …/interpreter; the address may be given
+ * without it (overpass.ch calls https://api.overpass.ch/v1/<key>/ the base).
+ */
+export const interpreterUrl = (text: string) => {
+    const url = text.trim();
+    if (!url) return "";
+    return /\/interpreter$/.test(url)
+        ? url
+        : `${url.replace(/\/+$/, "")}/interpreter`;
+};
 
-/** The servers to ask, in order: the access, then the fallback. */
-export const overpassBaseUrls = (main: string, fallback: string) =>
-    [...new Set([main.trim(), fallback.trim()])].filter(Boolean);
-
-/** The servers this phone asks for map data, in order. */
+/** The servers this phone asks for map data: its access, or none. */
 export const overpassHosts = () => {
     takeSetupFromAddress();
-    return overpassBaseUrls(
-        overpassCustomHost.get(),
-        overpassFallbackHost.get(),
-    );
+    const url = interpreterUrl(overpassCustomHost.get());
+    return url ? [url] : [];
 };
 
 /** A web address, cleaned up, or null for anything else. */
@@ -46,23 +51,20 @@ const toBase64Url = (text: string) =>
 const fromBase64Url = (code: string) =>
     atob(code.replace(/-/g, "+").replace(/_/g, "/"));
 
-/** A link that saves these accesses on the phone that opens it. */
-export const overpassSetupLink = (hosts: string[], appUrl: string) => {
-    const valid = hosts
-        .map(asHost)
-        .filter((host) => host !== null)
-        .slice(0, MAX_HOSTS);
+/** A link that saves this access on the phone that opens it. */
+export const overpassSetupLink = (host: string, appUrl: string) => {
     const url = new URL(appUrl);
     url.search = "";
-    url.hash = `${SETUP_PARAM}=${toBase64Url(JSON.stringify(valid))}`;
+    // A list, like the first links that also carried a fallback
+    url.hash = `${SETUP_PARAM}=${toBase64Url(JSON.stringify([asHost(host)]))}`;
     return url.toString();
 };
 
 /**
- * The accesses in a setup link (or in anything pasted that contains one), or
+ * The access in a setup link (or in anything pasted that contains one), or
  * null if there is none.
  */
-export const readOverpassSetup = (text: string): string[] | null => {
+export const readOverpassSetup = (text: string): string | null => {
     const code = text.match(
         new RegExp(`[#&?]${SETUP_PARAM}=([A-Za-z0-9_-]+)`),
     )?.[1];
@@ -70,43 +72,36 @@ export const readOverpassSetup = (text: string): string[] | null => {
     try {
         const list = JSON.parse(fromBase64Url(code));
         if (!Array.isArray(list)) return null;
-        const hosts = list
-            .map(asHost)
-            .filter((host) => host !== null)
-            .slice(0, MAX_HOSTS);
-        return hosts.length > 0 ? hosts : null;
+        return list.map(asHost).find((host) => host !== null) ?? null;
     } catch {
         return null;
     }
 };
 
-/** Saves the accesses of a setup link on this phone. */
-export const saveOverpassSetup = (hosts: string[]) => {
-    overpassCustomHost.set(hosts[0] ?? "");
-    overpassFallbackHost.set(hosts[1] ?? "");
-};
+/** Saves the access of a setup link on this phone. */
+export const saveOverpassSetup = (host: string) => overpassCustomHost.set(host);
 
-/** Saves the accesses of a setup link the app was opened with. */
+/** Saves the access of a setup link the app was opened with. */
 const saveSetupFromAddress = () => {
-    if (typeof window === "undefined") return 0;
-    const hosts = readOverpassSetup(window.location.hash);
-    if (!hosts) return 0;
-    saveOverpassSetup(hosts);
+    if (typeof window === "undefined") return false;
+    const host = readOverpassSetup(window.location.hash);
+    if (!host) return false;
+    saveOverpassSetup(host);
     // Out of the address bar, so it isn't shared or bookmarked by accident
     window.history.replaceState(
         window.history.state,
         "",
         window.location.pathname + window.location.search,
     );
-    return hosts.length;
+    return true;
 };
 
-let savedFromAddress: number | undefined;
+let savedFromAddress: boolean | undefined;
 
 /**
- * Saves the accesses of a setup link in the address, once: when the app
- * opens or before the first query for map data, whichever comes first. The
- * number of saved accesses, 0 without a link.
+ * Saves the access of a setup link in the address, once: when the app opens
+ * or before the first query for map data, whichever comes first. Whether
+ * there was one.
  */
 export const takeSetupFromAddress = () => {
     savedFromAddress ??= saveSetupFromAddress();
