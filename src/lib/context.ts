@@ -567,11 +567,17 @@ export const thermometerRun = persistentAtom<{
     decode: JSON.parse,
 });
 
-export const overpassHost = persistentAtom<string>(
-    "overpassHost",
-    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
-);
+/**
+ * The Overpass server for map data, with the key in it (e.g. overpass.ch).
+ * There are no public servers any more: without it, no map data loads. Set by
+ * hand or with a setup link (`overpassAccess.ts`).
+ */
 export const overpassCustomHost = persistentAtom<string>(
     "overpassCustomHost",
+    "",
+);
+/** A second access, asked when the first fails or is busy. */
+export const overpassFallbackHost = persistentAtom<string>(
+    "overpassFallbackHost",
     "",
 );

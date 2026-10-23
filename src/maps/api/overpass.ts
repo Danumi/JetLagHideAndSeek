@@ -13,16 +13,15 @@ import {
     additionalMapGeoLocations,
     mapGeoJSON,
     mapGeoLocation,
-    overpassCustomHost,
-    overpassHost,
     polyGeoJSON,
 } from "@/lib/context";
 import { t } from "@/lib/i18n";
 import { showLoadError, trackLoading } from "@/lib/loading";
+import { overpassHosts } from "@/lib/overpassAccess";
 import { safeUnion } from "@/maps/geo-utils";
 
 import { cacheFetch, determineCache } from "./cache";
-import { LOCATION_FIRST_TAG, OVERPASS_HOSTS, placeCounts } from "./constants";
+import { LOCATION_FIRST_TAG, placeCounts } from "./constants";
 import { prettifyLocation } from "./geo";
 import type {
     APILocations,
@@ -39,8 +38,9 @@ type TentacleLocationQuery = Pick<
 >;
 
 /**
- * If a server has not answered after this long, the next server is asked in
- * parallel. The slow request keeps running; whichever answers first wins.
+ * If a server has not answered after this long, the next server (the fallback
+ * access) is asked in parallel. The slow request keeps running; whichever
+ * answers first wins.
  */
 const OVERPASS_HEDGE_MS = 10_000;
 
@@ -53,6 +53,7 @@ const OVERPASS_GIVE_UP_MS = 60_000;
 /**
  * A server that is busy (too many queries at once, e.g. one at a time on the
  * free plan of overpass.ch) is asked again after Retry-After or this long.
+ * Meanwhile the next server is asked right away.
  */
 const OVERPASS_BUSY_RETRY_MS = 2_000;
 const OVERPASS_BUSY_RETRIES = 5;
@@ -149,6 +150,7 @@ const firstOkResponse = (
                             running--;
                             if (!settled) request(url);
                         }, busyDelay(response));
+                        launch();
                     } else {
                         launch();
                     }
@@ -186,18 +188,11 @@ export const getOverpassData = async (
     cacheType: CacheType = CacheType.CACHE,
 ) => {
     const encodedQuery = encodeURIComponent(query);
-    const allHostUrls: string[] = Object.values(OVERPASS_HOSTS);
-    const selectedHost = overpassHost.get();
-    const customUrl = overpassCustomHost.get();
-
-    const primaryBaseUrl =
-        selectedHost === "custom"
-            ? customUrl || allHostUrls[0]
-            : selectedHost || allHostUrls[0];
-    const urls = [
-        primaryBaseUrl,
-        ...allHostUrls.filter((h) => h !== primaryBaseUrl),
-    ].map((base) => `${base}?data=${encodedQuery}`);
+    const urls = overpassHosts().map((base) => `${base}?data=${encodedQuery}`);
+    if (urls.length === 0) {
+        showLoadError(loadingText, t("loading.noAccess"));
+        throw new OverpassError("No Overpass access set up");
+    }
 
     const cached = await findCachedResponse(urls, cacheType);
     if (cached) {

@@ -549,18 +549,56 @@ export const messages = {
     "settings.deleteAllButton": { en: "Delete all", de: "Alle löschen" },
     "settings.advanced": { en: "Advanced", de: "Erweitert" },
     "settings.mapData": { en: "Map data", de: "Kartendaten" },
-    "settings.overpassHost": {
-        en: "Overpass API host",
-        de: "Overpass-API-Server",
+    "settings.overpassAccess": {
+        en: "Overpass access",
+        de: "Overpass-Zugang",
     },
-    "settings.customUrl": { en: "Custom URL", de: "Eigene URL" },
-    "settings.customFallback": {
-        en: "The other hosts will be used as fallbacks if this one fails.",
-        de: "Klappt dieser Server nicht, springen die anderen ein.",
+    "settings.overpassFallback": {
+        en: "Fallback access (optional)",
+        de: "Ersatz-Zugang (optional)",
     },
-    "settings.fallback": {
-        en: "The remaining hosts will be tried as fallbacks if the selected one fails.",
-        de: "Klappt der gewählte Server nicht, springen die anderen ein.",
+    "settings.overpassHint": {
+        en: "The map data comes from this server. If it fails or is busy, the app asks the fallback. You can also paste a setup link here.",
+        de: "Von diesem Server kommen die Kartendaten. Klappt er nicht oder ist er belegt, fragt die App den Ersatz-Zugang. Hier kannst du auch einen Einrichtungs-Link einfügen.",
+    },
+    "settings.overpassMissing": {
+        en: "No access set up: the map can't load any data.",
+        de: "Kein Zugang eingerichtet: Die Karte kann keine Daten laden.",
+    },
+    "settings.setupOthers": {
+        en: "Set up other phones",
+        de: "Andere Handys einrichten",
+    },
+    "overpass.saved": {
+        en: "Overpass access saved on this phone.",
+        de: "Overpass-Zugang auf diesem Handy gespeichert.",
+    },
+    "overpass.savedWithFallback": {
+        en: "Overpass access and fallback saved on this phone.",
+        de: "Overpass-Zugang und Ersatz-Zugang auf diesem Handy gespeichert.",
+    },
+    "overpass.setupText": {
+        en: "Scan the code with the camera of the other phone, or send it the link. Opening it saves your Overpass access on that phone.",
+        de: "Scanne den Code mit der Kamera des anderen Handys oder schick den Link hin. Beim Öffnen wird dein Overpass-Zugang dort gespeichert.",
+    },
+    "overpass.fallbackFirst": {
+        en: "Fallback access first",
+        de: "Ersatz-Zugang zuerst",
+    },
+    "overpass.fallbackFirstHint": {
+        en: "Give this version to half of the players, so not every phone uses the same access at once.",
+        de: "Diese Fassung für die Hälfte der Mitspieler, damit nicht alle Handys gleichzeitig denselben Zugang nutzen.",
+    },
+    "overpass.shareLink": { en: "Share link", de: "Link teilen" },
+    "overpass.copyLink": { en: "Copy link", de: "Link kopieren" },
+    "overpass.linkCopied": { en: "Link copied.", de: "Link kopiert." },
+    "overpass.warning": {
+        en: "Anyone with this link can use your access. Only send it to your players.",
+        de: "Wer den Link hat, kann deinen Zugang nutzen. Schick ihn nur an deine Mitspieler.",
+    },
+    "overpass.iphoneHint": {
+        en: "iPhone with the app on the home screen: the link opens in Safari, not in the app. Copy the link instead and paste it in the app under Settings → Advanced → Overpass access.",
+        de: "iPhone mit der App auf dem Home-Bildschirm: Der Link öffnet sich in Safari, nicht in der App. Dann den Link kopieren und in der App unter Einstellungen → Erweitert → Overpass-Zugang einfügen.",
     },
     "settings.preload": { en: "Preload map data", de: "Kartendaten vorladen" },
     "settings.preloadHint": {
@@ -1124,6 +1162,10 @@ export const messages = {
     "loading.gaveUp": {
         en: "The map server gave up on the request.",
         de: "Der Kartenserver hat die Anfrage abgebrochen.",
+    },
+    "loading.noAccess": {
+        en: "This phone has no Overpass access yet. Open the setup link, or enter it under Settings → Advanced.",
+        de: "Auf diesem Handy fehlt noch der Overpass-Zugang. Öffne den Einrichtungs-Link oder trag ihn unter Einstellungen → Erweitert ein.",
     },
     "loading.tentacles": {
         en: "Finding tentacle locations...",

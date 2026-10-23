@@ -1,14 +1,5 @@
 import type { APILocations } from "@/maps/schema";
 
-export const OVERPASS_HOSTS = {
-    "overpass-api.de (official; often slow)":
-        "https://overpass-api.de/api/interpreter",
-    "private.coffee (unofficial; backup)":
-        "https://overpass.private.coffee/api/interpreter",
-    "maps.mail.ru (unofficial; fast but sometimes unavailable)":
-        "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
-} as const;
-
 /**
  * Questions about the nearest place of a kind give up above this many places.
  * Vienna has about 565 named parks.

@@ -1,7 +1,7 @@
 import * as turf from "@turf/turf";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { mapGeoJSON } from "@/lib/context";
+import { mapGeoJSON, overpassCustomHost } from "@/lib/context";
 import { findTransitLines, placeCounts } from "@/maps/api";
 import {
     lineLabelPositions,
@@ -81,6 +81,7 @@ describe("places and lines on the map", () => {
                 turf.bboxPolygon([16.18, 48.12, 16.58, 48.32]),
             ]),
         );
+        overpassCustomHost.set("https://overpass.example/api/interpreter");
         vi.stubGlobal("caches", cacheStorage);
         const fetch = vi.fn(
             async () =>
