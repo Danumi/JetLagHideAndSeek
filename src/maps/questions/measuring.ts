@@ -1,5 +1,5 @@
 import * as turf from "@turf/turf";
-import type { Feature, MultiPolygon } from "geojson";
+import type { Feature, MultiLineString, MultiPolygon } from "geojson";
 import _ from "lodash";
 import osmtogeojson from "osmtogeojson";
 import { toast } from "react-toastify";
@@ -16,6 +16,7 @@ import { memoizeAsync } from "@/lib/utils";
 import {
     elevationAt,
     fetchCoastline,
+    findAdminAreas,
     findAdminBoundary,
     findHighSpeedLines,
     findNamedWaterLines,
@@ -70,6 +71,29 @@ export const findAdminZoneInfo = memoizeAsync(
     (lat, lng, adminLevel) =>
         `${lat.toFixed(6)},${lng.toFixed(6)},${adminLevel}`,
 );
+
+/**
+ * The borders of all areas of a level in the game area (Gemeindebezirke: the
+ * 23 districts, the city limits included) as one line, or null if none.
+ */
+export const adminBorders = async (
+    adminLevel: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
+) => {
+    const areas = await findAdminAreas(adminLevel);
+    if (areas.length === 0) return null;
+    const lines = areas.flatMap((area) => {
+        const outline = turf.polygonToLine(area);
+        return outline.type === "FeatureCollection"
+            ? outline.features
+            : [outline];
+    });
+    return turf.combine(
+        turf.featureCollection(
+            // About 5 m: fewer points to measure and buffer
+            lines.map((line) => turf.simplify(line, { tolerance: 0.00005 })),
+        ),
+    ).features[0] as Feature<MultiLineString>;
+};
 
 const highSpeedBase = _.memoize(
     (features: Feature[]) => {
@@ -154,6 +178,12 @@ export const determineMeasuringBoundary = async (
         }
         case "admin-measure": {
             const adminLevel = (question as any).cat?.adminLevel ?? 4;
+
+            // Every border of this level in the game area: the one nearest
+            // to the hider may belong to another zone than the seekers' own
+            const borders = await adminBorders(adminLevel);
+            if (borders) return [borders];
+
             const zoneInfo = await findAdminZoneInfo(
                 question.lat,
                 question.lng,

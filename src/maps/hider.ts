@@ -123,12 +123,6 @@ const explainNearest = async (
     question: Question,
     you: { lat: number; lng: number },
 ) => {
-    // The map measures to the border of the seekers' zone, the hider's own
-    // nearest border could be another one
-    if (question.id === "measuring" && question.data.type === "admin-measure") {
-        return undefined;
-    }
-
     // Station questions are about the station of the hider's chosen zone
     if (
         question.id === "matching" &&
@@ -162,6 +156,17 @@ const explainNearest = async (
                 you: nearestWhere(yours),
                 them: nearestWhere(theirs),
             });
+        case "border": {
+            const card =
+                question.id === "measuring"
+                    ? measuringCardFor(question.data)
+                    : undefined;
+            return t("reason.border", {
+                border: card ? tr(card.label) : yours.what,
+                you: formatKilometers(yours.kilometers ?? 0),
+                them: formatKilometers(theirs.kilometers ?? 0),
+            });
+        }
         case "elevation":
             return t("reason.elevation", {
                 you: Math.round(yours.meters ?? 0),
