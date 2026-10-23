@@ -619,6 +619,47 @@ export const messages = {
         de: "Spielgebiet von Hand zeichnen (oben links auf der Karte).",
     },
     "settings.hidingZones": { en: "Hiding zones", de: "Zonen" },
+    "settings.about": { en: "About", de: "Über die App" },
+
+    // Settings → About: where the map data and tools come from (the map
+    // itself shows no credits)
+    "credits.osm": {
+        en: "OpenStreetMap contributors",
+        de: "OpenStreetMap-Mitwirkende",
+    },
+    "credits.esri": { en: "Powered by Esri", de: "Powered by Esri" },
+    "about.title": {
+        en: "About Hide & Seek Vienna",
+        de: "Über Hide & Seek Vienna",
+    },
+    "about.intro": {
+        en: "The map for our Hide & Seek games in Vienna. Map data and tools come from:",
+        de: "Die Karte für unsere Hide-&-Seek-Spiele in Wien. Kartendaten und Werkzeuge kommen von:",
+    },
+    "about.mapData": { en: "Map data", de: "Kartendaten" },
+    "about.osmLicence": {
+        en: "Available under the Open Database License (ODbL)",
+        de: "Verfügbar unter der Open Database License (ODbL)",
+    },
+    "about.mapImages": { en: "Map images", de: "Kartenbilder" },
+    "about.calculations": {
+        en: "Distances and areas",
+        de: "Entfernungen und Flächen",
+    },
+    "about.elevation": { en: "Elevation", de: "Seehöhe" },
+    "about.elevationSource": {
+        en: "Terrain Tiles (Mapzen, AWS Open Data)",
+        de: "Terrain Tiles (Mapzen, AWS Open Data)",
+    },
+    "about.elevationAustria": {
+        en: "Austria: © offene Daten Österreichs – Digitales Geländemodell (DGM) Österreich, CC BY 3.0 AT",
+        de: "Österreich: © offene Daten Österreichs – Digitales Geländemodell (DGM) Österreich, CC BY 3.0 AT",
+    },
+    "about.software": { en: "Software", de: "Software" },
+    "about.softwareText": {
+        en: "Made with Leaflet, Turf.js, React, Lucide and other open-source libraries.",
+        de: "Gebaut mit Leaflet, Turf.js, React, Lucide und anderen Open-Source-Bibliotheken.",
+    },
 
     // Loading and sharing a game
     "game.loaded": { en: "Game loaded", de: "Spiel geladen" },

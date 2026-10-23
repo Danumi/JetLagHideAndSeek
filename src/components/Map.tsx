@@ -55,7 +55,6 @@ const getTileLayer = (tileLayer: string) => {
         case "light":
             return (
                 <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors; &copy; <a href="https://carto.com/attributions">CARTO</a>; Powered by Esri and Turf.js'
                     url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=cb1_2hdi_1_0b36dd202687c7d7c2b90861"
                     subdomains="abcd"
                     maxZoom={20} // This technically should be 6, but once the ratelimiting starts this can take over
@@ -67,7 +66,6 @@ const getTileLayer = (tileLayer: string) => {
         case "dark":
             return (
                 <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors; &copy; <a href="https://carto.com/attributions">CARTO</a>; Powered by Esri and Turf.js'
                     url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=cb1_2hdi_1_0b36dd202687c7d7c2b90861"
                     subdomains="abcd"
                     maxZoom={20} // This technically should be 6, but once the ratelimiting starts this can take over
@@ -79,7 +77,6 @@ const getTileLayer = (tileLayer: string) => {
         case "osmcarto":
             return (
                 <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors; Powered by Esri and Turf.js'
                     url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
                     maxZoom={19}
                     minZoom={2}
@@ -90,7 +87,6 @@ const getTileLayer = (tileLayer: string) => {
 
     return (
         <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors; &copy; <a href="https://carto.com/attributions">CARTO</a>; Powered by Esri and Turf.js'
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=cb1_2hdi_1_0b36dd202687c7d7c2b90861"
             subdomains="abcd"
             maxZoom={20} // This technically should be 6, but once the ratelimiting starts this can take over
@@ -397,6 +393,8 @@ export const Map = ({ className }: { className?: string }) => {
                 center={$mapGeoLocation.geometry.coordinates}
                 zoom={5}
                 zoomControl={false}
+                // The credits for the map data are in Settings → About
+                attributionControl={false}
                 className={cn("w-[500px] h-[500px]", className)}
                 ref={leafletMapContext.set}
                 // @ts-expect-error Typing doesn't update from react-contextmenu

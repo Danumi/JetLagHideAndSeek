@@ -49,6 +49,7 @@ const SRC = new URL("../src/", import.meta.url).pathname;
  * checks of saved data only developers see.
  */
 const TRANSLATED_FILES = [
+    "components/AboutDialog.tsx",
     "components/AddQuestionDialog.tsx",
     "components/AnswerClock.tsx",
     "components/AskQuestion.tsx",
