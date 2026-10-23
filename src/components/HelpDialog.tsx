@@ -37,6 +37,7 @@ const buttonNames = () => ({
     sendAnswer: t("hider.send"),
     chooseZone: t("zones.choose"),
     startTimer: t("gameClock.start"),
+    startSeeking: t("gameClock.endHiding"),
     pause: t("gameClock.pause"),
     resume: t("gameClock.resume"),
     found: t("gameClock.found"),

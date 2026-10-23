@@ -1,11 +1,12 @@
 import { useStore } from "@nanostores/react";
-import { PauseIcon, PlayIcon, TimerIcon } from "lucide-react";
+import { FlagIcon, PauseIcon, PlayIcon, TimerIcon } from "lucide-react";
 
 import { hiderInbox } from "@/lib/context";
 import { t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { clockTime } from "@/maps/deadline";
 import {
+    endHidingPeriod,
     formatDuration,
     foundHider,
     gameClock,
@@ -17,12 +18,14 @@ import {
     pauseGameClock,
     resumeGameClock,
     startGameClock,
+    undoEndHidingPeriod,
 } from "@/maps/gameClock";
 import { lateIntervals } from "@/maps/hiderLog";
 
 import { useNow } from "./AnswerClock";
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { showUndoToast } from "./UndoToast";
 
 /*
  * The time of the round: "Start timer" when the hiding period begins, then
@@ -39,6 +42,24 @@ const useLateAnswers = (now: number) => {
     const $pauseForLateAnswers = useStore(pauseForLateAnswers);
     return $pauseForLateAnswers ? lateIntervals($inbox, now) : [];
 };
+
+/**
+ * Sets the hiding period to 0: the official time is up, or everyone agrees
+ * to start. The hiding time counts from now.
+ */
+export const StartSeekingButton = ({ className }: { className?: string }) => (
+    <Button
+        variant="outline"
+        className={className}
+        onClick={() => {
+            endHidingPeriod();
+            showUndoToast(t("gameClock.endedHiding"), undoEndHidingPeriod);
+        }}
+    >
+        <FlagIcon />
+        {t("gameClock.endHiding")}
+    </Button>
+);
 
 /** The hiding times of the last rounds, newest first. */
 const PastRounds = () => {
@@ -164,6 +185,10 @@ export const GameClockCard = ({ className }: { className?: string }) => {
                             time: clockTime(state.endsAt),
                         })}
                     </div>
+                    <StartSeekingButton className="h-11" />
+                    <p className="text-xs text-muted-foreground">
+                        {t("gameClock.endHidingHint")}
+                    </p>
                 </>
             )}
             {state.phase === "seeking" && (

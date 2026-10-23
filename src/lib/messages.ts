@@ -141,6 +141,10 @@ export const messages = {
         de: "Laut Regeln kommt die nächste Frage erst nach der Antwort. Hat der Hider schon im Chat geantwortet, trag die Antwort zuerst ein.",
     },
     "ask.pending.enter": { en: "Enter answer", de: "Antwort eintragen" },
+    "ask.hidingPeriod": {
+        en: "The hiding period runs until {time} ({left} left). By the rules, you ask once it's over.",
+        de: "Die Versteckphase läuft noch bis {time} (noch {left}). Laut Regeln fragt ihr erst danach.",
+    },
     "ask.pending.anyway": { en: "Ask anyway", de: "Trotzdem fragen" },
     "ask.asked": {
         en: "Already asked at {time}: again costs double",
@@ -1134,6 +1138,18 @@ export const messages = {
     "gameClock.seekersStart": {
         en: "The seekers start at {time}",
         de: "Die Seeker starten um {time}",
+    },
+    "gameClock.endHiding": {
+        en: "Start seeking now",
+        de: "Suche jetzt starten",
+    },
+    "gameClock.endHidingHint": {
+        en: "Sets the hiding period to 0: when the official time is up, or everyone agrees to start.",
+        de: "Stellt die Versteckphase auf 0: wenn die offizielle Zeit um ist oder alle einverstanden sind.",
+    },
+    "gameClock.endedHiding": {
+        en: "Hiding period over. The hiding time counts from now.",
+        de: "Versteckphase vorbei. Die Versteckzeit zählt ab jetzt.",
     },
     "gameClock.hidingTime": { en: "Hiding time", de: "Versteckzeit" },
     "gameClock.since": { en: "Since {time}", de: "Seit {time}" },

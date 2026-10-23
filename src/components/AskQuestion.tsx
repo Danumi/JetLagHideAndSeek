@@ -47,6 +47,7 @@ import {
     RADAR_DISTANCES,
     THERMOMETER_DISTANCES,
 } from "@/maps/deck";
+import { formatDuration, gameClock, gameClockState } from "@/maps/gameClock";
 import { photoTitle } from "@/maps/hiderLog";
 import {
     type Asked,
@@ -57,7 +58,9 @@ import {
     thermometerCardId,
 } from "@/maps/repeats";
 
+import { useNow } from "./AnswerClock";
 import { SendLinkButton } from "./cards/answer";
+import { StartSeekingButton } from "./GameClock";
 import { QUESTION_ICONS } from "./questionIcons";
 
 /** The kinds keep their names from the game in both languages. */
@@ -165,6 +168,29 @@ export const WaitingForAnswer = () => {
 };
 
 /** The big "Ask a question" button and the question cards it opens. */
+/**
+ * While the seekers' timer counts down the hiding period: questions come
+ * after it. "Start seeking now" when the official time is up already.
+ */
+const HidingPeriodNote = () => {
+    const $clock = useStore(gameClock);
+    const now = useNow();
+    const state = $clock && gameClockState($clock, now);
+    if (state?.phase !== "hiding") return null;
+
+    return (
+        <div className="flex flex-col gap-2 rounded-lg border-2 border-blue-600 bg-blue-600/10 p-3">
+            <p className="text-sm">
+                {t("ask.hidingPeriod", {
+                    time: clockTime(state.endsAt),
+                    left: formatDuration(state.left + 999),
+                })}
+            </p>
+            <StartSeekingButton className="h-10 self-start" />
+        </div>
+    );
+};
+
 export const AskQuestionDrawer = ({ className }: { className?: string }) => {
     useLanguage();
     const $isLoading = useStore(isLoading);
@@ -345,29 +371,32 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                 break;
             }
             content = (
-                <div className="grid grid-cols-2 gap-3">
-                    {(Object.keys(KINDS) as Kind[]).map((k) => {
-                        const Icon = KINDS[k].icon;
-                        return (
-                            <button
-                                key={k}
-                                className={cn(
-                                    "flex min-h-28 flex-col justify-center gap-1 rounded-lg border p-3 text-left transition-colors hover:bg-accent active:bg-accent",
-                                    // The fifth kind fills the last row
-                                    k === "photo" && "col-span-2 min-h-20",
-                                )}
-                                onClick={() => setKind(k)}
-                            >
-                                <Icon className="h-6 w-6 shrink-0" />
-                                <span className="text-xl font-semibold font-poppins">
-                                    {kindLabel(k)}
-                                </span>
-                                <span className="text-xs text-muted-foreground">
-                                    {t(KINDS[k].question)}
-                                </span>
-                            </button>
-                        );
-                    })}
+                <div className="flex flex-col gap-3">
+                    <HidingPeriodNote />
+                    <div className="grid grid-cols-2 gap-3">
+                        {(Object.keys(KINDS) as Kind[]).map((k) => {
+                            const Icon = KINDS[k].icon;
+                            return (
+                                <button
+                                    key={k}
+                                    className={cn(
+                                        "flex min-h-28 flex-col justify-center gap-1 rounded-lg border p-3 text-left transition-colors hover:bg-accent active:bg-accent",
+                                        // The fifth kind fills the last row
+                                        k === "photo" && "col-span-2 min-h-20",
+                                    )}
+                                    onClick={() => setKind(k)}
+                                >
+                                    <Icon className="h-6 w-6 shrink-0" />
+                                    <span className="text-xl font-semibold font-poppins">
+                                        {kindLabel(k)}
+                                    </span>
+                                    <span className="text-xs text-muted-foreground">
+                                        {t(KINDS[k].question)}
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
                 </div>
             );
             break;

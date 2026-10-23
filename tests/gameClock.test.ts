@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
 import {
+    endHidingPeriod,
     endRound,
     formatDuration,
     foundHider,
@@ -12,6 +13,7 @@ import {
     pauseGameClock,
     resumeGameClock,
     startGameClock,
+    undoEndHidingPeriod,
 } from "@/maps/gameClock";
 
 const T0 = Date.UTC(2026, 9, 23, 12, 0);
@@ -45,6 +47,27 @@ describe("the game timer", () => {
             phase: "found",
             hidingTime: 50 * MIN,
         });
+    });
+
+    it("ends the hiding period by hand: 'Start seeking now'", () => {
+        startGameClock(T0);
+        endHidingPeriod(T0 + 12 * MIN);
+        expect(gameClockState(gameClock.get()!, T0 + 20 * MIN)).toEqual({
+            phase: "seeking",
+            hidingTime: 8 * MIN,
+            since: T0 + 12 * MIN,
+            paused: false,
+            late: false,
+        });
+
+        // Once over, it stays over
+        endHidingPeriod(SEEKING + 5 * MIN);
+        expect(gameClock.get()!.hidingEndedAt).toBe(T0 + 12 * MIN);
+
+        undoEndHidingPeriod();
+        expect(gameClockState(gameClock.get()!, T0 + 20 * MIN).phase).toBe(
+            "hiding",
+        );
     });
 
     it("leaves out the time it was paused", () => {
