@@ -1038,6 +1038,30 @@ export const messages = {
         en: "Added by you · {time}",
         de: "Von dir eingetragen · {time}",
     },
+    "hider.paste": {
+        en: "Paste question link",
+        de: "Frage-Link einfügen",
+    },
+    "hider.pasteHelp": {
+        en: "Press and hold the link in the chat, copy it, and paste it here.",
+        de: "Drück im Chat lange auf den Link, kopiere ihn und füge ihn hier ein.",
+    },
+    "hider.pastePlaceholder": {
+        en: "Question link",
+        de: "Frage-Link",
+    },
+    "hider.pasteNoLink": {
+        en: "That's not a question link.",
+        de: "Das ist kein Frage-Link.",
+    },
+    "hider.inBrowserTitle": {
+        en: "Is the app on your home screen?",
+        de: "Ist die App auf deinem Home-Bildschirm?",
+    },
+    "hider.inBrowser": {
+        en: "On the iPhone, links open in Safari, and Safari keeps its own copy of the app: without your zone, the timer and your earlier answers. Answer in the app instead: press and hold the link in the chat, copy it, open the app and tap “{paste}” on the hider screen.",
+        de: "Auf dem iPhone öffnen sich Links in Safari, und Safari hat eine eigene Kopie der App: ohne deine Zone, die Uhr und deine früheren Antworten. Antworte lieber in der App: Drück im Chat lange auf den Link, kopiere ihn, öffne die App und tippe auf dem Hider-Bildschirm auf „{paste}“.",
+    },
     "hider.add": {
         en: "Add a question by hand",
         de: "Frage von Hand eintragen",

@@ -69,6 +69,7 @@ const BUTTONS = [
     "resume",
     "found",
     "tellHider",
+    "pasteLink",
 ];
 
 const PUBLIC = new URL("../public/", import.meta.url).pathname;

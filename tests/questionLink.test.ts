@@ -3,6 +3,7 @@ import { describe, expect, test } from "vitest";
 import {
     photoLink,
     QUESTION_URL_PARAM,
+    questionInText,
     questionLink,
     readQuestionLink,
 } from "@/lib/questionLink";
@@ -125,5 +126,22 @@ describe("question links for the hider", () => {
 
     test("reject broken links", async () => {
         await expect(readQuestionLink("not-a-question")).rejects.toThrow();
+    });
+
+    test("are found in a message pasted from the chat", async () => {
+        const link = await photoLink(
+            { key: 0.9, photo: "tree", askedAt: 1_700_000_000_000 },
+            APP_URL,
+        );
+
+        expect(questionInText(link)).toBe(linkValue(link));
+        expect(questionInText(`  ${link}\n`)).toBe(linkValue(link));
+        expect(
+            questionInText(`Radar 2 km: see https://example.com/ and ${link}`),
+        ).toBe(linkValue(link));
+        expect(
+            questionInText("https://danumi.github.io/JetLagHideAndSeek/"),
+        ).toBeNull();
+        expect(questionInText("Radar 2 km")).toBeNull();
     });
 });
