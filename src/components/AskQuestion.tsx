@@ -48,6 +48,14 @@ import {
     THERMOMETER_DISTANCES,
 } from "@/maps/deck";
 import { photoTitle } from "@/maps/hiderLog";
+import {
+    type Asked,
+    askedCards,
+    deckCardId,
+    photoCardId,
+    radarCardId,
+    thermometerCardId,
+} from "@/maps/repeats";
 
 import { SendLinkButton } from "./cards/answer";
 import { QUESTION_ICONS } from "./questionIcons";
@@ -95,12 +103,11 @@ const formatDistance = (kilometers: number) =>
         ? `${Math.round(kilometers * 1000)} m`
         : `${formatNumber(kilometers, 2, 2)} km`;
 
-/** Reminder of questions without an answer; opens the first one. */
-export const WaitingForAnswer = () => {
-    useLanguage();
+/** Questions and photos still waiting for the hider's answer. */
+const usePending = () => {
     const $questions = useStore(questions);
     const $photoQuestions = useStore(photoQuestions);
-    const pending = [
+    return [
         ...$questions.filter(isPending).map((question) => ({
             key: question.key,
             title: questionTitle(question),
@@ -112,6 +119,36 @@ export const WaitingForAnswer = () => {
                 title: photoTitle(photo.photo),
             })),
     ];
+};
+
+/** "Already asked at 14:32: again costs double", under a card. */
+const askedNote = (asked: Asked | undefined) => {
+    if (!asked) return undefined;
+    const time = asked.last ? clockTime(asked.last) : "?";
+    return asked.count === 1
+        ? t("ask.asked", { time })
+        : t("ask.askedMany", {
+              count: asked.count,
+              time,
+              times: asked.count + 1,
+          });
+};
+
+/** "asked 14:32 · ×2", on the small radar and thermometer buttons. */
+const AskedShort = ({ asked }: { asked: Asked | undefined }) =>
+    asked ? (
+        <span className="text-xs font-normal text-sky-400">
+            {t("ask.askedShort", {
+                time: asked.last ? clockTime(asked.last) : "?",
+                times: asked.count + 1,
+            })}
+        </span>
+    ) : null;
+
+/** Reminder of questions without an answer; opens the first one. */
+export const WaitingForAnswer = () => {
+    useLanguage();
+    const pending = usePending();
 
     if (pending.length === 0) return null;
 
@@ -133,7 +170,13 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
     const $isLoading = useStore(isLoading);
     const $thermometerRun = useStore(thermometerRun);
     const $displayHidingZones = useStore(displayHidingZones);
+    const $questions = useStore(questions);
+    const $photoQuestions = useStore(photoQuestions);
+    const pending = usePending();
+    const asked = askedCards($questions, $photoQuestions);
     const [open, setOpen] = useState(false);
+    /** Asking while an answer is missing, after the seekers confirmed it. */
+    const [askAnyway, setAskAnyway] = useState(false);
     const [kind, setKind] = useState<Kind | null>(null);
     const [busy, setBusy] = useState(false);
     const [otherKilometers, setOtherKilometers] = useState("");
@@ -223,6 +266,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
 
     const cardButton = (id: "matching" | "measuring", card: DeckCard) => {
         const needsZones = card.needsHidingZones && !$displayHidingZones;
+        const repeat = askedNote(asked.get(deckCardId(id, card)));
         const note = card.noAnswer
             ? t("ask.noAnswer", { reason: tr(card.noAnswer) })
             : needsZones
@@ -250,6 +294,11 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                         {note}
                     </div>
                 )}
+                {repeat && (
+                    <div className="text-xs font-medium text-sky-400">
+                        {repeat}
+                    </div>
+                )}
             </button>
         );
     };
@@ -257,6 +306,44 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
     let content;
     switch (kind) {
         case null:
+            // One question at a time, by the rules: ask before a second one
+            if (pending.length > 0 && !askAnyway) {
+                content = (
+                    <div className="flex flex-col gap-3">
+                        <div className="rounded-lg border-2 border-orange-500 bg-orange-500/10 p-3">
+                            <div className="font-semibold">
+                                {pending.length === 1
+                                    ? t("ask.pending.one", {
+                                          title: pending[0].title,
+                                      })
+                                    : t("ask.pending.many", {
+                                          count: pending.length,
+                                      })}
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                                {t("ask.pending.rule")}
+                            </p>
+                        </div>
+                        <Button
+                            className="h-12 bg-orange-500 text-base font-semibold text-white hover:bg-orange-600"
+                            onClick={() => {
+                                setOpen(false);
+                                showQuestion(pending[0].key);
+                            }}
+                        >
+                            {t("ask.pending.enter")}
+                        </Button>
+                        <Button
+                            variant="outline"
+                            className="h-12 text-base"
+                            onClick={() => setAskAnyway(true)}
+                        >
+                            {t("ask.pending.anyway")}
+                        </Button>
+                    </div>
+                );
+                break;
+            }
             content = (
                 <div className="grid grid-cols-2 gap-3">
                     {(Object.keys(KINDS) as Kind[]).map((k) => {
@@ -309,13 +396,16 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                             <Button
                                 key={distance.label}
                                 variant="outline"
-                                className="h-14 text-lg"
+                                className="h-14 flex-col gap-0 text-lg"
                                 disabled={busy}
                                 onClick={() =>
                                     askRadar(distance.radius, distance.unit)
                                 }
                             >
                                 {distance.label}
+                                <AskedShort
+                                    asked={asked.get(radarCardId(distance))}
+                                />
                             </Button>
                         ))}
                     </div>
@@ -373,6 +463,11 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                             <div className="text-xs text-muted-foreground">
                                 {tr(card.hint)}
                             </div>
+                            {asked.has(photoCardId(card.id)) && (
+                                <div className="text-xs font-medium text-sky-400">
+                                    {askedNote(asked.get(photoCardId(card.id)))}
+                                </div>
+                            )}
                         </button>
                     ))}
                 </div>
@@ -389,7 +484,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                             <Button
                                 key={distance.label}
                                 variant="outline"
-                                className="h-16 text-lg"
+                                className="h-16 flex-col gap-0 text-lg"
                                 disabled={busy}
                                 onClick={() =>
                                     startThermometer(distance.kilometers)
@@ -398,6 +493,11 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                                 {t("ask.thermometer.start", {
                                     distance: distance.label,
                                 })}
+                                <AskedShort
+                                    asked={asked.get(
+                                        thermometerCardId(distance.kilometers),
+                                    )}
+                                />
                             </Button>
                         ))}
                     </div>
@@ -411,7 +511,10 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
             open={open}
             onOpenChange={(value) => {
                 setOpen(value);
-                if (value) setKind(null);
+                if (value) {
+                    setKind(null);
+                    setAskAnyway(false);
+                }
             }}
         >
             <DrawerTrigger asChild>

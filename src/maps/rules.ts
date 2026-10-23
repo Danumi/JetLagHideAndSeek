@@ -733,8 +733,8 @@ export const RULE_SECTIONS: RuleSection[] = [
                 en: "**What counts as a place:** the rule book goes by the icons in Google Maps. For us, what's in OpenStreetMap and has a name counts, as the app shows it, so hider and seekers look at the same map. Distances go to the place's point, not to its edge.",
             },
             {
-                de: "**In der App:** {ask} → Karte wählen. Die Frage nimmt deinen Standort und zeigt das Nächste, etwa das nächste Museum. Mit {sendToHider} geht sie als Link in den Chat, ab dann läuft die Uhr des Hiders. Kommt die Antwort, tippst du sie auf der Frage ein; erst dann ändert sich die Karte.",
-                en: "**In the app:** {ask} → pick a card. The question takes your location and shows what's nearest, like the nearest museum. {sendToHider} sends it to the chat as a link, and the hider's clock starts. When the answer comes, enter it on the question; only then does the map change.",
+                de: "**In der App:** {ask} → Karte wählen. Die Frage nimmt deinen Standort und zeigt das Nächste, etwa das nächste Museum. Mit {sendToHider} geht sie als Link in den Chat, ab dann läuft die Uhr des Hiders. Kommt die Antwort, tippst du sie auf der Frage ein; erst dann ändert sich die Karte. Fehlt noch eine Antwort, fragt die App vor der nächsten Frage nach, und schon gestellte Karten zeigen, wann ihr sie gefragt habt.",
+                en: "**In the app:** {ask} → pick a card. The question takes your location and shows what's nearest, like the nearest museum. {sendToHider} sends it to the chat as a link, and the hider's clock starts. When the answer comes, enter it on the question; only then does the map change. If an answer is still missing, the app checks before the next question, and cards you've asked show when.",
             },
         ],
     },

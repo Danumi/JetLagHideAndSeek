@@ -128,6 +128,32 @@ export const messages = {
         en: "The question starts at your GPS location.",
         de: "Die Frage wird an deinem GPS-Standort gestellt.",
     },
+    "ask.pending.one": {
+        en: "Still waiting for the answer to {title}.",
+        de: "Die Antwort auf {title} fehlt noch.",
+    },
+    "ask.pending.many": {
+        en: "{count} questions are still waiting for an answer.",
+        de: "{count} Fragen warten noch auf eine Antwort.",
+    },
+    "ask.pending.rule": {
+        en: "By the rules, the next question comes after the answer. If the hider already answered in the chat, enter the answer first.",
+        de: "Laut Regeln kommt die nächste Frage erst nach der Antwort. Hat der Hider schon im Chat geantwortet, trag die Antwort zuerst ein.",
+    },
+    "ask.pending.enter": { en: "Enter answer", de: "Antwort eintragen" },
+    "ask.pending.anyway": { en: "Ask anyway", de: "Trotzdem fragen" },
+    "ask.asked": {
+        en: "Already asked at {time}: again costs double",
+        de: "Schon gefragt um {time}: nochmal kostet doppelt",
+    },
+    "ask.askedMany": {
+        en: "Already asked {count} times, last at {time}: again costs {times} times as much",
+        de: "Schon {count}-mal gefragt, zuletzt um {time}: nochmal kostet {times}-fach",
+    },
+    "ask.askedShort": {
+        en: "asked {time} · ×{times}",
+        de: "gefragt {time} · ×{times}",
+    },
     "ask.noAnswer": {
         en: "No answer in Vienna. {reason}",
         de: "Keine Antwort in Wien. {reason}",
