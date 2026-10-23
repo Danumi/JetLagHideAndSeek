@@ -1,6 +1,7 @@
 import { useStore } from "@nanostores/react";
 import { PauseIcon, PlayIcon, TimerIcon } from "lucide-react";
 
+import { hiderInbox } from "@/lib/context";
 import { t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { clockTime } from "@/maps/deadline";
@@ -11,10 +12,12 @@ import {
     gameClockState,
     HIDING_PERIOD_MINUTES,
     notFoundYet,
+    pauseForLateAnswers,
     pauseGameClock,
     resumeGameClock,
     startGameClock,
 } from "@/maps/gameClock";
+import { lateIntervals } from "@/maps/hiderLog";
 
 import { useNow } from "./AnswerClock";
 import { Button } from "./ui/button";
@@ -26,11 +29,23 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
  * clock on the map that opens the same card.
  */
 
+/**
+ * When late answers stopped the hiding time: on the hider's phone, which
+ * knows when the answers went out.
+ */
+const useLateAnswers = (now: number) => {
+    const $inbox = useStore(hiderInbox);
+    const $pauseForLateAnswers = useStore(pauseForLateAnswers);
+    return $pauseForLateAnswers ? lateIntervals($inbox, now) : [];
+};
+
 /** Start, pause and stop the game timer, with what it shows. */
 export const GameClockCard = ({ className }: { className?: string }) => {
     useLanguage();
     const $clock = useStore(gameClock);
+    const $pauseForLateAnswers = useStore(pauseForLateAnswers);
     const now = useNow();
+    const late = useLateAnswers(now);
 
     if (!$clock) {
         return (
@@ -60,7 +75,7 @@ export const GameClockCard = ({ className }: { className?: string }) => {
         );
     }
 
-    const state = gameClockState($clock, now);
+    const state = gameClockState($clock, now, late);
     const reset = (
         <Button
             variant="ghost"
@@ -111,14 +126,17 @@ export const GameClockCard = ({ className }: { className?: string }) => {
                         <span
                             className={cn(
                                 "text-3xl font-semibold tabular-nums",
-                                state.paused && "text-muted-foreground",
+                                (state.paused || state.late) &&
+                                    "text-muted-foreground",
                             )}
                         >
                             {formatDuration(state.hidingTime)}
                         </span>
-                        {state.paused && (
+                        {(state.paused || state.late) && (
                             <span className="text-sm font-semibold text-orange-400">
-                                {t("gameClock.paused")}
+                                {state.paused
+                                    ? t("gameClock.paused")
+                                    : t("gameClock.late")}
                             </span>
                         )}
                     </div>
@@ -148,7 +166,9 @@ export const GameClockCard = ({ className }: { className?: string }) => {
                         </Button>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                        {t("gameClock.pauseHint")}
+                        {$pauseForLateAnswers
+                            ? t("gameClock.pauseHintMove")
+                            : t("gameClock.pauseHint")}
                     </p>
                 </>
             )}
@@ -182,7 +202,8 @@ export const GameClockChip = () => {
     useLanguage();
     const $clock = useStore(gameClock);
     const now = useNow();
-    const state = $clock && gameClockState($clock, now);
+    const late = useLateAnswers(now);
+    const state = $clock && gameClockState($clock, now, late);
 
     return (
         <Popover>
@@ -195,7 +216,8 @@ export const GameClockChip = () => {
                         </>
                     ) : (
                         <>
-                            {state.phase === "seeking" && state.paused ? (
+                            {state.phase === "seeking" &&
+                            (state.paused || state.late) ? (
                                 <PauseIcon className="size-4 shrink-0 text-orange-400" />
                             ) : (
                                 <TimerIcon

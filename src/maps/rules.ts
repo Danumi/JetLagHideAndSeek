@@ -707,12 +707,12 @@ export const RULE_SECTIONS: RuleSection[] = [
                         en: "They may use the internet to answer, but not Google Street View or anything like it.",
                     },
                     {
-                        de: "Nach jeder Antwort zieht der Hider Karten vom Hider-Deck, wie viele, steht bei jeder Kategorie.",
-                        en: "After each answer, the hider draws cards from the hider deck; how many is given for each category.",
+                        de: "Nach jeder Antwort zieht der Hider Karten vom Hider-Deck, wie viele, steht bei jeder Kategorie. Der Hider-Bildschirm sagt es nach dem Antworten.",
+                        en: "After each answer, the hider draws cards from the hider deck; how many is given for each category. The hider screen says so after answering.",
                     },
                     {
-                        de: "Antwortet er zu spät, bleibt seine Versteckzeit stehen, bis er antwortet, und er bekommt für diese Frage keine Karten. Er muss sich aber ernsthaft bemühen, rechtzeitig zu antworten. In der App tippt er dafür {pause} auf der Spielzeit-Uhr und danach {resume}.",
-                        en: "If they answer late, their hiding time stops until they answer, and they get no cards for that question. They must make a real effort to answer in time, though. In the app, they tap {pause} on the game timer, then {resume}.",
+                        de: "Antwortet er zu spät, bleibt seine Versteckzeit stehen, bis er antwortet, und er bekommt für diese Frage keine Karten. Er muss sich aber ernsthaft bemühen, rechtzeitig zu antworten. In der App hält die Spielzeit-Uhr des Hiders dafür von selbst an, von der Frist bis zum Senden der Antwort. Wer das in den Einstellungen unter „Erweitert“ abschaltet, tippt {pause} und danach {resume}.",
+                        en: "If they answer late, their hiding time stops until they answer, and they get no cards for that question. They must make a real effort to answer in time, though. In the app, the hider's game timer stops by itself, from when the answer was due until it's sent. If you turn that off in the settings under “Advanced”, tap {pause}, then {resume}.",
                     },
                     {
                         de: "Jede Frage gibt es nur einmal. Ein zweites Mal geht nur zum doppelten Preis: Der Hider zieht dann zweimal, also etwa zweimal 3 Karten und behält je 1, nicht 6 und behält 2. Beim dritten Mal dreimal, und so weiter.",
