@@ -23,6 +23,14 @@ jobs:
         steps:
             - name: Checkout your repository using git
               uses: actions/checkout@v4
+            # The map data package (update-map-data.yml), served under map-data/
+            - name: Add the map data package
+              run: |
+                  if git ls-remote --exit-code --heads origin map-data; then
+                      git fetch --depth 1 origin map-data
+                      mkdir -p public/map-data
+                      git archive FETCH_HEAD | tar -x -C public/map-data
+                  fi
             - name: Install, build, and upload your site
               uses: withastro/action@v3
               with:

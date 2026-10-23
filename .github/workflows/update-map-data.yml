@@ -1,0 +1,88 @@
+name: Update map data
+
+# Builds the map data package once a week (scripts/map-data.mjs): the answers
+# to the game's Overpass queries for Vienna, so phones don't need an Overpass
+# server for them. The package is kept on the branch map-data and published
+# with the app (deploy.yml). The own Overpass access comes from the
+# repository secret OVERPASS_URL; without it, public servers are asked.
+
+on:
+    schedule:
+        # Mondays at 03:17 UTC
+        - cron: "17 3 * * 1"
+    workflow_dispatch:
+    pull_request:
+        paths:
+            - scripts/map-data.mjs
+            - .github/workflows/update-map-data.yml
+
+permissions:
+    contents: write
+    actions: write
+
+concurrency:
+    group: map-data
+    cancel-in-progress: false
+
+jobs:
+    update:
+        runs-on: ubuntu-latest
+        timeout-minutes: 180
+        steps:
+            - uses: actions/checkout@v4
+            - uses: pnpm/action-setup@v4
+              with:
+                  version: 10
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: pnpm
+            - run: pnpm install --frozen-lockfile
+            - run: pnpm build
+            - name: Get the previous package
+              run: |
+                  if git ls-remote --exit-code --heads origin map-data; then
+                      git fetch --depth 1 origin map-data
+                      mkdir -p previous
+                      git archive FETCH_HEAD | tar -x -C previous
+                  fi
+            - name: Build the package
+              id: package
+              env:
+                  OVERPASS_URL: ${{ secrets.OVERPASS_URL }}
+              run: |
+                  set +e
+                  node scripts/map-data.mjs --dist dist --previous previous --out map-data --browser "$(command -v google-chrome)"
+                  code=$?
+                  echo "code=$code" >> "$GITHUB_OUTPUT"
+                  # 2: unfinished, but filled up from the previous package
+                  [ "$code" -eq 0 ] || [ "$code" -eq 2 ]
+            - name: Keep the package on the branch map-data
+              if: github.ref == 'refs/heads/master'
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  cd map-data
+                  git init -q -b map-data
+                  git add -A
+                  git -c user.name="github-actions[bot]" \
+                      -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+                      commit -q -m "Map data of $(date -u +%F)"
+                  git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" map-data
+            - name: Publish the app with the new package
+              if: github.ref == 'refs/heads/master'
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: gh workflow run deploy.yml --ref master --repo "${{ github.repository }}"
+            - name: Keep the package for a look (pull requests)
+              if: github.event_name == 'pull_request'
+              uses: actions/upload-artifact@v4
+              with:
+                  name: map-data
+                  path: map-data
+                  retention-days: 7
+            - name: Report an unfinished package
+              if: steps.package.outputs.code != '0'
+              run: |
+                  echo "Not every query was answered; missing answers come from the previous package."
+                  exit 1

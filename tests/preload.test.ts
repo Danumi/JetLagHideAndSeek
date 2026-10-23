@@ -9,6 +9,7 @@ import { preloadGameData, preloadProgress } from "@/maps/preload";
 vi.mock("@/maps/api", async (importOriginal) => ({
     ...(await importOriginal<typeof import("@/maps/api")>()),
     clearCache: vi.fn(async () => {}),
+    findAdminAreas: vi.fn(async () => []),
     findPlacesOfKind: vi.fn(async () => ({})),
     findHighSpeedLines: vi.fn(async () => ({})),
     findLandmassIslands: vi.fn(async () => ({})),
