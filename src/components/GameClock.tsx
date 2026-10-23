@@ -12,6 +12,7 @@ import {
     gameClockState,
     HIDING_PERIOD_MINUTES,
     notFoundYet,
+    pastRounds,
     pauseForLateAnswers,
     pauseGameClock,
     resumeGameClock,
@@ -37,6 +38,53 @@ const useLateAnswers = (now: number) => {
     const $inbox = useStore(hiderInbox);
     const $pauseForLateAnswers = useStore(pauseForLateAnswers);
     return $pauseForLateAnswers ? lateIntervals($inbox, now) : [];
+};
+
+/** The hiding times of the last rounds, newest first. */
+const PastRounds = () => {
+    const $pastRounds = useStore(pastRounds);
+    if ($pastRounds.length === 0) return null;
+
+    return (
+        <div className="flex flex-col gap-1 border-t pt-2">
+            <div className="flex items-center justify-between gap-2">
+                <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    {t("gameClock.rounds")}
+                </span>
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-7 text-muted-foreground"
+                    onClick={() => {
+                        if (window.confirm(t("gameClock.clearRoundsConfirm"))) {
+                            pastRounds.set([]);
+                        }
+                    }}
+                >
+                    {t("gameClock.clearRounds")}
+                </Button>
+            </div>
+            {[...$pastRounds].reverse().map((round) => (
+                <div
+                    key={round.number}
+                    className="flex items-baseline justify-between gap-2 text-sm"
+                >
+                    <span>
+                        {t("gameClock.round", { number: round.number })}
+                        <span className="text-muted-foreground">
+                            {" "}
+                            · {clockTime(round.endedAt)}
+                            {!round.found &&
+                                ` · ${t("gameClock.notMarkedFound")}`}
+                        </span>
+                    </span>
+                    <span className="font-semibold tabular-nums">
+                        {formatDuration(round.hidingTime)}
+                    </span>
+                </div>
+            ))}
+        </div>
+    );
 };
 
 /** Start, pause and stop the game timer, with what it shows. */
@@ -71,6 +119,7 @@ export const GameClockCard = ({ className }: { className?: string }) => {
                     <PlayIcon />
                     {t("gameClock.start")}
                 </Button>
+                <PastRounds />
             </div>
         );
     }
@@ -193,6 +242,7 @@ export const GameClockCard = ({ className }: { className?: string }) => {
                 </>
             )}
             {reset}
+            <PastRounds />
         </div>
     );
 };

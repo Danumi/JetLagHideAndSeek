@@ -1212,6 +1212,17 @@ export const messages = {
         en: "Moving: choose your new zone once you're there.",
         de: "Umzug: Wähl deine neue Zone, sobald du dort bist.",
     },
+    "gameClock.rounds": { en: "Earlier rounds", de: "Frühere Runden" },
+    "gameClock.round": { en: "Round {number}", de: "Runde {number}" },
+    "gameClock.notMarkedFound": {
+        en: "ended without “Found”",
+        de: "ohne „Gefunden“ beendet",
+    },
+    "gameClock.clearRounds": { en: "Clear", de: "Löschen" },
+    "gameClock.clearRoundsConfirm": {
+        en: "Clear the list of earlier rounds?",
+        de: "Liste der früheren Runden löschen?",
+    },
     "gameClock.found": { en: "Found", de: "Gefunden" },
     "gameClock.foundAfter": {
         en: "Found after {time}",

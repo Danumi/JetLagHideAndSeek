@@ -1,12 +1,14 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
 import {
+    endRound,
     formatDuration,
     foundHider,
     gameClock,
     gameClockState,
     HIDING_PERIOD_MINUTES,
     notFoundYet,
+    pastRounds,
     pauseGameClock,
     resumeGameClock,
     startGameClock,
@@ -98,6 +100,42 @@ describe("the game timer", () => {
         expect(
             gameClockState(gameClock.get()!, SEEKING + 30 * MIN, late),
         ).toMatchObject({ hidingTime: 10 * MIN, paused: true, late: false });
+    });
+
+    it("keeps the hiding time of past rounds", () => {
+        pastRounds.set([]);
+        startGameClock(T0);
+        foundHider(SEEKING + 50 * MIN);
+        endRound(SEEKING + 60 * MIN);
+        expect(gameClock.get()).toBeNull();
+
+        // Ended during the hiding period: no round to keep
+        startGameClock(T0 + 100 * MIN);
+        endRound(T0 + 110 * MIN);
+
+        // Not stopped with "Found", and a late answer
+        startGameClock(T0 + 200 * MIN);
+        endRound(T0 + 200 * MIN + 30 * MIN + 20 * MIN, [
+            {
+                from: T0 + 200 * MIN + 35 * MIN,
+                to: T0 + 200 * MIN + 40 * MIN,
+            },
+        ]);
+
+        expect(pastRounds.get()).toEqual([
+            {
+                number: 1,
+                endedAt: SEEKING + 50 * MIN,
+                hidingTime: 50 * MIN,
+                found: true,
+            },
+            {
+                number: 2,
+                endedAt: T0 + 250 * MIN,
+                hidingTime: 15 * MIN,
+                found: false,
+            },
+        ]);
     });
 
     it("writes hours, minutes and seconds", () => {
