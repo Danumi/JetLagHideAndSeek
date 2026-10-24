@@ -14,6 +14,7 @@ import {
     displayHidingZones,
     displayHidingZonesStyle,
     followMyPosition,
+    hideOtherZones,
     hiderMode,
     hiderScreenOpen,
     hiderZoneId,
@@ -24,7 +25,7 @@ import {
     selectedZoneId,
     trainStations,
 } from "@/lib/context";
-import type { StationCircle } from "@/maps/api";
+import type { StationCircle, StationPlace } from "@/maps/api";
 import { holedMask } from "@/maps/geo-utils";
 
 export const stationId = (station: StationCircle) =>
@@ -51,6 +52,70 @@ export const hiderChosenZone = computed(
  * (e.g. after choosing the wrong one), a bar says so.
  */
 export const choosingHiderZone = atom(false);
+
+/**
+ * The hider's zone kept clean on their map: no other zone's edge runs
+ * through it, and a tap in it picks only it. Their chosen zone, except
+ * while they choose another one (then the map is as for everyone).
+ */
+export const hiderOwnZone = computed(
+    [hiderChosenZone, choosingHiderZone],
+    (id, choosing) => (choosing ? "" : id),
+);
+
+/** "Hide other zones": the hider's map shows only their own zone. */
+export const hiderOnlyOwnZone = computed(
+    [hiderOwnZone, hideOtherZones],
+    (own, hide) => (hide ? own : ""),
+);
+
+/** A zone's circle as drawn on its own (the violet or the tapped zone). */
+export const zoneCircle = (
+    station: StationPlace,
+    radius: number,
+    units: turf.Units,
+) =>
+    turf.circle(turf.getCoord(station), radius, {
+        steps: 32,
+        units,
+    });
+
+/**
+ * The zones as drawn, cut back to the edge of the hider's own zone, so its
+ * inside stays clean. The cut runs along the own zone's (violet) edge.
+ * Points (the "Stations" view) stay as they are.
+ */
+export const clearOfZone = (
+    shapes: FeatureCollection | Feature,
+    own: Feature<Polygon>,
+): FeatureCollection => {
+    const features =
+        shapes.type === "FeatureCollection" ? shapes.features : [shapes];
+    const [west, south, east, north] = turf.bbox(own);
+    const clear = features.flatMap((feature) => {
+        const { geometry } = feature;
+        if (geometry?.type !== "Polygon" && geometry?.type !== "MultiPolygon")
+            return [feature];
+        // Far away: nothing to cut
+        const [w, s, e, n] = turf.bbox(feature);
+        if (w > east || e < west || s > north || n < south) return [feature];
+        try {
+            const outside = turf.difference(
+                turf.featureCollection([
+                    feature as Feature<Polygon | MultiPolygon>,
+                    own,
+                ]),
+            );
+            return outside
+                ? [{ ...outside, properties: feature.properties }]
+                : [];
+        } catch (error) {
+            console.log("Error cutting a zone at the hider's zone:", error);
+            return [feature];
+        }
+    });
+    return turf.featureCollection(clear);
+};
 
 /** "Change" on the hider screen: to the map, to tap another zone. */
 export const chooseHiderZoneOnMap = () => {
@@ -131,7 +196,8 @@ export const toggleZone = (id: string) => {
 
 /**
  * The hiding zones left at a point on the map, the one whose station is
- * nearest first.
+ * nearest first. In the hider's own zone only that one, and with "Hide
+ * other zones" no others.
  */
 export const zonesAt = (at: { lat: number; lng: number }) => {
     const radiusMeters = turf.convertLength(
@@ -139,6 +205,20 @@ export const zonesAt = (at: { lat: number; lng: number }) => {
         hidingRadiusUnits.get(),
         "meters",
     );
+    // In the hider's own zone only it, the others end at its edge (or
+    // aren't shown at all)
+    const own = allTrainStations
+        .get()
+        .find((x) => x.properties.id === hiderOwnZone.get());
+    if (own) {
+        const meters = turf.distance(
+            [at.lng, at.lat],
+            own.geometry.coordinates,
+            { units: "meters" },
+        );
+        if (meters <= radiusMeters) return [own.properties.id as string];
+        if (hiderOnlyOwnZone.get()) return [];
+    }
     return _.sortBy(
         zonesLeft(trainStations.get(), disabledStations.get())
             .map((station) => ({

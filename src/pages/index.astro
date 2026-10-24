@@ -5,7 +5,11 @@ import { SidebarProvider as SidebarProviderL } from "@/components/ui/sidebar-l";
 import { QuestionSidebar } from "@/components/QuestionSidebar";
 import { HidingZones } from "@/components/HidingZones";
 import { ZoneSheet } from "@/components/ZoneSheet";
-import { LocateButton, ZoneCounter } from "@/components/MapControls";
+import {
+    LocateButton,
+    OtherZonesButton,
+    ZoneCounter,
+} from "@/components/MapControls";
 import { MapLayersButton } from "@/components/MapLayers";
 import { BottomBar } from "@/components/BottomBar";
 import { OptionDrawers } from "@/components/OptionDrawers";
@@ -71,6 +75,7 @@ import { GameClockChip } from "@/components/GameClock";
                     >
                         <OptionDrawers client:load />
                         <LocateButton client:only />
+                        <OtherZonesButton client:only />
                         <MapLayersButton client:only />
                     </div>
                     <div

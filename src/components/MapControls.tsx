@@ -1,6 +1,8 @@
 import { useStore } from "@nanostores/react";
 import {
+    BlendIcon,
     ChevronRightIcon,
+    CircleIcon,
     LocateFixedIcon,
     LocateIcon,
     MapPinIcon,
@@ -14,6 +16,7 @@ import {
     disabledStations,
     displayHidingZones,
     followMyPosition,
+    hideOtherZones,
     hiderMode,
     hiderZoneId,
     keptZonesRuledOut,
@@ -35,6 +38,7 @@ import {
 } from "@/maps/hidingZoneCheck";
 import {
     canShowAllZones,
+    hiderOwnZone,
     nextTappedZone,
     showAllZones,
     stopChoosingHiderZone,
@@ -404,6 +408,49 @@ export const LocateButton = () => {
                 <LocateFixedIcon className="!size-5" />
             ) : (
                 <LocateIcon className="!size-5" />
+            )}
+        </Button>
+    );
+};
+
+/**
+ * On the hider's map with a chosen zone: hides the other zones (only their
+ * own zone, clean) or shows them again (what the seekers still consider).
+ */
+export const OtherZonesButton = () => {
+    useLanguage();
+    const $hiderOwnZone = useStore(hiderOwnZone);
+    const $displayHidingZones = useStore(displayHidingZones);
+    const $hideOtherZones = useStore(hideOtherZones);
+
+    if (!$hiderOwnZone || !$displayHidingZones) return null;
+
+    const toggle = () => {
+        hideOtherZones.set(!$hideOtherZones);
+        toast.info(
+            $hideOtherZones ? t("zones.othersShown") : t("zones.othersHidden"),
+            { autoClose: 3000, toastId: "other-zones" },
+        );
+    };
+
+    return (
+        <Button
+            size="icon"
+            variant="outline"
+            className={cn(
+                "h-11 w-11 rounded-full bg-background/95 text-foreground shadow-lg",
+                $hideOtherZones && "text-violet-500",
+            )}
+            title={
+                $hideOtherZones ? t("zones.showOthers") : t("zones.hideOthers")
+            }
+            aria-pressed={$hideOtherZones}
+            onClick={toggle}
+        >
+            {$hideOtherZones ? (
+                <CircleIcon className="!size-5" />
+            ) : (
+                <BlendIcon className="!size-5" />
             )}
         </Button>
     );

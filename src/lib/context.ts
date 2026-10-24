@@ -390,6 +390,11 @@ export const keptZonesRuledOut = persistentAtom<string[]>(
 );
 /** The hiding zone the hider chose for the endgame (its station's id), or "". */
 export const hiderZoneId = persistentAtom<string>("hiderZoneId", "");
+/** The hider's map shows only their own zone, not the others (per phone). */
+export const hideOtherZones = persistentAtom<boolean>("hideOtherZones", false, {
+    encode: JSON.stringify,
+    decode: JSON.parse,
+});
 
 /* Presets for custom questions (savable / sharable / editable) */
 export type CustomPreset = {
