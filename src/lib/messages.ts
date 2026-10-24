@@ -355,39 +355,41 @@ export const messages = {
         de: "Schalte die Zonen ein, um die Linie der Seeker zu wählen.",
     },
     "matching.line.loading": {
-        en: "Loading lines at {station} and where you are...",
-        de: "Lade die Linien bei {station} und dort, wo ihr seid …",
+        en: "Loading the U-Bahn lines...",
+        de: "Lade die U-Bahn-Linien …",
     },
     "matching.line.failed": {
-        en: "The lines at {station} and where you are didn't load.",
-        de: "Die Linien bei {station} und dort, wo ihr seid, haben nicht geladen.",
+        en: "The U-Bahn lines didn't load.",
+        de: "Die U-Bahn-Linien haben nicht geladen.",
     },
     "matching.line.none": {
-        en: "No lines found at {station} or where you are.",
-        de: "Weder bei {station} noch dort, wo ihr seid, wurden Linien gefunden.",
+        en: "No U-Bahn lines found in the game area.",
+        de: "Im Spielgebiet wurden keine U-Bahn-Linien gefunden.",
     },
-    "matching.line.select": { en: "Seekers' line", de: "Linie der Seeker" },
-    "matching.line.tram": { en: "Tram {ref}", de: "Straßenbahn {ref}" },
-    "matching.line.bus": { en: "Bus {ref}", de: "Bus {ref}" },
-    "matching.line.trolleybus": {
-        en: "Trolleybus {ref}",
-        de: "Oberleitungsbus {ref}",
+    "matching.line.select": {
+        en: "Seekers' U-Bahn line",
+        de: "U-Bahn-Linie der Seeker",
     },
-    "matching.line.any": {
-        en: "Line not chosen (safe eliminations only)",
-        de: "Keine Linie gewählt (nur sichere Ausschlüsse)",
+    "matching.line.choose": { en: "Choose the line", de: "Linie wählen" },
+    "matching.line.several": {
+        en: "{lines} stop at {station}: choose the one you're riding before you send the question.",
+        de: "Bei {station} halten {lines}: Wählt vor dem Senden die Linie, in der ihr sitzt.",
+    },
+    "matching.line.notAtStation": {
+        en: "No U-Bahn stops at {station}, your nearest station: choose the line you're riding before you send the question.",
+        de: "Bei {station}, eurer nächsten Station, hält keine U-Bahn: Wählt vor dem Senden die Linie, in der ihr sitzt.",
     },
     "matching.line.note": {
-        en: "The lines come from this app's map data, so the hider should answer with this app too.",
-        de: "Die Linien stammen aus den Kartendaten dieser App, deshalb sollte auch der Hider mit dieser App antworten.",
+        en: "Only the U-Bahn counts (house rule). Ask while riding it: the answer is yes if your line stops at the hider's station.",
+        de: "Es zählt nur die U-Bahn (Hausregel). Fragt, während ihr in der U-Bahn sitzt: Ja heißt, eure Linie hält an der Station des Hiders.",
     },
     "matching.letterZone.note": {
         en: "The borders are simplified by about 100 m so the phone can handle them.",
         de: "Die Grenzen sind um etwa 100 m vereinfacht, damit das Handy sie schafft.",
     },
     "matching.street.note": {
-        en: '"Same" keeps everything within 200 m of that street; "different" can\'t rule anything out reliably.',
-        de: "„Gleich“ behält alles im Umkreis von 200 m um diese Straße; „Verschieden“ kann nichts sicher ausschließen.",
+        en: '"Same" keeps only the strip along this street where it\'s the nearest one; "different" rules out exactly that strip.',
+        de: "„Gleich“ lässt nur den Streifen entlang dieser Straße übrig, in dem sie die nächste ist; „Verschieden“ streicht genau diesen Streifen.",
     },
     "matching.landmass.note": {
         en: "On a bridge or on the water, the nearer shore counts. Islands in lakes belong to the land around them.",
@@ -662,6 +664,10 @@ export const messages = {
     "reason.station": {
         en: "Your station is the one of your zone: {you}. The seekers' nearest station: {them}, {themDistance} away.",
         de: "Deine Station ist die deiner Zone: {you}. Nächste Station der Seeker: {them}, {themDistance} entfernt.",
+    },
+    "reason.line": {
+        en: "At your station {station}: {lines}. The seekers are riding the {line}.",
+        de: "An deiner Station {station}: {lines}. Die Seeker fahren mit der {line}.",
     },
 
     // Your role on this phone
@@ -1698,6 +1704,10 @@ export const messages = {
         en: "Finding tram lines...",
         de: "Suche Straßenbahnlinien …",
     },
+    "loading.streetArea": {
+        en: "Finding the streets around {name}...",
+        de: "Suche die Straßen rund um {name} …",
+    },
     "loading.street": {
         en: "Finding nearest street...",
         de: "Suche die nächste Straße …",
@@ -1800,17 +1810,9 @@ export const messages = {
         en: "Couldn't load elevation data",
         de: "Die Höhendaten ließen sich nicht laden",
     },
-    "question.lineCustomList": {
-        en: '"Same train line" doesn\'t work with a custom-only station list, so it is skipped.',
-        de: "„Öffi-Linie“ geht nicht mit einer reinen eigenen Stationsliste und wird übersprungen.",
-    },
     "question.lineNoData": {
-        en: 'The nearest station has no line data, so "Same train line" is skipped.',
-        de: "Die nächste Station hat keine Liniendaten, „Öffi-Linie“ wird übersprungen.",
-    },
-    "question.lineNotFound": {
-        en: "No train line found for {station}",
-        de: "Bei {station} wurde keine Linie gefunden",
+        en: 'No U-Bahn lines found, so "Transit Line" is skipped.',
+        de: "Keine U-Bahn-Linien gefunden, „Öffi-Linie“ wird übersprungen.",
     },
     "question.stationNoName": {
         en: "The seekers' station has no name",

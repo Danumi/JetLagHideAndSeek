@@ -25,11 +25,10 @@ import {
     findNearestStreet,
     findPlacesInZone,
     findPlacesOfKind,
-    findStreetLines,
+    findStreetsAround,
     MAX_PLACES_IN_ZONE,
     nearestToQuestion,
     prettifyLocation,
-    trainLineNodeFinder,
 } from "@/maps/api";
 import {
     extractStationName,
@@ -44,7 +43,24 @@ import type {
     HomeGameMatchingQuestions,
     MatchingQuestion,
 } from "@/maps/schema";
-import { chosenHiderStation, stationOsmIds } from "@/maps/stations";
+import { chosenHiderStation, findHidingZoneStations } from "@/maps/stations";
+import { streetArea } from "@/maps/streetArea";
+import {
+    findSubwayLines,
+    nearestStation,
+    stationsOnSeekersLine,
+} from "@/maps/subwayLines";
+
+/** Where a street is the nearest one, worked out once per street. */
+const findStreetArea = memoizeAsync(
+    async (street: { id: number; name: string | null }) =>
+        streetArea(street, await findStreetsAround(street)),
+    (street) =>
+        JSON.stringify([
+            street.name ?? street.id,
+            mapGeoJSON.get() && turf.bbox(mapGeoJSON.get()!),
+        ]),
+);
 
 export const findMatchingPlaces = async (question: MatchingQuestion) => {
     switch (question.type) {
@@ -219,29 +235,11 @@ export const determineMatchingBoundary = memoizeAsync(
                     toast.error(t("question.noStreet"));
                     return false;
                 }
-                if (!question.same) {
-                    // Only points right on the street are certainly nearer to
-                    // it than to any other street, so "different" can't
-                    // reliably rule anything out.
-                    return false;
-                }
-                const lines = street.name
-                    ? await findStreetLines(street.name)
-                    : [street.line];
-                if (lines.length === 0) lines.push(street.line);
-                // Anyone whose nearest street is this one is close to it.
-                // 200 m is generous: streets and paths are much denser.
-                boundary = turf.buffer(
-                    turf.combine(
-                        turf.featureCollection(
-                            lines.map((line) =>
-                                turf.simplify(line, { tolerance: 0.00005 }),
-                            ),
-                        ),
-                    ).features[0],
-                    200,
-                    { units: "meters" },
-                );
+                const area = await findStreetArea(street);
+                // "Same": only where this street can be the nearest one;
+                // "different": only where it certainly is
+                boundary = question.same ? area.possible : area.certain;
+                if (!boundary) return false;
                 break;
             }
             case "landmass": {
@@ -400,10 +398,30 @@ export const hiderifyMatching = async (
         return question;
     }
 
+    if (question.type === "same-train-line") {
+        // The station of the hider's chosen zone, else their nearest one
+        const stations = (await findHidingZoneStations()) ?? [];
+        const hiderStation =
+            (await chosenHiderStation()) ??
+            nearestStation(stations, {
+                lat: $hiderMode.latitude,
+                lng: $hiderMode.longitude,
+            });
+        const lines = await findSubwayLines(stations);
+        if (hiderStation && lines.length > 0) {
+            question.same = stationsOnSeekersLine(
+                lines,
+                stations,
+                question,
+                true,
+            ).has(hiderStation.properties.id as string);
+        }
+        return question;
+    }
+
     if (
         question.type === "same-first-letter-station" ||
-        question.type === "same-length-station" ||
-        question.type === "same-train-line"
+        question.type === "same-length-station"
     ) {
         const hiderPoint = turf.point([
             $hiderMode.longitude,
@@ -435,26 +453,6 @@ export const hiderifyMatching = async (
             seekerPoint,
             places,
         );
-
-        if (question.type === "same-train-line") {
-            const nodes = await trainLineNodeFinder(
-                nearestSeekerTrainStation.properties.id,
-                question.lineKey,
-                true,
-                question,
-            );
-
-            // A merged station is on the line if any of its OSM stations is
-            const hiderIds = (
-                chosenStation
-                    ? stationOsmIds(chosenStation)
-                    : [hiderStation.properties.id as string]
-            )
-                .filter((id) => id?.includes("/"))
-                .map((id) => parseInt(id.split("/")[1]));
-
-            question.same = hiderIds.some((id) => nodes.includes(id));
-        }
 
         const hiderStationName = extractStationName(hiderStation);
         const seekerStationName = extractStationName(nearestSeekerTrainStation);

@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { hiderZoneId } from "@/lib/context";
-import { trainLineNodeFinder } from "@/maps/api";
 import { hiderifyMatching } from "@/maps/questions/matching";
 import { type MatchingQuestion, questionSchema } from "@/maps/schema";
 
@@ -22,14 +21,32 @@ const STATIONS = [
 vi.mock("@/maps/api", async (importOriginal) => ({
     ...(await importOriginal<typeof import("@/maps/api")>()),
     findPlacesInZone: vi.fn(async () => ({ elements: STATIONS })),
-    trainLineNodeFinder: vi.fn(async () => []),
+    // U-Bahn lines with their stops, a few meters from the stations
+    findTransitLines: vi.fn(async () => [
+        subway("U1", [16.37205, 48.20845]),
+        subway("U2", [16.36305, 48.21515]),
+        subway("U3", [16.37155, 48.20805], [16.36515, 48.20935]),
+    ]),
 }));
 
+const subway = (ref: string, ...stops: [number, number][]) => ({
+    ref,
+    route: "subway",
+    lines: [],
+    stops,
+});
+
 // The seekers at Schottentor (11 characters)
-const question = (type: string) =>
+const question = (type: string, lineKey?: string) =>
     questionSchema.parse({
         id: "matching",
-        data: { lat: 48.2151127, lng: 16.363034, type, status: "pending" },
+        data: {
+            lat: 48.2151127,
+            lng: 16.363034,
+            type,
+            status: "pending",
+            lineKey,
+        },
     }).data as MatchingQuestion;
 
 // The hider at the Kohlmarkt: in the Stephansplatz zone, nearer to Herrengasse
@@ -60,21 +77,38 @@ describe("the hider's station", () => {
         expect(answered.same).toBe(true);
     });
 
-    it("is on a line that stops at any of its OSM stations", async () => {
+    it("is on the seekers' U-Bahn line if it stops there", async () => {
         hiderZoneId.set("node/3500528328");
-        // The line stops at the other Stephansplatz and at Herrengasse
-        vi.mocked(trainLineNodeFinder).mockResolvedValueOnce([4560869722]);
+        // The U3 stops at the other OSM station of Stephansplatz
         const onLine = await hiderifyMatching(
-            question("same-train-line"),
+            question("same-train-line", "subway:U3"),
             HIDER,
         );
         expect(onLine.same).toBe(true);
 
-        vi.mocked(trainLineNodeFinder).mockResolvedValueOnce([4348336039]);
         const notOnLine = await hiderifyMatching(
-            question("same-train-line"),
+            question("same-train-line", "subway:U2"),
             HIDER,
         );
         expect(notOnLine.same).toBe(false);
+    });
+
+    it("takes the only line at the seekers' station if none was chosen", async () => {
+        hiderZoneId.set("node/3500528328");
+        // Only the U2 stops at Schottentor
+        const answered = await hiderifyMatching(
+            question("same-train-line"),
+            HIDER,
+        );
+        expect(answered.same).toBe(false);
+    });
+
+    it("counts only the U-Bahn: an old bus line is like none chosen", async () => {
+        // The hider's nearest station Herrengasse is on the U3, not the U2
+        const answered = await hiderifyMatching(
+            question("same-train-line", "bus:13A"),
+            HIDER,
+        );
+        expect(answered.same).toBe(false);
     });
 });

@@ -36,7 +36,6 @@ import {
     OverpassError,
     QuestionSpecificLocation,
     type StationCircle,
-    trainLineNodeFinder,
 } from "@/maps/api";
 import {
     arcDistance,
@@ -52,8 +51,9 @@ import {
     previewZonesShown,
     withPreview,
 } from "@/maps/preview";
-import { findHidingZoneStations, stationOsmIds } from "@/maps/stations";
+import { findHidingZoneStations } from "@/maps/stations";
 import { steadyRenderer } from "@/maps/steadyRenderer";
+import { findSubwayLines, stationsOnSeekersLine } from "@/maps/subwayLines";
 import {
     clearOfZone,
     hiderChosenZone,
@@ -301,58 +301,29 @@ export const HidingZones = () => {
                     );
 
                     if (question.data.type === "same-train-line") {
-                        // Custom-only lists don't have reliable OSM IDs
-                        if (useCustomStations && !includeDefaultStations) {
-                            toast.warning(t("question.lineCustomList"));
-                        } else {
-                            const nid = nearestTrainStation.properties.id as
-                                | string
-                                | undefined;
-                            if (!nid || !nid.includes("/")) {
-                                toast.warning(t("question.lineNoData"));
-                                continue;
-                            }
+                        const lines = await findSubwayLines(places).catch(
+                            () => null,
+                        );
+                        // Lines didn't load; the player was offered a retry
+                        if (lines === null) continue;
 
-                            const nodes = await trainLineNodeFinder(
-                                nid,
-                                question.data.lineKey,
-                                question.data.same,
-                                question.data,
-                            ).catch(() => null);
-
-                            // Lines didn't load; the player was offered a retry
-                            if (nodes === null) continue;
-
-                            if (nodes.length === 0) {
-                                toast.warning(
-                                    t("question.lineNotFound", {
-                                        station:
-                                            extractStationName(
-                                                nearestTrainStation,
-                                            ),
-                                    }),
-                                );
-                                continue;
-                            } else {
-                                circles = circles.filter((circle) => {
-                                    // A merged station is on the line if
-                                    // any of its OSM stations is
-                                    const ids = stationOsmIds(circle.properties)
-                                        .filter((id) => id?.includes("/"))
-                                        .map((id) =>
-                                            parseInt(id.split("/")[1]),
-                                        );
-                                    if (ids.length === 0) return false;
-                                    const onLine = ids.some((id) =>
-                                        nodes.includes(id),
-                                    );
-
-                                    return question.data.same
-                                        ? onLine
-                                        : !onLine;
-                                });
-                            }
+                        if (lines.length === 0) {
+                            toast.warning(t("question.lineNoData"), {
+                                toastId: "no-subway-lines",
+                            });
+                            continue;
                         }
+                        const onLine = stationsOnSeekersLine(
+                            lines,
+                            places,
+                            question.data,
+                            question.data.same,
+                        );
+                        circles = circles.filter((circle) =>
+                            question.data.same
+                                ? onLine.has(stationId(circle))
+                                : !onLine.has(stationId(circle)),
+                        );
                     }
 
                     const stationName = extractStationName(nearestTrainStation);

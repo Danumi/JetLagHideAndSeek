@@ -14,7 +14,12 @@ import {
     nearestWhere,
 } from "@/maps/nearest";
 import { type Question, type TentacleQuestion } from "@/maps/schema";
-import { chosenHiderStation } from "@/maps/stations";
+import { chosenHiderStation, findHidingZoneStations } from "@/maps/stations";
+import {
+    findSubwayLines,
+    nearestStation,
+    seekersLine,
+} from "@/maps/subwayLines";
 
 /** Questions about the hider's station, the one of their chosen zone. */
 export const STATION_TYPES = [
@@ -118,11 +123,42 @@ export const explainAnswer = async (
     }
 };
 
+/** "At your station Karlsplatz: U1, U2, U4. The seekers are riding the U3." */
+const explainLine = async (
+    question: { lat: number; lng: number; lineKey?: string },
+    you: { lat: number; lng: number },
+) => {
+    const stations = (await findHidingZoneStations()) ?? [];
+    const station =
+        (await chosenHiderStation()) ?? nearestStation(stations, you);
+    const lines = await findSubwayLines(stations);
+    const { chosen } = seekersLine(lines, stations, question);
+    if (!station || !chosen) return undefined;
+    const yours = lines
+        .filter((line) =>
+            line.stationIds.includes(station.properties.id as string),
+        )
+        .map((line) => line.label);
+    return t("reason.line", {
+        station: extractStationName(station) ?? "",
+        lines: yours.length > 0 ? yours.join(", ") : "–",
+        line: chosen.label,
+    });
+};
+
 /** What's nearest to the hider and to the seekers, worked out like on their map. */
 const explainNearest = async (
     question: Question,
     you: { lat: number; lng: number },
 ) => {
+    if (
+        question.id === "matching" &&
+        question.data.type === "same-train-line"
+    ) {
+        const reason = await explainLine(question.data, you);
+        if (reason) return reason;
+    }
+
     // Station questions are about the station of the hider's chosen zone
     if (
         question.id === "matching" &&

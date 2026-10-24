@@ -1,10 +1,10 @@
 import { useStore } from "@nanostores/react";
-import * as turf from "@turf/turf";
 import * as React from "react";
 import { toast } from "react-toastify";
 
 import CustomInitDialog from "@/components/CustomInitDialog";
 import PresetsDialog from "@/components/PresetsDialog";
+import { useWatching } from "@/components/SeekerMap";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select } from "@/components/ui/select";
 import {
@@ -22,7 +22,6 @@ import {
 } from "@/lib/context";
 import { labelOf, t, tr, useLanguage } from "@/lib/i18n";
 import { retryTrigger } from "@/lib/loading";
-import { findSeekerLines, type StationLine } from "@/maps/api";
 import {
     type AdminLevel,
     adminLevelOptions,
@@ -39,97 +38,100 @@ import {
     matchingQuestionSchema,
     NO_GROUP,
 } from "@/maps/schema";
+import {
+    findSubwayLines,
+    seekersLine,
+    type SubwayLine,
+} from "@/maps/subwayLines";
 
 import { CardNote, QuestionCard } from "./base";
 
-const LINE_KINDS = {
-    tram: "matching.line.tram",
-    bus: "matching.line.bus",
-    trolleybus: "matching.line.trolleybus",
-} as const;
-
-/** "U4", "S45", "Tram D", "Bus 13A". */
-const lineName = (line: StationLine) => {
-    const kind = LINE_KINDS[line.route as keyof typeof LINE_KINDS];
-    return kind ? t(kind, { ref: line.label }) : line.label;
-};
-
-/** Lets the seekers pick the one line they are riding (rules: "Transit Line"). */
+/** Lets the seekers pick the U-Bahn line they are riding (rules: "Transit Line"). */
 const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
-    useLanguage();
     const $allStations = useStore(allTrainStations);
     const $retryTrigger = useStore(retryTrigger);
-    const [lines, setLines] = React.useState<StationLine[] | "failed" | null>(
+    const watching = useWatching();
+    const [lines, setLines] = React.useState<SubwayLine[] | "failed" | null>(
         null,
     );
-
-    const nearest = React.useMemo(() => {
-        if ($allStations.length === 0) return null;
-        return turf.nearestPoint(
-            turf.point([data.lng, data.lat]),
-            turf.featureCollection($allStations) as any,
-        );
-    }, [$allStations, data.lat, data.lng]);
-    const stationId: string | undefined = nearest?.properties?.id;
-    const station: string = (nearest && extractStationName(nearest)) ?? "";
 
     React.useEffect(() => {
         let cancelled = false;
         setLines(null);
-        if (!stationId || !stationId.includes("/")) return;
-        findSeekerLines(stationId, data)
+        if ($allStations.length === 0) return;
+        findSubwayLines($allStations)
             .then((result) => !cancelled && setLines(result))
             .catch(() => !cancelled && setLines("failed"));
         return () => {
             cancelled = true;
         };
-    }, [stationId, data.lat, data.lng, $retryTrigger]);
+    }, [$allStations, $retryTrigger]);
 
-    if (!stationId) {
+    const found = Array.isArray(lines)
+        ? seekersLine(lines, $allStations, data)
+        : null;
+    // The only line at their station counts as chosen. Saved, so the hider
+    // and the list of questions name it too.
+    const onlyLine =
+        Array.isArray(lines) && !lines.some((line) => line.key === data.lineKey)
+            ? found?.chosen?.key
+            : undefined;
+    React.useEffect(() => {
+        if (onlyLine && data.drag && !watching) {
+            questionModified((data.lineKey = onlyLine));
+        }
+    }, [onlyLine, data.drag, watching]);
+
+    if ($allStations.length === 0) {
         return <CardNote warning>{t("matching.line.noZones")}</CardNote>;
     }
     if (lines === null) {
-        return <CardNote>{t("matching.line.loading", { station })}</CardNote>;
+        return <CardNote>{t("matching.line.loading")}</CardNote>;
     }
     if (lines === "failed") {
-        return (
-            <CardNote warning>
-                {t("matching.line.failed", { station })}
-            </CardNote>
-        );
+        return <CardNote warning>{t("matching.line.failed")}</CardNote>;
     }
     if (lines.length === 0) {
-        return (
-            <CardNote warning>{t("matching.line.none", { station })}</CardNote>
-        );
+        return <CardNote warning>{t("matching.line.none")}</CardNote>;
     }
 
-    const chosen = lines.some((line) => line.key === data.lineKey)
-        ? data.lineKey!
-        : "any";
+    const { station, atStation, chosen } = found!;
+    const stationName = (station && extractStationName(station)) ?? "";
     return (
         <>
             <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                 <Select
                     trigger={t("matching.line.select")}
                     options={{
-                        any: t("matching.line.any"),
+                        ...(chosen ? {} : { none: t("matching.line.choose") }),
                         ...Object.fromEntries(
-                            lines.map((line) => [line.key, lineName(line)]),
+                            lines.map((line) => [line.key, line.label]),
                         ),
                     }}
-                    value={chosen}
+                    value={chosen?.key ?? "none"}
                     onValueChange={(value) =>
-                        questionModified(
-                            (data.lineKey =
-                                value === "any" ? undefined : value),
-                        )
+                        value !== "none" &&
+                        questionModified((data.lineKey = value))
                     }
                     // Not while the map computes: an open question doesn't
                     // change the map, and the line is needed before sending
                     disabled={!data.drag}
                 />
             </SidebarMenuItem>
+            {!chosen && (
+                <CardNote warning>
+                    {atStation.length > 1
+                        ? t("matching.line.several", {
+                              station: stationName,
+                              lines: atStation
+                                  .map((line) => line.label)
+                                  .join(", "),
+                          })
+                        : t("matching.line.notAtStation", {
+                              station: stationName,
+                          })}
+                </CardNote>
+            )}
         </>
     );
 };
