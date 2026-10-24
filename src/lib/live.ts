@@ -5,6 +5,7 @@ import { atom } from "nanostores";
 import { hiderInbox, hiderMode, myPosition } from "@/lib/context";
 import { shareSeekerMap, startSeekerMap } from "@/lib/liveMap";
 import { fromBase64Url, toBase64Url } from "@/lib/overpassAccess";
+import { hiderSince } from "@/lib/role";
 import {
     endRound,
     type GameClock,
@@ -60,6 +61,12 @@ export const liveGame = persistentAtom<LiveGame | null>("liveGame", null, json);
 /** This phone among the game's phones. */
 const phoneId = persistentAtom<string>("livePhone", "");
 
+/** What the other phones call this one, e.g. its player's name; may be "". */
+export const phoneName = persistentAtom<string>("livePhoneName", "");
+
+/** Names longer than this are cut. */
+export const MAX_PHONE_NAME = 24;
+
 /** When this phone's game timer last changed, here or on another phone. */
 const clockChangedAt = persistentAtom<number>("liveClockAt", 0, json);
 
@@ -96,6 +103,8 @@ export const SEEKER_POSITION_MAX_AGE_MS = 3 * 60 * 60_000;
 /** A phone of the game, as it tells the others while the app is open. */
 export type GamePhone = {
     role: "hider" | "seeker";
+    /** Its name, if its player gave one. */
+    name?: string;
     /** Whether the phone knows where it is (seekers: GPS allowed). */
     located: boolean;
     seenAt: number;
@@ -349,8 +358,28 @@ export type SharedClock = {
     by: string;
 };
 
-/** When answers were late, from the hider's phone. */
-export type SharedLate = { ranges: LateRange[]; by: string };
+/**
+ * When answers were late, from the hider's phone; `since` it's the hider's
+ * (two phones can be for a moment, between rounds).
+ */
+export type SharedLate = { ranges: LateRange[]; by: string; since?: number };
+
+/**
+ * Whether the hider's phone `me` (the hider's since `since`) leaves the late
+ * answers in the database as they are: another phone wrote them that became
+ * the hider later, e.g. the next round's hider while the last round's
+ * hasn't started a new game yet. The later one counts; else both phones
+ * would answer each other back without end.
+ */
+export const leavesLateAnswers = (
+    remote: SharedLate | undefined,
+    me: string,
+    since: number,
+) => {
+    if (!remote || remote.by === me) return false;
+    const theirs = remote.since ?? 0;
+    return theirs > since || (theirs === since && remote.by > me);
+};
 
 /**
  * What to do with the game's timer: "take" the other phones' newer one,
@@ -380,7 +409,8 @@ const isPhone = (value: unknown): value is GamePhone =>
     isObject(value) &&
     (value.role === "hider" || value.role === "seeker") &&
     typeof value.located === "boolean" &&
-    Number.isFinite(value.seenAt);
+    Number.isFinite(value.seenAt) &&
+    (value.name === undefined || typeof value.name === "string");
 
 const isPosition = (value: unknown): value is SeekerPosition =>
     isObject(value) &&
@@ -427,16 +457,17 @@ export const lateAnswerIntervals = (now = Date.now()) =>
     );
 
 /**
- * Whether "New Game" leaves the game timer running: on a connected phone
- * during the hiding period, the round has just started on the other phones
- * and this phone joins it (e.g. a seeker choosing their role).
+ * Whether a round runs on the connected phones (hiding period or hiding
+ * time, not "Found" yet): "New Game" on this phone joins it and leaves the
+ * game timer running, unless the player ends the round for all phones. A
+ * phone that joins late follows the quick guide and taps "New Game".
  */
-export const newGameKeepsClock = (now = Date.now()) => {
+export const liveRoundRunning = (now = Date.now()) => {
     const clock = gameClock.get();
     return (
         liveGame.get() !== null &&
         clock !== null &&
-        gameClockState(clock, now, lateAnswerIntervals(now)).phase === "hiding"
+        gameClockState(clock, now, lateAnswerIntervals(now)).phase !== "found"
     );
 };
 
@@ -451,6 +482,22 @@ const ownLateRanges = () =>
 /** Reconnecting after the app was away longer than this: the stream may be dead. */
 const STALE_AFTER_HIDDEN_MS = 10_000;
 
+/**
+ * Reconnecting when the open app heard nothing for this long: a connection
+ * can die without a word (another cell, wifi to mobile data). It hears
+ * something at least every minute, its own "still there" (`tellPhones`).
+ */
+export const SILENT_AFTER_MS = 100_000;
+
+let removing: ((phone: string) => void) | null = null;
+
+/**
+ * Takes another phone off the list and the hider's map, e.g. one that isn't
+ * playing. It comes back once it's open again while still connected: for a
+ * game with only some of the phones, connect again (a new code to scan).
+ */
+export const removePhone = (phone: string) => removing?.(phone);
+
 /** Keeps this phone in step with the game's other phones, until stopped. */
 const connect = (game: LiveGame) => {
     let stopped = false;
@@ -461,6 +508,8 @@ const connect = (game: LiveGame) => {
     let lastSent: SeekerPosition | null = null;
     let lastTold: { said: string; at: number } | null = null;
     let wakeLock: WakeLockSentinel | null = null;
+    let heardAt = Date.now();
+    let nameTimer: ReturnType<typeof setTimeout> | undefined;
     // While the timer of another phone is taken: not a change to send
     let taking = false;
 
@@ -599,12 +648,14 @@ const connect = (game: LiveGame) => {
             }
             return;
         }
-        const own = ownLateRanges();
-        if (!remote || JSON.stringify(remote.ranges) !== JSON.stringify(own)) {
-            await write("clock/late", {
-                ranges: own,
-                by: thisPhone(),
-            } satisfies SharedLate);
+        const mine: SharedLate = {
+            ranges: ownLateRanges(),
+            by: thisPhone(),
+            since: hiderSince.get(),
+        };
+        if (leavesLateAnswers(remote, mine.by, mine.since!)) return;
+        if (JSON.stringify(remote) !== JSON.stringify(mine)) {
+            await write("clock/late", mine);
         }
     };
 
@@ -667,9 +718,13 @@ const connect = (game: LiveGame) => {
     /** Tells the other phones this one is there: on a change, else every minute. */
     const tellPhones = async (force = false) => {
         if (!keys || document.visibilityState !== "visible") return;
-        const me: Omit<GamePhone, "seenAt"> = isSeeker()
-            ? { role: "seeker", located: myPosition.get() !== null }
-            : { role: "hider", located: true };
+        const name = phoneName.get().trim().slice(0, MAX_PHONE_NAME);
+        const me: Omit<GamePhone, "seenAt"> = {
+            ...(isSeeker()
+                ? { role: "seeker", located: myPosition.get() !== null }
+                : { role: "hider", located: true }),
+            ...(name ? { name } : {}),
+        };
         const said = JSON.stringify(me);
         const now = Date.now();
         if (
@@ -710,10 +765,12 @@ const connect = (game: LiveGame) => {
         source?.close();
         if (stopped || !keys) return;
         liveStatus.set("connecting");
+        heardAt = Date.now();
         const stream = new EventSource(url(""));
         source = stream;
         const onChange =
             (event: "put" | "patch") => (message: MessageEvent) => {
+                heardAt = Date.now();
                 try {
                     const { path, data } = JSON.parse(message.data);
                     snapshot = applyChange(snapshot, event, path, data);
@@ -734,6 +791,9 @@ const connect = (game: LiveGame) => {
             };
         stream.addEventListener("put", onChange("put"));
         stream.addEventListener("patch", onChange("patch"));
+        stream.addEventListener("keep-alive", () => {
+            heardAt = Date.now();
+        });
         // The database's rules refused: wrong address or rules
         const refused = () => {
             stream.close();
@@ -779,6 +839,7 @@ const connect = (game: LiveGame) => {
             run(sendClock);
         }),
         hiderInbox.listen(() => run(syncLate)),
+        hiderSince.listen(() => run(syncLate)),
         pauseForLateAnswers.listen(() => run(syncLate)),
         hiderMode.listen(() => {
             run(syncLate);
@@ -791,14 +852,44 @@ const connect = (game: LiveGame) => {
             run(() => tellPhones());
         }),
         keepScreenOn.listen(() => run(updateWakeLock)),
+        // Once the typing stops, not for every letter
+        phoneName.listen(() => {
+            clearTimeout(nameTimer);
+            nameTimer = setTimeout(() => run(() => tellPhones()), 1500);
+        }),
     ];
     document.addEventListener("visibilitychange", onVisibility);
     window.addEventListener("online", onOnline);
     // Also when GPS has nothing new: the hider sees the app is still open
     const timer = setInterval(() => {
+        if (
+            document.visibilityState === "visible" &&
+            Date.now() - heardAt > SILENT_AFTER_MS
+        ) {
+            open();
+        }
         run(() => sendPosition());
         run(() => tellPhones());
     }, 10_000);
+
+    removing = (phone) => {
+        if (phone === thisPhone()) return;
+        // Gone from the list right away, also before the database answers
+        gamePhones.set(
+            Object.fromEntries(
+                Object.entries(gamePhones.get()).filter(([id]) => id !== phone),
+            ),
+        );
+        seekerPositions.set(
+            Object.fromEntries(
+                Object.entries(seekerPositions.get()).filter(
+                    ([id]) => id !== phone,
+                ),
+            ),
+        );
+        run(() => writeItems("phones", { [phone]: null }));
+        run(() => writeItems("pos", { [phone]: null }));
+    };
 
     gameKeys(game.secret).then((gameKeys) => {
         if (stopped) return;
@@ -810,9 +901,11 @@ const connect = (game: LiveGame) => {
 
     return () => {
         stopped = true;
+        removing = null;
         seekerMap.stop();
         source?.close();
         clearInterval(timer);
+        clearTimeout(nameTimer);
         unlisten.forEach((stop) => stop());
         document.removeEventListener("visibilitychange", onVisibility);
         window.removeEventListener("online", onOnline);

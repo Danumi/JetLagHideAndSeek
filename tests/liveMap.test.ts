@@ -195,10 +195,12 @@ describe("the seekers' map in the database", () => {
 const fakeDatabase = () => {
     let items: Record<string, unknown> = {};
     let queue = Promise.resolve();
+    let offline = false;
     const link: SeekerMapLink = {
         me: "phoneA",
         read: async () => structuredClone(items),
         write: async (changes) => {
+            if (offline) throw new Error("offline");
             const next = { ...items };
             for (const [item, value] of Object.entries(changes)) {
                 if (value === null) delete next[item];
@@ -207,7 +209,7 @@ const fakeDatabase = () => {
             items = next;
         },
         run: (task) => {
-            queue = queue.then(task);
+            queue = queue.then(task).catch(() => undefined);
         },
     };
     return {
@@ -216,6 +218,14 @@ const fakeDatabase = () => {
         /** Another phone wrote this map. */
         put: (by: string, at: number, map: SeekerMap) => {
             items = seekerMapItems({ by, at, map });
+        },
+        /** Another phone wrote these items, and nothing else. */
+        putItems: (more: Record<string, unknown>) => {
+            items = { ...items, ...more };
+        },
+        items: () => items,
+        setOffline: (value: boolean) => {
+            offline = value;
         },
         /** Until the connection did everything it was given. */
         idle: async () => {
@@ -369,5 +379,97 @@ describe("sharing the seekers' map", () => {
         expect(questions.get()).toHaveLength(1);
         expect(database.shared()?.map.questions).toHaveLength(1);
         expect(database.shared()?.by).toBe("phoneB");
+    });
+
+    it("adds a question another phone asked at the same moment", async () => {
+        const database = fakeDatabase();
+        const sharing = share(database.link);
+        await sharing.sync();
+        addQuestion(radar(0.75));
+        await database.idle();
+        expect(database.shared()?.by).toBe("phoneA");
+
+        // Another phone's first question, whose map lost to this one's
+        database.putItems({ [questionItem(0.25)]: museum(0.25) });
+        await sharing.sync();
+        await database.idle();
+        expect(questions.get().map((question) => question.key)).toEqual([
+            0.75, 0.25,
+        ]);
+        expect(
+            database.shared()?.map.questions.map((question) => question.key),
+        ).toEqual([0.75, 0.25]);
+    });
+
+    it("keeps its own map when it wins after all", async () => {
+        const database = fakeDatabase();
+        const sharing = share(database.link);
+        await sharing.sync();
+        addQuestion(radar(0.75));
+        await database.idle();
+        const mine = database.items();
+
+        // The other phone's map came first: this one shows it for a moment…
+        database.put("phoneB", Date.now() + 1000, {
+            ...emptyMap(),
+            questions: [museum(0.25)],
+        });
+        await sharing.sync();
+        expect(seekerMapRole.get()).toBe("watching");
+        // …then this phone's arrives after it and is the game's
+        database.putItems({ ...mine, [questionItem(0.25)]: museum(0.25) });
+        await sharing.sync();
+        await database.idle();
+        expect(seekerMapRole.get()).toBe("asking");
+        expect(
+            database.shared()?.map.questions.map((question) => question.key),
+        ).toEqual([0.75, 0.25]);
+        expect(questions.get().map((question) => question.key)).toEqual([
+            0.75, 0.25,
+        ]);
+    });
+
+    it("hands over what it asked offline to the phone that took over", async () => {
+        const database = fakeDatabase();
+        const sharing = share(database.link);
+        await sharing.sync();
+        addQuestion(radar(0.75));
+        await database.idle();
+
+        // In a tunnel: the next question doesn't reach the database
+        database.setOffline(true);
+        addQuestion(museum(0.25));
+        await database.idle();
+        expect(database.shared()?.map.questions).toHaveLength(1);
+
+        // Meanwhile another phone took over with what it knew
+        database.setOffline(false);
+        database.put("phoneB", Date.now() + 1000, {
+            ...emptyMap(),
+            questions: [radar(0.75)],
+        });
+        await sharing.sync();
+        await database.idle();
+        expect(seekerMapRole.get()).toBe("watching");
+        expect(seekerMapNotice.get()?.notice).toBe("handedOver");
+        // Waiting in the database for the asking phone to add it
+        expect(
+            (database.items()[questionItem(0.25)] as Question | undefined)?.id,
+        ).toBe("matching");
+        expect(questions.get().map((question) => question.key)).toEqual([0.75]);
+    });
+
+    it("doesn't hand over old questions of a phone that joins", async () => {
+        addQuestion(museum(0.25));
+        const database = fakeDatabase();
+        database.put("phoneB", T0, {
+            ...emptyMap(),
+            questions: [radar(0.75)],
+        });
+        const sharing = share(database.link);
+        await sharing.sync();
+        await database.idle();
+        expect(seekerMapRole.get()).toBe("watching");
+        expect(database.items()[questionItem(0.25)]).toBeUndefined();
     });
 });

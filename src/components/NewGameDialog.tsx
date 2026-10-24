@@ -28,7 +28,7 @@ import {
     VIENNA,
 } from "@/lib/context";
 import { t, useLanguage } from "@/lib/i18n";
-import { lateAnswerIntervals, liveGame, newGameKeepsClock } from "@/lib/live";
+import { lateAnswerIntervals, liveGame, liveRoundRunning } from "@/lib/live";
 import { anotherPhoneAsks, seekerMapRole } from "@/lib/liveMap";
 import { type Role, setRole } from "@/lib/role";
 import { cn } from "@/lib/utils";
@@ -47,10 +47,19 @@ import {
     AlertDialogTrigger,
 } from "./ui/alert-dialog";
 import { Button } from "./ui/button";
+import { Checkbox } from "./ui/checkbox";
+import { Label } from "./ui/label";
 import { deleteAllQuestionsWithUndo } from "./UndoToast";
 
-/** Vienna, Small game: U-Bahn stations with 500 m hiding zones, no questions. */
-export const startNewGame = (role: Role) => {
+/**
+ * Vienna, Small game: U-Bahn stations with 500 m hiding zones, no questions.
+ * `endRound`: the round running on the connected phones ends there too;
+ * else this phone joins it.
+ */
+export const startNewGame = (
+    role: Role,
+    { endRound: endsRound = !liveRoundRunning() } = {},
+) => {
     // Another seeker's phone asks the questions: the seekers' map is its
     const keepSeekerMap = role === "seeker" && anotherPhoneAsks();
 
@@ -78,9 +87,9 @@ export const startNewGame = (role: Role) => {
     displayHidingZones.set(true);
 
     // The round's hiding time stays in the list of past rounds; the hider
-    // starts the clock again when the hiding period begins. Connected phones
-    // keep a hiding period that has just begun: this phone joins the round
-    if (!newGameKeepsClock()) endRound(Date.now(), lateAnswerIntervals());
+    // starts the clock again when the hiding period begins. A round running
+    // on the connected phones goes on, this phone joins it
+    if (endsRound) endRound(Date.now(), lateAnswerIntervals());
     hiderInbox.set([]);
     if (!keepSeekerMap) thermometerRun.set(null);
     setRole(role);
@@ -113,10 +122,18 @@ export const NewGameDialog = ({
     const $gameClock = useStore(gameClock);
     const $seekerMapRole = useStore(seekerMapRole);
     const [open, setOpen] = useState(false);
+    const [endForAll, setEndForAll] = useState(false);
     const keepsSeekerMap = anotherPhoneAsks();
+    const roundRunning = open && liveRoundRunning();
 
     return (
-        <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialog
+            open={open}
+            onOpenChange={(next) => {
+                setOpen(next);
+                setEndForAll(false);
+            }}
+        >
             <AlertDialogTrigger asChild>
                 <Button
                     className={cn(
@@ -154,12 +171,27 @@ export const NewGameDialog = ({
                             {$liveGame &&
                                 $gameClock &&
                                 ` ${
-                                    newGameKeepsClock()
+                                    roundRunning && !endForAll
                                         ? t("newGame.liveKeepsClock")
                                         : t("newGame.liveEndsClock")
                                 }`}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
+                    {roundRunning && (
+                        <div className="flex items-center gap-2">
+                            <Checkbox
+                                id="new-game-end-for-all"
+                                checked={endForAll}
+                                onCheckedChange={(v) => setEndForAll(!!v)}
+                            />
+                            <Label
+                                htmlFor="new-game-end-for-all"
+                                className="text-sm"
+                            >
+                                {t("newGame.endForAll")}
+                            </Label>
+                        </div>
+                    )}
                     <div className="flex flex-col gap-2">
                         <span className="text-sm font-semibold">
                             {t("role.label")}:
@@ -173,7 +205,9 @@ export const NewGameDialog = ({
                             <AlertDialogAction
                                 key={role}
                                 onClick={() => {
-                                    startNewGame(role);
+                                    startNewGame(role, {
+                                        endRound: !roundRunning || endForAll,
+                                    });
                                     onStart?.();
                                 }}
                                 className={cn(

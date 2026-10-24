@@ -179,6 +179,14 @@ export const OptionDrawers = () => {
     // The phones of the game stay connected while the app is open
     useEffect(() => startLiveSync(), []);
 
+    // A connection link opened in the app while it's open only changes the
+    // part after the #: the page doesn't load again
+    useEffect(() => {
+        const onHashChange = () => toastLiveJoined(takeLiveFromAddress());
+        window.addEventListener("hashchange", onHashChange);
+        return () => window.removeEventListener("hashchange", onHashChange);
+    }, []);
+
     useEffect(() => {
         if (takeSetupFromAddress()) toastOverpassSaved();
         toastLiveJoined(takeLiveFromAddress());

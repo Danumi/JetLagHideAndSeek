@@ -21,6 +21,13 @@ import { type Questions, questionSchema } from "@/maps/schema";
  * takes over, e.g. when its battery runs low. "New Game" on the asking
  * phone empties the map on all of them. The hider's phone keeps its own.
  *
+ * Two phones can ask at once: two seekers ask the first question at the
+ * same moment, or one takes over while the asking phone is offline. The
+ * database keeps the map of the one that wrote last; a question of the
+ * other one isn't lost but handed over: it stays in the database as an item
+ * of its own (written there, or by the other phone once it hears about the
+ * new asking phone), and the asking phone adds it to its map.
+ *
  * In the database, kind "seek": `state` (the asking phone, when the map
  * last changed, the order of the questions, photo questions, a running
  * thermometer), `zones` (the ruled-out zones) and one item per question:
@@ -209,6 +216,8 @@ export type SeekerMapNotice =
     | "watching"
     /** Another phone took over the questions from this one. */
     | "lost"
+    /** …and gets the questions this phone asked meanwhile. */
+    | "handedOver"
     /** This phone took over. */
     | "asking";
 
@@ -320,13 +329,68 @@ export const shareSeekerMap = (link: SeekerMapLink) => {
         }
     };
 
+    // This phone's questions the database hasn't taken yet (offline, say)
+    const unsent = new Set<number>();
+
     const writeMap = async (by: string, at: number, map: SeekerMap) => {
         const next = seekerMapItems({ by, at, map });
         const changes = itemChanges(there, next);
         if (Object.keys(changes).length === 0) return;
+        const questionKeys = map.questions
+            .filter((question) => questionItem(question.key) in changes)
+            .map((question) => question.key);
+        questionKeys.forEach((key) => unsent.add(key));
         await link.write(changes);
+        questionKeys.forEach((key) => unsent.delete(key));
         there = next;
         shared = { by, at, map };
+    };
+
+    /**
+     * Another phone asks now: the questions it can't know of (asked here
+     * while the database didn't take them) go to it as items of their own.
+     * How many.
+     */
+    const handOver = async (map: SeekerMap) => {
+        const known = new Set(map.questions.map((question) => question.key));
+        const mine = localMap().questions.filter(
+            (question) => unsent.has(question.key) && !known.has(question.key),
+        );
+        unsent.clear();
+        if (mine.length === 0) return 0;
+        await link.write(
+            Object.fromEntries(
+                mine.map((question) => [questionItem(question.key), question]),
+            ),
+        );
+        return mine.length;
+    };
+
+    /**
+     * The asking phone adds questions that are in the database but not on
+     * its map: handed over by another phone, or asked there at the same
+     * moment as the first question here.
+     */
+    const adoptHandedOver = async () => {
+        const state = there[STATE_ITEM];
+        const listed = new Set(
+            strings(isObject(state) ? state.order : undefined),
+        );
+        const local = localMap();
+        const here = new Set(
+            local.questions.map((question) => questionItem(question.key)),
+        );
+        const handed = Object.entries(there).flatMap(([item, value]) => {
+            if (!item.startsWith("q") || listed.has(item) || here.has(item)) {
+                return [];
+            }
+            const parsed = questionSchema.safeParse(value);
+            return parsed.success ? [parsed.data] : [];
+        });
+        if (handed.length === 0) return;
+        show({ ...local, questions: [...local.questions, ...handed] });
+        seekerMapAt.set(Math.max(Date.now(), seekerMapAt.get() + 1));
+        await send();
     };
 
     /** This phone's map to the others: it asks from now on, unless it's empty. */
@@ -348,21 +412,33 @@ export const shareSeekerMap = (link: SeekerMapLink) => {
     };
 
     const sync = async () => {
+        const previous = seekerMapRole.get();
         there = await link.read();
         shared = readSeekerMap(there);
         askingPhone.set(shared?.by ?? "");
-        updateRole();
         if (!isSeeker()) {
+            updateRole();
             shown = null;
             return;
         }
-        if (shared && seekerMapRole.get() === "watching") {
+        if (shared && seekerMapRoleFor(shared.by, link.me) === "watching") {
+            const handed =
+                previous === "watching" ? 0 : await handOver(shared.map);
+            updateRole(handed === 0);
+            if (handed > 0) notify("handedOver");
             shown = watchingView(shared.map);
             if (mapText(localMap()) !== mapText(shown)) show(shown);
             seekerMapAt.set(shared.at);
             return;
         }
+        updateRole();
         shown = null;
+        if (shared && previous === "watching" && shared.by === link.me) {
+            // Two phones asked at once and this one's map is the game's after
+            // all: it's the one in the database, not the one shown meanwhile
+            show(shared.map);
+            seekerMapAt.set(shared.at);
+        }
         const localAt = seekerMapAt.get();
         if (shared && shared.at > localAt) {
             show(shared.map);
@@ -370,6 +446,7 @@ export const shareSeekerMap = (link: SeekerMapLink) => {
         } else if (!shared || shared.at < localAt) {
             await send();
         }
+        if (seekerMapRole.get() === "asking") await adoptHandedOver();
     };
 
     /** A change on a watching phone: back to the asking phone's map. */

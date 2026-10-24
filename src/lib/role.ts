@@ -1,3 +1,5 @@
+import { persistentAtom } from "@nanostores/persistent";
+
 import {
     followMyPosition,
     hiderMode,
@@ -17,6 +19,15 @@ import {
  */
 
 export type Role = "seeker" | "hider";
+
+/**
+ * When this phone last became the hider's (a role chosen, "New Game"): of
+ * two connected phones that both still are, the later one is the round's.
+ */
+export const hiderSince = persistentAtom<number>("hiderSince", 0, {
+    encode: JSON.stringify,
+    decode: JSON.parse,
+});
 
 export const currentRole = (): Role =>
     hiderMode.get() === false ? "seeker" : "hider";
@@ -42,6 +53,7 @@ export const setRole = (role: Role) => {
     roleChosen.set(true);
     hiderPlacedAt.set(null);
     if (role === "hider") {
+        hiderSince.set(Date.now());
         startHiderMode();
         hiderScreenOpen.set(true);
     } else {
