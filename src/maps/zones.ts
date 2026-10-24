@@ -4,6 +4,7 @@ import type {
     FeatureCollection,
     MultiPolygon,
     Polygon,
+    Position,
 } from "geojson";
 import _ from "lodash";
 import { atom, computed } from "nanostores";
@@ -159,6 +160,43 @@ export const outsideZones = (
 };
 
 /**
+ * The part of an area around a zone, cut to a box a little bigger than the
+ * zone (null: none). Late in the game what is left has hundreds of holes
+ * (a park question: one per park); checking each zone against all of it
+ * took seconds on a phone, against the part around it a few milliseconds.
+ */
+const partsNear = (
+    area: Feature<Polygon | MultiPolygon>,
+    zone: Feature<Polygon | MultiPolygon>,
+): Feature<MultiPolygon> | null => {
+    const [west, south, east, north] = turf.bbox(zone);
+    // Clear of the zone's edge, which would touch the box's sides
+    const marginX = (east - west) / 10;
+    const marginY = (north - south) / 10;
+    const box: [number, number, number, number] = [
+        west - marginX,
+        south - marginY,
+        east + marginX,
+        north + marginY,
+    ];
+    const clip = (ring: Position[]) =>
+        turf.bboxClip(turf.polygon([ring]), box).geometry.coordinates[0] as
+            | Position[]
+            | undefined;
+    const polygons =
+        area.geometry.type === "Polygon"
+            ? [area.geometry.coordinates]
+            : area.geometry.coordinates;
+    const parts = polygons.flatMap(([outer, ...holes]) => {
+        const shell = clip(outer);
+        if (!shell) return [];
+        const cut = holes.map(clip).filter((hole) => hole !== undefined);
+        return [[shell, ...cut]];
+    });
+    return parts.length === 0 ? null : turf.multiPolygon(parts);
+};
+
+/**
  * The zones the answers leave light somewhere. A zone whose edge is all
  * grey can still hold a light island inside (typical late in the game), so
  * this looks at what is left, not at the edge.
@@ -178,7 +216,10 @@ export const zonesNotRuledOut = <T extends Feature<Polygon | MultiPolygon>>(
         );
         const left = turf.difference(turf.featureCollection([around, grey]));
         if (!left) return [];
-        return zones.filter((zone) => turf.booleanIntersects(zone, left));
+        return zones.filter((zone) => {
+            const near = partsNear(left, zone);
+            return near !== null && turf.booleanIntersects(zone, near);
+        });
     } catch (error) {
         console.log("Error working out the zones left:", error);
         return zones;

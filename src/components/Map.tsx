@@ -38,6 +38,7 @@ import {
 } from "@/maps";
 import { BLANK_GEOJSON, determineMapBoundaries } from "@/maps/api";
 import {
+    letTheAppBreathe,
     markPreviewOnMap,
     previewCut,
     previewForMap,
@@ -417,13 +418,18 @@ export const Map = ({ className }: { className?: string }) => {
             const areaLeft = showWholeArea ? turf.bbox(mapGeoData!) : null;
             previewShownRef.current = preview?.startedAt ?? 0;
             if (preview && !nothingLeft) {
+                // Each step can take seconds on a phone (a park question):
+                // the app answers taps in between instead of freezing
+                await letTheAppBreathe();
                 const after = await applyQuestionsToMapGeoData(
                     [preview.question],
                     mapGeoData,
                     false,
                 );
+                await letTheAppBreathe();
                 cut = previewCut(mapGeoData!, after);
                 mapGeoData = after;
+                await letTheAppBreathe();
             }
             const nothingShown = mapGeoData!.features.length === 0;
 

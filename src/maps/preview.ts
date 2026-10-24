@@ -145,6 +145,10 @@ export const previewCut = (
     }
 };
 
+/** Lets the browser draw and answer taps between long steps of work. */
+export const letTheAppBreathe = () =>
+    new Promise<void>((resolve) => setTimeout(resolve, 0));
+
 /** Which preview the map data was worked out for (Map.tsx, HidingZones). */
 const previewOfMapData = new WeakMap<object, string>();
 
