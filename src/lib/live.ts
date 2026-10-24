@@ -3,6 +3,7 @@ import * as turf from "@turf/turf";
 import { atom } from "nanostores";
 
 import { hiderInbox, hiderMode, myPosition } from "@/lib/context";
+import { shareSeekerMap, startSeekerMap } from "@/lib/liveMap";
 import { fromBase64Url, toBase64Url } from "@/lib/overpassAccess";
 import {
     endRound,
@@ -37,9 +38,13 @@ import {
  *
  * In the database: g/<name>/clock/state (the timer, any phone),
  * g/<name>/clock/late (when answers were late, the hider's phone),
- * g/<name>/pos/<phone> (where a seeker's phone was) and
- * g/<name>/phones/<phone> (each phone's role, so they see who's connected).
+ * g/<name>/pos/<phone> (where a seeker's phone was),
+ * g/<name>/phones/<phone> (each phone's role, so they see who's connected)
+ * and g/<name>/seek/<item> (the seekers' map, liveMap.ts).
  */
+
+/** The database's rules refuse longer texts. */
+const MAX_TEXT_LENGTH = 10_000;
 
 const json = { encode: JSON.stringify, decode: JSON.parse };
 
@@ -182,6 +187,7 @@ export const createLiveGame = () => {
     if (!address) return null;
     const game = { address, secret: randomCode(16) };
     clockChangedAt.set(Date.now());
+    startSeekerMap(true);
     liveGame.set(game);
     return game;
 };
@@ -197,6 +203,7 @@ export const joinLiveGame = (game: LiveGame) => {
     }
     liveAddress.set(game.address);
     clockChangedAt.set(0);
+    startSeekerMap(false);
     hiderLate.set([]);
     liveGame.set(game);
     return true;
@@ -468,16 +475,12 @@ const connect = (game: LiveGame) => {
     const url = (item: string) =>
         `${game.address}/g/${keys!.name}${item ? `/${item}` : ""}.json`;
 
-    const write = async (item: string, value: unknown) => {
-        if (!keys) return;
+    const writeText = async (item: string, text: string | null) => {
         const response = await fetch(
             url(item),
-            value === null
+            text === null
                 ? { method: "DELETE" }
-                : {
-                      method: "PUT",
-                      body: JSON.stringify(await seal(keys.key, value)),
-                  },
+                : { method: "PUT", body: JSON.stringify(text) },
         );
         if (!response.ok) {
             throw new Error(
@@ -485,6 +488,70 @@ const connect = (game: LiveGame) => {
             );
         }
     };
+
+    const write = async (item: string, value: unknown) => {
+        if (!keys) return;
+        await writeText(
+            item,
+            value === null ? null : await seal(keys.key, value),
+        );
+    };
+
+    /** Several items of a kind at once (null removes one), else none. */
+    const writeItems = async (
+        kind: string,
+        changes: Record<string, unknown>,
+    ) => {
+        if (!keys) throw new Error(`${kind}: not connected yet`);
+        const texts: Record<string, string | null> = {};
+        for (const [item, value] of Object.entries(changes)) {
+            const text = value === null ? null : await seal(keys.key, value);
+            if (text !== null && text.length >= MAX_TEXT_LENGTH) {
+                console.warn(`Live connection: ${kind}/${item} is too long`);
+                continue;
+            }
+            texts[item] = text;
+        }
+        if (Object.keys(texts).length === 0) return;
+        const response = await fetch(url(kind), {
+            method: "PATCH",
+            body: JSON.stringify(texts),
+        });
+        if (response.ok) return;
+        if (response.status !== 401 && response.status !== 403) {
+            throw new Error(
+                `${kind}: ${response.status} ${response.statusText}`,
+            );
+        }
+        // Rules that let only one item be written at a time
+        for (const [item, text] of Object.entries(texts)) {
+            await writeText(`${kind}/${item}`, text);
+        }
+    };
+
+    // Decrypted items by their encrypted text: most stay the same
+    const opened: Record<string, Map<string, unknown>> = {};
+    const readItems = async (kind: string) => {
+        const before = opened[kind] ?? new Map<string, unknown>();
+        const now = new Map<string, unknown>();
+        const items: Record<string, unknown> = {};
+        for (const [item, text] of Object.entries(snapshot[kind] ?? {})) {
+            const value = before.has(text)
+                ? before.get(text)
+                : await unseal<unknown>(keys!.key, text);
+            now.set(text, value);
+            items[item] = value;
+        }
+        opened[kind] = now;
+        return items;
+    };
+
+    const seekerMap = shareSeekerMap({
+        me: thisPhone(),
+        read: () => readItems("seek"),
+        write: (changes) => writeItems("seek", changes),
+        run: (task) => run(task),
+    });
 
     const isSeeker = () => hiderMode.get() === false;
 
@@ -659,6 +726,7 @@ const connect = (game: LiveGame) => {
                     await syncLate();
                     await readPositions();
                     await readPhones();
+                    await seekerMap.sync();
                     if (isSeeker()) await sendPosition();
                     else await removePosition();
                     await tellPhones();
@@ -742,6 +810,7 @@ const connect = (game: LiveGame) => {
 
     return () => {
         stopped = true;
+        seekerMap.stop();
         source?.close();
         clearInterval(timer);
         unlisten.forEach((stop) => stop());

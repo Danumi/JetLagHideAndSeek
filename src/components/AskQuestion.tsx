@@ -61,6 +61,7 @@ import { useNow } from "./AnswerClock";
 import { SendLinkButton } from "./cards/answer";
 import { StartSeekingButton } from "./GameClock";
 import { QUESTION_ICONS } from "./questionIcons";
+import { useWatching, WatchingNote } from "./SeekerMap";
 
 /** The kinds keep their names from the game in both languages. */
 const KINDS = {
@@ -204,6 +205,8 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
     const [kind, setKind] = useState<Kind | null>(null);
     const [busy, setBusy] = useState(false);
     const [otherKilometers, setOtherKilometers] = useState("");
+    // Another seeker's phone asks: its map is shown here
+    const watching = useWatching();
 
     const ask = async (data: (at: LatLng & { accuracy?: number }) => any) => {
         // The map shows how precise the location is while the app waits for it
@@ -327,6 +330,10 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
     let content;
     switch (kind) {
         case null:
+            if (watching) {
+                content = <WatchingNote />;
+                break;
+            }
             // One question at a time, by the rules: ask before a second one
             if (pending.length > 0 && !askAnyway) {
                 content = (
@@ -548,7 +555,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                         "h-14 rounded-xl bg-blue-600 px-4 text-base font-semibold text-white shadow-lg hover:bg-blue-700",
                         className,
                     )}
-                    disabled={!!$thermometerRun || busy}
+                    disabled={(!!$thermometerRun && !watching) || busy}
                 >
                     <TbMessage2Question className="!size-6" />
                     {t("ask.button")}

@@ -77,6 +77,7 @@ const TRANSLATED_FILES = [
     "components/PolygonDraw.tsx",
     "components/PresetsDialog.tsx",
     "components/QuestionSidebar.tsx",
+    "components/SeekerMap.tsx",
     "components/UndoToast.tsx",
     "components/UnitSelect.tsx",
     "components/ZoneSheet.tsx",

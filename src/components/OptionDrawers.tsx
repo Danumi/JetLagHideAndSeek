@@ -66,6 +66,7 @@ import {
     toastOverpassSaved,
 } from "./OverpassAccessSettings";
 import { PlacePicker } from "./PlacePicker";
+import { useWatching } from "./SeekerMap";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -167,6 +168,8 @@ export const OptionDrawers = () => {
     const $questions = useStore(questions);
     const $photoQuestions = useStore(photoQuestions);
     const questionCount = $questions.length + $photoQuestions.length;
+    // Another seeker's phone asks: only it deletes questions
+    const watching = useWatching();
     const isOptionsOpen = useStore(settingsOpen);
     const setOptionsOpen = settingsOpen.set;
     const [advancedOpen, setAdvancedOpen] = useState(false);
@@ -565,7 +568,9 @@ export const OptionDrawers = () => {
                                     <Button
                                         variant="outline"
                                         className="w-full max-w-[320px] border-red-500/60 text-red-500 hover:bg-red-500/10 hover:text-red-500"
-                                        disabled={questionCount === 0}
+                                        disabled={
+                                            questionCount === 0 || watching
+                                        }
                                     >
                                         {t("settings.deleteAll")}
                                     </Button>

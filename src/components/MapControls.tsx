@@ -47,6 +47,7 @@ import {
     zonesLeft,
 } from "@/maps/zones";
 
+import { useWatching } from "./SeekerMap";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -244,6 +245,8 @@ const SelectedZone = ({ id, hider }: { id: string; hider: boolean }) => {
     const $allTrainStations = useStore(allTrainStations);
     const $tappedZones = useStore(tappedZones);
     const lines = useStationLines(id);
+    // Another seeker's phone asks: it rules zones out
+    const watching = useWatching();
 
     const station = $allTrainStations.find((x) => x.properties.id === id);
     if (!station) return null;
@@ -285,7 +288,12 @@ const SelectedZone = ({ id, hider }: { id: string; hider: boolean }) => {
                     </Button>
                 )}
             </div>
-            <div className="flex flex-wrap items-center gap-1.5">
+            <div
+                className={cn(
+                    "flex flex-wrap items-center gap-1.5",
+                    !hider && watching && "hidden",
+                )}
+            >
                 {hider ? (
                     <ChooseZoneButton id={id} name={name} />
                 ) : (
@@ -335,6 +343,7 @@ export const ZoneCounter = () => {
     const $keptZonesRuledOut = useStore(keptZonesRuledOut);
     const $allTrainStations = useStore(allTrainStations);
     const $selectedZoneId = useStore(selectedZoneId);
+    const watching = useWatching();
     useLeavingZoneWarning($zoneCheck);
     const hider = $hiderMode !== false;
 
@@ -364,16 +373,17 @@ export const ZoneCounter = () => {
                     total: $allTrainStations.length,
                 })}
             </button>
-            {canShowAllZones($disabledStations, $keptZonesRuledOut) && (
-                <Button
-                    size="sm"
-                    variant="outline"
-                    className="mr-1 h-7 rounded-full px-2 text-xs"
-                    onClick={showAllZones}
-                >
-                    {t("zones.showAll")}
-                </Button>
-            )}
+            {!watching &&
+                canShowAllZones($disabledStations, $keptZonesRuledOut) && (
+                    <Button
+                        size="sm"
+                        variant="outline"
+                        className="mr-1 h-7 rounded-full px-2 text-xs"
+                        onClick={showAllZones}
+                    >
+                        {t("zones.showAll")}
+                    </Button>
+                )}
         </div>
     );
 };

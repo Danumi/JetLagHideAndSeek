@@ -3,6 +3,7 @@ import { EyeIcon, EyeOffIcon, PencilIcon, Trash2Icon } from "lucide-react";
 
 import { ClockNotStarted, SentLine } from "@/components/AnswerClock";
 import { RuleButton } from "@/components/HelpDialog";
+import { ViewOnly } from "@/components/SeekerMap";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -185,75 +186,78 @@ export const QuestionCard = ({
                     </div>
                     <RuleButton ruleId={ruleIdFor(question)} />
                 </div>
-                {children && <SidebarMenu>{children}</SidebarMenu>}
-                {/* Sent: the time and the answer come first */}
-                {sent && (
-                    <>
-                        <SentLine
-                            sentAt={question.data.sentAt!}
-                            minutes={ANSWER_MINUTES}
-                            send={<SendToHider question={question} small />}
-                        />
-                        {beforeAnswer}
-                        <AnswerButtons question={question} />
-                    </>
-                )}
-                <QuestionLocation question={question} />
-                <NearestInfo question={question} />
-                {/* Not sent yet (or being changed): send first */}
-                {pending && !sent && (
+                {/* Another seeker's phone asks: only shown here */}
+                <ViewOnly className="flex flex-col gap-3">
+                    {children && <SidebarMenu>{children}</SidebarMenu>}
+                    {/* Sent: the time and the answer come first */}
+                    {sent && (
+                        <>
+                            <SentLine
+                                sentAt={question.data.sentAt!}
+                                minutes={ANSWER_MINUTES}
+                                send={<SendToHider question={question} small />}
+                            />
+                            {beforeAnswer}
+                            <AnswerButtons question={question} />
+                        </>
+                    )}
+                    <QuestionLocation question={question} />
+                    <NearestInfo question={question} />
+                    {/* Not sent yet (or being changed): send first */}
+                    {pending && !sent && (
+                        <div className="flex flex-col gap-2">
+                            {question.data.sentAt !== undefined && (
+                                <CardNote>{t("send.changing")}</CardNote>
+                            )}
+                            <SendToHider question={question} />
+                            {question.data.sentAt === undefined && (
+                                <ClockNotStarted minutes={ANSWER_MINUTES} />
+                            )}
+                        </div>
+                    )}
+                    {!sent && (
+                        <>
+                            {beforeAnswer}
+                            <AnswerButtons question={question} pale={pending} />
+                        </>
+                    )}
                     <div className="flex flex-col gap-2">
-                        {question.data.sentAt !== undefined && (
-                            <CardNote>{t("send.changing")}</CardNote>
-                        )}
-                        <SendToHider question={question} />
-                        {question.data.sentAt === undefined && (
-                            <ClockNotStarted minutes={ANSWER_MINUTES} />
-                        )}
-                    </div>
-                )}
-                {!sent && (
-                    <>
-                        {beforeAnswer}
-                        <AnswerButtons question={question} pale={pending} />
-                    </>
-                )}
-                <div className="flex flex-col gap-2">
-                    {sent && <ChangeSent question={question} />}
-                    <div
-                        className={cn(
-                            "grid gap-2",
-                            canHide ? "grid-cols-2" : "grid-cols-1",
-                        )}
-                    >
-                        {canHide && (
-                            <Button
-                                variant="outline"
-                                className="h-10"
-                                onClick={() =>
-                                    questionModified(
-                                        (question.data.hidden =
-                                            !question.data.hidden),
-                                    )
+                        {sent && <ChangeSent question={question} />}
+                        <div
+                            className={cn(
+                                "grid gap-2",
+                                canHide ? "grid-cols-2" : "grid-cols-1",
+                            )}
+                        >
+                            {canHide && (
+                                <Button
+                                    variant="outline"
+                                    className="h-10"
+                                    onClick={() =>
+                                        questionModified(
+                                            (question.data.hidden =
+                                                !question.data.hidden),
+                                        )
+                                    }
+                                >
+                                    {question.data.hidden ? (
+                                        <EyeIcon />
+                                    ) : (
+                                        <EyeOffIcon />
+                                    )}
+                                    {question.data.hidden
+                                        ? t("card.showOnMap")
+                                        : t("card.hideOnMap")}
+                                </Button>
+                            )}
+                            <DeleteButton
+                                onDelete={() =>
+                                    deleteQuestionWithUndo(question.key)
                                 }
-                            >
-                                {question.data.hidden ? (
-                                    <EyeIcon />
-                                ) : (
-                                    <EyeOffIcon />
-                                )}
-                                {question.data.hidden
-                                    ? t("card.showOnMap")
-                                    : t("card.hideOnMap")}
-                            </Button>
-                        )}
-                        <DeleteButton
-                            onDelete={() =>
-                                deleteQuestionWithUndo(question.key)
-                            }
-                        />
+                            />
+                        </div>
                     </div>
-                </div>
+                </ViewOnly>
             </SidebarGroup>
             <Separator className="h-1" />
         </>
