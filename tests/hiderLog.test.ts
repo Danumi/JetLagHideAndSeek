@@ -23,6 +23,7 @@ import {
     lateIntervals,
     markAnswered,
     receiveEntry,
+    removeDeletedEntries,
     removeEntry,
     reopenEntry,
 } from "@/maps/hiderLog";
@@ -238,6 +239,30 @@ describe("the hider's question log", () => {
         const late = { ...first, answeredAt: T0 + 6 * 60_000 };
         expect(answeredLate(late)).toBe(true);
         expect(cardDraw(late, [late])).toBeUndefined();
+    });
+
+    it("forgets questions the seekers deleted, so they don't count as asked", () => {
+        receiveEntry(fromLink(0.1));
+        markAnswered(0.1, { value: "inside" });
+        receiveEntry({ ...fromLink(0.2), askedAt: T0 + 60_000 });
+        const byHand = addEntryByHand({ photo: PHOTO_DECK[0].id });
+        expect(
+            cardDraw(
+                hiderInbox.get().find((x) => x.key === 0.2)!,
+                hiderInbox.get(),
+            ),
+        ).toMatchObject({ times: 2 });
+
+        // The seekers deleted the first radar and asked it again
+        expect(removeDeletedEntries([0.1, byHand.key, 0.7])).toBe(1);
+        expect(hiderInbox.get().map((x) => x.key)).toEqual([0.2, byHand.key]);
+        expect(questions.get()).toHaveLength(0);
+        expect(cardDraw(hiderInbox.get()[0], hiderInbox.get())).toEqual({
+            draw: 2,
+            keep: 1,
+            times: 1,
+        });
+        expect(removeDeletedEntries([0.1])).toBe(0);
     });
 
     it("knows when late answers stopped the hiding time", () => {

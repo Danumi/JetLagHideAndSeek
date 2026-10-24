@@ -57,6 +57,7 @@ import {
     isOpen,
     markAnswered,
     receiveEntry,
+    removeDeletedEntries,
     removeEntry,
     reopenEntry,
     type SentAnswer,
@@ -237,7 +238,8 @@ const receiveQuestionLink = (entry: HiderInboxEntry) => {
  */
 const takeQuestionLink = async (value: string) => {
     try {
-        const { question, number, photo } = await readQuestionLink(value);
+        const { question, number, photo, deleted } =
+            await readQuestionLink(value);
 
         const key = question?.key ?? photo!.key;
         const inInbox = hiderInbox.get().some((x) => x.key === key);
@@ -269,6 +271,17 @@ const takeQuestionLink = async (value: string) => {
                       receivedAt,
                   },
         );
+        const removed = removeDeletedEntries(
+            deleted.filter((other) => other !== key),
+        );
+        if (removed > 0) {
+            toast.info(
+                removed === 1
+                    ? t("hider.seekersDeletedOne")
+                    : t("hider.seekersDeleted", { count: removed }),
+                { autoClose: 8000 },
+            );
+        }
         return key;
     } catch (error) {
         console.log(error);

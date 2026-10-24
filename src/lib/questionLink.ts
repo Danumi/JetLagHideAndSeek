@@ -1,4 +1,4 @@
-import type { PhotoQuestion } from "@/lib/context";
+import { deletedSentQuestions, type PhotoQuestion } from "@/lib/context";
 import { compress, decompress } from "@/lib/utils";
 import { type Question, questionSchema } from "@/maps/schema";
 
@@ -21,13 +21,42 @@ const SEEKER_ONLY_FIELDS = [
     "status",
 ];
 
+/** A link names the latest deleted questions, no more than these. */
+const MAX_DELETED_IN_LINK = 30;
+
+/** The seekers deleted these questions after sending them. */
+export const noteDeleted = (keys: number[]) => {
+    if (keys.length === 0) return;
+    deletedSentQuestions.set(
+        [
+            ...deletedSentQuestions.get().filter((key) => !keys.includes(key)),
+            ...keys,
+        ].slice(-MAX_DELETED_IN_LINK),
+    );
+};
+
+/** Deleting them was undone: they count again. */
+export const unnoteDeleted = (keys: number[]) => {
+    if (!deletedSentQuestions.get().some((key) => keys.includes(key))) return;
+    deletedSentQuestions.set(
+        deletedSentQuestions.get().filter((key) => !keys.includes(key)),
+    );
+};
+
 const linkWith = async (payload: object, appUrl: string) => {
     const url = new URL(appUrl);
     url.search = "";
     url.hash = "";
+    // Questions the hider has but the seekers deleted: the hider's phone
+    // takes them out of its log, so they don't count as asked
+    const deleted = deletedSentQuestions.get();
     url.searchParams.set(
         QUESTION_URL_PARAM,
-        await compress(JSON.stringify(payload)),
+        await compress(
+            JSON.stringify(
+                deleted.length > 0 ? { ...payload, x: deleted } : payload,
+            ),
+        ),
     );
     return url.toString();
 };
@@ -61,13 +90,20 @@ export const photoLink = async (
     appUrl = window.location.href,
 ) => linkWith({ p: { key, photo, askedAt, sentAt } }, appUrl);
 
-export type LinkContent =
+export type LinkContent = (
     | { question: Question; number?: number; photo?: undefined }
-    | { photo: PhotoLinkQuestion; question?: undefined; number?: undefined };
+    | { photo: PhotoLinkQuestion; question?: undefined; number?: undefined }
+) & {
+    /** Questions the seekers deleted after sending them, by key. */
+    deleted: number[];
+};
 
 /** The question in a link from `questionLink` or `photoLink`. */
 export const readQuestionLink = async (value: string): Promise<LinkContent> => {
     const payload = JSON.parse(await decompress(value));
+    const deleted: number[] = Array.isArray(payload.x)
+        ? payload.x.filter((key: unknown) => typeof key === "number")
+        : [];
 
     if (payload.p) {
         const { key, photo, askedAt, sentAt } = payload.p;
@@ -81,6 +117,7 @@ export const readQuestionLink = async (value: string): Promise<LinkContent> => {
                 askedAt: typeof askedAt === "number" ? askedAt : Date.now(),
                 sentAt: typeof sentAt === "number" ? sentAt : undefined,
             },
+            deleted,
         };
     }
 
@@ -90,6 +127,7 @@ export const readQuestionLink = async (value: string): Promise<LinkContent> => {
     return {
         question,
         number: typeof payload.n === "number" ? payload.n : undefined,
+        deleted,
     };
 };
 

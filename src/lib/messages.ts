@@ -1212,6 +1212,14 @@ export const messages = {
         en: "This is your own question. Send the link to the hider: their phone works out the answer.",
         de: "Das ist deine eigene Frage. Schick den Link an den Hider: Das Handy des Hiders rechnet die Antwort aus.",
     },
+    "hider.seekersDeletedOne": {
+        en: "The seekers deleted a question they had sent you. It's gone from your log and no longer counts as asked.",
+        de: "Die Seeker haben eine Frage gelöscht, die sie dir geschickt hatten. Sie ist aus deinem Protokoll weg und zählt nicht mehr als gestellt.",
+    },
+    "hider.seekersDeleted": {
+        en: "The seekers deleted {count} questions they had sent you. They're gone from your log and no longer count as asked.",
+        de: "Die Seeker haben {count} Fragen gelöscht, die sie dir geschickt hatten. Sie sind aus deinem Protokoll weg und zählen nicht mehr als gestellt.",
+    },
     "hider.brokenLink": {
         en: "This question link is broken. Ask the seekers to send it again.",
         de: "Dieser Frage-Link ist kaputt. Bitte die Seeker, ihn nochmal zu schicken.",
