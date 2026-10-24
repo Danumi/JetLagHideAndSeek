@@ -28,10 +28,10 @@ import {
     VIENNA,
 } from "@/lib/context";
 import { t, useLanguage } from "@/lib/i18n";
-import { lateAnswerIntervals } from "@/lib/live";
+import { lateAnswerIntervals, liveGame, newGameKeepsClock } from "@/lib/live";
 import { type Role, setRole } from "@/lib/role";
 import { cn } from "@/lib/utils";
-import { endRound } from "@/maps/gameClock";
+import { endRound, gameClock } from "@/maps/gameClock";
 import { preloadGameData } from "@/maps/preload";
 import { choosingHiderZone } from "@/maps/zones";
 
@@ -72,8 +72,9 @@ export const startNewGame = (role: Role) => {
     displayHidingZones.set(true);
 
     // The round's hiding time stays in the list of past rounds; the hider
-    // starts the clock again when the hiding period begins
-    endRound(Date.now(), lateAnswerIntervals());
+    // starts the clock again when the hiding period begins. Connected phones
+    // keep a hiding period that has just begun: this phone joins the round
+    if (!newGameKeepsClock()) endRound(Date.now(), lateAnswerIntervals());
     hiderInbox.set([]);
     thermometerRun.set(null);
     setRole(role);
@@ -100,6 +101,8 @@ export const NewGameDialog = ({
     useLanguage();
     const $isLoading = useStore(isLoading);
     const $questions = useStore(questions);
+    const $liveGame = useStore(liveGame);
+    const $gameClock = useStore(gameClock);
     const [open, setOpen] = useState(false);
 
     return (
@@ -132,6 +135,13 @@ export const NewGameDialog = ({
                                         : t("newGame.deletesMany", {
                                               count: $questions.length,
                                           })
+                                }`}
+                            {$liveGame &&
+                                $gameClock &&
+                                ` ${
+                                    newGameKeepsClock()
+                                        ? t("newGame.liveKeepsClock")
+                                        : t("newGame.liveEndsClock")
                                 }`}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
