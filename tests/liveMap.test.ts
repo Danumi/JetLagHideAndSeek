@@ -347,6 +347,21 @@ describe("sharing the seekers' map", () => {
         expect(database.shared()!.at).toBeGreaterThan(T0);
     });
 
+    it("sends a question changed in place right after it was asked", async () => {
+        const database = fakeDatabase();
+        const sharing = share(database.link);
+        await sharing.sync();
+
+        addQuestion(radar(0.75));
+        await database.idle();
+        // The seekers' line, say: changed in the question itself
+        (questions.get()[0] as Question & { id: "radius" }).data.radius = 5;
+        questions.set([...questions.get()]);
+        await database.idle();
+        const shared = database.shared()!.map.questions[0];
+        expect((shared as Question & { id: "radius" }).data.radius).toBe(5);
+    });
+
     it("lets the next phone ask once the asking phone is the hider's", async () => {
         const database = fakeDatabase();
         const sharing = share(database.link);

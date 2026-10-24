@@ -342,7 +342,9 @@ export const shareSeekerMap = (link: SeekerMapLink) => {
         questionKeys.forEach((key) => unsent.add(key));
         await link.write(changes);
         questionKeys.forEach((key) => unsent.delete(key));
-        there = next;
+        // A copy: a question changed in place (its line, say) must still
+        // differ from what the database has
+        there = structuredClone(next);
         shared = { by, at, map };
     };
 
