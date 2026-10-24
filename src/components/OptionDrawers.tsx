@@ -541,7 +541,9 @@ export const OptionDrawers = () => {
                                     variant="outline"
                                     onClick={() => {
                                         setOptionsOpen(false);
-                                        helpOpen.set({ tab: "guide" });
+                                        // Straight to the rules: the quick guide has
+                                        // its own tab and opens by itself once
+                                        helpOpen.set({ tab: "rules" });
                                     }}
                                 >
                                     {t("settings.help")}
