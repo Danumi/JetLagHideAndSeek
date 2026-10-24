@@ -27,6 +27,7 @@ import {
     type SeekerPosition,
     seekerPositions,
 } from "@/lib/live";
+import { askingPhone, seekerMapRole } from "@/lib/liveMap";
 import { cn, shareOrFallback } from "@/lib/utils";
 import { formatKilometers } from "@/maps/answers";
 
@@ -163,9 +164,14 @@ const PhoneList = () => {
     const $phones = useStore(gamePhones);
     const $status = useStore(liveStatus);
     const hider = useStore(hiderMode) !== false;
+    const $askingPhone = useStore(askingPhone);
+    const $seekerMapRole = useStore(seekerMapRole);
     const now = useNow();
     if ($status !== "connected") return null;
-    const others = Object.values($phones).sort((a, b) => b.seenAt - a.seenAt);
+    const others = Object.entries($phones).sort(
+        ([, a], [, b]) => b.seenAt - a.seenAt,
+    );
+    const asks = ` · ${t("seekerMap.asks")}`;
 
     return (
         <div className="flex flex-col gap-1 text-sm">
@@ -174,10 +180,13 @@ const PhoneList = () => {
                 {t("live.thisPhone", {
                     role: roleName(hider ? "hider" : "seeker"),
                 })}
+                {$seekerMapRole === "asking" && asks}
             </span>
-            {others.map((phone, index) => (
-                <span key={index}>
-                    {roleName(phone.role)} · {agoText(phone.seenAt, now)}
+            {others.map(([id, phone]) => (
+                <span key={id}>
+                    {roleName(phone.role)}
+                    {phone.role === "seeker" && id === $askingPhone && asks}
+                    {` · ${agoText(phone.seenAt, now)}`}
                     {!phone.located && (
                         <span className="text-red-600">
                             {` · ${t("live.noLocationShort")}`}
@@ -188,6 +197,11 @@ const PhoneList = () => {
             {others.length === 0 && (
                 <span className="text-muted-foreground">
                     {t("live.noOtherPhone")}
+                </span>
+            )}
+            {!hider && (
+                <span className="text-xs text-muted-foreground">
+                    {t("seekerMap.whoAsks")}
                 </span>
             )}
         </div>

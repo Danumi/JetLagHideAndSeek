@@ -29,6 +29,7 @@ import {
     WaitingForAnswer,
 } from "./AskQuestion";
 import { TappedLineBar } from "./MapLayers";
+import { SeekerMapNotices, ViewOnly } from "./SeekerMap";
 import { Button } from "./ui/button";
 
 const SideButton = ({
@@ -126,6 +127,7 @@ export const BottomBar = () => {
 
     return (
         <div className="relative z-[1030] shrink-0">
+            <SeekerMapNotices />
             {$pickingLocation && (
                 <div className="pointer-events-none absolute bottom-full left-0 right-0 mb-3 flex flex-col items-center gap-2 px-2 [&>*]:pointer-events-auto">
                     <PickOnMapHint target={$pickingLocation} />
@@ -138,7 +140,9 @@ export const BottomBar = () => {
                     )}
                     {$hiderMode === false && <WaitingForAnswer />}
                     {$hiderMode === false && $thermometerRun && (
-                        <ThermometerTracker run={$thermometerRun} />
+                        <ViewOnly>
+                            <ThermometerTracker run={$thermometerRun} />
+                        </ViewOnly>
                     )}
                     {/* A line tapped on the map, named here to keep the map clear */}
                     <TappedLineBar />

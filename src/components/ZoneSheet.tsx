@@ -42,6 +42,7 @@ import {
 } from "@/maps/zones";
 
 import { PositiveNumberInput } from "./PositiveNumberInput";
+import { useWatching, WatchingNote } from "./SeekerMap";
 import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Input } from "./ui/input";
@@ -152,6 +153,8 @@ const ZoneList = () => {
     const [search, setSearch] = useState("");
     // "Keep only these": the zones ticked so far, or null
     const [keeping, setKeeping] = useState<string[] | null>(null);
+    // Another seeker's phone asks: it rules zones out
+    const watching = useWatching();
 
     if (!$displayHidingZones) {
         return (
@@ -199,9 +202,13 @@ const ZoneList = () => {
             ) : (
                 <>
                     <StyleButtons styles={GAME_STYLES} />
-                    <p className="text-xs text-muted-foreground">
-                        {t("zones.listHelp")}
-                    </p>
+                    {watching ? (
+                        <WatchingNote />
+                    ) : (
+                        <p className="text-xs text-muted-foreground">
+                            {t("zones.listHelp")}
+                        </p>
+                    )}
                 </>
             )}
             <div className="flex gap-2">
@@ -210,7 +217,7 @@ const ZoneList = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                {!keeping && $hiderMode === false && (
+                {!keeping && $hiderMode === false && !watching && (
                     <Button
                         variant="outline"
                         className="shrink-0"
@@ -257,6 +264,7 @@ const ZoneList = () => {
                                 id={id}
                                 name={name}
                                 ruledOut={$disabledStations.includes(id)}
+                                readOnly={watching}
                                 onShow={() => show(id)}
                             />
                         );
@@ -283,27 +291,32 @@ const ZoneList = () => {
                     </Button>
                 </div>
             ) : (
-                <div className="flex gap-2">
-                    {canShowAllZones($disabledStations, $keptZonesRuledOut) ? (
-                        <Button
-                            variant="outline"
-                            className="flex-1"
-                            onClick={showAllZones}
-                        >
-                            {t("zones.showAll")}
-                        </Button>
-                    ) : (
-                        $disabledStations.length > 0 && (
+                !watching && (
+                    <div className="flex gap-2">
+                        {canShowAllZones(
+                            $disabledStations,
+                            $keptZonesRuledOut,
+                        ) ? (
                             <Button
                                 variant="outline"
                                 className="flex-1"
-                                onClick={restoreAllZones}
+                                onClick={showAllZones}
                             >
-                                {t("zones.restoreAll")}
+                                {t("zones.showAll")}
                             </Button>
-                        )
-                    )}
-                </div>
+                        ) : (
+                            $disabledStations.length > 0 && (
+                                <Button
+                                    variant="outline"
+                                    className="flex-1"
+                                    onClick={restoreAllZones}
+                                >
+                                    {t("zones.restoreAll")}
+                                </Button>
+                            )
+                        )}
+                    </div>
+                )
             )}
         </div>
     );
@@ -314,11 +327,14 @@ const ZoneRow = ({
     id,
     name,
     ruledOut,
+    readOnly,
     onShow,
 }: {
     id: string;
     name: string;
     ruledOut: boolean;
+    /** Only to see it: another seeker's phone rules zones out. */
+    readOnly?: boolean;
     onShow: () => void;
 }) => {
     const [offset, setOffset] = useState(0);
@@ -352,6 +368,7 @@ const ZoneRow = ({
                 }}
                 data-vaul-no-drag
                 onPointerDown={(e) => {
+                    if (readOnly) return;
                     start.current = { x: e.clientX, y: e.clientY };
                     swiping.current = false;
                 }}
@@ -397,7 +414,8 @@ const ZoneRow = ({
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 shrink-0"
+                    className={cn("h-8 w-8 shrink-0", readOnly && "invisible")}
+                    disabled={readOnly}
                     title={ruledOut ? t("zones.backIn") : t("zones.ruleOut")}
                     onClick={(e) => {
                         e.stopPropagation();

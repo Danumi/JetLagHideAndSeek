@@ -29,6 +29,7 @@ import {
 } from "@/lib/context";
 import { t, useLanguage } from "@/lib/i18n";
 import { lateAnswerIntervals, liveGame, newGameKeepsClock } from "@/lib/live";
+import { anotherPhoneAsks, seekerMapRole } from "@/lib/liveMap";
 import { type Role, setRole } from "@/lib/role";
 import { cn } from "@/lib/utils";
 import { endRound, gameClock } from "@/maps/gameClock";
@@ -50,14 +51,19 @@ import { deleteAllQuestionsWithUndo } from "./UndoToast";
 
 /** Vienna, Small game: U-Bahn stations with 500 m hiding zones, no questions. */
 export const startNewGame = (role: Role) => {
+    // Another seeker's phone asks the questions: the seekers' map is its
+    const keepSeekerMap = role === "seeker" && anotherPhoneAsks();
+
     mapGeoLocation.set(structuredClone(VIENNA));
     additionalMapGeoLocations.set([]);
     polyGeoJSON.set(null);
     mapGeoJSON.set(null);
 
     useCustomStations.set(false);
-    disabledStations.set([]);
-    keptZonesRuledOut.set([]);
+    if (!keepSeekerMap) {
+        disabledStations.set([]);
+        keptZonesRuledOut.set([]);
+    }
     selectedZoneId.set("");
     hiderZoneId.set("");
     choosingHiderZone.set(false);
@@ -76,11 +82,13 @@ export const startNewGame = (role: Role) => {
     // keep a hiding period that has just begun: this phone joins the round
     if (!newGameKeepsClock()) endRound(Date.now(), lateAnswerIntervals());
     hiderInbox.set([]);
-    thermometerRun.set(null);
+    if (!keepSeekerMap) thermometerRun.set(null);
     setRole(role);
 
     // Clearing the questions also reloads the map
-    if (questions.get().length > 0 || photoQuestions.get().length > 0) {
+    if (keepSeekerMap) {
+        questions.set([...questions.get()]);
+    } else if (questions.get().length > 0 || photoQuestions.get().length > 0) {
         deleteAllQuestionsWithUndo();
     } else {
         questions.set([]);
@@ -103,7 +111,9 @@ export const NewGameDialog = ({
     const $questions = useStore(questions);
     const $liveGame = useStore(liveGame);
     const $gameClock = useStore(gameClock);
+    const $seekerMapRole = useStore(seekerMapRole);
     const [open, setOpen] = useState(false);
+    const keepsSeekerMap = anotherPhoneAsks();
 
     return (
         <AlertDialog open={open} onOpenChange={setOpen}>
@@ -128,7 +138,12 @@ export const NewGameDialog = ({
                         </AlertDialogTitle>
                         <AlertDialogDescription>
                             {t("newGame.text")}
+                            {keepsSeekerMap &&
+                                ` ${t("newGame.seekerMapStays")}`}
+                            {$seekerMapRole === "asking" &&
+                                ` ${t("newGame.seekerMapAll")}`}
                             {$questions.length > 0 &&
+                                !keepsSeekerMap &&
                                 ` ${
                                     $questions.length === 1
                                         ? t("newGame.deletesOne")

@@ -792,6 +792,42 @@ export const messages = {
         en: "Seekers: {distance} from you · {ago}",
         de: "Seeker: {distance} von dir · {ago}",
     },
+    "seekerMap.asks": {
+        en: "asks the questions",
+        de: "stellt die Fragen",
+    },
+    "seekerMap.whoAsks": {
+        en: "One seeker's phone asks the questions and enters the answers, the other seekers' phones show the same map. The first one to ask a question asks them.",
+        de: "Ein Seeker-Handy stellt die Fragen und trägt die Antworten ein, die anderen Seeker-Handys zeigen dieselbe Karte. Das erste, das eine Frage stellt, stellt sie.",
+    },
+    "seekerMap.watching": {
+        en: "Another seeker's phone asks the questions. This phone shows the same map but can't change it.",
+        de: "Ein anderes Seeker-Handy stellt die Fragen. Dieses Handy zeigt dieselbe Karte, kann sie aber nicht ändern.",
+    },
+    "seekerMap.takeOver": {
+        en: "Ask on this phone",
+        de: "Auf diesem Handy fragen",
+    },
+    "seekerMap.takeOverConfirm": {
+        en: "Ask the questions on this phone from now on? The other seekers' phones then show this phone's map and can't change it.",
+        de: "Ab jetzt auf diesem Handy fragen? Die anderen Seeker-Handys zeigen dann die Karte dieses Handys und können sie nicht ändern.",
+    },
+    "seekerMap.blocked": {
+        en: "Another seeker's phone asks the questions: only it changes the map.",
+        de: "Ein anderes Seeker-Handy stellt die Fragen: Nur dieses ändert die Karte.",
+    },
+    "seekerMap.nowWatching": {
+        en: "Another seeker's phone asks the questions. This phone shows its map.",
+        de: "Ein anderes Seeker-Handy stellt die Fragen. Dieses Handy zeigt seine Karte.",
+    },
+    "seekerMap.lost": {
+        en: "Another seeker's phone asks the questions now. This phone shows its map.",
+        de: "Jetzt stellt ein anderes Seeker-Handy die Fragen. Dieses Handy zeigt seine Karte.",
+    },
+    "seekerMap.nowAsking": {
+        en: "This phone asks the questions now. The other seekers' phones show its map.",
+        de: "Dieses Handy stellt jetzt die Fragen. Die anderen Seeker-Handys zeigen seine Karte.",
+    },
     "settings.preload": { en: "Preload map data", de: "Kartendaten vorladen" },
     "settings.preloadHint": {
         en: 'Loads the data of every question card for the game area, so answers don\'t have to wait. "New Game" does this by itself.',
@@ -938,6 +974,14 @@ export const messages = {
     "newGame.deletesMany": {
         en: "All {count} questions disappear; you can undo this right afterwards.",
         de: "Alle {count} Fragen verschwinden; du kannst das gleich danach rückgängig machen.",
+    },
+    "newGame.seekerMapStays": {
+        en: "As a seeker, this phone keeps showing the map of the phone that asks the questions.",
+        de: "Als Seeker zeigt dieses Handy weiter die Karte des Handys, das die Fragen stellt.",
+    },
+    "newGame.seekerMapAll": {
+        en: "The other seekers' phones start with an empty map too.",
+        de: "Auch die anderen Seeker-Handys beginnen mit einer leeren Karte.",
     },
     "newGame.liveKeepsClock": {
         en: "The game timer keeps running on the connected phones: the hiding period has just begun.",

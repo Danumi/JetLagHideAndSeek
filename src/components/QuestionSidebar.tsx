@@ -33,6 +33,7 @@ import {
     TentacleQuestionComponent,
     ThermometerQuestionComponent,
 } from "./QuestionCards";
+import { ViewOnly, WatchingNote } from "./SeekerMap";
 
 const SectionHeading = ({ children }: { children: React.ReactNode }) => (
     <h3 className="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
@@ -85,6 +86,7 @@ export const QuestionSidebar = () => {
                 />
             </div>
             <SidebarContent>
+                <WatchingNote className="mx-3 mt-2" />
                 {$questions.length === 0 && $photoQuestions.length === 0 && (
                     <p className="px-4 py-2 text-sm text-muted-foreground">
                         {t("sidebar.empty")}
@@ -139,19 +141,23 @@ export const QuestionSidebar = () => {
                             return null;
                     }
                 })}
-                {openPhotos.map((photo) => (
-                    <PhotoQuestionCard key={photo.key} photo={photo} />
-                ))}
+                <ViewOnly>
+                    {openPhotos.map((photo) => (
+                        <PhotoQuestionCard key={photo.key} photo={photo} />
+                    ))}
+                </ViewOnly>
                 {answered.length > 0 && (
                     <SectionHeading>{t("sidebar.answered")}</SectionHeading>
                 )}
-                {answered.map(({ row }) => row)}
-                {/* The hider has this on the hider screen */}
-                {$hiderMode === false && answered.length > 0 && (
-                    <div className="px-4 py-3">
-                        <MoveButton className="w-full" />
-                    </div>
-                )}
+                <ViewOnly>
+                    {answered.map(({ row }) => row)}
+                    {/* The hider has this on the hider screen */}
+                    {$hiderMode === false && answered.length > 0 && (
+                        <div className="px-4 py-3">
+                            <MoveButton className="w-full" />
+                        </div>
+                    )}
+                </ViewOnly>
             </SidebarContent>
             <SidebarGroup>
                 <SidebarGroupContent>
