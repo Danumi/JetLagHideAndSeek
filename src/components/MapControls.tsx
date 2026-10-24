@@ -414,23 +414,35 @@ export const LocateButton = () => {
 };
 
 /**
- * On the hider's map with a chosen zone: hides the other zones (only their
- * own zone, clean) or shows them again (what the seekers still consider).
+ * On the hider's map: hides the other zones (only their own zone, clean) or
+ * shows them again (what the seekers still consider). Always there for the
+ * hider, so it doesn't vanish after "New Game" or a move; without a chosen
+ * zone it says how to choose one.
  */
 export const OtherZonesButton = () => {
     useLanguage();
+    const $hiderMode = useStore(hiderMode);
     const $hiderOwnZone = useStore(hiderOwnZone);
     const $displayHidingZones = useStore(displayHidingZones);
     const $hideOtherZones = useStore(hideOtherZones);
 
-    if (!$hiderOwnZone || !$displayHidingZones) return null;
+    if ($hiderMode === false || !$displayHidingZones) return null;
+
+    const hidden = $hideOtherZones && !!$hiderOwnZone;
 
     const toggle = () => {
-        hideOtherZones.set(!$hideOtherZones);
-        toast.info(
-            $hideOtherZones ? t("zones.othersShown") : t("zones.othersHidden"),
-            { autoClose: 3000, toastId: "other-zones" },
-        );
+        if (!$hiderOwnZone) {
+            toast.info(t("zones.chooseOwnFirst"), {
+                autoClose: 5000,
+                toastId: "other-zones",
+            });
+            return;
+        }
+        hideOtherZones.set(!hidden);
+        toast.info(hidden ? t("zones.othersShown") : t("zones.othersHidden"), {
+            autoClose: 3000,
+            toastId: "other-zones",
+        });
     };
 
     return (
@@ -439,15 +451,14 @@ export const OtherZonesButton = () => {
             variant="outline"
             className={cn(
                 "h-11 w-11 rounded-full bg-background/95 text-foreground shadow-lg",
-                $hideOtherZones && "text-violet-500",
+                hidden && "text-violet-500",
+                !$hiderOwnZone && "text-muted-foreground",
             )}
-            title={
-                $hideOtherZones ? t("zones.showOthers") : t("zones.hideOthers")
-            }
-            aria-pressed={$hideOtherZones}
+            title={hidden ? t("zones.showOthers") : t("zones.hideOthers")}
+            aria-pressed={hidden}
             onClick={toggle}
         >
-            {$hideOtherZones ? (
+            {hidden ? (
                 <CircleIcon className="!size-5" />
             ) : (
                 <BlendIcon className="!size-5" />
