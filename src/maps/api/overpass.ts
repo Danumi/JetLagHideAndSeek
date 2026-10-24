@@ -21,6 +21,7 @@ import { showLoadError, trackLoading } from "@/lib/loading";
 import { overpassHosts, refuseOverpassHost } from "@/lib/overpassAccess";
 import { memoizeAsync } from "@/lib/utils";
 import { safeUnion } from "@/maps/geo-utils";
+import type { StreetWay } from "@/maps/streetArea";
 
 import { cacheFetch, determineCache } from "./cache";
 import {
@@ -569,69 +570,6 @@ ${routeStationsQuery()}`;
     return mergeStationLines(parseStationLines(data));
 };
 
-/** A line runs this close to the seekers when they are riding it. */
-const RIDING_METERS = 100;
-
-/**
- * The lines the seekers may be riding: those whose tracks or roads run
- * close to them, or with a stop close by. Buses mostly don't pass the
- * nearest station.
- */
-export const findLinesNear = async (
-    lat: number,
-    lng: number,
-): Promise<StationLine[]> => {
-    const at = `${RIDING_METERS},${lat.toFixed(5)},${lng.toFixed(5)}`;
-    const query = `
-[out:json][timeout:60];
-(way(around:${at})["highway"];way(around:${at})["railway"];node(around:${at})["public_transport"~"^(stop_position|platform)$"];)->.near;
-(rel(bw.near)${LINE_ROUTE_FILTER};rel(bn.near)${LINE_ROUTE_FILTER};)->.routes;
-${routeStationsQuery()}`;
-
-    const data = await getOverpassData(query, t("loading.lines"));
-    return mergeStationLines(parseStationLines(data));
-};
-
-/**
- * The lines to choose from for "Transit Line": those at the seekers' nearest
- * station and those running where the seekers are.
- */
-export const findSeekerLines = async (
-    node: string,
-    at?: { lat: number; lng: number },
-) =>
-    mergeStationLines(
-        ...(await Promise.all([
-            findStationLines(node),
-            at ? findLinesNear(at.lat, at.lng) : [],
-        ])),
-    );
-
-/**
- * Station node ids that count as being on the seekers' line.
- *
- * Per the rules the seekers name the one line they are riding (`lineKey`),
- * one of the lines at their nearest station or where they are (`at`).
- * Without a chosen line only certain eliminations are made: "same" keeps
- * every station on any of those lines, "different" only removes stations
- * served by all of them.
- */
-export const trainLineNodeFinder = async (
-    node: string,
-    lineKey?: string,
-    same = true,
-    at?: { lat: number; lng: number },
-): Promise<number[]> => {
-    const lines = await findSeekerLines(node, at);
-    if (lines.length === 0) return [];
-
-    const chosen = lines.find((line) => line.key === lineKey);
-    if (chosen) return chosen.stationIds;
-
-    if (same) return _.uniq(lines.flatMap((line) => line.stationIds));
-    return _.intersection(...lines.map((line) => line.stationIds));
-};
-
 /** Ways and relation members as lines, each with its name (a river's for its parts). */
 const toLineStrings = (
     elements: any[],
@@ -713,16 +651,38 @@ export const findNearestStreet = async (lat: number, lng: number) => {
     return nearest;
 };
 
-/** All parts of a named street inside the game area, as lines. */
-export const findStreetLines = async (name: string) => {
-    const escaped = name.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
-    const data = await findPlacesInZone(
-        `["highway"]["name"="${escaped}"]`,
-        t("loading.named", { name }),
-        "way",
-        "geom",
+/** Streets and paths this close to a street can be nearer than it somewhere. */
+const STREET_NEIGHBOUR_METERS = 200;
+
+/**
+ * Every street and path within 200 m of a street, the street included: all
+ * ways with its name in the game area, or the one unnamed way.
+ */
+export const findStreetsAround = async (street: {
+    id: number;
+    name: string | null;
+}): Promise<StreetWay[]> => {
+    const bboxValue = gameAreaBbox();
+    let target = `way(${street.id})`;
+    if (street.name) {
+        const escaped = street.name.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+        target = bboxValue
+            ? `way["highway"]["name"="${escaped}"](${bboxValue})`
+            : `way(${street.id})`;
+    }
+    const data = await getOverpassData(
+        `[out:json][timeout:90];${target}->.x;way(around.x:${STREET_NEIGHBOUR_METERS})${STREET_FILTER};out geom;`,
+        street.name
+            ? t("loading.streetArea", { name: street.name })
+            : t("loading.street"),
     );
-    return toLineStrings(data.elements ?? []);
+    return (data.elements ?? [])
+        .filter((element: any) => element.geometry?.length >= 2)
+        .map((element: any) => ({
+            id: element.id as number,
+            name: (element.tags?.name as string | undefined) ?? null,
+            points: element.geometry.map((p: any) => [p.lon, p.lat]),
+        }));
 };
 
 /**
@@ -794,6 +754,8 @@ export interface TransitLine {
     ends?: { name: string; at: Position; beyond: boolean }[];
     /** Its tracks in the game area, each once (both directions share them). */
     lines: Feature<LineString, { name?: string }>[];
+    /** Where it stops in the game area: the stop positions of its routes. */
+    stops?: Position[];
 }
 
 /**
@@ -833,6 +795,7 @@ const transitLinesFrom = (data: any): TransitLine[] => {
             route: tags.route,
             colour: tags.colour,
             lines: [],
+            stops: [],
         };
         line.colour ??= tags.colour;
         const size = element.members?.length ?? 0;
@@ -853,6 +816,15 @@ const transitLinesFrom = (data: any): TransitLine[] => {
         );
         for (const track of tracks) wayIds.add(`${tags.ref}:${track.ref}`);
         line.lines.push(...toLineStrings(tracks));
+        for (const member of element.members ?? []) {
+            if (
+                member.type === "node" &&
+                /^stop/.test(member.role ?? "") &&
+                typeof member.lat === "number"
+            ) {
+                line.stops?.push([member.lon, member.lat]);
+            }
+        }
     }
 
     return [...lines.values()]

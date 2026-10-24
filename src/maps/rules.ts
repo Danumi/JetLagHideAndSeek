@@ -84,8 +84,8 @@ const CARD_RULES: Record<string, CardRule> = {
             en: "Only while the seekers are riding transit. Yes means their train, tram or bus stops at the hider's station. If it passes through without stopping, the answer is no. Best practice: the seekers send a screenshot of all the stops of their ride.",
         },
         note: {
-            de: "**In der App:** Wählt auf der Fragekarte die Linie, in der ihr sitzt (U-Bahn, S-Bahn, Straßenbahn oder Bus). Tippt ihr eine Zone an, zeigt die App die Linien ihrer Station.",
-            en: "**In the app:** on the question card, choose the line you're riding (U-Bahn, S-Bahn, tram or bus). Tap a zone and the app shows its station's lines.",
+            de: "**Hausregel:** Bei uns zählt nur die U-Bahn, nicht Straßenbahn, Bus, S-Bahn oder Zug. Die Seeker fragen also nur, während sie in der U-Bahn sitzen. **In der App:** Wählt auf der Fragekarte die U-Bahn-Linie, in der ihr sitzt; hält an eurer nächsten Station nur eine Linie, ist sie schon gewählt. Tippt ihr eine Zone an, zeigt die App die Linien ihrer Station.",
+            en: "**House rule:** for us only the U-Bahn counts, not tram, bus, S-Bahn or train. So the seekers only ask while riding the U-Bahn. **In the app:** on the question card, choose the U-Bahn line you're riding; if only one line stops at your nearest station, it's already chosen. Tap a zone and the app shows its station's lines.",
         },
     },
     "station-name-length": {
@@ -106,6 +106,10 @@ const CARD_RULES: Record<string, CardRule> = {
         counts: {
             de: "Jede Straße und jeder Fußweg auf der Karte. Eine Straße endet dort, wo sie anders heißt. Ein Weg ohne Namen reicht von einer Kreuzung zur nächsten.",
             en: "Any street or footpath on the map. A street ends where its name changes. A path without a name runs from one intersection to the next.",
+        },
+        note: {
+            de: "**In der App:** Es zählt die Straße oder der Weg, die dem Standort am nächsten ist. Ist ein Weg ohne Namen höchstens 15 m näher als eine Straße mit Namen, zählt die Straße. Auf der Karte bleibt bei „Gleich“ nur der Streifen entlang der Straße, in dem sie die nächste ist; „Verschieden“ streicht genau diesen Streifen.",
+            en: "**In the app:** the street or path nearest to where you are counts. If a path without a name is at most 15 m closer than a named street, the street counts. On the map, “same” keeps only the strip along the street where it's the nearest one; “different” rules out exactly that strip.",
         },
     },
     "admin-1": {
@@ -501,6 +505,10 @@ export const RULE_SECTIONS: RuleSection[] = [
                     {
                         de: "**Nur Orte mit Namen:** Parks, Museen, Zoos und alle anderen Orte zählen nur, wenn sie einen Namen haben; eine namenlose Grünfläche ist kein Park. Ein Berg ist ein Gipfel mit Namen ab 400 m Seehöhe.",
                         en: "**Named places only:** parks, museums, zoos and every other place count only if they have a name; an unnamed patch of green is no park. A mountain is a named peak of at least 400 m.",
+                    },
+                    {
+                        de: "**Öffi-Linie:** Es zählt nur die U-Bahn. Die Seeker fragen nur, während sie in der U-Bahn sitzen; Ja heißt, ihre Linie hält an der Station des Hiders.",
+                        en: "**Transit line:** only the U-Bahn counts. The seekers only ask while riding the U-Bahn; yes means their line stops at the hider's station.",
                     },
                     {
                         de: "**Stationsnamen:** der deutsche Name, wie er auf dem Schild steht.",

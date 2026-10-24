@@ -211,6 +211,12 @@ export const questionTitle = (question: Question) => {
             )}`;
         case "matching": {
             const card = matchingCardFor(question.data);
+            // "Transit Line U4": the U-Bahn line the seekers are riding
+            const line =
+                question.data.type === "same-train-line" &&
+                question.data.lineKey?.startsWith("subway:")
+                    ? ` ${question.data.lineKey.slice("subway:".length)}`
+                    : "";
             return `Matching: ${
                 card
                     ? tr(card.label)
@@ -218,7 +224,7 @@ export const questionTitle = (question: Question) => {
                           MATCHING_TYPE_LABELS[question.data.type] ??
                               question.data.type,
                       )
-            }`;
+            }${line}`;
         }
         case "measuring": {
             const card = measuringCardFor(question.data);

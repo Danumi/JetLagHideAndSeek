@@ -207,8 +207,8 @@ export const MATCHING_DECK: DeckCard[] = flatten([
                 id: "transit-line",
                 label: { en: "Transit Line", de: "Öffi-Linie" },
                 hint: {
-                    en: "Only while riding public transit",
-                    de: "Nur während du mit den Öffis fährst",
+                    en: "Only while riding the U-Bahn",
+                    de: "Nur während du mit der U-Bahn fährst",
                 },
                 type: "same-train-line",
                 needsHidingZones: true,
