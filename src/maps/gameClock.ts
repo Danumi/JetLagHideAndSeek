@@ -161,6 +161,14 @@ export const endRound = (now = Date.now(), late: Interval[] = []) => {
     gameClock.set(null);
 };
 
+/**
+ * Deletes one past round, e.g. one ended by mistake. Only on this phone:
+ * past rounds are not shared over the live connection. The others keep
+ * their numbers; deleting the last one gives its number to the next round.
+ */
+export const deletePastRound = (number: number) =>
+    pastRounds.set(pastRounds.get().filter((round) => round.number !== number));
+
 export const startGameClock = (now = Date.now()) =>
     gameClock.set({ startedAt: now, pausedMs: 0 });
 

@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { FlagIcon, PauseIcon, PlayIcon, TimerIcon } from "lucide-react";
+import { FlagIcon, PauseIcon, PlayIcon, TimerIcon, XIcon } from "lucide-react";
 
 import { hiderInbox, hiderMode } from "@/lib/context";
 import { t, useLanguage } from "@/lib/i18n";
@@ -7,6 +7,7 @@ import { hiderLate, lateAnswersFor, liveGame } from "@/lib/live";
 import { cn } from "@/lib/utils";
 import { clockTime } from "@/maps/deadline";
 import {
+    deletePastRound,
     endHidingPeriod,
     formatDuration,
     foundHider,
@@ -67,7 +68,10 @@ export const StartSeekingButton = ({ className }: { className?: string }) => (
     </Button>
 );
 
-/** The hiding times of the last rounds, newest first. */
+/**
+ * The hiding times of the last rounds, newest first. ✕ deletes one round
+ * (after asking), "Clear" all of them.
+ */
 const PastRounds = () => {
     const $pastRounds = useStore(pastRounds);
     if ($pastRounds.length === 0) return null;
@@ -105,8 +109,37 @@ const PastRounds = () => {
                                 ` · ${t("gameClock.notMarkedFound")}`}
                         </span>
                     </span>
-                    <span className="font-semibold tabular-nums">
-                        {formatDuration(round.hidingTime)}
+                    <span className="flex items-center gap-1">
+                        <span className="font-semibold tabular-nums">
+                            {formatDuration(round.hidingTime)}
+                        </span>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="size-7 text-muted-foreground"
+                            aria-label={t("gameClock.deleteRound", {
+                                number: round.number,
+                            })}
+                            title={t("gameClock.deleteRound", {
+                                number: round.number,
+                            })}
+                            onClick={() => {
+                                if (
+                                    window.confirm(
+                                        t("gameClock.deleteRoundConfirm", {
+                                            number: round.number,
+                                            time: formatDuration(
+                                                round.hidingTime,
+                                            ),
+                                        }),
+                                    )
+                                ) {
+                                    deletePastRound(round.number);
+                                }
+                            }}
+                        >
+                            <XIcon className="!size-4" />
+                        </Button>
                     </span>
                 </div>
             ))}
