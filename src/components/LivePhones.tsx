@@ -6,17 +6,20 @@ import { CircleMarker, Pane, Tooltip } from "react-leaflet";
 import { toast } from "react-toastify";
 import { renderSVG } from "uqr";
 
-import { hiderMode } from "@/lib/context";
+import { hiderMode, myPosition } from "@/lib/context";
 import { t, useLanguage } from "@/lib/i18n";
 import {
     createLiveGame,
     databaseAddress,
+    type GamePhone,
+    gamePhones,
     joinLiveGame,
     keepScreenOn,
     leaveLiveGame,
     liveAddress,
     type LiveGame,
     liveGame,
+    liveGameCode,
     liveLink,
     liveStatus,
     readLiveLink,
@@ -96,8 +99,42 @@ export const LiveAddressSettings = () => {
     );
 };
 
+/** In the dialog before connecting: the link of a connected phone, pasted. */
+const JoinByLink = () => {
+    const [text, setText] = useState("");
+    const notALink = text.trim() !== "" && !readLiveLink(text);
+
+    return (
+        <div className="flex flex-col gap-2">
+            <Label htmlFor="live-join">{t("live.joinLabel")}</Label>
+            <Input
+                id="live-join"
+                type="url"
+                value={text}
+                onChange={(e) => {
+                    const game = readLiveLink(e.target.value);
+                    if (game) {
+                        toastLiveJoined(
+                            joinLiveGame(game) ? "joined" : "already",
+                        );
+                        setText("");
+                    } else setText(e.target.value);
+                }}
+                placeholder="https://…#live=…"
+            />
+            {notALink && (
+                <p className="text-xs text-red-600">{t("live.notALink")}</p>
+            )}
+            <p className="text-xs text-muted-foreground">
+                {t("live.joinHint")}
+            </p>
+        </div>
+    );
+};
+
 const StatusLine = () => {
     const $status = useStore(liveStatus);
+    const $code = useStore(liveGameCode);
     if ($status === "off") return null;
     return (
         <p
@@ -108,10 +145,63 @@ const StatusLine = () => {
             )}
         >
             {$status === "connected"
-                ? t("live.connected")
+                ? `${t("live.connected")}${
+                      $code ? ` · ${t("live.code", { code: $code })}` : ""
+                  }`
                 : $status === "failed"
                   ? t("live.failed")
                   : t("live.connecting")}
+        </p>
+    );
+};
+
+const roleName = (role: GamePhone["role"]) =>
+    role === "hider" ? t("live.roleHider") : t("live.roleSeeker");
+
+/** Which phones are in the game: to see that all joined the same one. */
+const PhoneList = () => {
+    const $phones = useStore(gamePhones);
+    const $status = useStore(liveStatus);
+    const hider = useStore(hiderMode) !== false;
+    const now = useNow();
+    if ($status !== "connected") return null;
+    const others = Object.values($phones).sort((a, b) => b.seenAt - a.seenAt);
+
+    return (
+        <div className="flex flex-col gap-1 text-sm">
+            <span className="font-semibold">{t("live.phones")}</span>
+            <span>
+                {t("live.thisPhone", {
+                    role: roleName(hider ? "hider" : "seeker"),
+                })}
+            </span>
+            {others.map((phone, index) => (
+                <span key={index}>
+                    {roleName(phone.role)} · {agoText(phone.seenAt, now)}
+                    {!phone.located && (
+                        <span className="text-red-600">
+                            {` · ${t("live.noLocationShort")}`}
+                        </span>
+                    )}
+                </span>
+            ))}
+            {others.length === 0 && (
+                <span className="text-muted-foreground">
+                    {t("live.noOtherPhone")}
+                </span>
+            )}
+        </div>
+    );
+};
+
+/** A seeker's phone without GPS: the hider won't see it. */
+const NoLocationWarning = () => {
+    const seeker = useStore(hiderMode) === false;
+    const $position = useStore(myPosition);
+    if (!seeker || $position) return null;
+    return (
+        <p className="text-sm font-semibold text-red-600">
+            {t("live.noLocation")}
         </p>
     );
 };
@@ -181,14 +271,25 @@ const LiveDialog = ({
                     <p className="text-sm">{t("live.noAddress")}</p>
                 )}
                 {!$game && address && (
-                    <Button className="h-11" onClick={() => createLiveGame()}>
-                        <UsersIcon />
-                        {t("live.start")}
-                    </Button>
+                    <>
+                        <Button
+                            className="h-11"
+                            onClick={() => createLiveGame()}
+                        >
+                            <UsersIcon />
+                            {t("live.start")}
+                        </Button>
+                        <p className="text-xs text-muted-foreground">
+                            {t("live.startHint")}
+                        </p>
+                    </>
                 )}
+                {!$game && <JoinByLink />}
                 {$game && (
                     <>
                         <StatusLine />
+                        <PhoneList />
+                        <NoLocationWarning />
                         <GameCode game={$game} />
                         <div className="flex items-center justify-between gap-2">
                             <Label
@@ -308,9 +409,18 @@ export const SeekerMarks = () => {
 export const SeekersFromHider = () => {
     useLanguage();
     const $hiderMode = useStore(hiderMode);
+    const $game = useStore(liveGame);
     const now = useNow();
     const positions = useSeekerPositions(now);
-    if ($hiderMode === false || positions.length === 0) return null;
+    if ($hiderMode === false || !$game) return null;
+    if (positions.length === 0) {
+        return (
+            <div className="flex items-center gap-3 rounded-lg border p-3 text-sm text-muted-foreground">
+                <UsersIcon className="size-5 shrink-0" />
+                {t("live.noSeekerPosition")}
+            </div>
+        );
+    }
 
     const hider = [$hiderMode.longitude, $hiderMode.latitude];
     const nearest = positions

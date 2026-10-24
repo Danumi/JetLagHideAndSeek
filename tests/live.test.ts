@@ -13,12 +13,14 @@ import {
     liveAddress,
     liveGame,
     liveLink,
+    newGameKeepsClock,
     POSITION_EVERY_MS,
     positionDue,
     readLiveLink,
     seal,
     unseal,
 } from "@/lib/live";
+import { gameClock } from "@/maps/gameClock";
 import { lateRanges, lateUntil } from "@/maps/hiderLog";
 
 const APP = "https://danumi.github.io/JetLagHideAndSeek/";
@@ -160,6 +162,22 @@ describe("game timer", () => {
         // A phone that just joined takes the game's timer
         expect(clockStep(T0, 0)).toBe("take");
         expect(clockStep(T0, T0)).toBe("keep");
+    });
+
+    it("keeps a hiding period that has just begun on New Game", () => {
+        const now = T0 + 10 * 60_000;
+        gameClock.set({ startedAt: T0, pausedMs: 0 });
+        leaveLiveGame();
+        // Not connected: New Game ends the round as before
+        expect(newGameKeepsClock(now)).toBe(false);
+        joinLiveGame(GAME);
+        // Connected, 10 minutes into the hiding period: the phone joins the round
+        expect(newGameKeepsClock(now)).toBe(true);
+        // Seeking already: New Game starts the next round on all phones
+        expect(newGameKeepsClock(T0 + 40 * 60_000)).toBe(false);
+        gameClock.set(null);
+        expect(newGameKeepsClock(now)).toBe(false);
+        leaveLiveGame();
     });
 
     const entry = (

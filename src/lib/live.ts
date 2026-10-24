@@ -8,6 +8,7 @@ import {
     endRound,
     type GameClock,
     gameClock,
+    gameClockState,
     type Interval,
     pauseForLateAnswers,
 } from "@/maps/gameClock";
@@ -35,8 +36,9 @@ import {
  *  ".validate":"newData.isString() && newData.val().length < 10000"}}}}}}
  *
  * In the database: g/<name>/clock/state (the timer, any phone),
- * g/<name>/clock/late (when answers were late, the hider's phone) and
- * g/<name>/pos/<phone> (where a seeker's phone was).
+ * g/<name>/clock/late (when answers were late, the hider's phone),
+ * g/<name>/pos/<phone> (where a seeker's phone was) and
+ * g/<name>/phones/<phone> (each phone's role, so they see who's connected).
  */
 
 const json = { encode: JSON.stringify, decode: JSON.parse };
@@ -85,6 +87,23 @@ export const seekerPositions = atom<Record<string, SeekerPosition>>({});
 
 /** Positions older than this aren't shown: from an earlier round. */
 export const SEEKER_POSITION_MAX_AGE_MS = 3 * 60 * 60_000;
+
+/** A phone of the game, as it tells the others while the app is open. */
+export type GamePhone = {
+    role: "hider" | "seeker";
+    /** Whether the phone knows where it is (seekers: GPS allowed). */
+    located: boolean;
+    seenAt: number;
+};
+
+/** The game's other phones, by phone: open in the last 3 hours. */
+export const gamePhones = atom<Record<string, GamePhone>>({});
+
+/** The game's short code, the same on all its phones: to compare them. */
+export const liveGameCode = atom<string>("");
+
+/** A phone tells the others it's still there this often while open. */
+const PHONE_EVERY_MS = 60_000;
 
 /** A seeker's phone sends its position this often while the app is open… */
 export const POSITION_EVERY_MS = 30_000;
@@ -350,6 +369,12 @@ export const positionDue = (
             units: "meters",
         }) >= POSITION_MOVED_METERS);
 
+const isPhone = (value: unknown): value is GamePhone =>
+    isObject(value) &&
+    (value.role === "hider" || value.role === "seeker") &&
+    typeof value.located === "boolean" &&
+    Number.isFinite(value.seenAt);
+
 const isPosition = (value: unknown): value is SeekerPosition =>
     isObject(value) &&
     ["lat", "lng", "accuracy", "at", "sentAt"].every((key) =>
@@ -394,6 +419,20 @@ export const lateAnswerIntervals = (now = Date.now()) =>
         now,
     );
 
+/**
+ * Whether "New Game" leaves the game timer running: on a connected phone
+ * during the hiding period, the round has just started on the other phones
+ * and this phone joins it (e.g. a seeker choosing their role).
+ */
+export const newGameKeepsClock = (now = Date.now()) => {
+    const clock = gameClock.get();
+    return (
+        liveGame.get() !== null &&
+        clock !== null &&
+        gameClockState(clock, now, lateAnswerIntervals(now)).phase === "hiding"
+    );
+};
+
 /** The ranges the hider shares: those that are or can still become late. */
 const ownLateRanges = () =>
     pauseForLateAnswers.get()
@@ -413,6 +452,7 @@ const connect = (game: LiveGame) => {
     let snapshot: Snapshot = {};
     let hiddenAt: number | null = null;
     let lastSent: SeekerPosition | null = null;
+    let lastTold: { said: string; at: number } | null = null;
     let wakeLock: WakeLockSentinel | null = null;
     // While the timer of another phone is taken: not a change to send
     let taking = false;
@@ -541,6 +581,44 @@ const connect = (game: LiveGame) => {
         await write(`pos/${thisPhone()}`, null);
     };
 
+    const readPhones = async () => {
+        const phones: Record<string, GamePhone> = {};
+        const now = Date.now();
+        for (const [phone, text] of Object.entries(snapshot.phones ?? {})) {
+            if (phone === thisPhone()) continue;
+            const value = await unseal<unknown>(keys!.key, text);
+            if (
+                isPhone(value) &&
+                now - value.seenAt < SEEKER_POSITION_MAX_AGE_MS
+            ) {
+                phones[phone] = value;
+            }
+        }
+        gamePhones.set(phones);
+    };
+
+    /** Tells the other phones this one is there: on a change, else every minute. */
+    const tellPhones = async (force = false) => {
+        if (!keys || document.visibilityState !== "visible") return;
+        const me: Omit<GamePhone, "seenAt"> = isSeeker()
+            ? { role: "seeker", located: myPosition.get() !== null }
+            : { role: "hider", located: true };
+        const said = JSON.stringify(me);
+        const now = Date.now();
+        if (
+            !force &&
+            lastTold?.said === said &&
+            now - lastTold.at < PHONE_EVERY_MS
+        ) {
+            return;
+        }
+        lastTold = { said, at: now };
+        await write(`phones/${thisPhone()}`, {
+            ...me,
+            seenAt: now,
+        } satisfies GamePhone);
+    };
+
     const updateWakeLock = async () => {
         const wanted =
             keepScreenOn.get() &&
@@ -580,8 +658,10 @@ const connect = (game: LiveGame) => {
                     await syncClock();
                     await syncLate();
                     await readPositions();
+                    await readPhones();
                     if (isSeeker()) await sendPosition();
                     else await removePosition();
+                    await tellPhones();
                 });
             };
         stream.addEventListener("put", onChange("put"));
@@ -618,6 +698,7 @@ const connect = (game: LiveGame) => {
             open();
         }
         run(() => sendPosition(true));
+        run(() => tellPhones(true));
         run(updateWakeLock);
     };
     const onOnline = () => open();
@@ -625,7 +706,8 @@ const connect = (game: LiveGame) => {
     const unlisten = [
         gameClock.listen(() => {
             if (taking) return;
-            clockChangedAt.set(Date.now());
+            // Later than the change it follows, also if this phone's clock is behind
+            clockChangedAt.set(Math.max(Date.now(), clockChangedAt.get() + 1));
             run(sendClock);
         }),
         hiderInbox.listen(() => run(syncLate)),
@@ -633,19 +715,27 @@ const connect = (game: LiveGame) => {
         hiderMode.listen(() => {
             run(syncLate);
             run(() => (isSeeker() ? sendPosition(true) : removePosition()));
+            run(() => tellPhones());
             run(updateWakeLock);
         }),
-        myPosition.listen(() => run(() => sendPosition())),
+        myPosition.listen(() => {
+            run(() => sendPosition());
+            run(() => tellPhones());
+        }),
         keepScreenOn.listen(() => run(updateWakeLock)),
     ];
     document.addEventListener("visibilitychange", onVisibility);
     window.addEventListener("online", onOnline);
     // Also when GPS has nothing new: the hider sees the app is still open
-    const timer = setInterval(() => run(() => sendPosition()), 10_000);
+    const timer = setInterval(() => {
+        run(() => sendPosition());
+        run(() => tellPhones());
+    }, 10_000);
 
     gameKeys(game.secret).then((gameKeys) => {
         if (stopped) return;
         keys = gameKeys;
+        liveGameCode.set(gameKeys.name.slice(0, 4).toUpperCase());
         open();
         run(updateWakeLock);
     });
@@ -658,13 +748,17 @@ const connect = (game: LiveGame) => {
         document.removeEventListener("visibilitychange", onVisibility);
         window.removeEventListener("online", onOnline);
         wakeLock?.release().catch(() => undefined);
-        // Off the hider's map: not one of the game's seekers any more
-        if (keys && snapshot.pos?.[thisPhone()]) {
-            fetch(url(`pos/${thisPhone()}`), { method: "DELETE" }).catch(
-                () => undefined,
-            );
+        // Off the hider's map and the list: not one of the game's phones any more
+        for (const kind of ["pos", "phones"]) {
+            if (keys && snapshot[kind]?.[thisPhone()]) {
+                fetch(url(`${kind}/${thisPhone()}`), {
+                    method: "DELETE",
+                }).catch(() => undefined);
+            }
         }
         seekerPositions.set({});
+        gamePhones.set({});
+        liveGameCode.set("");
         liveStatus.set("off");
     };
 };

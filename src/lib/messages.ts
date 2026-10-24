@@ -698,10 +698,47 @@ export const messages = {
         de: "Verbundene Handys haben dieselbe Spielzeit-Uhr, auch mit den Pausen für zu späte Antworten. Der Hider sieht die Seeker auf der Karte, solange die App bei ihnen offen ist; bei gesperrtem Bildschirm zeigt sie, wo sie zuletzt waren. Teilt den Live-Standort trotzdem weiter in WhatsApp.",
     },
     "live.noAddress": {
-        en: "First enter the address of your Firebase database under Settings → Advanced → Live connection. Or open the link of a phone that is already connected.",
-        de: "Trag zuerst die Adresse deiner Firebase-Datenbank unter Einstellungen → Erweitert → Live-Verbindung ein. Oder öffne den Link eines Handys, das schon verbunden ist.",
+        en: "To start a connection, enter the address of your Firebase database under Settings → Advanced → Live connection. Phones that join don't need it: they scan the code of a connected phone with the camera.",
+        de: "Zum Starten trägst du die Adresse deiner Firebase-Datenbank unter Einstellungen → Erweitert → Live-Verbindung ein. Handys, die dazukommen, brauchen sie nicht: Sie scannen mit der Kamera den Code eines verbundenen Handys.",
     },
     "live.start": { en: "Connect", de: "Verbinden" },
+    "live.startHint": {
+        en: "Only on one phone. The other phones then scan its code instead of tapping Connect themselves; otherwise each phone starts a game of its own.",
+        de: "Nur auf einem Handy. Die anderen scannen danach dessen Code, statt selbst „Verbinden“ zu tippen; sonst startet jedes Handy ein eigenes Spiel.",
+    },
+    "live.joinLabel": {
+        en: "Link of a connected phone",
+        de: "Link eines verbundenen Handys",
+    },
+    "live.joinHint": {
+        en: "iPhone with the app on the home screen: the code opens in Safari, not in the app. Copy the link instead and paste it here.",
+        de: "iPhone mit der App auf dem Home-Bildschirm: Der Code öffnet sich in Safari, nicht in der App. Dann den Link kopieren und hier einfügen.",
+    },
+    "live.notALink": {
+        en: "That's not a connection link.",
+        de: "Das ist kein Verbindungs-Link.",
+    },
+    "live.code": { en: "game {code}", de: "Spiel {code}" },
+    "live.phones": { en: "In this game:", de: "In diesem Spiel:" },
+    "live.thisPhone": {
+        en: "This phone · {role}",
+        de: "Dieses Handy · {role}",
+    },
+    "live.roleHider": { en: "Hider", de: "Hider" },
+    "live.roleSeeker": { en: "Seeker", de: "Seeker" },
+    "live.noOtherPhone": {
+        en: "No other phone yet. Scan the code below with the other phones; all of them then show the same game code.",
+        de: "Noch kein anderes Handy. Scanne den Code unten mit den anderen Handys; dann zeigen alle denselben Spiel-Code.",
+    },
+    "live.noLocationShort": { en: "no location", de: "kein Standort" },
+    "live.noLocation": {
+        en: "This phone has no location, so the hider doesn't see you. Allow the location for this app (iPhone: Settings → Privacy & Security → Location Services → Safari Websites).",
+        de: "Dieses Handy hat keinen Standort, der Hider sieht dich also nicht. Erlaube den Standort für die App (iPhone: Einstellungen → Datenschutz & Sicherheit → Ortungsdienste → Safari-Websites).",
+    },
+    "live.noSeekerPosition": {
+        en: "Seekers: no location yet",
+        de: "Seeker: noch kein Standort",
+    },
     "live.scan": {
         en: "Scan the code with the camera of the other phones, or send them the link. Opening it connects the phone to this game.",
         de: "Scanne den Code mit der Kamera der anderen Handys oder schick ihnen den Link. Beim Öffnen ist das Handy mit diesem Spiel verbunden.",
@@ -711,8 +748,8 @@ export const messages = {
         de: "Wer den Link hat, sieht, wo die Seeker sind. Schick ihn nur an deine Mitspieler.",
     },
     "live.iphoneHint": {
-        en: "iPhone with the app on the home screen: the link opens in Safari, not in the app. Copy the link instead and paste it in the app under Settings → Advanced → Live connection.",
-        de: "iPhone mit der App auf dem Home-Bildschirm: Der Link öffnet sich in Safari, nicht in der App. Dann den Link kopieren und in der App unter Einstellungen → Erweitert → Live-Verbindung einfügen.",
+        en: "iPhone with the app on the home screen: the code opens in Safari, not in the app. Copy the link instead and paste it in the app under Settings → Connect phones.",
+        de: "iPhone mit der App auf dem Home-Bildschirm: Der Code öffnet sich in Safari, nicht in der App. Dann den Link kopieren und in der App unter Einstellungen → Handys verbinden einfügen.",
     },
     "live.connecting": { en: "Connecting …", de: "Verbinde …" },
     "live.connected": { en: "Connected", de: "Verbunden" },
@@ -897,6 +934,14 @@ export const messages = {
     "newGame.deletesMany": {
         en: "All {count} questions disappear; you can undo this right afterwards.",
         de: "Alle {count} Fragen verschwinden; du kannst das gleich danach rückgängig machen.",
+    },
+    "newGame.liveKeepsClock": {
+        en: "The game timer keeps running on the connected phones: the hiding period has just begun.",
+        de: "Die Spielzeit-Uhr läuft auf den verbundenen Handys weiter, die Versteckphase hat ja gerade erst begonnen.",
+    },
+    "newGame.liveEndsClock": {
+        en: "This also ends the round on the connected phones: the game timer stops there too.",
+        de: "Das beendet die Runde auch auf den verbundenen Handys: Die Spielzeit-Uhr stoppt auch dort.",
     },
 
     // Messages with "Undo"
