@@ -7,6 +7,7 @@ import {
     disabledStations,
     displayHidingZones,
     displayHidingZonesStyle,
+    hideOtherZones,
     hiderMode,
     hiderScreenOpen,
     hiderZoneId,
@@ -19,7 +20,9 @@ import type { StationCircle, StationPlace } from "@/maps/api";
 import {
     chooseHiderZoneOnMap,
     choosingHiderZone,
+    clearOfZone,
     hiderChosenZone,
+    hiderOnlyOwnZone,
     nextTappedZone,
     outsideZones,
     showZone,
@@ -70,6 +73,7 @@ beforeEach(() => {
     hiderMode.set(false);
     hiderZoneId.set("");
     choosingHiderZone.set(false);
+    hideOtherZones.set(false);
     // Forgets the last tap
     showZone("");
 });
@@ -178,7 +182,6 @@ describe("the hider's own zone", () => {
         hiding();
         expect(zonesAt(SPOT)).toEqual(["node/B", "node/A", "node/C"]);
         hiderZoneId.set("node/A");
-        expect(zonesAt(SPOT)).toEqual(["node/B", "node/A", "node/C"]);
         tapZoneAt(east(700));
         expect(selectedZoneId.get()).toBe("node/C");
     });
@@ -191,6 +194,7 @@ describe("the hider's own zone", () => {
         chooseHiderZoneOnMap();
         expect(choosingHiderZone.get()).toBe(true);
         expect(hiderScreenOpen.get()).toBe(false);
+        // All zones while choosing, also in the hider's zone
         tapZoneAt(SPOT);
         expect(selectedZoneId.get()).toBe("node/B");
 
@@ -203,11 +207,77 @@ describe("the hider's own zone", () => {
         expect(hiderChosenZone.get()).toBe("node/B");
     });
 
+    it("keeps a tap in the hider's zone to that zone", () => {
+        hiding();
+        hiderZoneId.set("node/A");
+        // B and C overlap A here, but A is the hider's zone
+        expect(zonesAt(SPOT)).toEqual(["node/A"]);
+        tapZoneAt(SPOT);
+        expect(selectedZoneId.get()).toBe("node/A");
+        expect(tappedZones.get()).toEqual([]);
+        // Outside it, the other zones as usual
+        expect(zonesAt(east(700))).toEqual(["node/C", "node/B"]);
+        // While choosing another zone, all of them
+        choosingHiderZone.set(true);
+        expect(zonesAt(SPOT)).toEqual(["node/B", "node/A", "node/C"]);
+    });
+
+    it("is the only zone left to tap with the other zones hidden", () => {
+        hiding();
+        hiderZoneId.set("node/A");
+        hideOtherZones.set(true);
+        expect(hiderOnlyOwnZone.get()).toBe("node/A");
+        expect(zonesAt(SPOT)).toEqual(["node/A"]);
+        // C is there, but not shown
+        expect(zonesAt(east(700))).toEqual([]);
+        // Not while choosing another zone, nor on seekers' phones
+        choosingHiderZone.set(true);
+        expect(hiderOnlyOwnZone.get()).toBe("");
+        choosingHiderZone.set(false);
+        hiderMode.set(false);
+        expect(hiderOnlyOwnZone.get()).toBe("");
+        expect(zonesAt(SPOT)).toEqual(["node/B", "node/A", "node/C"]);
+    });
+
     it("stays on the map after choosing from the zone list", () => {
         hiding();
         hiderScreenOpen.set(false);
         stopChoosingHiderZone();
         expect(hiderScreenOpen.get()).toBe(false);
+    });
+});
+
+describe("clearOfZone", () => {
+    const own = zone("A", 0);
+    const inside = (point: { lat: number; lng: number }, shape: Feature) =>
+        turf.booleanPointInPolygon(
+            [point.lng, point.lat],
+            shape as Feature<Polygon>,
+        );
+
+    it("cuts the other zones back to the edge of the hider's zone", () => {
+        const clear = clearOfZone(turf.featureCollection(ZONES), own);
+        // A itself is gone, B keeps only what is outside A, D is untouched
+        expect(clear.features).toHaveLength(3);
+        const [b, , d] = clear.features;
+        expect(b.properties).toEqual(ZONES[1].properties);
+        expect(inside(SPOT, b)).toBe(false);
+        expect(inside(east(600), b)).toBe(true);
+        expect(d).toEqual(ZONES[3]);
+    });
+
+    it("cuts merged zones and leaves station points", () => {
+        const merged = turf.union(
+            turf.featureCollection([ZONES[0], ZONES[1]]),
+        ) as Feature<Polygon>;
+        const [cut] = clearOfZone(merged, own).features;
+        expect(inside(SPOT, cut)).toBe(false);
+        expect(inside(east(700), cut)).toBe(true);
+
+        const point = ZONES[1].properties;
+        expect(clearOfZone(turf.featureCollection([point]), own)).toEqual(
+            turf.featureCollection([point]),
+        );
     });
 });
 

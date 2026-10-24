@@ -52,6 +52,22 @@ export const messages = {
         de: "Nächste Zone hier (oder nochmal auf dieselbe Stelle tippen)",
     },
     "zones.yours": { en: "Your hiding zone", de: "Deine Zone" },
+    "zones.hideOthers": {
+        en: "Hide other zones",
+        de: "Andere Zonen ausblenden",
+    },
+    "zones.showOthers": {
+        en: "Show other zones",
+        de: "Andere Zonen einblenden",
+    },
+    "zones.othersHidden": {
+        en: "Only your zone is shown now. The same button shows the others again.",
+        de: "Jetzt ist nur deine Zone zu sehen. Derselbe Knopf zeigt die anderen wieder.",
+    },
+    "zones.othersShown": {
+        en: "All zones are shown again: what the seekers still consider.",
+        de: "Alle Zonen sind wieder zu sehen: was für die Seeker noch in Frage kommt.",
+    },
     "zones.choose": { en: "Choose as my zone", de: "Als meine Zone wählen" },
     "zones.changeTitle": {
         en: "Change your hiding zone?",

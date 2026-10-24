@@ -48,9 +48,13 @@ import {
 import { findHidingZoneStations, stationOsmIds } from "@/maps/stations";
 import { steadyRenderer } from "@/maps/steadyRenderer";
 import {
+    clearOfZone,
     hiderChosenZone,
+    hiderOnlyOwnZone,
+    hiderOwnZone,
     outsideZones,
     stationId,
+    zoneCircle,
     zonesLeft,
     zonesNotRuledOut,
 } from "@/maps/zones";
@@ -125,6 +129,8 @@ export const HidingZones = () => {
     const $allTrainStations = useStore(allTrainStations);
     const $selectedZoneId = useStore(selectedZoneId);
     const $hiderChosenZone = useStore(hiderChosenZone);
+    const $hiderOwnZone = useStore(hiderOwnZone);
+    const $hiderOnlyOwnZone = useStore(hiderOnlyOwnZone);
     const setStations = trainStations.set;
 
     const removeHidingZones = () => {
@@ -458,9 +464,11 @@ export const HidingZones = () => {
             });
         }
 
-        // The hider sees all zones too: what the seekers still consider
-        // (their own zone is the violet outline below)
-        if (!$displayHidingZones) {
+        // The hider sees all zones too, what the seekers still consider;
+        // their own zone (the violet outline below) stays clear of the
+        // others. With "Hide other zones" only their own zone: no others and
+        // no grey around them, the grey left is what the answers rule out.
+        if (!$displayHidingZones || $hiderOnlyOwnZone) {
             removeHidingZones();
             showOutside(null);
             onlyZoneRef.current = "";
@@ -469,7 +477,18 @@ export const HidingZones = () => {
 
         const left = zonesLeft(stations, $disabledStations);
         const hidden = $displayHidingZonesStyle === "no-display";
-        showGeoJSON(styleStations(left, $displayHidingZonesStyle));
+        const shapes = styleStations(left, $displayHidingZonesStyle);
+        const own = $allTrainStations.find(
+            (x) => x.properties.id === $hiderOwnZone,
+        );
+        showGeoJSON(
+            own
+                ? clearOfZone(
+                      shapes,
+                      zoneCircle(own, $hidingRadius, $hidingRadiusUnits),
+                  )
+                : shapes,
+        );
 
         let cancelled = false;
         // One zone left: where in it the hider can still be
@@ -509,6 +528,8 @@ export const HidingZones = () => {
         $disabledStations,
         $displayHidingZones,
         $displayHidingZonesStyle,
+        $hiderOnlyOwnZone,
+        $hiderOwnZone,
         $hidingRadius,
         $hidingRadiusUnits,
         $questionFinishedMapData,
@@ -589,10 +610,7 @@ export const HidingZones = () => {
             );
             if (!station) return null;
             return L.geoJSON(
-                turf.circle(turf.getCoord(station), $hidingRadius, {
-                    steps: 32,
-                    units: $hidingRadiusUnits,
-                }),
+                zoneCircle(station, $hidingRadius, $hidingRadiusUnits),
                 { style, interactive: false, pane: "zoneHighlight" },
             );
         };
