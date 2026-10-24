@@ -58,7 +58,6 @@ const lineName = (line: StationLine) => {
 const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
     useLanguage();
     const $allStations = useStore(allTrainStations);
-    const $isLoading = useStore(isLoading);
     const $retryTrigger = useStore(retryTrigger);
     const [lines, setLines] = React.useState<StationLine[] | "failed" | null>(
         null,
@@ -126,7 +125,9 @@ const TrainLinePicker = ({ data }: { data: MatchingQuestion }) => {
                                 value === "any" ? undefined : value),
                         )
                     }
-                    disabled={!data.drag || $isLoading}
+                    // Not while the map computes: an open question doesn't
+                    // change the map, and the line is needed before sending
+                    disabled={!data.drag}
                 />
             </SidebarMenuItem>
         </>
