@@ -59,10 +59,10 @@ const asHost = (text: unknown) => {
     }
 };
 
-const toBase64Url = (text: string) =>
+export const toBase64Url = (text: string) =>
     btoa(text).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 
-const fromBase64Url = (code: string) =>
+export const fromBase64Url = (code: string) =>
     atob(code.replace(/-/g, "+").replace(/_/g, "/"));
 
 /** A link that saves this access on the phone that opens it. */

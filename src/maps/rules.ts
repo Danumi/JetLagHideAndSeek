@@ -519,8 +519,8 @@ export const RULE_SECTIONS: RuleSection[] = [
                         en: "**Administrative divisions:** 1st Bundesland, 2nd Gemeindebezirk, 3rd Katastralgemeinde. Vienna has no 4th.",
                     },
                     {
-                        de: "**Live-Standort:** Die Seeker teilen ihren Live-Standort in WhatsApp mit dem Hider. Der Hider teilt seinen nicht.",
-                        en: "**Live location:** the seekers share their live location with the hider in WhatsApp. The hider doesn't share theirs.",
+                        de: "**Live-Standort:** Die Seeker teilen ihren Live-Standort in WhatsApp mit dem Hider. Der Hider teilt seinen nicht. Mit {connectPhones} in den Einstellungen sieht der Hider die Seeker zusätzlich auf seiner Karte, solange die App bei ihnen offen ist, und alle Handys haben dieselbe Spielzeit-Uhr.",
+                        en: "**Live location:** the seekers share their live location with the hider in WhatsApp. The hider doesn't share theirs. With {connectPhones} in the settings, the hider also sees the seekers on their map while the app is open on their phones, and all phones run the same game timer.",
                     },
                     {
                         de: "**Fragen und Antworten:** Die Seeker schicken jede Frage mit {sendToHider} in den Chat, der Hider antwortet mit {sendAnswer}, und die Seeker tippen die Antwort in ihrer App ein.",

@@ -680,6 +680,77 @@ export const messages = {
         en: "iPhone with the app on the home screen: the link opens in Safari, not in the app. Copy the link instead and paste it in the app under Settings → Advanced → Overpass access.",
         de: "iPhone mit der App auf dem Home-Bildschirm: Der Link öffnet sich in Safari, nicht in der App. Dann den Link kopieren und in der App unter Einstellungen → Erweitert → Overpass-Zugang einfügen.",
     },
+
+    // Connected phones: the same game timer, the seekers on the hider's map
+    "settings.live": { en: "Live connection", de: "Live-Verbindung" },
+    "settings.liveAddress": {
+        en: "Firebase database (optional)",
+        de: "Firebase-Datenbank (optional)",
+    },
+    "settings.liveHint": {
+        en: "The address of your Firebase database (it ends with firebasedatabase.app). Only the phone that connects the others needs it; they get it with the code. You can also paste a connection link here.",
+        de: "Die Adresse deiner Firebase-Datenbank (sie endet mit firebasedatabase.app). Nur das Handy, das die anderen verbindet, braucht sie; die anderen bekommen sie mit dem Code. Hier kannst du auch einen Verbindungs-Link einfügen.",
+    },
+    "live.button": { en: "Connect phones", de: "Handys verbinden" },
+    "live.buttonOn": { en: "Phones connected", de: "Handys verbunden" },
+    "live.what": {
+        en: "Connected phones run the same game timer, with the stops for late answers. The hider sees the seekers on the map while the app is open on their phones; with the screen locked, it shows where they were last. Keep sharing your live location in WhatsApp too.",
+        de: "Verbundene Handys haben dieselbe Spielzeit-Uhr, auch mit den Pausen für zu späte Antworten. Der Hider sieht die Seeker auf der Karte, solange die App bei ihnen offen ist; bei gesperrtem Bildschirm zeigt sie, wo sie zuletzt waren. Teilt den Live-Standort trotzdem weiter in WhatsApp.",
+    },
+    "live.noAddress": {
+        en: "First enter the address of your Firebase database under Settings → Advanced → Live connection. Or open the link of a phone that is already connected.",
+        de: "Trag zuerst die Adresse deiner Firebase-Datenbank unter Einstellungen → Erweitert → Live-Verbindung ein. Oder öffne den Link eines Handys, das schon verbunden ist.",
+    },
+    "live.start": { en: "Connect", de: "Verbinden" },
+    "live.scan": {
+        en: "Scan the code with the camera of the other phones, or send them the link. Opening it connects the phone to this game.",
+        de: "Scanne den Code mit der Kamera der anderen Handys oder schick ihnen den Link. Beim Öffnen ist das Handy mit diesem Spiel verbunden.",
+    },
+    "live.warning": {
+        en: "Anyone with this link sees where the seekers are. Only send it to your players.",
+        de: "Wer den Link hat, sieht, wo die Seeker sind. Schick ihn nur an deine Mitspieler.",
+    },
+    "live.iphoneHint": {
+        en: "iPhone with the app on the home screen: the link opens in Safari, not in the app. Copy the link instead and paste it in the app under Settings → Advanced → Live connection.",
+        de: "iPhone mit der App auf dem Home-Bildschirm: Der Link öffnet sich in Safari, nicht in der App. Dann den Link kopieren und in der App unter Einstellungen → Erweitert → Live-Verbindung einfügen.",
+    },
+    "live.connecting": { en: "Connecting …", de: "Verbinde …" },
+    "live.connected": { en: "Connected", de: "Verbunden" },
+    "live.failed": {
+        en: "No connection to the database. Check the address and the rules in Firebase.",
+        de: "Keine Verbindung zur Datenbank. Prüfe die Adresse und die Regeln in Firebase.",
+    },
+    "live.keepScreenOn": {
+        en: "Keep the screen on (seekers)",
+        de: "Bildschirm anlassen (Seeker)",
+    },
+    "live.keepScreenOnHint": {
+        en: "So the hider keeps seeing where you are while the app is open. Uses more battery.",
+        de: "Damit der Hider weiter sieht, wo ihr seid, solange die App offen ist. Braucht mehr Akku.",
+    },
+    "live.disconnect": {
+        en: "Disconnect this phone",
+        de: "Dieses Handy trennen",
+    },
+    "live.disconnectConfirm": {
+        en: "Disconnect this phone from the game? Its timer then runs on by itself.",
+        de: "Dieses Handy vom Spiel trennen? Die Uhr läuft dann auf diesem Handy allein weiter.",
+    },
+    "live.joined": {
+        en: "Connected with the other phones of the game.",
+        de: "Mit den anderen Handys des Spiels verbunden.",
+    },
+    "live.alreadyJoined": {
+        en: "This phone is already connected to this game.",
+        de: "Dieses Handy ist schon mit diesem Spiel verbunden.",
+    },
+    "live.seekers": { en: "Seekers", de: "Seeker" },
+    "live.justNow": { en: "just now", de: "gerade eben" },
+    "live.minutesAgo": { en: "{minutes} min ago", de: "vor {minutes} Min." },
+    "live.seekersFrom": {
+        en: "Seekers: {distance} from you · {ago}",
+        de: "Seeker: {distance} von dir · {ago}",
+    },
     "settings.preload": { en: "Preload map data", de: "Kartendaten vorladen" },
     "settings.preloadHint": {
         en: 'Loads the data of every question card for the game area, so answers don\'t have to wait. "New Game" does this by itself.',
@@ -1233,6 +1304,10 @@ export const messages = {
     "gameClock.seekersHint": {
         en: "The hider's clock counts: it stops by itself for late answers. Pause here for the Move card.",
         de: "Es zählt die Uhr des Hiders: Sie hält bei zu späten Antworten von selbst an. Pause hier bei der Karte Move.",
+    },
+    "gameClock.seekersHintLive": {
+        en: "Runs the same on all connected phones, also the stops for late answers. Pause here for the Move card.",
+        de: "Läuft auf allen verbundenen Handys gleich, auch mit den Pausen für zu späte Antworten. Pause hier bei der Karte Move.",
     },
     "gameClock.hiderCounts": {
         en: "The hider's clock counts.",

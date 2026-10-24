@@ -28,10 +28,10 @@ import {
     VIENNA,
 } from "@/lib/context";
 import { t, useLanguage } from "@/lib/i18n";
+import { lateAnswerIntervals } from "@/lib/live";
 import { type Role, setRole } from "@/lib/role";
 import { cn } from "@/lib/utils";
-import { endRound, pauseForLateAnswers } from "@/maps/gameClock";
-import { lateIntervals } from "@/maps/hiderLog";
+import { endRound } from "@/maps/gameClock";
 import { preloadGameData } from "@/maps/preload";
 import { choosingHiderZone } from "@/maps/zones";
 
@@ -73,10 +73,7 @@ export const startNewGame = (role: Role) => {
 
     // The round's hiding time stays in the list of past rounds; the hider
     // starts the clock again when the hiding period begins
-    endRound(
-        Date.now(),
-        pauseForLateAnswers.get() ? lateIntervals(hiderInbox.get()) : [],
-    );
+    endRound(Date.now(), lateAnswerIntervals());
     hiderInbox.set([]);
     thermometerRun.set(null);
     setRole(role);

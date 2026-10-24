@@ -68,6 +68,7 @@ import { chooseHiderZoneOnMap, choosingHiderZone } from "@/maps/zones";
 import { AnswerClock } from "./AnswerClock";
 import { GameClockCard, GameClockChip } from "./GameClock";
 import { RuleButton } from "./HelpDialog";
+import { SeekersFromHider } from "./LivePhones";
 import { MoveButton } from "./MoveCard";
 import { showActionToast, showUndoToast } from "./UndoToast";
 
@@ -1051,6 +1052,7 @@ export const HiderScreen = () => {
                     </Button>
                 )}
             </div>
+            <SeekersFromHider />
             {/* GPS off or way off, e.g. underground: set it on the map */}
             {(byHand || poorGps || fix.state === "failed") && (
                 <div className="flex gap-2">
