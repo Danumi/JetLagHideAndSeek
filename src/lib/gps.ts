@@ -14,6 +14,7 @@ import {
     questions,
 } from "@/lib/context";
 import { t } from "@/lib/i18n";
+import { movePreview, PREVIEW_KEY } from "@/maps/preview";
 
 export type LatLng = { lat: number; lng: number };
 /** A GPS position, with how far off it may be in meters. */
@@ -317,6 +318,10 @@ const movePoint = (target: PickTarget, at: LatLng, accuracy?: number) => {
         }
         return;
     }
+    if (target.questionKey === PREVIEW_KEY) {
+        movePreview(at);
+        return;
+    }
     const question = questions.get().find((q) => q.key === target.questionKey);
     // Answered questions stay where they were asked
     if (!question || !question.data.drag) return;
@@ -358,11 +363,16 @@ export const pickOnMap = (target: PickTarget) => {
     if (sidebar.isMobile) sidebar.setOpenMobile(false);
 };
 
+/** Not the hider's H marker (-1) or the question only looked at (-2). */
+const isQuestionKey = (key: number) => key >= 0;
+
 /** Ends "Pick on map" without moving anything and shows the question again. */
 export const cancelPickOnMap = () => {
     const target = pickingLocation.get();
     pickingLocation.set(null);
-    if (target && target.questionKey !== -1) showQuestion(target.questionKey);
+    if (target && isQuestionKey(target.questionKey)) {
+        showQuestion(target.questionKey);
+    }
 };
 
 /**
@@ -374,6 +384,6 @@ export const placePickedPoint = (at: LatLng) => {
     if (!target) return false;
     pickingLocation.set(null);
     movePoint(target, at);
-    if (target.questionKey !== -1) showQuestion(target.questionKey);
+    if (isQuestionKey(target.questionKey)) showQuestion(target.questionKey);
     return true;
 };
