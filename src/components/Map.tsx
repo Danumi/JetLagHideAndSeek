@@ -37,6 +37,14 @@ import {
     retryQuestionsNotLoaded,
 } from "@/maps";
 import { BLANK_GEOJSON, determineMapBoundaries } from "@/maps/api";
+import {
+    letTheAppBreathe,
+    markPreviewOnMap,
+    previewCut,
+    previewForMap,
+    previewZonesShown,
+    questionPreview,
+} from "@/maps/preview";
 import { steadyRenderer } from "@/maps/steadyRenderer";
 import { tapZoneAt } from "@/maps/zones";
 
@@ -57,6 +65,14 @@ export const ELIMINATED_STYLE: L.PathOptions = {
     color: "#334155",
     weight: 2,
     fillColor: "#475569",
+    fillOpacity: 0.3,
+};
+
+/** "Just look": what the answer of the question looked at would rule out. */
+export const PREVIEW_CUT_STYLE: L.PathOptions = {
+    color: "#e11d48",
+    weight: 1,
+    fillColor: "#e11d48",
     fillOpacity: 0.3,
 };
 
@@ -154,6 +170,22 @@ const showRadarOutline = (map: L.Map, outline: L.LatLngBounds) => {
     map.fitBounds(bounds, { padding: [24, 24] });
 };
 
+/**
+ * "Just look": the whole area where the hider can still be, clear of the
+ * zone count at the top and the preview above the buttons below.
+ */
+const showPreviewArea = (map: L.Map, [west, south, east, north]: number[]) => {
+    const position = myPosition.get();
+    const bounds = L.latLngBounds([south, west], [north, east]);
+    if (position && !bounds.contains([position.lat, position.lng])) {
+        followMyPosition.set(false);
+    }
+    map.fitBounds(bounds, {
+        paddingTopLeft: [16, 90],
+        paddingBottomRight: [16, 240],
+    });
+};
+
 /** The long-press menu: questions of every type, for experts. */
 const longPressMenu = () => [
     {
@@ -249,6 +281,7 @@ export const Map = ({ className }: { className?: string }) => {
     useStore(additionalMapGeoLocations);
     const $mapGeoLocation = useStore(mapGeoLocation);
     const $questions = useStore(questions);
+    const $questionPreview = useStore(questionPreview);
     const $baseTileLayer = useStore(baseTileLayer);
     const map = useStore(leafletMapContext);
 
@@ -264,6 +297,8 @@ export const Map = ({ className }: { className?: string }) => {
         () => ({ current: null as ((focus: boolean) => void) | null }),
         [],
     );
+    // The question looked at that the map last showed ("Just look")
+    const previewShownRef = useMemo(() => ({ current: 0 }), []);
     // Where each radar outline on the map is (null before the first map):
     // the map zooms to a new or changed one, which may be bigger than the
     // screen while the map follows you
@@ -283,6 +318,8 @@ export const Map = ({ className }: { className?: string }) => {
 
         isLoading.set(true);
         const startedAt = Date.now();
+        // The zones left are worked out again after the map
+        previewZonesShown.set("");
 
         let mapGeoData = mapGeoJSON.get();
 
@@ -368,17 +405,45 @@ export const Map = ({ className }: { className?: string }) => {
                 toast.dismiss(NOTHING_LEFT_TOAST);
             }
 
+            // "Just look": the map shows the answer of the question looked
+            // at, and in red what that answer rules out
+            const preview = previewForMap();
+            let cut: Feature | null = null;
+            // A question just picked: the map shows all of the area left,
+            // so the red is in view wherever it is
+            const showWholeArea =
+                preview &&
+                !nothingLeft &&
+                preview.startedAt !== previewShownRef.current;
+            const areaLeft = showWholeArea ? turf.bbox(mapGeoData!) : null;
+            previewShownRef.current = preview?.startedAt ?? 0;
+            if (preview && !nothingLeft) {
+                // Each step can take seconds on a phone (a park question):
+                // the app answers taps in between instead of freezing
+                await letTheAppBreathe();
+                const after = await applyQuestionsToMapGeoData(
+                    [preview.question],
+                    mapGeoData,
+                    false,
+                );
+                await letTheAppBreathe();
+                cut = previewCut(mapGeoData!, after);
+                mapGeoData = after;
+                await letTheAppBreathe();
+            }
+            const nothingShown = mapGeoData!.features.length === 0;
+
             mapGeoData = {
                 type: "FeatureCollection",
                 features: [
-                    nothingLeft
+                    nothingShown
                         ? (BLANK_GEOJSON.features[0] as Feature<Polygon>)
                         : holedMask(mapGeoData!)!,
                 ],
             };
 
             map.eachLayer((layer: any) => {
-                if (layer.eliminationGeoJSON) {
+                if (layer.eliminationGeoJSON || layer.previewCutGeoJSON) {
                     // Hopefully only geoJSON layers
                     map.removeLayer(layer);
                 }
@@ -392,6 +457,18 @@ export const Map = ({ className }: { className?: string }) => {
             g.eliminationGeoJSON = true;
             g.addTo(map);
 
+            if (cut) {
+                const red = L.geoJSON(cut, {
+                    style: PREVIEW_CUT_STYLE,
+                    interactive: false,
+                });
+                // @ts-expect-error Removed with the next map
+                red.previewCutGeoJSON = true;
+                red.addTo(map);
+            }
+
+            // The zones count for this preview once worked out on this map
+            markPreviewOnMap(mapGeoData, preview?.key ?? "");
             questionFinishedMapData.set(mapGeoData);
 
             // Don't pull the map away from where the user moved it while
@@ -403,10 +480,14 @@ export const Map = ({ className }: { className?: string }) => {
 
             if (newRadarOutline && !movedWhileLoading) {
                 showRadarOutline(map, newRadarOutline);
+            } else if (areaLeft && !movedWhileLoading) {
+                showPreviewArea(map, areaLeft);
             } else if (
                 focus &&
                 !movedWhileLoading &&
                 !following &&
+                // Looking at a question: the map stays where it is
+                !preview &&
                 !nothingLeft
             ) {
                 const bbox = turf.bbox(holedMask(mapGeoData) as any);
@@ -483,6 +564,17 @@ export const Map = ({ className }: { className?: string }) => {
         );
         return () => clearTimeout(timer);
     }, [$questions, map]);
+
+    useEffect(() => {
+        if (!map) return;
+
+        // "Just look": the map shows another answer or place
+        const timer = setTimeout(
+            () => latestRefreshRef.current?.(false),
+            MAP_REFRESH_DELAY_MS,
+        );
+        return () => clearTimeout(timer);
+    }, [$questionPreview]);
 
     useEffect(
         () =>

@@ -145,6 +145,7 @@ export async function adjustMapGeoDataForQuestion(
                 return mapGeoData;
         }
     } catch (error) {
+        console.log("A question left out of the map:", error);
         if (error instanceof OverpassError) {
             questionsNotLoaded.set([
                 ...questionsNotLoaded.get(),

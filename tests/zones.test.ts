@@ -352,6 +352,49 @@ describe("zonesNotRuledOut", () => {
         ).toEqual(["A", "B", "C"]);
     });
 
+    /** Light everywhere except grey circles around points. */
+    const greyAround = (circles: [{ lat: number; lng: number }, number][]) => {
+        const disks = circles.map(([point, meters]) =>
+            turf.circle([point.lng, point.lat], meters, {
+                steps: 32,
+                units: "meters",
+            }),
+        );
+        return turf.featureCollection([
+            disks.length === 1
+                ? disks[0]
+                : turf.union(turf.featureCollection(disks))!,
+        ]);
+    };
+
+    it("rules out a zone under a grey patch, light all around it", () => {
+        // B's zone is all grey, A's and C's still partly light
+        expect(
+            names(zonesNotRuledOut(ZONES, greyAround([[east(300), 530]]))),
+        ).toEqual(["A", "C", "D"]);
+    });
+
+    it("works with many grey patches, like one per park", () => {
+        // 60 small patches over A's zone, D's zone all grey
+        const patches = Array.from({ length: 60 }, (_, index) => {
+            const [lng, lat] = turf.destination(
+                ORIGIN,
+                40 + (index % 6) * 70,
+                index * 6,
+                { units: "meters" },
+            ).geometry.coordinates;
+            return [{ lat, lng }, 20] as [{ lat: number; lng: number }, number];
+        });
+        expect(
+            names(
+                zonesNotRuledOut(
+                    ZONES,
+                    greyAround([...patches, [east(2000), 600]]),
+                ),
+            ),
+        ).toEqual(["A", "B", "C"]);
+    });
+
     it("rules out every zone when nothing is light", () => {
         const allGrey = turf.featureCollection([
             turf.bboxPolygon([0, 0, 60, 60]),

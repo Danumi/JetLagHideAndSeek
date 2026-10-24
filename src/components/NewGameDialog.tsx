@@ -35,6 +35,7 @@ import { type Role, setRole } from "@/lib/role";
 import { cn } from "@/lib/utils";
 import { endRound, gameClock } from "@/maps/gameClock";
 import { preloadGameData } from "@/maps/preload";
+import { endPreview } from "@/maps/preview";
 import { choosingHiderZone } from "@/maps/zones";
 
 import {
@@ -75,6 +76,7 @@ export const startNewGame = (
         keptZonesRuledOut.set([]);
     }
     selectedZoneId.set("");
+    endPreview();
     hiderZoneId.set("");
     choosingHiderZone.set(false);
     displayHidingZonesOptions.set([SUBWAY_STATIONS]);

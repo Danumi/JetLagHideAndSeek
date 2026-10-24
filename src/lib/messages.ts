@@ -36,6 +36,10 @@ export const messages = {
         en: "Tap where the question was asked",
         de: "Tippe dorthin, wo die Frage gestellt wurde",
     },
+    "pick.preview": {
+        en: "Tap where the question would be asked",
+        de: "Tippe dorthin, wo die Frage gestellt würde",
+    },
 
     // Top of the map: zones left, the tapped zone, your location
     "zones.left": {
@@ -194,6 +198,38 @@ export const messages = {
     },
     "ask.radar.choose": { en: "Choose:", de: "Andere:" },
     "ask.radar.ask": { en: "Ask", de: "Fragen" },
+
+    // "Just look": what a question would rule out, without asking it
+    "ask.mode.ask": { en: "Ask", de: "Fragen" },
+    "ask.mode.look": { en: "Just look", de: "Nur anschauen" },
+    "ask.look.description": {
+        en: "See on the map what a question would rule out. Nothing is asked or saved, only this phone shows it.",
+        de: "Sieh auf der Karte, was eine Frage ausschließen würde. Nichts wird gefragt oder gespeichert, nur dieses Handy zeigt es.",
+    },
+    "ask.look.banner": {
+        en: "Just looking: nothing is asked",
+        de: "Nur anschauen: nichts wird gefragt",
+    },
+    "ask.look.thermometer": {
+        en: "Not as a preview: depends on where you travel",
+        de: "Nicht als Vorschau: hängt davon ab, wohin ihr fahrt",
+    },
+    "ask.look.photo": {
+        en: "Photos rule nothing out on the map",
+        de: "Fotos schließen auf der Karte nichts aus",
+    },
+    "preview.title": { en: "Preview: {title}", de: "Vorschau: {title}" },
+    "preview.note": {
+        en: "Red: what this answer would rule out. Nothing is asked. Drag the pin to look elsewhere.",
+        de: "Rot: was diese Antwort ausschließen würde. Nichts wird gefragt. Zieh die Nadel, um woanders zu schauen.",
+    },
+    "preview.zonesLeft": {
+        en: "{count} zones left",
+        de: "{count} Zonen übrig",
+    },
+    "preview.oneZoneLeft": { en: "1 zone left", de: "1 Zone übrig" },
+    "preview.ask": { en: "Ask this question", de: "Diese Frage stellen" },
+    "preview.close": { en: "Close preview", de: "Vorschau schließen" },
     "ask.thermometer.help": {
         en: 'Starts at your current location. Tell the hider, then travel at least the distance; the app shows it as the crow flies. Tap "Set end here" when you are far enough, then send the question.',
         de: "Startet an deinem aktuellen Standort. Gib dem Hider Bescheid, dann fahr mindestens die Strecke; die App zeigt sie in Luftlinie. Tippe auf „Ende hier setzen“, wenn du weit genug bist, dann schick die Frage.",

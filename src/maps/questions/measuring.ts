@@ -1,5 +1,11 @@
 import * as turf from "@turf/turf";
-import type { Feature, MultiLineString, MultiPolygon } from "geojson";
+import type {
+    Feature,
+    LineString,
+    MultiLineString,
+    MultiPolygon,
+    Point,
+} from "geojson";
 import _ from "lodash";
 import osmtogeojson from "osmtogeojson";
 import { toast } from "react-toastify";
@@ -370,6 +376,35 @@ const seaLevelRegion = async (question: MeasuringQuestion) => {
 };
 
 /**
+ * How far the seekers are from the shores. Points repeated by the
+ * simplified shores made turf's nearest point fail ("coordinates must
+ * contain numbers"), and with it the whole question: it left the map as it
+ * was, also for "Just look".
+ */
+const metersFromShores = (
+    shores: Feature<LineString | MultiLineString>,
+    seekers: Feature<Point>,
+) => {
+    try {
+        return turf.nearestPointOnLine(turf.cleanCoords(shores), seekers, {
+            units: "meters",
+        }).properties.dist;
+    } catch {
+        // The nearest corner is a little further at most
+        return turf
+            .coordAll(shores)
+            .reduce(
+                (nearest, at) =>
+                    Math.min(
+                        nearest,
+                        turf.distance(seekers, at, { units: "meters" }),
+                    ),
+                Infinity,
+            );
+    }
+};
+
+/**
  * Within the seekers' distance of a named body of water. Whoever is on the
  * water (a bridge, a pier) is 0 m away from it, also in the middle of a lake.
  */
@@ -390,9 +425,7 @@ const waterRegion = async (question: MeasuringQuestion) => {
     );
     // The buffer around the shores misses only the middle of water wider
     // than twice the seekers' distance
-    const meters = turf.nearestPointOnLine(lines[0] as any, seekers, {
-        units: "meters",
-    }).properties.dist;
+    const meters = metersFromShores(lines[0] as any, seekers);
     const wide = areas.filter(
         (area) => turf.area(area) >= 0.8 * Math.PI * meters ** 2,
     );
