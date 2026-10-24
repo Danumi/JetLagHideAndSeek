@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import * as turf from "@turf/turf";
-import { UsersIcon } from "lucide-react";
+import { UsersIcon, XIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { CircleMarker, Pane, Tooltip } from "react-leaflet";
 import { toast } from "react-toastify";
@@ -22,7 +22,10 @@ import {
     liveGameCode,
     liveLink,
     liveStatus,
+    MAX_PHONE_NAME,
+    phoneName,
     readLiveLink,
+    removePhone,
     SEEKER_POSITION_MAX_AGE_MS,
     type SeekerPosition,
     seekerPositions,
@@ -62,11 +65,16 @@ const agoText = (sentAt: number, now: number) => {
     return minutes < 1 ? t("live.justNow") : t("live.minutesAgo", { minutes });
 };
 
-/** The seekers' positions that are from this round, newest first. */
+/** The seekers' positions that are from this round, newest first, with names. */
 const useSeekerPositions = (now: number) => {
     const $positions = useStore(seekerPositions);
-    return Object.values($positions)
-        .filter(({ sentAt }) => now - sentAt < SEEKER_POSITION_MAX_AGE_MS)
+    const $phones = useStore(gamePhones);
+    return Object.entries($positions)
+        .filter(([, { sentAt }]) => now - sentAt < SEEKER_POSITION_MAX_AGE_MS)
+        .map(([phone, position]) => ({
+            ...position,
+            name: $phones[phone]?.name,
+        }))
         .sort((a, b) => b.sentAt - a.sentAt);
 };
 
@@ -159,6 +167,38 @@ const StatusLine = () => {
 const roleName = (role: GamePhone["role"]) =>
     role === "hider" ? t("live.roleHider") : t("live.roleSeeker");
 
+/** "Daniel · Seeker", or only the role for a phone without a name. */
+const phoneLabel = ({ name, role }: Pick<GamePhone, "name" | "role">) =>
+    name ? `${name} · ${roleName(role)}` : roleName(role);
+
+/** This phone's name, for the others' lists and the hider's map. */
+const PhoneName = () => {
+    const $name = useStore(phoneName);
+
+    return (
+        <div className="flex flex-col gap-1">
+            <Label htmlFor="live-name" className="font-semibold">
+                {t("live.name")}
+            </Label>
+            <Input
+                id="live-name"
+                value={$name}
+                maxLength={MAX_PHONE_NAME}
+                onChange={(e) =>
+                    phoneName.set(e.target.value.slice(0, MAX_PHONE_NAME))
+                }
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") e.currentTarget.blur();
+                }}
+                placeholder={t("live.namePlaceholder")}
+            />
+            <p className="text-xs text-muted-foreground">
+                {t("live.nameHint")}
+            </p>
+        </div>
+    );
+};
+
 /** Which phones are in the game: to see that all joined the same one. */
 const PhoneList = () => {
     const $phones = useStore(gamePhones);
@@ -166,6 +206,7 @@ const PhoneList = () => {
     const hider = useStore(hiderMode) !== false;
     const $askingPhone = useStore(askingPhone);
     const $seekerMapRole = useStore(seekerMapRole);
+    const $name = useStore(phoneName);
     const now = useNow();
     if ($status !== "connected") return null;
     const others = Object.entries($phones).sort(
@@ -178,20 +219,39 @@ const PhoneList = () => {
             <span className="font-semibold">{t("live.phones")}</span>
             <span>
                 {t("live.thisPhone", {
-                    role: roleName(hider ? "hider" : "seeker"),
+                    role: phoneLabel({
+                        name: $name.trim(),
+                        role: hider ? "hider" : "seeker",
+                    }),
                 })}
                 {$seekerMapRole === "asking" && asks}
             </span>
             {others.map(([id, phone]) => (
-                <span key={id}>
-                    {roleName(phone.role)}
-                    {phone.role === "seeker" && id === $askingPhone && asks}
-                    {` · ${agoText(phone.seenAt, now)}`}
-                    {!phone.located && (
-                        <span className="text-red-600">
-                            {` · ${t("live.noLocationShort")}`}
-                        </span>
-                    )}
+                <span key={id} className="flex items-center gap-1">
+                    <span className="min-w-0 flex-1">
+                        {phoneLabel(phone)}
+                        {phone.role === "seeker" && id === $askingPhone && asks}
+                        {` · ${agoText(phone.seenAt, now)}`}
+                        {!phone.located && (
+                            <span className="text-red-600">
+                                {` · ${t("live.noLocationShort")}`}
+                            </span>
+                        )}
+                    </span>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-8 shrink-0 text-muted-foreground"
+                        title={t("live.remove")}
+                        aria-label={t("live.remove")}
+                        onClick={() => {
+                            if (window.confirm(t("live.removeConfirm"))) {
+                                removePhone(id);
+                            }
+                        }}
+                    >
+                        <XIcon />
+                    </Button>
                 </span>
             ))}
             {others.length === 0 && (
@@ -302,6 +362,7 @@ const LiveDialog = ({
                 {$game && (
                     <>
                         <StatusLine />
+                        <PhoneName />
                         <PhoneList />
                         <NoLocationWarning />
                         <GameCode game={$game} />
@@ -370,7 +431,7 @@ const SeekerMark = ({
     position,
     now,
 }: {
-    position: SeekerPosition;
+    position: SeekerPosition & { name?: string };
     now: number;
 }) => (
     <CircleMarker
@@ -392,7 +453,7 @@ const SeekerMark = ({
             offset={[0, -8]}
             className="!font-semibold"
         >
-            {`${t("live.seekers")} · ${agoText(position.sentAt, now)}`}
+            {`${position.name || t("live.seekers")} · ${agoText(position.sentAt, now)}`}
         </Tooltip>
     </CircleMarker>
 );
@@ -450,6 +511,7 @@ export const SeekersFromHider = () => {
         <div className="flex items-center gap-3 rounded-lg border p-3 text-sm">
             <UsersIcon className="size-5 shrink-0 text-rose-600" />
             {t("live.seekersFrom", {
+                seekers: nearest.position.name || t("live.seekers"),
                 distance: formatKilometers(nearest.kilometers),
                 ago: agoText(nearest.position.sentAt, now),
             })}

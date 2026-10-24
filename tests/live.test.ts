@@ -10,10 +10,11 @@ import {
     joinLiveGame,
     lateAnswersFor,
     leaveLiveGame,
+    leavesLateAnswers,
     liveAddress,
     liveGame,
     liveLink,
-    newGameKeepsClock,
+    liveRoundRunning,
     POSITION_EVERY_MS,
     positionDue,
     readLiveLink,
@@ -164,19 +165,26 @@ describe("game timer", () => {
         expect(clockStep(T0, T0)).toBe("keep");
     });
 
-    it("keeps a hiding period that has just begun on New Game", () => {
+    it("lets New Game join a round that runs on the connected phones", () => {
         const now = T0 + 10 * 60_000;
         gameClock.set({ startedAt: T0, pausedMs: 0 });
         leaveLiveGame();
         // Not connected: New Game ends the round as before
-        expect(newGameKeepsClock(now)).toBe(false);
+        expect(liveRoundRunning(now)).toBe(false);
         joinLiveGame(GAME);
         // Connected, 10 minutes into the hiding period: the phone joins the round
-        expect(newGameKeepsClock(now)).toBe(true);
-        // Seeking already: New Game starts the next round on all phones
-        expect(newGameKeepsClock(T0 + 40 * 60_000)).toBe(false);
+        expect(liveRoundRunning(now)).toBe(true);
+        // Seeking already: a phone that comes late joins too
+        expect(liveRoundRunning(T0 + 40 * 60_000)).toBe(true);
+        // Found: the round is over, New Game starts the next one
+        gameClock.set({
+            startedAt: T0,
+            pausedMs: 0,
+            foundAt: T0 + 50 * 60_000,
+        });
+        expect(liveRoundRunning(T0 + 60 * 60_000)).toBe(false);
         gameClock.set(null);
-        expect(newGameKeepsClock(now)).toBe(false);
+        expect(liveRoundRunning(now)).toBe(false);
         leaveLiveGame();
     });
 
@@ -283,5 +291,30 @@ describe("seekers' positions", () => {
         expect(
             positionDue(sent, { lat: 48.20005, lng: 16.37 }, T0 + 6_000),
         ).toBe(false);
+    });
+});
+
+describe("two hider phones between rounds", () => {
+    const late = (by: string, since?: number) => ({
+        ranges: [{ from: T0 }],
+        by,
+        since,
+    });
+
+    it("leave the late answers to the phone that became the hider last", () => {
+        // The next round's hider wrote them: the last round's leaves them
+        expect(leavesLateAnswers(late("new", T0 + 60_000), "old", T0)).toBe(
+            true,
+        );
+        // …and the next round's hider writes over the last round's
+        expect(leavesLateAnswers(late("old", T0), "new", T0 + 60_000)).toBe(
+            false,
+        );
+        // Its own, or nothing there yet: it writes
+        expect(leavesLateAnswers(late("me", T0), "me", T0)).toBe(false);
+        expect(leavesLateAnswers(undefined, "me", T0)).toBe(false);
+        // Same time (phones from before): one of them, always the same, writes
+        expect(leavesLateAnswers(late("b"), "a", 0)).toBe(true);
+        expect(leavesLateAnswers(late("a"), "b", 0)).toBe(false);
     });
 });

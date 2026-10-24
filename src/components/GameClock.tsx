@@ -195,7 +195,13 @@ export const GameClockCard = ({ className }: { className?: string }) => {
             size="sm"
             className="self-end text-muted-foreground"
             onClick={() => {
-                if (window.confirm(t("gameClock.resetConfirm"))) {
+                if (
+                    window.confirm(
+                        connected
+                            ? t("gameClock.resetConfirmLive")
+                            : t("gameClock.resetConfirm"),
+                    )
+                ) {
                     gameClock.set(null);
                 }
             }}

@@ -789,8 +789,25 @@ export const messages = {
     "live.justNow": { en: "just now", de: "gerade eben" },
     "live.minutesAgo": { en: "{minutes} min ago", de: "vor {minutes} Min." },
     "live.seekersFrom": {
-        en: "Seekers: {distance} from you · {ago}",
-        de: "Seeker: {distance} von dir · {ago}",
+        en: "{seekers}: {distance} from you · {ago}",
+        de: "{seekers}: {distance} von dir · {ago}",
+    },
+    "live.name": {
+        en: "Name of this phone",
+        de: "Name dieses Handys",
+    },
+    "live.remove": {
+        en: "Remove from the list",
+        de: "Aus der Liste entfernen",
+    },
+    "live.removeConfirm": {
+        en: "Remove this phone from the list and the hider's map? If it's still connected, it shows up again once its app is open. To play with only some of the phones: “Disconnect this phone”, then “Connect”, and the others scan the new code.",
+        de: "Dieses Handy aus der Liste und von der Karte des Hiders entfernen? Ist es noch verbunden, taucht es wieder auf, sobald die App dort offen ist. Für ein Spiel nur mit bestimmten Handys: „Dieses Handy trennen“, dann „Verbinden“, und die anderen scannen den neuen Code.",
+    },
+    "live.namePlaceholder": { en: "e.g. Daniel", de: "z. B. Daniel" },
+    "live.nameHint": {
+        en: "The other phones show it in this list, the hider also next to your dot on the map.",
+        de: "Die anderen Handys zeigen ihn in dieser Liste, der Hider auch neben deinem Punkt auf der Karte.",
     },
     "seekerMap.asks": {
         en: "asks the questions",
@@ -823,6 +840,10 @@ export const messages = {
     "seekerMap.lost": {
         en: "Another seeker's phone asks the questions now. This phone shows its map.",
         de: "Jetzt stellt ein anderes Seeker-Handy die Fragen. Dieses Handy zeigt seine Karte.",
+    },
+    "seekerMap.handedOver": {
+        en: "Another seeker's phone asks the questions now. It gets the questions this phone asked meanwhile.",
+        de: "Jetzt stellt ein anderes Seeker-Handy die Fragen. Es bekommt die Fragen, die dieses Handy inzwischen gestellt hat.",
     },
     "seekerMap.nowAsking": {
         en: "This phone asks the questions now. The other seekers' phones show its map.",
@@ -984,8 +1005,12 @@ export const messages = {
         de: "Auch die anderen Seeker-Handys beginnen mit einer leeren Karte.",
     },
     "newGame.liveKeepsClock": {
-        en: "The game timer keeps running on the connected phones: the hiding period has just begun.",
-        de: "Die Spielzeit-Uhr läuft auf den verbundenen Handys weiter, die Versteckphase hat ja gerade erst begonnen.",
+        en: "A round is running on the connected phones: this phone joins it, the game timer keeps running.",
+        de: "Auf den verbundenen Handys läuft eine Runde: Dieses Handy steigt ein, die Spielzeit-Uhr läuft weiter.",
+    },
+    "newGame.endForAll": {
+        en: "End the round on all connected phones",
+        de: "Runde auf allen verbundenen Handys beenden",
     },
     "newGame.liveEndsClock": {
         en: "This also ends the round on the connected phones: the game timer stops there too.",
@@ -1503,6 +1528,10 @@ export const messages = {
     "gameClock.resetConfirm": {
         en: "Reset the game timer?",
         de: "Spielzeit zurücksetzen?",
+    },
+    "gameClock.resetConfirmLive": {
+        en: "Reset the game timer on all connected phones?",
+        de: "Spielzeit auf allen verbundenen Handys zurücksetzen?",
     },
 
     // Photo questions

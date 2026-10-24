@@ -92,6 +92,11 @@ export const SeekerMapNotices = () => {
                             autoClose: 8000,
                         });
                         break;
+                    case "handedOver":
+                        toast.warning(t("seekerMap.handedOver"), {
+                            autoClose: 8000,
+                        });
+                        break;
                     case "asking":
                         toast.success(t("seekerMap.nowAsking"));
                         break;
