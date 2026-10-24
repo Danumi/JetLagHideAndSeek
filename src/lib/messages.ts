@@ -68,6 +68,10 @@ export const messages = {
         en: "All zones are shown again: what the seekers still consider.",
         de: "Alle Zonen sind wieder zu sehen: was für die Seeker noch in Frage kommt.",
     },
+    "zones.chooseOwnFirst": {
+        en: "Choose your hiding zone first: tap it on the map and then “Choose as my zone”. Then this button shows only your zone.",
+        de: "Wähle zuerst deine Zone: Tippe sie auf der Karte an und dann „Als meine Zone wählen“. Danach zeigt dieser Knopf nur deine Zone.",
+    },
     "zones.choose": { en: "Choose as my zone", de: "Als meine Zone wählen" },
     "zones.changeTitle": {
         en: "Change your hiding zone?",
