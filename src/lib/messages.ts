@@ -1383,7 +1383,15 @@ export const messages = {
         en: "ended without “Found”",
         de: "ohne „Gefunden“ beendet",
     },
-    "gameClock.clearRounds": { en: "Clear", de: "Löschen" },
+    "gameClock.clearRounds": { en: "Clear all", de: "Alle löschen" },
+    "gameClock.deleteRound": {
+        en: "Delete round {number}",
+        de: "Runde {number} löschen",
+    },
+    "gameClock.deleteRoundConfirm": {
+        en: "Delete round {number} ({time}) from the list? This can't be undone.",
+        de: "Runde {number} ({time}) aus der Liste löschen? Das lässt sich nicht rückgängig machen.",
+    },
     "gameClock.clearRoundsConfirm": {
         en: "Clear the list of earlier rounds?",
         de: "Liste der früheren Runden löschen?",

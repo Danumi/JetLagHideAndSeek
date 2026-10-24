@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
 import {
+    deletePastRound,
     endHidingPeriod,
     endRound,
     formatDuration,
@@ -159,6 +160,34 @@ describe("the game timer", () => {
                 found: false,
             },
         ]);
+    });
+
+    it("deletes a single past round, the others keep their numbers", () => {
+        pastRounds.set([]);
+        for (const start of [T0, T0 + 100 * MIN, T0 + 200 * MIN]) {
+            startGameClock(start);
+            endRound(start + 40 * MIN);
+        }
+        expect(pastRounds.get().map((round) => round.number)).toEqual([
+            1, 2, 3,
+        ]);
+
+        deletePastRound(2);
+        expect(pastRounds.get().map((round) => round.number)).toEqual([1, 3]);
+
+        // The next round still counts on from the last one in the list
+        startGameClock(T0 + 300 * MIN);
+        endRound(T0 + 340 * MIN);
+        deletePastRound(4);
+        startGameClock(T0 + 400 * MIN);
+        endRound(T0 + 440 * MIN);
+        expect(pastRounds.get().map((round) => round.number)).toEqual([
+            1, 3, 4,
+        ]);
+
+        // Not in the list: nothing changes
+        deletePastRound(7);
+        expect(pastRounds.get()).toHaveLength(3);
     });
 
     it("writes hours, minutes and seconds", () => {
