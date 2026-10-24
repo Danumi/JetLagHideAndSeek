@@ -41,6 +41,7 @@ import { steadyRenderer } from "@/maps/steadyRenderer";
 import { tapZoneAt } from "@/maps/zones";
 
 import { DraggableMarkers } from "./DraggableMarkers";
+import { SeekerMarks } from "./LivePhones";
 import { MapLayersOverlay, tapLineAt } from "./MapLayers";
 import { NearestMarks } from "./NearestMarks";
 import { PolygonDraw } from "./PolygonDraw";
@@ -447,6 +448,7 @@ export const Map = ({ className }: { className?: string }) => {
                 <DraggableMarkers />
                 <MapLayersOverlay />
                 <NearestMarks />
+                <SeekerMarks />
                 <PolygonDraw />
                 <ScaleControl position="topleft" imperial={false} />
             </MapContainer>

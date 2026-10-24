@@ -41,6 +41,17 @@ export const answerDue = (entry: HiderInboxEntry) =>
 export const answeredLate = (entry: HiderInboxEntry) =>
     entry.answeredAt !== undefined && entry.answeredAt > answerDue(entry);
 
+/** From when an answer was due until it was sent; no end while it's open. */
+export type LateRange = { from: number; to?: number };
+
+/** When each answer was due and when the hider sent it, for each question. */
+export const lateRanges = (inbox: HiderInboxEntry[]): LateRange[] =>
+    inbox.map((entry) => ({ from: answerDue(entry), to: entry.answeredAt }));
+
+/** The ranges that are late by `now`, an open one until `now`. */
+export const lateUntil = (ranges: LateRange[], now = Date.now()): Interval[] =>
+    ranges.flatMap(({ from, to = now }) => (to > from ? [{ from, to }] : []));
+
 /**
  * When the hiding time stands still for late answers: from when each
  * answer was due until the hider sent it, or until now while it's open.
@@ -48,12 +59,7 @@ export const answeredLate = (entry: HiderInboxEntry) =>
 export const lateIntervals = (
     inbox: HiderInboxEntry[],
     now = Date.now(),
-): Interval[] =>
-    inbox.flatMap((entry) => {
-        const from = answerDue(entry);
-        const to = entry.answeredAt ?? now;
-        return to > from ? [{ from, to }] : [];
-    });
+): Interval[] => lateUntil(lateRanges(inbox), now);
 
 /** Cards the hider draws after answering, by the rule book. */
 const DRAWS = {

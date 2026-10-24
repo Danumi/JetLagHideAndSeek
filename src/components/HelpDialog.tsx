@@ -47,6 +47,7 @@ const buttonNames = () => ({
     hiderMoved: t("move.button"),
     moving: t("move.hiderButton"),
     pickOnMap: t("location.pickOnMap"),
+    connectPhones: t("live.button"),
 });
 
 /** A text of the help with **bold** words and the app's buttons in it. */

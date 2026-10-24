@@ -75,6 +75,7 @@ const BUTTONS = [
     "hiderMoved",
     "moving",
     "pickOnMap",
+    "connectPhones",
 ];
 
 const PUBLIC = new URL("../public/", import.meta.url).pathname;

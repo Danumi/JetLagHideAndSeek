@@ -3,6 +3,7 @@ import { FlagIcon, PauseIcon, PlayIcon, TimerIcon } from "lucide-react";
 
 import { hiderInbox, hiderMode } from "@/lib/context";
 import { t, useLanguage } from "@/lib/i18n";
+import { hiderLate, lateAnswersFor, liveGame } from "@/lib/live";
 import { cn } from "@/lib/utils";
 import { clockTime } from "@/maps/deadline";
 import {
@@ -20,7 +21,6 @@ import {
     startGameClock,
     undoEndHidingPeriod,
 } from "@/maps/gameClock";
-import { lateIntervals } from "@/maps/hiderLog";
 
 import { useNow } from "./AnswerClock";
 import { Button } from "./ui/button";
@@ -35,13 +35,19 @@ import { showUndoToast } from "./UndoToast";
 
 /**
  * When late answers stopped the hiding time: on the hider's phone, which
- * knows when the answers went out.
+ * knows when the answers went out, and on the phones connected to it.
  */
-const useLateAnswers = (now: number) => {
-    const $inbox = useStore(hiderInbox);
-    const $pauseForLateAnswers = useStore(pauseForLateAnswers);
-    return $pauseForLateAnswers ? lateIntervals($inbox, now) : [];
-};
+const useLateAnswers = (now: number) =>
+    lateAnswersFor(
+        {
+            hider: useStore(hiderMode) !== false,
+            connected: useStore(liveGame) !== null,
+            pause: useStore(pauseForLateAnswers),
+            inbox: useStore(hiderInbox),
+            shared: useStore(hiderLate),
+        },
+        now,
+    );
 
 /**
  * Sets the hiding period to 0: the official time is up, or everyone agrees
@@ -113,8 +119,10 @@ export const GameClockCard = ({ className }: { className?: string }) => {
     useLanguage();
     const $clock = useStore(gameClock);
     const $pauseForLateAnswers = useStore(pauseForLateAnswers);
-    // Only the hider's phone knows when answers came late: theirs counts
+    // Only the hider's phone knows when answers came late: theirs counts,
+    // and connected phones take it from there
     const seeker = useStore(hiderMode) === false;
+    const connected = useStore(liveGame) !== null;
     const now = useNow();
     const late = useLateAnswers(now);
 
@@ -243,7 +251,9 @@ export const GameClockCard = ({ className }: { className?: string }) => {
                     </div>
                     <p className="text-xs text-muted-foreground">
                         {seeker
-                            ? t("gameClock.seekersHint")
+                            ? connected
+                                ? t("gameClock.seekersHintLive")
+                                : t("gameClock.seekersHint")
                             : $pauseForLateAnswers
                               ? t("gameClock.pauseHintMove")
                               : t("gameClock.pauseHint")}
@@ -259,7 +269,9 @@ export const GameClockCard = ({ className }: { className?: string }) => {
                     </div>
                     <p className="text-sm text-muted-foreground">
                         {t("gameClock.bonusHint")}
-                        {seeker && ` ${t("gameClock.hiderCounts")}`}
+                        {seeker &&
+                            !connected &&
+                            ` ${t("gameClock.hiderCounts")}`}
                     </p>
                     <Button
                         variant="outline"

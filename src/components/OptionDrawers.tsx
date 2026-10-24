@@ -36,6 +36,7 @@ import {
     useCustomStations,
 } from "@/lib/context";
 import { type Language, language, t, useLanguage } from "@/lib/i18n";
+import { startLiveSync, takeLiveFromAddress } from "@/lib/live";
 import { takeSetupFromAddress } from "@/lib/overpassAccess";
 import { setRole } from "@/lib/role";
 import {
@@ -54,6 +55,11 @@ import {
 } from "@/maps/schema";
 
 import { AboutDialog } from "./AboutDialog";
+import {
+    LiveAddressSettings,
+    LivePhonesButton,
+    toastLiveJoined,
+} from "./LivePhones";
 import { NewGameDialog } from "./NewGameDialog";
 import {
     OverpassAccessSettings,
@@ -167,8 +173,12 @@ export const OptionDrawers = () => {
     const [aboutOpen, setAboutOpen] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
+    // The phones of the game stay connected while the app is open
+    useEffect(() => startLiveSync(), []);
+
     useEffect(() => {
         if (takeSetupFromAddress()) toastOverpassSaved();
+        toastLiveJoined(takeLiveFromAddress());
 
         const params = new URL(window.location.toString()).searchParams;
         const hidingZoneOld = params.get(HIDING_ZONE_URL_PARAM);
@@ -549,6 +559,7 @@ export const OptionDrawers = () => {
                                     {t("settings.help")}
                                 </Button>
                             </div>
+                            <LivePhonesButton className="w-full max-w-[320px]" />
                             <AlertDialog>
                                 <AlertDialogTrigger asChild>
                                     <Button
@@ -614,6 +625,9 @@ export const OptionDrawers = () => {
                                             {t("settings.preload")}
                                         </Button>
                                         <Hint>{t("settings.preloadHint")}</Hint>
+                                    </AdvancedSection>
+                                    <AdvancedSection title={t("settings.live")}>
+                                        <LiveAddressSettings />
                                     </AdvancedSection>
                                     <AdvancedSection
                                         title={t("settings.mapStyle")}
