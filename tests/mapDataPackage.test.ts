@@ -2,7 +2,7 @@ import * as turf from "@turf/turf";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { mapGeoJSON, overpassCustomHost } from "@/lib/context";
-import { findAdminBoundary, getOverpassData } from "@/maps/api";
+import { findAdminAreas, findAdminBoundary, getOverpassData } from "@/maps/api";
 import { packageKey } from "@/maps/api/mapDataPackage";
 
 // A minimal Cache API, as in the browser
@@ -181,6 +181,55 @@ describe("administrative areas", () => {
         expect(queries).toHaveLength(2);
         expect(queries[1]).toContain("rel(id:1,2);out geom;");
         expect(queries.some((query) => query.includes("is_in"))).toBe(false);
+    });
+
+    it("leaves out buildings tagged with an admin level", async () => {
+        // Another game area: the areas of the one above are remembered
+        mapGeoJSON.set(
+            turf.featureCollection([
+                turf.bboxPolygon([16.3, 48.15, 16.41, 48.25]),
+            ]) as never,
+        );
+        // Like the "Amtshaus für den 16. Bezirk" in Ottakring
+        const amtshaus = {
+            ...district(4, "Amtshaus", 16.36, 16.362),
+            tags: {
+                type: "multipolygon",
+                building: "yes",
+                admin_level: "9",
+                name: "Amtshaus",
+            },
+        };
+        vi.stubGlobal(
+            "fetch",
+            vi.fn(async (url: string) => {
+                if (url.includes("/map-data/"))
+                    return new Response("", { status: 404 });
+                const query = decodeURIComponent(url.split("?data=")[1]);
+                if (query.includes("out tags bb")) {
+                    return json({
+                        elements: [west, east, amtshaus].map(
+                            ({ type, id, bounds, tags }) => ({
+                                type,
+                                id,
+                                bounds,
+                                tags,
+                            }),
+                        ),
+                    });
+                }
+                if (query.includes("rel(id:1,2,4)"))
+                    return json({ elements: [west, east, amtshaus] });
+                return new Response("", { status: 400 });
+            }),
+        );
+
+        expect(
+            (await findAdminAreas(9)).map((area) => area.properties?.name),
+        ).toEqual(["Westbezirk", "Ostbezirk"]);
+        expect(
+            (await findAdminBoundary(48.2, 16.361, 9))?.properties?.name,
+        ).toBe("Ostbezirk");
     });
 
     it("asks the server for a point outside of all areas", async () => {

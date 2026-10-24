@@ -12,6 +12,7 @@ import { hasMessage, t, tr, useLanguage } from "@/lib/i18n";
 import { retryTrigger } from "@/lib/loading";
 import { cn } from "@/lib/utils";
 import {
+    findAdminAreas,
     findNamedWaterLines,
     findTramLines,
     findTransitLines,
@@ -20,6 +21,8 @@ import {
 import { deckGroups } from "@/maps/deck";
 import {
     asOnePath,
+    districtLabels,
+    districtLabelsInView,
     highlightedLine,
     lineLabelPositions,
     linesAt,
@@ -46,8 +49,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 /*
  * Places and lines on the map: every museum, park or hospital of the
- * question cards, bodies of water and the U-Bahn, S-Bahn and tram lines. A
- * button below the location button picks what to show.
+ * question cards, bodies of water, the U-Bahn, S-Bahn and tram lines and the
+ * Gemeindebezirke. A button below the location button picks what to show.
  */
 
 const escapeHtml = (text: string) =>
@@ -552,6 +555,84 @@ const WaterLayer = () => {
     return null;
 };
 
+const districtLabelIcon = (
+    label: { ref?: string; name: string; withName: boolean },
+    color: string,
+) =>
+    L.divIcon({
+        className: "",
+        iconSize: [0, 0],
+        html: `<div style="transform:translate(-50%,-50%);width:max-content;display:flex;flex-direction:column;align-items:center">${label.ref ? `<div style="min-width:18px;height:18px;padding:0 4px;box-sizing:border-box;border-radius:9999px;border:1.5px solid #fff;background:${color};color:#fff;text-align:center;font:700 11px/15px Poppins,sans-serif;box-shadow:0 1px 2px rgba(0,0,0,.35)">${escapeHtml(label.ref)}</div>` : ""}${label.withName || !label.ref ? `<div style="color:${color};font:600 12px/1.2 Poppins,sans-serif;text-shadow:0 0 2px #fff,0 0 2px #fff,0 0 3px #fff">${escapeHtml(label.name)}</div>` : ""}</div>`,
+    });
+
+/**
+ * The borders of the 23 Gemeindebezirke with their numbers, and their names
+ * where there is room. The areas are those of the district questions, so
+ * they come with the map data package.
+ */
+const DistrictLayer = () => {
+    const map = useMap();
+    const areas = useLayerData("districts", () => findAdminAreas(9));
+    const color = mapLayer("districts")!.color;
+    // All borders as one path: shared borders are not drawn darker
+    useDrawn(areas, (areas) =>
+        L.geoJSON(
+            turf.multiPolygon(
+                areas.flatMap((area) =>
+                    area.geometry.type === "Polygon"
+                        ? [area.geometry.coordinates]
+                        : area.geometry.coordinates,
+                ),
+            ),
+            {
+                ...LINES,
+                style: { color, weight: 2, opacity: 0.7, fill: false },
+            },
+        ),
+    );
+    const labels = useMemo(() => areas && districtLabels(areas), [areas]);
+
+    useEffect(() => {
+        if (!labels) return;
+        const group = L.layerGroup().addTo(map);
+        const draw = () => {
+            group.clearLayers();
+            const view = map.getBounds();
+            const widthKm = turf.distance(
+                [view.getWest(), map.getCenter().lat],
+                [view.getEast(), map.getCenter().lat],
+            );
+            const shown = districtLabelsInView(
+                labels,
+                {
+                    south: view.getSouth(),
+                    west: view.getWest(),
+                    north: view.getNorth(),
+                    east: view.getEast(),
+                },
+                ([lng, lat]) => map.latLngToContainerPoint([lat, lng]),
+                map.getSize().x / widthKm,
+            );
+            for (const label of shown) {
+                L.marker([label.at[1], label.at[0]], {
+                    icon: districtLabelIcon(label, color),
+                    interactive: false,
+                    keyboard: false,
+                    pane: NAMES_PANE,
+                }).addTo(group);
+            }
+        };
+        draw();
+        map.on("moveend", draw);
+        return () => {
+            map.off("moveend", draw);
+            group.remove();
+        };
+    }, [map, labels, color]);
+
+    return null;
+};
+
 /** What is shown, inside the map. */
 export const MapLayersOverlay = () => {
     const $shown = useStore(shownMapLayers);
@@ -588,6 +669,7 @@ export const MapLayersOverlay = () => {
                 name="mapLayerLines"
                 style={{ zIndex: 340, pointerEvents: "none" }}
             >
+                {$shown.includes("districts") && <DistrictLayer />}
                 {$shown.includes("water") && <WaterLayer />}
                 {rail && (
                     <TransitLayer
@@ -646,7 +728,7 @@ export const MapLayersButton = () => {
 
     const tooMany = MAP_LAYERS.filter((layer) => $tooMany.includes(layer.id));
     // The list starts level with the gear at the top, so that all of it
-    // fits above the buttons at the bottom
+    // (16 layers) fits above the buttons at the bottom
     const [open, setOpen] = useState(false);
     const button = useRef<HTMLDivElement>(null);
 
@@ -690,14 +772,14 @@ export const MapLayersButton = () => {
                         </Button>
                     )}
                     {deckGroups(MAP_LAYERS).map(({ group, cards: layers }) => (
-                        <div key={group.en} className="mt-3">
+                        <div key={group.en} className="mt-2">
                             <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                                 {tr(group)}
                             </div>
                             {layers.map((layer) => (
                                 <label
                                     key={layer.id}
-                                    className="flex cursor-pointer items-center gap-2 py-1.5 text-sm"
+                                    className="flex cursor-pointer items-center gap-2 py-[5px] text-sm"
                                 >
                                     <Checkbox
                                         checked={$shown.includes(layer.id)}

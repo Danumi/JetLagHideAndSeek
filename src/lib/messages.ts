@@ -115,6 +115,8 @@ export const messages = {
     "layers.uBahn": { en: "U-Bahn lines", de: "U-Bahn-Linien" },
     "layers.sBahn": { en: "S-Bahn lines", de: "S-Bahn-Linien" },
     "layers.tram": { en: "Tram lines", de: "Straßenbahnlinien" },
+    // Vienna's word for its districts, German in both languages
+    "layers.districts": { en: "Gemeindebezirke", de: "Gemeindebezirke" },
     "layers.line.tram": { en: "Tram", de: "Straßenbahn" },
     "layers.line.count": { en: "{n} of {total}", de: "{n} von {total}" },
     "layers.line.towards": { en: "towards {name}", de: "Richtung {name}" },
