@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import * as turf from "@turf/turf";
-import { CameraIcon, ChevronLeftIcon, ScanEyeIcon } from "lucide-react";
+import { CameraIcon, ChevronLeftIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { TbMessage2Question } from "react-icons/tb";
 import { toast } from "react-toastify";
@@ -20,7 +20,6 @@ import {
     addQuestion,
     displayHidingZones,
     leafletMapContext,
-    myPosition,
     photoQuestions,
     questions,
     thermometerRun,
@@ -49,7 +48,6 @@ import {
 } from "@/maps/deck";
 import { formatDuration, gameClock, gameClockState } from "@/maps/gameClock";
 import { photoTitle } from "@/maps/hiderLog";
-import { endPreview, startPreview } from "@/maps/preview";
 import {
     type Asked,
     askedCards,
@@ -193,38 +191,6 @@ const HidingPeriodNote = () => {
     );
 };
 
-/** Asking a question, or only looking at what it would rule out. */
-const ModeSwitch = ({
-    look,
-    setLook,
-}: {
-    look: boolean;
-    setLook: (look: boolean) => void;
-}) => (
-    <div className="grid grid-cols-2 gap-1 rounded-lg bg-muted p-1">
-        {[false, true].map((value) => (
-            <button
-                key={String(value)}
-                className={cn(
-                    "flex h-10 items-center justify-center gap-2 rounded-md text-sm font-semibold transition-colors",
-                    look === value
-                        ? "bg-background text-foreground shadow"
-                        : "text-muted-foreground",
-                )}
-                aria-pressed={look === value}
-                onClick={() => setLook(value)}
-            >
-                {value ? (
-                    <ScanEyeIcon className="size-4" />
-                ) : (
-                    <TbMessage2Question className="size-4" />
-                )}
-                {value ? t("ask.mode.look") : t("ask.mode.ask")}
-            </button>
-        ))}
-    </div>
-);
-
 export const AskQuestionDrawer = ({ className }: { className?: string }) => {
     useLanguage();
     const $thermometerRun = useStore(thermometerRun);
@@ -241,31 +207,10 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
     const [otherKilometers, setOtherKilometers] = useState("");
     // Another seeker's phone asks: its map is shown here
     const watching = useWatching();
-    /** "Just look": a card shows what it would rule out, without asking it. */
-    const [look, setLook] = useState(false);
-
-    /** "Just look", at the blue dot (without it, the middle of the map). */
-    const lookAt = (data: (at: LatLng) => any) => {
-        const position = myPosition.get();
-        const at = position ?? leafletMapContext.get()?.getCenter();
-        if (!at) return;
-        const { id, data: fields } = data({ lat: at.lat, lng: at.lng });
-        startPreview(
-            { id, data: fields },
-            { lat: at.lat, lng: at.lng },
-            position !== null,
-        );
-    };
 
     const ask = async (data: (at: LatLng & { accuracy?: number }) => any) => {
-        setOpen(false);
-        if (look) {
-            lookAt(data);
-            return;
-        }
-        // The question asked replaces the one looked at
-        endPreview();
         // The map shows how precise the location is while the app waits for it
+        setOpen(false);
         setBusy(true);
         try {
             const at = await questionLocation();
@@ -309,7 +254,6 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
 
     const startThermometer = async (kilometers: number) => {
         setOpen(false);
-        endPreview();
         setBusy(true);
         const at = await getPrecisePosition();
         setBusy(false);
@@ -386,12 +330,12 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
     let content;
     switch (kind) {
         case null:
-            if (watching && !look) {
+            if (watching) {
                 content = <WatchingNote />;
                 break;
             }
             // One question at a time, by the rules: ask before a second one
-            if (pending.length > 0 && !askAnyway && !look) {
+            if (pending.length > 0 && !askAnyway) {
                 content = (
                     <div className="flex flex-col gap-3">
                         <div className="rounded-lg border-2 border-orange-500 bg-orange-500/10 p-3">
@@ -430,22 +374,18 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
             }
             content = (
                 <div className="flex flex-col gap-3">
-                    {!look && <HidingPeriodNote />}
+                    <HidingPeriodNote />
                     <div className="grid grid-cols-2 gap-3">
                         {(Object.keys(KINDS) as Kind[]).map((k) => {
                             const Icon = KINDS[k].icon;
-                            // Can't be looked at beforehand
-                            const notInLook =
-                                look && (k === "thermometer" || k === "photo");
                             return (
                                 <button
                                     key={k}
                                     className={cn(
-                                        "flex min-h-28 flex-col justify-center gap-1 rounded-lg border p-3 text-left transition-colors hover:bg-accent active:bg-accent disabled:opacity-60",
+                                        "flex min-h-28 flex-col justify-center gap-1 rounded-lg border p-3 text-left transition-colors hover:bg-accent active:bg-accent",
                                         // The fifth kind fills the last row
                                         k === "photo" && "col-span-2 min-h-20",
                                     )}
-                                    disabled={notInLook}
                                     onClick={() => setKind(k)}
                                 >
                                     <Icon className="h-6 w-6 shrink-0" />
@@ -453,13 +393,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                                         {kindLabel(k)}
                                     </span>
                                     <span className="text-xs text-muted-foreground">
-                                        {notInLook
-                                            ? t(
-                                                  k === "photo"
-                                                      ? "ask.look.photo"
-                                                      : "ask.look.thermometer",
-                                              )
-                                            : t(KINDS[k].question)}
+                                        {t(KINDS[k].question)}
                                     </span>
                                 </button>
                             );
@@ -535,7 +469,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                                 )
                             }
                         >
-                            {look ? t("ask.mode.look") : t("ask.radar.ask")}
+                            {t("ask.radar.ask")}
                         </Button>
                     </div>
                 </div>
@@ -551,7 +485,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                         <button
                             key={card.id}
                             className="w-full rounded-md border px-3 py-2 text-left transition-colors hover:bg-accent active:bg-accent disabled:opacity-60"
-                            disabled={busy || look}
+                            disabled={busy}
                             onClick={() => askPhoto(card)}
                         >
                             <div className="font-semibold">
@@ -582,7 +516,7 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                                 key={distance.label}
                                 variant="outline"
                                 className="h-16 flex-col gap-0 text-lg"
-                                disabled={busy || look}
+                                disabled={busy}
                                 onClick={() =>
                                     startThermometer(distance.kilometers)
                                 }
@@ -611,8 +545,6 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                 if (value) {
                     setKind(null);
                     setAskAnyway(false);
-                    // A phone showing another seeker's map can only look
-                    setLook(watching);
                 }
             }}
         >
@@ -650,14 +582,9 @@ export const AskQuestionDrawer = ({ className }: { className?: string }) => {
                         <DrawerDescription>
                             {kind
                                 ? t(KINDS[kind].question)
-                                : look
-                                  ? t("ask.look.description")
-                                  : t("ask.description")}
+                                : t("ask.description")}
                         </DrawerDescription>
                     </DrawerHeader>
-                    <div className="px-4 pb-3">
-                        <ModeSwitch look={look} setLook={setLook} />
-                    </div>
                     <div className="overflow-y-auto px-4 pb-6">{content}</div>
                 </div>
             </DrawerContent>

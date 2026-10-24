@@ -21,7 +21,6 @@ import { cancelPickOnMap } from "@/lib/gps";
 import { t, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { isPending } from "@/maps/answers";
-import { PREVIEW_KEY } from "@/maps/preview";
 import { choosingHiderZone, stopChoosingHiderZone } from "@/maps/zones";
 
 import {
@@ -30,7 +29,6 @@ import {
     WaitingForAnswer,
 } from "./AskQuestion";
 import { TappedLineBar } from "./MapLayers";
-import { QuestionPreviewBar } from "./QuestionPreview";
 import { SeekerMapNotices, ViewOnly } from "./SeekerMap";
 import { Button } from "./ui/button";
 
@@ -71,7 +69,6 @@ const SideButton = ({
 
 const pickText = (target: PickTarget) => {
     if (target.questionKey === -1) return t("pick.hiding");
-    if (target.questionKey === PREVIEW_KEY) return t("pick.preview");
     if (target.point === "start") return t("pick.start");
     if (target.point === "end") return t("pick.end");
     return t("pick.question");
@@ -113,8 +110,7 @@ const ChooseZoneHint = () => (
  * The three big buttons below the map: the questions asked so far, a new
  * question, the hiding zones (the hider: back to the hider screen, the
  * hiding zones). Above them, the running thermometer, the reminder of
- * questions waiting for an answer, the question only looked at ("Just
- * look") and the name of a line tapped on the map.
+ * questions waiting for an answer and the name of a line tapped on the map.
  */
 export const BottomBar = () => {
     useLanguage();
@@ -148,8 +144,6 @@ export const BottomBar = () => {
                             <ThermometerTracker run={$thermometerRun} />
                         </ViewOnly>
                     )}
-                    {/* "Just look": what a question would rule out */}
-                    {$hiderMode === false && <QuestionPreviewBar />}
                     {/* A line tapped on the map, named here to keep the map clear */}
                     <TappedLineBar />
                 </div>

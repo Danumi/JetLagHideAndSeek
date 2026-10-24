@@ -76,7 +76,6 @@ const TRANSLATED_FILES = [
     "components/PlacePicker.tsx",
     "components/PolygonDraw.tsx",
     "components/PresetsDialog.tsx",
-    "components/QuestionPreview.tsx",
     "components/QuestionSidebar.tsx",
     "components/SeekerMap.tsx",
     "components/UndoToast.tsx",

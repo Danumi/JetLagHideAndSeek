@@ -45,13 +45,6 @@ import {
     holedMask,
     safeUnion,
 } from "@/maps/geo-utils";
-import {
-    previewForMap,
-    previewOnMap,
-    previewZonesRuledOut,
-    previewZonesShown,
-    withPreview,
-} from "@/maps/preview";
 import { findHidingZoneStations, stationOsmIds } from "@/maps/stations";
 import { steadyRenderer } from "@/maps/steadyRenderer";
 import {
@@ -66,7 +59,7 @@ import {
     zonesNotRuledOut,
 } from "@/maps/zones";
 
-import { ELIMINATED_STYLE, PREVIEW_CUT_STYLE } from "./Map";
+import { ELIMINATED_STYLE } from "./Map";
 
 /** Hiding zones are computed once settings stop changing for this long. */
 const ZONES_DELAY_MS = 400;
@@ -215,25 +208,6 @@ export const HidingZones = () => {
         geoJsonLayer.addTo(map);
     };
 
-    const $previewZonesRuledOut = useStore(previewZonesRuledOut);
-
-    // "Just look": the zones the answer looked at rules out by their
-    // station, red like the area it rules out
-    useEffect(() => {
-        if (!map || !$displayHidingZones) return;
-        const ruledOut = $previewZonesRuledOut.filter(
-            (circle) => !$disabledStations.includes(stationId(circle)),
-        );
-        if (ruledOut.length === 0) return;
-        const layer = L.geoJSON(turf.featureCollection(ruledOut), {
-            style: PREVIEW_CUT_STYLE,
-            interactive: false,
-        }).addTo(map);
-        return () => {
-            layer.remove();
-        };
-    }, [map, $previewZonesRuledOut, $disabledStations, $displayHidingZones]);
-
     // Bumped when a change had to wait for the map, so it isn't lost
     const [zonesWaited, setZonesWaited] = useState(0);
 
@@ -272,12 +246,7 @@ export const HidingZones = () => {
                 $questionFinishedMapData,
             );
 
-            // "Just look": the question looked at counts as answered too
-            const preview = previewForMap();
-            const shownPreview = previewOnMap($questionFinishedMapData);
-            let beforePreview: StationCircle[] | null = null;
-            for (const question of withPreview(questions.get(), preview)) {
-                if (question === preview?.question) beforePreview = circles;
+            for (const question of questions.get()) {
                 if (!questionApplies(question, false)) {
                     continue;
                 }
@@ -443,14 +412,6 @@ export const HidingZones = () => {
             }
 
             setStations(circles);
-            // The count of zones left is for the preview the map shows
-            previewZonesShown.set(
-                preview?.key === shownPreview ? shownPreview : "",
-            );
-            previewZonesRuledOut.set(
-                beforePreview?.filter((circle) => !circles.includes(circle)) ??
-                    [],
-            );
         };
 
         if (!$displayHidingZones || !$questionFinishedMapData) return;
@@ -718,7 +679,7 @@ async function zoneDetail(
         ),
     ]);
 
-    for (const question of withPreview(questions.get())) {
+    for (const question of questions.get()) {
         if (!questionApplies(question, false)) {
             continue;
         }

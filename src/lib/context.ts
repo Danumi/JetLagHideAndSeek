@@ -171,7 +171,7 @@ export const guideSeen = persistentAtom<boolean>("guideSeen", false, {
 });
 /** On: the map keeps your own position (the blue dot) in the middle. */
 export const followMyPosition = atom<boolean>(true);
-/** A point that "Pick on map" moves: a question's (a thermometer's start or end) or, with questionKey -1, the hider's H marker (-2: the question only looked at, preview.ts). */
+/** A point that "Pick on map" moves: a question's (a thermometer's start or end) or, with questionKey -1, the hider's H marker. */
 export type PickTarget = { questionKey: number; point?: "start" | "end" };
 /** "Pick on map" is on: the next tap on the map moves this point. */
 export const pickingLocation = atom<PickTarget | null>(null);
