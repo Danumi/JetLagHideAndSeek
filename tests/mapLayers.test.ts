@@ -9,6 +9,8 @@ import {
 } from "@/maps/api";
 import {
     asOnePath,
+    districtLabels,
+    districtLabelsInView,
     highlightedLine,
     lineLabelPositions,
     linesAt,
@@ -335,6 +337,105 @@ describe("names of bodies of water", () => {
         const labels = waterLabels([pond]);
         const elsewhere = { south: 48.0, west: 16.0, north: 48.1, east: 16.1 };
         expect(waterLabelsInView(labels, elsewhere, toPixel, 1000)).toEqual([]);
+    });
+});
+
+describe("the Gemeindebezirke on the map", () => {
+    // Two districts side by side, 0.01 degrees apart from the next
+    const box = (west: number, east: number) =>
+        turf.polygon([
+            [
+                [west, 48.2],
+                [east, 48.2],
+                [east, 48.21],
+                [west, 48.21],
+                [west, 48.2],
+            ],
+        ]).geometry;
+    const josefstadt = turf.feature(box(16.34, 16.35), {
+        name: "Josefstadt",
+        ref: "8",
+    });
+    const alsergrund = turf.feature(box(16.35, 16.37), {
+        name: "Alsergrund",
+        ref: "9",
+    });
+    const innereStadt = turf.feature(box(16.37, 16.38), {
+        name: "Innere Stadt",
+        ref: "1",
+    });
+    // Around the Donauinsel: its middle is outside it
+    const donaustadt = turf.feature(
+        turf.polygon([
+            [
+                [16.4, 48.2],
+                [16.5, 48.2],
+                [16.5, 48.25],
+                [16.4, 48.25],
+                [16.4, 48.24],
+                [16.49, 48.24],
+                [16.49, 48.21],
+                [16.4, 48.21],
+                [16.4, 48.2],
+            ],
+        ]).geometry,
+        { name: "Donaustadt", ref: "22" },
+    );
+    const view = { south: 48.1, west: 16.2, north: 48.3, east: 16.6 };
+    const toPixel =
+        (pixelsPerDegree: number) =>
+        ([lng, lat]: number[]) => ({
+            x: (lng - 16.2) * pixelsPerDegree,
+            y: (48.3 - lat) * pixelsPerDegree,
+        });
+
+    it("has a layer for the districts", () => {
+        expect(
+            MAP_LAYERS.find((layer) => layer.id === "districts"),
+        ).toBeTruthy();
+    });
+
+    it("writes each district in its middle, by number", () => {
+        const labels = districtLabels([alsergrund, innereStadt, josefstadt]);
+        expect(labels.map((label) => label.ref)).toEqual(["1", "8", "9"]);
+        expect(labels[2].at[0]).toBeCloseTo(16.36, 3);
+        expect(labels[2].at[1]).toBeCloseTo(48.205, 3);
+        expect(labels[2].width).toBeCloseTo(1.48, 1);
+    });
+
+    it("writes the name inside a district whose middle is outside it", () => {
+        const [label] = districtLabels([donaustadt]);
+        expect(
+            turf.booleanPointInPolygon(label.at, donaustadt),
+            "inside Donaustadt",
+        ).toBe(true);
+    });
+
+    it("writes the names only where there is room for them", () => {
+        const labels = districtLabels([alsergrund, innereStadt, josefstadt]);
+        // Zoomed in: about 100 pixels per kilometer
+        const near = districtLabelsInView(labels, view, toPixel(7_400), 100);
+        expect(near.map((label) => [label.ref, label.withName])).toEqual([
+            ["1", false],
+            ["8", false],
+            ["9", true],
+        ]);
+    });
+
+    it("leaves out numbers that would be on top of each other", () => {
+        const labels = districtLabels([alsergrund, innereStadt, josefstadt]);
+        // Zoomed out: the districts are a few pixels wide
+        const far = districtLabelsInView(labels, view, toPixel(1_000), 13);
+        expect(far.map((label) => label.ref)).toEqual(["1", "8"]);
+        expect(far.every((label) => !label.withName)).toBe(true);
+    });
+
+    it("writes nothing for districts out of view", () => {
+        const labels = districtLabels([alsergrund]);
+        const elsewhere = { south: 48.0, west: 16.0, north: 48.1, east: 16.1 };
+        expect(
+            districtLabelsInView(labels, elsewhere, toPixel(7_400), 100),
+        ).toEqual([]);
     });
 });
 

@@ -393,8 +393,11 @@ export const findAdminAreas = memoizeAsync(
         );
         return osmtogeojson(data).features.filter(
             (feature): feature is Feature<Polygon | MultiPolygon> =>
-                feature.geometry?.type === "Polygon" ||
-                feature.geometry?.type === "MultiPolygon",
+                (feature.geometry?.type === "Polygon" ||
+                    feature.geometry?.type === "MultiPolygon") &&
+                // Not buildings tagged with a level, like the "Amtshaus für
+                // den 16. Bezirk": after the query, so it stays the same
+                feature.properties?.boundary === "administrative",
         );
     },
     (adminLevel) => `${adminLevel}:${gameAreaBbox()}`,

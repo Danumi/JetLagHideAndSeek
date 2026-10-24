@@ -1,6 +1,13 @@
 import { persistentAtom } from "@nanostores/persistent";
 import * as turf from "@turf/turf";
-import type { Feature, LineString, MultiLineString, Position } from "geojson";
+import type {
+    Feature,
+    LineString,
+    MultiLineString,
+    MultiPolygon,
+    Polygon,
+    Position,
+} from "geojson";
 import { atom } from "nanostores";
 
 import type { Text } from "@/lib/i18n";
@@ -10,13 +17,17 @@ import { GROUPS, MATCHING_DECK, MEASURING_DECK } from "@/maps/deck";
 
 /*
  * What players can show on the map besides the zones: the places of the
- * question cards (every museum, hospital, park, ...), bodies of water and the
- * U-Bahn, S-Bahn and tram lines. The places come from the same queries as the
- * questions, so "New Game" has already loaded them.
+ * question cards (every museum, hospital, park, ...), bodies of water, the
+ * U-Bahn, S-Bahn and tram lines and the 23 Gemeindebezirke. The places come
+ * from the same queries as the questions, so "New Game" has already loaded
+ * them.
  */
 
 export type MapLayer = {
-    /** The card's id, like "museum" or "water"; "u-bahn", "s-bahn", "tram". */
+    /**
+     * The card's id, like "museum" or "water"; "u-bahn", "s-bahn", "tram",
+     * "districts".
+     */
     id: string;
     group: Text;
     label: Text;
@@ -52,6 +63,7 @@ const ICONS = {
     bookOpen:
         '<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
     flag: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/>',
+    map: '<path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>',
 };
 
 const card = (id: string) =>
@@ -100,6 +112,14 @@ export const MAP_LAYERS: MapLayer[] = [
         color: "#9f1239",
         icon: ICONS.tram,
         route: "tram",
+    },
+    {
+        id: "districts",
+        group: GROUPS.admin,
+        label: messages["layers.districts"],
+        // Apart from the lines' colours, the zones' green and the grey
+        color: "#334155",
+        icon: ICONS.map,
     },
     cardLayer("mountain", "#92400e", ICONS.mountain, "peak"),
     cardLayer("park", "#15803d", ICONS.trees, "park"),
@@ -212,6 +232,94 @@ export const lineLabelPositions = (
         placed.push({ ref: line.ref, at: free ?? candidates[0] });
     }
     return placed;
+};
+
+/** A Gemeindebezirk's number and name and where to write them. */
+export type DistrictLabel = {
+    /** Its number, "9" for Alsergrund. */
+    ref?: string;
+    name: string;
+    at: Position;
+    /** From west to east, in kilometers. */
+    width: number;
+};
+
+/**
+ * Where to write the number and name of each district: in its middle, or
+ * somewhere inside where the middle is outside it. In the order of their
+ * numbers.
+ */
+export const districtLabels = (
+    areas: Feature<Polygon | MultiPolygon, { name?: string; ref?: string }>[],
+): DistrictLabel[] =>
+    areas
+        .flatMap((area) => {
+            const name = area.properties?.name;
+            if (!name) return [];
+            const middle = turf.centerOfMass(area);
+            const at = turf.booleanPointInPolygon(middle, area)
+                ? middle
+                : turf.pointOnFeature(area);
+            const [west, south, east, north] = turf.bbox(area);
+            const lat = (south + north) / 2;
+            return [
+                {
+                    ref: area.properties?.ref,
+                    name,
+                    at: at.geometry.coordinates,
+                    width: turf.distance([west, lat], [east, lat]),
+                },
+            ];
+        })
+        .sort(
+            (a, b) =>
+                Number(a.ref ?? Infinity) - Number(b.ref ?? Infinity) ||
+                a.name.localeCompare(b.name),
+        );
+
+/**
+ * The district labels to write in view, not on top of each other: the
+ * number always, the name too where the district is wider on the screen
+ * than its name.
+ */
+export const districtLabelsInView = (
+    labels: DistrictLabel[],
+    view: Bounds,
+    /** Where a point is on the screen, in pixels. */
+    toPixel: (at: Position) => { x: number; y: number },
+    pixelsPerKm: number,
+) => {
+    const placed: {
+        label: DistrictLabel;
+        withName: boolean;
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }[] = [];
+    for (const label of labels) {
+        const [lng, lat] = label.at;
+        if (
+            lat < view.south ||
+            lat > view.north ||
+            lng < view.west ||
+            lng > view.east
+        ) {
+            continue;
+        }
+        const nameWidth = label.name.length * 7;
+        const withName = label.width * pixelsPerKm >= nameWidth + 16;
+        const width = withName ? nameWidth : 22;
+        const height = withName ? 34 : 20;
+        const { x, y } = toPixel(label.at);
+        const free = placed.every(
+            (other) =>
+                Math.abs(other.x - x) > (width + other.width) / 2 ||
+                Math.abs(other.y - y) > (height + other.height) / 2,
+        );
+        if (free) placed.push({ label, withName, x, y, width, height });
+    }
+    return placed.map(({ label, withName }) => ({ ...label, withName }));
 };
 
 /** A line as it is named in the strip above the buttons below the map. */
