@@ -21,6 +21,12 @@ import { pickOnMap, placePickedPoint } from "@/lib/gps";
 import { t, useLanguage } from "@/lib/i18n";
 import { isLogged, isPending } from "@/maps/answers";
 import { ICON_COLORS } from "@/maps/api";
+import {
+    movePreview,
+    PREVIEW_KEY,
+    type QuestionPreview,
+    questionPreview,
+} from "@/maps/preview";
 import type { Question } from "@/maps/schema";
 
 import { QuestionLogRow } from "./cards/answer";
@@ -43,7 +49,7 @@ const hasMyPosition = computed(myPosition, (position) => position !== null);
  * are a thermometer's start, an orange ring means the question still waits
  * for its answer, answered questions get a smaller, paler pin.
  */
-const questionPin = (
+export const questionPin = (
     symbol: { kind: Question["id"] } | { letter: string },
     color: string,
     { hollow = false, pending = false, answered = false } = {},
@@ -218,6 +224,39 @@ const ColoredMarker = ({
     );
 };
 
+/** Red like what its answer rules out on the map. */
+const PREVIEW_COLOR = "#e11d48";
+
+/**
+ * "Just look": the pin of the question looked at. Dragging it shows the
+ * question asked there; also on a phone that shows another seeker's map.
+ */
+const PreviewMarker = ({ preview }: { preview: QuestionPreview }) => {
+    const { question } = preview;
+    const icon = useMemo(
+        () =>
+            questionPin({ kind: question.id }, PREVIEW_COLOR, { hollow: true }),
+        [question.id],
+    );
+    if (question.id === "thermometer") return null;
+    const { lat, lng } = question.data;
+
+    return (
+        <Marker
+            position={[lat, lng]}
+            icon={icon}
+            draggable
+            // Above the questions' pins
+            zIndexOffset={1000}
+            eventHandlers={{
+                dragend: (event) => movePreview(event.target.getLatLng()),
+                // Picking a point: a tap on the pin picks its spot
+                click: () => placePickedPoint({ lat, lng }),
+            }}
+        />
+    );
+};
+
 export const DraggableMarkers = () => {
     useStore(triggerLocalRefresh);
     useLanguage();
@@ -225,9 +264,13 @@ export const DraggableMarkers = () => {
     const $hiderMode = useStore(hiderMode);
     const $hasMyPosition = useStore(hasMyPosition);
     const $hiderPlacedAt = useStore(hiderPlacedAt);
+    const $questionPreview = useStore(questionPreview);
 
     return (
         <Fragment>
+            {$questionPreview && $hiderMode === false && (
+                <PreviewMarker key={PREVIEW_KEY} preview={$questionPreview} />
+            )}
             {/* Without GPS, or where the hider set their location by hand */}
             {$hiderMode !== false &&
                 (!$hasMyPosition || $hiderPlacedAt !== null) && (
