@@ -1,11 +1,14 @@
-import { describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, test } from "vitest";
 
+import { deletedSentQuestions } from "@/lib/context";
 import {
+    noteDeleted,
     photoLink,
     QUESTION_URL_PARAM,
     questionInText,
     questionLink,
     readQuestionLink,
+    unnoteDeleted,
 } from "@/lib/questionLink";
 import { questionSchema } from "@/maps/schema";
 
@@ -15,6 +18,8 @@ const linkValue = (link: string) =>
     new URL(link).searchParams.get(QUESTION_URL_PARAM)!;
 
 describe("question links for the hider", () => {
+    beforeEach(() => deletedSentQuestions.set([]));
+
     test("carry the question, not the seekers' state", async () => {
         const question = questionSchema.parse({
             id: "radius",
@@ -122,6 +127,41 @@ describe("question links for the hider", () => {
             askedAt: 1_700_000_000_000,
             sentAt: 1_700_000_010_000,
         });
+    });
+
+    test("name the questions the seekers deleted after sending them", async () => {
+        const photo = { key: 0.9, photo: "tree", askedAt: 1_700_000_000_000 };
+        const before = await readQuestionLink(
+            linkValue(await photoLink(photo, APP_URL)),
+        );
+        expect(before.deleted).toEqual([]);
+
+        noteDeleted([0.1, 0.2]);
+        noteDeleted([0.3, 0.1]);
+        unnoteDeleted([0.2]);
+        expect(deletedSentQuestions.get()).toEqual([0.3, 0.1]);
+
+        const fromPhoto = await readQuestionLink(
+            linkValue(await photoLink(photo, APP_URL)),
+        );
+        expect(fromPhoto.deleted).toEqual([0.3, 0.1]);
+        expect(fromPhoto.photo!.key).toBe(0.9);
+
+        const question = questionSchema.parse({
+            id: "radius",
+            key: 0.42,
+            data: { lat: 48.2, lng: 16.37, radius: 2, unit: "kilometers" },
+        });
+        const fromQuestion = await readQuestionLink(
+            linkValue(await questionLink(question, undefined, APP_URL)),
+        );
+        expect(fromQuestion.deleted).toEqual([0.3, 0.1]);
+        expect(fromQuestion.question!.key).toBe(0.42);
+
+        // Only the latest ones
+        noteDeleted(Array.from({ length: 40 }, (_, i) => i));
+        expect(deletedSentQuestions.get()).toHaveLength(30);
+        expect(deletedSentQuestions.get().at(-1)).toBe(39);
     });
 
     test("reject broken links", async () => {

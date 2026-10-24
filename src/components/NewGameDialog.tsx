@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
     additionalMapGeoLocations,
     allTrainStations,
+    deletedSentQuestions,
     disabledStations,
     displayHidingZones,
     displayHidingZonesOptions,
@@ -102,6 +103,8 @@ export const startNewGame = (
     } else {
         questions.set([]);
     }
+    // A new round: the hider's log starts empty, nothing to take off it
+    deletedSentQuestions.set([]);
 
     // While the hider hides, load what the question cards will need
     preloadGameData({ refreshOldData: true });

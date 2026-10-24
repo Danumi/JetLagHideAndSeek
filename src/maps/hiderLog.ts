@@ -243,3 +243,16 @@ export const removeEntry = (key: number) => {
         questions.set(questions.get().filter((q) => q.key !== key));
     }
 };
+
+/**
+ * Questions the seekers deleted after sending them, as a later link says:
+ * out of the log, so they don't count as asked (and out of the map, as on
+ * the seekers' phone). How many there were.
+ */
+export const removeDeletedEntries = (keys: number[]) => {
+    const deleted = hiderInbox
+        .get()
+        .filter((entry) => !entry.byHand && keys.includes(entry.key));
+    deleted.forEach((entry) => removeEntry(entry.key));
+    return deleted.length;
+};

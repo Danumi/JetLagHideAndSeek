@@ -1,8 +1,9 @@
 import { toast } from "react-toastify";
 
-import { photoQuestions, questions } from "@/lib/context";
+import { type PhotoQuestion, photoQuestions, questions } from "@/lib/context";
 import { t } from "@/lib/i18n";
-import type { Questions } from "@/maps/schema";
+import { noteDeleted, unnoteDeleted } from "@/lib/questionLink";
+import type { Question, Questions } from "@/maps/schema";
 import { keepOnlyZones } from "@/maps/zones";
 
 /** Shows a toast with one button for a few seconds. */
@@ -35,6 +36,14 @@ export const showActionToast = (
 export const showUndoToast = (message: string, onUndo: () => void) =>
     showActionToast(message, t("undo.button"), onUndo);
 
+/** The keys of those the hider got: the next link takes them off the hider's log. */
+const sentKeys = (removed: Question[], removedPhotos: PhotoQuestion[] = []) => [
+    ...removed.filter((q) => q.data.sentAt !== undefined).map((q) => q.key),
+    ...removedPhotos
+        .filter((photo) => photo.sentAt !== undefined)
+        .map((photo) => photo.key),
+];
+
 export const deleteQuestionWithUndo = (questionKey: number) => {
     const current = questions.get();
     const index = current.findIndex((q) => q.key === questionKey);
@@ -42,10 +51,12 @@ export const deleteQuestionWithUndo = (questionKey: number) => {
 
     const removed = current[index];
     questions.set(current.filter((q) => q.key !== questionKey));
+    noteDeleted(sentKeys([removed]));
 
     showUndoToast(t("undo.questionDeleted"), () => {
         const now = questions.get();
         if (now.some((q) => q.key === removed.key)) return;
+        unnoteDeleted([removed.key]);
 
         const restored = [...now];
         restored.splice(Math.min(index, restored.length), 0, removed);
@@ -59,10 +70,12 @@ export const deletePhotoWithUndo = (key: number) => {
     if (!removed) return;
 
     photoQuestions.set(current.filter((photo) => photo.key !== key));
+    noteDeleted(sentKeys([], [removed]));
 
     showUndoToast(t("undo.questionDeleted"), () => {
         const now = photoQuestions.get();
         if (now.some((photo) => photo.key === key)) return;
+        unnoteDeleted([key]);
         photoQuestions.set([...now, removed]);
     });
 };
@@ -81,12 +94,15 @@ export const deleteAllQuestionsWithUndo = () => {
 
     questions.set([]);
     photoQuestions.set([]);
+    const sent = sentKeys(removed, removedPhotos);
+    noteDeleted(sent);
 
     showUndoToast(
         count === 1
             ? t("undo.questionDeleted")
             : t("undo.questionsDeleted", { count }),
         () => {
+            unnoteDeleted(sent);
             questions.set(restore(removed, questions.get()));
             photoQuestions.set(restore(removedPhotos, photoQuestions.get()));
         },

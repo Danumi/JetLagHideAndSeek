@@ -219,6 +219,19 @@ export const updatePhotoQuestion = (
                 photo.key === key ? { ...photo, ...change } : photo,
             ),
     );
+/**
+ * Questions and photo questions the seekers deleted after sending them to
+ * the hider, this round, by key: the next link tells the hider's phone, so
+ * they leave its log and no longer count as asked.
+ */
+export const deletedSentQuestions = persistentAtom<number[]>(
+    "deletedSentQuestions",
+    [],
+    {
+        encode: JSON.stringify,
+        decode: JSON.parse,
+    },
+);
 /** Questions asked in the chat that the hider adds by hand: only their kind. */
 export type ChatQuestionKind =
     | "matching"
